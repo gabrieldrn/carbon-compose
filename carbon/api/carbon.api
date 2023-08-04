@@ -1,0 +1,9 @@
+public final class dev/gabrieldrn/carbon/CarbonTheme {
+	public static final field $stable I
+	public static final field INSTANCE Ldev/gabrieldrn/carbon/CarbonTheme;
+}
+
+public final class dev/gabrieldrn/carbon/CarbonThemeKt {
+	public static final fun CarbonTheme (Lkotlin/jvm/functions/Function2;Landroidx/compose/runtime/Composer;I)V
+}
+

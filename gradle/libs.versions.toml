@@ -1,0 +1,57 @@
+[versions]
+# region AGP
+androidGradlePlugin = "8.1.0"
+minSdk = "21"
+targetSdk = "33"
+kotlin = "1.8.22"
+buildTools = "33.0.1"
+# endregion
+# region Libraries
+accompanist = "0.28.0"
+androidxActivity = "1.7.2"
+androidxAppcompat = "1.6.1"
+androidxCompose = "1.4.3"
+#https://developer.android.com/jetpack/androidx/releases/compose-compiler#declaring_dependencies
+#https://developer.android.com/jetpack/androidx/releases/compose-kotlin
+androidxComposeCompiler = "1.4.8"
+androidxCore = "1.10.1"
+androidxEspresso = "3.5.1"
+androidxLifecycle = "2.6.1"
+androidxTestCore = "1.5.0"
+androidxTestExtJunit = "1.1.5"
+binaryCompatibilityValidator = "0.13.1"
+detekt = "1.22.0"
+dokka = "1.8.20"
+junit = "4.13.2"
+timber = "5.0.1"
+# endregion
+
+[libraries]
+androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidxActivity" }
+androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidxAppcompat" }
+androidx-compose-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "androidxCompose" }
+androidx-compose-ui = { module = "androidx.compose.ui:ui", version.ref = "androidxCompose" }
+androidx-compose-uiTooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "androidxCompose" }
+androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "androidxCore" }
+androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidxLifecycle" }
+androidx-lifecycle-viewModel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "androidxLifecycle" }
+androidx-test-core = { module = "androidx.test:core-ktx", version.ref = "androidxTestCore" }
+androidx-test-espresso = { module = "androidx.test.espresso:espresso-core", version.ref = "androidxEspresso" }
+androidx-test-ext = { module = "androidx.test.ext:junit", version.ref = "androidxTestExtJunit" }
+junit = { module = "junit:junit", version.ref = "junit" }
+kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
+timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
+
+# Build logic
+android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
+kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
+android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
+binaryCompatibilityValidator = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "binaryCompatibilityValidator" }
+detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
+dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
