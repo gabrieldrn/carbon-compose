@@ -3,8 +3,15 @@ package dev.gabrieldrn.carbon.color
 import androidx.compose.ui.graphics.Color
 
 /**
+ * Themes are used to modify existing components to fit a specific visual style. By using Carbon’s
+ * tokens, developers can easily customize all of their components by changing a set of universal
+ * variables, eliminating the need to modify individual components.
+ *
  * Themes serve as an organizational framework for color in Carbon, with each theme based on a
  * specific primary background color. And they actually get their names from their background color.
+ *
+ * See [Themes guidelines](https://carbondesignsystem.com/guidelines/themes/overview/) for more
+ * information.
  */
 public interface Theme {
 

@@ -1,6 +1,5 @@
 package dev.gabrieldrn.carbon.color
 
-import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 
 /**
@@ -130,5 +129,3 @@ public object WhiteTheme : Theme {
     override val skeletonElement: Color = Color(0xFFC6C6C6)
     override val skeletonBackground: Color = Color(0xFFE5E5E5)
 }
-
-internal val LocalCarbonTheme = staticCompositionLocalOf<Theme> { WhiteTheme }
