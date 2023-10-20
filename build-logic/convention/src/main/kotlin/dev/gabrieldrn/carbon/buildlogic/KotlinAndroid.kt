@@ -9,7 +9,8 @@ import org.gradle.api.Project
 internal fun Project.configureKotlinAndroidCommon(
     commonExtension: CommonExtension<*, *, *, *, *>,
 ) = with(commonExtension) {
-    compileSdk = libs.getVersion("targetSdk").toInt()
+
+    compileSdk = libs.getVersion("compileSdk").toInt()
     buildToolsVersion = libs.getVersion("buildTools")
 
     defaultConfig {

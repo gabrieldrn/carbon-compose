@@ -2,18 +2,19 @@
 # region AGP
 androidGradlePlugin = "8.1.0"
 minSdk = "21"
+compileSdk = "34"
 targetSdk = "33"
-kotlin = "1.8.22"
+kotlin = "1.9.0"
 buildTools = "33.0.1"
 # endregion
 # region Libraries
 accompanist = "0.28.0"
 androidxActivity = "1.7.2"
 androidxAppcompat = "1.6.1"
-androidxCompose = "1.4.3"
+androidxCompose = "1.5.0"
 #https://developer.android.com/jetpack/androidx/releases/compose-compiler#declaring_dependencies
 #https://developer.android.com/jetpack/androidx/releases/compose-kotlin
-androidxComposeCompiler = "1.4.8"
+androidxComposeCompiler = "1.5.0"
 androidxCore = "1.10.1"
 androidxEspresso = "3.5.1"
 androidxLifecycle = "2.6.1"

@@ -1,5 +1,6 @@
 plugins {
     id("carbon.android.application")
+    alias(libs.plugins.kotlin.android)
 }
 
 android {
@@ -20,6 +21,7 @@ dependencies {
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.uiTooling)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
 
     testImplementation(libs.junit)
 
