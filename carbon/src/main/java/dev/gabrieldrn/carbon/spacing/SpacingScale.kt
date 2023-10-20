@@ -15,7 +15,6 @@ import androidx.compose.ui.unit.dp
  */
 @Suppress("UndocumentedPublicProperty")
 public object SpacingScale {
-
     public val spacing01: Dp = 2.dp
     public val spacing02: Dp = 4.dp
     public val spacing03: Dp = 8.dp
@@ -29,5 +28,4 @@ public object SpacingScale {
     public val spacing11: Dp = 80.dp
     public val spacing12: Dp = 96.dp
     public val spacing13: Dp = 160.dp
-
 }

@@ -1,13 +1,14 @@
 package dev.gabrieldrn.carbon.color
 
+import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
 
 /**
  * One of the default _light_ themes available in Carbon. This theme uses white as the global
  * background color.
  */
+@Immutable
 public object WhiteTheme : Theme {
-
     override val background: Color = Color.White
     override val backgroundHover: Color = Color(0x1F8D8D8D)
     override val backgroundActive: Color = Color(0x808D8D8D)
