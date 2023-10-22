@@ -1,5 +1,10 @@
 package dev.gabrieldrn.carbon.color
 
+import androidx.compose.runtime.ProvidableCompositionLocal
 import androidx.compose.runtime.staticCompositionLocalOf
 
-internal val LocalCarbonTheme = staticCompositionLocalOf<Theme> { WhiteTheme }
+/**
+ * A [staticCompositionLocalOf] that provides the current Carbon [Theme].
+ */
+public val LocalCarbonTheme: ProvidableCompositionLocal<Theme> =
+    staticCompositionLocalOf { WhiteTheme }
