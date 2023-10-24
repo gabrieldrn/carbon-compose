@@ -1,7 +1,6 @@
 package dev.gabrieldrn.carbon.button
 
 import androidx.compose.animation.core.Animatable
-import androidx.compose.animation.core.CubicBezierEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Indication
 import androidx.compose.foundation.IndicationInstance
@@ -43,8 +42,8 @@ internal class ButtonIndication(
             CarbonButton.Primary -> theme.buttonPrimary
             CarbonButton.Secondary -> theme.buttonSecondary
             CarbonButton.PrimaryDanger -> theme.buttonDangerPrimary
-            CarbonButton.TertiaryDanger -> theme.buttonDangerSecondary
             CarbonButton.Tertiary,
+            CarbonButton.TertiaryDanger,
             CarbonButton.Ghost,
             CarbonButton.GhostDanger -> Color.Transparent
         }
@@ -89,8 +88,8 @@ internal class ButtonIndication(
                 focusAnimation.animateTo(
                     targetValue = if (interaction is FocusInteraction.Focus) 0f else 1f,
                     animationSpec = tween(
-                        durationMillis = INDICATION_TRANSITION_DURATION_MILLIS,
-                        easing = indicationTransitionEasing
+                        durationMillis = buttonTransitionDurationMillis,
+                        easing = buttonTransitionEasing
                     )
                 )
             }
@@ -105,8 +104,8 @@ internal class ButtonIndication(
                         else -> containerColor
                     },
                     animationSpec = tween(
-                        durationMillis = INDICATION_TRANSITION_DURATION_MILLIS,
-                        easing = indicationTransitionEasing
+                        durationMillis = buttonTransitionDurationMillis,
+                        easing = buttonTransitionEasing
                     )
                 )
             }
@@ -161,13 +160,8 @@ internal class ButtonIndication(
         }
 
         companion object {
-            // From the react-native implementation
-            private const val INDICATION_TRANSITION_DURATION_MILLIS = 70
             private const val FOCUS_BORDER_WIDTH = 2f
             private const val FOCUS_INSET_WIDTH = 1f
-
-            // From the react-native implementation
-            private val indicationTransitionEasing = CubicBezierEasing(0f, 0f, 0.38f, 0.9f)
         }
     }
 

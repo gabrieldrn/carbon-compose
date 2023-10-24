@@ -5,11 +5,11 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -17,20 +17,38 @@ import dev.gabrieldrn.carbon.CarbonDesignSystem
 import dev.gabrieldrn.carbon.button.Button
 import dev.gabrieldrn.carbon.button.CarbonButton
 import dev.gabrieldrn.carbon.color.LocalCarbonTheme
+import dev.gabrieldrn.carbon.spacing.SpacingScale
+import dev.gabrieldrn.carbon.text.CarbonTypography
+import dev.gabrieldrn.carbon.text.Text
 
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             CarbonDesignSystem {
-                Box(
+                Column(
                     modifier = Modifier
                         .background(LocalCarbonTheme.current.background)
                         .fillMaxSize(),
-                    contentAlignment = Alignment.Center
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
+                    Text(
+                        text = "Carbon Design System",
+                        style = CarbonTypography.heading03,
+                        color = LocalCarbonTheme.current.textOnColor,
+                        modifier = Modifier
+                            .background(LocalCarbonTheme.current.backgroundInverse)
+                            .padding(SpacingScale.spacing05)
+                            .fillMaxWidth()
+                    )
                     Column(
-                        modifier = Modifier.width(IntrinsicSize.Max)
+                        modifier = Modifier
+                            .width(IntrinsicSize.Max)
+                            .weight(1f),
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Button(
                             label = "Primary button",
@@ -41,6 +59,36 @@ class MainActivity : ComponentActivity() {
                             label = "Secondary button",
                             onClick = {},
                             buttonType = CarbonButton.Secondary,
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                        Button(
+                            label = "Tertiary button",
+                            onClick = {},
+                            buttonType = CarbonButton.Tertiary,
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                        Button(
+                            label = "Ghost button",
+                            onClick = {},
+                            buttonType = CarbonButton.Ghost,
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                        Button(
+                            label = "Primary danger button",
+                            onClick = {},
+                            buttonType = CarbonButton.PrimaryDanger,
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                        Button(
+                            label = "Tertiary danger button",
+                            onClick = {},
+                            buttonType = CarbonButton.TertiaryDanger,
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                        Button(
+                            label = "Ghost danger button",
+                            onClick = {},
+                            buttonType = CarbonButton.GhostDanger,
                             modifier = Modifier.fillMaxWidth()
                         )
                     }
