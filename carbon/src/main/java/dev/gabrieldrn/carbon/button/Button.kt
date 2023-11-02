@@ -1,13 +1,11 @@
 package dev.gabrieldrn.carbon.button
 
 import androidx.compose.animation.Animatable
+import androidx.compose.animation.core.AnimationSpec
 import androidx.compose.animation.core.CubicBezierEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.focusable
-import androidx.compose.foundation.hoverable
 import androidx.compose.foundation.interaction.HoverInteraction
-import androidx.compose.foundation.interaction.Interaction
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.PressInteraction
 import androidx.compose.foundation.layout.Box
@@ -26,15 +24,18 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import dev.gabrieldrn.carbon.color.LocalCarbonTheme
-import dev.gabrieldrn.carbon.color.Theme
 import dev.gabrieldrn.carbon.text.CarbonTypography
 
 // From the react-native implementation
-internal const val buttonTransitionDurationMillis = 70
+internal const val ButtonTransitionDurationMillis = 70
 internal val buttonTransitionEasing = CubicBezierEasing(0f, 0f, 0.38f, 0.9f)
+internal val buttonTransitionSpec: AnimationSpec<Color> = tween(
+    durationMillis = ButtonTransitionDurationMillis,
+    easing = buttonTransitionEasing
+)
 
 /**
- * TODO Documentation
+ * TODO Documentation.
  *
  */
 // TODO Support system font scale?
@@ -55,10 +56,7 @@ public fun Button(
     LaunchedEffect(isEnabled) {
         containerColor.animateTo(
             targetValue = if (isEnabled) colors.containerColor else colors.containerDisabledColor,
-            animationSpec = tween(
-                durationMillis = buttonTransitionDurationMillis,
-                easing = buttonTransitionEasing
-            )
+            animationSpec = buttonTransitionSpec
         )
     }
 
@@ -71,10 +69,7 @@ public fun Button(
                     is PressInteraction.Press -> colors.containerActiveColor
                     else -> colors.containerColor
                 },
-                animationSpec = tween(
-                    durationMillis = buttonTransitionDurationMillis,
-                    easing = buttonTransitionEasing
-                )
+                animationSpec = buttonTransitionSpec
             )
         }
     }
@@ -88,14 +83,6 @@ public fun Button(
                 interactionSource = interactionSource,
                 indication = ButtonIndication(buttonType),
                 onClick = onClick,
-                enabled = isEnabled
-            )
-            .focusable(
-                interactionSource = interactionSource,
-                enabled = isEnabled
-            )
-            .hoverable(
-                interactionSource = interactionSource,
                 enabled = isEnabled
             )
             .height(buttonSize.height),
@@ -126,10 +113,7 @@ private fun Label(
     LaunchedEffect(isEnabled) {
         animatedLabelTextColor.animateTo(
             targetValue = if (isEnabled) colors.labelColor else colors.labelDisabledColor,
-            animationSpec = tween(
-                durationMillis = buttonTransitionDurationMillis,
-                easing = buttonTransitionEasing
-            )
+            animationSpec = buttonTransitionSpec
         )
     }
 
@@ -144,10 +128,7 @@ private fun Label(
                         is PressInteraction.Press -> colors.labelActiveColor
                         else -> colors.labelColor
                     },
-                    animationSpec = tween(
-                        durationMillis = buttonTransitionDurationMillis,
-                        easing = buttonTransitionEasing
-                    ),
+                    animationSpec = buttonTransitionSpec
                 )
             }
     }

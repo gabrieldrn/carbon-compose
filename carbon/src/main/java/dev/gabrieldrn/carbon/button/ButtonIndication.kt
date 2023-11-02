@@ -48,7 +48,7 @@ internal class ButtonIndication(
                 focusAnimation.animateTo(
                     targetValue = if (interaction is FocusInteraction.Focus) 0f else 1f,
                     animationSpec = tween(
-                        durationMillis = buttonTransitionDurationMillis,
+                        durationMillis = ButtonTransitionDurationMillis,
                         easing = buttonTransitionEasing
                     )
                 )
