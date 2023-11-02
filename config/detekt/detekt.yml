@@ -398,13 +398,6 @@ naming:
   VariableMinLength:
     active: false
     minimumVariableNameLength: 1
-  VariableNaming:
-    active: true
-    excludes: ['**/test/**', '**/androidTest/**', '**/commonTest/**', '**/jvmTest/**', '**/jsTest/**', '**/iosTest/**']
-    variablePattern: '[a-z][A-Za-z][0-9]?*'
-    privateVariablePattern: '(_)?[a-z][A-Za-z]*'
-    excludeClassPattern: '$^'
-    ignoreOverridden: true
 
 performance:
   active: true
