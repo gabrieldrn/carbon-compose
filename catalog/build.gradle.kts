@@ -23,6 +23,8 @@ dependencies {
     implementation(libs.androidx.compose.uiTooling)
     implementation(libs.androidx.lifecycle.runtime.ktx)
 
+    implementation(libs.timber)
+
     testImplementation(libs.junit)
 
     androidTestImplementation(libs.androidx.test.ext)
