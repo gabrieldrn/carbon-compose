@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Carbon">
         <activity
-            android:name=".MainActivity"
+            android:name=".HomeActivity"
             android:exported="true"
             android:label="@string/title_activity_main"
             android:theme="@style/Theme.Carbon">
@@ -20,6 +20,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".buttons.ButtonsDemoActivity"
+            android:exported="false"
+            android:label=""
+            android:theme="@style/Theme.Carbon"/>
     </application>
 
 </manifest>
