@@ -19,7 +19,7 @@ internal data class ButtonColors(
 ) {
     companion object {
         @Composable
-        @Suppress("MemberNameEqualsClassName")
+        @Suppress("CyclomaticComplexMethod")
         fun buttonColors(
             buttonType: CarbonButton,
             theme: Theme = LocalCarbonTheme.current

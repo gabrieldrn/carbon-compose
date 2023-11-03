@@ -147,7 +147,7 @@ public interface Theme {
     public val layerSelectedInverse: Color
 
     /**
-     * Disabled color for selected layers
+     * Disabled color for selected layers.
      */
     public val layerSelectedDisabled: Color
 
@@ -244,12 +244,12 @@ public interface Theme {
     /**
      * 3:1 AA contrast;
      * Selected borders;
-     * Active borders
+     * Active borders.
      */
     public val borderInteractive: Color
 
     /**
-     * Subtle borders paired with $background
+     * Subtle borders paired with $background.
      */
     public val borderSubtle00: Color
 
@@ -286,21 +286,21 @@ public interface Theme {
     /**
      * Medium contrast border;
      * Border-bottom paired with [field01];
-     * 3:1 AA non-text contrast
+     * 3:1 AA non-text contrast.
      */
     public val borderStrong01: Color
 
     /**
      * Medium contrast border;
      * Border-bottom paired with [field02];
-     * 3:1 AA non-text contrast
+     * 3:1 AA non-text contrast.
      */
     public val borderStrong02: Color
 
     /**
      * Medium contrast border;
      * Border-bottom paired with [field03];
-     * 3:1 AA non-text contrast
+     * 3:1 AA non-text contrast.
      */
     public val borderStrong03: Color
 
@@ -344,7 +344,7 @@ public interface Theme {
 
     /**
      * Secondary text;
-     * Input labels
+     * Input labels.
      */
     public val textSecondary: Color
 
@@ -355,7 +355,7 @@ public interface Theme {
 
     /**
      * Text on interactive colors;
-     * Text on button colors
+     * Text on button colors.
      */
     public val textOnColor: Color
 
@@ -366,7 +366,7 @@ public interface Theme {
 
     /**
      * Tertiary text;
-     * Help text
+     * Help text.
      */
     public val textHelper: Color
 
