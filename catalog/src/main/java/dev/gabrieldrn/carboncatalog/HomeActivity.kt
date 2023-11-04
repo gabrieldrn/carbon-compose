@@ -15,7 +15,6 @@ import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -25,12 +24,14 @@ import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import dev.gabrieldrn.carbon.CarbonDesignSystem
 import dev.gabrieldrn.carbon.color.LocalCarbonTheme
 import dev.gabrieldrn.carbon.spacing.SpacingScale
 import dev.gabrieldrn.carbon.text.CarbonTypography
+import dev.gabrieldrn.carbon.uishell.UiShellHeader
 
 class HomeActivity : ComponentActivity() {
 
@@ -48,16 +49,7 @@ class HomeActivity : ComponentActivity() {
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    BasicText(
-                        text = "Carbon Design System",
-                        style = CarbonTypography.heading03.copy(
-                            color = LocalCarbonTheme.current.textOnColor
-                        ),
-                        modifier = Modifier
-                            .background(LocalCarbonTheme.current.backgroundInverse)
-                            .padding(SpacingScale.spacing05)
-                            .fillMaxWidth()
-                    )
+                    UiShellHeader(headerName = "Carbon Design System")
                     BoxWithConstraints(
                         modifier = Modifier
                             .weight(1f)
@@ -69,9 +61,11 @@ class HomeActivity : ComponentActivity() {
                             items(CarbonComponent.entries) { component ->
                                 CarbonComponentGridTile(
                                     component = component,
-                                    onClick = component.demoActivity?.let { activity ->
-                                        { startActivity(Intent(this@HomeActivity, activity)) }
-                                    } ?: {},
+                                    onClick = {
+                                        component.demoActivity?.let {
+                                            startActivity(Intent(this@HomeActivity, it))
+                                        }
+                                    },
                                     modifier = Modifier.aspectRatio(1f)
                                 )
                             }
@@ -107,7 +101,9 @@ class HomeActivity : ComponentActivity() {
 
             BasicText(
                 text = component.title,
-                style = CarbonTypography.body01,
+                style = CarbonTypography.body01.copy(
+                    color = LocalCarbonTheme.current.textPrimary
+                ),
                 modifier = Modifier.padding(SpacingScale.spacing05)
             )
         }
@@ -124,6 +120,7 @@ class HomeActivity : ComponentActivity() {
             Image(
                 painter = painterResource(id = R.drawable.picto_construction_worker),
                 contentDescription = null,
+                colorFilter = ColorFilter.tint(LocalCarbonTheme.current.iconPrimary),
                 modifier = Modifier.size(48.dp)
             )
         }
