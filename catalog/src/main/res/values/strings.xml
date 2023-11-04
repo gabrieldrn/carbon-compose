@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">Carbon catalog</string>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_home">HomeActivity</string>
 </resources>
