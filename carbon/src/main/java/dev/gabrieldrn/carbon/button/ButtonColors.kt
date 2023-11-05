@@ -16,6 +16,10 @@ internal data class ButtonColors(
     val labelActiveColor: Color,
     val labelHoverColor: Color,
     val labelDisabledColor: Color,
+    val iconColor: Color,
+    val iconActiveColor: Color,
+    val iconHoverColor: Color,
+    val iconDisabledColor: Color
 ) {
     companion object {
         @Composable
@@ -87,6 +91,30 @@ internal data class ButtonColors(
                 CarbonButton.TertiaryDanger,
                 CarbonButton.GhostDanger -> theme.textDisabled
                 else -> theme.textOnColorDisabled
+            },
+            iconColor = when (buttonType) {
+                CarbonButton.Tertiary -> theme.buttonTertiary
+                CarbonButton.Ghost -> theme.linkPrimary
+                CarbonButton.PrimaryDanger -> theme.iconOnColor
+                CarbonButton.TertiaryDanger,
+                CarbonButton.GhostDanger -> theme.buttonDangerSecondary
+                else -> theme.iconOnColor
+            },
+            iconActiveColor = when (buttonType) {
+                CarbonButton.Tertiary -> theme.iconInverse
+                CarbonButton.Ghost -> theme.linkPrimary // ø
+                else -> theme.iconOnColor
+            },
+            iconHoverColor = when (buttonType) {
+                CarbonButton.Tertiary -> theme.iconInverse
+                CarbonButton.Ghost -> theme.linkPrimaryHover
+                else -> theme.iconOnColor
+            },
+            iconDisabledColor = when (buttonType) {
+                CarbonButton.Primary,
+                CarbonButton.Secondary,
+                CarbonButton.PrimaryDanger -> theme.iconOnColorDisabled
+                else -> theme.iconDisabled // Issue in documentation for Ghost
             }
         )
     }
