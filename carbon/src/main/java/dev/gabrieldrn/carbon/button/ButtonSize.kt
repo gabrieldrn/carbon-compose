@@ -3,6 +3,7 @@ package dev.gabrieldrn.carbon.button
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import dev.gabrieldrn.carbon.spacing.SpacingScale
 
 public enum class ButtonSize(internal val height: Dp) {
 
@@ -13,12 +14,22 @@ public enum class ButtonSize(internal val height: Dp) {
     ExtraLarge(height = 64.dp),
     TwiceExtraLarge(height = 80.dp);
 
-    internal fun getLabelPaddings() = when (this) {
-        Small -> PaddingValues(start = 16.dp, top = 7.dp, end = 64.dp, bottom = 7.dp)
-        Medium -> PaddingValues(start = 16.dp, top = 11.dp, end = 64.dp, bottom = 11.dp)
+    internal val isExtraLarge get() = this == ExtraLarge || this == TwiceExtraLarge
+
+    internal fun getContainerPaddings() = when (this) {
+        Small -> PaddingValues(start = SpacingScale.spacing05, top = 7.dp, bottom = 7.dp)
+        Medium -> PaddingValues(start = SpacingScale.spacing05, top = 11.dp, bottom = 11.dp)
         LargeProductive,
-        LargeExpressive,
+        LargeExpressive -> PaddingValues(
+            start = SpacingScale.spacing05,
+            top = 14.dp,
+            bottom = 14.dp
+        )
         ExtraLarge,
-        TwiceExtraLarge -> PaddingValues(start = 16.dp, top = 14.dp, end = 64.dp, bottom = 14.dp)
+        TwiceExtraLarge -> PaddingValues(
+            start = SpacingScale.spacing05,
+            top = SpacingScale.spacing05,
+            bottom = SpacingScale.spacing05
+        )
     }
 }

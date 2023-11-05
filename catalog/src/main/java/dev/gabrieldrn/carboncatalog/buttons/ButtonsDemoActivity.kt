@@ -5,20 +5,26 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import dev.gabrieldrn.carbon.CarbonDesignSystem
 import dev.gabrieldrn.carbon.button.Button
+import dev.gabrieldrn.carbon.button.ButtonSize
 import dev.gabrieldrn.carbon.button.CarbonButton
+import dev.gabrieldrn.carbon.button.IconButton
 import dev.gabrieldrn.carbon.color.LocalCarbonTheme
 import dev.gabrieldrn.carbon.spacing.SpacingScale
 import dev.gabrieldrn.carbon.uishell.UiShellHeader
@@ -47,12 +53,11 @@ class ButtonsDemoActivity : AppCompatActivity() {
                     modifier = Modifier
                         .background(LocalCarbonTheme.current.background)
                         .fillMaxSize(),
-                    verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     UiShellHeader(
                         headerName = "Buttons",
-                        menuIconRes = R.drawable.ic_arrow__left,
+                        menuIconRes = R.drawable.ic_arrow_left,
                         onMenuIconPressed = onBackPressedDispatcher::onBackPressed,
                     )
 
@@ -65,22 +70,33 @@ class ButtonsDemoActivity : AppCompatActivity() {
                         onClick = { isEnabled = !isEnabled },
                         modifier = Modifier.fillMaxWidth()
                     )
-                    Column(
-                        modifier = Modifier
-                            .padding(horizontal = SpacingScale.spacing05)
-                            .weight(1f),
-                        verticalArrangement = Arrangement.spacedBy(
-                            SpacingScale.spacing05,
-                            Alignment.CenterVertically
-                        ),
-                    ) {
-                        buttons.forEach { (label, buttonType) ->
+
+                    Spacer(modifier = Modifier.height(SpacingScale.spacing05))
+
+                    // FIXME Expected performance issue when toggling isEnabled. Change this to
+                    //  present only one button, parameterized with toggle and dropdown components
+                    //  when available.
+                    buttons.forEach { (label, buttonType) ->
+                        Row(
+                            modifier = Modifier
+                                .padding(horizontal = SpacingScale.spacing05)
+                                .padding(bottom = SpacingScale.spacing05),
+                        ) {
                             Button(
                                 label = label,
                                 onClick = {},
                                 buttonType = buttonType,
-                                modifier = Modifier.fillMaxWidth(),
-                                isEnabled = isEnabled
+                                buttonSize = ButtonSize.LargeProductive,
+                                isEnabled = isEnabled,
+                                iconPainter = painterResource(id = R.drawable.ic_add),
+                                modifier = Modifier.weight(1f)
+                            )
+                            Spacer(modifier = Modifier.width(SpacingScale.spacing05))
+                            IconButton(
+                                onClick = {},
+                                buttonType = buttonType,
+                                isEnabled = isEnabled,
+                                iconPainter = painterResource(id = R.drawable.ic_add),
                             )
                         }
                     }
