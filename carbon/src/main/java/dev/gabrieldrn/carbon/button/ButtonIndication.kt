@@ -8,7 +8,7 @@ import androidx.compose.foundation.interaction.FocusInteraction
 import androidx.compose.foundation.interaction.InteractionSource
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.referentialEqualityPolicy
 import androidx.compose.runtime.remember
 import androidx.compose.ui.geometry.Offset
@@ -42,29 +42,28 @@ internal class ButtonIndication(
             theme.focusInset
         }
 
-        private val borderFocusColorState = mutableStateOf(
-            value = Color.Transparent,
-            policy = referentialEqualityPolicy()
-        )
-        private val insetFocusColorState = mutableStateOf(
-            value = Color.Transparent,
-            policy = referentialEqualityPolicy()
-        )
-
         private val focusAnimation = Animatable(0f)
 
-        fun animateFocus(scope: CoroutineScope, interaction: FocusInteraction) {
-            scope.launch {
-                // Strangely, when the focus border is multiplied by 0, there is still a border
-                // visible. This is why the border is set to transparent when the focus is lost.
-                if (interaction is FocusInteraction.Focus) {
-                    borderFocusColorState.value = borderFocusColor
-                    insetFocusColorState.value = insetFocusColor
-                } else {
-                    borderFocusColorState.value = Color.Transparent
-                    insetFocusColorState.value = Color.Transparent
-                }
+        private val borderFocusColorState = derivedStateOf(referentialEqualityPolicy()) {
+            // Strangely, when the focus border is multiplied by 0, there is still a border
+            // visible. This is why the border and the inset are set to transparent when the focus
+            // exits.
+            if (focusAnimation.value == 0f) {
+                Color.Transparent
+            } else {
+                borderFocusColor
             }
+        }
+
+        private val insetFocusColorState = derivedStateOf(referentialEqualityPolicy()) {
+            if (focusAnimation.value == 0f) {
+                Color.Transparent
+            } else {
+                insetFocusColor
+            }
+        }
+
+        fun animateFocus(scope: CoroutineScope, interaction: FocusInteraction) {
             scope.launch {
                 focusAnimation.animateTo(
                     targetValue = if (interaction is FocusInteraction.Focus) 1f else 0f,
@@ -128,7 +127,6 @@ internal class ButtonIndication(
         val theme = LocalCarbonTheme.current
 
         val instance = remember(theme) {
-            // TODO Does it still work when the theme changes on runtime?
             ButtonIndicationInstance(theme = theme, buttonType = buttonType)
         }
 
