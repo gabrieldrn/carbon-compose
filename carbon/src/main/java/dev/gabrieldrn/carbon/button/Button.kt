@@ -13,8 +13,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.dp
-import dev.gabrieldrn.carbon.motion.Motion
-import dev.gabrieldrn.carbon.spacing.SpacingScale
+import dev.gabrieldrn.carbon.foundation.motion.Motion
+import dev.gabrieldrn.carbon.foundation.spacing.SpacingScale
 
 // From the react-native implementation
 internal const val ButtonTransitionDurationMillis = 70

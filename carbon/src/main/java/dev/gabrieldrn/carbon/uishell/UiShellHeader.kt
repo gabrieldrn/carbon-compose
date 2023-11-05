@@ -26,10 +26,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import dev.gabrieldrn.carbon.CarbonDesignSystem
-import dev.gabrieldrn.carbon.color.LocalCarbonTheme
-import dev.gabrieldrn.carbon.color.Theme
-import dev.gabrieldrn.carbon.spacing.SpacingScale
-import dev.gabrieldrn.carbon.text.CarbonTypography
+import dev.gabrieldrn.carbon.foundation.color.LocalCarbonTheme
+import dev.gabrieldrn.carbon.foundation.color.Theme
+import dev.gabrieldrn.carbon.foundation.spacing.SpacingScale
+import dev.gabrieldrn.carbon.foundation.text.CarbonTypography
 
 @Composable
 public fun UiShellHeader(

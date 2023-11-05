@@ -1,4 +1,4 @@
-package dev.gabrieldrn.carbon.color
+package dev.gabrieldrn.carbon.foundation.color
 
 import androidx.compose.runtime.ProvidableCompositionLocal
 import androidx.compose.runtime.staticCompositionLocalOf

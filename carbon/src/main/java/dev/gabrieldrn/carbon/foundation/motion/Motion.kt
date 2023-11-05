@@ -1,4 +1,4 @@
-package dev.gabrieldrn.carbon.motion
+package dev.gabrieldrn.carbon.foundation.motion
 
 import androidx.compose.animation.core.CubicBezierEasing
 

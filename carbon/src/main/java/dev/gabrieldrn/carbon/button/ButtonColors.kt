@@ -3,8 +3,8 @@ package dev.gabrieldrn.carbon.button
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
-import dev.gabrieldrn.carbon.color.LocalCarbonTheme
-import dev.gabrieldrn.carbon.color.Theme
+import dev.gabrieldrn.carbon.foundation.color.LocalCarbonTheme
+import dev.gabrieldrn.carbon.foundation.color.Theme
 
 @Immutable
 internal data class ButtonColors(

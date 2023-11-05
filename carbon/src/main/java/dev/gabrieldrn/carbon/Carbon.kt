@@ -4,11 +4,11 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.ReadOnlyComposable
-import dev.gabrieldrn.carbon.color.Gray100Theme
-import dev.gabrieldrn.carbon.color.LocalCarbonInlineTheme
-import dev.gabrieldrn.carbon.color.LocalCarbonTheme
-import dev.gabrieldrn.carbon.color.Theme
-import dev.gabrieldrn.carbon.color.WhiteTheme
+import dev.gabrieldrn.carbon.foundation.color.Gray100Theme
+import dev.gabrieldrn.carbon.foundation.color.LocalCarbonInlineTheme
+import dev.gabrieldrn.carbon.foundation.color.LocalCarbonTheme
+import dev.gabrieldrn.carbon.foundation.color.Theme
+import dev.gabrieldrn.carbon.foundation.color.WhiteTheme
 
 @Composable
 public fun CarbonDesignSystem(

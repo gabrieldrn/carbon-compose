@@ -1,4 +1,4 @@
-package dev.gabrieldrn.carbon.spacing
+package dev.gabrieldrn.carbon.foundation.spacing
 
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp

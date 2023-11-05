@@ -25,8 +25,8 @@ import dev.gabrieldrn.carbon.button.Button
 import dev.gabrieldrn.carbon.button.ButtonSize
 import dev.gabrieldrn.carbon.button.CarbonButton
 import dev.gabrieldrn.carbon.button.IconButton
-import dev.gabrieldrn.carbon.color.LocalCarbonTheme
-import dev.gabrieldrn.carbon.spacing.SpacingScale
+import dev.gabrieldrn.carbon.foundation.color.LocalCarbonTheme
+import dev.gabrieldrn.carbon.foundation.spacing.SpacingScale
 import dev.gabrieldrn.carbon.uishell.UiShellHeader
 import dev.gabrieldrn.carboncatalog.R
 

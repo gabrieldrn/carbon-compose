@@ -3,7 +3,7 @@ package dev.gabrieldrn.carbon.button
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import dev.gabrieldrn.carbon.spacing.SpacingScale
+import dev.gabrieldrn.carbon.foundation.spacing.SpacingScale
 
 public enum class ButtonSize(internal val height: Dp) {
 

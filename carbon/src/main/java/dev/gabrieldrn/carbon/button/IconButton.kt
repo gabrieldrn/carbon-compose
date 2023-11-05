@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
-import dev.gabrieldrn.carbon.spacing.SpacingScale
+import dev.gabrieldrn.carbon.foundation.spacing.SpacingScale
 
 @Composable
 public fun IconButton(

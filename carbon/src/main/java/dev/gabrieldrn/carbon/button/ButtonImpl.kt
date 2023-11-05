@@ -20,9 +20,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.painter.Painter
-import dev.gabrieldrn.carbon.color.LocalCarbonTheme
-import dev.gabrieldrn.carbon.spacing.SpacingScale
-import dev.gabrieldrn.carbon.text.CarbonTypography
+import dev.gabrieldrn.carbon.foundation.color.LocalCarbonTheme
+import dev.gabrieldrn.carbon.foundation.spacing.SpacingScale
+import dev.gabrieldrn.carbon.foundation.text.CarbonTypography
 
 private fun Modifier.iconButtonModifier() = size(SpacingScale.spacing09)
 

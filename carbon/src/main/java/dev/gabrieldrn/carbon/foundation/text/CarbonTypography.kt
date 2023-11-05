@@ -1,4 +1,4 @@
-package dev.gabrieldrn.carbon.text
+package dev.gabrieldrn.carbon.foundation.text
 
 import androidx.compose.ui.text.PlatformTextStyle
 import androidx.compose.ui.text.TextStyle
