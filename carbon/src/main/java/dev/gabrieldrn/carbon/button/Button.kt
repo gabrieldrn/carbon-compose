@@ -1,7 +1,6 @@
 package dev.gabrieldrn.carbon.button
 
 import androidx.compose.animation.core.AnimationSpec
-import androidx.compose.animation.core.CubicBezierEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Spacer
@@ -14,14 +13,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.dp
+import dev.gabrieldrn.carbon.motion.Motion
 import dev.gabrieldrn.carbon.spacing.SpacingScale
 
 // From the react-native implementation
 internal const val ButtonTransitionDurationMillis = 70
-internal val buttonTransitionEasing = CubicBezierEasing(0f, 0f, 0.38f, 0.9f)
 internal val buttonTransitionSpec: AnimationSpec<Color> = tween(
     durationMillis = ButtonTransitionDurationMillis,
-    easing = buttonTransitionEasing
+    easing = Motion.Entrance.productiveEasing
 )
 
 /**

@@ -22,6 +22,7 @@ import androidx.compose.ui.graphics.drawscope.clipRect
 import androidx.compose.ui.unit.dp
 import dev.gabrieldrn.carbon.color.LocalCarbonTheme
 import dev.gabrieldrn.carbon.color.Theme
+import dev.gabrieldrn.carbon.motion.Motion
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.launch
@@ -69,7 +70,7 @@ internal class ButtonIndication(
                     targetValue = if (interaction is FocusInteraction.Focus) 1f else 0f,
                     animationSpec = tween(
                         durationMillis = ButtonTransitionDurationMillis,
-                        easing = buttonTransitionEasing
+                        easing = Motion.Entrance.productiveEasing
                     )
                 )
             }
