@@ -3,6 +3,7 @@ package dev.gabrieldrn.carboncatalog
 import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AppCompatActivity
 import dev.gabrieldrn.carboncatalog.buttons.ButtonsDemoActivity
+import dev.gabrieldrn.carboncatalog.toggle.ToggleDemoActivity
 
 enum class CarbonComponent(
     val title: String,
@@ -40,7 +41,7 @@ enum class CarbonComponent(
     Tag("Tag"),
     TextInput("Text input"),
     Tile("Tile"),
-    Toggle("Toggle"),
+    Toggle("Toggle", R.drawable.tile_toggle, ToggleDemoActivity::class.java),
     Tooltip("Tooltip"),
     UIShell("UI shell"),
 }
