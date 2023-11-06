@@ -14,8 +14,9 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.TextUnit
 
+// Material implementation
 @Composable
-public fun Text(
+internal fun Text(
     text: String,
     modifier: Modifier = Modifier,
     color: Color = Color.Unspecified,
