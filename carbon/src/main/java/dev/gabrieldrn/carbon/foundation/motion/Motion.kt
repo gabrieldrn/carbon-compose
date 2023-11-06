@@ -27,6 +27,47 @@ import androidx.compose.animation.core.CubicBezierEasing
 public object Motion {
 
     /**
+     * # Duration
+     * (From [Motion guidelines](https://carbondesignsystem.com/guidelines/motion/overview/))
+     *
+     * Motion duration in Carbon is normally calculated based on the style and size of the motion.
+     * This calculation is an upcoming feature. Currently, there are six static value tokens for
+     * easier implementation.
+     */
+    public object Duration {
+
+        /**
+         * Micro-interactions such as button and toggle.
+         */
+        public const val fast01: Int = 70
+
+        /**
+         * Micro-interactions such as fade.
+         */
+        public const val fast02: Int = 110
+
+        /**
+         * Micro-interactions, small expansion, short distance movements.
+         */
+        public const val moderate01: Int = 150
+
+        /**
+         * Expansion, system communication, toast.
+         */
+        public const val moderate02: Int = 240
+
+        /**
+         * Large expansion, important system notifications.
+         */
+        public const val slow01: Int = 400
+
+        /**
+         * Background dimming.
+         */
+        public const val slow02: Int = 700
+    }
+
+    /**
      * # Standard easing
      * (From [Motion guidelines](https://carbondesignsystem.com/guidelines/motion/overview/))
      *
