@@ -34,6 +34,14 @@ import dev.gabrieldrn.carbon.foundation.text.Text
 private val TOGGLE_BACKGROUND_DEFAULT_WIDTH = 48.dp
 private val TOGGLE_BACKGROUND_DEFAULT_HEIGHT = 24.dp
 private val TOGGLE_HANDLE_DEFAULT_SIZE = 18.dp
+private val TOGGLE_COLOR_ANIMATION_SPEC = tween<Color>(
+    durationMillis = Motion.Duration.fast01,
+    easing = Motion.Entrance.productiveEasing
+)
+private val TOGGLE_FLOAT_ANIMATION_SPEC = tween<Float>(
+    durationMillis = Motion.Duration.fast01,
+    easing = Motion.Entrance.productiveEasing
+)
 
 @Composable
 public fun Toggle(
@@ -42,6 +50,7 @@ public fun Toggle(
     modifier: Modifier = Modifier,
     labelText: String = "",
     actionText: String = "",
+    isEnabled: Boolean = true,
 ) {
     val theme = LocalCarbonTheme.current
     val density = LocalDensity.current
@@ -58,31 +67,44 @@ public fun Toggle(
     }
 
     val backgroundColor: Color by animateColorAsState(
-        targetValue = if (isToggled) theme.supportSuccess else theme.toggleOff,
-        animationSpec = tween(
-            durationMillis = Motion.Duration.fast01,
-            easing = Motion.Entrance.productiveEasing
-        ),
+        targetValue = when {
+            !isEnabled -> theme.buttonDisabled
+            isToggled -> theme.supportSuccess
+            else -> theme.toggleOff
+        },
+        animationSpec = TOGGLE_COLOR_ANIMATION_SPEC,
         label = "Toggle background color"
     )
 
-    // Animate the handle position based on the isToggled state
+    val handleColor: Color by animateColorAsState(
+        targetValue = if (isEnabled) theme.iconOnColor else theme.iconOnColorDisabled,
+        animationSpec = TOGGLE_COLOR_ANIMATION_SPEC,
+        label = "Handle color"
+    )
+
     val handleXPos: Float by animateFloatAsState(
         targetValue = if (isToggled) handleXOnPosPx else handleYOffPosPx,
-        animationSpec = tween(
-            durationMillis = Motion.Duration.fast01,
-            easing = Motion.Entrance.productiveEasing
-        ),
+        animationSpec = TOGGLE_FLOAT_ANIMATION_SPEC,
         label = "Toggle handle position"
+    )
+
+    val labelColor: Color by animateColorAsState(
+        targetValue = if (isEnabled) theme.textPrimary else theme.textDisabled,
+        animationSpec = TOGGLE_COLOR_ANIMATION_SPEC,
+        label = "Label color"
+    )
+
+    val actionTextColor: Color by animateColorAsState(
+        targetValue = if (isEnabled) theme.textPrimary else theme.textDisabled,
+        animationSpec = TOGGLE_COLOR_ANIMATION_SPEC,
+        label = "Action text color"
     )
 
     Column(modifier = modifier) {
         if (labelText.isNotEmpty()) {
             Text(
                 text = "Label",
-                style = CarbonTypography.label01.copy(
-                    color = theme.textSecondary
-                ),
+                style = CarbonTypography.label01.copy(color = labelColor),
                 modifier = Modifier.padding(bottom = SpacingScale.spacing04)
             )
         }
@@ -110,7 +132,7 @@ public fun Toggle(
 
                 // Handle
                 drawRoundRect(
-                    color = theme.iconOnColor,
+                    color = handleColor,
                     size = Size(handleSizePx, handleSizePx),
                     cornerRadius = CornerRadius(TOGGLE_BACKGROUND_DEFAULT_HEIGHT.toPx() / 2),
                     topLeft = Offset(handleXPos, handleYOffPosPx),
@@ -119,9 +141,7 @@ public fun Toggle(
             if (actionText.isNotEmpty()) {
                 Text(
                     text = actionText,
-                    style = CarbonTypography.bodyCompact01.copy(
-                        color = theme.textPrimary
-                    ),
+                    style = CarbonTypography.bodyCompact01.copy(color = actionTextColor),
                     modifier = Modifier.padding(start = SpacingScale.spacing03)
                 )
             }
@@ -139,8 +159,8 @@ private fun TogglePreview() {
             onToggleChange = { isToggled = it },
             labelText = "Label",
             actionText = if (isToggled) "On" else "Off",
+//            isEnabled = false,
             modifier = Modifier
-//                .fillMaxWidth()
                 .padding(8.dp)
         )
     }
