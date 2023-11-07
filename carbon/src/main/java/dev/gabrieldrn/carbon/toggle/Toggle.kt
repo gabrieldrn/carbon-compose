@@ -21,6 +21,8 @@ import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.graphics.drawscope.inset
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -30,6 +32,7 @@ import dev.gabrieldrn.carbon.foundation.motion.Motion
 import dev.gabrieldrn.carbon.foundation.spacing.SpacingScale
 import dev.gabrieldrn.carbon.foundation.text.CarbonTypography
 import dev.gabrieldrn.carbon.foundation.text.Text
+import kotlin.math.max
 
 private val TOGGLE_BACKGROUND_DEFAULT_WIDTH = 48.dp
 private val TOGGLE_BACKGROUND_DEFAULT_HEIGHT = 24.dp
@@ -51,6 +54,7 @@ public fun Toggle(
     labelText: String = "",
     actionText: String = "",
     isEnabled: Boolean = true,
+    isReadOnly: Boolean = false,
 ) {
     val theme = LocalCarbonTheme.current
     val density = LocalDensity.current
@@ -69,6 +73,7 @@ public fun Toggle(
     val backgroundColor: Color by animateColorAsState(
         targetValue = when {
             !isEnabled -> theme.buttonDisabled
+            isReadOnly -> Color.Transparent
             isToggled -> theme.supportSuccess
             else -> theme.toggleOff
         },
@@ -76,8 +81,19 @@ public fun Toggle(
         label = "Toggle background color"
     )
 
+    val borderColor: Color by animateColorAsState(
+        // TODO Impl contextual border color based on layer
+        targetValue = if (isReadOnly && isEnabled) theme.borderSubtle01 else Color.Transparent,
+        animationSpec = TOGGLE_COLOR_ANIMATION_SPEC,
+        label = "Toggle border color"
+    )
+
     val handleColor: Color by animateColorAsState(
-        targetValue = if (isEnabled) theme.iconOnColor else theme.iconOnColorDisabled,
+        targetValue = when {
+            !isEnabled -> theme.iconOnColorDisabled
+            isReadOnly -> theme.iconPrimary
+            else -> theme.iconOnColor
+        },
         animationSpec = TOGGLE_COLOR_ANIMATION_SPEC,
         label = "Handle color"
     )
@@ -126,9 +142,26 @@ public fun Toggle(
                 // Background
                 drawRoundRect(
                     color = backgroundColor,
-                    cornerRadius = CornerRadius(TOGGLE_BACKGROUND_DEFAULT_HEIGHT.toPx() / 2),
-                    topLeft = Offset.Zero,
+                    cornerRadius = CornerRadius(TOGGLE_BACKGROUND_DEFAULT_HEIGHT.toPx()),
                 )
+
+                //Border
+                val strokeWidth = 1f.dp.toPx()
+                val halfStroke = strokeWidth / 2
+                inset(halfStroke) {
+                    drawRoundRect(
+                        color = borderColor,
+                        cornerRadius = CornerRadius(TOGGLE_BACKGROUND_DEFAULT_HEIGHT.toPx())
+                            .let {
+                                // Shrink
+                                CornerRadius(
+                                    max(0f, it.x - halfStroke),
+                                    max(0f, it.y - halfStroke)
+                                )
+                            },
+                        style = Stroke(strokeWidth)
+                    )
+                }
 
                 // Handle
                 drawRoundRect(
@@ -160,6 +193,7 @@ private fun TogglePreview() {
             labelText = "Label",
             actionText = if (isToggled) "On" else "Off",
 //            isEnabled = false,
+//            isReadOnly = true,
             modifier = Modifier
                 .padding(8.dp)
         )
