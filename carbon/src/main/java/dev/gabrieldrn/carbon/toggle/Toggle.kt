@@ -25,6 +25,7 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.inset
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import dev.gabrieldrn.carbon.CarbonDesignSystem
 import dev.gabrieldrn.carbon.foundation.color.LocalCarbonTheme
@@ -34,9 +35,6 @@ import dev.gabrieldrn.carbon.foundation.text.CarbonTypography
 import dev.gabrieldrn.carbon.foundation.text.Text
 import kotlin.math.max
 
-private val TOGGLE_BACKGROUND_DEFAULT_WIDTH = 48.dp
-private val TOGGLE_BACKGROUND_DEFAULT_HEIGHT = 24.dp
-private val TOGGLE_HANDLE_DEFAULT_SIZE = 18.dp
 private val TOGGLE_COLOR_ANIMATION_SPEC = tween<Color>(
     durationMillis = Motion.Duration.fast01,
     easing = Motion.Entrance.productiveEasing
@@ -56,19 +54,58 @@ public fun Toggle(
     isEnabled: Boolean = true,
     isReadOnly: Boolean = false,
 ) {
+    ToggleImpl(
+        isToggled = isToggled,
+        onToggleChange = onToggleChange,
+        dimensions = ToggleComponentDimensions.Default,
+        modifier = modifier,
+        labelText = labelText,
+        actionText = actionText,
+        isEnabled = isEnabled,
+        isReadOnly = isReadOnly,
+    )
+}
+
+@Composable
+public fun SmallToggle(
+    isToggled: Boolean,
+    onToggleChange: (Boolean) -> Unit,
+    modifier: Modifier = Modifier,
+    actionText: String = "",
+    isEnabled: Boolean = true,
+    isReadOnly: Boolean = false,
+) {
+    ToggleImpl(
+        isToggled = isToggled,
+        onToggleChange = onToggleChange,
+        dimensions = ToggleComponentDimensions.Small,
+        modifier = modifier,
+        actionText = actionText,
+        isEnabled = isEnabled,
+        isReadOnly = isReadOnly,
+    )
+}
+
+@Composable
+@Suppress("CognitiveComplexMethod", "CyclomaticComplexMethod")
+private fun ToggleImpl(
+    isToggled: Boolean,
+    onToggleChange: (Boolean) -> Unit,
+    dimensions: ToggleComponentDimensions,
+    modifier: Modifier = Modifier,
+    labelText: String = "",
+    actionText: String = "",
+    isEnabled: Boolean = true,
+    isReadOnly: Boolean = false,
+) {
     val theme = LocalCarbonTheme.current
     val density = LocalDensity.current
 
-    // Define the sizes with LocalDensity as they are needed outside of Canvas
-    val handleSizePx = with(density) {
-        TOGGLE_HANDLE_DEFAULT_SIZE.toPx()
-    }
-    val handleYOffPosPx = with(density) {
-        (TOGGLE_BACKGROUND_DEFAULT_HEIGHT.toPx() - handleSizePx) / 2
-    }
-    val handleXOnPosPx = with(density) {
-        TOGGLE_BACKGROUND_DEFAULT_WIDTH.toPx() - handleSizePx - handleYOffPosPx
-    }
+    val handleSizePx = with(density) { dimensions.handleSize.toPx() }
+    val toggleHeight = with(density) { dimensions.height.toPx() }
+    val toggleWidth = with(density) { dimensions.width.toPx() }
+    val handleYOffPosPx = (toggleHeight - handleSizePx) / 2
+    val handleXOnPosPx = toggleWidth - handleSizePx - handleYOffPosPx
 
     val backgroundColor: Color by animateColorAsState(
         targetValue = when {
@@ -126,23 +163,23 @@ public fun Toggle(
         }
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .clickable(
-                    interactionSource = MutableInteractionSource(),
-                    indication = null,
-                    onClick = { onToggleChange(!isToggled) },
-                )
+            modifier = Modifier.clickable(
+                interactionSource = MutableInteractionSource(),
+                enabled = isEnabled && !isReadOnly,
+                indication = null,
+                onClick = { onToggleChange(!isToggled) },
+            )
         ) {
             Canvas(
                 modifier = Modifier.size(
-                    TOGGLE_BACKGROUND_DEFAULT_WIDTH,
-                    TOGGLE_BACKGROUND_DEFAULT_HEIGHT
+                    dimensions.width,
+                    dimensions.height
                 )
             ) {
                 // Background
                 drawRoundRect(
                     color = backgroundColor,
-                    cornerRadius = CornerRadius(TOGGLE_BACKGROUND_DEFAULT_HEIGHT.toPx()),
+                    cornerRadius = CornerRadius(toggleHeight),
                 )
 
                 //Border
@@ -151,7 +188,7 @@ public fun Toggle(
                 inset(halfStroke) {
                     drawRoundRect(
                         color = borderColor,
-                        cornerRadius = CornerRadius(TOGGLE_BACKGROUND_DEFAULT_HEIGHT.toPx())
+                        cornerRadius = CornerRadius(toggleHeight)
                             .let {
                                 // Shrink
                                 CornerRadius(
@@ -167,7 +204,7 @@ public fun Toggle(
                 drawRoundRect(
                     color = handleColor,
                     size = Size(handleSizePx, handleSizePx),
-                    cornerRadius = CornerRadius(TOGGLE_BACKGROUND_DEFAULT_HEIGHT.toPx() / 2),
+                    cornerRadius = CornerRadius(toggleHeight),
                     topLeft = Offset(handleXPos, handleYOffPosPx),
                 )
             }
@@ -182,15 +219,50 @@ public fun Toggle(
     }
 }
 
+private sealed class ToggleComponentDimensions(
+    val width: Dp,
+    val height: Dp,
+    val handleSize: Dp,
+) {
+    data object Default : ToggleComponentDimensions(
+        width = 48.dp,
+        height = 24.dp,
+        handleSize = 18.dp,
+    )
+
+    data object Small : ToggleComponentDimensions(
+        width = 32.dp,
+        height = 16.dp,
+        handleSize = 10.dp,
+    )
+}
+
 @Preview(showBackground = true)
 @Composable
-private fun TogglePreview() {
+private fun DefaultTogglePreview() {
     CarbonDesignSystem {
         var isToggled by remember { mutableStateOf(false) }
         Toggle(
             isToggled = isToggled,
             onToggleChange = { isToggled = it },
             labelText = "Label",
+            actionText = if (isToggled) "On" else "Off",
+//            isEnabled = false,
+//            isReadOnly = true,
+            modifier = Modifier
+                .padding(8.dp)
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun SmallTogglePreview() {
+    CarbonDesignSystem {
+        var isToggled by remember { mutableStateOf(false) }
+        SmallToggle(
+            isToggled = isToggled,
+            onToggleChange = { isToggled = it },
             actionText = if (isToggled) "On" else "Off",
 //            isEnabled = false,
 //            isReadOnly = true,
