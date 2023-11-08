@@ -21,6 +21,7 @@ import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.inset
 import androidx.compose.ui.platform.LocalDensity
@@ -44,6 +45,23 @@ private val TOGGLE_FLOAT_ANIMATION_SPEC = tween<Float>(
     easing = Motion.Entrance.productiveEasing
 )
 
+/**
+ * A toggle is used to quickly switch between two possible states. They are commonly used for
+ * “on/off” switches.
+ *
+ * Use the default toggle when you need to specify a label text in addition to the toggle action
+ * text. Default toggles appear in forms or within full pages of information.
+ *
+ * (From [Toggle documentation](https://carbondesignsystem.com/components/toggle/usage))
+ *
+ * @param isToggled Whether the toggle is toggled on or off.
+ * @param onToggleChange Callback for when the toggle is toggled.
+ * @param modifier Modifier to be applied to the toggle.
+ * @param labelText Label text to be displayed above the toggle.
+ * @param actionText Action text to be displayed next to the toggle.
+ * @param isEnabled Whether the toggle is enabled.
+ * @param isReadOnly Whether the toggle is read only.
+ */
 @Composable
 public fun Toggle(
     isToggled: Boolean,
@@ -66,6 +84,22 @@ public fun Toggle(
     )
 }
 
+/**
+ * A toggle is used to quickly switch between two possible states. They are commonly used for
+ * “on/off” switches.
+ *
+ * Use the small toggle when you do not need to specify label or action text. Small toggles are
+ * more compact in size and are used inline with other components.
+ *
+ * (From [Toggle documentation](https://carbondesignsystem.com/components/toggle/usage))
+ *
+ * @param isToggled Whether the toggle is toggled on or off.
+ * @param onToggleChange Callback for when the toggle is toggled.
+ * @param modifier Modifier to be applied to the toggle.
+ * @param actionText Action text to be displayed next to the toggle.
+ * @param isEnabled Whether the toggle is enabled.
+ * @param isReadOnly Whether the toggle is read only.
+ */
 @Composable
 public fun SmallToggle(
     isToggled: Boolean,
@@ -176,36 +210,14 @@ private fun ToggleImpl(
                     dimensions.height
                 )
             ) {
-                // Background
-                drawRoundRect(
-                    color = backgroundColor,
-                    cornerRadius = CornerRadius(toggleHeight),
-                )
-
-                //Border
-                val strokeWidth = 1f.dp.toPx()
-                val halfStroke = strokeWidth / 2
-                inset(halfStroke) {
-                    drawRoundRect(
-                        color = borderColor,
-                        cornerRadius = CornerRadius(toggleHeight)
-                            .let {
-                                // Shrink
-                                CornerRadius(
-                                    max(0f, it.x - halfStroke),
-                                    max(0f, it.y - halfStroke)
-                                )
-                            },
-                        style = Stroke(strokeWidth)
-                    )
-                }
-
-                // Handle
-                drawRoundRect(
-                    color = handleColor,
-                    size = Size(handleSizePx, handleSizePx),
-                    cornerRadius = CornerRadius(toggleHeight),
-                    topLeft = Offset(handleXPos, handleYOffPosPx),
+                toggleDrawScope(
+                    backgroundColor,
+                    toggleHeight,
+                    borderColor,
+                    handleColor,
+                    handleSizePx,
+                    handleXPos,
+                    handleYOffPosPx
                 )
             }
             if (actionText.isNotEmpty()) {
@@ -217,6 +229,48 @@ private fun ToggleImpl(
             }
         }
     }
+}
+
+private fun DrawScope.toggleDrawScope(
+    backgroundColor: Color,
+    toggleHeight: Float,
+    borderColor: Color,
+    handleColor: Color,
+    handleSizePx: Float,
+    handleXPos: Float,
+    handleYOffPosPx: Float
+) {
+    // Background
+    drawRoundRect(
+        color = backgroundColor,
+        cornerRadius = CornerRadius(toggleHeight),
+    )
+
+    //Border
+    val strokeWidth = 1f.dp.toPx()
+    val halfStroke = strokeWidth / 2
+    inset(halfStroke) {
+        drawRoundRect(
+            color = borderColor,
+            cornerRadius = CornerRadius(toggleHeight)
+                .let {
+                    // Shrink
+                    CornerRadius(
+                        max(0f, it.x - halfStroke),
+                        max(0f, it.y - halfStroke)
+                    )
+                },
+            style = Stroke(strokeWidth)
+        )
+    }
+
+    // Handle
+    drawRoundRect(
+        color = handleColor,
+        size = Size(handleSizePx, handleSizePx),
+        cornerRadius = CornerRadius(toggleHeight),
+        topLeft = Offset(handleXPos, handleYOffPosPx),
+    )
 }
 
 private sealed class ToggleComponentDimensions(
