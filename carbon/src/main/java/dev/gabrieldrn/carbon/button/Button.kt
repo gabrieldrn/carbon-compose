@@ -17,9 +17,8 @@ import dev.gabrieldrn.carbon.foundation.motion.Motion
 import dev.gabrieldrn.carbon.foundation.spacing.SpacingScale
 
 // From the react-native implementation
-internal const val ButtonTransitionDurationMillis = 70
 internal val buttonTransitionSpec: AnimationSpec<Color> = tween(
-    durationMillis = ButtonTransitionDurationMillis,
+    durationMillis = Motion.Duration.fast01,
     easing = Motion.Entrance.productiveEasing
 )
 

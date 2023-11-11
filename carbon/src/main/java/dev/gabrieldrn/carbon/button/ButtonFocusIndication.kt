@@ -1,15 +1,11 @@
 package dev.gabrieldrn.carbon.button
 
-import androidx.compose.animation.core.Animatable
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Indication
 import androidx.compose.foundation.IndicationInstance
 import androidx.compose.foundation.interaction.FocusInteraction
 import androidx.compose.foundation.interaction.InteractionSource
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.derivedStateOf
-import androidx.compose.runtime.referentialEqualityPolicy
 import androidx.compose.runtime.remember
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
@@ -19,61 +15,24 @@ import androidx.compose.ui.graphics.drawscope.ContentDrawScope
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.clipRect
-import androidx.compose.ui.unit.dp
 import dev.gabrieldrn.carbon.foundation.color.LocalCarbonTheme
 import dev.gabrieldrn.carbon.foundation.color.Theme
-import dev.gabrieldrn.carbon.foundation.motion.Motion
-import kotlinx.coroutines.CoroutineScope
+import dev.gabrieldrn.carbon.foundation.interaction.FocusIndicationInstance
 import kotlinx.coroutines.flow.filterIsInstance
-import kotlinx.coroutines.launch
 
-internal class ButtonIndication(
+internal class ButtonFocusIndication(
     private val buttonType: CarbonButton
 ) : Indication {
 
     private class ButtonIndicationInstance(
         theme: Theme,
         buttonType: CarbonButton
-    ) : IndicationInstance {
+    ) : FocusIndicationInstance(theme) {
 
-        private val borderFocusColor = theme.focus
-        private val insetFocusColor = if (buttonType == CarbonButton.Ghost) {
+        override val insetFocusColor = if (buttonType == CarbonButton.Ghost) {
             Color.Transparent
         } else {
             theme.focusInset
-        }
-
-        private val focusAnimation = Animatable(0f)
-
-        private val borderFocusColorState = derivedStateOf(referentialEqualityPolicy()) {
-            // Strangely, when the focus border is multiplied by 0, there is still a border
-            // visible. This is why the border and the inset are set to transparent when the focus
-            // exits.
-            if (focusAnimation.value == 0f) {
-                Color.Transparent
-            } else {
-                borderFocusColor
-            }
-        }
-
-        private val insetFocusColorState = derivedStateOf(referentialEqualityPolicy()) {
-            if (focusAnimation.value == 0f) {
-                Color.Transparent
-            } else {
-                insetFocusColor
-            }
-        }
-
-        fun animateFocus(scope: CoroutineScope, interaction: FocusInteraction) {
-            scope.launch {
-                focusAnimation.animateTo(
-                    targetValue = if (interaction is FocusInteraction.Focus) 1f else 0f,
-                    animationSpec = tween(
-                        durationMillis = ButtonTransitionDurationMillis,
-                        easing = Motion.Entrance.productiveEasing
-                    )
-                )
-            }
         }
 
         override fun ContentDrawScope.drawIndication() {
@@ -82,8 +41,8 @@ internal class ButtonIndication(
         }
 
         private fun DrawScope.drawFocus() {
-            val borderStrokeWidthPx = (FOCUS_BORDER_WIDTH * focusAnimation.value).dp.toPx()
-            val insetStrokeWidthPx = (FOCUS_INSET_WIDTH * focusAnimation.value).dp.toPx()
+            val borderStrokeWidthPx = (borderFocusWidth * focusAnimation.value).toPx()
+            val insetStrokeWidthPx = (insetFocusWidth * focusAnimation.value).toPx()
 
             val borderHalfStroke = borderStrokeWidthPx / 2
             val insetOffset = borderStrokeWidthPx + borderHalfStroke / 2
@@ -113,11 +72,6 @@ internal class ButtonIndication(
                 size = borderSize,
                 style = Stroke(borderStrokeWidthPx)
             )
-        }
-
-        companion object {
-            private const val FOCUS_BORDER_WIDTH = 2f
-            private const val FOCUS_INSET_WIDTH = 1f
         }
     }
 

@@ -17,6 +17,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.focusProperties
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
@@ -26,7 +27,6 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.inset
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import dev.gabrieldrn.carbon.CarbonDesignSystem
 import dev.gabrieldrn.carbon.foundation.color.LocalCarbonTheme
@@ -71,16 +71,18 @@ public fun Toggle(
     actionText: String = "",
     isEnabled: Boolean = true,
     isReadOnly: Boolean = false,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 ) {
     ToggleImpl(
         isToggled = isToggled,
         onToggleChange = onToggleChange,
-        dimensions = ToggleComponentDimensions.Default,
+        interactionSource = interactionSource,
+        dimensions = ToggleDimensions.Default,
         modifier = modifier,
         labelText = labelText,
         actionText = actionText,
         isEnabled = isEnabled,
-        isReadOnly = isReadOnly,
+        isReadOnly = isReadOnly
     )
 }
 
@@ -108,15 +110,17 @@ public fun SmallToggle(
     actionText: String = "",
     isEnabled: Boolean = true,
     isReadOnly: Boolean = false,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 ) {
     ToggleImpl(
         isToggled = isToggled,
         onToggleChange = onToggleChange,
-        dimensions = ToggleComponentDimensions.Small,
+        interactionSource = interactionSource,
+        dimensions = ToggleDimensions.Small,
         modifier = modifier,
         actionText = actionText,
         isEnabled = isEnabled,
-        isReadOnly = isReadOnly,
+        isReadOnly = isReadOnly
     )
 }
 
@@ -125,7 +129,8 @@ public fun SmallToggle(
 private fun ToggleImpl(
     isToggled: Boolean,
     onToggleChange: (Boolean) -> Unit,
-    dimensions: ToggleComponentDimensions,
+    dimensions: ToggleDimensions,
+    interactionSource: MutableInteractionSource,
     modifier: Modifier = Modifier,
     labelText: String = "",
     actionText: String = "",
@@ -187,6 +192,10 @@ private fun ToggleImpl(
         label = "Action text color"
     )
 
+    val onClick = { onToggleChange(!isToggled) }
+
+    val indication = remember { ToggleFocusIndication(dimensions) }
+
     Column(modifier = modifier) {
         if (labelText.isNotEmpty()) {
             Text(
@@ -195,20 +204,29 @@ private fun ToggleImpl(
                 modifier = Modifier.padding(bottom = SpacingScale.spacing04)
             )
         }
+
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.clickable(
-                interactionSource = MutableInteractionSource(),
-                enabled = isEnabled && !isReadOnly,
-                indication = null,
-                onClick = { onToggleChange(!isToggled) },
-            )
+            modifier = Modifier
+                .clickable(
+                    interactionSource = interactionSource,
+                    indication = null,
+                    enabled = isEnabled && !isReadOnly,
+                    onClick = onClick
+                )
+                // This is to restrict focus to the toggle itself. In correlation, the clickable
+                // modifier above keep a better accessibility interaction on the whole component.
+                .focusProperties { canFocus = false }
         ) {
             Canvas(
-                modifier = Modifier.size(
-                    dimensions.width,
-                    dimensions.height
-                )
+                modifier = Modifier
+                    .size(dimensions.width, dimensions.height)
+                    .clickable(
+                        interactionSource = interactionSource,
+                        indication = indication,
+                        enabled = isEnabled && !isReadOnly,
+                        onClick = onClick,
+                    )
             ) {
                 toggleDrawScope(
                     backgroundColor,
@@ -270,24 +288,6 @@ private fun DrawScope.toggleDrawScope(
         size = Size(handleSizePx, handleSizePx),
         cornerRadius = CornerRadius(toggleHeight),
         topLeft = Offset(handleXPos, handleYOffPosPx),
-    )
-}
-
-private sealed class ToggleComponentDimensions(
-    val width: Dp,
-    val height: Dp,
-    val handleSize: Dp,
-) {
-    data object Default : ToggleComponentDimensions(
-        width = 48.dp,
-        height = 24.dp,
-        handleSize = 18.dp,
-    )
-
-    data object Small : ToggleComponentDimensions(
-        width = 32.dp,
-        height = 16.dp,
-        handleSize = 10.dp,
     )
 }
 
