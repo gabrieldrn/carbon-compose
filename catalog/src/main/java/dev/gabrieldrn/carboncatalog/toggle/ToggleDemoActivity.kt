@@ -1,6 +1,8 @@
 package dev.gabrieldrn.carboncatalog.toggle
 
+import android.graphics.Color
 import android.os.Bundle
+import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -24,16 +26,17 @@ import dev.gabrieldrn.carbon.toggle.SmallToggle
 import dev.gabrieldrn.carbon.toggle.Toggle
 import dev.gabrieldrn.carbon.uishell.UiShellHeader
 import dev.gabrieldrn.carboncatalog.R
+import dev.gabrieldrn.carboncatalog.theme.CarbonCatalogTheme
 
 class ToggleDemoActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        enableEdgeToEdge()
+        enableEdgeToEdge(statusBarStyle = SystemBarStyle.dark(Color.TRANSPARENT))
 
         setContent {
-            CarbonDesignSystem {
+            CarbonCatalogTheme {
                 Column(
                     modifier = Modifier
                         .background(LocalCarbonTheme.current.background)
@@ -50,7 +53,7 @@ class ToggleDemoActivity : AppCompatActivity() {
                     Toggle(
                         isToggled = isToggled,
                         onToggleChange = { isToggled = it },
-                        labelText = "Toggle",
+                        label = "Toggle",
                         actionText = if (isToggled) "On" else "Off",
                         modifier = Modifier
                             .fillMaxWidth()

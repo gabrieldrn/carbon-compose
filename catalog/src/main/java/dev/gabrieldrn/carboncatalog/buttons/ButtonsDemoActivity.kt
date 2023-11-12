@@ -1,6 +1,8 @@
 package dev.gabrieldrn.carboncatalog.buttons
 
+import android.graphics.Color
 import android.os.Bundle
+import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -27,8 +29,10 @@ import dev.gabrieldrn.carbon.button.CarbonButton
 import dev.gabrieldrn.carbon.button.IconButton
 import dev.gabrieldrn.carbon.foundation.color.LocalCarbonTheme
 import dev.gabrieldrn.carbon.foundation.spacing.SpacingScale
+import dev.gabrieldrn.carbon.toggle.Toggle
 import dev.gabrieldrn.carbon.uishell.UiShellHeader
 import dev.gabrieldrn.carboncatalog.R
+import dev.gabrieldrn.carboncatalog.theme.CarbonCatalogTheme
 
 class ButtonsDemoActivity : AppCompatActivity() {
 
@@ -45,10 +49,12 @@ class ButtonsDemoActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        enableEdgeToEdge()
+        enableEdgeToEdge(
+            statusBarStyle = SystemBarStyle.dark(Color.TRANSPARENT)
+        )
 
         setContent {
-            CarbonDesignSystem {
+            CarbonCatalogTheme {
                 Column(
                     modifier = Modifier
                         .background(LocalCarbonTheme.current.background)
@@ -65,10 +71,14 @@ class ButtonsDemoActivity : AppCompatActivity() {
                         mutableStateOf(true)
                     }
 
-                    Button(
-                        label = "Toggle isEnabled",
-                        onClick = { isEnabled = !isEnabled },
-                        modifier = Modifier.fillMaxWidth()
+                    Toggle(
+                        label = "Enable buttons",
+                        isToggled = isEnabled,
+                        onToggleChange = { isEnabled = it },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = SpacingScale.spacing05)
+                            .padding(top = SpacingScale.spacing05)
                     )
 
                     Spacer(modifier = Modifier.height(SpacingScale.spacing05))

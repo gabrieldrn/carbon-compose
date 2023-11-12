@@ -1,8 +1,10 @@
 package dev.gabrieldrn.carboncatalog
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
@@ -31,16 +33,17 @@ import dev.gabrieldrn.carbon.foundation.color.LocalCarbonTheme
 import dev.gabrieldrn.carbon.foundation.spacing.SpacingScale
 import dev.gabrieldrn.carbon.foundation.text.CarbonTypography
 import dev.gabrieldrn.carbon.uishell.UiShellHeader
+import dev.gabrieldrn.carboncatalog.theme.CarbonCatalogTheme
 
 class HomeActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        enableEdgeToEdge()
+        enableEdgeToEdge(statusBarStyle = SystemBarStyle.dark(Color.TRANSPARENT))
 
         setContent {
-            CarbonDesignSystem {
+            CarbonCatalogTheme {
                 Column(
                     modifier = Modifier
                         .background(LocalCarbonTheme.current.background)
