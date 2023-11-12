@@ -57,7 +57,7 @@ private val TOGGLE_FLOAT_ANIMATION_SPEC = tween<Float>(
  * @param isToggled Whether the toggle is toggled on or off.
  * @param onToggleChange Callback for when the toggle is toggled.
  * @param modifier Modifier to be applied to the toggle.
- * @param labelText Label text to be displayed above the toggle.
+ * @param label Label text to be displayed above the toggle.
  * @param actionText Action text to be displayed next to the toggle.
  * @param isEnabled Whether the toggle is enabled.
  * @param isReadOnly Whether the toggle is read only.
@@ -67,7 +67,7 @@ public fun Toggle(
     isToggled: Boolean,
     onToggleChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
-    labelText: String = "",
+    label: String = "",
     actionText: String = "",
     isEnabled: Boolean = true,
     isReadOnly: Boolean = false,
@@ -79,7 +79,7 @@ public fun Toggle(
         interactionSource = interactionSource,
         dimensions = ToggleDimensions.Default,
         modifier = modifier,
-        labelText = labelText,
+        label = label,
         actionText = actionText,
         isEnabled = isEnabled,
         isReadOnly = isReadOnly
@@ -132,7 +132,7 @@ private fun ToggleImpl(
     dimensions: ToggleDimensions,
     interactionSource: MutableInteractionSource,
     modifier: Modifier = Modifier,
-    labelText: String = "",
+    label: String = "",
     actionText: String = "",
     isEnabled: Boolean = true,
     isReadOnly: Boolean = false,
@@ -197,9 +197,9 @@ private fun ToggleImpl(
     val indication = remember { ToggleFocusIndication(dimensions) }
 
     Column(modifier = modifier) {
-        if (labelText.isNotEmpty()) {
+        if (label.isNotEmpty()) {
             Text(
-                text = "Label",
+                text = label,
                 style = CarbonTypography.label01.copy(color = labelColor),
                 modifier = Modifier.padding(bottom = SpacingScale.spacing04)
             )
@@ -299,7 +299,7 @@ private fun DefaultTogglePreview() {
         Toggle(
             isToggled = isToggled,
             onToggleChange = { isToggled = it },
-            labelText = "Label",
+            label = "Label",
             actionText = if (isToggled) "On" else "Off",
 //            isEnabled = false,
 //            isReadOnly = true,
