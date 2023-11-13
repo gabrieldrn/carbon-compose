@@ -12,9 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.focusProperties
@@ -30,9 +28,7 @@ import androidx.compose.ui.graphics.drawscope.translate
 import androidx.compose.ui.graphics.vector.VectorPainter
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import dev.gabrieldrn.carbon.CarbonDesignSystem
 import dev.gabrieldrn.carbon.foundation.color.LocalCarbonTheme
 import dev.gabrieldrn.carbon.foundation.motion.Motion
 import dev.gabrieldrn.carbon.foundation.spacing.SpacingScale
@@ -335,40 +331,5 @@ private fun DrawScope.drawToggleHandle(
                 )
             }
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun DefaultTogglePreview() {
-    CarbonDesignSystem {
-        var isToggled by remember { mutableStateOf(false) }
-        Toggle(
-            isToggled = isToggled,
-            onToggleChange = { isToggled = it },
-            label = "Label",
-            actionText = if (isToggled) "On" else "Off",
-//            isEnabled = false,
-//            isReadOnly = true,
-            modifier = Modifier
-                .padding(8.dp)
-        )
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun SmallTogglePreview() {
-    CarbonDesignSystem {
-        var isToggled by remember { mutableStateOf(false) }
-        SmallToggle(
-            isToggled = isToggled,
-            onToggleChange = { isToggled = it },
-            actionText = if (isToggled) "On" else "Off",
-//            isEnabled = false,
-//            isReadOnly = true,
-            modifier = Modifier
-                .padding(8.dp)
-        )
     }
 }
