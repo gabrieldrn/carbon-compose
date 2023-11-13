@@ -22,9 +22,13 @@ import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.inset
+import androidx.compose.ui.graphics.drawscope.translate
+import androidx.compose.ui.graphics.vector.VectorPainter
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -61,6 +65,7 @@ private val TOGGLE_FLOAT_ANIMATION_SPEC = tween<Float>(
  * @param actionText Action text to be displayed next to the toggle.
  * @param isEnabled Whether the toggle is enabled.
  * @param isReadOnly Whether the toggle is read only.
+ * @param interactionSource The [MutableInteractionSource] to be applied to the toggle.
  */
 @Composable
 public fun Toggle(
@@ -101,6 +106,7 @@ public fun Toggle(
  * @param actionText Action text to be displayed next to the toggle.
  * @param isEnabled Whether the toggle is enabled.
  * @param isReadOnly Whether the toggle is read only.
+ * @param interactionSource The [MutableInteractionSource] to be applied to the toggle.
  */
 @Composable
 public fun SmallToggle(
@@ -140,9 +146,19 @@ private fun ToggleImpl(
     val theme = LocalCarbonTheme.current
     val density = LocalDensity.current
 
+    val onClick = { onToggleChange(!isToggled) }
+
+    val indication = remember { ToggleFocusIndication(dimensions) }
+
     val handleSizePx = with(density) { dimensions.handleSize.toPx() }
     val toggleHeight = with(density) { dimensions.height.toPx() }
     val toggleWidth = with(density) { dimensions.width.toPx() }
+    val handleCheckmarkOffset = with(density) {
+        Offset(
+            (handleSizePx - toggleCheckmarkIconWidth.toPx()) / 2,
+            (handleSizePx - toggleCheckmarkIconHeight.toPx()) / 2
+        )
+    }
     val handleYOffPosPx = (toggleHeight - handleSizePx) / 2
     val handleXOnPosPx = toggleWidth - handleSizePx - handleYOffPosPx
 
@@ -174,6 +190,12 @@ private fun ToggleImpl(
         label = "Handle color"
     )
 
+    val handleCheckmarkColor: Color by animateColorAsState(
+        targetValue = if (isToggled) theme.supportSuccess else Color.Transparent,
+        animationSpec = TOGGLE_COLOR_ANIMATION_SPEC,
+        label = "Handle checkmark color"
+    )
+
     val handleXPos: Float by animateFloatAsState(
         targetValue = if (isToggled) handleXOnPosPx else handleYOffPosPx,
         animationSpec = TOGGLE_FLOAT_ANIMATION_SPEC,
@@ -191,10 +213,6 @@ private fun ToggleImpl(
         animationSpec = TOGGLE_COLOR_ANIMATION_SPEC,
         label = "Action text color"
     )
-
-    val onClick = { onToggleChange(!isToggled) }
-
-    val indication = remember { ToggleFocusIndication(dimensions) }
 
     Column(modifier = modifier) {
         if (label.isNotEmpty()) {
@@ -218,6 +236,9 @@ private fun ToggleImpl(
                 // modifier above keep a better accessibility interaction on the whole component.
                 .focusProperties { canFocus = false }
         ) {
+            val handleCheckmarkIcon = rememberVectorPainter(image = toggleCheckmarkIcon)
+                .takeIf { dimensions == ToggleDimensions.Small }
+
             Canvas(
                 modifier = Modifier
                     .size(dimensions.width, dimensions.height)
@@ -228,14 +249,20 @@ private fun ToggleImpl(
                         onClick = onClick,
                     )
             ) {
-                toggleDrawScope(
-                    backgroundColor,
-                    toggleHeight,
-                    borderColor,
-                    handleColor,
-                    handleSizePx,
-                    handleXPos,
-                    handleYOffPosPx
+                drawToggleBackground(
+                    backgroundColor = backgroundColor,
+                    toggleHeight = toggleHeight,
+                    borderColor = borderColor,
+                )
+
+                drawToggleHandle(
+                    handleXPos = handleXPos,
+                    handleYPos = handleYOffPosPx,
+                    handleColor = handleColor,
+                    handleSizePx = handleSizePx,
+                    handleCheckmarkOffset = handleCheckmarkOffset,
+                    handleCheckmarkIcon = handleCheckmarkIcon,
+                    handleCheckmarkColor = handleCheckmarkColor
                 )
             }
             if (actionText.isNotEmpty()) {
@@ -249,14 +276,10 @@ private fun ToggleImpl(
     }
 }
 
-private fun DrawScope.toggleDrawScope(
+private fun DrawScope.drawToggleBackground(
     backgroundColor: Color,
     toggleHeight: Float,
     borderColor: Color,
-    handleColor: Color,
-    handleSizePx: Float,
-    handleXPos: Float,
-    handleYOffPosPx: Float
 ) {
     // Background
     drawRoundRect(
@@ -281,14 +304,38 @@ private fun DrawScope.toggleDrawScope(
             style = Stroke(strokeWidth)
         )
     }
+}
 
-    // Handle
-    drawRoundRect(
-        color = handleColor,
-        size = Size(handleSizePx, handleSizePx),
-        cornerRadius = CornerRadius(toggleHeight),
-        topLeft = Offset(handleXPos, handleYOffPosPx),
-    )
+private fun DrawScope.drawToggleHandle(
+    handleXPos: Float,
+    handleYPos: Float,
+    handleColor: Color,
+    handleSizePx: Float,
+    handleCheckmarkOffset: Offset,
+    handleCheckmarkIcon: VectorPainter?,
+    handleCheckmarkColor: Color
+) {
+    translate(
+        left = handleXPos,
+        top = handleYPos
+    ) {
+        drawRoundRect(
+            color = handleColor,
+            size = Size(handleSizePx, handleSizePx),
+            cornerRadius = CornerRadius(handleSizePx),
+        )
+        translate(
+            left = handleCheckmarkOffset.x,
+            top = handleCheckmarkOffset.y
+        ) {
+            handleCheckmarkIcon?.run {
+                draw(
+                    size = handleCheckmarkIcon.intrinsicSize,
+                    colorFilter = ColorFilter.tint(handleCheckmarkColor)
+                )
+            }
+        }
+    }
 }
 
 @Preview(showBackground = true)
