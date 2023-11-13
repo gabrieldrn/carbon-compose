@@ -28,7 +28,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import dev.gabrieldrn.carbon.CarbonDesignSystem
 import dev.gabrieldrn.carbon.foundation.color.LocalCarbonTheme
 import dev.gabrieldrn.carbon.foundation.spacing.SpacingScale
 import dev.gabrieldrn.carbon.foundation.text.CarbonTypography
@@ -63,7 +62,12 @@ class HomeActivity : ComponentActivity() {
                             verticalArrangement = Arrangement.spacedBy(1.dp),
                             horizontalArrangement = Arrangement.spacedBy(1.dp),
                         ) {
-                            items(CarbonComponent.entries) { component ->
+                            items(
+                                CarbonComponent
+                                    .entries
+                                    // Show first the components that have a demo activity
+                                    .sortedByDescending { it.demoActivity != null }
+                            ) { component ->
                                 CarbonComponentGridTile(
                                     component = component,
                                     onClick = {
