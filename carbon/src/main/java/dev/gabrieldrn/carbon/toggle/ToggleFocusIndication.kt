@@ -12,7 +12,6 @@ import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.drawscope.ContentDrawScope
-import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.inset
 import dev.gabrieldrn.carbon.foundation.color.LocalCarbonTheme
@@ -31,11 +30,6 @@ internal class ToggleFocusIndication(
         override val focusAnimationSpec = snap<Float>()
 
         override fun ContentDrawScope.drawIndication() {
-            drawContent()
-            drawFocus()
-        }
-
-        private fun DrawScope.drawFocus() {
             val borderStrokeWidthPx = borderFocusWidth.toPx()
             val insetWidthPx = insetFocusWidth.toPx()
 
@@ -44,7 +38,9 @@ internal class ToggleFocusIndication(
                 size.height + borderStrokeWidthPx + insetWidthPx * 2
             )
 
-            inset((borderStrokeWidthPx * -0.5f) - insetWidthPx) {
+            drawContent()
+
+            inset(borderStrokeWidthPx * -0.5f - insetWidthPx) {
                 drawRoundRect(
                     brush = SolidColor(borderFocusColorState.value),
                     cornerRadius = CornerRadius(toggleDimensions.height.toPx()),

@@ -585,6 +585,7 @@ style:
     excludes: ['**/test/**', '**/androidTest/**', '**/commonTest/**', '**/jvmTest/**', '**/jsTest/**', '**/iosTest/**', '**/*.kts']
     ignoreNumbers:
       - '-1'
+      - '0,5'
       - '0'
       - '1'
       - '2'
