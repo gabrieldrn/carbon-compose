@@ -44,8 +44,8 @@ internal class ButtonFocusIndication(
             val borderStrokeWidthPx = (borderFocusWidth * focusAnimation.value).toPx()
             val insetStrokeWidthPx = (insetFocusWidth * focusAnimation.value).toPx()
 
-            val borderHalfStroke = borderStrokeWidthPx / 2
-            val insetOffset = borderStrokeWidthPx + borderHalfStroke / 2
+            val borderHalfStroke = borderStrokeWidthPx * .5f
+            val insetOffset = borderStrokeWidthPx + borderHalfStroke * .5f
 
             val topLeft = Offset(borderHalfStroke, borderHalfStroke)
             val topLeftInset = Offset(insetOffset, insetOffset)

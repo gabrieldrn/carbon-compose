@@ -151,11 +151,11 @@ private fun ToggleImpl(
     val toggleWidth = with(density) { dimensions.width.toPx() }
     val handleCheckmarkOffset = with(density) {
         Offset(
-            (handleSizePx - toggleCheckmarkIconWidth.toPx()) / 2,
-            (handleSizePx - toggleCheckmarkIconHeight.toPx()) / 2
+            (handleSizePx - toggleCheckmarkIconWidth.toPx()) * .5f,
+            (handleSizePx - toggleCheckmarkIconHeight.toPx()) * .5f
         )
     }
-    val handleYOffPosPx = (toggleHeight - handleSizePx) / 2
+    val handleYOffPosPx = (toggleHeight - handleSizePx) * .5f
     val handleXOnPosPx = toggleWidth - handleSizePx - handleYOffPosPx
 
     val backgroundColor: Color by animateColorAsState(
@@ -285,7 +285,7 @@ private fun DrawScope.drawToggleBackground(
 
     //Border
     val strokeWidth = 1f.dp.toPx()
-    val halfStroke = strokeWidth / 2
+    val halfStroke = strokeWidth * .5f
     inset(halfStroke) {
         drawRoundRect(
             color = borderColor,
