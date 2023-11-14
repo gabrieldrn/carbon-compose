@@ -1,6 +1,7 @@
 plugins {
     id("carbon.android.application")
     alias(libs.plugins.kotlin.android)
+    id("carbon.detekt")
 }
 
 android {

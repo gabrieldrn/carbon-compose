@@ -1,5 +1,6 @@
 plugins {
     id("carbon.android.library")
+    id("carbon.detekt")
 }
 
 android {

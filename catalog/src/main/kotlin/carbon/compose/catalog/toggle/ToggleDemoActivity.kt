@@ -8,11 +8,10 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -49,62 +48,90 @@ class ToggleDemoActivity : AppCompatActivity() {
 
                     var isToggled by remember { mutableStateOf(false) }
 
-                    Toggle(
+                    DefaultToggles(
+                        isToggled = isToggled,
+                        onToggleChange = { isToggled = it }
+                    )
+                    SmallToggles(
                         isToggled = isToggled,
                         onToggleChange = { isToggled = it },
-                        label = "Toggle",
-                        actionText = if (isToggled) "On" else "Off",
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(SpacingScale.spacing05)
-                    )
-                    Toggle(
-                        isToggled = isToggled,
-                        isEnabled = false,
-                        onToggleChange = {},
-                        actionText = "Disabled",
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(SpacingScale.spacing05)
-                    )
-                    Toggle(
-                        isToggled = isToggled,
-                        isReadOnly = true,
-                        onToggleChange = {},
-                        actionText = "Read only",
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(SpacingScale.spacing05)
-                    )
-                    Spacer(modifier = Modifier.height(8.dp))
-                    SmallToggle(
-                        isToggled = isToggled,
-                        onToggleChange = { isToggled = it },
-                        actionText = if (isToggled) "On" else "Off",
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(SpacingScale.spacing05)
-                    )
-                    SmallToggle(
-                        isToggled = isToggled,
-                        isEnabled = false,
-                        onToggleChange = {},
-                        actionText = "Disabled",
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(SpacingScale.spacing05)
-                    )
-                    SmallToggle(
-                        isToggled = isToggled,
-                        isReadOnly = true,
-                        onToggleChange = {},
-                        actionText = "Read only",
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(SpacingScale.spacing05)
+                        modifier = Modifier.padding(top = 8.dp)
                     )
                 }
             }
+        }
+    }
+
+    @Composable
+    private fun DefaultToggles(
+        isToggled: Boolean,
+        onToggleChange: (Boolean) -> Unit,
+        modifier: Modifier = Modifier
+    ) {
+        Column(modifier = modifier) {
+            Toggle(
+                isToggled = isToggled,
+                onToggleChange = onToggleChange,
+                label = "Toggle",
+                actionText = if (isToggled) "On" else "Off",
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(SpacingScale.spacing05)
+            )
+            Toggle(
+                isToggled = isToggled,
+                isEnabled = false,
+                onToggleChange = {},
+                actionText = "Disabled",
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(SpacingScale.spacing05)
+            )
+            Toggle(
+                isToggled = isToggled,
+                isReadOnly = true,
+                onToggleChange = {},
+                actionText = "Read only",
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(SpacingScale.spacing05)
+            )
+        }
+    }
+
+    @Composable
+    private fun SmallToggles(
+        isToggled: Boolean,
+        onToggleChange: (Boolean) -> Unit,
+        modifier: Modifier = Modifier
+    ) {
+        Column(modifier = modifier) {
+            SmallToggle(
+                isToggled = isToggled,
+                onToggleChange = onToggleChange,
+                actionText = if (isToggled) "On" else "Off",
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(SpacingScale.spacing05)
+            )
+            SmallToggle(
+                isToggled = isToggled,
+                isEnabled = false,
+                onToggleChange = {},
+                actionText = "Disabled",
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(SpacingScale.spacing05)
+            )
+            SmallToggle(
+                isToggled = isToggled,
+                isReadOnly = true,
+                onToggleChange = {},
+                actionText = "Read only",
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(SpacingScale.spacing05)
+            )
         }
     }
 }

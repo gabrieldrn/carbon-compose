@@ -199,6 +199,8 @@ coroutines:
     active: true
   SleepInsteadOfDelay:
     active: true
+  SuspendFunSwallowedCancellation:
+    active: true
   SuspendFunWithCoroutineScopeReceiver:
     active: true
   SuspendFunWithFlowReturnType:
@@ -316,7 +318,6 @@ naming:
     active: true
     excludes: ['**/test/**', '**/androidTest/**', '**/commonTest/**', '**/jvmTest/**', '**/jsTest/**', '**/iosTest/**']
     allowedPattern: '^(is|has|are)'
-    ignoreOverridden: true
   ClassNaming:
     active: true
     excludes: ['**/test/**', '**/androidTest/**', '**/commonTest/**', '**/jvmTest/**', '**/jsTest/**', '**/iosTest/**']
@@ -327,7 +328,6 @@ naming:
     parameterPattern: '[a-z][A-Za-z0-9]*'
     privateParameterPattern: '[a-z][A-Za-z0-9]*'
     excludeClassPattern: '$^'
-    ignoreOverridden: true
   EnumNaming:
     active: true
     excludes: ['**/test/**', '**/androidTest/**', '**/commonTest/**', '**/jvmTest/**', '**/jsTest/**', '**/iosTest/**']
@@ -349,7 +349,6 @@ naming:
     excludes: ['**/test/**', '**/androidTest/**', '**/commonTest/**', '**/jvmTest/**', '**/jsTest/**', '**/iosTest/**']
     functionPattern: '([a-z][a-zA-Z0-9]*)|(`.*`)'
     excludeClassPattern: '$^'
-    ignoreOverridden: true
     ignoreAnnotated:
       - 'Composable'
   FunctionParameterNaming:
@@ -357,7 +356,6 @@ naming:
     excludes: ['**/test/**', '**/androidTest/**', '**/commonTest/**', '**/jvmTest/**', '**/jsTest/**', '**/iosTest/**']
     parameterPattern: '[a-z][A-Za-z0-9]*'
     excludeClassPattern: '$^'
-    ignoreOverridden: true
   InvalidPackageDeclaration:
     active: true
     excludes: ['**/*.kts']
@@ -423,6 +421,8 @@ potential-bugs:
     active: true
     forbiddenTypePatterns:
       - 'kotlin.String'
+  CastNullableToNonNullableType:
+    active: true
   CastToNullableType:
     active: true
   Deprecation:
@@ -489,6 +489,8 @@ potential-bugs:
     active: false
   NullableToStringCall:
     active: false
+  PropertyUsedBeforeDeclaration:
+    active: true
   UnconditionalJumpStatementInLoop:
     active: true
   UnnecessaryNotNullCheck:
@@ -517,6 +519,14 @@ style:
   active: true
   AlsoCouldBeApply:
     active: true
+  BracesOnIfStatements:
+    active: true
+    singleLine: 'consistent'
+    multiLine: 'always'
+  BracesOnWhenStatements:
+    active: true
+    singleLine: 'consistent'
+    multiLine: 'necessary'
   CanBeNonNullable:
     active: true
   CascadingCallWrapping:
@@ -535,6 +545,8 @@ style:
   DestructuringDeclarationWithTooManyEntries:
     active: false
     maxDestructuringEntries: 3
+  DoubleNegativeLambda:
+    active: true
   EqualsNullCall:
     active: true
   EqualsOnSignatureLine:
@@ -546,14 +558,12 @@ style:
   ExpressionBodySyntax:
     active: true
     includeLineWrapping: false
+  ForbiddenAnnotation:
+    active: false
+    annotations: []
   ForbiddenComment:
     active: false
-    values:
-      - 'FIXME:'
-      - 'STOPSHIP:'
-      - 'TODO:'
     allowedPatterns: ''
-    customMessage: ''
   ForbiddenImport:
     active: false
     imports: []
@@ -604,8 +614,6 @@ style:
     ignoreRanges: false
     ignoreExtensionFunctions: true
     ignoreAnnotated: ['Preview']
-  MandatoryBracesIfStatements:
-    active: true
   MandatoryBracesLoops:
     active: true
   MaxChainedCallsOnSameLine:
@@ -641,8 +649,6 @@ style:
     active: true
   OptionalUnit:
     active: false
-  OptionalWhenBraces:
-    active: true
   PreferToOverPairSyntax:
     active: true
   ProtectedMemberInFinalClass:
@@ -667,6 +673,8 @@ style:
     active: true
   SpacingBetweenPackageAndImports:
     active: true
+  StringShouldBeRawString:
+    active: true
   ThrowsCount:
     active: true
     max: 2
@@ -687,6 +695,8 @@ style:
     active: true
   UnnecessaryBackticks:
     active: false
+  UnnecessaryBracesAroundTrailingLambda:
+    active: false
   UnnecessaryFilter:
     active: true
   UnnecessaryInheritance:
@@ -701,6 +711,8 @@ style:
   UntilInsteadOfRangeTo:
     active: true
   UnusedImports:
+    active: true
+  UnusedParameter:
     active: true
   UnusedPrivateClass:
     active: true
@@ -727,6 +739,8 @@ style:
   UseIfInsteadOfWhen:
     active: true
   UseIsNullOrEmpty:
+    active: true
+  UseLet:
     active: true
   UseOrEmpty:
     active: true

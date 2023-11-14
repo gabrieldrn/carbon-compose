@@ -14,6 +14,7 @@ java {
 dependencies {
     compileOnly(libs.android.gradlePlugin)
     compileOnly(libs.kotlin.gradlePlugin)
+    compileOnly(libs.detekt.gradlePlugin)
 }
 
 gradlePlugin {
@@ -32,6 +33,11 @@ gradlePlugin {
         register("application") {
             id = "carbon.android.application"
             implementationClass = "CarbonApplicationConventionPlugin"
+        }
+
+        register("detekt") {
+            id = "carbon.detekt"
+            implementationClass = "CarbonDetektConventionPlugin"
         }
 
         // TODO Publication plugin

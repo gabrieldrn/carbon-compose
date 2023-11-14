@@ -19,7 +19,7 @@ androidxLifecycle = "2.6.2"
 androidxTestCore = "1.5.0"
 androidxTestExtJunit = "1.1.5"
 binaryCompatibilityValidator = "0.13.1"
-detekt = "1.22.0"
+detekt = "1.23.3"
 dokka = "1.8.20"
 junit = "4.13.2"
 timber = "5.0.1"
@@ -44,6 +44,7 @@ timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
 # Build logic
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
+detekt-gradlePlugin = { group = "io.gitlab.arturbosch.detekt", name = "io.gitlab.arturbosch.detekt.gradle.plugin", version.ref = "detekt" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
