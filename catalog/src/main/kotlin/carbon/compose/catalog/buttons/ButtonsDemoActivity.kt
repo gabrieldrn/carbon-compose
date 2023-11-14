@@ -33,6 +33,7 @@ import carbon.compose.foundation.spacing.SpacingScale
 import carbon.compose.toggle.Toggle
 import carbon.compose.uishell.UiShellHeader
 
+@Suppress("UndocumentedPublicClass")
 class ButtonsDemoActivity : AppCompatActivity() {
 
     private val buttons = mapOf(

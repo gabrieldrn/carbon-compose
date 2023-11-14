@@ -34,6 +34,7 @@ import carbon.compose.foundation.spacing.SpacingScale
 import carbon.compose.foundation.text.CarbonTypography
 import carbon.compose.uishell.UiShellHeader
 
+@Suppress("UndocumentedPublicClass")
 class HomeActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

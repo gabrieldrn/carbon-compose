@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import carbon.compose.catalog.buttons.ButtonsDemoActivity
 import carbon.compose.catalog.toggle.ToggleDemoActivity
 
+@Suppress("UndocumentedPublicClass", "UndocumentedPublicProperty")
 enum class CarbonComponent(
     val title: String,
     @DrawableRes val illustration: Int? = null,
@@ -43,5 +44,5 @@ enum class CarbonComponent(
     Tile("Tile"),
     Toggle("Toggle", R.drawable.tile_toggle, ToggleDemoActivity::class.java),
     Tooltip("Tooltip"),
-    UIShell("UI shell"),
+    UIShell("UI shell")
 }

@@ -26,6 +26,7 @@ import carbon.compose.toggle.SmallToggle
 import carbon.compose.toggle.Toggle
 import carbon.compose.uishell.UiShellHeader
 
+@Suppress("UndocumentedPublicClass")
 class ToggleDemoActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

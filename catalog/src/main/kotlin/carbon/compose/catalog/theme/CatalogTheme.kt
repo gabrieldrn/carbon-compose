@@ -5,6 +5,7 @@ import carbon.compose.CarbonDesignSystem
 import carbon.compose.foundation.color.Gray100Theme
 
 @Composable
+@Suppress("UndocumentedPublicFunction")
 fun CarbonCatalogTheme(
     content: @Composable () -> Unit
 ) {
