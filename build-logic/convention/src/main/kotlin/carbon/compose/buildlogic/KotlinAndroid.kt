@@ -32,6 +32,6 @@ internal fun Project.configureKotlinAndroidCommon(
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = libs.getVersion("androidxComposeCompiler")
+        kotlinCompilerExtensionVersion = libs.getVersion("androidxCompose")
     }
 }
