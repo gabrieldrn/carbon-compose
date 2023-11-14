@@ -4,10 +4,10 @@ plugins {
 }
 
 android {
-    namespace = "dev.gabrieldrn.carboncatalog"
+    namespace = "carbon.compose.catalog"
 
     defaultConfig {
-        applicationId = "dev.gabrieldrn.carboncatalog"
+        applicationId = "carbon.compose.catalog"
         versionCode = 1
         versionName = "0.1"
     }

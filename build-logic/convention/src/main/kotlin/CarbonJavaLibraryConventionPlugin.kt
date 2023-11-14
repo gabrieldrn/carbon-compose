@@ -1,7 +1,7 @@
-import dev.gabrieldrn.carbon.buildlogic.getPlugin
-import dev.gabrieldrn.carbon.buildlogic.javaVersion
-import dev.gabrieldrn.carbon.buildlogic.libs
-import dev.gabrieldrn.carbon.buildlogic.setupExplicitApi
+import carbon.compose.buildlogic.getPlugin
+import carbon.compose.buildlogic.javaVersion
+import carbon.compose.buildlogic.libs
+import carbon.compose.buildlogic.setupExplicitApi
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.plugins.JavaPluginExtension

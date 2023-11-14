@@ -1,8 +1,8 @@
 import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
-import dev.gabrieldrn.carbon.buildlogic.configureKotlinAndroidCommon
-import dev.gabrieldrn.carbon.buildlogic.getPlugin
-import dev.gabrieldrn.carbon.buildlogic.getVersion
-import dev.gabrieldrn.carbon.buildlogic.libs
+import carbon.compose.buildlogic.configureKotlinAndroidCommon
+import carbon.compose.buildlogic.getPlugin
+import carbon.compose.buildlogic.getVersion
+import carbon.compose.buildlogic.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure

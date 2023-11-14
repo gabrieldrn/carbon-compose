@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "dev.gabrieldrn.carbon"
+    namespace = "carbon.compose"
 }
 
 dependencies {

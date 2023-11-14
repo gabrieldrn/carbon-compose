@@ -1,9 +1,9 @@
+import carbon.compose.buildlogic.configureKotlinAndroidCommon
+import carbon.compose.buildlogic.getLibrary
+import carbon.compose.buildlogic.getPlugin
+import carbon.compose.buildlogic.libs
+import carbon.compose.buildlogic.setupExplicitApi
 import com.android.build.gradle.LibraryExtension
-import dev.gabrieldrn.carbon.buildlogic.configureKotlinAndroidCommon
-import dev.gabrieldrn.carbon.buildlogic.getLibrary
-import dev.gabrieldrn.carbon.buildlogic.getPlugin
-import dev.gabrieldrn.carbon.buildlogic.libs
-import dev.gabrieldrn.carbon.buildlogic.setupExplicitApi
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
