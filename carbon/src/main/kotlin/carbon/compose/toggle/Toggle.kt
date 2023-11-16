@@ -187,7 +187,11 @@ private fun ToggleImpl(
     )
 
     val handleCheckmarkColor: Color by animateColorAsState(
-        targetValue = if (isToggled) theme.supportSuccess else Color.Transparent,
+        targetValue = when {
+            !isToggled || isReadOnly -> Color.Transparent
+            !isEnabled -> theme.buttonDisabled
+            else -> theme.supportSuccess
+        },
         animationSpec = TOGGLE_COLOR_ANIMATION_SPEC,
         label = "Handle checkmark color"
     )
