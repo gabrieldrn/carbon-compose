@@ -26,6 +26,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import carbon.compose.CarbonDesignSystem
+import carbon.compose.foundation.color.LocalCarbonInlineTheme
 import carbon.compose.foundation.color.LocalCarbonTheme
 import carbon.compose.foundation.color.Theme
 import carbon.compose.foundation.spacing.SpacingScale
@@ -38,7 +39,7 @@ public fun UiShellHeader(
     @DrawableRes menuIconRes: Int = 0,
     onMenuIconPressed: () -> Unit = {},
     windowInsets: WindowInsets = WindowInsets.statusBars.only(WindowInsetsSides.Top),
-    inlineTheme: Theme = CarbonDesignSystem.inlineTheme,
+    inlineTheme: Theme = LocalCarbonInlineTheme.current,
 ) {
     CarbonDesignSystem(inlineTheme) {
         Box(
