@@ -2,18 +2,18 @@ package carbon.compose.foundation.interaction
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.FiniteAnimationSpec
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.IndicationInstance
 import androidx.compose.foundation.interaction.FocusInteraction
+import androidx.compose.runtime.Stable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.referentialEqualityPolicy
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import carbon.compose.foundation.color.Theme
-import carbon.compose.foundation.motion.Motion
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
+@Stable
 internal abstract class FocusIndicationInstance(theme: Theme) : IndicationInstance {
 
     protected val borderFocusWidth = 2f.dp
@@ -24,10 +24,7 @@ internal abstract class FocusIndicationInstance(theme: Theme) : IndicationInstan
 
     protected val focusAnimation = Animatable(0f)
 
-    protected open val focusAnimationSpec: FiniteAnimationSpec<Float> = tween(
-        durationMillis = Motion.Duration.fast01,
-        easing = Motion.Entrance.productiveEasing
-    )
+    abstract val focusAnimationSpec: FiniteAnimationSpec<Float>
 
     protected val borderFocusColorState = derivedStateOf(referentialEqualityPolicy()) {
         // Strangely, when the focus border is multiplied by 0, there is still a border

@@ -53,6 +53,8 @@ internal val buttonTransitionSpec: AnimationSpec<Color> = tween(
  * @param interactionSource The [MutableInteractionSource] that keeps track of the button's state.
  */
 // TODO Support system font scale?
+// FIXME This is currently compiled as restartable but not skippable because of the use of Painter.
+//  Check recomposition count with current implementation and replace Painter usage if necessary.
 @Composable
 public fun Button(
     label: String,

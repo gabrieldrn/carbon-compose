@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -139,82 +140,80 @@ private fun ToggleImpl(
     isEnabled: Boolean = true,
     isReadOnly: Boolean = false,
 ) {
-    val theme = LocalCarbonTheme.current
-    val density = LocalDensity.current
-
-    val onClick = { onToggleChange(!isToggled) }
-
-    val indication = remember { ToggleFocusIndication(dimensions) }
-
-    val handleSizePx = with(density) { dimensions.handleSize.toPx() }
-    val toggleHeight = with(density) { dimensions.height.toPx() }
-    val toggleWidth = with(density) { dimensions.width.toPx() }
-    val handleCheckmarkOffset = with(density) {
-        Offset(
-            (handleSizePx - toggleCheckmarkIconWidth.toPx()) * .5f,
-            (handleSizePx - toggleCheckmarkIconHeight.toPx()) * .5f
-        )
-    }
-    val handleYOffPosPx = (toggleHeight - handleSizePx) * .5f
-    val handleXOnPosPx = toggleWidth - handleSizePx - handleYOffPosPx
-
-    val backgroundColor: Color by animateColorAsState(
-        targetValue = when {
-            !isEnabled -> theme.buttonDisabled
-            isReadOnly -> Color.Transparent
-            isToggled -> theme.supportSuccess
-            else -> theme.toggleOff
-        },
-        animationSpec = TOGGLE_COLOR_ANIMATION_SPEC,
-        label = "Toggle background color"
-    )
-
-    val borderColor: Color by animateColorAsState(
-        // TODO Impl contextual border color based on layer
-        targetValue = if (isReadOnly && isEnabled) theme.borderSubtle01 else Color.Transparent,
-        animationSpec = TOGGLE_COLOR_ANIMATION_SPEC,
-        label = "Toggle border color"
-    )
-
-    val handleColor: Color by animateColorAsState(
-        targetValue = when {
-            !isEnabled -> theme.iconOnColorDisabled
-            isReadOnly -> theme.iconPrimary
-            else -> theme.iconOnColor
-        },
-        animationSpec = TOGGLE_COLOR_ANIMATION_SPEC,
-        label = "Handle color"
-    )
-
-    val handleCheckmarkColor: Color by animateColorAsState(
-        targetValue = when {
-            !isToggled || isReadOnly -> Color.Transparent
-            !isEnabled -> theme.buttonDisabled
-            else -> theme.supportSuccess
-        },
-        animationSpec = TOGGLE_COLOR_ANIMATION_SPEC,
-        label = "Handle checkmark color"
-    )
-
-    val handleXPos: Float by animateFloatAsState(
-        targetValue = if (isToggled) handleXOnPosPx else handleYOffPosPx,
-        animationSpec = TOGGLE_FLOAT_ANIMATION_SPEC,
-        label = "Toggle handle position"
-    )
-
-    val labelColor: Color by animateColorAsState(
-        targetValue = if (isEnabled) theme.textPrimary else theme.textDisabled,
-        animationSpec = TOGGLE_COLOR_ANIMATION_SPEC,
-        label = "Label color"
-    )
-
-    val actionTextColor: Color by animateColorAsState(
-        targetValue = if (isEnabled) theme.textPrimary else theme.textDisabled,
-        animationSpec = TOGGLE_COLOR_ANIMATION_SPEC,
-        label = "Action text color"
-    )
-
     Column(modifier = modifier) {
+        val theme = LocalCarbonTheme.current
+        val density = LocalDensity.current
+
+        val indication by remember { mutableStateOf(ToggleFocusIndication(dimensions)) }
+
+        val handleSizePx = with(density) { dimensions.handleSize.toPx() }
+        val toggleHeight = with(density) { dimensions.height.toPx() }
+        val toggleWidth = with(density) { dimensions.width.toPx() }
+        val handleCheckmarkOffset = with(density) {
+            Offset(
+                (handleSizePx - toggleCheckmarkIconWidth.toPx()) * .5f,
+                (handleSizePx - toggleCheckmarkIconHeight.toPx()) * .5f
+            )
+        }
+        val handleYOffPosPx = (toggleHeight - handleSizePx) * .5f
+        val handleXOnPosPx = toggleWidth - handleSizePx - handleYOffPosPx
+
+        val backgroundColor: Color by animateColorAsState(
+            targetValue = when {
+                !isEnabled -> theme.buttonDisabled
+                isReadOnly -> Color.Transparent
+                isToggled -> theme.supportSuccess
+                else -> theme.toggleOff
+            },
+            animationSpec = TOGGLE_COLOR_ANIMATION_SPEC,
+            label = "Toggle background color"
+        )
+
+        val borderColor: Color by animateColorAsState(
+            // TODO Impl contextual border color based on layer
+            targetValue = if (isReadOnly && isEnabled) theme.borderSubtle01 else Color.Transparent,
+            animationSpec = TOGGLE_COLOR_ANIMATION_SPEC,
+            label = "Toggle border color"
+        )
+
+        val handleColor: Color by animateColorAsState(
+            targetValue = when {
+                !isEnabled -> theme.iconOnColorDisabled
+                isReadOnly -> theme.iconPrimary
+                else -> theme.iconOnColor
+            },
+            animationSpec = TOGGLE_COLOR_ANIMATION_SPEC,
+            label = "Handle color"
+        )
+
+        val handleCheckmarkColor: Color by animateColorAsState(
+            targetValue = when {
+                !isToggled || isReadOnly -> Color.Transparent
+                !isEnabled -> theme.buttonDisabled
+                else -> theme.supportSuccess
+            },
+            animationSpec = TOGGLE_COLOR_ANIMATION_SPEC,
+            label = "Handle checkmark color"
+        )
+
+        val handleXPos: Float by animateFloatAsState(
+            targetValue = if (isToggled) handleXOnPosPx else handleYOffPosPx,
+            animationSpec = TOGGLE_FLOAT_ANIMATION_SPEC,
+            label = "Toggle handle position"
+        )
+
+        val labelColor: Color by animateColorAsState(
+            targetValue = if (isEnabled) theme.textPrimary else theme.textDisabled,
+            animationSpec = TOGGLE_COLOR_ANIMATION_SPEC,
+            label = "Label color"
+        )
+
+        val actionTextColor: Color by animateColorAsState(
+            targetValue = if (isEnabled) theme.textPrimary else theme.textDisabled,
+            animationSpec = TOGGLE_COLOR_ANIMATION_SPEC,
+            label = "Action text color"
+        )
+
         if (label.isNotEmpty()) {
             Text(
                 text = label,
@@ -230,7 +229,7 @@ private fun ToggleImpl(
                     interactionSource = interactionSource,
                     indication = null,
                     enabled = isEnabled && !isReadOnly,
-                    onClick = onClick
+                    onClick = { onToggleChange(!isToggled) }
                 )
                 // This is to restrict focus to the toggle itself. In correlation, the clickable
                 // modifier above keep a better accessibility interaction on the whole component.
@@ -246,7 +245,7 @@ private fun ToggleImpl(
                         interactionSource = interactionSource,
                         indication = indication,
                         enabled = isEnabled && !isReadOnly,
-                        onClick = onClick,
+                        onClick = { onToggleChange(!isToggled) },
                     )
             ) {
                 drawToggleBackground(

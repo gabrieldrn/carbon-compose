@@ -1,5 +1,6 @@
 package carbon.compose.foundation.spacing
 
+import androidx.compose.runtime.Immutable
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
@@ -13,6 +14,7 @@ import androidx.compose.ui.unit.dp
  * See [Spacing guidelines](https://carbondesignsystem.com/guidelines/spacing/overview/) for more
  * information.
  */
+@Immutable
 @Suppress("UndocumentedPublicProperty")
 public object SpacingScale {
     public val spacing01: Dp = 2.dp

@@ -1,6 +1,7 @@
 package carbon.compose.foundation.motion
 
 import androidx.compose.animation.core.CubicBezierEasing
+import androidx.compose.runtime.Immutable
 
 /**
  * # Carbon motion
@@ -24,6 +25,7 @@ import androidx.compose.animation.core.CubicBezierEasing
  * or when the movement itself conveys a meaning. System alerts and the appearance of notification
  * boxes are great cases for expressive motion.
  */
+@Immutable
 public object Motion {
 
     /**
@@ -34,6 +36,7 @@ public object Motion {
      * This calculation is an upcoming feature. Currently, there are six static value tokens for
      * easier implementation.
      */
+    @Immutable
     public object Duration {
 
         /**
@@ -74,6 +77,7 @@ public object Motion {
      * Use standard easing when an element is visible from the beginning to the end of a motion.
      * Expanding tiles and the sorting of table rows are good examples.
      */
+    @Immutable
     public object Standard {
 
         /**
@@ -102,6 +106,7 @@ public object Motion {
      * response to the user’s input, such as a dropdown opening or toggle switching should also use
      * this style.
      */
+    @Immutable
     public object Entrance {
 
         /**
@@ -134,6 +139,7 @@ public object Motion {
      * leaves the view, but slows down as it exits, implying that it would come to rest just outside
      * the view, and ready to be recalled.
      */
+    @Immutable
     public object Exit {
 
         /**

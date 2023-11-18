@@ -44,20 +44,22 @@ class ToggleDemoActivity : AppCompatActivity() {
                     UiShellHeader(
                         headerName = "Toggle",
                         menuIconRes = R.drawable.ic_arrow_left,
-                        onMenuIconPressed = onBackPressedDispatcher::onBackPressed,
+                        onMenuIconPressed = { onBackPressedDispatcher.onBackPressed() },
                     )
 
-                    var isToggled by remember { mutableStateOf(false) }
+                    Column(modifier = Modifier.weight(1f)) {
+                        var isToggled by remember { mutableStateOf(false) }
 
-                    DefaultToggles(
-                        isToggled = isToggled,
-                        onToggleChange = { isToggled = it }
-                    )
-                    SmallToggles(
-                        isToggled = isToggled,
-                        onToggleChange = { isToggled = it },
-                        modifier = Modifier.padding(top = 8.dp)
-                    )
+                        DefaultToggles(
+                            isToggled = isToggled,
+                            onToggleChange = { isToggled = it }
+                        )
+                        SmallToggles(
+                            isToggled = isToggled,
+                            onToggleChange = { isToggled = it },
+                            modifier = Modifier.padding(top = 8.dp)
+                        )
+                    }
                 }
             }
         }

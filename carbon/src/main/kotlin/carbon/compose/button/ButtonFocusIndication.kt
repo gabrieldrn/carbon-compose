@@ -1,5 +1,7 @@
 package carbon.compose.button
 
+import androidx.compose.animation.core.FiniteAnimationSpec
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Indication
 import androidx.compose.foundation.IndicationInstance
 import androidx.compose.foundation.interaction.FocusInteraction
@@ -18,6 +20,7 @@ import androidx.compose.ui.graphics.drawscope.clipRect
 import carbon.compose.foundation.color.LocalCarbonTheme
 import carbon.compose.foundation.color.Theme
 import carbon.compose.foundation.interaction.FocusIndicationInstance
+import carbon.compose.foundation.motion.Motion
 import kotlinx.coroutines.flow.filterIsInstance
 
 internal class ButtonFocusIndication(
@@ -34,6 +37,11 @@ internal class ButtonFocusIndication(
         } else {
             theme.focusInset
         }
+
+        override val focusAnimationSpec: FiniteAnimationSpec<Float> = tween(
+            durationMillis = Motion.Duration.fast01,
+            easing = Motion.Entrance.productiveEasing
+        )
 
         override fun ContentDrawScope.drawIndication() {
             drawContent()

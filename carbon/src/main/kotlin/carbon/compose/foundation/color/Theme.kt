@@ -1,5 +1,6 @@
 package carbon.compose.foundation.color
 
+import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
 
 /**
@@ -13,6 +14,7 @@ import androidx.compose.ui.graphics.Color
  * See [Themes guidelines](https://carbondesignsystem.com/guidelines/themes/overview/) for more
  * information.
  */
+@Immutable
 public interface Theme {
 
     // region Background
