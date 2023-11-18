@@ -1,6 +1,7 @@
 import carbon.compose.buildlogic.configureKotlinAndroidCommon
 import carbon.compose.buildlogic.getLibrary
 import carbon.compose.buildlogic.getPlugin
+import carbon.compose.buildlogic.kotlinOptions
 import carbon.compose.buildlogic.libs
 import carbon.compose.buildlogic.setupExplicitApi
 import com.android.build.gradle.LibraryExtension
@@ -45,6 +46,17 @@ class CarbonAndroidLibraryConventionPlugin : Plugin<Project> {
                         "proguard-rules.pro"
                     )
                 }
+            }
+
+            kotlinOptions {
+                freeCompilerArgs += listOf(
+                    "-P",
+                    "plugin:androidx.compose.compiler.plugins.kotlin:metricsDestination=" +
+                        "$buildDir/compose/metrics",
+                    "-P",
+                    "plugin:androidx.compose.compiler.plugins.kotlin:reportsDestination=" +
+                        "$buildDir/compose/reports"
+                )
             }
 
             testOptions {
