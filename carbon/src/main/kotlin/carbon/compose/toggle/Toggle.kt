@@ -4,12 +4,12 @@ import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.selection.toggleable
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -225,11 +225,12 @@ private fun ToggleImpl(
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
-                .clickable(
+                .toggleable(
+                    value = isToggled,
+                    onValueChange = { onToggleChange(!isToggled) },
+                    enabled = isEnabled && !isReadOnly,
                     interactionSource = interactionSource,
                     indication = null,
-                    enabled = isEnabled && !isReadOnly,
-                    onClick = { onToggleChange(!isToggled) }
                 )
                 // This is to restrict focus to the toggle itself. In correlation, the clickable
                 // modifier above keep a better accessibility interaction on the whole component.
@@ -241,11 +242,12 @@ private fun ToggleImpl(
             Canvas(
                 modifier = Modifier
                     .size(dimensions.width, dimensions.height)
-                    .clickable(
+                    .toggleable(
+                        value = isToggled,
+                        onValueChange = { onToggleChange(!isToggled) },
+                        enabled = isEnabled && !isReadOnly,
                         interactionSource = interactionSource,
                         indication = indication,
-                        enabled = isEnabled && !isReadOnly,
-                        onClick = { onToggleChange(!isToggled) },
                     )
             ) {
                 drawToggleBackground(
