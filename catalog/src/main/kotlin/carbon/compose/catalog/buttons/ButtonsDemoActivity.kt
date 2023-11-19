@@ -15,9 +15,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -56,58 +58,62 @@ class ButtonsDemoActivity : AppCompatActivity() {
         setContent {
             CarbonCatalogTheme {
                 Column(
-                    modifier = Modifier
-                        .background(LocalCarbonTheme.current.background)
-                        .fillMaxSize(),
+                    modifier = Modifier.background(LocalCarbonTheme.current.background),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     UiShellHeader(
                         headerName = "Buttons",
                         menuIconRes = R.drawable.ic_arrow_left,
-                        onMenuIconPressed = onBackPressedDispatcher::onBackPressed,
+                        onMenuIconPressed = { onBackPressedDispatcher.onBackPressed() },
                     )
 
-                    var isEnabled by remember {
-                        mutableStateOf(true)
-                    }
-
-                    Toggle(
-                        label = "Enable buttons",
-                        isToggled = isEnabled,
-                        onToggleChange = { isEnabled = it },
+                    Column(
                         modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = SpacingScale.spacing05)
-                            .padding(top = SpacingScale.spacing05)
-                    )
+                            .fillMaxSize()
+                            .verticalScroll(state = rememberScrollState())
+                    ) {
 
-                    Spacer(modifier = Modifier.height(SpacingScale.spacing05))
+                        var isEnabled by rememberSaveable { mutableStateOf(true) }
 
-                    // FIXME Expected performance issue when toggling isEnabled. Change this to
-                    //  present only one button, parameterized with toggle and dropdown components
-                    //  when available.
-                    buttons.forEach { (label, buttonType) ->
-                        Row(
+                        Toggle(
+                            label = "Enable buttons",
+                            isToggled = isEnabled,
+                            onToggleChange = { isEnabled = it },
                             modifier = Modifier
+                                .fillMaxWidth()
                                 .padding(horizontal = SpacingScale.spacing05)
-                                .padding(bottom = SpacingScale.spacing05),
-                        ) {
-                            Button(
-                                label = label,
-                                onClick = {},
-                                buttonType = buttonType,
-                                buttonSize = ButtonSize.LargeProductive,
-                                isEnabled = isEnabled,
-                                iconPainter = painterResource(id = R.drawable.ic_add),
-                                modifier = Modifier.weight(1f)
-                            )
-                            Spacer(modifier = Modifier.width(SpacingScale.spacing05))
-                            IconButton(
-                                onClick = {},
-                                buttonType = buttonType,
-                                isEnabled = isEnabled,
-                                iconPainter = painterResource(id = R.drawable.ic_add),
-                            )
+                                .padding(top = SpacingScale.spacing05)
+                        )
+
+                        Spacer(modifier = Modifier.height(SpacingScale.spacing05))
+
+                        // FIXME Expected performance issue when toggling isEnabled. Change this to
+                        //  present only one button, parameterized with toggle and dropdown components
+                        //  when available.
+
+                        buttons.forEach { (label, buttonType) ->
+                            Row(
+                                modifier = Modifier
+                                    .padding(horizontal = SpacingScale.spacing05)
+                                    .padding(bottom = SpacingScale.spacing05),
+                            ) {
+                                Button(
+                                    label = label,
+                                    onClick = {},
+                                    buttonType = buttonType,
+                                    buttonSize = ButtonSize.LargeProductive,
+                                    isEnabled = isEnabled,
+                                    iconPainter = painterResource(id = R.drawable.ic_add),
+                                    modifier = Modifier.weight(1f)
+                                )
+                                Spacer(modifier = Modifier.width(SpacingScale.spacing05))
+                                IconButton(
+                                    onClick = {},
+                                    buttonType = buttonType,
+                                    isEnabled = isEnabled,
+                                    iconPainter = painterResource(id = R.drawable.ic_add),
+                                )
+                            }
                         }
                     }
                 }

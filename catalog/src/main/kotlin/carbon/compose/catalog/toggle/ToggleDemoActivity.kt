@@ -9,12 +9,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -37,9 +38,7 @@ class ToggleDemoActivity : AppCompatActivity() {
         setContent {
             CarbonCatalogTheme {
                 Column(
-                    modifier = Modifier
-                        .background(LocalCarbonTheme.current.background)
-                        .fillMaxSize(),
+                    modifier = Modifier.background(LocalCarbonTheme.current.background)
                 ) {
                     UiShellHeader(
                         headerName = "Toggle",
@@ -47,8 +46,12 @@ class ToggleDemoActivity : AppCompatActivity() {
                         onMenuIconPressed = { onBackPressedDispatcher.onBackPressed() },
                     )
 
-                    Column(modifier = Modifier.weight(1f)) {
-                        var isToggled by remember { mutableStateOf(false) }
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .verticalScroll(state = rememberScrollState())
+                    ) {
+                        var isToggled by rememberSaveable { mutableStateOf(false) }
 
                         DefaultToggles(
                             isToggled = isToggled,
@@ -77,27 +80,21 @@ class ToggleDemoActivity : AppCompatActivity() {
                 onToggleChange = onToggleChange,
                 label = "Toggle",
                 actionText = if (isToggled) "On" else "Off",
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(SpacingScale.spacing05)
+                modifier = Modifier.padding(SpacingScale.spacing05)
             )
             Toggle(
                 isToggled = isToggled,
                 isEnabled = false,
                 onToggleChange = {},
                 actionText = "Disabled",
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(SpacingScale.spacing05)
+                modifier = Modifier.padding(SpacingScale.spacing05)
             )
             Toggle(
                 isToggled = isToggled,
                 isReadOnly = true,
                 onToggleChange = {},
                 actionText = "Read only",
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(SpacingScale.spacing05)
+                modifier = Modifier.padding(SpacingScale.spacing05)
             )
         }
     }
@@ -113,27 +110,21 @@ class ToggleDemoActivity : AppCompatActivity() {
                 isToggled = isToggled,
                 onToggleChange = onToggleChange,
                 actionText = if (isToggled) "On" else "Off",
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(SpacingScale.spacing05)
+                modifier = Modifier.padding(SpacingScale.spacing05)
             )
             SmallToggle(
                 isToggled = isToggled,
                 isEnabled = false,
                 onToggleChange = {},
                 actionText = "Disabled",
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(SpacingScale.spacing05)
+                modifier = Modifier.padding(SpacingScale.spacing05)
             )
             SmallToggle(
                 isToggled = isToggled,
                 isReadOnly = true,
                 onToggleChange = {},
                 actionText = "Read only",
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(SpacingScale.spacing05)
+                modifier = Modifier.padding(SpacingScale.spacing05)
             )
         }
     }
