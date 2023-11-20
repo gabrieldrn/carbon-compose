@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -88,35 +89,42 @@ class ButtonsDemoActivity : AppCompatActivity() {
                         Spacer(modifier = Modifier.height(SpacingScale.spacing05))
 
                         // FIXME Expected performance issue when toggling isEnabled. Change this to
-                        //  present only one button, parameterized with toggle and dropdown components
-                        //  when available.
-
-                        buttons.forEach { (label, buttonType) ->
-                            Row(
-                                modifier = Modifier
-                                    .padding(horizontal = SpacingScale.spacing05)
-                                    .padding(bottom = SpacingScale.spacing05),
-                            ) {
-                                Button(
-                                    label = label,
-                                    onClick = {},
-                                    buttonType = buttonType,
-                                    buttonSize = ButtonSize.LargeProductive,
-                                    isEnabled = isEnabled,
-                                    iconPainter = painterResource(id = R.drawable.ic_add),
-                                    modifier = Modifier.weight(1f)
-                                )
-                                Spacer(modifier = Modifier.width(SpacingScale.spacing05))
-                                IconButton(
-                                    onClick = {},
-                                    buttonType = buttonType,
-                                    isEnabled = isEnabled,
-                                    iconPainter = painterResource(id = R.drawable.ic_add),
-                                )
-                            }
-                        }
+                        //  present only one button, parameterized with toggle and dropdown
+                        //  components when available.
+                        ButtonsGrid(isEnabled)
                     }
                 }
+            }
+        }
+    }
+
+    @Composable
+    private fun ButtonsGrid(
+        isEnabled: Boolean,
+        modifier: Modifier = Modifier
+    ) {
+        buttons.forEach { (label, buttonType) ->
+            Row(
+                modifier = modifier
+                    .padding(horizontal = SpacingScale.spacing05)
+                    .padding(bottom = SpacingScale.spacing05),
+            ) {
+                Button(
+                    label = label,
+                    onClick = {},
+                    buttonType = buttonType,
+                    buttonSize = ButtonSize.LargeProductive,
+                    isEnabled = isEnabled,
+                    iconPainter = painterResource(id = R.drawable.ic_add),
+                    modifier = Modifier.weight(1f)
+                )
+                Spacer(modifier = Modifier.width(SpacingScale.spacing05))
+                IconButton(
+                    onClick = {},
+                    buttonType = buttonType,
+                    isEnabled = isEnabled,
+                    iconPainter = painterResource(id = R.drawable.ic_add),
+                )
             }
         }
     }
