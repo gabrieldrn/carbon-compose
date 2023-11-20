@@ -139,6 +139,8 @@ internal fun Label(
 }
 
 @Composable
+// FIXME Using Painter + colorFilter: animated color presents a lot of recompositions when animated.
+//  Try to optimize.
 internal fun ButtonIcon(
     painter: Painter,
     colors: ButtonColors,
