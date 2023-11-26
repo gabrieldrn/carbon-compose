@@ -69,6 +69,14 @@ public fun Checkbox(
         Canvas(modifier = Modifier.requiredSize(16.dp)) {
             val borderWidth = checkboxBorderWidth.toPx()
 
+            // Background
+            drawRoundRect(
+                color = colors.backgroundColor(
+                    interactiveState = interactiveState,
+                    state = state
+                ),
+                cornerRadius = CornerRadius(checkboxCornerRadius.toPx()),
+            )
             // Border
             drawRoundRect(
                 color = colors.borderColor(
@@ -82,14 +90,6 @@ public fun Checkbox(
                 ),
                 cornerRadius = CornerRadius(checkboxCornerRadius.toPx()),
                 style = Stroke(borderWidth)
-            )
-            // Background
-            drawRoundRect(
-                color = colors.backgroundColor(
-                    interactiveState = interactiveState,
-                    state = state
-                ),
-                cornerRadius = CornerRadius(checkboxCornerRadius.toPx()),
             )
             // Checkmark
             icon?.run {
@@ -168,9 +168,7 @@ internal class CheckboxColors(
         CheckboxInteractiveState.Disabled ->
             if (state == ToggleableState.Off) borderDisabledColor else Color.Transparent
 
-        CheckboxInteractiveState.ReadOnly ->
-            if (state == ToggleableState.Off) borderReadOnlyColor else Color.Transparent
-
+        CheckboxInteractiveState.ReadOnly -> borderReadOnlyColor
         CheckboxInteractiveState.Error -> borderErrorColor
     }
 
