@@ -10,14 +10,12 @@ import androidx.compose.foundation.selection.triStateToggleable
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.CornerRadius
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.graphics.drawscope.inset
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.unit.dp
@@ -64,37 +62,45 @@ public fun Checkbox(
         modifier = modifier
             .height(20.dp)
             .then(checkboxModifier),
-        verticalAlignment = Alignment.CenterVertically,
     ) {
-        Canvas(modifier = Modifier.requiredSize(16.dp)) {
+        Canvas(modifier = Modifier
+            .padding(2.dp)
+            .requiredSize(16.dp)
+        ) {
             val borderWidth = checkboxBorderWidth.toPx()
 
+            val borderColor = colors.borderColor(
+                interactiveState = interactiveState,
+                state = state
+            )
+            val drawBorder = borderColor != Color.Transparent
+
             // Background
-            drawRoundRect(
-                color = colors.backgroundColor(
-                    interactiveState = interactiveState,
-                    state = state
-                ),
-                cornerRadius = CornerRadius(checkboxCornerRadius.toPx()),
-            )
+            // Antialiasing issue: this inset is to reduce the background size when drawing border
+            // to avoid antialiasing artifacts outside the border
+            inset(if (drawBorder) borderWidth * .5f else 0f) {
+                drawRoundRect(
+                    color = colors.backgroundColor(
+                        interactiveState = interactiveState,
+                        state = state
+                    ),
+                    cornerRadius = CornerRadius(checkboxCornerRadius.toPx()),
+                )
+            }
             // Border
-            drawRoundRect(
-                color = colors.borderColor(
-                    interactiveState = interactiveState,
-                    state = state
-                ),
-                topLeft = Offset(borderWidth, borderWidth) * 0.5f,
-                size = Size(
-                    width = size.width - borderWidth,
-                    height = size.height - borderWidth
-                ),
-                cornerRadius = CornerRadius(checkboxCornerRadius.toPx()),
-                style = Stroke(borderWidth)
-            )
+            if (drawBorder) {
+                inset(borderWidth * .5f) {
+                    drawRoundRect(
+                        color = borderColor,
+                        cornerRadius = CornerRadius(2f.dp.toPx()),
+                        style = Stroke(borderWidth)
+                    )
+                }
+            }
             // Checkmark
             icon?.run {
                 draw(
-                    size = intrinsicSize.div(2f),
+                    size = intrinsicSize * .5f,
                     colorFilter = ColorFilter.tint(
                         colors.checkmarkColor(
                             interactiveState = interactiveState,
