@@ -39,6 +39,7 @@ private fun CheckboxOffPreview(
             state = ToggleableState.Off,
             interactiveState = interactiveState,
             label = "${interactiveLabelStateMap[interactiveState]} unselected",
+            errorMessage = "Error message goes here",
             onClick = {},
             modifier = Modifier.padding(SpacingScale.spacing03)
         )
@@ -62,7 +63,8 @@ private fun CheckboxOnPreview(
             interactiveState = interactiveState,
             label = "${interactiveLabelStateMap[interactiveState]} selected",
             onClick = {},
-            modifier = Modifier.padding(SpacingScale.spacing03)
+            modifier = Modifier.padding(SpacingScale.spacing03),
+            errorMessage = "Error message goes here",
         )
     }
 }
@@ -83,6 +85,7 @@ private fun CheckboxIndeterminatePreview(
             state = ToggleableState.Indeterminate,
             interactiveState = interactiveState,
             label = "${interactiveLabelStateMap[interactiveState]} indeterminate",
+            errorMessage = "Error message goes here",
             onClick = {},
             modifier = Modifier.padding(SpacingScale.spacing03)
         )

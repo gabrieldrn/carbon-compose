@@ -1,9 +1,11 @@
 package carbon.compose.checkbox
 
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.selection.triStateToggleable
@@ -35,6 +37,7 @@ public fun Checkbox(
     label: String,
     onClick: (() -> Unit)?,
     modifier: Modifier = Modifier,
+    errorMessage: String = "",
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 ) {
     val colors = CheckboxColors.colors()
@@ -52,71 +55,100 @@ public fun Checkbox(
             interactionSource = interactionSource,
             enabled = interactiveState.isEnabled,
             onClick = onClick,
-            indication = null
+            indication = null // TODO
         )
     } else {
         Modifier
     }
 
-    Row(
-        modifier = modifier
-            .height(20.dp)
-            .then(checkboxModifier),
-    ) {
-        Canvas(modifier = Modifier
-            .padding(2.dp)
-            .requiredSize(16.dp)
-        ) {
-            val borderWidth = checkboxBorderWidth.toPx()
+    Column(modifier = modifier.then(checkboxModifier)) {
+        Row(modifier = Modifier) {
+            Canvas(modifier = Modifier
+                .padding(2.dp)
+                .requiredSize(16.dp)
+            ) {
+                val borderWidth = checkboxBorderWidth.toPx()
 
-            val borderColor = colors.borderColor(
-                interactiveState = interactiveState,
-                state = state
-            )
-            val drawBorder = borderColor != Color.Transparent
-
-            // Background
-            // Antialiasing issue: this inset is to reduce the background size when drawing border
-            // to avoid antialiasing artifacts outside the border
-            inset(if (drawBorder) borderWidth * .5f else 0f) {
-                drawRoundRect(
-                    color = colors.backgroundColor(
-                        interactiveState = interactiveState,
-                        state = state
-                    ),
-                    cornerRadius = CornerRadius(checkboxCornerRadius.toPx()),
+                val borderColor = colors.borderColor(
+                    interactiveState = interactiveState,
+                    state = state
                 )
-            }
-            // Border
-            if (drawBorder) {
-                inset(borderWidth * .5f) {
+                val drawBorder = borderColor != Color.Transparent
+
+                // Background
+                // Antialiasing issue: this inset is to reduce the background size when drawing
+                // border to avoid antialiasing artifacts outside the border
+                inset(if (drawBorder) borderWidth * .5f else 0f) {
                     drawRoundRect(
-                        color = borderColor,
-                        cornerRadius = CornerRadius(2f.dp.toPx()),
-                        style = Stroke(borderWidth)
+                        color = colors.backgroundColor(
+                            interactiveState = interactiveState,
+                            state = state
+                        ),
+                        cornerRadius = CornerRadius(checkboxCornerRadius.toPx()),
+                    )
+                }
+                // Border
+                if (drawBorder) {
+                    inset(borderWidth * .5f) {
+                        drawRoundRect(
+                            color = borderColor,
+                            cornerRadius = CornerRadius(2f.dp.toPx()),
+                            style = Stroke(borderWidth)
+                        )
+                    }
+                }
+                // Checkmark
+                icon?.run {
+                    draw(
+                        size = intrinsicSize * .5f,
+                        colorFilter = ColorFilter.tint(
+                            colors.checkmarkColor(
+                                interactiveState = interactiveState,
+                                state = state
+                            )
+                        )
                     )
                 }
             }
-            // Checkmark
-            icon?.run {
-                draw(
-                    size = intrinsicSize * .5f,
-                    colorFilter = ColorFilter.tint(
-                        colors.checkmarkColor(
-                            interactiveState = interactiveState,
-                            state = state
-                        )
-                    )
-                )
-            }
+            Text(
+                text = label,
+                color = colors.labelColor(interactiveState = interactiveState),
+                modifier = Modifier.padding(start = SpacingScale.spacing03),
+                style = CarbonTypography.bodyCompact01
+            )
         }
+        if (interactiveState == CheckboxInteractiveState.Error) {
+            ErrorContent(
+                colors = colors,
+                errorMessage = errorMessage,
+                modifier = Modifier.padding(top = SpacingScale.spacing03)
+            )
+        }
+    }
+}
+
+@Composable
+private fun ErrorContent(
+    colors: CheckboxColors,
+    errorMessage: String,
+    modifier: Modifier = Modifier
+) {
+    Row(modifier = modifier) {
+        Image(
+            imageVector = checkboxErrorIcon,
+            contentDescription = null,
+            colorFilter = ColorFilter.tint(colors.errorIconColor),
+            modifier = Modifier
+                .padding(2.dp)
+                .requiredSize(16.dp)
+        )
         Text(
-            text = label,
-            color = colors.labelColor(interactiveState = interactiveState),
+            text = errorMessage,
+            color = colors.errorMessageTextColor,
             modifier = Modifier
                 .padding(start = SpacingScale.spacing03)
-                .height(20.dp),
-            style = CarbonTypography.bodyCompact01
+                .heightIn(min = 20.dp),
+            style = CarbonTypography.label01
         )
     }
 }
@@ -156,7 +188,6 @@ internal class CheckboxColors(
 
     val errorMessageTextColor: Color,
     val errorIconColor: Color,
-    val errorIconInnerFillColor: Color,
 
     val warningMessageTextColor: Color,
     val warningIconColor: Color,
@@ -230,7 +261,6 @@ internal class CheckboxColors(
 
                 errorMessageTextColor = textError,
                 errorIconColor = textError,
-                errorIconInnerFillColor = iconInverse,
 
                 warningMessageTextColor = textPrimary,
                 warningIconColor = supportWarning,
