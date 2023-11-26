@@ -2,15 +2,10 @@ package carbon.compose.checkbox
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredSize
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.selection.triStateToggleable
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
@@ -25,9 +20,7 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.state.ToggleableState
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import carbon.compose.CarbonDesignSystem
 import carbon.compose.checkbox.CheckboxInteractiveState.Companion.isEnabled
 import carbon.compose.foundation.color.LocalCarbonTheme
 import carbon.compose.foundation.spacing.SpacingScale
@@ -239,33 +232,6 @@ internal class CheckboxColors(
                 warningIconColor = supportWarning,
                 warningIconInnerFillColor = Color.Black,
             )
-        }
-    }
-}
-
-@Preview(backgroundColor = 0xFFFFFFFF, showBackground = true)
-@Composable
-private fun CheckboxPreview() {
-    CarbonDesignSystem {
-        Column(
-            modifier = Modifier
-                .padding(SpacingScale.spacing03)
-                .width(IntrinsicSize.Min),
-            verticalArrangement = Arrangement.spacedBy(SpacingScale.spacing03),
-        ) {
-            arrayOf( // State entries are not 'sorted'
-                ToggleableState.Off,
-                ToggleableState.On,
-                ToggleableState.Indeterminate
-            ).forEach {
-                Checkbox(
-                    state = it,
-                    interactiveState = CheckboxInteractiveState.Default,
-                    label = it.name,
-                    onClick = {},
-                    modifier = Modifier.fillMaxWidth()
-                )
-            }
         }
     }
 }
