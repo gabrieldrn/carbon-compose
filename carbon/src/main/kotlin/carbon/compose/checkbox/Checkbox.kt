@@ -61,9 +61,9 @@ public fun Checkbox(
     }
 
     Row(
-        modifier = checkboxModifier
+        modifier = modifier
             .height(20.dp)
-            .then(modifier),
+            .then(checkboxModifier),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Canvas(modifier = Modifier.requiredSize(16.dp)) {
