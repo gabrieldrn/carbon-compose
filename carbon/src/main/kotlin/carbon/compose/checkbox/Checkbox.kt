@@ -44,13 +44,6 @@ public fun Checkbox(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 ) {
     val colors = CheckboxColors.colors()
-    val checkmarkIcon = rememberVectorPainter(image = checkboxCheckmarkIcon)
-    val indeterminateIcon = rememberVectorPainter(image = checkboxIndeterminateIcon)
-    val icon = when (state) {
-        ToggleableState.On -> checkmarkIcon
-        ToggleableState.Indeterminate -> indeterminateIcon
-        ToggleableState.Off -> null
-    }
 
     val checkboxModifier = if (onClick != null) {
         Modifier.triStateToggleable(
@@ -66,53 +59,11 @@ public fun Checkbox(
 
     Column(modifier = modifier.then(checkboxModifier)) {
         Row(modifier = Modifier) {
-            Canvas(modifier = Modifier
-                .padding(2.dp)
-                .requiredSize(16.dp)
-            ) {
-                val borderWidth = checkboxBorderWidth.toPx()
-
-                val borderColor = colors.borderColor(
-                    interactiveState = interactiveState,
-                    state = state
-                )
-                val drawBorder = borderColor != Color.Transparent
-
-                // Background
-                // Antialiasing issue: this inset is to reduce the background size when drawing
-                // border to avoid antialiasing artifacts outside the border
-                inset(if (drawBorder) borderWidth * .5f else 0f) {
-                    drawRoundRect(
-                        color = colors.backgroundColor(
-                            interactiveState = interactiveState,
-                            state = state
-                        ),
-                        cornerRadius = CornerRadius(checkboxCornerRadius.toPx()),
-                    )
-                }
-                // Border
-                if (drawBorder) {
-                    inset(borderWidth * .5f) {
-                        drawRoundRect(
-                            color = borderColor,
-                            cornerRadius = CornerRadius(2f.dp.toPx()),
-                            style = Stroke(borderWidth)
-                        )
-                    }
-                }
-                // Checkmark
-                icon?.run {
-                    draw(
-                        size = intrinsicSize * .5f,
-                        colorFilter = ColorFilter.tint(
-                            colors.checkmarkColor(
-                                interactiveState = interactiveState,
-                                state = state
-                            )
-                        )
-                    )
-                }
-            }
+            CheckboxComponent(
+                colors = colors,
+                interactiveState = interactiveState,
+                state = state
+            )
             Text(
                 text = label,
                 color = colors.labelColor(interactiveState = interactiveState),
@@ -132,6 +83,71 @@ public fun Checkbox(
                 colors = colors,
                 warningMessage = warningMessage,
                 modifier = Modifier.padding(top = SpacingScale.spacing03)
+            )
+        }
+    }
+}
+
+@Composable
+private fun CheckboxComponent(
+    colors: CheckboxColors,
+    interactiveState: CheckboxInteractiveState,
+    state: ToggleableState,
+    modifier: Modifier = Modifier
+) {
+    val checkmarkIcon = rememberVectorPainter(image = checkboxCheckmarkIcon)
+    val indeterminateIcon = rememberVectorPainter(image = checkboxIndeterminateIcon)
+    val icon = when (state) {
+        ToggleableState.On -> checkmarkIcon
+        ToggleableState.Indeterminate -> indeterminateIcon
+        ToggleableState.Off -> null
+    }
+
+    Canvas(
+        modifier = modifier
+            .padding(2.dp)
+            .requiredSize(16.dp)
+    ) {
+        val borderWidth = checkboxBorderWidth.toPx()
+
+        val borderColor = colors.borderColor(
+            interactiveState = interactiveState,
+            state = state
+        )
+        val drawBorder = borderColor != Color.Transparent
+
+        // Background
+        // Antialiasing issue: this inset is to reduce the background size when drawing
+        // border to avoid antialiasing artifacts outside the border
+        inset(if (drawBorder) borderWidth * .5f else 0f) {
+            drawRoundRect(
+                color = colors.backgroundColor(
+                    interactiveState = interactiveState,
+                    state = state
+                ),
+                cornerRadius = CornerRadius(checkboxCornerRadius.toPx()),
+            )
+        }
+        // Border
+        if (drawBorder) {
+            inset(borderWidth * .5f) {
+                drawRoundRect(
+                    color = borderColor,
+                    cornerRadius = CornerRadius(2f.dp.toPx()),
+                    style = Stroke(borderWidth)
+                )
+            }
+        }
+        // Checkmark
+        icon?.run {
+            draw(
+                size = intrinsicSize * .5f,
+                colorFilter = ColorFilter.tint(
+                    colors.checkmarkColor(
+                        interactiveState = interactiveState,
+                        state = state
+                    )
+                )
             )
         }
     }
