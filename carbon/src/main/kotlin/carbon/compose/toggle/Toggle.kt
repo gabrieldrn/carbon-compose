@@ -31,6 +31,7 @@ import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import carbon.compose.foundation.color.LocalCarbonTheme
+import carbon.compose.foundation.interaction.ToggleableFocusIndication
 import carbon.compose.foundation.motion.Motion
 import carbon.compose.foundation.spacing.SpacingScale
 import carbon.compose.foundation.text.CarbonTypography
@@ -144,7 +145,9 @@ private fun ToggleImpl(
         val theme = LocalCarbonTheme.current
         val density = LocalDensity.current
 
-        val indication by remember { mutableStateOf(ToggleFocusIndication(dimensions)) }
+        val indication by remember {
+            mutableStateOf(ToggleableFocusIndication(dimensions.height))
+        }
 
         val handleSizePx = with(density) { dimensions.handleSize.toPx() }
         val toggleHeight = with(density) { dimensions.height.toPx() }

@@ -1,4 +1,4 @@
-package carbon.compose.toggle
+package carbon.compose.foundation.interaction
 
 import androidx.compose.animation.core.snap
 import androidx.compose.foundation.Indication
@@ -14,19 +14,20 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.drawscope.ContentDrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.inset
+import androidx.compose.ui.unit.Dp
 import carbon.compose.foundation.color.LocalCarbonTheme
 import carbon.compose.foundation.color.Theme
-import carbon.compose.foundation.interaction.FocusIndicationInstance
 import kotlinx.coroutines.flow.filterIsInstance
 
-internal class ToggleFocusIndication(
-    val toggleDimensions: ToggleDimensions
-) : Indication {
+internal class ToggleableFocusIndication(val indicationCorderRadius: Dp) : Indication {
 
-    private inner class ToggleIndicationInstance(theme: Theme) : FocusIndicationInstance(theme) {
+    private inner class ToggleableIndicationInstance(
+        theme: Theme
+    ) : FocusIndicationInstance(theme) {
 
-        // From React implementation, focus animation is immediate:
-        // https://react.carbondesignsystem.com/?path=/docs/components-toggle--overview
+        // From React implementation, focus animation is immediate on toggleable components.
+        // e.g. https://react.carbondesignsystem.com/?path=/docs/components-toggle--overview
+        // This also applies to checkboxes and radio buttons.
         override val focusAnimationSpec = snap<Float>()
 
         override fun ContentDrawScope.drawIndication() {
@@ -40,10 +41,10 @@ internal class ToggleFocusIndication(
 
             drawContent()
 
-            inset(-borderStrokeWidthPx * 0.5f - insetWidthPx) {
+            inset(-borderStrokeWidthPx * .5f - insetWidthPx) {
                 drawRoundRect(
                     brush = SolidColor(borderFocusColorState.value),
-                    cornerRadius = CornerRadius(toggleDimensions.height.toPx()),
+                    cornerRadius = CornerRadius(indicationCorderRadius.toPx()),
                     size = borderSize,
                     style = Stroke(borderStrokeWidthPx)
                 )
@@ -58,7 +59,7 @@ internal class ToggleFocusIndication(
         val theme = LocalCarbonTheme.current
 
         val instance = remember(theme) {
-            ToggleIndicationInstance(theme = theme)
+            ToggleableIndicationInstance(theme = theme)
         }
 
         LaunchedEffect(interactionSource) {

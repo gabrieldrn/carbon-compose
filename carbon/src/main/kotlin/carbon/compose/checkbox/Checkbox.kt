@@ -2,6 +2,7 @@ package carbon.compose.checkbox
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.indication
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -24,6 +25,7 @@ import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.unit.dp
 import carbon.compose.checkbox.CheckboxInteractiveState.Companion.isEnabled
 import carbon.compose.foundation.color.LocalCarbonTheme
+import carbon.compose.foundation.interaction.ToggleableFocusIndication
 import carbon.compose.foundation.spacing.SpacingScale
 import carbon.compose.foundation.text.CarbonTypography
 import carbon.compose.foundation.text.Text
@@ -31,7 +33,6 @@ import carbon.compose.foundation.text.Text
 private val checkboxBorderWidth = 1.dp
 private val checkboxCornerRadius = 2.dp
 
-// TODO Focus indication
 @Composable
 public fun Checkbox(
     state: ToggleableState,
@@ -58,11 +59,15 @@ public fun Checkbox(
     }
 
     Column(modifier = modifier.then(checkboxModifier)) {
-        Row(modifier = Modifier) {
+        Row {
             CheckboxComponent(
                 colors = colors,
                 interactiveState = interactiveState,
-                state = state
+                state = state,
+                modifier = Modifier.indication(
+                    interactionSource = interactionSource,
+                    indication = ToggleableFocusIndication(4.dp)
+                )
             )
             Text(
                 text = label,
@@ -104,9 +109,10 @@ private fun CheckboxComponent(
     }
 
     Canvas(
-        modifier = modifier
+        modifier = Modifier
             .padding(2.dp)
             .requiredSize(16.dp)
+            .then(modifier)
     ) {
         val borderWidth = checkboxBorderWidth.toPx()
 
@@ -233,7 +239,11 @@ public enum class CheckboxInteractiveState {
     }
 }
 
+/**
+ * The set of colors used to style a [Checkbox].
+ */
 @Immutable
+@Suppress("LongParameterList")
 internal class CheckboxColors(
     val borderColor: Color,
     val borderDisabledColor: Color,
