@@ -3,6 +3,7 @@ package carbon.compose.checkbox
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.heightIn
@@ -30,6 +31,7 @@ import carbon.compose.foundation.text.Text
 private val checkboxBorderWidth = 1.dp
 private val checkboxCornerRadius = 2.dp
 
+// TODO Focus indication
 @Composable
 public fun Checkbox(
     state: ToggleableState,
@@ -38,6 +40,7 @@ public fun Checkbox(
     onClick: (() -> Unit)?,
     modifier: Modifier = Modifier,
     errorMessage: String = "",
+    warningMessage: String = "",
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 ) {
     val colors = CheckboxColors.colors()
@@ -55,7 +58,7 @@ public fun Checkbox(
             interactionSource = interactionSource,
             enabled = interactiveState.isEnabled,
             onClick = onClick,
-            indication = null // TODO
+            indication = null
         )
     } else {
         Modifier
@@ -124,6 +127,13 @@ public fun Checkbox(
                 modifier = Modifier.padding(top = SpacingScale.spacing03)
             )
         }
+        if (interactiveState == CheckboxInteractiveState.Warning) {
+            WarningContent(
+                colors = colors,
+                warningMessage = warningMessage,
+                modifier = Modifier.padding(top = SpacingScale.spacing03)
+            )
+        }
     }
 }
 
@@ -152,6 +162,43 @@ private fun ErrorContent(
         )
     }
 }
+
+@Composable
+private fun WarningContent(
+    colors: CheckboxColors,
+    warningMessage: String,
+    modifier: Modifier = Modifier
+) {
+    Row(modifier = modifier) {
+        Box {
+            Image(
+                imageVector = checkboxWarningIcon,
+                contentDescription = null,
+                colorFilter = ColorFilter.tint(colors.warningIconColor),
+                modifier = Modifier
+                    .padding(2.dp)
+                    .requiredSize(16.dp)
+            )
+            Image(
+                imageVector = checkboxWarningInnerIcon,
+                contentDescription = null,
+                colorFilter = ColorFilter.tint(colors.warningIconInnerFillColor),
+                modifier = Modifier
+                    .padding(2.dp)
+                    .requiredSize(16.dp)
+            )
+        }
+        Text(
+            text = warningMessage,
+            color = colors.warningMessageTextColor,
+            modifier = Modifier
+                .padding(start = SpacingScale.spacing03)
+                .heightIn(min = 20.dp),
+            style = CarbonTypography.label01
+        )
+    }
+}
+
 
 public enum class CheckboxInteractiveState {
 
