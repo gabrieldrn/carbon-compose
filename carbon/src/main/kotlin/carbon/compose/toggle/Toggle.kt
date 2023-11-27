@@ -4,11 +4,12 @@ import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.indication
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -16,7 +17,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.focusProperties
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
@@ -141,7 +141,15 @@ private fun ToggleImpl(
     isEnabled: Boolean = true,
     isReadOnly: Boolean = false,
 ) {
-    Column(modifier = modifier) {
+    Column(
+        modifier = modifier.toggleable(
+            value = isToggled,
+            onValueChange = { onToggleChange(!isToggled) },
+            enabled = isEnabled && !isReadOnly,
+            interactionSource = interactionSource,
+            indication = null,
+        )
+    ) {
         val theme = LocalCarbonTheme.current
         val density = LocalDensity.current
 
@@ -225,32 +233,16 @@ private fun ToggleImpl(
             )
         }
 
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .toggleable(
-                    value = isToggled,
-                    onValueChange = { onToggleChange(!isToggled) },
-                    enabled = isEnabled && !isReadOnly,
-                    interactionSource = interactionSource,
-                    indication = null,
-                )
-                // This is to restrict focus to the toggle itself. In correlation, the clickable
-                // modifier above keep a better accessibility interaction on the whole component.
-                .focusProperties { canFocus = false }
-        ) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
             val handleCheckmarkIcon = rememberVectorPainter(image = toggleCheckmarkIcon)
                 .takeIf { dimensions == ToggleDimensions.Small }
 
             Canvas(
                 modifier = Modifier
-                    .size(dimensions.width, dimensions.height)
-                    .toggleable(
-                        value = isToggled,
-                        onValueChange = { onToggleChange(!isToggled) },
-                        enabled = isEnabled && !isReadOnly,
+                    .requiredSize(dimensions.width, dimensions.height)
+                    .indication(
                         interactionSource = interactionSource,
-                        indication = indication,
+                        indication = indication
                     )
             ) {
                 drawToggleBackground(
@@ -334,7 +326,7 @@ private fun DrawScope.drawToggleHandle(
         ) {
             handleCheckmarkIcon?.run {
                 draw(
-                    size = handleCheckmarkIcon.intrinsicSize,
+                    size = intrinsicSize,
                     colorFilter = ColorFilter.tint(handleCheckmarkColor)
                 )
             }
