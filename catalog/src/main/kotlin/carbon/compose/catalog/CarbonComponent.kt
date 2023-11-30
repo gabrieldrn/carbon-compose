@@ -3,6 +3,7 @@ package carbon.compose.catalog
 import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AppCompatActivity
 import carbon.compose.catalog.buttons.ButtonsDemoActivity
+import carbon.compose.catalog.checkbox.CheckboxDemoActivity
 import carbon.compose.catalog.toggle.ToggleDemoActivity
 
 @Suppress("UndocumentedPublicClass", "UndocumentedPublicProperty")
@@ -14,7 +15,7 @@ enum class CarbonComponent(
     Accordion("Accordion"),
     Breadcrumb("Breadcrumb"),
     Button("Button", R.drawable.tile_button, ButtonsDemoActivity::class.java),
-    Checkbox("Checkbox"),
+    Checkbox("Checkbox", R.drawable.tile_checkbox, CheckboxDemoActivity::class.java),
     CodeSnippet("Code snippet"),
     ContentSwitcher("Content switcher"),
     DataTable("Data table"),
