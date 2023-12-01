@@ -34,6 +34,35 @@ import carbon.compose.foundation.text.Text
 private val checkboxBorderWidth = 1.dp
 private val checkboxCornerRadius = 2.dp
 
+/**
+ * # Carbon Checkbox
+ * Checkboxes are used when there are multiple items to select in a list. Users can select zero,
+ * one, or any number of items.
+ *
+ * ## Content
+ * - The checkbox itself is a square box with a checkmark or an indeterminate mark.
+ * - The label describes the information the user wants to select or unselect.
+ * - The error or warning message are displayed below the checkbox and help the user understand
+ * about a certain state regarding the checkbox context.
+ *
+ * ## Interactions
+ * The component applies a tri-state toggleable interaction to the checkbox root composable if the
+ * [onClick] callback is provided, meaning that the whole component is clickable in order to create
+ * a more accessible click target. Otherwise, the checkbox won't be interactable.
+ *
+ * (From [Checkbox documentation](https://carbondesignsystem.com/components/checkbox/usage/))
+ *
+ * @param state The [ToggleableState] of the checkbox.
+ * @param interactiveState The [CheckboxInteractiveState] of the checkbox.
+ * @param label The text to be displayed next to the checkbox.
+ * @param onClick Callback invoked when the checkbox is clicked.
+ * @param modifier The modifier to be applied to the checkbox.
+ * @param errorMessage The error message to be displayed below the checkbox, it will be displayed
+ * only if the [interactiveState] is [CheckboxInteractiveState.Error].
+ * @param warningMessage The warning message to be displayed below the checkbox, it will be
+ * displayed only if the [interactiveState] is [CheckboxInteractiveState.Warning].
+ * @param interactionSource The [MutableInteractionSource] that keeps track of the checkbox state.
+ */
 @Composable
 public fun Checkbox(
     state: ToggleableState,
@@ -225,13 +254,36 @@ private fun WarningContent(
     }
 }
 
-
+/**
+ * Represents the possible interactive states of a [Checkbox].
+ */
 public enum class CheckboxInteractiveState {
 
+    /**
+     * Default state, the checkbox is enabled and can be interacted with.
+     */
     Default,
+
+    /**
+     * Disabled state, the checkbox is disabled and cannot be interacted with.
+     */
     Disabled,
+
+    /**
+     * Read-only state, the checkbox cannot be interacted with but stays focusable.
+     */
     ReadOnly,
+
+    /**
+     * Error state, the checkbox is enabled and be interacted with. An error message is displayed
+     * below the checkbox.
+     */
     Error,
+
+    /**
+     * Warning state, the checkbox is enabled and be interacted with. A warning message is displayed
+     * below the checkbox.
+     */
     Warning;
 
     internal companion object {
@@ -239,7 +291,7 @@ public enum class CheckboxInteractiveState {
         private val enabledStates: Array<CheckboxInteractiveState> =
             arrayOf(Default, ReadOnly, Error, Warning)
 
-        val CheckboxInteractiveState.isEnabled: Boolean
+        internal val CheckboxInteractiveState.isEnabled: Boolean
             get() = this in enabledStates
     }
 }
@@ -318,7 +370,7 @@ internal class CheckboxColors(
             labelColor
         }
 
-    companion object {
+    internal companion object {
 
         @Composable
         fun colors(): CheckboxColors = with(LocalCarbonTheme.current) {
