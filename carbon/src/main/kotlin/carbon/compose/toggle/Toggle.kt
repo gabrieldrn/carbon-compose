@@ -4,6 +4,7 @@ import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.focusable
 import androidx.compose.foundation.indication
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Column
@@ -48,11 +49,19 @@ private val TOGGLE_FLOAT_ANIMATION_SPEC = tween<Float>(
 )
 
 /**
+ * # Carbon Toggle
  * A toggle is used to quickly switch between two possible states. They are commonly used for
  * “on/off” switches.
  *
- * Use the default toggle when you need to specify a label text in addition to the toggle action
- * text. Default toggles appear in forms or within full pages of information.
+ * ## Content
+ * - The toggle itself with a handle that indicates the current state.
+ * - The label accompanying the toggle to further clarify the action that the toggle performs.
+ * - The action text describing the binary action of toggle so that the action is clear.
+ *
+ * ## Interactions
+ * The component applies a toggleable interaction to the toggle root composable if the
+ * [onToggleChange] callback is provided, meaning that the whole component is clickable in order to
+ * create a more accessible click target. Otherwise, the toggle won't be interactable.
  *
  * (From [Toggle documentation](https://carbondesignsystem.com/components/toggle/usage))
  *
@@ -68,7 +77,7 @@ private val TOGGLE_FLOAT_ANIMATION_SPEC = tween<Float>(
 @Composable
 public fun Toggle(
     isToggled: Boolean,
-    onToggleChange: (Boolean) -> Unit,
+    onToggleChange: ((Boolean) -> Unit)?,
     modifier: Modifier = Modifier,
     label: String = "",
     actionText: String = "",
@@ -90,11 +99,20 @@ public fun Toggle(
 }
 
 /**
+ * # Carbon Toggle
  * A toggle is used to quickly switch between two possible states. They are commonly used for
  * “on/off” switches.
  *
- * Use the small toggle when you do not need to specify label or action text. Small toggles are
- * more compact in size and are used inline with other components.
+ * ## Content
+ * - The toggle itself with a handle that indicates the current state. The small variant have a
+ * checkmark icon on the handle when toggled on.
+ * - The label accompanying the toggle to further clarify the action that the toggle performs.
+ * - The action text describing the binary action of toggle so that the action is clear.
+ *
+ * ## Interactions
+ * The component applies a toggleable interaction to the toggle root composable if the
+ * [onToggleChange] callback is provided, meaning that the whole component is clickable in order to
+ * create a more accessible click target. Otherwise, the toggle won't be interactable.
  *
  * (From [Toggle documentation](https://carbondesignsystem.com/components/toggle/usage))
  *
@@ -109,7 +127,7 @@ public fun Toggle(
 @Composable
 public fun SmallToggle(
     isToggled: Boolean,
-    onToggleChange: (Boolean) -> Unit,
+    onToggleChange: ((Boolean) -> Unit)?,
     modifier: Modifier = Modifier,
     actionText: String = "",
     isEnabled: Boolean = true,
@@ -132,7 +150,7 @@ public fun SmallToggle(
 @Suppress("CognitiveComplexMethod", "CyclomaticComplexMethod")
 private fun ToggleImpl(
     isToggled: Boolean,
-    onToggleChange: (Boolean) -> Unit,
+    onToggleChange: ((Boolean) -> Unit)?,
     dimensions: ToggleDimensions,
     interactionSource: MutableInteractionSource,
     modifier: Modifier = Modifier,
@@ -141,15 +159,22 @@ private fun ToggleImpl(
     isEnabled: Boolean = true,
     isReadOnly: Boolean = false,
 ) {
-    Column(
-        modifier = modifier.toggleable(
+    val toggleModifier = when {
+        isReadOnly -> Modifier.focusable(
+            enabled = true,
+            interactionSource = interactionSource,
+        )
+        onToggleChange != null -> Modifier.toggleable(
             value = isToggled,
             onValueChange = { onToggleChange(!isToggled) },
-            enabled = isEnabled && !isReadOnly,
+            enabled = isEnabled,
             interactionSource = interactionSource,
             indication = null,
         )
-    ) {
+        else -> Modifier
+    }
+
+    Column(modifier = modifier.then(toggleModifier)) {
         val theme = LocalCarbonTheme.current
         val density = LocalDensity.current
 
