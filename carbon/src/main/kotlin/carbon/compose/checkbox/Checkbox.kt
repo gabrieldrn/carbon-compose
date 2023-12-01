@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.selection.triStateToggleable
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.CornerRadius
@@ -24,8 +23,6 @@ import androidx.compose.ui.graphics.drawscope.inset
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.unit.dp
-import carbon.compose.checkbox.CheckboxInteractiveState.Companion.isEnabled
-import carbon.compose.foundation.color.LocalCarbonTheme
 import carbon.compose.foundation.interaction.ToggleableFocusIndication
 import carbon.compose.foundation.spacing.SpacingScale
 import carbon.compose.foundation.text.CarbonTypography
@@ -78,13 +75,13 @@ public fun Checkbox(
 
     val checkboxModifier = when {
         interactiveState == CheckboxInteractiveState.ReadOnly -> Modifier.focusable(
-            enabled = interactiveState.isEnabled,
+            enabled = true,
             interactionSource = interactionSource,
         )
         onClick != null -> Modifier.triStateToggleable(
             state = state,
             interactionSource = interactionSource,
-            enabled = interactiveState.isEnabled,
+            enabled = interactiveState != CheckboxInteractiveState.Disabled,
             onClick = onClick,
             indication = null
         )
@@ -251,151 +248,5 @@ private fun WarningContent(
                 .heightIn(min = 20.dp),
             style = CarbonTypography.label01
         )
-    }
-}
-
-/**
- * Represents the possible interactive states of a [Checkbox].
- */
-public enum class CheckboxInteractiveState {
-
-    /**
-     * Default state, the checkbox is enabled and can be interacted with.
-     */
-    Default,
-
-    /**
-     * Disabled state, the checkbox is disabled and cannot be interacted with.
-     */
-    Disabled,
-
-    /**
-     * Read-only state, the checkbox cannot be interacted with but stays focusable.
-     */
-    ReadOnly,
-
-    /**
-     * Error state, the checkbox is enabled and be interacted with. An error message is displayed
-     * below the checkbox.
-     */
-    Error,
-
-    /**
-     * Warning state, the checkbox is enabled and be interacted with. A warning message is displayed
-     * below the checkbox.
-     */
-    Warning;
-
-    internal companion object {
-
-        private val enabledStates: Array<CheckboxInteractiveState> =
-            arrayOf(Default, ReadOnly, Error, Warning)
-
-        internal val CheckboxInteractiveState.isEnabled: Boolean
-            get() = this in enabledStates
-    }
-}
-
-/**
- * The set of colors used to style a [Checkbox].
- */
-@Immutable
-@Suppress("LongParameterList")
-internal class CheckboxColors(
-    val borderColor: Color,
-    val borderDisabledColor: Color,
-    val borderReadOnlyColor: Color,
-    val borderErrorColor: Color,
-
-    val backgroundCheckedColor: Color,
-    val backgroundDisabledCheckedColor: Color,
-
-    val checkmarkCheckedColor: Color,
-    val checkmarkReadOnlyCheckedColor: Color,
-
-    val labelColor: Color,
-    val labelDisabledColor: Color,
-
-    val errorMessageTextColor: Color,
-    val errorIconColor: Color,
-
-    val warningMessageTextColor: Color,
-    val warningIconColor: Color,
-    val warningIconInnerFillColor: Color,
-) {
-
-    fun borderColor(
-        interactiveState: CheckboxInteractiveState,
-        state: ToggleableState
-    ): Color = when (interactiveState) {
-        CheckboxInteractiveState.Default,
-        CheckboxInteractiveState.Warning ->
-            if (state == ToggleableState.Off) borderColor else Color.Transparent
-
-        CheckboxInteractiveState.Disabled ->
-            if (state == ToggleableState.Off) borderDisabledColor else Color.Transparent
-
-        CheckboxInteractiveState.ReadOnly -> borderReadOnlyColor
-        CheckboxInteractiveState.Error -> borderErrorColor
-    }
-
-    fun backgroundColor(
-        interactiveState: CheckboxInteractiveState,
-        state: ToggleableState
-    ): Color = when (interactiveState) {
-        CheckboxInteractiveState.Default,
-        CheckboxInteractiveState.Error,
-        CheckboxInteractiveState.Warning ->
-            if (state == ToggleableState.Off) Color.Transparent else backgroundCheckedColor
-
-        CheckboxInteractiveState.Disabled ->
-            if (state == ToggleableState.Off) Color.Transparent else backgroundDisabledCheckedColor
-
-        CheckboxInteractiveState.ReadOnly -> Color.Transparent
-    }
-
-    fun checkmarkColor(
-        interactiveState: CheckboxInteractiveState,
-        state: ToggleableState
-    ): Color = when {
-        state == ToggleableState.Off -> Color.Transparent
-        interactiveState == CheckboxInteractiveState.ReadOnly -> checkmarkReadOnlyCheckedColor
-        else -> checkmarkCheckedColor
-    }
-
-    fun labelColor(interactiveState: CheckboxInteractiveState): Color =
-        if (interactiveState == CheckboxInteractiveState.Disabled) {
-            labelDisabledColor
-        } else {
-            labelColor
-        }
-
-    internal companion object {
-
-        @Composable
-        fun colors(): CheckboxColors = with(LocalCarbonTheme.current) {
-            CheckboxColors(
-                borderColor = iconPrimary,
-                borderDisabledColor = iconDisabled,
-                borderReadOnlyColor = iconDisabled,
-                borderErrorColor = supportError,
-
-                backgroundCheckedColor = iconPrimary,
-                backgroundDisabledCheckedColor = iconDisabled,
-
-                checkmarkCheckedColor = iconInverse,
-                checkmarkReadOnlyCheckedColor = iconPrimary,
-
-                labelColor = textPrimary,
-                labelDisabledColor = textDisabled,
-
-                errorMessageTextColor = textError,
-                errorIconColor = textError,
-
-                warningMessageTextColor = textPrimary,
-                warningIconColor = supportWarning,
-                warningIconInnerFillColor = Color.Black,
-            )
-        }
     }
 }
