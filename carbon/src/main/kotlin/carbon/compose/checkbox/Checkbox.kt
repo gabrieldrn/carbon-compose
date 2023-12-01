@@ -2,6 +2,7 @@ package carbon.compose.checkbox
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.focusable
 import androidx.compose.foundation.indication
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
@@ -46,16 +47,19 @@ public fun Checkbox(
 ) {
     val colors = CheckboxColors.colors()
 
-    val checkboxModifier = if (onClick != null) {
-        Modifier.triStateToggleable(
+    val checkboxModifier = when {
+        interactiveState == CheckboxInteractiveState.ReadOnly -> Modifier.focusable(
+            enabled = interactiveState.isEnabled,
+            interactionSource = interactionSource,
+        )
+        onClick != null -> Modifier.triStateToggleable(
             state = state,
             interactionSource = interactionSource,
             enabled = interactiveState.isEnabled,
             onClick = onClick,
             indication = null
         )
-    } else {
-        Modifier
+        else -> Modifier
     }
 
     Column(modifier = modifier.then(checkboxModifier)) {
@@ -232,7 +236,8 @@ public enum class CheckboxInteractiveState {
 
     internal companion object {
 
-        private val enabledStates = arrayOf(Default, Error, Warning)
+        private val enabledStates: Array<CheckboxInteractiveState> =
+            arrayOf(Default, ReadOnly, Error, Warning)
 
         val CheckboxInteractiveState.isEnabled: Boolean
             get() = this in enabledStates
