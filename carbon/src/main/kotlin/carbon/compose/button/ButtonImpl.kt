@@ -1,6 +1,8 @@
 package carbon.compose.button
 
 import androidx.compose.animation.Animatable
+import androidx.compose.animation.core.AnimationSpec
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.HoverInteraction
@@ -19,6 +21,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.InspectableModifier
@@ -26,8 +29,14 @@ import androidx.compose.ui.platform.debugInspectorInfo
 import androidx.compose.ui.semantics.Role
 import carbon.compose.button.ButtonSize.Companion.getContainerPaddings
 import carbon.compose.foundation.color.LocalCarbonTheme
+import carbon.compose.foundation.motion.Motion
 import carbon.compose.foundation.spacing.SpacingScale
 import carbon.compose.foundation.text.CarbonTypography
+
+internal val buttonTransitionSpec: AnimationSpec<Color> = tween(
+    durationMillis = Motion.Duration.fast01,
+    easing = Motion.Entrance.productiveEasing
+)
 
 private fun Modifier.iconButtonModifier() = requiredSize(SpacingScale.spacing09)
 

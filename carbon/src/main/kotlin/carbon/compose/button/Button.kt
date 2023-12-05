@@ -1,7 +1,5 @@
 package carbon.compose.button
 
-import androidx.compose.animation.core.AnimationSpec
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -11,18 +9,10 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.dp
 import carbon.compose.button.ButtonSize.Companion.isExtraLarge
-import carbon.compose.foundation.motion.Motion
 import carbon.compose.foundation.spacing.SpacingScale
-
-// From the react-native implementation
-internal val buttonTransitionSpec: AnimationSpec<Color> = tween(
-    durationMillis = Motion.Duration.fast01,
-    easing = Motion.Entrance.productiveEasing
-)
 
 /**
  * # Button

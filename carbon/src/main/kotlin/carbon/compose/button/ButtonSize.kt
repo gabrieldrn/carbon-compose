@@ -18,8 +18,16 @@ public enum class ButtonSize(internal val height: Dp) {
         val ButtonSize.isExtraLarge get() = this == ExtraLarge || this == TwiceExtraLarge
 
         fun ButtonSize.getContainerPaddings() = when (this) {
-            Small -> PaddingValues(start = SpacingScale.spacing05, top = 7.dp, bottom = 7.dp)
-            Medium -> PaddingValues(start = SpacingScale.spacing05, top = 11.dp, bottom = 11.dp)
+            Small -> PaddingValues(
+                start = SpacingScale.spacing05,
+                top = 7.dp,
+                bottom = 7.dp
+            )
+            Medium -> PaddingValues(
+                start = SpacingScale.spacing05,
+                top = 11.dp,
+                bottom = 11.dp
+            )
             LargeProductive,
             LargeExpressive -> PaddingValues(
                 start = SpacingScale.spacing05,
