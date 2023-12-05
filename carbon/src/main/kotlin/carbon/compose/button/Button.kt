@@ -5,6 +5,7 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
@@ -13,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.dp
+import carbon.compose.button.ButtonSize.Companion.isExtraLarge
 import carbon.compose.foundation.motion.Motion
 import carbon.compose.foundation.spacing.SpacingScale
 
@@ -79,8 +81,12 @@ public fun Button(
             colors = buttonScope.colors,
             interactionSource = interactionSource,
             label = label,
-            modifier = Modifier.weight(1f)
+            modifier = Modifier
+                .weight(weight = 1f)
+                .fillMaxHeight()
+                .padding(end = SpacingScale.spacing05)
         )
+
         if (iconPainter != null) {
             ButtonIcon(
                 painter = iconPainter,

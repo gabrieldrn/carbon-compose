@@ -6,12 +6,13 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.HoverInteraction
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.PressInteraction
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.requiredHeight
+import androidx.compose.foundation.layout.requiredSize
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -20,14 +21,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.platform.InspectableModifier
+import androidx.compose.ui.platform.debugInspectorInfo
+import androidx.compose.ui.semantics.Role
+import carbon.compose.button.ButtonSize.Companion.getContainerPaddings
 import carbon.compose.foundation.color.LocalCarbonTheme
 import carbon.compose.foundation.spacing.SpacingScale
 import carbon.compose.foundation.text.CarbonTypography
 
-private fun Modifier.iconButtonModifier() = size(SpacingScale.spacing09)
+private fun Modifier.iconButtonModifier() = requiredSize(SpacingScale.spacing09)
 
 private fun Modifier.buttonModifier(buttonSize: ButtonSize) =
-    height(buttonSize.height)
+    requiredHeight(buttonSize.height)
         .padding(buttonSize.getContainerPaddings())
 
 internal data class ButtonScope(
@@ -45,7 +50,7 @@ internal fun ButtonRowImpl(
     modifier: Modifier = Modifier,
     isIconButton: Boolean = false,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
-    content: @Composable RowScope.(ButtonScope) -> Unit = {},
+    content: @Composable RowScope.(ButtonScope) -> Unit,
 ) {
     val colors = ButtonColors.buttonColors(buttonType = buttonType)
     val containerColor = remember { Animatable(colors.containerColor) }
@@ -74,6 +79,7 @@ internal fun ButtonRowImpl(
 
     Row(
         modifier = modifier
+            .width(IntrinsicSize.Max)
             .drawBehind {
                 drawRect(color = containerColor.value)
             }
@@ -81,7 +87,17 @@ internal fun ButtonRowImpl(
                 interactionSource = interactionSource,
                 indication = indiction,
                 onClick = onClick,
-                enabled = isEnabled
+                enabled = isEnabled,
+                role = Role.Button
+            )
+            .then(
+                InspectableModifier(
+                    debugInspectorInfo {
+                        properties["buttonType"] = buttonType.name
+                        properties["buttonSize"] = buttonSize.name
+                        properties["isIconButton"] = isIconButton.toString()
+                    }
+                )
             )
             .then(
                 if (isIconButton) {
@@ -132,9 +148,11 @@ internal fun Label(
 
     BasicText(
         text = label,
-        modifier = modifier.fillMaxHeight(),
+        modifier = modifier,
         style = CarbonTypography.bodyCompact01,
-        color = { animatedLabelTextColor.value }
+        color = { animatedLabelTextColor.value },
+        maxLines = 1,
+        softWrap = false,
     )
 }
 
