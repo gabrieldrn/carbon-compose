@@ -30,10 +30,16 @@ import androidx.compose.ui.graphics.drawscope.translate
 import androidx.compose.ui.graphics.vector.VectorPainter
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.role
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.toggleableState
+import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.unit.dp
 import carbon.compose.foundation.color.LocalCarbonTheme
 import carbon.compose.foundation.interaction.ToggleableFocusIndication
 import carbon.compose.foundation.motion.Motion
+import carbon.compose.semantics.readOnly
 import carbon.compose.foundation.spacing.SpacingScale
 import carbon.compose.foundation.text.CarbonTypography
 import carbon.compose.foundation.text.Text
@@ -160,16 +166,23 @@ private fun ToggleImpl(
     isReadOnly: Boolean = false,
 ) {
     val toggleModifier = when {
-        isReadOnly -> Modifier.focusable(
-            enabled = true,
-            interactionSource = interactionSource,
-        )
+        isReadOnly -> Modifier
+            .semantics(mergeDescendants = true) {
+                role = Role.Switch
+                toggleableState = ToggleableState(isToggled)
+            }
+            .readOnly()
+            .focusable(
+                enabled = true,
+                interactionSource = interactionSource,
+            )
         onToggleChange != null -> Modifier.toggleable(
             value = isToggled,
             onValueChange = { onToggleChange(!isToggled) },
             enabled = isEnabled,
             interactionSource = interactionSource,
             indication = null,
+            role = Role.Switch
         )
         else -> Modifier
     }
