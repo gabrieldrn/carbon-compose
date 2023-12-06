@@ -12,6 +12,11 @@ android {
         versionCode = 1
         versionName = "0.1"
     }
+    buildTypes {
+        release {
+            signingConfig = signingConfigs.getByName("debug")
+        }
+    }
 }
 
 dependencies {
