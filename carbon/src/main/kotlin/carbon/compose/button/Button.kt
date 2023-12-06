@@ -55,7 +55,7 @@ public fun Button(
     iconPainter: Painter? = null,
     isEnabled: Boolean = true,
     buttonType: CarbonButton = CarbonButton.Primary,
-    buttonSize: ButtonSize = ButtonSize.Medium,
+    buttonSize: ButtonSize = ButtonSize.LargeProductive,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
 ) {
     ButtonRowImpl(

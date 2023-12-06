@@ -7,7 +7,18 @@ import carbon.compose.foundation.spacing.SpacingScale
 
 public enum class ButtonSize(internal val height: Dp) {
 
+    @Deprecated(
+        "Usage of composables with a touch target inferior to 48dp is highly discouraged. " +
+            "Consider using the LargeProductive size instead.",
+        ReplaceWith("LargeProductive")
+    )
     Small(height = 32.dp),
+
+    @Deprecated(
+        "Usage of composables with a touch target inferior to 48dp is highly discouraged. " +
+            "Consider using the LargeProductive size instead.",
+        ReplaceWith("LargeProductive")
+    )
     Medium(height = 40.dp),
     LargeProductive(height = 48.dp),
     LargeExpressive(height = 48.dp),
