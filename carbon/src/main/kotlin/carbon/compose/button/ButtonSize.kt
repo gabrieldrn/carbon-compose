@@ -28,6 +28,7 @@ public enum class ButtonSize(internal val height: Dp) {
     internal companion object {
         val ButtonSize.isExtraLarge get() = this == ExtraLarge || this == TwiceExtraLarge
 
+        @Suppress("DEPRECATION")
         fun ButtonSize.getContainerPaddings() = when (this) {
             Small -> PaddingValues(
                 start = SpacingScale.spacing05,
