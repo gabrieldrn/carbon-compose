@@ -4,12 +4,14 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.requiredSize
+import androidx.compose.foundation.layout.requiredWidth
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import carbon.compose.button.ButtonSize.Companion.isExtraLarge
 import carbon.compose.foundation.spacing.SpacingScale
@@ -75,6 +77,7 @@ public fun Button(
                 .weight(weight = 1f)
                 .fillMaxHeight()
                 .padding(end = SpacingScale.spacing05)
+                .testTag("carbon_button_label")
         )
 
         if (iconPainter != null) {
@@ -84,12 +87,12 @@ public fun Button(
                 isEnabled = isEnabled,
                 interactionSource = interactionSource,
                 modifier = if (buttonSize.isExtraLarge) {
-                    Modifier.size(16.dp)
+                    Modifier.requiredSize(16.dp)
                 } else {
                     Modifier
-                        .width(16.dp)
+                        .requiredWidth(16.dp)
                         .fillMaxHeight()
-                }
+                }.testTag("carbon_button_icon")
             )
             Spacer(modifier = Modifier.width(SpacingScale.spacing05))
         }
