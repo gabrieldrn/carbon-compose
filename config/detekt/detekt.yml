@@ -484,7 +484,7 @@ potential-bugs:
     active: true
   MissingPackageDeclaration:
     active: true
-    excludes: ['**/*.kts']
+    excludes: ['**/*.kts', '**/build-logic/convention/src/main/kotlin/*']
   NullCheckOnMutableProperty:
     active: false
   NullableToStringCall:
