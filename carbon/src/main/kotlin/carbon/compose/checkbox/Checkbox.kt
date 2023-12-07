@@ -2,7 +2,6 @@ package carbon.compose.checkbox
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.focusable
 import androidx.compose.foundation.indication
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
@@ -21,12 +20,14 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.inset
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.unit.dp
 import carbon.compose.foundation.interaction.ToggleableFocusIndication
 import carbon.compose.foundation.spacing.SpacingScale
 import carbon.compose.foundation.text.CarbonTypography
 import carbon.compose.foundation.text.Text
+import carbon.compose.semantics.readOnly
 
 private val checkboxBorderWidth = 1.dp
 private val checkboxCornerRadius = 2.dp
@@ -74,16 +75,19 @@ public fun Checkbox(
     val colors = CheckboxColors.colors()
 
     val checkboxModifier = when {
-        interactiveState == CheckboxInteractiveState.ReadOnly -> Modifier.focusable(
-            enabled = true,
+        interactiveState == CheckboxInteractiveState.ReadOnly -> Modifier.readOnly(
+            role = Role.Checkbox,
+            state = state,
             interactionSource = interactionSource,
+            mergeDescendants = true
         )
         onClick != null -> Modifier.triStateToggleable(
             state = state,
             interactionSource = interactionSource,
             enabled = interactiveState != CheckboxInteractiveState.Disabled,
             onClick = onClick,
-            indication = null
+            indication = null,
+            role = Role.Checkbox
         )
         else -> Modifier
     }

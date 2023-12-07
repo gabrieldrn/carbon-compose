@@ -4,7 +4,6 @@ import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.focusable
 import androidx.compose.foundation.indication
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Column
@@ -31,18 +30,15 @@ import androidx.compose.ui.graphics.vector.VectorPainter
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.semantics.Role
-import androidx.compose.ui.semantics.role
-import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.semantics.toggleableState
 import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.unit.dp
 import carbon.compose.foundation.color.LocalCarbonTheme
 import carbon.compose.foundation.interaction.ToggleableFocusIndication
 import carbon.compose.foundation.motion.Motion
-import carbon.compose.semantics.readOnly
 import carbon.compose.foundation.spacing.SpacingScale
 import carbon.compose.foundation.text.CarbonTypography
 import carbon.compose.foundation.text.Text
+import carbon.compose.semantics.readOnly
 import kotlin.math.max
 
 private val TOGGLE_COLOR_ANIMATION_SPEC = tween<Color>(
@@ -166,16 +162,12 @@ private fun ToggleImpl(
     isReadOnly: Boolean = false,
 ) {
     val toggleModifier = when {
-        isReadOnly -> Modifier
-            .semantics(mergeDescendants = true) {
-                role = Role.Switch
-                toggleableState = ToggleableState(isToggled)
-            }
-            .readOnly()
-            .focusable(
-                enabled = true,
-                interactionSource = interactionSource,
-            )
+        isReadOnly -> Modifier.readOnly(
+            role = Role.Switch,
+            state = ToggleableState(isToggled),
+            interactionSource = interactionSource,
+            mergeDescendants = true
+        )
         onToggleChange != null -> Modifier.toggleable(
             value = isToggled,
             onValueChange = { onToggleChange(!isToggled) },

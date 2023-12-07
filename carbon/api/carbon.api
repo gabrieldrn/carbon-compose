@@ -498,7 +498,8 @@ public final class carbon/compose/semantics/CarbonSemanticsPropertiesKt {
 }
 
 public final class carbon/compose/semantics/ReadOnlyKt {
-	public static final fun readOnly (Landroidx/compose/ui/Modifier;)Landroidx/compose/ui/Modifier;
+	public static final fun readOnly-glApdhM (Landroidx/compose/ui/Modifier;ILandroidx/compose/ui/state/ToggleableState;Landroidx/compose/foundation/interaction/MutableInteractionSource;Z)Landroidx/compose/ui/Modifier;
+	public static synthetic fun readOnly-glApdhM$default (Landroidx/compose/ui/Modifier;ILandroidx/compose/ui/state/ToggleableState;Landroidx/compose/foundation/interaction/MutableInteractionSource;ZILjava/lang/Object;)Landroidx/compose/ui/Modifier;
 }
 
 public final class carbon/compose/toggle/ToggleKt {
