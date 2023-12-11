@@ -18,6 +18,7 @@ import androidx.compose.ui.test.assertHeightIsEqualTo
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.assertWidthIsEqualTo
+import androidx.compose.ui.test.getUnclippedBoundsInRoot
 import androidx.compose.ui.test.hasClickAction
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.isEnabled
@@ -28,10 +29,10 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.width
 import carbon.compose.R
 import carbon.compose.foundation.spacing.SpacingScale
 import carbon.compose.toList
-import carbon.compose.width
 import org.junit.Rule
 import org.junit.Test
 
@@ -76,11 +77,13 @@ class ButtonTest {
             val widths = onAllNodesWithTag("carbon_button_label", useUnmergedTree = true)
                 .toList()
                 .map {
-                    it.width + // Label width (width varies by weight)
-                        SpacingScale.spacing05 // Start padding
+                    SpacingScale.spacing05 + // Start padding
+                        it.getUnclippedBoundsInRoot().width + // Label width (varies by weight)
+                        SpacingScale.spacing05 // End padding / Icon spacer
                 }
 
-            assert(widths.last() == onRoot().width) // Last button has fillMaxWidth
+            // Last button has fillMaxWidth
+            onRoot().assertWidthIsEqualTo(widths.last())
 
             nodes.forEachIndexed { index, semanticsNodeInteraction ->
                 semanticsNodeInteraction
@@ -137,17 +140,19 @@ class ButtonTest {
             val widths = onAllNodesWithTag("carbon_button_label", useUnmergedTree = true)
                 .toList()
                 .map {
-                    it.width + // Label width (width varies by weight)
-                        16.dp + // Icon width
+                    SpacingScale.spacing05 + // Start padding
+                        it.getUnclippedBoundsInRoot().width + // Label width (varies by weight)
                         SpacingScale.spacing05 + // Icon spacer
-                        SpacingScale.spacing05 // Start padding
+                        16.dp + // Icon width
+                        SpacingScale.spacing05 // End padding
                 }
 
             assert(buttonIconNodes.size == 3)
 
             buttonIconNodes.forEach { it.assertIsDisplayed() }
 
-            assert(widths.last() == onRoot().width) // Last button has fillMaxWidth
+            // Last button has fillMaxWidth
+            onRoot().assertWidthIsEqualTo(widths.last())
 
             rootNodes.forEachIndexed { index, semanticsNodeInteraction ->
                 semanticsNodeInteraction
