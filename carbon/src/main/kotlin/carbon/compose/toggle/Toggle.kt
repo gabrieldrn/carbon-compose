@@ -29,6 +29,8 @@ import androidx.compose.ui.graphics.drawscope.translate
 import androidx.compose.ui.graphics.vector.VectorPainter
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.debugInspectorInfo
+import androidx.compose.ui.platform.inspectable
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.unit.dp
@@ -91,7 +93,7 @@ public fun Toggle(
         isToggled = isToggled,
         onToggleChange = onToggleChange,
         interactionSource = interactionSource,
-        dimensions = ToggleDimensions.Default,
+        toggleType = ToggleType.Default,
         modifier = modifier,
         label = label,
         actionText = actionText,
@@ -140,7 +142,7 @@ public fun SmallToggle(
         isToggled = isToggled,
         onToggleChange = onToggleChange,
         interactionSource = interactionSource,
-        dimensions = ToggleDimensions.Small,
+        toggleType = ToggleType.Small,
         modifier = modifier,
         actionText = actionText,
         isEnabled = isEnabled,
@@ -153,7 +155,7 @@ public fun SmallToggle(
 private fun ToggleImpl(
     isToggled: Boolean,
     onToggleChange: ((Boolean) -> Unit)?,
-    dimensions: ToggleDimensions,
+    toggleType: ToggleType,
     interactionSource: MutableInteractionSource,
     modifier: Modifier = Modifier,
     label: String = "",
@@ -179,17 +181,24 @@ private fun ToggleImpl(
         else -> Modifier
     }
 
-    Column(modifier = modifier.then(toggleModifier)) {
+    Column(
+        modifier = Modifier
+            .inspectable(
+                debugInspectorInfo {
+                    properties["toggleType"] = toggleType::class.java.simpleName
+                }
+            ) { modifier.then(toggleModifier) }
+    ) {
         val theme = LocalCarbonTheme.current
         val density = LocalDensity.current
 
         val indication by remember {
-            mutableStateOf(ToggleableFocusIndication(dimensions.height))
+            mutableStateOf(ToggleableFocusIndication(toggleType.height))
         }
 
-        val handleSizePx = with(density) { dimensions.handleSize.toPx() }
-        val toggleHeight = with(density) { dimensions.height.toPx() }
-        val toggleWidth = with(density) { dimensions.width.toPx() }
+        val handleSizePx = with(density) { toggleType.handleSize.toPx() }
+        val toggleHeight = with(density) { toggleType.height.toPx() }
+        val toggleWidth = with(density) { toggleType.width.toPx() }
         val handleCheckmarkOffset = with(density) {
             Offset(
                 (handleSizePx - toggleCheckmarkIconWidth.toPx()) * .5f,
@@ -265,11 +274,11 @@ private fun ToggleImpl(
 
         Row(verticalAlignment = Alignment.CenterVertically) {
             val handleCheckmarkIcon = rememberVectorPainter(image = toggleCheckmarkIcon)
-                .takeIf { dimensions == ToggleDimensions.Small }
+                .takeIf { toggleType == ToggleType.Small }
 
             Canvas(
                 modifier = Modifier
-                    .requiredSize(dimensions.width, dimensions.height)
+                    .requiredSize(toggleType.width, toggleType.height)
                     .indication(
                         interactionSource = interactionSource,
                         indication = indication
