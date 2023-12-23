@@ -522,7 +522,7 @@ style:
   BracesOnIfStatements:
     active: true
     singleLine: 'consistent'
-    multiLine: 'always'
+    multiLine: 'consistent'
   BracesOnWhenStatements:
     active: true
     singleLine: 'consistent'
