@@ -41,6 +41,9 @@ import carbon.compose.foundation.spacing.SpacingScale
 import carbon.compose.foundation.text.CarbonTypography
 import carbon.compose.foundation.text.Text
 import carbon.compose.semantics.readOnly
+import carbon.compose.toggle.domain.ToggleColors
+import carbon.compose.toggle.domain.ToggleDrawValues
+import carbon.compose.toggle.domain.ToggleState
 import kotlin.math.max
 
 private val TOGGLE_COLOR_ANIMATION_SPEC = tween<Color>(

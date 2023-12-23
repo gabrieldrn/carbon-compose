@@ -1,9 +1,13 @@
-package carbon.compose.toggle
+package carbon.compose.toggle.domain
 
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Density
 import carbon.compose.foundation.color.Theme
+import carbon.compose.toggle.Toggle
+import carbon.compose.toggle.ToggleType
+import carbon.compose.toggle.toggleCheckmarkIconHeight
+import carbon.compose.toggle.toggleCheckmarkIconWidth
 
 /**
  * Represents the state of a [Toggle].
@@ -66,7 +70,7 @@ internal data class ToggleColors(
     val readOnlyHandleColor: Color,
 
     val handleCheckmarkColor: Color,
-    val disableHandleCheckmarkColor: Color,
+    val disabledHandleCheckmarkColor: Color,
 
     val textColor: Color,
     val disabledTextColor: Color,
@@ -90,7 +94,7 @@ internal data class ToggleColors(
 
     fun handleCheckmarkColor(state: ToggleState): Color = when {
         !state.isToggled || state.isReadOnly -> Color.Transparent
-        !state.isEnabled -> disableHandleCheckmarkColor
+        !state.isEnabled -> disabledHandleCheckmarkColor
         else -> handleCheckmarkColor
     }
 
@@ -109,7 +113,7 @@ internal data class ToggleColors(
             disabledHandleColor = theme.iconOnColorDisabled,
             readOnlyHandleColor = theme.iconPrimary,
             handleCheckmarkColor = theme.supportSuccess,
-            disableHandleCheckmarkColor = theme.buttonDisabled,
+            disabledHandleCheckmarkColor = theme.buttonDisabled,
             textColor = theme.textPrimary,
             disabledTextColor = theme.textDisabled,
         )
