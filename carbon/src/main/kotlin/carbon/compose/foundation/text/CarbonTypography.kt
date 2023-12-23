@@ -10,6 +10,9 @@ import androidx.compose.ui.text.style.BaselineShift
 import androidx.compose.ui.unit.sp
 import carbon.compose.R
 
+/**
+ * IBM Plex Sans font family.
+ */
 public val ibmPlexSansFamily: FontFamily = FontFamily(
     Font(R.font.ibmplexsans_light, FontWeight.Light),
     Font(R.font.ibmplexsans_lightitalic, FontWeight.Light, FontStyle.Italic),
@@ -19,6 +22,9 @@ public val ibmPlexSansFamily: FontFamily = FontFamily(
     Font(R.font.ibmplexsans_semibolditalic, FontWeight.SemiBold, FontStyle.Italic),
 )
 
+/**
+ * IBM Plex Serif font family.
+ */
 public val ibmPlexSerifFamily: FontFamily = FontFamily(
     Font(R.font.ibmplexserif_light, FontWeight.Light),
     Font(R.font.ibmplexserif_lightitalic, FontWeight.Light, FontStyle.Italic),
@@ -28,6 +34,9 @@ public val ibmPlexSerifFamily: FontFamily = FontFamily(
     Font(R.font.ibmplexserif_semibolditalic, FontWeight.SemiBold, FontStyle.Italic),
 )
 
+/**
+ * IBM Plex Mono font family.
+ */
 public val ibmPlexMonoFamily: FontFamily = FontFamily(
     Font(R.font.ibmplexmono_light, FontWeight.Light),
     Font(R.font.ibmplexmono_lightitalic, FontWeight.Light, FontStyle.Italic),
@@ -37,6 +46,12 @@ public val ibmPlexMonoFamily: FontFamily = FontFamily(
     Font(R.font.ibmplexmono_semibolditalic, FontWeight.SemiBold, FontStyle.Italic),
 )
 
+/**
+ * Carbon typography type sets.
+ *
+ * See [Typography type sets](https://carbondesignsystem.com/guidelines/typography/type-sets) for
+ * more information.
+ */
 @Suppress("UndocumentedPublicProperty")
 public object CarbonTypography {
     // region Utility
@@ -45,50 +60,50 @@ public object CarbonTypography {
         fontFamily = ibmPlexMonoFamily,
         fontSize = 12.sp,
         lineHeight = 16.sp,
-        letterSpacing = .32.sp,
+        letterSpacing = .32f.sp,
     )
     public val code02: TextStyle = TextStyle(
         fontFamily = ibmPlexMonoFamily,
         fontSize = 14.sp,
         lineHeight = 20.sp,
-        letterSpacing = .32.sp,
+        letterSpacing = .32f.sp,
     )
     public val label01: TextStyle = TextStyle(
         fontFamily = ibmPlexSansFamily,
         fontSize = 12.sp,
         lineHeight = 16.sp,
-        letterSpacing = .32.sp,
+        letterSpacing = .32f.sp,
     )
     public val label02: TextStyle = TextStyle(
         fontFamily = ibmPlexSansFamily,
         fontSize = 14.sp,
         lineHeight = 18.sp,
-        letterSpacing = .16.sp,
+        letterSpacing = .16f.sp,
     )
     public val helperText01: TextStyle = TextStyle(
         fontFamily = ibmPlexSansFamily,
         fontSize = 12.sp,
         lineHeight = 16.sp,
-        letterSpacing = .32.sp,
+        letterSpacing = .32f.sp,
     )
     public val helperText02: TextStyle = TextStyle(
         fontFamily = ibmPlexSansFamily,
         fontSize = 14.sp,
         lineHeight = 18.sp,
-        letterSpacing = .16.sp,
+        letterSpacing = .16f.sp,
     )
     public val legal01: TextStyle = TextStyle(
         fontFamily = ibmPlexSansFamily,
         fontSize = 12.sp,
         lineHeight = 16.sp,
         fontWeight = FontWeight.Normal,
-        letterSpacing = .32.sp,
+        letterSpacing = .32f.sp,
     )
     public val legal02: TextStyle = TextStyle(
         fontFamily = ibmPlexSansFamily,
         fontSize = 14.sp,
         lineHeight = 18.sp,
-        letterSpacing = .16.sp,
+        letterSpacing = .16f.sp,
     )
 
     // endregion
@@ -100,7 +115,7 @@ public object CarbonTypography {
         fontSize = 14.sp,
         lineHeight = 18.sp,
         platformStyle = PlatformTextStyle(includeFontPadding = false),
-        letterSpacing = .16.sp,
+        letterSpacing = .16f.sp,
         baselineShift = BaselineShift(.16f),
     )
     public val bodyCompact02: TextStyle = TextStyle(
@@ -112,7 +127,7 @@ public object CarbonTypography {
         fontFamily = ibmPlexSansFamily,
         fontSize = 14.sp,
         lineHeight = 20.sp,
-        letterSpacing = .16.sp,
+        letterSpacing = .16f.sp,
     )
     public val body02: TextStyle = TextStyle(
         fontFamily = ibmPlexSansFamily,
@@ -129,7 +144,7 @@ public object CarbonTypography {
         fontSize = 14.sp,
         lineHeight = 18.sp,
         fontWeight = FontWeight.SemiBold,
-        letterSpacing = .16.sp,
+        letterSpacing = .16f.sp,
     )
     public val headingCompact02: TextStyle = TextStyle(
         fontFamily = ibmPlexSansFamily,
@@ -142,7 +157,7 @@ public object CarbonTypography {
         fontSize = 14.sp,
         lineHeight = 20.sp,
         fontWeight = FontWeight.SemiBold,
-        letterSpacing = .16.sp,
+        letterSpacing = .16f.sp,
     )
     public val heading02: TextStyle = TextStyle(
         fontFamily = ibmPlexSansFamily,
