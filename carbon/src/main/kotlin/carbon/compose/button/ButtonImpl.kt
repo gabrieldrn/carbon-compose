@@ -63,7 +63,7 @@ internal fun ButtonRowImpl(
 ) {
     val colors = ButtonColors.buttonColors(buttonType = buttonType)
     val containerColor = remember { Animatable(colors.containerColor) }
-    val indiction = remember { ButtonFocusIndication(buttonType) }
+    val indication = remember { ButtonFocusIndication(buttonType) }
 
     LaunchedEffect(isEnabled) {
         containerColor.animateTo(
@@ -94,7 +94,7 @@ internal fun ButtonRowImpl(
             }
             .clickable(
                 interactionSource = interactionSource,
-                indication = indiction,
+                indication = indication,
                 onClick = onClick,
                 enabled = isEnabled,
                 role = Role.Button

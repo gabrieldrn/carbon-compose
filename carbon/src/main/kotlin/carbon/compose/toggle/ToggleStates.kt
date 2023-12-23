@@ -5,12 +5,18 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Density
 import carbon.compose.foundation.color.Theme
 
+/**
+ * Represents the state of a [Toggle].
+ */
 internal data class ToggleState(
-    val isEnabled: Boolean,
     val isToggled: Boolean,
+    val isEnabled: Boolean,
     val isReadOnly: Boolean,
 )
 
+/**
+ * Values used to draw a [Toggle].
+ */
 internal data class ToggleDrawValues(
     val handleSize: Float,
     val toggleHeight: Float,
@@ -44,6 +50,9 @@ internal data class ToggleDrawValues(
     }
 }
 
+/**
+ * Colors to be used by a [Toggle] based on its state.
+ */
 internal data class ToggleColors(
     val backgroundColor: Color,
     val toggledBackgroundColor: Color,
