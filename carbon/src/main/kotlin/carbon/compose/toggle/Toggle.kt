@@ -151,7 +151,6 @@ public fun SmallToggle(
 }
 
 @Composable
-@Suppress("CognitiveComplexMethod", "CyclomaticComplexMethod")
 private fun ToggleImpl(
     isToggled: Boolean,
     onToggleChange: ((Boolean) -> Unit)?,
@@ -163,6 +162,25 @@ private fun ToggleImpl(
     isEnabled: Boolean = true,
     isReadOnly: Boolean = false,
 ) {
+    val theme = LocalCarbonTheme.current
+    val density = LocalDensity.current
+
+    val toggleState by remember(isToggled, isEnabled, isReadOnly) {
+        mutableStateOf(ToggleState(isToggled, isEnabled, isReadOnly))
+    }
+
+    val indication by remember {
+        mutableStateOf(ToggleableFocusIndication(toggleType.height))
+    }
+
+    val toggleDrawValues by remember(toggleType) {
+        mutableStateOf(ToggleDrawValues.buildValues(toggleType, density))
+    }
+
+    val toggleColors by remember(theme) {
+        mutableStateOf(ToggleColors.fromTheme(theme))
+    }
+
     val toggleModifier = when {
         isReadOnly -> Modifier.readOnly(
             role = Role.Switch,
@@ -189,85 +207,47 @@ private fun ToggleImpl(
                 }
             ) { modifier.then(toggleModifier) }
     ) {
-        val theme = LocalCarbonTheme.current
-        val density = LocalDensity.current
-
-        val indication by remember {
-            mutableStateOf(ToggleableFocusIndication(toggleType.height))
-        }
-
-        val handleSizePx = with(density) { toggleType.handleSize.toPx() }
-        val toggleHeight = with(density) { toggleType.height.toPx() }
-        val toggleWidth = with(density) { toggleType.width.toPx() }
-        val handleCheckmarkOffset = with(density) {
-            Offset(
-                (handleSizePx - toggleCheckmarkIconWidth.toPx()) * .5f,
-                (handleSizePx - toggleCheckmarkIconHeight.toPx()) * .5f
-            )
-        }
-        val handleYOffPosPx = (toggleHeight - handleSizePx) * .5f
-        val handleXOnPosPx = toggleWidth - handleSizePx - handleYOffPosPx
-
         val backgroundColor: Color by animateColorAsState(
-            targetValue = when {
-                !isEnabled -> theme.buttonDisabled
-                isReadOnly -> Color.Transparent
-                isToggled -> theme.supportSuccess
-                else -> theme.toggleOff
-            },
+            targetValue = toggleColors.backgroundColor(toggleState),
             animationSpec = TOGGLE_COLOR_ANIMATION_SPEC,
             label = "Toggle background color"
         )
 
         val borderColor: Color by animateColorAsState(
             // TODO Impl contextual border color based on layer
-            targetValue = if (isReadOnly && isEnabled) theme.borderSubtle01 else Color.Transparent,
+            targetValue = toggleColors.borderColor(toggleState),
             animationSpec = TOGGLE_COLOR_ANIMATION_SPEC,
             label = "Toggle border color"
         )
 
         val handleColor: Color by animateColorAsState(
-            targetValue = when {
-                !isEnabled -> theme.iconOnColorDisabled
-                isReadOnly -> theme.iconPrimary
-                else -> theme.iconOnColor
-            },
+            targetValue = toggleColors.handleColor(toggleState),
             animationSpec = TOGGLE_COLOR_ANIMATION_SPEC,
             label = "Handle color"
         )
 
         val handleCheckmarkColor: Color by animateColorAsState(
-            targetValue = when {
-                !isToggled || isReadOnly -> Color.Transparent
-                !isEnabled -> theme.buttonDisabled
-                else -> theme.supportSuccess
-            },
+            targetValue = toggleColors.handleCheckmarkColor(toggleState),
             animationSpec = TOGGLE_COLOR_ANIMATION_SPEC,
             label = "Handle checkmark color"
         )
 
         val handleXPos: Float by animateFloatAsState(
-            targetValue = if (isToggled) handleXOnPosPx else handleYOffPosPx,
+            targetValue = toggleDrawValues.handleXPos(toggleState),
             animationSpec = TOGGLE_FLOAT_ANIMATION_SPEC,
             label = "Toggle handle position"
         )
 
-        val labelColor: Color by animateColorAsState(
-            targetValue = if (isEnabled) theme.textPrimary else theme.textDisabled,
+        val textColor by animateColorAsState(
+            targetValue = toggleColors.textColor(toggleState),
             animationSpec = TOGGLE_COLOR_ANIMATION_SPEC,
-            label = "Label color"
-        )
-
-        val actionTextColor: Color by animateColorAsState(
-            targetValue = if (isEnabled) theme.textPrimary else theme.textDisabled,
-            animationSpec = TOGGLE_COLOR_ANIMATION_SPEC,
-            label = "Action text color"
+            label = "Toggle text color"
         )
 
         if (label.isNotEmpty()) {
             Text(
                 text = label,
-                style = CarbonTypography.label01.copy(color = labelColor),
+                style = CarbonTypography.label01.copy(color = textColor),
                 modifier = Modifier.padding(bottom = SpacingScale.spacing04)
             )
         }
@@ -286,16 +266,16 @@ private fun ToggleImpl(
             ) {
                 drawToggleBackground(
                     backgroundColor = backgroundColor,
-                    toggleHeight = toggleHeight,
+                    toggleHeight = toggleDrawValues.toggleHeight,
                     borderColor = borderColor,
                 )
 
                 drawToggleHandle(
                     handleXPos = handleXPos,
-                    handleYPos = handleYOffPosPx,
+                    handleYPos = toggleDrawValues.handleYOffPos,
                     handleColor = handleColor,
-                    handleSizePx = handleSizePx,
-                    handleCheckmarkOffset = handleCheckmarkOffset,
+                    handleSizePx = toggleDrawValues.handleSize,
+                    handleCheckmarkOffset = toggleDrawValues.handleCheckmarkOffset,
                     handleCheckmarkIcon = handleCheckmarkIcon,
                     handleCheckmarkColor = handleCheckmarkColor
                 )
@@ -303,7 +283,7 @@ private fun ToggleImpl(
             if (actionText.isNotEmpty()) {
                 Text(
                     text = actionText,
-                    style = CarbonTypography.bodyCompact01.copy(color = actionTextColor),
+                    style = CarbonTypography.bodyCompact01.copy(color = textColor),
                     modifier = Modifier.padding(start = SpacingScale.spacing03)
                 )
             }
