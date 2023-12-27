@@ -30,6 +30,11 @@
             android:label=""
             android:theme="@style/Theme.Carbon"/>
 
+        <activity android:name=".dropdown.DropdownDemoActivity"
+            android:exported="false"
+            android:label=""
+            android:theme="@style/Theme.Carbon"/>
+
         <activity
             android:name=".toggle.ToggleDemoActivity"
             android:exported="false"
