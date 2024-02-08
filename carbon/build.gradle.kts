@@ -8,11 +8,13 @@ android {
 }
 
 dependencies {
-    api(libs.androidx.compose.foundation)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.lifecycle.viewModel.compose)
+    implementation(libs.androidx.compose.foundation)
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.uiTooling)
 
-//    implementation(libs.timber)
+    implementation(libs.timber)
 
     debugImplementation(libs.androidx.compose.ui.test.manifest)
 

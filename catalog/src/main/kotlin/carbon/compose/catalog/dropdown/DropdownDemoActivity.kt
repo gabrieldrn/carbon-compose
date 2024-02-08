@@ -7,11 +7,17 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -40,16 +46,26 @@ class DropdownDemoActivity : AppCompatActivity() {
                         onMenuIconPressed = { onBackPressedDispatcher.onBackPressed() },
                     )
 
-                    Box(modifier = Modifier.weight(1f).fillMaxWidth()) {
+                    Column(
+                        modifier = Modifier
+                            .verticalScroll(state = rememberScrollState())
+                            .weight(1f)
+                            .fillMaxWidth()
+                    ) {
+                        var expanded by remember { mutableStateOf(false) }
+
+                        Spacer(modifier = Modifier.height(600.dp))
                         Dropdown(
+                            expanded = expanded,
+                            onExpandedChange = { expanded = it },
+                            onDismissRequest = { expanded = false },
                             fieldPlaceholderText = "Dropdown",
                             optionSelected = null,
                             options = (0..5).associateWith { "Option $it" },
                             onOptionSelected = {},
-                            modifier = Modifier
-                                .width(200.dp)
-                                .padding(8.dp),
+                            modifier = Modifier.padding(8.dp),
                         )
+                        Spacer(modifier = Modifier.height(600.dp))
                     }
                 }
             }

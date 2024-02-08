@@ -1,13 +1,22 @@
 package carbon.compose.dropdown
 
+import android.annotation.SuppressLint
 import androidx.annotation.IntRange
-import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.MutableTransitionState
+import androidx.compose.animation.core.Transition
+import androidx.compose.animation.core.animateDp
+import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.awaitEachGesture
+import androidx.compose.foundation.gestures.awaitFirstDown
+import androidx.compose.foundation.gestures.waitForUpOrCancellation
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -16,19 +25,24 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.input.pointer.PointerEventPass
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.onClick
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.IntRect
 import androidx.compose.ui.unit.IntSize
@@ -40,34 +54,46 @@ import androidx.compose.ui.window.PopupPositionProvider
 import carbon.compose.foundation.motion.Motion
 import carbon.compose.foundation.text.CarbonTypography
 import carbon.compose.foundation.text.Text
+import timber.log.Timber
 
-private val dropdownHeight = 40.dp
+private val dropdownOptionHeight = 40.dp
 
+private val dropdownTransitionSpecFloat = tween<Float>(
+    durationMillis = Motion.Duration.moderate01,
+    easing = Motion.Standard.productiveEasing
+)
+
+private val dropdownTransitionSpecDp = tween<Dp>(
+    durationMillis = Motion.Duration.moderate01,
+    easing = Motion.Standard.productiveEasing
+)
+
+// TODO Focus
 @Composable
-public fun <K : Any> Dropdown(
+public fun <OptionKey : Any> Dropdown(
+    expanded: Boolean,
+    onExpandedChange: (Boolean) -> Unit,
+    onDismissRequest: () -> Unit,
     fieldPlaceholderText: String,
     optionSelected: String?,
-    options: Map<K, String>,
-    onOptionSelected: (K) -> Unit,
+    options: Map<OptionKey, String>,
+    onOptionSelected: (OptionKey) -> Unit,
     modifier: Modifier = Modifier,
     @IntRange(from = 1) visibleItemsBeforeScroll: Int = 4
 ) {
+    val expandedStates = remember { MutableTransitionState(false) }
+    expandedStates.targetState = expanded
+
+    val transition = updateTransition(expandedStates, "Dropdown")
+
     val colors = DropdownColors.colors()
-    var showPopup by remember { mutableStateOf(false) }
 
-    val popupHeight =
-        options.size.coerceAtMost(visibleItemsBeforeScroll.coerceAtLeast(1)) *
-            dropdownHeight +
-            dropdownHeight * .5f
-
-    val chevronRotation by animateFloatAsState(
-        targetValue = if (showPopup) 180f else 0f,
-        animationSpec = tween(
-            durationMillis = Motion.Duration.moderate01,
-            easing = Motion.Standard.productiveEasing
-        ),
+    val chevronRotation by transition.animateFloat(
+        transitionSpec = { dropdownTransitionSpecFloat },
         label = "Chevron rotation"
-    )
+    ) {
+        if (it) 180f else 0f
+    }
 
     BoxWithConstraints(modifier = modifier.height(40.dp)) {
         Row(
@@ -75,12 +101,20 @@ public fun <K : Any> Dropdown(
             modifier = Modifier
                 .fillMaxHeight()
                 .background(colors.fieldBackgroundColor)
-                .clickable { showPopup = !showPopup }
                 .padding(horizontal = 16.dp)
+                .expandable(
+                    expanded = expanded,
+                    onExpandedChange = {
+                        if (expandedStates.targetState) return@expandable
+                        Timber.d("onExpandedChange, expanded: $expanded")
+                        onExpandedChange(!expandedStates.targetState)
+                    },
+                )
         ) {
             Text(
                 text = optionSelected ?: fieldPlaceholderText,
                 style = CarbonTypography.bodyCompact01,
+                color = colors.fieldTextColor,
                 modifier = Modifier.weight(1f)
             )
             Image(
@@ -99,52 +133,88 @@ public fun <K : Any> Dropdown(
                 .fillMaxWidth()
                 .align(Alignment.BottomCenter)
         )
-        if (showPopup) {
-            // TODO Place popup on top of the field if the menu doesn't have enough space below it.
+
+        // TODO Place popup on top of the field if the menu doesn't have enough space below it.
+        if (expandedStates.currentState || expandedStates.targetState) {
             Popup(
                 popupPositionProvider = DropdownMenuPositionProvider,
-                onDismissRequest = { showPopup = false }
+                onDismissRequest = onDismissRequest
             ) {
-                LazyColumn(
+                DropdownContent(
+                    options = options,
+                    visibleItemsBeforeScroll = visibleItemsBeforeScroll,
+                    transition = transition,
+                    colors = colors,
+                    onOptionSelected = onOptionSelected,
                     modifier = Modifier
-                        .width(this@BoxWithConstraints.maxWidth)
-                        .height(popupHeight)
-                        // This should be a box shadow (-> 0 2px 6px 0 rgba(0,0,0,.2)). But compose
-                        // doesn't provide the same API as CSS for shadows. A 3dp elevation is the
-                        // best approximation that could be found for now.
-                        .shadow(elevation = 3.dp)
-                        .background(color = colors.menuOptionBackgroundColor)
-                ) {
-                    itemsIndexed(
-                        items = options.entries.toList(),
-                        key = { _, option -> option.key }
-                    ) { index, option ->
-                        DropdownMenuOption(
-                            option = option,
-                            onOptionSelected = onOptionSelected,
-                            showDivider = index != 0,
-                            colors = colors,
-                            modifier = Modifier
-                                .height(40.dp)
-                                .fillMaxWidth()
-                        )
-                    }
-                }
+                        .width(maxWidth)
+                )
             }
         }
     }
 }
 
 @Composable
-private fun <K : Any> DropdownMenuOption(
-    option: Map.Entry<K, String>,
+private fun <OptionKey : Any> DropdownContent(
+    options: Map<OptionKey, String>,
+    visibleItemsBeforeScroll: Int,
+    transition: Transition<Boolean>,
+    colors: DropdownColors,
+    onOptionSelected: (OptionKey) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    val maxHeight =
+        options.size.coerceAtMost(visibleItemsBeforeScroll.coerceAtLeast(1)) *
+            dropdownOptionHeight +
+            dropdownOptionHeight * .5f
+
+    val height by transition.animateDp(
+        transitionSpec = { dropdownTransitionSpecDp },
+        label = "Popup content height"
+    ) {
+        if (it) maxHeight else 0.dp
+    }
+
+    val elevation by transition.animateDp(
+        transitionSpec = { dropdownTransitionSpecDp },
+        label = "Popup content shadow"
+    ) {
+        if (it) 3.dp else 0.dp
+    }
+
+    Column(
+        modifier = modifier
+            .height(height)
+            // This should be a box shadow (-> 0 2px 6px 0 rgba(0,0,0,.2)). But compose
+            // doesn't provide the same API as CSS for shadows. A 3dp elevation is the
+            // best approximation that could be found for now.
+            .shadow(elevation = elevation)
+            .background(color = colors.menuOptionBackgroundColor)
+            .verticalScroll(rememberScrollState())
+    ) {
+        options.entries.forEachIndexed { index, option ->
+            DropdownMenuOption(
+                option = option,
+                onOptionSelected = onOptionSelected,
+                showDivider = index != 0,
+                colors = colors,
+                modifier = Modifier.fillMaxWidth()
+            )
+        }
+    }
+}
+
+@Composable
+private fun <OptionKey : Any> DropdownMenuOption(
+    option: Map.Entry<OptionKey, String>,
     colors: DropdownColors,
     showDivider: Boolean,
-    onOptionSelected: (K) -> Unit,
+    onOptionSelected: (OptionKey) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Box(
         modifier = modifier
+            .height(dropdownOptionHeight)
             .clickable(onClick = { onOptionSelected(option.key) })
             .padding(horizontal = 16.dp)
     ) {
@@ -160,7 +230,8 @@ private fun <K : Any> DropdownMenuOption(
         ) {
             Text(
                 text = option.value,
-                style = CarbonTypography.bodyCompact01
+                style = CarbonTypography.bodyCompact01,
+                color = colors.menuOptionTextColor,
             )
         }
     }
@@ -178,6 +249,36 @@ private fun DropdownMenuOptionDivider(
             .fillMaxWidth()
     )
 }
+
+// From Material3
+@SuppressLint("ComposableModifierFactory")
+@Composable
+private fun Modifier.expandable(
+    expanded: Boolean,
+    onExpandedChange: () -> Unit,
+    menuDescription: String = "",
+    expandedDescription: String = "",
+    collapsedDescription: String = "",
+) = this
+    .pointerInput(Unit) {
+        awaitEachGesture {
+            // Must be PointerEventPass.Initial to observe events before the text field consumes
+            // them in the Main pass
+            awaitFirstDown(pass = PointerEventPass.Initial)
+            val upEvent = waitForUpOrCancellation(pass = PointerEventPass.Initial)
+            if (upEvent != null) {
+                onExpandedChange()
+            }
+        }
+    }
+    .semantics {
+        stateDescription = if (expanded) expandedDescription else collapsedDescription
+        contentDescription = menuDescription
+        onClick {
+            onExpandedChange()
+            true
+        }
+    }
 
 private object DropdownMenuPositionProvider : PopupPositionProvider {
 
