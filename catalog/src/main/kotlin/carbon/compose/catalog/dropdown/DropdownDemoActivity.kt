@@ -54,7 +54,7 @@ class DropdownDemoActivity : AppCompatActivity() {
                     ) {
                         var expanded by remember { mutableStateOf(false) }
 
-                        Spacer(modifier = Modifier.height(600.dp))
+                        Spacer(modifier = Modifier.height(300.dp))
                         Dropdown(
                             expanded = expanded,
                             onExpandedChange = { expanded = it },
@@ -65,7 +65,7 @@ class DropdownDemoActivity : AppCompatActivity() {
                             onOptionSelected = {},
                             modifier = Modifier.padding(8.dp),
                         )
-                        Spacer(modifier = Modifier.height(600.dp))
+                        Spacer(modifier = Modifier.height(900.dp))
                     }
                 }
             }

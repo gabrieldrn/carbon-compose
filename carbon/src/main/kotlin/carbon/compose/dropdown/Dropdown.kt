@@ -10,9 +10,12 @@ import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.focusable
 import androidx.compose.foundation.gestures.awaitEachGesture
 import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.foundation.gestures.waitForUpOrCancellation
+import androidx.compose.foundation.indication
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
@@ -27,16 +30,21 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.input.pointer.PointerEventPass
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.semantics.onClick
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.IntRect
@@ -46,6 +54,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.times
 import androidx.compose.ui.window.Popup
 import androidx.compose.ui.window.PopupPositionProvider
+import androidx.compose.ui.window.PopupProperties
+import carbon.compose.foundation.input.onEnterKeyEvent
+import carbon.compose.foundation.interaction.FocusIndication
 import carbon.compose.foundation.motion.Motion
 import carbon.compose.foundation.text.CarbonTypography
 import carbon.compose.foundation.text.Text
@@ -75,6 +86,7 @@ public fun <OptionKey : Any> Dropdown(
     modifier: Modifier = Modifier,
     @IntRange(from = 1) visibleItemsBeforeScroll: Int = 4
 ) {
+    val interactionSource = remember { MutableInteractionSource() }
     val expandedStates = remember { MutableTransitionState(false) }
     expandedStates.targetState = expanded
 
@@ -89,7 +101,20 @@ public fun <OptionKey : Any> Dropdown(
         if (it) 180f else 0f
     }
 
-    BoxWithConstraints(modifier = modifier.height(40.dp)) {
+    val focusRequester = remember { FocusRequester() }
+
+    SideEffect {
+        if (expanded) focusRequester.requestFocus()
+    }
+
+    BoxWithConstraints(
+        modifier = modifier
+            .height(40.dp)
+            .indication(
+                interactionSource = interactionSource,
+                indication = FocusIndication()
+            )
+    ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
@@ -109,6 +134,20 @@ public fun <OptionKey : Any> Dropdown(
                         }
                     }
                 }
+                .onEnterKeyEvent {
+                    onExpandedChange(!expandedStates.currentState)
+                }
+                .semantics {
+                    onClick {
+                        onExpandedChange(!expandedStates.currentState)
+                        true
+                    }
+                }
+                .focusable(
+                    enabled = true,
+                    interactionSource = interactionSource,
+                )
+                .focusRequester(focusRequester)
         ) {
             Text(
                 text = optionSelected ?: fieldPlaceholderText,
@@ -137,16 +176,19 @@ public fun <OptionKey : Any> Dropdown(
         if (expandedStates.currentState || expandedStates.targetState) {
             Popup(
                 popupPositionProvider = DropdownMenuPositionProvider,
-                onDismissRequest = onDismissRequest
+                onDismissRequest = onDismissRequest,
+                properties = PopupProperties(focusable = true)
             ) {
                 DropdownContent(
                     options = options,
                     visibleItemsBeforeScroll = visibleItemsBeforeScroll,
                     transition = transition,
                     colors = colors,
-                    onOptionSelected = onOptionSelected,
-                    modifier = Modifier
-                        .width(maxWidth)
+                    onOptionSelected = { option ->
+                        onOptionSelected(option)
+                        onDismissRequest()
+                    },
+                    modifier = Modifier.width(maxWidth)
                 )
             }
         }
@@ -197,7 +239,8 @@ private fun <OptionKey : Any> DropdownContent(
                 onOptionSelected = onOptionSelected,
                 showDivider = index != 0,
                 colors = colors,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
             )
         }
     }
@@ -209,12 +252,17 @@ private fun <OptionKey : Any> DropdownMenuOption(
     colors: DropdownColors,
     showDivider: Boolean,
     onOptionSelected: (OptionKey) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 ) {
     Box(
         modifier = modifier
             .height(dropdownOptionHeight)
-            .clickable(onClick = { onOptionSelected(option.key) })
+            .clickable(
+                interactionSource = interactionSource,
+                indication = FocusIndication(),
+                onClick = { onOptionSelected(option.key) }
+            )
             .padding(horizontal = 16.dp)
     ) {
         if (showDivider) {
