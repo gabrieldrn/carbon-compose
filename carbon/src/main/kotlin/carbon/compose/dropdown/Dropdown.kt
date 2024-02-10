@@ -1,6 +1,5 @@
 package carbon.compose.dropdown
 
-import android.annotation.SuppressLint
 import androidx.annotation.IntRange
 import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.animation.core.Transition
@@ -38,10 +37,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.input.pointer.PointerEventPass
 import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.semantics.onClick
-import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.IntRect
@@ -54,7 +49,6 @@ import androidx.compose.ui.window.PopupPositionProvider
 import carbon.compose.foundation.motion.Motion
 import carbon.compose.foundation.text.CarbonTypography
 import carbon.compose.foundation.text.Text
-import timber.log.Timber
 
 private val dropdownOptionHeight = 40.dp
 
@@ -102,14 +96,19 @@ public fun <OptionKey : Any> Dropdown(
                 .fillMaxHeight()
                 .background(colors.fieldBackgroundColor)
                 .padding(horizontal = 16.dp)
-                .expandable(
-                    expanded = expanded,
-                    onExpandedChange = {
-                        if (expandedStates.targetState) return@expandable
-                        Timber.d("onExpandedChange, expanded: $expanded")
-                        onExpandedChange(!expandedStates.targetState)
-                    },
-                )
+                .pointerInput(Unit) {
+                    awaitEachGesture {
+                        // Custom pointer input to handle input events on the field.
+                        awaitFirstDown(pass = PointerEventPass.Initial)
+                        val expandStateOnDown = expandedStates.currentState
+                        waitForUpOrCancellation(pass = PointerEventPass.Initial)?.let {
+                            // Avoid expand back if the dropdown was expanded on down.
+                            if (!expandStateOnDown) {
+                                onExpandedChange(!expandedStates.currentState)
+                            }
+                        }
+                    }
+                }
         ) {
             Text(
                 text = optionSelected ?: fieldPlaceholderText,
@@ -249,36 +248,6 @@ private fun DropdownMenuOptionDivider(
             .fillMaxWidth()
     )
 }
-
-// From Material3
-@SuppressLint("ComposableModifierFactory")
-@Composable
-private fun Modifier.expandable(
-    expanded: Boolean,
-    onExpandedChange: () -> Unit,
-    menuDescription: String = "",
-    expandedDescription: String = "",
-    collapsedDescription: String = "",
-) = this
-    .pointerInput(Unit) {
-        awaitEachGesture {
-            // Must be PointerEventPass.Initial to observe events before the text field consumes
-            // them in the Main pass
-            awaitFirstDown(pass = PointerEventPass.Initial)
-            val upEvent = waitForUpOrCancellation(pass = PointerEventPass.Initial)
-            if (upEvent != null) {
-                onExpandedChange()
-            }
-        }
-    }
-    .semantics {
-        stateDescription = if (expanded) expandedDescription else collapsedDescription
-        contentDescription = menuDescription
-        onClick {
-            onExpandedChange()
-            true
-        }
-    }
 
 private object DropdownMenuPositionProvider : PopupPositionProvider {
 
