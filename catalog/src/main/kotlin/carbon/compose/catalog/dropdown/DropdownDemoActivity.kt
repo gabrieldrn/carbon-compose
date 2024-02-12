@@ -8,9 +8,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -28,6 +26,8 @@ import carbon.compose.foundation.color.LocalCarbonTheme
 import carbon.compose.uishell.UiShellHeader
 
 class DropdownDemoActivity : AppCompatActivity() {
+
+    private val dropdownOptions = (0..5).associateWith { "Option $it" }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,20 +52,19 @@ class DropdownDemoActivity : AppCompatActivity() {
                             .weight(1f)
                             .fillMaxWidth()
                     ) {
+                        var selectedOption by remember { mutableStateOf<Int?>(null) }
                         var expanded by remember { mutableStateOf(false) }
 
-                        Spacer(modifier = Modifier.height(300.dp))
                         Dropdown(
                             expanded = expanded,
+                            fieldPlaceholderText = "Dropdown",
+                            selectedOption = selectedOption,
+                            options = dropdownOptions,
+                            onOptionSelected = { selectedOption = it },
                             onExpandedChange = { expanded = it },
                             onDismissRequest = { expanded = false },
-                            fieldPlaceholderText = "Dropdown",
-                            optionSelected = null,
-                            options = (0..5).associateWith { "Option $it" },
-                            onOptionSelected = {},
                             modifier = Modifier.padding(8.dp),
                         )
-                        Spacer(modifier = Modifier.height(900.dp))
                     }
                 }
             }

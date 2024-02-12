@@ -18,7 +18,6 @@ import androidx.compose.foundation.indication
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -27,8 +26,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
@@ -41,6 +41,9 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.input.key.Key
+import androidx.compose.ui.input.key.key
+import androidx.compose.ui.input.key.onPreviewKeyEvent
 import androidx.compose.ui.input.pointer.PointerEventPass
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.semantics.onClick
@@ -73,20 +76,20 @@ private val dropdownTransitionSpecDp = tween<Dp>(
     easing = Motion.Standard.productiveEasing
 )
 
-// TODO Focus
 @Composable
 public fun <OptionKey : Any> Dropdown(
     expanded: Boolean,
-    onExpandedChange: (Boolean) -> Unit,
-    onDismissRequest: () -> Unit,
     fieldPlaceholderText: String,
-    optionSelected: String?,
+    selectedOption: OptionKey?,
     options: Map<OptionKey, String>,
     onOptionSelected: (OptionKey) -> Unit,
+    onExpandedChange: (Boolean) -> Unit,
+    onDismissRequest: () -> Unit,
     modifier: Modifier = Modifier,
     @IntRange(from = 1) visibleItemsBeforeScroll: Int = 4
 ) {
     val interactionSource = remember { MutableInteractionSource() }
+
     val expandedStates = remember { MutableTransitionState(false) }
     expandedStates.targetState = expanded
 
@@ -101,12 +104,6 @@ public fun <OptionKey : Any> Dropdown(
         if (it) 180f else 0f
     }
 
-    val focusRequester = remember { FocusRequester() }
-
-    SideEffect {
-        if (expanded) focusRequester.requestFocus()
-    }
-
     BoxWithConstraints(
         modifier = modifier
             .height(40.dp)
@@ -118,6 +115,7 @@ public fun <OptionKey : Any> Dropdown(
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
+                .focusable(interactionSource = interactionSource)
                 .fillMaxHeight()
                 .background(colors.fieldBackgroundColor)
                 .padding(horizontal = 16.dp)
@@ -143,14 +141,9 @@ public fun <OptionKey : Any> Dropdown(
                         true
                     }
                 }
-                .focusable(
-                    enabled = true,
-                    interactionSource = interactionSource,
-                )
-                .focusRequester(focusRequester)
         ) {
             Text(
-                text = optionSelected ?: fieldPlaceholderText,
+                text = options[selectedOption] ?: fieldPlaceholderText,
                 style = CarbonTypography.bodyCompact01,
                 color = colors.fieldTextColor,
                 modifier = Modifier.weight(1f)
@@ -180,6 +173,7 @@ public fun <OptionKey : Any> Dropdown(
                 properties = PopupProperties(focusable = true)
             ) {
                 DropdownContent(
+                    selectedOption = selectedOption,
                     options = options,
                     visibleItemsBeforeScroll = visibleItemsBeforeScroll,
                     transition = transition,
@@ -188,7 +182,9 @@ public fun <OptionKey : Any> Dropdown(
                         onOptionSelected(option)
                         onDismissRequest()
                     },
-                    modifier = Modifier.width(maxWidth)
+                    modifier = Modifier
+                        .width(maxWidth)
+                        .onEscape(onDismissRequest)
                 )
             }
         }
@@ -198,16 +194,20 @@ public fun <OptionKey : Any> Dropdown(
 @Composable
 private fun <OptionKey : Any> DropdownContent(
     options: Map<OptionKey, String>,
+    selectedOption: OptionKey?,
     visibleItemsBeforeScroll: Int,
     transition: Transition<Boolean>,
     colors: DropdownColors,
     onOptionSelected: (OptionKey) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
+    val currentItemFocusRequester = remember { FocusRequester() }
     val maxHeight =
         options.size.coerceAtMost(visibleItemsBeforeScroll.coerceAtLeast(1)) *
             dropdownOptionHeight +
             dropdownOptionHeight * .5f
+
+    val actualSelectedOption = selectedOption ?: options.keys.first()
 
     val height by transition.animateDp(
         transitionSpec = { dropdownTransitionSpecDp },
@@ -223,7 +223,10 @@ private fun <OptionKey : Any> DropdownContent(
         if (it) 3.dp else 0.dp
     }
 
-    Column(
+    LazyColumn(
+        state = rememberLazyListState(
+            initialFirstVisibleItemIndex = options.keys.indexOf(actualSelectedOption)
+        ),
         modifier = modifier
             .height(height)
             // This should be a box shadow (-> 0 2px 6px 0 rgba(0,0,0,.2)). But compose
@@ -231,9 +234,13 @@ private fun <OptionKey : Any> DropdownContent(
             // best approximation that could be found for now.
             .shadow(elevation = elevation)
             .background(color = colors.menuOptionBackgroundColor)
-            .verticalScroll(rememberScrollState())
     ) {
-        options.entries.forEachIndexed { index, option ->
+        itemsIndexed(options.entries.toList()) { index, option ->
+            SideEffect {
+                if (option.key == actualSelectedOption) {
+                    currentItemFocusRequester.requestFocus()
+                }
+            }
             DropdownMenuOption(
                 option = option,
                 onOptionSelected = onOptionSelected,
@@ -241,8 +248,24 @@ private fun <OptionKey : Any> DropdownContent(
                 colors = colors,
                 modifier = Modifier
                     .fillMaxWidth()
+                    .then(
+                        if (option.key == actualSelectedOption) {
+                            Modifier.focusRequester(currentItemFocusRequester)
+                        } else {
+                            Modifier
+                        }
+                    )
             )
         }
+    }
+}
+
+private fun Modifier.onEscape(block: () -> Unit) = onPreviewKeyEvent {
+    if (it.key == Key.Escape) {
+        block()
+        true
+    } else {
+        false
     }
 }
 

@@ -26,7 +26,7 @@ private fun DropdownPreview() {
                 onExpandedChange = { expanded = it },
                 onDismissRequest = { expanded = false },
                 fieldPlaceholderText = "Dropdown",
-                optionSelected = null,
+                selectedOption = null,
                 options = options,
                 onOptionSelected = {},
                 modifier = Modifier.padding(8.dp).width(200.dp),
