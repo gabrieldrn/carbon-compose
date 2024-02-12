@@ -76,17 +76,52 @@ private val dropdownTransitionSpecDp = tween<Dp>(
     easing = Motion.Standard.productiveEasing
 )
 
+private const val CHEVRON_ROTATION_ANGLE = 180f
+
+/**
+ * # Dropdown
+ *
+ * Dropdowns present a list of options from which a user can select one option.
+ * A selected option can represent a value in a form, or can be used as an action to filter or sort
+ * existing content.
+ *
+ * Only one option can be selected at a time.
+ * - By default, the dropdown displays placeholder text in the field when closed.
+ * - Clicking on a closed field opens a menu of options.
+ * - Selecting an option from the menu closes it and the selected option text replaces the
+ * placeholder text in the field and also remains as an option in place if the menu is open.
+ *
+ * (From [Dropdown documentation](https://carbondesignsystem.com/components/dropdown/usage/))
+ *
+ * @param K Type to identify the options.
+ * @param expanded Whether the dropdown is expanded or not.
+ * @param fieldPlaceholderText The text to be displayed in the field when no option is selected.
+ * @param selectedOption The currently selected option. When not null, the option associated with
+ * this key will be displayed in the field.
+ * @param options The options to be displayed in the dropdown menu. A map signature ensures that the
+ * keys are unique and can be used to identify the selected option. The strings associated with each
+ * key are the texts to be displayed in the dropdown menu.
+ * @param onOptionSelected Callback invoked when an option is selected. The selected option is
+ * passed as a parameter, and the callback should be used to update a remembered state with the new
+ * value.
+ * @param onExpandedChange Callback invoked when the expanded state of the dropdown changes. It
+ * should be used to update a remembered state with the new value.
+ * @param onDismissRequest Callback invoked when the dropdown menu should be dismissed.
+ * @param modifier The modifier to be applied to the dropdown.
+ * @param minVisibleItems The minimum number of items to be visible in the dropdown menu before the
+ * user needs to scroll. This value is used to calculate the height of the menu. Defaults to 4.
+ */
 @Composable
-public fun <OptionKey : Any> Dropdown(
+public fun <K : Any> Dropdown(
     expanded: Boolean,
     fieldPlaceholderText: String,
-    selectedOption: OptionKey?,
-    options: Map<OptionKey, String>,
-    onOptionSelected: (OptionKey) -> Unit,
+    selectedOption: K?,
+    options: Map<K, String>,
+    onOptionSelected: (K) -> Unit,
     onExpandedChange: (Boolean) -> Unit,
     onDismissRequest: () -> Unit,
     modifier: Modifier = Modifier,
-    @IntRange(from = 1) visibleItemsBeforeScroll: Int = 4
+    @IntRange(from = 1) minVisibleItems: Int = 4
 ) {
     val interactionSource = remember { MutableInteractionSource() }
 
@@ -101,7 +136,7 @@ public fun <OptionKey : Any> Dropdown(
         transitionSpec = { dropdownTransitionSpecFloat },
         label = "Chevron rotation"
     ) {
-        if (it) 180f else 0f
+        if (it) CHEVRON_ROTATION_ANGLE else 0f
     }
 
     BoxWithConstraints(
@@ -125,7 +160,7 @@ public fun <OptionKey : Any> Dropdown(
                         awaitFirstDown(pass = PointerEventPass.Initial)
                         val expandStateOnDown = expandedStates.currentState
                         waitForUpOrCancellation(pass = PointerEventPass.Initial)?.let {
-                            // Avoid expand back if the dropdown was expanded on down.
+                            // Avoid expanding back if the dropdown was expanded on down.
                             if (!expandStateOnDown) {
                                 onExpandedChange(!expandedStates.currentState)
                             }
@@ -175,7 +210,7 @@ public fun <OptionKey : Any> Dropdown(
                 DropdownContent(
                     selectedOption = selectedOption,
                     options = options,
-                    visibleItemsBeforeScroll = visibleItemsBeforeScroll,
+                    visibleItemsBeforeScroll = minVisibleItems,
                     transition = transition,
                     colors = colors,
                     onOptionSelected = { option ->
@@ -192,13 +227,13 @@ public fun <OptionKey : Any> Dropdown(
 }
 
 @Composable
-private fun <OptionKey : Any> DropdownContent(
-    options: Map<OptionKey, String>,
-    selectedOption: OptionKey?,
+private fun <K : Any> DropdownContent(
+    options: Map<K, String>,
+    selectedOption: K?,
     visibleItemsBeforeScroll: Int,
     transition: Transition<Boolean>,
     colors: DropdownColors,
-    onOptionSelected: (OptionKey) -> Unit,
+    onOptionSelected: (K) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val currentItemFocusRequester = remember { FocusRequester() }
@@ -270,11 +305,11 @@ private fun Modifier.onEscape(block: () -> Unit) = onPreviewKeyEvent {
 }
 
 @Composable
-private fun <OptionKey : Any> DropdownMenuOption(
-    option: Map.Entry<OptionKey, String>,
+private fun <K : Any> DropdownMenuOption(
+    option: Map.Entry<K, String>,
     colors: DropdownColors,
     showDivider: Boolean,
-    onOptionSelected: (OptionKey) -> Unit,
+    onOptionSelected: (K) -> Unit,
     modifier: Modifier = Modifier,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 ) {
