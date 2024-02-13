@@ -1,3 +1,4 @@
+import carbon.compose.buildlogic.Constants
 import carbon.compose.buildlogic.configureKotlinAndroidCommon
 import carbon.compose.buildlogic.getLibrary
 import carbon.compose.buildlogic.getPlugin
@@ -28,11 +29,9 @@ class CarbonAndroidLibraryConventionPlugin : Plugin<Project> {
 
         extensions.configure<LibraryExtension> {
 
-            configureKotlinAndroidCommon(this)
+            configureKotlinAndroidCommon()
 
             setupExplicitApi()
-
-            // TODO Not sure if proguard/R8 is relevant for libraries.
 
             defaultConfig {
                 consumerProguardFiles.add(file("consumer-rules.pro"))
@@ -50,12 +49,8 @@ class CarbonAndroidLibraryConventionPlugin : Plugin<Project> {
 
             kotlinOptions {
                 freeCompilerArgs += listOf(
-                    "-P",
-                    "plugin:androidx.compose.compiler.plugins.kotlin:metricsDestination=" +
-                        "$buildDir/compose/metrics",
-                    "-P",
-                    "plugin:androidx.compose.compiler.plugins.kotlin:reportsDestination=" +
-                        "$buildDir/compose/reports"
+                    "-P", Constants.CompileArgs.COMPOSE_METRICS_PRE + "$buildDir/compose/metrics",
+                    "-P", Constants.CompileArgs.COMPOSE_REPORT_PRE + "$buildDir/compose/reports"
                 )
             }
 

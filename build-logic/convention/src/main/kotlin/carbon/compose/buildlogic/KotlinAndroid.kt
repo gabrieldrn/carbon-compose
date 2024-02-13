@@ -1,30 +1,26 @@
 package carbon.compose.buildlogic
 
 import com.android.build.api.dsl.CommonExtension
-import org.gradle.api.Project
 
 /**
- * Configure base Kotlin with Android options.
+ * Configure Android extension with common settings.
  */
-internal fun Project.configureKotlinAndroidCommon(
-    commonExtension: CommonExtension<*, *, *, *, *>,
-) = with(commonExtension) {
+internal fun CommonExtension<*, *, *, *, *>.configureKotlinAndroidCommon() {
 
-    compileSdk = libs.getVersion("compileSdk").toInt()
-    buildToolsVersion = libs.getVersion("buildTools")
+    compileSdk = Constants.Versions.COMPILE_SDK
 
     defaultConfig {
-        minSdk = libs.getVersion("minSdk").toInt()
+        minSdk = Constants.Versions.MIN_SDK
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     compileOptions {
-        sourceCompatibility = javaVersion
-        targetCompatibility = javaVersion
+        sourceCompatibility = Constants.Versions.JAVA
+        targetCompatibility = Constants.Versions.JAVA
     }
 
     kotlinOptions {
-        jvmTarget = javaVersion.toString()
+        jvmTarget = Constants.Versions.JAVA.toString()
     }
 
     buildFeatures {
@@ -32,6 +28,6 @@ internal fun Project.configureKotlinAndroidCommon(
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = libs.getVersion("androidxCompose")
+        kotlinCompilerExtensionVersion = Constants.Versions.COMPOSE_COMPILER
     }
 }

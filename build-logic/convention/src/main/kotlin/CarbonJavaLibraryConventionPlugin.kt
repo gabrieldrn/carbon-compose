@@ -1,5 +1,5 @@
 import carbon.compose.buildlogic.getPlugin
-import carbon.compose.buildlogic.javaVersion
+import carbon.compose.buildlogic.Constants
 import carbon.compose.buildlogic.libs
 import carbon.compose.buildlogic.setupExplicitApi
 import org.gradle.api.Plugin
@@ -21,8 +21,8 @@ class CarbonJavaLibraryConventionPlugin : Plugin<Project> {
         }
 
         extensions.configure<JavaPluginExtension> {
-            sourceCompatibility = javaVersion
-            targetCompatibility = javaVersion
+            sourceCompatibility = Constants.Versions.JAVA
+            targetCompatibility = Constants.Versions.JAVA
         }
 
         setupExplicitApi()

@@ -6,8 +6,6 @@ import org.gradle.api.plugins.ExtensionAware
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-private const val STRICT_API_COMPILER_ARG = "-Xexplicit-api=strict"
-
 /**
  * Shortcut to configure Kotlin compiler options.
  */
@@ -17,7 +15,9 @@ internal fun CommonExtension<*, *, *, *, *>.kotlinOptions(block: KotlinJvmOption
 
 /**
  * Setup explicit api for all kotlin compile tasks except tests.
- * @see <a href="https://github.com/Kotlin/KEEP/blob/master/proposals/explicit-api-mode.md">Explicit API mode</a>
+ * @see <a href="https://github.com/Kotlin/KEEP/blob/master/proposals/explicit-api-mode.md">
+ *     Explicit API mode
+ * </a>
  */
 internal fun Project.setupExplicitApi() {
     tasks
@@ -25,9 +25,13 @@ internal fun Project.setupExplicitApi() {
             it is KotlinCompile && !it.name.contains("test", ignoreCase = true)
         }
         .matching {
-            !(it as KotlinCompile).kotlinOptions.freeCompilerArgs.contains(STRICT_API_COMPILER_ARG)
+            (it as KotlinCompile).kotlinOptions
+                .freeCompilerArgs
+                .contains("-X" + Constants.CompileArgs.STRICT_API)
+                .not()
         }
         .configureEach {
-            (this as KotlinCompile).kotlinOptions.freeCompilerArgs += STRICT_API_COMPILER_ARG
+            (this as KotlinCompile).kotlinOptions
+                .freeCompilerArgs += listOf("-X" + Constants.CompileArgs.STRICT_API)
         }
 }

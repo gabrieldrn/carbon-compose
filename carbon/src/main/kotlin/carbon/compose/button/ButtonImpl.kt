@@ -38,10 +38,10 @@ internal val buttonTransitionSpec: AnimationSpec<Color> = tween(
     easing = Motion.Entrance.productiveEasing
 )
 
-private fun Modifier.iconButtonModifier() = requiredSize(SpacingScale.spacing09)
+private fun Modifier.iconButtonModifier() = this.requiredSize(SpacingScale.spacing09)
 
 private fun Modifier.buttonModifier(buttonSize: ButtonSize) =
-    requiredHeight(buttonSize.height)
+    this.requiredHeight(buttonSize.height)
         .padding(buttonSize.getContainerPaddings())
 
 internal data class ButtonScope(
