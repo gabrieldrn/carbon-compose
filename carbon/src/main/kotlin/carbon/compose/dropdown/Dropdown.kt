@@ -46,6 +46,7 @@ import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.onPreviewKeyEvent
 import androidx.compose.ui.input.pointer.PointerEventPass
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.onClick
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.Dp
@@ -63,6 +64,7 @@ import carbon.compose.foundation.interaction.FocusIndication
 import carbon.compose.foundation.motion.Motion
 import carbon.compose.foundation.text.CarbonTypography
 import carbon.compose.foundation.text.Text
+import org.jetbrains.annotations.VisibleForTesting
 
 private val dropdownOptionHeight = 40.dp
 
@@ -132,13 +134,6 @@ public fun <K : Any> Dropdown(
 
     val colors = DropdownColors.colors()
 
-    val chevronRotation by transition.animateFloat(
-        transitionSpec = { dropdownTransitionSpecFloat },
-        label = "Chevron rotation"
-    ) {
-        if (it) CHEVRON_ROTATION_ANGLE else 0f
-    }
-
     BoxWithConstraints(
         modifier = modifier
             .height(40.dp)
@@ -147,51 +142,17 @@ public fun <K : Any> Dropdown(
                 indication = FocusIndication()
             )
     ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .focusable(interactionSource = interactionSource)
-                .fillMaxHeight()
-                .background(colors.fieldBackgroundColor)
-                .padding(horizontal = 16.dp)
-                .pointerInput(Unit) {
-                    awaitEachGesture {
-                        // Custom pointer input to handle input events on the field.
-                        awaitFirstDown(pass = PointerEventPass.Initial)
-                        val expandStateOnDown = expandedStates.currentState
-                        waitForUpOrCancellation(pass = PointerEventPass.Initial)?.let {
-                            // Avoid expanding back if the dropdown was expanded on down.
-                            if (!expandStateOnDown) {
-                                onExpandedChange(!expandedStates.currentState)
-                            }
-                        }
-                    }
-                }
-                .onEnterKeyEvent {
-                    onExpandedChange(!expandedStates.currentState)
-                }
-                .semantics {
-                    onClick {
-                        onExpandedChange(!expandedStates.currentState)
-                        true
-                    }
-                }
-        ) {
-            Text(
-                text = options[selectedOption] ?: fieldPlaceholderText,
-                style = CarbonTypography.bodyCompact01,
-                color = colors.fieldTextColor,
-                modifier = Modifier.weight(1f)
-            )
-            Image(
-                imageVector = chevronDownIcon,
-                contentDescription = null,
-                colorFilter = ColorFilter.tint(colors.chevronIconColor),
-                modifier = Modifier
-                    .padding(start = 16.dp)
-                    .rotate(chevronRotation)
-            )
-        }
+        DropdownField(
+            interactionSource = interactionSource,
+            transition = transition,
+            expandedStates = expandedStates,
+            fieldPlaceholderText = fieldPlaceholderText,
+            selectedOption = selectedOption,
+            options = options,
+            colors = colors,
+            onExpandedChange = onExpandedChange
+        )
+
         Spacer(
             modifier = Modifier
                 .background(color = colors.fieldBorderColor)
@@ -223,6 +184,76 @@ public fun <K : Any> Dropdown(
                 )
             }
         }
+    }
+}
+
+@Composable
+private fun <K : Any> DropdownField(
+    transition: Transition<Boolean>,
+    expandedStates: MutableTransitionState<Boolean>,
+    fieldPlaceholderText: String,
+    selectedOption: K?,
+    options: Map<K, String>,
+    colors: DropdownColors,
+    onExpandedChange: (Boolean) -> Unit,
+    modifier: Modifier = Modifier,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
+) {
+    val chevronRotation by transition.animateFloat(
+        transitionSpec = { dropdownTransitionSpecFloat },
+        label = "Chevron rotation"
+    ) {
+        if (it) CHEVRON_ROTATION_ANGLE else 0f
+    }
+
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = modifier
+            .focusable(interactionSource = interactionSource)
+            .fillMaxHeight()
+            .background(colors.fieldBackgroundColor)
+            .padding(horizontal = 16.dp)
+            .pointerInput(Unit) {
+                awaitEachGesture {
+                    // Custom pointer input to handle input events on the field.
+                    awaitFirstDown(pass = PointerEventPass.Initial)
+                    val expandStateOnDown = expandedStates.currentState
+                    waitForUpOrCancellation(pass = PointerEventPass.Initial)?.let {
+                        // Avoid expanding back if the dropdown was expanded on down.
+                        if (!expandStateOnDown) {
+                            onExpandedChange(!expandedStates.currentState)
+                        }
+                    }
+                }
+            }
+            .onEnterKeyEvent {
+                onExpandedChange(!expandedStates.currentState)
+            }
+            .semantics {
+                onClick {
+                    onExpandedChange(!expandedStates.currentState)
+                    true
+                }
+            }
+            .testTag(DropdownTestTags.FIELD)
+    ) {
+        Text(
+            text = options[selectedOption] ?: fieldPlaceholderText,
+            style = CarbonTypography.bodyCompact01,
+            color = colors.fieldTextColor,
+            modifier = Modifier
+                .weight(1f)
+                .testTag(DropdownTestTags.FIELD_PLACEHOLDER)
+        )
+        Image(
+            imageVector = chevronDownIcon,
+            contentDescription = null,
+            colorFilter = ColorFilter.tint(colors.chevronIconColor),
+            modifier = Modifier
+                .padding(start = 16.dp)
+                .rotate(chevronRotation)
+                .testTag(DropdownTestTags.FIELD_CHEVRON)
+        )
     }
 }
 
@@ -269,6 +300,7 @@ private fun <K : Any> DropdownContent(
             // best approximation that could be found for now.
             .shadow(elevation = elevation)
             .background(color = colors.menuOptionBackgroundColor)
+            .testTag(DropdownTestTags.POPUP_CONTENT)
     ) {
         itemsIndexed(options.entries.toList()) { index, option ->
             SideEffect {
@@ -322,6 +354,7 @@ private fun <K : Any> DropdownMenuOption(
                 onClick = { onOptionSelected(option.key) }
             )
             .padding(horizontal = 16.dp)
+            .testTag(DropdownTestTags.MENU_OPTION)
     ) {
         if (showDivider) {
             DropdownMenuOptionDivider(
@@ -366,4 +399,14 @@ private object DropdownMenuPositionProvider : PopupPositionProvider {
         x = anchorBounds.left,
         y = anchorBounds.top + anchorBounds.height
     )
+}
+
+@VisibleForTesting
+@Suppress("UndocumentedPublicClass", "UndocumentedPublicProperty")
+public object DropdownTestTags {
+    public const val FIELD: String = "carbon_dropdown_field"
+    public const val FIELD_PLACEHOLDER: String = "carbon_dropdown_field_placeholder"
+    public const val FIELD_CHEVRON: String = "carbon_dropdown_field_chevron"
+    public const val POPUP_CONTENT: String = "carbon_dropdown_popup_content"
+    public const val MENU_OPTION: String = "carbon_dropdown_menu_option"
 }
