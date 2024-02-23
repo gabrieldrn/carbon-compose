@@ -35,12 +35,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.key.Key
 import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.onPreviewKeyEvent
@@ -66,6 +66,7 @@ import carbon.compose.foundation.text.CarbonTypography
 import carbon.compose.foundation.text.Text
 import org.jetbrains.annotations.VisibleForTesting
 
+private val dropdownHeight = 40.dp
 private val dropdownOptionHeight = 40.dp
 
 private val dropdownTransitionSpecFloat = tween<Float>(
@@ -134,9 +135,11 @@ public fun <K : Any> Dropdown(
 
     val colors = DropdownColors.colors()
 
+    val fieldText = remember(selectedOption) { options[selectedOption] ?: fieldPlaceholderText }
+
     BoxWithConstraints(
         modifier = modifier
-            .height(40.dp)
+            .height(dropdownHeight)
             .indication(
                 interactionSource = interactionSource,
                 indication = FocusIndication()
@@ -146,9 +149,7 @@ public fun <K : Any> Dropdown(
             interactionSource = interactionSource,
             transition = transition,
             expandedStates = expandedStates,
-            fieldPlaceholderText = fieldPlaceholderText,
-            selectedOption = selectedOption,
-            options = options,
+            fieldPlaceholderText = fieldText,
             colors = colors,
             onExpandedChange = onExpandedChange
         )
@@ -188,12 +189,10 @@ public fun <K : Any> Dropdown(
 }
 
 @Composable
-private fun <K : Any> DropdownField(
+private fun DropdownField(
     transition: Transition<Boolean>,
     expandedStates: MutableTransitionState<Boolean>,
     fieldPlaceholderText: String,
-    selectedOption: K?,
-    options: Map<K, String>,
     colors: DropdownColors,
     onExpandedChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
@@ -238,7 +237,7 @@ private fun <K : Any> DropdownField(
             .testTag(DropdownTestTags.FIELD)
     ) {
         Text(
-            text = options[selectedOption] ?: fieldPlaceholderText,
+            text = fieldPlaceholderText,
             style = CarbonTypography.bodyCompact01,
             color = colors.fieldTextColor,
             modifier = Modifier
@@ -251,7 +250,9 @@ private fun <K : Any> DropdownField(
             colorFilter = ColorFilter.tint(colors.chevronIconColor),
             modifier = Modifier
                 .padding(start = 16.dp)
-                .rotate(chevronRotation)
+                .graphicsLayer {
+                    rotationZ = chevronRotation
+                }
                 .testTag(DropdownTestTags.FIELD_CHEVRON)
         )
     }
@@ -309,8 +310,8 @@ private fun <K : Any> DropdownContent(
                 }
             }
             DropdownMenuOption(
-                option = option,
-                onOptionSelected = onOptionSelected,
+                optionValue = option.value,
+                onOptionSelected = { onOptionSelected(option.key) },
                 showDivider = index != 0,
                 colors = colors,
                 modifier = Modifier
@@ -337,11 +338,11 @@ private fun Modifier.onEscape(block: () -> Unit) = onPreviewKeyEvent {
 }
 
 @Composable
-private fun <K : Any> DropdownMenuOption(
-    option: Map.Entry<K, String>,
+private fun DropdownMenuOption(
+    optionValue: String,
     colors: DropdownColors,
     showDivider: Boolean,
-    onOptionSelected: (K) -> Unit,
+    onOptionSelected: () -> Unit,
     modifier: Modifier = Modifier,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 ) {
@@ -351,7 +352,7 @@ private fun <K : Any> DropdownMenuOption(
             .clickable(
                 interactionSource = interactionSource,
                 indication = FocusIndication(),
-                onClick = { onOptionSelected(option.key) }
+                onClick = onOptionSelected
             )
             .padding(horizontal = 16.dp)
             .testTag(DropdownTestTags.MENU_OPTION)
@@ -367,7 +368,7 @@ private fun <K : Any> DropdownMenuOption(
             modifier = Modifier.fillMaxSize()
         ) {
             Text(
-                text = option.value,
+                text = optionValue,
                 style = CarbonTypography.bodyCompact01,
                 color = colors.menuOptionTextColor,
             )

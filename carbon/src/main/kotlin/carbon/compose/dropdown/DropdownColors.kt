@@ -1,9 +1,11 @@
 package carbon.compose.dropdown
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
 import carbon.compose.foundation.color.LocalCarbonTheme
 
+@Immutable
 internal data class DropdownColors(
     val labelTextColor: Color,
     val fieldTextColor: Color,
