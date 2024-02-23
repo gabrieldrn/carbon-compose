@@ -54,6 +54,16 @@ public final class carbon/compose/dropdown/DropdownKt {
 	public static final fun Dropdown (ZLjava/lang/String;Ljava/lang/Object;Ljava/util/Map;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;ILandroidx/compose/runtime/Composer;II)V
 }
 
+public final class carbon/compose/dropdown/DropdownTestTags {
+	public static final field $stable I
+	public static final field FIELD Ljava/lang/String;
+	public static final field FIELD_CHEVRON Ljava/lang/String;
+	public static final field FIELD_PLACEHOLDER Ljava/lang/String;
+	public static final field INSTANCE Lcarbon/compose/dropdown/DropdownTestTags;
+	public static final field MENU_OPTION Ljava/lang/String;
+	public static final field POPUP_CONTENT Ljava/lang/String;
+}
+
 public final class carbon/compose/foundation/color/Gray100Theme : carbon/compose/foundation/color/Theme {
 	public static final field $stable I
 	public static final field INSTANCE Lcarbon/compose/foundation/color/Gray100Theme;
