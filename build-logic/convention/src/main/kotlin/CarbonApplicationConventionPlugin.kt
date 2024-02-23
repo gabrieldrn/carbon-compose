@@ -25,6 +25,7 @@ class CarbonApplicationConventionPlugin : Plugin<Project> {
             configureKotlinAndroidCommon()
 
             defaultConfig {
+                targetSdk = Constants.Versions.COMPILE_SDK
                 compileSdk = Constants.Versions.COMPILE_SDK
             }
 

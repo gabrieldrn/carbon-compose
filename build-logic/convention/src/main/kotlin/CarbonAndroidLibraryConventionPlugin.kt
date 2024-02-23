@@ -47,32 +47,9 @@ class CarbonAndroidLibraryConventionPlugin : Plugin<Project> {
                 }
             }
 
-            kotlinOptions {
-                freeCompilerArgs += listOf(
-                    "-P", Constants.CompileArgs.COMPOSE_METRICS_PRE + "$buildDir/compose/metrics",
-                    "-P", Constants.CompileArgs.COMPOSE_REPORT_PRE + "$buildDir/compose/reports"
-                )
-            }
+            applyKotlinOptions(this@with)
 
-            testOptions {
-                unitTests.all {
-                    it.testLogging {
-                        events = setOf(
-                            TestLogEvent.PASSED,
-                            TestLogEvent.SKIPPED,
-                            TestLogEvent.FAILED,
-//                            TestLogEvent.STANDARD_OUT,
-//                            TestLogEvent.STANDARD_ERROR
-                        )
-                        exceptionFormat = TestExceptionFormat.FULL
-                        showStandardStreams = true
-                        showExceptions = true
-                        showCauses = true
-                        showStackTraces = true
-                        showStandardStreams = true
-                    }
-                }
-            }
+            applyTestOptions()
         }
 
         dependencies {
@@ -80,6 +57,48 @@ class CarbonAndroidLibraryConventionPlugin : Plugin<Project> {
             add("testImplementation", libs.getLibrary("kotlin-test-junit"))
             add("androidTestImplementation", libs.getLibrary("androidx-test-ext"))
             add("androidTestImplementation", libs.getLibrary("androidx-test-espresso"))
+        }
+    }
+
+    private fun LibraryExtension.applyKotlinOptions(project: Project) = with(project) {
+        kotlinOptions {
+            val stabilityConfFilePath = "${projectDir}/compose_compiler_config.conf"
+
+            require(file(stabilityConfFilePath).exists()) {
+                "Stability configuration file not found at $stabilityConfFilePath"
+            }
+
+            freeCompilerArgs += listOf(
+                "-P",
+                Constants.CompileArgs.COMPOSE_METRICS_PRE + "${buildDir}/compose/metrics",
+                "-P",
+                Constants.CompileArgs.COMPOSE_REPORT_PRE + "${buildDir}/compose/reports",
+                "-P",
+                Constants.CompileArgs.COMPOSE_STABILITY_CONFIG_PRE + stabilityConfFilePath
+            )
+        }
+    }
+
+    @Suppress("UnstableApiUsage")
+    private fun LibraryExtension.applyTestOptions() {
+        testOptions {
+            unitTests.all {
+                it.testLogging {
+                    events = setOf(
+                        TestLogEvent.PASSED,
+                        TestLogEvent.SKIPPED,
+                        TestLogEvent.FAILED,
+//                        TestLogEvent.STANDARD_OUT,
+//                        TestLogEvent.STANDARD_ERROR
+                    )
+                    exceptionFormat = TestExceptionFormat.FULL
+                    showStandardStreams = true
+                    showExceptions = true
+                    showCauses = true
+                    showStackTraces = true
+                    showStandardStreams = true
+                }
+            }
         }
     }
 }
