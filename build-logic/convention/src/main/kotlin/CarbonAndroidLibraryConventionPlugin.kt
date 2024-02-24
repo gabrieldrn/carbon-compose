@@ -62,20 +62,19 @@ class CarbonAndroidLibraryConventionPlugin : Plugin<Project> {
 
     private fun LibraryExtension.applyKotlinOptions(project: Project) = with(project) {
         kotlinOptions {
-            val stabilityConfFilePath = "${projectDir}/compose_compiler_config.conf"
-
-            require(file(stabilityConfFilePath).exists()) {
-                "Stability configuration file not found at $stabilityConfFilePath"
-            }
-
             freeCompilerArgs += listOf(
                 "-P",
                 Constants.CompileArgs.COMPOSE_METRICS_PRE + "${buildDir}/compose/metrics",
                 "-P",
                 Constants.CompileArgs.COMPOSE_REPORT_PRE + "${buildDir}/compose/reports",
-                "-P",
-                Constants.CompileArgs.COMPOSE_STABILITY_CONFIG_PRE + stabilityConfFilePath
             )
+
+            file("compose_compiler_config.conf").takeIf { it.exists() }?.let {
+                freeCompilerArgs += listOf(
+                    "-P",
+                    Constants.CompileArgs.COMPOSE_STABILITY_CONFIG_PRE + it
+                )
+            }
         }
     }
 
