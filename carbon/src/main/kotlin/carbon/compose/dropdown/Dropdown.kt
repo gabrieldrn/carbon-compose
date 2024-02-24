@@ -59,6 +59,7 @@ import androidx.compose.ui.unit.times
 import androidx.compose.ui.window.Popup
 import androidx.compose.ui.window.PopupPositionProvider
 import androidx.compose.ui.window.PopupProperties
+import carbon.compose.dropdown.domain.getOptionsPopupHeightRatio
 import carbon.compose.foundation.input.onEnterKeyEvent
 import carbon.compose.foundation.interaction.FocusIndication
 import carbon.compose.foundation.motion.Motion
@@ -269,10 +270,8 @@ private fun <K : Any> DropdownContent(
     modifier: Modifier = Modifier,
 ) {
     val currentItemFocusRequester = remember { FocusRequester() }
-    val maxHeight =
-        options.size.coerceAtMost(visibleItemsBeforeScroll.coerceAtLeast(1)) *
-            dropdownOptionHeight +
-            dropdownOptionHeight * .5f
+    val maxHeight = getOptionsPopupHeightRatio(options.size, visibleItemsBeforeScroll)
+        .times(dropdownOptionHeight)
 
     val actualSelectedOption = selectedOption ?: options.keys.first()
 
