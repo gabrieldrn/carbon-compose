@@ -46,6 +46,8 @@ import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.onPreviewKeyEvent
 import androidx.compose.ui.input.pointer.PointerEventPass
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.InspectableModifier
+import androidx.compose.ui.platform.debugInspectorInfo
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.onClick
 import androidx.compose.ui.semantics.semantics
@@ -127,6 +129,10 @@ public fun <K : Any> Dropdown(
     modifier: Modifier = Modifier,
     @IntRange(from = 1) minVisibleItems: Int = 4
 ) {
+    require(options.isNotEmpty()) {
+        "Dropdown must have at least one option."
+    }
+
     val interactionSource = remember { MutableInteractionSource() }
 
     val expandedStates = remember { MutableTransitionState(false) }
@@ -144,6 +150,13 @@ public fun <K : Any> Dropdown(
             .indication(
                 interactionSource = interactionSource,
                 indication = FocusIndication()
+            )
+            .then(
+                InspectableModifier {
+                    debugInspectorInfo {
+                        properties["isExpanded"] = expanded.toString()
+                    }
+                }
             )
     ) {
         DropdownField(
@@ -164,7 +177,7 @@ public fun <K : Any> Dropdown(
         )
 
         // TODO Place popup on top of the field if the menu doesn't have enough space below it.
-        if (expandedStates.currentState || expandedStates.targetState) {
+        if (expandedStates.currentState || expandedStates.targetState && options.isNotEmpty()) {
             Popup(
                 popupPositionProvider = DropdownMenuPositionProvider,
                 onDismissRequest = onDismissRequest,
@@ -229,7 +242,7 @@ private fun DropdownField(
             .onEnterKeyEvent {
                 onExpandedChange(!expandedStates.currentState)
             }
-            .semantics {
+            .semantics(mergeDescendants = true) {
                 onClick {
                     onExpandedChange(!expandedStates.currentState)
                     true
