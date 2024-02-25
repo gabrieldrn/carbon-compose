@@ -31,8 +31,6 @@ class CarbonAndroidLibraryConventionPlugin : Plugin<Project> {
 
             configureKotlinAndroidCommon()
 
-            setupExplicitApi()
-
             defaultConfig {
                 consumerProguardFiles.add(file("consumer-rules.pro"))
             }
@@ -46,6 +44,8 @@ class CarbonAndroidLibraryConventionPlugin : Plugin<Project> {
                     )
                 }
             }
+
+            setupExplicitApi()
 
             applyKotlinOptions(this@with)
 
@@ -81,6 +81,10 @@ class CarbonAndroidLibraryConventionPlugin : Plugin<Project> {
     @Suppress("UnstableApiUsage")
     private fun LibraryExtension.applyTestOptions() {
         testOptions {
+            // Somehow this must be specified for instrumentation tests to work. If not, the
+            // Android system warns that the generated app is made for a lower API level.
+            targetSdk = Constants.Versions.COMPILE_SDK
+
             unitTests.all {
                 it.testLogging {
                     events = setOf(

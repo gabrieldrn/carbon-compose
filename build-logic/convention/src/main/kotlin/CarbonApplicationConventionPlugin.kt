@@ -26,7 +26,6 @@ class CarbonApplicationConventionPlugin : Plugin<Project> {
 
             defaultConfig {
                 targetSdk = Constants.Versions.COMPILE_SDK
-                compileSdk = Constants.Versions.COMPILE_SDK
             }
 
             buildTypes {
