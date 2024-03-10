@@ -67,7 +67,6 @@ import carbon.compose.foundation.interaction.FocusIndication
 import carbon.compose.foundation.motion.Motion
 import carbon.compose.foundation.text.CarbonTypography
 import carbon.compose.foundation.text.Text
-import org.jetbrains.annotations.VisibleForTesting
 
 private val dropdownHeight = 40.dp
 private val dropdownOptionHeight = 40.dp
@@ -116,6 +115,7 @@ private const val CHEVRON_ROTATION_ANGLE = 180f
  * @param modifier The modifier to be applied to the dropdown.
  * @param minVisibleItems The minimum number of items to be visible in the dropdown menu before the
  * user needs to scroll. This value is used to calculate the height of the menu. Defaults to 4.
+ * @throws IllegalArgumentException If the options map is empty.
  */
 @Composable
 public fun <K : Any> Dropdown(
@@ -138,11 +138,27 @@ public fun <K : Any> Dropdown(
     val expandedStates = remember { MutableTransitionState(false) }
     expandedStates.targetState = expanded
 
-    val transition = updateTransition(expandedStates, "Dropdown")
-
     val colors = DropdownColors.colors()
 
     val fieldText = remember(selectedOption) { options[selectedOption] ?: fieldPlaceholderText }
+
+    val transition = updateTransition(expandedStates, "Dropdown")
+    val maxHeight = getOptionsPopupHeightRatio(options.size, minVisibleItems)
+        .times(dropdownOptionHeight)
+
+    val height by transition.animateDp(
+        transitionSpec = { dropdownTransitionSpecDp },
+        label = "Popup content height"
+    ) {
+        if (it) maxHeight else 0.dp
+    }
+
+    val elevation by transition.animateDp(
+        transitionSpec = { dropdownTransitionSpecDp },
+        label = "Popup content shadow"
+    ) {
+        if (it) 3.dp else 0.dp
+    }
 
     BoxWithConstraints(
         modifier = modifier
@@ -186,8 +202,6 @@ public fun <K : Any> Dropdown(
                 DropdownContent(
                     selectedOption = selectedOption,
                     options = options,
-                    visibleItemsBeforeScroll = minVisibleItems,
-                    transition = transition,
                     colors = colors,
                     onOptionSelected = { option ->
                         onOptionSelected(option)
@@ -195,6 +209,11 @@ public fun <K : Any> Dropdown(
                     },
                     modifier = Modifier
                         .width(maxWidth)
+                        .height(height)
+                        // This should be a box shadow (-> 0 2px 6px 0 rgba(0,0,0,.2)). But compose
+                        // doesn't provide the same API as CSS for shadows. A 3dp elevation is the
+                        // best approximation that could be found for now.
+                        .shadow(elevation = elevation)
                         .onEscape(onDismissRequest)
                 )
             }
@@ -273,45 +292,22 @@ private fun DropdownField(
 }
 
 @Composable
-private fun <K : Any> DropdownContent(
+internal fun <K : Any> DropdownContent(
     options: Map<K, String>,
     selectedOption: K?,
-    visibleItemsBeforeScroll: Int,
-    transition: Transition<Boolean>,
     colors: DropdownColors,
     onOptionSelected: (K) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val currentItemFocusRequester = remember { FocusRequester() }
-    val maxHeight = getOptionsPopupHeightRatio(options.size, visibleItemsBeforeScroll)
-        .times(dropdownOptionHeight)
 
     val actualSelectedOption = selectedOption ?: options.keys.first()
-
-    val height by transition.animateDp(
-        transitionSpec = { dropdownTransitionSpecDp },
-        label = "Popup content height"
-    ) {
-        if (it) maxHeight else 0.dp
-    }
-
-    val elevation by transition.animateDp(
-        transitionSpec = { dropdownTransitionSpecDp },
-        label = "Popup content shadow"
-    ) {
-        if (it) 3.dp else 0.dp
-    }
 
     LazyColumn(
         state = rememberLazyListState(
             initialFirstVisibleItemIndex = options.keys.indexOf(actualSelectedOption)
         ),
         modifier = modifier
-            .height(height)
-            // This should be a box shadow (-> 0 2px 6px 0 rgba(0,0,0,.2)). But compose
-            // doesn't provide the same API as CSS for shadows. A 3dp elevation is the
-            // best approximation that could be found for now.
-            .shadow(elevation = elevation)
             .background(color = colors.menuOptionBackgroundColor)
             .testTag(DropdownTestTags.POPUP_CONTENT)
     ) {
@@ -414,12 +410,10 @@ private object DropdownMenuPositionProvider : PopupPositionProvider {
     )
 }
 
-@VisibleForTesting
-@Suppress("UndocumentedPublicClass", "UndocumentedPublicProperty")
-public object DropdownTestTags {
-    public const val FIELD: String = "carbon_dropdown_field"
-    public const val FIELD_PLACEHOLDER: String = "carbon_dropdown_field_placeholder"
-    public const val FIELD_CHEVRON: String = "carbon_dropdown_field_chevron"
-    public const val POPUP_CONTENT: String = "carbon_dropdown_popup_content"
-    public const val MENU_OPTION: String = "carbon_dropdown_menu_option"
+internal object DropdownTestTags {
+    const val FIELD: String = "carbon_dropdown_field"
+    const val FIELD_PLACEHOLDER: String = "carbon_dropdown_field_placeholder"
+    const val FIELD_CHEVRON: String = "carbon_dropdown_field_chevron"
+    const val POPUP_CONTENT: String = "carbon_dropdown_popup_content"
+    const val MENU_OPTION: String = "carbon_dropdown_menu_option"
 }
