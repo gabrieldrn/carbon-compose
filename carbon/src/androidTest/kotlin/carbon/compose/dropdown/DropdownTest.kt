@@ -21,7 +21,6 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollToNode
 import androidx.compose.ui.test.requestFocus
-import androidx.compose.ui.unit.dp
 import carbon.compose.toList
 import org.junit.After
 import org.junit.Before
@@ -37,6 +36,7 @@ class DropdownTest {
     private val options = (0..9).associateWith { "Option $it" }
     private val minVisibleItems = 4
 
+    private var dropdownSize by mutableStateOf(DropdownSize.Large)
     private var isExpanded by mutableStateOf(false)
     private var selectedOptionKey by mutableStateOf<Int?>(null)
     private val placeholder = "Dropdown"
@@ -53,7 +53,8 @@ class DropdownTest {
                     onOptionSelected = { selectedOptionKey = it },
                     onExpandedChange = { isExpanded = it },
                     onDismissRequest = { isExpanded = false },
-                    minVisibleItems = minVisibleItems
+                    minVisibleItems = minVisibleItems,
+                    dropdownSize = dropdownSize
                 )
             }
         }
@@ -63,6 +64,7 @@ class DropdownTest {
     fun tearDown() {
         isExpanded = false
         selectedOptionKey = null
+        dropdownSize = DropdownSize.Large
     }
 
     @Test
@@ -70,13 +72,32 @@ class DropdownTest {
         composeTestRule.run {
             onNodeWithTag(DropdownTestTags.FIELD)
                 .assertIsDisplayed()
-                .assertHeightIsEqualTo(40.dp)
+                .assertHeightIsEqualTo(DropdownSize.Large.height)
 
             onNodeWithTag(DropdownTestTags.POPUP_CONTENT)
                 .assertIsNotDisplayed()
 
             onNodeWithTag(DropdownTestTags.FIELD_CHEVRON, useUnmergedTree = true)
                 .assertIsDisplayed()
+        }
+    }
+
+    @Suppress("DEPRECATION")
+    @Test
+    fun dropdown_field_validateSize() {
+        composeTestRule.run {
+            onNodeWithTag(DropdownTestTags.FIELD)
+                .assertHeightIsEqualTo(DropdownSize.Large.height)
+
+            dropdownSize = DropdownSize.Small
+
+            onNodeWithTag(DropdownTestTags.FIELD)
+                .assertHeightIsEqualTo(DropdownSize.Small.height)
+
+            dropdownSize = DropdownSize.Medium
+
+            onNodeWithTag(DropdownTestTags.FIELD)
+                .assertHeightIsEqualTo(DropdownSize.Medium.height)
         }
     }
 

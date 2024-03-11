@@ -68,9 +68,6 @@ import carbon.compose.foundation.motion.Motion
 import carbon.compose.foundation.text.CarbonTypography
 import carbon.compose.foundation.text.Text
 
-private val dropdownHeight = 40.dp
-private val dropdownOptionHeight = 40.dp
-
 private val dropdownTransitionSpecFloat = tween<Float>(
     durationMillis = Motion.Duration.moderate01,
     easing = Motion.Standard.productiveEasing
@@ -115,6 +112,8 @@ private const val CHEVRON_ROTATION_ANGLE = 180f
  * @param modifier The modifier to be applied to the dropdown.
  * @param minVisibleItems The minimum number of items to be visible in the dropdown menu before the
  * user needs to scroll. This value is used to calculate the height of the menu. Defaults to 4.
+ * @param dropdownSize The size of the dropdown, in terms of height. Defaults to
+ * [DropdownSize.Large].
  * @throws IllegalArgumentException If the options map is empty.
  */
 @Composable
@@ -127,7 +126,8 @@ public fun <K : Any> Dropdown(
     onExpandedChange: (Boolean) -> Unit,
     onDismissRequest: () -> Unit,
     modifier: Modifier = Modifier,
-    @IntRange(from = 1) minVisibleItems: Int = 4
+    @IntRange(from = 1) minVisibleItems: Int = 4,
+    dropdownSize: DropdownSize = DropdownSize.Large
 ) {
     require(options.isNotEmpty()) {
         "Dropdown must have at least one option."
@@ -139,12 +139,13 @@ public fun <K : Any> Dropdown(
     expandedStates.targetState = expanded
 
     val colors = DropdownColors.colors()
+    val componentHeight = dropdownSize.height
 
     val fieldText = remember(selectedOption) { options[selectedOption] ?: fieldPlaceholderText }
 
     val transition = updateTransition(expandedStates, "Dropdown")
     val maxHeight = getOptionsPopupHeightRatio(options.size, minVisibleItems)
-        .times(dropdownOptionHeight)
+        .times(componentHeight)
 
     val height by transition.animateDp(
         transitionSpec = { dropdownTransitionSpecDp },
@@ -162,7 +163,7 @@ public fun <K : Any> Dropdown(
 
     BoxWithConstraints(
         modifier = modifier
-            .height(dropdownHeight)
+            .height(componentHeight)
             .indication(
                 interactionSource = interactionSource,
                 indication = FocusIndication()
@@ -203,6 +204,7 @@ public fun <K : Any> Dropdown(
                     selectedOption = selectedOption,
                     options = options,
                     colors = colors,
+                    componentHeight = componentHeight,
                     onOptionSelected = { option ->
                         onOptionSelected(option)
                         onDismissRequest()
@@ -296,6 +298,7 @@ internal fun <K : Any> DropdownContent(
     options: Map<K, String>,
     selectedOption: K?,
     colors: DropdownColors,
+    componentHeight: Dp,
     onOptionSelected: (K) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -324,6 +327,7 @@ internal fun <K : Any> DropdownContent(
                 colors = colors,
                 modifier = Modifier
                     .fillMaxWidth()
+                    .height(componentHeight)
                     .then(
                         if (option.key == actualSelectedOption) {
                             Modifier.focusRequester(currentItemFocusRequester)
@@ -356,7 +360,6 @@ private fun DropdownMenuOption(
 ) {
     Box(
         modifier = modifier
-            .height(dropdownOptionHeight)
             .clickable(
                 interactionSource = interactionSource,
                 indication = FocusIndication(),

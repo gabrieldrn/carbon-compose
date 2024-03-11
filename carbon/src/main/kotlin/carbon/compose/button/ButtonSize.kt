@@ -3,20 +3,19 @@ package carbon.compose.button
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import carbon.compose.foundation.SMALL_TOUCH_TARGET_SIZE_MESSAGE
 import carbon.compose.foundation.spacing.SpacingScale
 
 public enum class ButtonSize(internal val height: Dp) {
 
     @Deprecated(
-        "Usage of composables with a touch target inferior to 48dp is highly discouraged. " +
-            "Consider using the LargeProductive size instead.",
+        SMALL_TOUCH_TARGET_SIZE_MESSAGE,
         ReplaceWith("LargeProductive")
     )
     Small(height = 32.dp),
 
     @Deprecated(
-        "Usage of composables with a touch target inferior to 48dp is highly discouraged. " +
-            "Consider using the LargeProductive size instead.",
+        SMALL_TOUCH_TARGET_SIZE_MESSAGE,
         ReplaceWith("LargeProductive")
     )
     Medium(height = 40.dp),
