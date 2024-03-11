@@ -54,7 +54,9 @@ class CarbonAndroidLibraryConventionPlugin : Plugin<Project> {
 
         dependencies {
             add("testImplementation", libs.getLibrary("junit"))
+            add("testImplementation", libs.getLibrary("kotlin-test"))
             add("testImplementation", libs.getLibrary("kotlin-test-junit"))
+            add("androidTestImplementation", libs.getLibrary("kotlin-test"))
             add("androidTestImplementation", libs.getLibrary("androidx-test-ext"))
             add("androidTestImplementation", libs.getLibrary("androidx-test-espresso"))
         }
