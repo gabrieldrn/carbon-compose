@@ -11,12 +11,21 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import carbon.compose.CarbonDesignSystem
 
+private class DropdownSizeParameterProvider : PreviewParameterProvider<DropdownSize> {
+    override val values: Sequence<DropdownSize>
+        get() = DropdownSize.entries.asSequence()
+}
+
 @Preview(showBackground = true, backgroundColor = 0xFFFFFFFF)
 @Composable
-private fun DropdownPreview() {
+private fun DropdownPreview(
+    @PreviewParameter(DropdownSizeParameterProvider::class) dropdownSize: DropdownSize,
+) {
     val options = (0..5).associateWith { "Option $it" }
     var expanded by remember { mutableStateOf(false) }
     CarbonDesignSystem {
@@ -29,7 +38,10 @@ private fun DropdownPreview() {
                 selectedOption = null,
                 options = options,
                 onOptionSelected = {},
-                modifier = Modifier.padding(8.dp).width(200.dp),
+                dropdownSize = dropdownSize,
+                modifier = Modifier
+                    .padding(8.dp)
+                    .width(200.dp),
             )
         }
     }
