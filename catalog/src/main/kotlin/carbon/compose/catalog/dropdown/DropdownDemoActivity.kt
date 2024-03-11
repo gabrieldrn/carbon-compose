@@ -27,7 +27,7 @@ import carbon.compose.uishell.UiShellHeader
 
 class DropdownDemoActivity : AppCompatActivity() {
 
-    private val dropdownOptions = (0..5).associateWith { "Option $it" }
+    private val dropdownOptions = (0..9).associateWith { "Option $it" }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +41,7 @@ class DropdownDemoActivity : AppCompatActivity() {
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     UiShellHeader(
-                        headerName = "Checkbox",
+                        headerName = "Dropdown",
                         menuIconRes = R.drawable.ic_arrow_left,
                         onMenuIconPressed = { onBackPressedDispatcher.onBackPressed() },
                     )
