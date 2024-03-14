@@ -128,6 +128,21 @@ class DropdownPopupContentTest {
     }
 
     @Test
+    fun optionsLayout_optionSelected_validateDividerIsHidden() {
+        composeTestRule.run {
+            onAllNodesWithTag(DropdownTestTags.MENU_OPTION_DIVIDER, useUnmergedTree = true)
+                .assertCountEquals(4)
+
+            selectedOptionKey = 2
+
+            onAllNodesWithTag(DropdownTestTags.MENU_OPTION_DIVIDER, useUnmergedTree = true)
+                .assertCountEquals(3)
+                .filterToOne(hasText("Option 3"))
+                .assertDoesNotExist()
+        }
+    }
+
+    @Test
     fun optionsLayout_onOptionSelected_validateCallbackIsInvoked() {
         composeTestRule.run {
             onAllNodesWithTag(DropdownTestTags.MENU_OPTION)

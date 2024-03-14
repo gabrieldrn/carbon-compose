@@ -305,8 +305,12 @@ internal fun <K : Any> DropdownContent(
     onOptionSelected: (K) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val currentItemFocusRequester = remember { FocusRequester() }
+    val focusRequester = remember { FocusRequester() }
 
+    val optionEntries = options.entries.toList()
+    val selectedOptionIndex = optionEntries.indexOfFirst { it.key == selectedOption }
+
+    // Option to focus on when the composition ends.
     val compositionEndTargetOption = selectedOption ?: options.keys.first()
 
     LazyColumn(
@@ -317,24 +321,25 @@ internal fun <K : Any> DropdownContent(
             .background(color = colors.menuOptionBackgroundColor)
             .testTag(DropdownTestTags.POPUP_CONTENT)
     ) {
-        itemsIndexed(options.entries.toList()) { index, option ->
+        itemsIndexed(optionEntries) { index, option ->
             SideEffect {
                 if (option.key == compositionEndTargetOption) {
-                    currentItemFocusRequester.requestFocus()
+                    focusRequester.requestFocus()
                 }
             }
             DropdownMenuOption(
                 optionValue = option.value,
-                isSelected = option.key == selectedOption,
+                isSelected = index == selectedOptionIndex,
                 onOptionSelected = { onOptionSelected(option.key) },
-                showDivider = index != 0,
+                // Hide divider: first item + when previous item is selected.
+                showDivider = index != 0 && index - 1 != selectedOptionIndex,
                 colors = colors,
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(componentHeight)
                     .then(
                         if (option.key == compositionEndTargetOption) {
-                            Modifier.focusRequester(currentItemFocusRequester)
+                            Modifier.focusRequester(focusRequester)
                         } else {
                             Modifier
                         }
@@ -387,7 +392,9 @@ private fun DropdownMenuOption(
         if (showDivider) {
             DropdownMenuOptionDivider(
                 colors.menuOptionBorderColor,
-                modifier = Modifier.align(Alignment.TopCenter)
+                modifier = Modifier
+                    .align(Alignment.TopCenter)
+                    .testTag(DropdownTestTags.MENU_OPTION_DIVIDER)
             )
         }
         Row(
@@ -454,5 +461,6 @@ internal object DropdownTestTags {
     const val FIELD_CHEVRON: String = "carbon_dropdown_field_chevron"
     const val POPUP_CONTENT: String = "carbon_dropdown_popup_content"
     const val MENU_OPTION: String = "carbon_dropdown_menu_option"
+    const val MENU_OPTION_DIVIDER: String = "carbon_dropdown_menu_option_divider"
     const val MENU_OPTION_CHECKMARK: String = "carbon_dropdown_menu_option_checkmark"
 }
