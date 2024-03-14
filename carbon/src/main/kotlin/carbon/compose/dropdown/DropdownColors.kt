@@ -15,11 +15,14 @@ internal data class DropdownColors(
     val fieldBorderColor: Color,
     val chevronIconColor: Color,
     val menuOptionTextColor: Color,
+    val menuOptionTextSelectedColor: Color,
     val menuOptionBackgroundColor: Color,
+    val menuOptionBackgroundSelectedColor: Color,
     val menuOptionBorderColor: Color,
     val checkboxIconBackgroundColor: Color,
     val checkboxIconCheckColor: Color,
     val checkboxIconBorderColor: Color,
+    val checkmarkIconColor: Color,
 ) {
     companion object {
         @Composable
@@ -33,11 +36,14 @@ internal data class DropdownColors(
                 fieldBorderColor = borderStrong01,
                 chevronIconColor = iconPrimary,
                 menuOptionTextColor = textSecondary,
+                menuOptionTextSelectedColor = textPrimary,
                 menuOptionBackgroundColor = layer01,
+                menuOptionBackgroundSelectedColor = layerSelected01,
                 menuOptionBorderColor = borderSubtle00,
                 checkboxIconBackgroundColor = iconPrimary,
                 checkboxIconCheckColor = iconPrimary,
                 checkboxIconBorderColor = iconPrimary,
+                checkmarkIconColor = iconPrimary
             )
         }
     }

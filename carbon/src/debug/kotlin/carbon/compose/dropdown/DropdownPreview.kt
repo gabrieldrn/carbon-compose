@@ -16,7 +16,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import carbon.compose.CarbonDesignSystem
 
-private class DropdownSizeParameterProvider : PreviewParameterProvider<DropdownSize> {
+internal class DropdownSizeParameterProvider : PreviewParameterProvider<DropdownSize> {
     override val values: Sequence<DropdownSize>
         get() = DropdownSize.entries.asSequence()
 }

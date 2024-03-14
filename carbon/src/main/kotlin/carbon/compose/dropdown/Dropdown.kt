@@ -9,7 +9,6 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.gestures.awaitEachGesture
 import androidx.compose.foundation.gestures.awaitFirstDown
@@ -25,10 +24,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.selection.selectable
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
@@ -49,8 +50,10 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.InspectableModifier
 import androidx.compose.ui.platform.debugInspectorInfo
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.onClick
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.IntRect
@@ -304,11 +307,11 @@ internal fun <K : Any> DropdownContent(
 ) {
     val currentItemFocusRequester = remember { FocusRequester() }
 
-    val actualSelectedOption = selectedOption ?: options.keys.first()
+    val compositionEndTargetOption = selectedOption ?: options.keys.first()
 
     LazyColumn(
         state = rememberLazyListState(
-            initialFirstVisibleItemIndex = options.keys.indexOf(actualSelectedOption)
+            initialFirstVisibleItemIndex = options.keys.indexOf(compositionEndTargetOption)
         ),
         modifier = modifier
             .background(color = colors.menuOptionBackgroundColor)
@@ -316,12 +319,13 @@ internal fun <K : Any> DropdownContent(
     ) {
         itemsIndexed(options.entries.toList()) { index, option ->
             SideEffect {
-                if (option.key == actualSelectedOption) {
+                if (option.key == compositionEndTargetOption) {
                     currentItemFocusRequester.requestFocus()
                 }
             }
             DropdownMenuOption(
                 optionValue = option.value,
+                isSelected = option.key == selectedOption,
                 onOptionSelected = { onOptionSelected(option.key) },
                 showDivider = index != 0,
                 colors = colors,
@@ -329,7 +333,7 @@ internal fun <K : Any> DropdownContent(
                     .fillMaxWidth()
                     .height(componentHeight)
                     .then(
-                        if (option.key == actualSelectedOption) {
+                        if (option.key == compositionEndTargetOption) {
                             Modifier.focusRequester(currentItemFocusRequester)
                         } else {
                             Modifier
@@ -349,9 +353,12 @@ private fun Modifier.onEscape(block: () -> Unit) = onPreviewKeyEvent {
     }
 }
 
+private val checkmarkSize = 16.dp
+
 @Composable
 private fun DropdownMenuOption(
     optionValue: String,
+    isSelected: Boolean,
     colors: DropdownColors,
     showDivider: Boolean,
     onOptionSelected: () -> Unit,
@@ -360,10 +367,19 @@ private fun DropdownMenuOption(
 ) {
     Box(
         modifier = modifier
-            .clickable(
+            .selectable(
+                selected = isSelected,
                 interactionSource = interactionSource,
                 indication = FocusIndication(),
+                role = Role.DropdownList,
                 onClick = onOptionSelected
+            )
+            .background(
+                color = if (isSelected) {
+                    colors.menuOptionBackgroundSelectedColor
+                } else {
+                    Color.Transparent
+                }
             )
             .padding(horizontal = 16.dp)
             .testTag(DropdownTestTags.MENU_OPTION)
@@ -381,8 +397,27 @@ private fun DropdownMenuOption(
             Text(
                 text = optionValue,
                 style = CarbonTypography.bodyCompact01,
-                color = colors.menuOptionTextColor,
+                color = if (isSelected) {
+                    colors.menuOptionTextSelectedColor
+                } else {
+                    colors.menuOptionTextColor
+                },
+                overflow = TextOverflow.Ellipsis,
+                maxLines = 1,
+                modifier = Modifier.weight(1f)
             )
+            if (isSelected) {
+                Image(
+                    imageVector = dropdownCheckmarkIcon,
+                    contentDescription = null,
+                    colorFilter = ColorFilter.tint(colors.checkmarkIconColor),
+                    modifier = Modifier
+                        .size(checkmarkSize)
+                        .testTag(DropdownTestTags.MENU_OPTION_CHECKMARK)
+                )
+            } else {
+                Spacer(modifier = Modifier.size(checkmarkSize))
+            }
         }
     }
 }
@@ -419,4 +454,5 @@ internal object DropdownTestTags {
     const val FIELD_CHEVRON: String = "carbon_dropdown_field_chevron"
     const val POPUP_CONTENT: String = "carbon_dropdown_popup_content"
     const val MENU_OPTION: String = "carbon_dropdown_menu_option"
+    const val MENU_OPTION_CHECKMARK: String = "carbon_dropdown_menu_option_checkmark"
 }
