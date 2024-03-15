@@ -51,7 +51,7 @@ class DropdownPopupContentTest {
     fun setup() {
         composeTestRule.setContent {
             Column(Modifier.fillMaxWidth()) {
-                DropdownContent(
+                DropdownPopupContent(
                     options = options,
                     selectedOption = selectedOptionKey,
                     colors = DropdownColors.colors(),

@@ -25,7 +25,7 @@ private fun DropdownPopupContentPreview(
         mutableStateOf<Int?>(2)
     }
     CarbonDesignSystem {
-        DropdownContent(
+        DropdownPopupContent(
             options = options,
             selectedOption = selectedOptionKey,
             colors = DropdownColors.colors(),

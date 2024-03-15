@@ -15,31 +15,20 @@ import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.foundation.gestures.waitForUpOrCancellation
 import androidx.compose.foundation.indication
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.selection.selectable
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.key.Key
@@ -50,7 +39,6 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.InspectableModifier
 import androidx.compose.ui.platform.debugInspectorInfo
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.onClick
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextOverflow
@@ -82,6 +70,18 @@ private val dropdownTransitionSpecDp = tween<Dp>(
 )
 
 private const val CHEVRON_ROTATION_ANGLE = 180f
+
+/**
+ * Adds a callback to be invoked when the escape key (hardware) is pressed.
+ */
+private fun Modifier.onEscape(block: () -> Unit) = onPreviewKeyEvent {
+    if (it.key == Key.Escape) {
+        block()
+        true
+    } else {
+        false
+    }
+}
 
 /**
  * # Dropdown
@@ -203,7 +203,7 @@ public fun <K : Any> Dropdown(
                 onDismissRequest = onDismissRequest,
                 properties = PopupProperties(focusable = true)
             ) {
-                DropdownContent(
+                DropdownPopupContent(
                     selectedOption = selectedOption,
                     options = options,
                     colors = colors,
@@ -298,152 +298,6 @@ private fun DropdownField(
     }
 }
 
-@Composable
-internal fun <K : Any> DropdownContent(
-    options: Map<K, String>,
-    selectedOption: K?,
-    colors: DropdownColors,
-    componentHeight: Dp,
-    onOptionSelected: (K) -> Unit,
-    modifier: Modifier = Modifier,
-) {
-    val focusRequester = remember { FocusRequester() }
-
-    val optionEntries = options.entries.toList()
-    val selectedOptionIndex = optionEntries.indexOfFirst { it.key == selectedOption }
-
-    // Option to focus on when the composition ends.
-    val compositionEndTargetOption = selectedOption ?: options.keys.first()
-
-    LazyColumn(
-        state = rememberLazyListState(
-            initialFirstVisibleItemIndex = options.keys.indexOf(compositionEndTargetOption)
-        ),
-        modifier = modifier
-            .background(color = colors.menuOptionBackgroundColor)
-            .testTag(DropdownTestTags.POPUP_CONTENT)
-    ) {
-        itemsIndexed(optionEntries) { index, option ->
-            SideEffect {
-                if (option.key == compositionEndTargetOption) {
-                    focusRequester.requestFocus()
-                }
-            }
-            DropdownMenuOption(
-                optionValue = option.value,
-                isSelected = index == selectedOptionIndex,
-                onOptionSelected = { onOptionSelected(option.key) },
-                // Hide divider: first item + when previous item is selected.
-                showDivider = index != 0 && index - 1 != selectedOptionIndex,
-                colors = colors,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(componentHeight)
-                    .then(
-                        if (option.key == compositionEndTargetOption) {
-                            Modifier.focusRequester(focusRequester)
-                        } else {
-                            Modifier
-                        }
-                    )
-            )
-        }
-    }
-}
-
-private fun Modifier.onEscape(block: () -> Unit) = onPreviewKeyEvent {
-    if (it.key == Key.Escape) {
-        block()
-        true
-    } else {
-        false
-    }
-}
-
-private val checkmarkSize = 16.dp
-
-@Composable
-private fun DropdownMenuOption(
-    optionValue: String,
-    isSelected: Boolean,
-    colors: DropdownColors,
-    showDivider: Boolean,
-    onOptionSelected: () -> Unit,
-    modifier: Modifier = Modifier,
-    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
-) {
-    Box(
-        modifier = modifier
-            .selectable(
-                selected = isSelected,
-                interactionSource = interactionSource,
-                indication = FocusIndication(),
-                role = Role.DropdownList,
-                onClick = onOptionSelected
-            )
-            .background(
-                color = if (isSelected) {
-                    colors.menuOptionBackgroundSelectedColor
-                } else {
-                    Color.Transparent
-                }
-            )
-            .padding(horizontal = 16.dp)
-            .testTag(DropdownTestTags.MENU_OPTION)
-    ) {
-        if (showDivider) {
-            DropdownMenuOptionDivider(
-                colors.menuOptionBorderColor,
-                modifier = Modifier
-                    .align(Alignment.TopCenter)
-                    .testTag(DropdownTestTags.MENU_OPTION_DIVIDER)
-            )
-        }
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.fillMaxSize()
-        ) {
-            Text(
-                text = optionValue,
-                style = CarbonTypography.bodyCompact01,
-                color = if (isSelected) {
-                    colors.menuOptionTextSelectedColor
-                } else {
-                    colors.menuOptionTextColor
-                },
-                overflow = TextOverflow.Ellipsis,
-                maxLines = 1,
-                modifier = Modifier.weight(1f)
-            )
-            if (isSelected) {
-                Image(
-                    imageVector = dropdownCheckmarkIcon,
-                    contentDescription = null,
-                    colorFilter = ColorFilter.tint(colors.checkmarkIconColor),
-                    modifier = Modifier
-                        .size(checkmarkSize)
-                        .testTag(DropdownTestTags.MENU_OPTION_CHECKMARK)
-                )
-            } else {
-                Spacer(modifier = Modifier.size(checkmarkSize))
-            }
-        }
-    }
-}
-
-@Composable
-private fun DropdownMenuOptionDivider(
-    color: Color,
-    modifier: Modifier = Modifier
-) {
-    Spacer(
-        modifier = modifier
-            .background(color = color)
-            .height(1.dp)
-            .fillMaxWidth()
-    )
-}
-
 private object DropdownMenuPositionProvider : PopupPositionProvider {
 
     override fun calculatePosition(
@@ -455,14 +309,4 @@ private object DropdownMenuPositionProvider : PopupPositionProvider {
         x = anchorBounds.left,
         y = anchorBounds.top + anchorBounds.height
     )
-}
-
-internal object DropdownTestTags {
-    const val FIELD: String = "carbon_dropdown_field"
-    const val FIELD_PLACEHOLDER: String = "carbon_dropdown_field_placeholder"
-    const val FIELD_CHEVRON: String = "carbon_dropdown_field_chevron"
-    const val POPUP_CONTENT: String = "carbon_dropdown_popup_content"
-    const val MENU_OPTION: String = "carbon_dropdown_menu_option"
-    const val MENU_OPTION_DIVIDER: String = "carbon_dropdown_menu_option_divider"
-    const val MENU_OPTION_CHECKMARK: String = "carbon_dropdown_menu_option_checkmark"
 }
