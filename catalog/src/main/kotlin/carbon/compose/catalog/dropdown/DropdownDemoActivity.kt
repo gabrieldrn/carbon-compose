@@ -27,7 +27,20 @@ import carbon.compose.uishell.UiShellHeader
 
 class DropdownDemoActivity : AppCompatActivity() {
 
-    private val dropdownOptions = (0..9).associateWith { "Option $it" }
+    private val dropdownOptions = mapOf(
+        0 to "Option 0",
+        1 to "Lorem ipsum dolor sit amet, consectetur adipiscing elit. " +
+            "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris " +
+            "nisi ut aliquip ex ea commodo consequat.",
+        2 to "Option 2",
+        3 to "Option 3",
+        4 to "Option 4",
+        5 to "Option 5",
+        6 to "Option 6",
+        7 to "Option 7",
+        8 to "Option 8",
+        9 to "Option 9",
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
