@@ -278,6 +278,8 @@ private fun DropdownField(
             text = fieldPlaceholderText,
             style = CarbonTypography.bodyCompact01,
             color = colors.fieldTextColor,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
             modifier = Modifier
                 .weight(1f)
                 .testTag(DropdownTestTags.FIELD_PLACEHOLDER)
