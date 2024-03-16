@@ -73,7 +73,7 @@ comments:
     active: true
     matchTypeParameters: true
     matchDeclarationsOrder: true
-    allowParamOnConstructorProperties: false
+    allowParamOnConstructorProperties: true
   UndocumentedPublicClass:
     active: true
     excludes: [
