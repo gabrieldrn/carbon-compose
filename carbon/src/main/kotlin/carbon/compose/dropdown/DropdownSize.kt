@@ -34,7 +34,7 @@ public enum class DropdownSize(internal val height: Dp) {
     /**
      * Choose this size when there is a lot of space to work with. This size is typically used in
      * simple forms or when a dropdown is placed by itself on a page, for example as a filter.
-     * This should be the default size for dropdowns on mobile for accessibility reasons.
+     * This should be the default size for dropdowns on portable devices for accessibility reasons.
      */
     Large(DROPDOWN_HEIGHT_LARGE_DP.dp)
 }
