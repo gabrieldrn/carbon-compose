@@ -26,8 +26,22 @@ internal class DropdownSizeParameterProvider : PreviewParameterProvider<Dropdown
 private fun DropdownPreview(
     @PreviewParameter(DropdownSizeParameterProvider::class) dropdownSize: DropdownSize,
 ) {
-    val options = (0..5).associateWith { "Option $it" }
+    val options: Map<Int, DropdownOption> = (0..9)
+        .associateWith { DropdownOption("Option $it") }
+        .toMutableMap()
+        .apply {
+            set(
+                1, DropdownOption(
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. " +
+                        "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris " +
+                        "nisi ut aliquip ex ea commodo consequat."
+                )
+            )
+            set(2, DropdownOption("Disabled", enabled = false))
+        }
+
     var expanded by remember { mutableStateOf(false) }
+
     CarbonDesignSystem {
         Box(modifier = Modifier.fillMaxSize()) {
             Dropdown(

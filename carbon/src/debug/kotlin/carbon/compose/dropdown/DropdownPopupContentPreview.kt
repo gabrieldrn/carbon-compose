@@ -1,10 +1,6 @@
 package carbon.compose.dropdown
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import carbon.compose.CarbonDesignSystem
@@ -14,23 +10,27 @@ import carbon.compose.CarbonDesignSystem
 private fun DropdownPopupContentPreview(
     @PreviewParameter(DropdownSizeParameterProvider::class) dropdownSize: DropdownSize,
 ) {
-    val options = mapOf(
-        0 to "Option 0",
-        1 to "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        2 to "Option 2",
-        3 to "Option 3",
-        4 to "Option 4",
-    )
-    var selectedOptionKey by remember {
-        mutableStateOf<Int?>(2)
-    }
+    val options: Map<Int, DropdownOption> = (0..4)
+        .associateWith { DropdownOption("Option $it") }
+        .toMutableMap()
+        .apply {
+            set(
+                1, DropdownOption(
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. " +
+                        "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris " +
+                        "nisi ut aliquip ex ea commodo consequat."
+                )
+            )
+            set(2, DropdownOption("Disabled", enabled = false))
+        }
+
     CarbonDesignSystem {
         DropdownPopupContent(
             options = options,
-            selectedOption = selectedOptionKey,
+            selectedOption = 1,
             colors = DropdownColors.colors(),
             componentHeight = dropdownSize.height,
-            onOptionSelected = { selectedOptionKey = it },
+            onOptionSelected = {},
         )
     }
 }

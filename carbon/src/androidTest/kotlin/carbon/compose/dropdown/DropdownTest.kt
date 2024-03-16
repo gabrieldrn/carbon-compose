@@ -33,7 +33,7 @@ class DropdownTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 
-    private val options = (0..9).associateWith { "Option $it" }
+    private val options = (0..9).associateWith { DropdownOption("Option $it") }
     private val minVisibleItems = 4
 
     private var dropdownSize by mutableStateOf(DropdownSize.Large)

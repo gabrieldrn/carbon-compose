@@ -22,25 +22,25 @@ import androidx.compose.ui.unit.dp
 import carbon.compose.catalog.R
 import carbon.compose.catalog.theme.CarbonCatalogTheme
 import carbon.compose.dropdown.Dropdown
+import carbon.compose.dropdown.DropdownOption
 import carbon.compose.foundation.color.LocalCarbonTheme
 import carbon.compose.uishell.UiShellHeader
 
 class DropdownDemoActivity : AppCompatActivity() {
 
-    private val dropdownOptions = mapOf(
-        0 to "Option 0",
-        1 to "Lorem ipsum dolor sit amet, consectetur adipiscing elit. " +
-            "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris " +
-            "nisi ut aliquip ex ea commodo consequat.",
-        2 to "Option 2",
-        3 to "Option 3",
-        4 to "Option 4",
-        5 to "Option 5",
-        6 to "Option 6",
-        7 to "Option 7",
-        8 to "Option 8",
-        9 to "Option 9",
-    )
+    private val dropdownOptions: Map<Int, DropdownOption> = (0..9)
+        .associateWith { DropdownOption("Option $it") }
+        .toMutableMap()
+        .apply {
+            set(
+                1, DropdownOption(
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. " +
+                        "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris " +
+                        "nisi ut aliquip ex ea commodo consequat."
+                )
+            )
+            set(2, DropdownOption("Disabled", enabled = false))
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

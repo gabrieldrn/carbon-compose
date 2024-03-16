@@ -11,10 +11,13 @@ import androidx.compose.ui.test.assertAll
 import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.assertHeightIsEqualTo
 import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.filter
 import androidx.compose.ui.test.filterToOne
 import androidx.compose.ui.test.hasClickAction
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.isFocusable
+import androidx.compose.ui.test.isNotEnabled
+import androidx.compose.ui.test.isNotFocusable
 import androidx.compose.ui.test.isNotSelected
 import androidx.compose.ui.test.isSelectable
 import androidx.compose.ui.test.isSelected
@@ -35,13 +38,19 @@ class DropdownPopupContentTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 
-    private val options = mapOf(
-        0 to "Option 0",
-        1 to "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        2 to "Option 2",
-        3 to "Option 3",
-        4 to "Option 4",
-    )
+    private val options: Map<Int, DropdownOption> = (0..4)
+        .associateWith { DropdownOption("Option $it") }
+        .toMutableMap()
+        .apply {
+            set(
+                1, DropdownOption(
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. " +
+                        "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris " +
+                        "nisi ut aliquip ex ea commodo consequat."
+                )
+            )
+            set(2, DropdownOption("Disabled", enabled = false))
+        }
 
     private var dropdownSize by mutableStateOf(DropdownSize.Large)
     private var isExpanded by mutableStateOf(false)
@@ -92,7 +101,12 @@ class DropdownPopupContentTest {
     fun optionsLayout_validateSemanticsActions() {
         composeTestRule.run {
             onAllNodesWithTag(DropdownTestTags.MENU_OPTION)
+                .filter(hasText("Disabled").not())
                 .assertAll(isFocusable() and isSelectable() and hasClickAction())
+
+            onAllNodesWithTag(DropdownTestTags.MENU_OPTION)
+                .filterToOne(hasText("Disabled"))
+                .assert(isNotEnabled() and isNotFocusable())
         }
     }
 
@@ -108,18 +122,18 @@ class DropdownPopupContentTest {
     @Test
     fun optionsLayout_optionSelected_validateOptionIsSelected() {
         composeTestRule.run {
-            val selected = 2
+            val selected = 1
             selectedOptionKey = selected
             onAllNodesWithTag(DropdownTestTags.MENU_OPTION)
                 .filterToOne(isSelected())
-                .assert(hasText(options[selected]!!))
+                .assert(hasText(options[selected]!!.value))
         }
     }
 
     @Test
     fun optionsLayout_optionSelected_validateCheckmarkIsDisplayed() {
         composeTestRule.run {
-            selectedOptionKey = 2
+            selectedOptionKey = 1
             onAllNodesWithTag(DropdownTestTags.MENU_OPTION_CHECKMARK, useUnmergedTree = true)
                 .assertCountEquals(1)
                 .onFirst()
@@ -133,7 +147,7 @@ class DropdownPopupContentTest {
             onAllNodesWithTag(DropdownTestTags.MENU_OPTION_DIVIDER, useUnmergedTree = true)
                 .assertCountEquals(4)
 
-            selectedOptionKey = 2
+            selectedOptionKey = 1
 
             onAllNodesWithTag(DropdownTestTags.MENU_OPTION_DIVIDER, useUnmergedTree = true)
                 .assertCountEquals(3)
@@ -150,5 +164,15 @@ class DropdownPopupContentTest {
                 .performClick()
         }
         assertNotNull(selectedOptionKey)
+    }
+
+    @Test
+    fun optionsLayout_onDisabledOptionSelected_validateOptionIsNotSelected() {
+        composeTestRule.run {
+            onAllNodesWithTag(DropdownTestTags.MENU_OPTION)
+                .filterToOne(hasText("Disabled"))
+                .performClick()
+        }
+        assertNull(selectedOptionKey)
     }
 }

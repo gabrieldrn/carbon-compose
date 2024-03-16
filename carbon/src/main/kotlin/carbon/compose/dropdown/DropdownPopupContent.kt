@@ -50,7 +50,7 @@ private val checkmarkSize = 16.dp
  */
 @Composable
 internal fun <K : Any> DropdownPopupContent(
-    options: Map<K, String>,
+    options: Map<K, DropdownOption>,
     selectedOption: K?,
     colors: DropdownColors,
     componentHeight: Dp,
@@ -73,16 +73,16 @@ internal fun <K : Any> DropdownPopupContent(
             .background(color = colors.menuOptionBackgroundColor)
             .testTag(DropdownTestTags.POPUP_CONTENT)
     ) {
-        itemsIndexed(optionEntries) { index, option ->
+        itemsIndexed(optionEntries) { index, optionEntry ->
             SideEffect {
-                if (option.key == compositionEndTargetOption) {
+                if (optionEntry.key == compositionEndTargetOption) {
                     focusRequester.requestFocus()
                 }
             }
             DropdownMenuOption(
-                optionValue = option.value,
+                option = optionEntry.value,
                 isSelected = index == selectedOptionIndex,
-                onOptionSelected = { onOptionSelected(option.key) },
+                onOptionSelected = { onOptionSelected(optionEntry.key) },
                 // Hide divider: first item + when previous item is selected.
                 showDivider = index != 0 && index - 1 != selectedOptionIndex,
                 colors = colors,
@@ -90,7 +90,7 @@ internal fun <K : Any> DropdownPopupContent(
                     .fillMaxWidth()
                     .height(componentHeight)
                     .then(
-                        if (option.key == compositionEndTargetOption) {
+                        if (optionEntry.key == compositionEndTargetOption) {
                             Modifier.focusRequester(focusRequester)
                         } else {
                             Modifier
@@ -103,7 +103,7 @@ internal fun <K : Any> DropdownPopupContent(
 
 @Composable
 private fun DropdownMenuOption(
-    optionValue: String,
+    option: DropdownOption,
     isSelected: Boolean,
     colors: DropdownColors,
     showDivider: Boolean,
@@ -117,6 +117,7 @@ private fun DropdownMenuOption(
                 selected = isSelected,
                 interactionSource = interactionSource,
                 indication = FocusIndication(),
+                enabled = option.enabled,
                 role = Role.DropdownList,
                 onClick = onOptionSelected
             )
@@ -143,12 +144,12 @@ private fun DropdownMenuOption(
             modifier = Modifier.fillMaxSize()
         ) {
             Text(
-                text = optionValue,
+                text = option.value,
                 style = CarbonTypography.bodyCompact01,
-                color = if (isSelected) {
-                    colors.menuOptionTextSelectedColor
-                } else {
-                    colors.menuOptionTextColor
+                color = when {
+                    !option.enabled -> colors.menuOptionTextDisabledColor
+                    isSelected -> colors.menuOptionTextSelectedColor
+                    else -> colors.menuOptionTextColor
                 },
                 overflow = TextOverflow.Ellipsis,
                 maxLines = 1,

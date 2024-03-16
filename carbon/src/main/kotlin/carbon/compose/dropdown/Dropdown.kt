@@ -124,7 +124,7 @@ public fun <K : Any> Dropdown(
     expanded: Boolean,
     fieldPlaceholderText: String,
     selectedOption: K?,
-    options: Map<K, String>,
+    options: Map<K, DropdownOption>,
     onOptionSelected: (K) -> Unit,
     onExpandedChange: (Boolean) -> Unit,
     onDismissRequest: () -> Unit,
@@ -144,7 +144,9 @@ public fun <K : Any> Dropdown(
     val colors = DropdownColors.colors()
     val componentHeight = dropdownSize.height
 
-    val fieldText = remember(selectedOption) { options[selectedOption] ?: fieldPlaceholderText }
+    val fieldText = remember(selectedOption) {
+        options[selectedOption]?.value ?: fieldPlaceholderText
+    }
 
     val transition = updateTransition(expandedStates, "Dropdown")
     val maxHeight = getOptionsPopupHeightRatio(options.size, minVisibleItems)
