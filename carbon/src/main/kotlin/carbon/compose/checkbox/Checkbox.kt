@@ -27,6 +27,7 @@ import carbon.compose.foundation.interaction.ToggleableFocusIndication
 import carbon.compose.foundation.spacing.SpacingScale
 import carbon.compose.foundation.text.CarbonTypography
 import carbon.compose.foundation.text.Text
+import carbon.compose.icons.WarningIcon
 import carbon.compose.semantics.readOnly
 
 private val checkboxBorderWidth = 1.dp
@@ -226,24 +227,7 @@ private fun WarningContent(
     modifier: Modifier = Modifier
 ) {
     Row(modifier = modifier) {
-        Box {
-            Image(
-                imageVector = checkboxWarningIcon,
-                contentDescription = null,
-                colorFilter = ColorFilter.tint(colors.warningIconColor),
-                modifier = Modifier
-                    .padding(2.dp)
-                    .requiredSize(16.dp)
-            )
-            Image(
-                imageVector = checkboxWarningInnerIcon,
-                contentDescription = null,
-                colorFilter = ColorFilter.tint(colors.warningIconInnerFillColor),
-                modifier = Modifier
-                    .padding(2.dp)
-                    .requiredSize(16.dp)
-            )
-        }
+        WarningIcon(Modifier.padding(2.dp))
         Text(
             text = warningMessage,
             color = colors.warningMessageTextColor,

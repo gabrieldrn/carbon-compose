@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import carbon.compose.catalog.R
 import carbon.compose.catalog.theme.CarbonCatalogTheme
 import carbon.compose.dropdown.Dropdown
+import carbon.compose.dropdown.DropdownInteractiveState
 import carbon.compose.dropdown.DropdownOption
 import carbon.compose.foundation.color.LocalCarbonTheme
 import carbon.compose.uishell.UiShellHeader
@@ -67,6 +68,7 @@ class DropdownDemoActivity : AppCompatActivity() {
                     ) {
                         var selectedOption by remember { mutableStateOf<Int?>(null) }
                         var expanded by remember { mutableStateOf(false) }
+                        var warningExpanded by remember { mutableStateOf(false) }
 
                         Dropdown(
                             expanded = expanded,
@@ -77,6 +79,18 @@ class DropdownDemoActivity : AppCompatActivity() {
                             onExpandedChange = { expanded = it },
                             onDismissRequest = { expanded = false },
                             modifier = Modifier.padding(8.dp),
+                        )
+
+                        Dropdown(
+                            expanded = warningExpanded,
+                            fieldPlaceholderText = "Warning dropdown",
+                            selectedOption = selectedOption,
+                            options = dropdownOptions,
+                            onOptionSelected = { selectedOption = it },
+                            onExpandedChange = { warningExpanded = it },
+                            onDismissRequest = { warningExpanded = false },
+                            state = DropdownInteractiveState.Warning("Warning message goes here"),
+                            modifier = Modifier.padding(horizontal = 8.dp)
                         )
                     }
                 }

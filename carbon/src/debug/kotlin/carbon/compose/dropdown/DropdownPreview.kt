@@ -2,8 +2,8 @@ package carbon.compose.dropdown
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -21,10 +21,10 @@ internal class DropdownSizeParameterProvider : PreviewParameterProvider<Dropdown
         get() = DropdownSize.entries.asSequence()
 }
 
-@Preview(showBackground = true, backgroundColor = 0xFFFFFFFF)
 @Composable
-private fun DropdownPreview(
-    @PreviewParameter(DropdownSizeParameterProvider::class) dropdownSize: DropdownSize,
+private fun BaseDropdownPreview(
+    dropdownSize: DropdownSize,
+    dropdownInteractiveState: DropdownInteractiveState,
 ) {
     val options: Map<Int, DropdownOption> = (0..9)
         .associateWith { DropdownOption("Option $it") }
@@ -52,11 +52,34 @@ private fun DropdownPreview(
                 selectedOption = null,
                 options = options,
                 onOptionSelected = {},
+                state = dropdownInteractiveState,
                 dropdownSize = dropdownSize,
                 modifier = Modifier
                     .padding(8.dp)
-                    .width(200.dp),
+                    .fillMaxWidth(),
             )
         }
     }
+}
+
+@Preview(showBackground = true, backgroundColor = 0xFFFFFFFF, group = "Dropdown - active")
+@Composable
+private fun DropdownPreview(
+    @PreviewParameter(DropdownSizeParameterProvider::class) dropdownSize: DropdownSize,
+) {
+    BaseDropdownPreview(
+        dropdownSize = dropdownSize,
+        dropdownInteractiveState = DropdownInteractiveState.Enabled
+    )
+}
+
+@Preview(showBackground = true, backgroundColor = 0xFFFFFFFF, group = "Dropdown - warning")
+@Composable
+private fun DropdownWarningPreview(
+    @PreviewParameter(DropdownSizeParameterProvider::class) dropdownSize: DropdownSize,
+) {
+    BaseDropdownPreview(
+        dropdownSize = dropdownSize,
+        dropdownInteractiveState = DropdownInteractiveState.Warning("Warning message goes here")
+    )
 }

@@ -36,6 +36,7 @@ class DropdownTest {
     private val options = (0..9).associateWith { DropdownOption("Option $it") }
     private val minVisibleItems = 4
 
+    private var state by mutableStateOf<DropdownInteractiveState>(DropdownInteractiveState.Enabled)
     private var dropdownSize by mutableStateOf(DropdownSize.Large)
     private var isExpanded by mutableStateOf(false)
     private var selectedOptionKey by mutableStateOf<Int?>(null)
@@ -54,7 +55,8 @@ class DropdownTest {
                     onExpandedChange = { isExpanded = it },
                     onDismissRequest = { isExpanded = false },
                     minVisibleItems = minVisibleItems,
-                    dropdownSize = dropdownSize
+                    dropdownSize = dropdownSize,
+                    state = state
                 )
             }
         }
@@ -67,8 +69,7 @@ class DropdownTest {
         dropdownSize = DropdownSize.Large
     }
 
-    @Test
-    fun dropdown_field_validateLayout() {
+    private fun baseLayoutValidation() {
         composeTestRule.run {
             onNodeWithTag(DropdownTestTags.FIELD)
                 .assertIsDisplayed()
@@ -79,6 +80,37 @@ class DropdownTest {
 
             onNodeWithTag(DropdownTestTags.FIELD_CHEVRON, useUnmergedTree = true)
                 .assertIsDisplayed()
+        }
+    }
+
+    @Test
+    fun dropdown_field_enabled_validateLayout() {
+        composeTestRule.run {
+            baseLayoutValidation()
+
+            onNodeWithTag(DropdownTestTags.FIELD_WARNING_ICON, useUnmergedTree = true)
+                .assertIsNotDisplayed()
+
+            onNodeWithTag(DropdownTestTags.FIELD_HELPER_TEXT)
+                .assertIsNotDisplayed()
+        }
+    }
+
+    @Test
+    fun dropdown_field_warning_validateLayout() {
+        composeTestRule.run {
+            val warningMessage = "Warning message goes here"
+
+            state = DropdownInteractiveState.Warning(warningMessage)
+
+            baseLayoutValidation()
+
+            onNodeWithTag(DropdownTestTags.FIELD_WARNING_ICON, useUnmergedTree = true)
+                .assertIsDisplayed()
+
+            onNodeWithTag(DropdownTestTags.FIELD_HELPER_TEXT)
+                .assertIsDisplayed()
+                .assert(hasText(warningMessage))
         }
     }
 

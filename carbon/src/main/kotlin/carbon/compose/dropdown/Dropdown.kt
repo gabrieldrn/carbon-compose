@@ -16,6 +16,7 @@ import androidx.compose.foundation.gestures.waitForUpOrCancellation
 import androidx.compose.foundation.indication
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -53,11 +54,14 @@ import androidx.compose.ui.window.Popup
 import androidx.compose.ui.window.PopupPositionProvider
 import androidx.compose.ui.window.PopupProperties
 import carbon.compose.dropdown.domain.getOptionsPopupHeightRatio
+import carbon.compose.foundation.color.LocalCarbonTheme
 import carbon.compose.foundation.input.onEnterKeyEvent
 import carbon.compose.foundation.interaction.FocusIndication
 import carbon.compose.foundation.motion.Motion
+import carbon.compose.foundation.spacing.SpacingScale
 import carbon.compose.foundation.text.CarbonTypography
 import carbon.compose.foundation.text.Text
+import carbon.compose.icons.WarningIcon
 
 private val dropdownTransitionSpecFloat = tween<Float>(
     durationMillis = Motion.Duration.moderate01,
@@ -113,10 +117,11 @@ private fun Modifier.onEscape(block: () -> Unit) = onPreviewKeyEvent {
  * should be used to update a remembered state with the new value.
  * @param onDismissRequest Callback invoked when the dropdown menu should be dismissed.
  * @param modifier The modifier to be applied to the dropdown.
- * @param minVisibleItems The minimum number of items to be visible in the dropdown menu before the
- * user needs to scroll. This value is used to calculate the height of the menu. Defaults to 4.
+ * @param state The [DropdownInteractiveState] of the dropdown.
  * @param dropdownSize The size of the dropdown, in terms of height. Defaults to
  * [DropdownSize.Large].
+ * @param minVisibleItems The minimum number of items to be visible in the dropdown menu before the
+ * user needs to scroll. This value is used to calculate the height of the menu. Defaults to 4.
  * @throws IllegalArgumentException If the options map is empty.
  */
 @Composable
@@ -129,12 +134,15 @@ public fun <K : Any> Dropdown(
     onExpandedChange: (Boolean) -> Unit,
     onDismissRequest: () -> Unit,
     modifier: Modifier = Modifier,
+    state: DropdownInteractiveState = DropdownInteractiveState.Enabled,
+    dropdownSize: DropdownSize = DropdownSize.Large,
     @IntRange(from = 1) minVisibleItems: Int = 4,
-    dropdownSize: DropdownSize = DropdownSize.Large
 ) {
     require(options.isNotEmpty()) {
         "Dropdown must have at least one option."
     }
+
+    val theme = LocalCarbonTheme.current
 
     val interactionSource = remember { MutableInteractionSource() }
 
@@ -166,70 +174,83 @@ public fun <K : Any> Dropdown(
         if (it) 3.dp else 0.dp
     }
 
-    BoxWithConstraints(
-        modifier = modifier
-            .height(componentHeight)
-            .indication(
-                interactionSource = interactionSource,
-                indication = FocusIndication()
-            )
-            .then(
-                InspectableModifier {
-                    debugInspectorInfo {
-                        properties["isExpanded"] = expanded.toString()
-                    }
-                }
-            )
-    ) {
-        DropdownField(
-            interactionSource = interactionSource,
-            transition = transition,
-            expandedStates = expandedStates,
-            fieldPlaceholderText = fieldText,
-            colors = colors,
-            onExpandedChange = onExpandedChange
-        )
-
-        Spacer(
+    Column(modifier = modifier) {
+        BoxWithConstraints(
             modifier = Modifier
-                .background(color = colors.fieldBorderColor)
-                .height(1.dp)
-                .fillMaxWidth()
-                .align(Alignment.BottomCenter)
-        )
-
-        // TODO Place popup on top of the field if the menu doesn't have enough space below it.
-        if (expandedStates.currentState || expandedStates.targetState && options.isNotEmpty()) {
-            Popup(
-                popupPositionProvider = DropdownMenuPositionProvider,
-                onDismissRequest = onDismissRequest,
-                properties = PopupProperties(focusable = true)
-            ) {
-                DropdownPopupContent(
-                    selectedOption = selectedOption,
-                    options = options,
-                    colors = colors,
-                    componentHeight = componentHeight,
-                    onOptionSelected = { option ->
-                        onOptionSelected(option)
-                        onDismissRequest()
-                    },
-                    modifier = Modifier
-                        .width(maxWidth)
-                        .height(height)
-                        // This should be a box shadow (-> 0 2px 6px 0 rgba(0,0,0,.2)). But compose
-                        // doesn't provide the same API as CSS for shadows. A 3dp elevation is the
-                        // best approximation that could be found for now.
-                        .shadow(elevation = elevation)
-                        .onEscape(onDismissRequest)
+                .height(componentHeight)
+                .indication(
+                    interactionSource = interactionSource,
+                    indication = FocusIndication()
                 )
+                .then(
+                    InspectableModifier {
+                        debugInspectorInfo {
+                            properties["isExpanded"] = expanded.toString()
+                        }
+                    }
+                )
+        ) {
+            DropdownField(
+                state = state,
+                interactionSource = interactionSource,
+                transition = transition,
+                expandedStates = expandedStates,
+                fieldPlaceholderText = fieldText,
+                colors = colors,
+                onExpandedChange = onExpandedChange
+            )
+
+            Spacer(
+                modifier = Modifier
+                    .background(color = colors.fieldBorderColor)
+                    .height(1.dp)
+                    .fillMaxWidth()
+                    .align(Alignment.BottomCenter)
+            )
+
+            if (expandedStates.currentState || expandedStates.targetState && options.isNotEmpty()) {
+                Popup(
+                    popupPositionProvider = DropdownMenuPositionProvider,
+                    onDismissRequest = onDismissRequest,
+                    properties = PopupProperties(focusable = true)
+                ) {
+                    DropdownPopupContent(
+                        selectedOption = selectedOption,
+                        options = options,
+                        colors = colors,
+                        componentHeight = componentHeight,
+                        onOptionSelected = { option ->
+                            onOptionSelected(option)
+                            onDismissRequest()
+                        },
+                        modifier = Modifier
+                            .width(maxWidth)
+                            .height(height)
+                            // This should be a box shadow (-> 0 2px 6px 0 rgba(0,0,0,.2)). But
+                            // compose doesn't provide the same API as CSS for shadows. A 3dp
+                            // elevation is the best approximation that could be found for now.
+                            .shadow(elevation = elevation)
+                            .onEscape(onDismissRequest)
+                    )
+                }
             }
+        }
+
+        if (state is DropdownInteractiveState.Warning) {
+            Spacer(modifier = Modifier.height(SpacingScale.spacing02))
+            Text(
+                text = state.helperText,
+                style = CarbonTypography.helperText01,
+                color = theme.textPrimary,
+                modifier = Modifier.testTag(DropdownTestTags.FIELD_HELPER_TEXT)
+            )
         }
     }
 }
 
 @Composable
 private fun DropdownField(
+    state: DropdownInteractiveState,
     transition: Transition<Boolean>,
     expandedStates: MutableTransitionState<Boolean>,
     fieldPlaceholderText: String,
@@ -286,12 +307,20 @@ private fun DropdownField(
                 .weight(1f)
                 .testTag(DropdownTestTags.FIELD_PLACEHOLDER)
         )
+
+        Spacer(modifier = Modifier.width(SpacingScale.spacing03))
+
+        if (state is DropdownInteractiveState.Warning) {
+            WarningIcon(modifier = Modifier.testTag(DropdownTestTags.FIELD_WARNING_ICON))
+        }
+
+        Spacer(modifier = Modifier.width(SpacingScale.spacing03))
+
         Image(
             imageVector = chevronDownIcon,
             contentDescription = null,
             colorFilter = ColorFilter.tint(colors.chevronIconColor),
             modifier = Modifier
-                .padding(start = 16.dp)
                 .graphicsLayer {
                     rotationZ = chevronRotation
                 }
