@@ -29,7 +29,6 @@ import androidx.compose.ui.platform.debugInspectorInfo
 import androidx.compose.ui.semantics.Role
 import carbon.compose.button.ButtonSize.Companion.getContainerPaddings
 import carbon.compose.foundation.color.LocalCarbonTheme
-import carbon.compose.foundation.interaction.FocusIndication
 import carbon.compose.foundation.motion.Motion
 import carbon.compose.foundation.spacing.SpacingScale
 import carbon.compose.foundation.text.CarbonTypography

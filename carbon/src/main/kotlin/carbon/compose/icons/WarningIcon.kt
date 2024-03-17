@@ -2,7 +2,6 @@ package carbon.compose.icons
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
@@ -16,6 +15,9 @@ import androidx.compose.ui.graphics.vector.path
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import carbon.compose.foundation.color.LocalCarbonTheme
+
+internal val warningIconWidth = 32f.dp
+internal val warningIconHeight = 32f.dp
 
 internal val warningIcon: ImageVector
     get() = ImageVector.Builder(
@@ -64,9 +66,6 @@ internal val warningInnerIcon: ImageVector
             close()
         }
     }.build()
-
-internal val warningIconWidth = 32f.dp
-internal val warningIconHeight = 32f.dp
 
 @Composable
 internal fun WarningIcon(
