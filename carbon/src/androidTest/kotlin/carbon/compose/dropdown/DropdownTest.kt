@@ -88,7 +88,13 @@ class DropdownTest {
         composeTestRule.run {
             baseLayoutValidation()
 
+            onNodeWithTag(DropdownTestTags.FIELD_DIVIDER, useUnmergedTree = true)
+                .assertIsDisplayed()
+
             onNodeWithTag(DropdownTestTags.FIELD_WARNING_ICON, useUnmergedTree = true)
+                .assertIsNotDisplayed()
+
+            onNodeWithTag(DropdownTestTags.FIELD_ERROR_ICON, useUnmergedTree = true)
                 .assertIsNotDisplayed()
 
             onNodeWithTag(DropdownTestTags.FIELD_HELPER_TEXT)
@@ -111,6 +117,27 @@ class DropdownTest {
             onNodeWithTag(DropdownTestTags.FIELD_HELPER_TEXT)
                 .assertIsDisplayed()
                 .assert(hasText(warningMessage))
+        }
+    }
+
+    @Test
+    fun dropdown_field_error_validateLayout() {
+        composeTestRule.run {
+            val errorMessage = "Error message goes here"
+
+            state = DropdownInteractiveState.Error(errorMessage)
+
+            baseLayoutValidation()
+
+            onNodeWithTag(DropdownTestTags.FIELD_ERROR_ICON, useUnmergedTree = true)
+                .assertIsDisplayed()
+
+            onNodeWithTag(DropdownTestTags.FIELD_HELPER_TEXT)
+                .assertIsDisplayed()
+                .assert(hasText(errorMessage))
+
+            onNodeWithTag(DropdownTestTags.FIELD_DIVIDER, useUnmergedTree = true)
+                .assertIsNotDisplayed()
         }
     }
 

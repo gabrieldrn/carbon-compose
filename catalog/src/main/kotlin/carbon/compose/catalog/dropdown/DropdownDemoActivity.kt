@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -66,35 +67,49 @@ class DropdownDemoActivity : AppCompatActivity() {
                             .weight(1f)
                             .fillMaxWidth()
                     ) {
-                        var selectedOption by remember { mutableStateOf<Int?>(null) }
-                        var expanded by remember { mutableStateOf(false) }
-                        var warningExpanded by remember { mutableStateOf(false) }
-
-                        Dropdown(
-                            expanded = expanded,
-                            fieldPlaceholderText = "Dropdown",
-                            selectedOption = selectedOption,
-                            options = dropdownOptions,
-                            onOptionSelected = { selectedOption = it },
-                            onExpandedChange = { expanded = it },
-                            onDismissRequest = { expanded = false },
+                        DemoDropdown(
+                            title = "Dropdown",
                             modifier = Modifier.padding(8.dp),
                         )
 
-                        Dropdown(
-                            expanded = warningExpanded,
-                            fieldPlaceholderText = "Warning dropdown",
-                            selectedOption = selectedOption,
-                            options = dropdownOptions,
-                            onOptionSelected = { selectedOption = it },
-                            onExpandedChange = { warningExpanded = it },
-                            onDismissRequest = { warningExpanded = false },
+                        DemoDropdown(
+                            title = "Warning dropdown",
                             state = DropdownInteractiveState.Warning("Warning message goes here"),
                             modifier = Modifier.padding(horizontal = 8.dp)
+                        )
+
+                        DemoDropdown(
+                            title = "Error dropdown",
+                            state = DropdownInteractiveState.Error("Error message goes here"),
+                            modifier = Modifier
+                                .padding(horizontal = 8.dp)
+                                .padding(top = 8.dp)
                         )
                     }
                 }
             }
         }
+    }
+
+    @Composable
+    private fun DemoDropdown(
+        title: String,
+        modifier: Modifier = Modifier,
+        state: DropdownInteractiveState = DropdownInteractiveState.Enabled,
+    ) {
+        var selectedOption by remember { mutableStateOf<Int?>(null) }
+        var expanded by remember { mutableStateOf(false) }
+
+        Dropdown(
+            expanded = expanded,
+            fieldPlaceholderText = title,
+            selectedOption = selectedOption,
+            options = dropdownOptions,
+            onOptionSelected = { selectedOption = it },
+            onExpandedChange = { expanded = it },
+            onDismissRequest = { expanded = false },
+            state = state,
+            modifier = modifier,
+        )
     }
 }

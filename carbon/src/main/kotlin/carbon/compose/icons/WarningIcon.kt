@@ -16,8 +16,8 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import carbon.compose.foundation.color.LocalCarbonTheme
 
-internal val warningIconWidth = 32f.dp
-internal val warningIconHeight = 32f.dp
+private val warningIconWidth = 32f.dp
+private val warningIconHeight = 32f.dp
 
 internal val warningIcon: ImageVector
     get() = ImageVector.Builder(

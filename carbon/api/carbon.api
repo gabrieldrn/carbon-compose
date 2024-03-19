@@ -51,12 +51,28 @@ public final class carbon/compose/checkbox/CheckboxKt {
 }
 
 public abstract interface class carbon/compose/dropdown/DropdownInteractiveState {
+	public static final field Companion Lcarbon/compose/dropdown/DropdownInteractiveState$Companion;
+}
+
+public final class carbon/compose/dropdown/DropdownInteractiveState$Companion {
 }
 
 public final class carbon/compose/dropdown/DropdownInteractiveState$Enabled : carbon/compose/dropdown/DropdownInteractiveState {
 	public static final field $stable I
 	public static final field INSTANCE Lcarbon/compose/dropdown/DropdownInteractiveState$Enabled;
 	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class carbon/compose/dropdown/DropdownInteractiveState$Error : carbon/compose/dropdown/DropdownInteractiveState {
+	public static final field $stable I
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lcarbon/compose/dropdown/DropdownInteractiveState$Error;
+	public static synthetic fun copy$default (Lcarbon/compose/dropdown/DropdownInteractiveState$Error;Ljava/lang/String;ILjava/lang/Object;)Lcarbon/compose/dropdown/DropdownInteractiveState$Error;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getHelperText ()Ljava/lang/String;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }

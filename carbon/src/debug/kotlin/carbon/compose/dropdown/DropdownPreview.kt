@@ -83,3 +83,14 @@ private fun DropdownWarningPreview(
         dropdownInteractiveState = DropdownInteractiveState.Warning("Warning message goes here")
     )
 }
+
+@Preview(showBackground = true, backgroundColor = 0xFFFFFFFF, group = "Dropdown - error")
+@Composable
+private fun DropdownErrorPreview(
+    @PreviewParameter(DropdownSizeParameterProvider::class) dropdownSize: DropdownSize,
+) {
+    BaseDropdownPreview(
+        dropdownSize = dropdownSize,
+        dropdownInteractiveState = DropdownInteractiveState.Error("Error message goes here")
+    )
+}

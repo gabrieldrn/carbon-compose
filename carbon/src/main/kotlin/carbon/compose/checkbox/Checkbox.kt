@@ -1,7 +1,6 @@
 package carbon.compose.checkbox
 
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.indication
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Column
@@ -26,6 +25,7 @@ import carbon.compose.foundation.interaction.ToggleableFocusIndication
 import carbon.compose.foundation.spacing.SpacingScale
 import carbon.compose.foundation.text.CarbonTypography
 import carbon.compose.foundation.text.Text
+import carbon.compose.icons.ErrorIcon
 import carbon.compose.icons.WarningIcon
 import carbon.compose.semantics.readOnly
 
@@ -200,13 +200,8 @@ private fun ErrorContent(
     modifier: Modifier = Modifier
 ) {
     Row(modifier = modifier) {
-        Image(
-            imageVector = checkboxErrorIcon,
-            contentDescription = null,
-            colorFilter = ColorFilter.tint(colors.errorIconColor),
-            modifier = Modifier
-                .padding(2.dp)
-                .requiredSize(16.dp)
+        ErrorIcon(
+            modifier = Modifier.padding(SpacingScale.spacing01)
         )
         Text(
             text = errorMessage,

@@ -9,12 +9,14 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.gestures.awaitEachGesture
 import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.foundation.gestures.waitForUpOrCancellation
 import androidx.compose.foundation.indication
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -53,14 +55,15 @@ import androidx.compose.ui.unit.times
 import androidx.compose.ui.window.Popup
 import androidx.compose.ui.window.PopupPositionProvider
 import androidx.compose.ui.window.PopupProperties
+import carbon.compose.dropdown.DropdownInteractiveState.Companion.helperText
 import carbon.compose.dropdown.domain.getOptionsPopupHeightRatio
-import carbon.compose.foundation.color.LocalCarbonTheme
 import carbon.compose.foundation.input.onEnterKeyEvent
 import carbon.compose.foundation.interaction.FocusIndication
 import carbon.compose.foundation.motion.Motion
 import carbon.compose.foundation.spacing.SpacingScale
 import carbon.compose.foundation.text.CarbonTypography
 import carbon.compose.foundation.text.Text
+import carbon.compose.icons.ErrorIcon
 import carbon.compose.icons.WarningIcon
 
 private val dropdownTransitionSpecFloat = tween<Float>(
@@ -142,8 +145,6 @@ public fun <K : Any> Dropdown(
         "Dropdown must have at least one option."
     }
 
-    val theme = LocalCarbonTheme.current
-
     val interactionSource = remember { MutableInteractionSource() }
 
     val expandedStates = remember { MutableTransitionState(false) }
@@ -200,14 +201,6 @@ public fun <K : Any> Dropdown(
                 onExpandedChange = onExpandedChange
             )
 
-            Spacer(
-                modifier = Modifier
-                    .background(color = colors.fieldBorderColor)
-                    .height(1.dp)
-                    .fillMaxWidth()
-                    .align(Alignment.BottomCenter)
-            )
-
             if (expandedStates.currentState || expandedStates.targetState && options.isNotEmpty()) {
                 Popup(
                     popupPositionProvider = DropdownMenuPositionProvider,
@@ -236,13 +229,14 @@ public fun <K : Any> Dropdown(
             }
         }
 
-        if (state is DropdownInteractiveState.Warning) {
-            Spacer(modifier = Modifier.height(SpacingScale.spacing02))
+        state.helperText?.let {
             Text(
-                text = state.helperText,
+                text = it,
                 style = CarbonTypography.helperText01,
-                color = theme.textPrimary,
-                modifier = Modifier.testTag(DropdownTestTags.FIELD_HELPER_TEXT)
+                color = colors.helperTextColor(state),
+                modifier = Modifier
+                    .padding(top = SpacingScale.spacing02)
+                    .testTag(DropdownTestTags.FIELD_HELPER_TEXT)
             )
         }
     }
@@ -266,13 +260,18 @@ private fun DropdownField(
         if (it) CHEVRON_ROTATION_ANGLE else 0f
     }
 
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
+    Box(
         modifier = modifier
             .focusable(interactionSource = interactionSource)
             .fillMaxHeight()
             .background(colors.fieldBackgroundColor)
-            .padding(horizontal = 16.dp)
+            .then(
+                if (state is DropdownInteractiveState.Error) {
+                    Modifier.border(2.dp, colors.fieldBorderErrorColor)
+                } else {
+                    Modifier
+                }
+            )
             .pointerInput(Unit) {
                 awaitEachGesture {
                     // Custom pointer input to handle input events on the field.
@@ -297,35 +296,57 @@ private fun DropdownField(
             }
             .testTag(DropdownTestTags.FIELD)
     ) {
-        Text(
-            text = fieldPlaceholderText,
-            style = CarbonTypography.bodyCompact01,
-            color = colors.fieldTextColor,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis,
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
-                .weight(1f)
-                .testTag(DropdownTestTags.FIELD_PLACEHOLDER)
-        )
+                .fillMaxHeight()
+                .padding(horizontal = 16.dp)
+        ) {
+            Text(
+                text = fieldPlaceholderText,
+                style = CarbonTypography.bodyCompact01,
+                color = colors.fieldTextColor,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(end = SpacingScale.spacing03)
+                    .testTag(DropdownTestTags.FIELD_PLACEHOLDER)
+            )
 
-        Spacer(modifier = Modifier.width(SpacingScale.spacing03))
+            when (state) {
+                is DropdownInteractiveState.Warning -> WarningIcon(
+                    modifier = Modifier.testTag(DropdownTestTags.FIELD_WARNING_ICON)
+                )
+                is DropdownInteractiveState.Error -> ErrorIcon(
+                    modifier = Modifier.testTag(DropdownTestTags.FIELD_ERROR_ICON)
+                )
+                else -> {}
+            }
 
-        if (state is DropdownInteractiveState.Warning) {
-            WarningIcon(modifier = Modifier.testTag(DropdownTestTags.FIELD_WARNING_ICON))
+            Image(
+                imageVector = chevronDownIcon,
+                contentDescription = null,
+                colorFilter = ColorFilter.tint(colors.chevronIconColor),
+                modifier = Modifier
+                    .padding(start = SpacingScale.spacing03)
+                    .graphicsLayer {
+                        rotationZ = chevronRotation
+                    }
+                    .testTag(DropdownTestTags.FIELD_CHEVRON)
+            )
         }
 
-        Spacer(modifier = Modifier.width(SpacingScale.spacing03))
-
-        Image(
-            imageVector = chevronDownIcon,
-            contentDescription = null,
-            colorFilter = ColorFilter.tint(colors.chevronIconColor),
-            modifier = Modifier
-                .graphicsLayer {
-                    rotationZ = chevronRotation
-                }
-                .testTag(DropdownTestTags.FIELD_CHEVRON)
-        )
+        if (state !is DropdownInteractiveState.Error) {
+            Spacer(
+                modifier = Modifier
+                    .background(color = colors.fieldBorderColor)
+                    .height(1.dp)
+                    .fillMaxWidth()
+                    .align(Alignment.BottomCenter)
+                    .testTag(DropdownTestTags.FIELD_DIVIDER)
+            )
+        }
     }
 }
 

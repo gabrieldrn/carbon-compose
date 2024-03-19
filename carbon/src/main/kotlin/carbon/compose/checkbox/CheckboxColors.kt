@@ -27,7 +27,6 @@ internal class CheckboxColors(
     val labelDisabledColor: Color,
 
     val errorMessageTextColor: Color,
-    val errorIconColor: Color,
 
     val warningMessageTextColor: Color,
 ) {
@@ -98,7 +97,6 @@ internal class CheckboxColors(
                 labelDisabledColor = textDisabled,
 
                 errorMessageTextColor = textError,
-                errorIconColor = textError,
 
                 warningMessageTextColor = textPrimary,
             )

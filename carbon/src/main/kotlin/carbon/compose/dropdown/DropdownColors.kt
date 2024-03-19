@@ -11,8 +11,10 @@ internal data class DropdownColors(
     val fieldTextColor: Color,
     val fieldTextPromptColor: Color, //?
     val helperTextColor: Color,
+    val helperTextErrorColor: Color,
     val fieldBackgroundColor: Color,
     val fieldBorderColor: Color,
+    val fieldBorderErrorColor: Color,
     val chevronIconColor: Color,
     val menuOptionTextColor: Color,
     val menuOptionTextDisabledColor: Color,
@@ -25,6 +27,15 @@ internal data class DropdownColors(
     val checkboxIconBorderColor: Color,
     val checkmarkIconColor: Color,
 ) {
+
+    fun helperTextColor(
+        state: DropdownInteractiveState
+    ) = if (state is DropdownInteractiveState.Error) {
+        helperTextErrorColor
+    } else {
+        helperTextColor
+    }
+
     companion object {
         @Composable
         fun colors() = with(LocalCarbonTheme.current) {
@@ -32,9 +43,11 @@ internal data class DropdownColors(
                 labelTextColor = textSecondary,
                 fieldTextColor = textPrimary,
                 fieldTextPromptColor = textHelper,
-                helperTextColor = textHelper,
+                helperTextColor = textPrimary,
+                helperTextErrorColor = textError,
                 fieldBackgroundColor = field01,
                 fieldBorderColor = borderStrong01,
+                fieldBorderErrorColor = supportError,
                 chevronIconColor = iconPrimary,
                 menuOptionTextColor = textSecondary,
                 menuOptionTextDisabledColor = textDisabled,
