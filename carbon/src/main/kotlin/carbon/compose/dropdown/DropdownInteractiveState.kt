@@ -22,6 +22,11 @@ public sealed interface DropdownInteractiveState {
      */
     public data class Error(val helperText: String) : DropdownInteractiveState
 
+    /**
+     * The dropdown is disabled and cannot be interacted with.
+     */
+    public data object Disabled : DropdownInteractiveState
+
     public companion object {
 
         internal val DropdownInteractiveState.helperText: String?

@@ -1,7 +1,5 @@
 package carbon.compose.dropdown
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -16,81 +14,36 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import carbon.compose.CarbonDesignSystem
 
-internal class DropdownSizeParameterProvider : PreviewParameterProvider<DropdownSize> {
-    override val values: Sequence<DropdownSize>
-        get() = DropdownSize.entries.asSequence()
+internal class DropdownStateParameterProvider : PreviewParameterProvider<DropdownInteractiveState> {
+    override val values: Sequence<DropdownInteractiveState>
+        get() = sequenceOf(
+            DropdownInteractiveState.Enabled,
+            DropdownInteractiveState.Warning("Warning message"),
+            DropdownInteractiveState.Error("Error message"),
+            DropdownInteractiveState.Disabled,
+        )
 }
 
+@Preview(showBackground = true, backgroundColor = 0xFFFFFFFF)
 @Composable
-private fun BaseDropdownPreview(
-    dropdownSize: DropdownSize,
-    dropdownInteractiveState: DropdownInteractiveState,
+private fun DropdownPreview(
+    @PreviewParameter(DropdownStateParameterProvider::class) state: DropdownInteractiveState,
 ) {
-    val options: Map<Int, DropdownOption> = (0..9)
-        .associateWith { DropdownOption("Option $it") }
-        .toMutableMap()
-        .apply {
-            set(
-                1, DropdownOption(
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. " +
-                        "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris " +
-                        "nisi ut aliquip ex ea commodo consequat."
-                )
-            )
-            set(2, DropdownOption("Disabled", enabled = false))
-        }
-
     var expanded by remember { mutableStateOf(false) }
 
     CarbonDesignSystem {
-        Box(modifier = Modifier.fillMaxSize()) {
-            Dropdown(
-                expanded = expanded,
-                onExpandedChange = { expanded = it },
-                onDismissRequest = { expanded = false },
-                fieldPlaceholderText = "Dropdown",
-                selectedOption = null,
-                options = options,
-                onOptionSelected = {},
-                state = dropdownInteractiveState,
-                dropdownSize = dropdownSize,
-                modifier = Modifier
-                    .padding(8.dp)
-                    .fillMaxWidth(),
-            )
-        }
+        Dropdown(
+            expanded = expanded,
+            onExpandedChange = { expanded = it },
+            onDismissRequest = { expanded = false },
+            fieldPlaceholderText = state::class.java.simpleName,
+            selectedOption = null,
+            options = mapOf(0 to DropdownOption("Option 0")),
+            onOptionSelected = {},
+            state = state,
+            modifier = Modifier
+                .padding(8.dp)
+                .fillMaxWidth(),
+        )
     }
-}
-
-@Preview(showBackground = true, backgroundColor = 0xFFFFFFFF, group = "Dropdown - active")
-@Composable
-private fun DropdownPreview(
-    @PreviewParameter(DropdownSizeParameterProvider::class) dropdownSize: DropdownSize,
-) {
-    BaseDropdownPreview(
-        dropdownSize = dropdownSize,
-        dropdownInteractiveState = DropdownInteractiveState.Enabled
-    )
-}
-
-@Preview(showBackground = true, backgroundColor = 0xFFFFFFFF, group = "Dropdown - warning")
-@Composable
-private fun DropdownWarningPreview(
-    @PreviewParameter(DropdownSizeParameterProvider::class) dropdownSize: DropdownSize,
-) {
-    BaseDropdownPreview(
-        dropdownSize = dropdownSize,
-        dropdownInteractiveState = DropdownInteractiveState.Warning("Warning message goes here")
-    )
-}
-
-@Preview(showBackground = true, backgroundColor = 0xFFFFFFFF, group = "Dropdown - error")
-@Composable
-private fun DropdownErrorPreview(
-    @PreviewParameter(DropdownSizeParameterProvider::class) dropdownSize: DropdownSize,
-) {
-    BaseDropdownPreview(
-        dropdownSize = dropdownSize,
-        dropdownInteractiveState = DropdownInteractiveState.Error("Error message goes here")
-    )
 }

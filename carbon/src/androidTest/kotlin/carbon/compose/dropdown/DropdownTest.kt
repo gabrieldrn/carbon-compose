@@ -8,12 +8,15 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.assertCountEquals
+import androidx.compose.ui.test.assertHasClickAction
+import androidx.compose.ui.test.assertHasNoClickAction
 import androidx.compose.ui.test.assertHeightIsEqualTo
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsFocused
 import androidx.compose.ui.test.assertIsNotDisplayed
 import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.hasText
+import androidx.compose.ui.test.isFocusable
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onAllNodesWithTag
 import androidx.compose.ui.test.onFirst
@@ -84,60 +87,60 @@ class DropdownTest {
     }
 
     @Test
-    fun dropdown_field_enabled_validateLayout() {
-        composeTestRule.run {
-            baseLayoutValidation()
-
-            onNodeWithTag(DropdownTestTags.FIELD_DIVIDER, useUnmergedTree = true)
-                .assertIsDisplayed()
-
-            onNodeWithTag(DropdownTestTags.FIELD_WARNING_ICON, useUnmergedTree = true)
-                .assertIsNotDisplayed()
-
-            onNodeWithTag(DropdownTestTags.FIELD_ERROR_ICON, useUnmergedTree = true)
-                .assertIsNotDisplayed()
-
-            onNodeWithTag(DropdownTestTags.FIELD_HELPER_TEXT)
-                .assertIsNotDisplayed()
-        }
-    }
-
-    @Test
-    fun dropdown_field_warning_validateLayout() {
+    fun dropdown_field_states_validateLayout() {
         composeTestRule.run {
             val warningMessage = "Warning message goes here"
-
-            state = DropdownInteractiveState.Warning(warningMessage)
-
-            baseLayoutValidation()
-
-            onNodeWithTag(DropdownTestTags.FIELD_WARNING_ICON, useUnmergedTree = true)
-                .assertIsDisplayed()
-
-            onNodeWithTag(DropdownTestTags.FIELD_HELPER_TEXT)
-                .assertIsDisplayed()
-                .assert(hasText(warningMessage))
-        }
-    }
-
-    @Test
-    fun dropdown_field_error_validateLayout() {
-        composeTestRule.run {
             val errorMessage = "Error message goes here"
 
-            state = DropdownInteractiveState.Error(errorMessage)
+            listOf(
+                DropdownInteractiveState.Enabled,
+                DropdownInteractiveState.Warning(warningMessage),
+                DropdownInteractiveState.Error(errorMessage),
+                DropdownInteractiveState.Disabled
+            ).forEach {
+                state = it
 
-            baseLayoutValidation()
+                baseLayoutValidation()
 
-            onNodeWithTag(DropdownTestTags.FIELD_ERROR_ICON, useUnmergedTree = true)
-                .assertIsDisplayed()
+                when (state) {
+                    is DropdownInteractiveState.Enabled -> {
+                        onNodeWithTag(DropdownTestTags.FIELD_DIVIDER, useUnmergedTree = true)
+                            .assertIsDisplayed()
 
-            onNodeWithTag(DropdownTestTags.FIELD_HELPER_TEXT)
-                .assertIsDisplayed()
-                .assert(hasText(errorMessage))
+                        onNodeWithTag(DropdownTestTags.FIELD_WARNING_ICON, useUnmergedTree = true)
+                            .assertIsNotDisplayed()
 
-            onNodeWithTag(DropdownTestTags.FIELD_DIVIDER, useUnmergedTree = true)
-                .assertIsNotDisplayed()
+                        onNodeWithTag(DropdownTestTags.FIELD_ERROR_ICON, useUnmergedTree = true)
+                            .assertIsNotDisplayed()
+
+                        onNodeWithTag(DropdownTestTags.FIELD_HELPER_TEXT)
+                            .assertIsNotDisplayed()
+                    }
+                    is DropdownInteractiveState.Warning -> {
+                        onNodeWithTag(DropdownTestTags.FIELD_WARNING_ICON, useUnmergedTree = true)
+                            .assertIsDisplayed()
+
+                        onNodeWithTag(DropdownTestTags.FIELD_HELPER_TEXT)
+                            .assertIsDisplayed()
+                            .assert(hasText(warningMessage))
+                    }
+                    is DropdownInteractiveState.Error -> {
+                        onNodeWithTag(DropdownTestTags.FIELD_ERROR_ICON, useUnmergedTree = true)
+                            .assertIsDisplayed()
+
+                        onNodeWithTag(DropdownTestTags.FIELD_HELPER_TEXT)
+                            .assertIsDisplayed()
+                            .assert(hasText(errorMessage))
+
+                        onNodeWithTag(DropdownTestTags.FIELD_DIVIDER, useUnmergedTree = true)
+                            .assertIsNotDisplayed()
+                    }
+                    is DropdownInteractiveState.Disabled ->
+                        onNodeWithTag(DropdownTestTags.FIELD)
+                            .assertHasNoClickAction()
+                            .assert(isFocusable().not())
+                }
+            }
         }
     }
 
@@ -161,11 +164,22 @@ class DropdownTest {
     }
 
     @Test
-    fun dropdown_field_validateFocusAbility() {
+    fun dropdown_field_validateSemantics() {
         composeTestRule.run {
             onNodeWithTag(DropdownTestTags.FIELD)
+                .assertHasClickAction()
                 .requestFocus()
                 .assertIsFocused()
+        }
+    }
+
+    @Test
+    fun dropdown_field_disabled_validateSemantics() {
+        composeTestRule.run {
+            state = DropdownInteractiveState.Disabled
+            onNodeWithTag(DropdownTestTags.FIELD)
+                .assertHasNoClickAction()
+                .assert(isFocusable().not())
         }
     }
 

@@ -91,6 +91,40 @@ private fun Modifier.onEscape(block: () -> Unit) = onPreviewKeyEvent {
 }
 
 /**
+ * Sets up a custom clickability for the dropdown field.
+ *
+ * `pointerInput` handles pointer events.
+ * `onEnterKeyEvent` handles physical enter key events (keyboard).
+ * `semantics` handles accessibility events.
+ */
+private fun Modifier.dropdownClickable(
+    expandedStates: MutableTransitionState<Boolean>,
+    onClick: () -> Unit
+): Modifier = this
+    .pointerInput(Unit) {
+        awaitEachGesture {
+            // Custom pointer input to handle input events on the field.
+            awaitFirstDown(pass = PointerEventPass.Initial)
+            val expandStateOnDown = expandedStates.currentState
+            waitForUpOrCancellation(pass = PointerEventPass.Initial)?.let {
+                // Avoid expanding back if the dropdown was expanded on down.
+                if (!expandStateOnDown) {
+                    onClick()
+                }
+            }
+        }
+    }
+    .onEnterKeyEvent {
+        onClick()
+    }
+    .semantics(mergeDescendants = true) {
+        onClick {
+            onClick()
+            true
+        }
+    }
+
+/**
  * # Dropdown
  *
  * Dropdowns present a list of options from which a user can select one option.
@@ -187,6 +221,7 @@ public fun <K : Any> Dropdown(
                     InspectableModifier {
                         debugInspectorInfo {
                             properties["isExpanded"] = expanded.toString()
+                            properties["interactiveState"] = state::class.java.simpleName
                         }
                     }
                 )
@@ -262,7 +297,10 @@ private fun DropdownField(
 
     Box(
         modifier = modifier
-            .focusable(interactionSource = interactionSource)
+            .focusable(
+                enabled = state !is DropdownInteractiveState.Disabled,
+                interactionSource = interactionSource
+            )
             .fillMaxHeight()
             .background(colors.fieldBackgroundColor)
             .then(
@@ -272,28 +310,16 @@ private fun DropdownField(
                     Modifier
                 }
             )
-            .pointerInput(Unit) {
-                awaitEachGesture {
-                    // Custom pointer input to handle input events on the field.
-                    awaitFirstDown(pass = PointerEventPass.Initial)
-                    val expandStateOnDown = expandedStates.currentState
-                    waitForUpOrCancellation(pass = PointerEventPass.Initial)?.let {
-                        // Avoid expanding back if the dropdown was expanded on down.
-                        if (!expandStateOnDown) {
-                            onExpandedChange(!expandedStates.currentState)
-                        }
-                    }
+            .then(
+                if (state !is DropdownInteractiveState.Disabled) {
+                    Modifier.dropdownClickable(
+                        expandedStates = expandedStates,
+                        onClick = { onExpandedChange(!expandedStates.currentState) }
+                    )
+                } else {
+                    Modifier
                 }
-            }
-            .onEnterKeyEvent {
-                onExpandedChange(!expandedStates.currentState)
-            }
-            .semantics(mergeDescendants = true) {
-                onClick {
-                    onExpandedChange(!expandedStates.currentState)
-                    true
-                }
-            }
+            )
             .testTag(DropdownTestTags.FIELD)
     ) {
         Row(
@@ -305,7 +331,7 @@ private fun DropdownField(
             Text(
                 text = fieldPlaceholderText,
                 style = CarbonTypography.bodyCompact01,
-                color = colors.fieldTextColor,
+                color = colors.fieldTextColor(state),
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
                 modifier = Modifier
@@ -327,7 +353,7 @@ private fun DropdownField(
             Image(
                 imageVector = chevronDownIcon,
                 contentDescription = null,
-                colorFilter = ColorFilter.tint(colors.chevronIconColor),
+                colorFilter = ColorFilter.tint(colors.chevronIconColor(state)),
                 modifier = Modifier
                     .padding(start = SpacingScale.spacing03)
                     .graphicsLayer {
@@ -340,7 +366,7 @@ private fun DropdownField(
         if (state !is DropdownInteractiveState.Error) {
             Spacer(
                 modifier = Modifier
-                    .background(color = colors.fieldBorderColor)
+                    .background(color = colors.fieldBorderColor(state))
                     .height(1.dp)
                     .fillMaxWidth()
                     .align(Alignment.BottomCenter)

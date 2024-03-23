@@ -7,6 +7,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -63,27 +64,27 @@ class DropdownDemoActivity : AppCompatActivity() {
 
                     Column(
                         modifier = Modifier
+                            .padding(8.dp)
                             .verticalScroll(state = rememberScrollState())
                             .weight(1f)
-                            .fillMaxWidth()
+                            .fillMaxWidth(),
+                        verticalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
-                        DemoDropdown(
-                            title = "Dropdown",
-                            modifier = Modifier.padding(8.dp),
-                        )
+                        DemoDropdown(title = "Dropdown")
 
                         DemoDropdown(
                             title = "Warning dropdown",
                             state = DropdownInteractiveState.Warning("Warning message goes here"),
-                            modifier = Modifier.padding(horizontal = 8.dp)
                         )
 
                         DemoDropdown(
                             title = "Error dropdown",
                             state = DropdownInteractiveState.Error("Error message goes here"),
-                            modifier = Modifier
-                                .padding(horizontal = 8.dp)
-                                .padding(top = 8.dp)
+                        )
+
+                        DemoDropdown(
+                            title = "Disabled dropdown",
+                            state = DropdownInteractiveState.Disabled,
                         )
                     }
                 }

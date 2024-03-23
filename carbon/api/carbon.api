@@ -57,6 +57,14 @@ public abstract interface class carbon/compose/dropdown/DropdownInteractiveState
 public final class carbon/compose/dropdown/DropdownInteractiveState$Companion {
 }
 
+public final class carbon/compose/dropdown/DropdownInteractiveState$Disabled : carbon/compose/dropdown/DropdownInteractiveState {
+	public static final field $stable I
+	public static final field INSTANCE Lcarbon/compose/dropdown/DropdownInteractiveState$Disabled;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
 public final class carbon/compose/dropdown/DropdownInteractiveState$Enabled : carbon/compose/dropdown/DropdownInteractiveState {
 	public static final field $stable I
 	public static final field INSTANCE Lcarbon/compose/dropdown/DropdownInteractiveState$Enabled;

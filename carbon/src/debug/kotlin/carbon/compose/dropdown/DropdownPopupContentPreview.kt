@@ -8,7 +8,7 @@ import carbon.compose.CarbonDesignSystem
 @Preview
 @Composable
 private fun DropdownPopupContentPreview(
-    @PreviewParameter(DropdownSizeParameterProvider::class) dropdownSize: DropdownSize,
+    @PreviewParameter(DropdownStateParameterProvider::class) dropdownSize: DropdownSize,
 ) {
     val options: Map<Int, DropdownOption> = (0..4)
         .associateWith { DropdownOption("Option $it") }
