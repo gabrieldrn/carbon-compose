@@ -42,8 +42,13 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.InspectableModifier
 import androidx.compose.ui.platform.debugInspectorInfo
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.disabled
 import androidx.compose.ui.semantics.onClick
+import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntOffset
@@ -56,6 +61,7 @@ import androidx.compose.ui.window.Popup
 import androidx.compose.ui.window.PopupPositionProvider
 import androidx.compose.ui.window.PopupProperties
 import carbon.compose.dropdown.DropdownInteractiveState.Companion.helperText
+import carbon.compose.dropdown.DropdownInteractiveState.Companion.isFocusable
 import carbon.compose.dropdown.domain.getOptionsPopupHeightRatio
 import carbon.compose.foundation.color.LocalCarbonTheme
 import carbon.compose.foundation.input.onEnterKeyEvent
@@ -66,6 +72,7 @@ import carbon.compose.foundation.text.CarbonTypography
 import carbon.compose.foundation.text.Text
 import carbon.compose.icons.ErrorIcon
 import carbon.compose.icons.WarningIcon
+import carbon.compose.semantics.readOnly
 
 private val dropdownTransitionSpecFloat = tween<Float>(
     durationMillis = Motion.Duration.moderate01,
@@ -299,11 +306,11 @@ private fun DropdownField(
     Box(
         modifier = modifier
             .focusable(
-                enabled = state !is DropdownInteractiveState.Disabled,
+                enabled = state.isFocusable,
                 interactionSource = interactionSource
             )
             .fillMaxHeight()
-            .background(colors.fieldBackgroundColor)
+            .background(colors.fieldBackgroundColor(state))
             .then(
                 if (state is DropdownInteractiveState.Error) {
                     Modifier.border(2.dp, colors.fieldBorderErrorColor)
@@ -312,15 +319,23 @@ private fun DropdownField(
                 }
             )
             .then(
-                if (state !is DropdownInteractiveState.Disabled) {
-                    Modifier.dropdownClickable(
+                when (state) {
+                    is DropdownInteractiveState.Disabled -> Modifier.semantics { disabled() }
+                    is DropdownInteractiveState.ReadOnly -> Modifier.readOnly(
+                        role = Role.DropdownList,
+                        interactionSource = interactionSource,
+                        mergeDescendants = true
+                    )
+                    else -> Modifier.dropdownClickable(
                         expandedStates = expandedStates,
                         onClick = { onExpandedChange(!expandedStates.currentState) }
                     )
-                } else {
-                    Modifier
                 }
             )
+            .semantics(mergeDescendants = true) {
+                role = Role.DropdownList
+                state.helperText?.let { stateDescription = it }
+            }
             .testTag(DropdownTestTags.FIELD)
     ) {
         Row(

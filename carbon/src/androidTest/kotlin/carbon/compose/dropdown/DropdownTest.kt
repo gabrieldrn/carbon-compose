@@ -14,6 +14,7 @@ import androidx.compose.ui.test.assertHeightIsEqualTo
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsFocused
 import androidx.compose.ui.test.assertIsNotDisplayed
+import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.isFocusable
@@ -96,14 +97,16 @@ class DropdownTest {
                 DropdownInteractiveState.Enabled,
                 DropdownInteractiveState.Warning(warningMessage),
                 DropdownInteractiveState.Error(errorMessage),
-                DropdownInteractiveState.Disabled
+                DropdownInteractiveState.Disabled,
+                DropdownInteractiveState.ReadOnly
             ).forEach {
                 state = it
 
                 baseLayoutValidation()
 
                 when (state) {
-                    is DropdownInteractiveState.Enabled -> {
+                    is DropdownInteractiveState.Enabled,
+                    is DropdownInteractiveState.ReadOnly -> {
                         onNodeWithTag(DropdownTestTags.FIELD_DIVIDER, useUnmergedTree = true)
                             .assertIsDisplayed()
 
@@ -179,7 +182,18 @@ class DropdownTest {
             state = DropdownInteractiveState.Disabled
             onNodeWithTag(DropdownTestTags.FIELD)
                 .assertHasNoClickAction()
+                .assertIsNotEnabled()
                 .assert(isFocusable().not())
+        }
+    }
+
+    @Test
+    fun dropdown_field_readOnly_validateSemantics() {
+        composeTestRule.run {
+            state = DropdownInteractiveState.ReadOnly
+            onNodeWithTag(DropdownTestTags.FIELD)
+                .assertIsNotEnabled()
+                .assert(isFocusable())
         }
     }
 

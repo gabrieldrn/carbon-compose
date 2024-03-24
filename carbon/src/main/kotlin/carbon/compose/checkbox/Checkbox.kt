@@ -77,8 +77,8 @@ public fun Checkbox(
     val checkboxModifier = when {
         interactiveState == CheckboxInteractiveState.ReadOnly -> Modifier.readOnly(
             role = Role.Checkbox,
-            state = state,
             interactionSource = interactionSource,
+            state = state,
             mergeDescendants = true
         )
         onClick != null -> Modifier.triStateToggleable(

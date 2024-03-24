@@ -86,6 +86,11 @@ class DropdownDemoActivity : AppCompatActivity() {
                             title = "Disabled dropdown",
                             state = DropdownInteractiveState.Disabled,
                         )
+
+                        DemoDropdown(
+                            title = "Read-only dropdown",
+                            state = DropdownInteractiveState.ReadOnly,
+                        )
                     }
                 }
             }

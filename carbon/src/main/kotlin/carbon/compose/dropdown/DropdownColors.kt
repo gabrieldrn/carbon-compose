@@ -13,7 +13,6 @@ import carbon.compose.foundation.color.Theme
 internal class DropdownColors(val theme: Theme) {
 
     val checkmarkIconColor = theme.iconPrimary
-    val fieldBackgroundColor = theme.field01
     val fieldBorderErrorColor = theme.supportError
     val menuOptionBackgroundColor = theme.layer01
     val menuOptionBorderColor = theme.borderSubtle00
@@ -25,12 +24,20 @@ internal class DropdownColors(val theme: Theme) {
         else iconPrimary
     }
 
+    fun fieldBackgroundColor(
+        state: DropdownInteractiveState
+    ) = with(theme) {
+        if (state == DropdownInteractiveState.ReadOnly) Color.Transparent
+        else field01
+    }
+
     fun fieldBorderColor(
         state: DropdownInteractiveState
     ) = with(theme) {
         when (state) {
             is DropdownInteractiveState.Error -> supportError
             is DropdownInteractiveState.Disabled -> Color.Transparent
+            is DropdownInteractiveState.ReadOnly -> borderSubtle00
             else -> borderStrong01
         }
     }

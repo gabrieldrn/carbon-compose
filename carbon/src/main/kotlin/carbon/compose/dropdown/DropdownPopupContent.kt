@@ -25,7 +25,6 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -118,7 +117,6 @@ private fun DropdownMenuOption(
                 interactionSource = interactionSource,
                 indication = FocusIndication(),
                 enabled = option.enabled,
-                role = Role.DropdownList,
                 onClick = onOptionSelected
             )
             .background(
