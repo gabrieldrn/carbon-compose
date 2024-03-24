@@ -1,6 +1,7 @@
 package carbon.compose.catalog
 
 import android.content.Intent
+import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -15,20 +16,27 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.navigationBars
+import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBars
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import carbon.compose.catalog.theme.CarbonCatalogTheme
@@ -40,15 +48,23 @@ import carbon.compose.uishell.UiShellHeader
 @Suppress("UndocumentedPublicClass")
 class HomeActivity : ComponentActivity() {
 
+    private val components = CarbonComponent
+        .entries
+        // Show first the components that have a demo activity
+        .sortedByDescending { it.demoActivity != null }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         enableEdgeToEdge(statusBarStyle = SystemBarStyle.dark(Color.TRANSPARENT))
 
         setContent {
-            val navBarBottomPadding = WindowInsets.navigationBars
+            val navBarPaddingValues = WindowInsets.navigationBars
+                .only(WindowInsetsSides.Bottom + WindowInsetsSides.Horizontal)
                 .asPaddingValues()
-                .calculateBottomPadding()
+
+            val isInPortrait = LocalConfiguration.current
+                .orientation == Configuration.ORIENTATION_PORTRAIT
 
             CarbonCatalogTheme {
                 Column(
@@ -58,40 +74,91 @@ class HomeActivity : ComponentActivity() {
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    UiShellHeader(headerName = "Carbon Design System")
+                    UiShellHeader(
+                        headerName = "Carbon Design System",
+                        windowInsets = WindowInsets.statusBars
+                    )
 
-                    LazyVerticalGrid(
-                        columns = GridCells.Fixed(2),
-                        contentPadding = PaddingValues(
-                            start = SpacingScale.spacing05,
-                            top = SpacingScale.spacing05,
-                            end = SpacingScale.spacing05,
-                            bottom = SpacingScale.spacing05 + navBarBottomPadding,
-                        ),
-                        verticalArrangement = Arrangement.spacedBy(1.dp),
-                        horizontalArrangement = Arrangement.spacedBy(1.dp),
-                        modifier = Modifier
-                            .weight(1f)
-                            .fillMaxSize()
-                    ) {
-                        items(
-                            CarbonComponent
-                                .entries
-                                // Show first the components that have a demo activity
-                                .sortedByDescending { it.demoActivity != null }
-                        ) { component ->
-                            CarbonComponentGridTile(
-                                component = component,
-                                onClick = {
-                                    component.demoActivity?.let {
-                                        startActivity(Intent(this@HomeActivity, it))
-                                    }
-                                },
-                                modifier = Modifier.aspectRatio(1f)
-                            )
-                        }
+                    if (isInPortrait) {
+                        ComponentsLazyGrid(
+                            navBarPaddingValues = navBarPaddingValues,
+                            modifier = Modifier.Companion
+                                .weight(1f)
+                                .fillMaxSize()
+                        )
+                    } else {
+                        ComponentsLazyRow(
+                            navBarPaddingValues = navBarPaddingValues,
+                            modifier = Modifier.Companion
+                                .weight(1f)
+                                .fillMaxSize()
+                        )
                     }
                 }
+            }
+        }
+    }
+
+    @Composable
+    private fun ComponentsLazyRow(
+        navBarPaddingValues: PaddingValues,
+        modifier: Modifier = Modifier
+    ) {
+        LazyRow(
+            contentPadding = PaddingValues(
+                start = SpacingScale.spacing05 + navBarPaddingValues
+                    .calculateLeftPadding(LocalLayoutDirection.current),
+                top = SpacingScale.spacing05,
+                end = SpacingScale.spacing05 + navBarPaddingValues
+                    .calculateRightPadding(LocalLayoutDirection.current),
+                bottom = SpacingScale.spacing05 +
+                    navBarPaddingValues.calculateBottomPadding(),
+            ),
+            horizontalArrangement = Arrangement.spacedBy(1.dp),
+            modifier = modifier
+        ) {
+            items(components) { component ->
+                CarbonComponentGridTile(
+                    component = component,
+                    onClick = {
+                        component.demoActivity?.let {
+                            startActivity(Intent(this@HomeActivity, it))
+                        }
+                    },
+                    modifier = Modifier.aspectRatio(1f)
+                )
+            }
+        }
+    }
+
+    @Composable
+    private fun ComponentsLazyGrid(
+        navBarPaddingValues: PaddingValues,
+        modifier: Modifier = Modifier
+    ) {
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(2),
+            contentPadding = PaddingValues(
+                start = SpacingScale.spacing05,
+                top = SpacingScale.spacing05,
+                end = SpacingScale.spacing05,
+                bottom = SpacingScale.spacing05 +
+                    navBarPaddingValues.calculateBottomPadding(),
+            ),
+            verticalArrangement = Arrangement.spacedBy(1.dp),
+            horizontalArrangement = Arrangement.spacedBy(1.dp),
+            modifier = modifier
+        ) {
+            items(components) { component ->
+                CarbonComponentGridTile(
+                    component = component,
+                    onClick = {
+                        component.demoActivity?.let {
+                            startActivity(Intent(this@HomeActivity, it))
+                        }
+                    },
+                    modifier = Modifier.aspectRatio(1f)
+                )
             }
         }
     }
