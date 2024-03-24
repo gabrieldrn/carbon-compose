@@ -1,10 +1,8 @@
 package carbon.compose.checkbox
 
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.indication
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.heightIn
@@ -27,6 +25,8 @@ import carbon.compose.foundation.interaction.ToggleableFocusIndication
 import carbon.compose.foundation.spacing.SpacingScale
 import carbon.compose.foundation.text.CarbonTypography
 import carbon.compose.foundation.text.Text
+import carbon.compose.icons.ErrorIcon
+import carbon.compose.icons.WarningIcon
 import carbon.compose.semantics.readOnly
 
 private val checkboxBorderWidth = 1.dp
@@ -77,8 +77,8 @@ public fun Checkbox(
     val checkboxModifier = when {
         interactiveState == CheckboxInteractiveState.ReadOnly -> Modifier.readOnly(
             role = Role.Checkbox,
-            state = state,
             interactionSource = interactionSource,
+            state = state,
             mergeDescendants = true
         )
         onClick != null -> Modifier.triStateToggleable(
@@ -200,13 +200,8 @@ private fun ErrorContent(
     modifier: Modifier = Modifier
 ) {
     Row(modifier = modifier) {
-        Image(
-            imageVector = checkboxErrorIcon,
-            contentDescription = null,
-            colorFilter = ColorFilter.tint(colors.errorIconColor),
-            modifier = Modifier
-                .padding(2.dp)
-                .requiredSize(16.dp)
+        ErrorIcon(
+            modifier = Modifier.padding(SpacingScale.spacing01)
         )
         Text(
             text = errorMessage,
@@ -226,24 +221,7 @@ private fun WarningContent(
     modifier: Modifier = Modifier
 ) {
     Row(modifier = modifier) {
-        Box {
-            Image(
-                imageVector = checkboxWarningIcon,
-                contentDescription = null,
-                colorFilter = ColorFilter.tint(colors.warningIconColor),
-                modifier = Modifier
-                    .padding(2.dp)
-                    .requiredSize(16.dp)
-            )
-            Image(
-                imageVector = checkboxWarningInnerIcon,
-                contentDescription = null,
-                colorFilter = ColorFilter.tint(colors.warningIconInnerFillColor),
-                modifier = Modifier
-                    .padding(2.dp)
-                    .requiredSize(16.dp)
-            )
-        }
+        WarningIcon(Modifier.padding(2.dp))
         Text(
             text = warningMessage,
             color = colors.warningMessageTextColor,

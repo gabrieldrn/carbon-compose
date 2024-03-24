@@ -27,11 +27,8 @@ internal class CheckboxColors(
     val labelDisabledColor: Color,
 
     val errorMessageTextColor: Color,
-    val errorIconColor: Color,
 
     val warningMessageTextColor: Color,
-    val warningIconColor: Color,
-    val warningIconInnerFillColor: Color,
 ) {
 
     fun borderColor(
@@ -100,11 +97,8 @@ internal class CheckboxColors(
                 labelDisabledColor = textDisabled,
 
                 errorMessageTextColor = textError,
-                errorIconColor = textError,
 
                 warningMessageTextColor = textPrimary,
-                warningIconColor = supportWarning,
-                warningIconInnerFillColor = Color.Black,
             )
         }
     }

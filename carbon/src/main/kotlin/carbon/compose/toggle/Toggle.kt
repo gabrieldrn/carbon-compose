@@ -186,8 +186,8 @@ private fun ToggleImpl(
     val toggleModifier = when {
         isReadOnly -> Modifier.readOnly(
             role = Role.Switch,
-            state = ToggleableState(isToggled),
             interactionSource = interactionSource,
+            state = ToggleableState(isToggled),
             mergeDescendants = true
         )
         onToggleChange != null -> Modifier.toggleable(

@@ -22,19 +22,20 @@ import androidx.compose.ui.state.ToggleableState
  */
 public fun Modifier.readOnly(
     role: Role,
-    state: ToggleableState,
     interactionSource: MutableInteractionSource,
-    mergeDescendants: Boolean = false
-): Modifier =
-    focusable(
+    state: ToggleableState? = null,
+    mergeDescendants: Boolean = false,
+): Modifier = this
+    .focusable(
         enabled = true,
         interactionSource = interactionSource,
-    ).semantics(
+    )
+    .semantics(
         mergeDescendants = mergeDescendants
     ) {
         readOnly()
         this.role = role
-        toggleableState = state
+        if (state != null) { toggleableState = state }
         onClick(null, null)
         disabled()
     }

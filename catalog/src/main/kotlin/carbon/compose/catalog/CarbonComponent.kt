@@ -4,6 +4,7 @@ import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AppCompatActivity
 import carbon.compose.catalog.buttons.ButtonsDemoActivity
 import carbon.compose.catalog.checkbox.CheckboxDemoActivity
+import carbon.compose.catalog.dropdown.DropdownDemoActivity
 import carbon.compose.catalog.toggle.ToggleDemoActivity
 
 @Suppress("UndocumentedPublicClass", "UndocumentedPublicProperty")
@@ -20,7 +21,7 @@ enum class CarbonComponent(
     ContentSwitcher("Content switcher"),
     DataTable("Data table"),
     DatePicker("Date picker"),
-    Dropdown("Dropdown"),
+    Dropdown("Dropdown", R.drawable.tile_dropdown, DropdownDemoActivity::class.java),
     FileUploader("File uploader"),
     Form("Form"),
     InlineLoading("Inline loading"),

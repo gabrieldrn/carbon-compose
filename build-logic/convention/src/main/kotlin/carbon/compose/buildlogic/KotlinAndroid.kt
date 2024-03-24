@@ -7,10 +7,9 @@ import com.android.build.api.dsl.CommonExtension
  */
 internal fun CommonExtension<*, *, *, *, *>.configureKotlinAndroidCommon() {
 
-    compileSdk = Constants.Versions.COMPILE_SDK
-
     defaultConfig {
         minSdk = Constants.Versions.MIN_SDK
+        compileSdk = Constants.Versions.COMPILE_SDK
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 

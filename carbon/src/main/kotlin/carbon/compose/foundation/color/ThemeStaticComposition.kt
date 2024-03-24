@@ -3,6 +3,8 @@ package carbon.compose.foundation.color
 import androidx.compose.runtime.ProvidableCompositionLocal
 import androidx.compose.runtime.staticCompositionLocalOf
 
+internal val carbonDefaultTheme = WhiteTheme
+
 /**
  * A [staticCompositionLocalOf] that provides the current Carbon [Theme].
  */
