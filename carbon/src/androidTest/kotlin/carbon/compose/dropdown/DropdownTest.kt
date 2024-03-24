@@ -40,6 +40,7 @@ class DropdownTest {
     private val options = (0..9).associateWith { DropdownOption("Option $it") }
     private val minVisibleItems = 4
 
+    private var label by mutableStateOf<String?>("Dropdown")
     private var state by mutableStateOf<DropdownInteractiveState>(DropdownInteractiveState.Enabled)
     private var dropdownSize by mutableStateOf(DropdownSize.Large)
     private var isExpanded by mutableStateOf(false)
@@ -51,6 +52,7 @@ class DropdownTest {
         composeTestRule.setContent {
             Column(Modifier.fillMaxWidth()) {
                 Dropdown(
+                    label = label,
                     expanded = isExpanded,
                     fieldPlaceholderText = placeholder,
                     selectedOption = selectedOptionKey,
@@ -68,6 +70,7 @@ class DropdownTest {
 
     @After
     fun tearDown() {
+        label = "Dropdown"
         isExpanded = false
         selectedOptionKey = null
         dropdownSize = DropdownSize.Large
@@ -88,7 +91,28 @@ class DropdownTest {
     }
 
     @Test
-    fun dropdown_field_states_validateLayout() {
+    fun dropdown_label_validateLayout() {
+        composeTestRule.run {
+            onNodeWithTag(DropdownTestTags.FIELD_LABEL_TEXT)
+                .assertIsDisplayed()
+                .assert(hasText(placeholder))
+
+            label = "   "
+            onNodeWithTag(DropdownTestTags.FIELD_LABEL_TEXT)
+                .assertIsNotDisplayed()
+
+            label = ""
+            onNodeWithTag(DropdownTestTags.FIELD_LABEL_TEXT)
+                .assertIsNotDisplayed()
+
+            label = null
+            onNodeWithTag(DropdownTestTags.FIELD_LABEL_TEXT)
+                .assertIsNotDisplayed()
+        }
+    }
+
+    @Test
+    fun dropdown_withStates_validateLayout() {
         composeTestRule.run {
             val warningMessage = "Warning message goes here"
             val errorMessage = "Error message goes here"

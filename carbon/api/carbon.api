@@ -106,7 +106,7 @@ public final class carbon/compose/dropdown/DropdownInteractiveState$Warning : ca
 }
 
 public final class carbon/compose/dropdown/DropdownKt {
-	public static final fun Dropdown (ZLjava/lang/String;Ljava/lang/Object;Ljava/util/Map;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Lcarbon/compose/dropdown/DropdownInteractiveState;Lcarbon/compose/dropdown/DropdownSize;ILandroidx/compose/runtime/Composer;III)V
+	public static final fun Dropdown (ZLjava/lang/String;Ljava/lang/Object;Ljava/util/Map;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Ljava/lang/String;Lcarbon/compose/dropdown/DropdownInteractiveState;Lcarbon/compose/dropdown/DropdownSize;ILandroidx/compose/runtime/Composer;III)V
 }
 
 public final class carbon/compose/dropdown/DropdownOption {

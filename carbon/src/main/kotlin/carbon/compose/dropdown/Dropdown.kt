@@ -162,6 +162,7 @@ private fun Modifier.dropdownClickable(
  * should be used to update a remembered state with the new value.
  * @param onDismissRequest Callback invoked when the dropdown menu should be dismissed.
  * @param modifier The modifier to be applied to the dropdown.
+ * @param label The label to be displayed above the dropdown field (optionnal).
  * @param state The [DropdownInteractiveState] of the dropdown.
  * @param dropdownSize The size of the dropdown, in terms of height. Defaults to
  * [DropdownSize.Large].
@@ -179,6 +180,7 @@ public fun <K : Any> Dropdown(
     onExpandedChange: (Boolean) -> Unit,
     onDismissRequest: () -> Unit,
     modifier: Modifier = Modifier,
+    label: String? = null,
     state: DropdownInteractiveState = DropdownInteractiveState.Enabled,
     dropdownSize: DropdownSize = DropdownSize.Large,
     @IntRange(from = 1) minVisibleItems: Int = 4,
@@ -218,6 +220,17 @@ public fun <K : Any> Dropdown(
     }
 
     Column(modifier = modifier) {
+        label.takeIf { !it.isNullOrBlank() }?.let {
+            Text(
+                text = it,
+                style = CarbonTypography.label01,
+                color = colors.labelTextColor(state),
+                modifier = Modifier
+                    .padding(bottom = SpacingScale.spacing03)
+                    .testTag(DropdownTestTags.FIELD_LABEL_TEXT)
+            )
+        }
+
         BoxWithConstraints(
             modifier = Modifier
                 .height(componentHeight)

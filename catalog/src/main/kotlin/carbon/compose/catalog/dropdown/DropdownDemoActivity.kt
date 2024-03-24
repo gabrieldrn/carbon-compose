@@ -20,13 +20,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import carbon.compose.catalog.R
 import carbon.compose.catalog.theme.CarbonCatalogTheme
 import carbon.compose.dropdown.Dropdown
 import carbon.compose.dropdown.DropdownInteractiveState
 import carbon.compose.dropdown.DropdownOption
 import carbon.compose.foundation.color.LocalCarbonTheme
+import carbon.compose.foundation.spacing.SpacingScale
 import carbon.compose.uishell.UiShellHeader
 
 class DropdownDemoActivity : AppCompatActivity() {
@@ -64,11 +64,11 @@ class DropdownDemoActivity : AppCompatActivity() {
 
                     Column(
                         modifier = Modifier
-                            .padding(8.dp)
+                            .padding(SpacingScale.spacing03)
                             .verticalScroll(state = rememberScrollState())
                             .weight(1f)
                             .fillMaxWidth(),
-                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                        verticalArrangement = Arrangement.spacedBy(SpacingScale.spacing05)
                     ) {
                         DemoDropdown(title = "Dropdown")
 
@@ -107,6 +107,7 @@ class DropdownDemoActivity : AppCompatActivity() {
         var expanded by remember { mutableStateOf(false) }
 
         Dropdown(
+            label = "Dropdown",
             expanded = expanded,
             fieldPlaceholderText = title,
             selectedOption = selectedOption,

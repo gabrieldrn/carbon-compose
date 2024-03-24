@@ -56,6 +56,13 @@ internal class DropdownColors(val theme: Theme) {
         else textPrimary
     }
 
+    fun labelTextColor(
+        state: DropdownInteractiveState
+    ) = with(theme) {
+        if (state == DropdownInteractiveState.Disabled) textDisabled
+        else textSecondary
+    }
+
     fun menuOptionBackgroundSelectedColor(
         isSelected: Boolean
     ) = with(theme) {
