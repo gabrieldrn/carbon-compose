@@ -14,8 +14,11 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -43,6 +46,10 @@ class HomeActivity : ComponentActivity() {
         enableEdgeToEdge(statusBarStyle = SystemBarStyle.dark(Color.TRANSPARENT))
 
         setContent {
+            val navBarBottomPadding = WindowInsets.navigationBars
+                .asPaddingValues()
+                .calculateBottomPadding()
+
             CarbonCatalogTheme {
                 Column(
                     modifier = Modifier
@@ -52,33 +59,36 @@ class HomeActivity : ComponentActivity() {
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     UiShellHeader(headerName = "Carbon Design System")
-                    Box(
+
+                    LazyVerticalGrid(
+                        columns = GridCells.Fixed(2),
+                        contentPadding = PaddingValues(
+                            start = SpacingScale.spacing05,
+                            top = SpacingScale.spacing05,
+                            end = SpacingScale.spacing05,
+                            bottom = SpacingScale.spacing05 + navBarBottomPadding,
+                        ),
+                        verticalArrangement = Arrangement.spacedBy(1.dp),
+                        horizontalArrangement = Arrangement.spacedBy(1.dp),
                         modifier = Modifier
                             .weight(1f)
                             .fillMaxSize()
                     ) {
-                        LazyVerticalGrid(
-                            columns = GridCells.Fixed(2),
-                            contentPadding = PaddingValues(SpacingScale.spacing05),
-                            verticalArrangement = Arrangement.spacedBy(1.dp),
-                            horizontalArrangement = Arrangement.spacedBy(1.dp),
-                        ) {
-                            items(
-                                CarbonComponent
-                                    .entries
-                                    // Show first the components that have a demo activity
-                                    .sortedByDescending { it.demoActivity != null }
-                            ) { component ->
-                                CarbonComponentGridTile(
-                                    component = component,
-                                    onClick = {
-                                        component.demoActivity?.let {
-                                            startActivity(Intent(this@HomeActivity, it))
-                                        }
-                                    },
-                                    modifier = Modifier.aspectRatio(1f)
-                                )
-                            }
+                        items(
+                            CarbonComponent
+                                .entries
+                                // Show first the components that have a demo activity
+                                .sortedByDescending { it.demoActivity != null }
+                        ) { component ->
+                            CarbonComponentGridTile(
+                                component = component,
+                                onClick = {
+                                    component.demoActivity?.let {
+                                        startActivity(Intent(this@HomeActivity, it))
+                                    }
+                                },
+                                modifier = Modifier.aspectRatio(1f)
+                            )
                         }
                     }
                 }
