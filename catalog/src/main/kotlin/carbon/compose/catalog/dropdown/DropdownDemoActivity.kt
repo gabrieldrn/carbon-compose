@@ -9,7 +9,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -53,7 +56,8 @@ class DropdownDemoActivity : AppCompatActivity() {
         setContent {
             CarbonCatalogTheme {
                 Column(
-                    modifier = Modifier.background(LocalCarbonTheme.current.background),
+                    modifier = Modifier
+                        .background(LocalCarbonTheme.current.background),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     UiShellHeader(
@@ -64,10 +68,12 @@ class DropdownDemoActivity : AppCompatActivity() {
 
                     Column(
                         modifier = Modifier
-                            .padding(SpacingScale.spacing03)
                             .verticalScroll(state = rememberScrollState())
                             .weight(1f)
-                            .fillMaxWidth(),
+                            .fillMaxWidth()
+                            .padding(SpacingScale.spacing03)
+                            .padding(WindowInsets.navigationBars.asPaddingValues())
+                        ,
                         verticalArrangement = Arrangement.spacedBy(SpacingScale.spacing05)
                     ) {
                         DemoDropdown(title = "Dropdown")
