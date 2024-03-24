@@ -57,6 +57,7 @@ import androidx.compose.ui.window.PopupPositionProvider
 import androidx.compose.ui.window.PopupProperties
 import carbon.compose.dropdown.DropdownInteractiveState.Companion.helperText
 import carbon.compose.dropdown.domain.getOptionsPopupHeightRatio
+import carbon.compose.foundation.color.LocalCarbonTheme
 import carbon.compose.foundation.input.onEnterKeyEvent
 import carbon.compose.foundation.interaction.FocusIndication
 import carbon.compose.foundation.motion.Motion
@@ -184,7 +185,7 @@ public fun <K : Any> Dropdown(
     val expandedStates = remember { MutableTransitionState(false) }
     expandedStates.targetState = expanded
 
-    val colors = DropdownColors.colors()
+    val colors = DropdownColors(LocalCarbonTheme.current)
     val componentHeight = dropdownSize.height
 
     val fieldText = remember(selectedOption) {

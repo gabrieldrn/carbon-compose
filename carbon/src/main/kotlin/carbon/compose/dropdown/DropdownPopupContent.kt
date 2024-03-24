@@ -122,11 +122,7 @@ private fun DropdownMenuOption(
                 onClick = onOptionSelected
             )
             .background(
-                color = if (isSelected) {
-                    colors.menuOptionBackgroundSelectedColor
-                } else {
-                    Color.Transparent
-                }
+                color = colors.menuOptionBackgroundSelectedColor(isSelected = isSelected),
             )
             .padding(horizontal = 16.dp)
             .testTag(DropdownTestTags.MENU_OPTION)
@@ -146,11 +142,10 @@ private fun DropdownMenuOption(
             Text(
                 text = option.value,
                 style = CarbonTypography.bodyCompact01,
-                color = when {
-                    !option.enabled -> colors.menuOptionTextDisabledColor
-                    isSelected -> colors.menuOptionTextSelectedColor
-                    else -> colors.menuOptionTextColor
-                },
+                color = colors.menuOptionTextColor(
+                    isEnabled = option.enabled,
+                    isSelected = isSelected
+                ),
                 overflow = TextOverflow.Ellipsis,
                 maxLines = 1,
                 modifier = Modifier.weight(1f)

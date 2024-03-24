@@ -25,6 +25,7 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onAllNodesWithTag
 import androidx.compose.ui.test.onFirst
 import androidx.compose.ui.test.performClick
+import carbon.compose.foundation.color.LocalCarbonTheme
 import carbon.compose.toList
 import org.junit.After
 import org.junit.Before
@@ -63,7 +64,7 @@ class DropdownPopupContentTest {
                 DropdownPopupContent(
                     options = options,
                     selectedOption = selectedOptionKey,
-                    colors = DropdownColors.colors(),
+                    colors = DropdownColors(LocalCarbonTheme.current),
                     componentHeight = dropdownSize.height,
                     onOptionSelected = { selectedOptionKey = it },
                     modifier = Modifier.weight(1f)

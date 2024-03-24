@@ -1,95 +1,69 @@
 package carbon.compose.dropdown
 
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
-import carbon.compose.foundation.color.LocalCarbonTheme
+import carbon.compose.foundation.color.Theme
 
+/**
+ * The colors used by the dropdown composable based on the current [theme].
+ *
+ * @param theme The theme to use for the colors.
+ */
 @Immutable
-internal data class DropdownColors(
-    val labelTextColor: Color,
-    val fieldTextColor: Color,
-    val fieldTextDisabledColor: Color,
-    val fieldTextPromptColor: Color, //?
-    val helperTextColor: Color,
-    val helperTextErrorColor: Color,
-    val fieldBackgroundColor: Color,
-    val fieldBorderColor: Color,
-    val fieldBorderErrorColor: Color,
-    val fieldBorderDisabledColor: Color,
-    val chevronIconColor: Color,
-    val chevronIconDisabledColor: Color,
-    val menuOptionTextColor: Color,
-    val menuOptionTextDisabledColor: Color,
-    val menuOptionTextSelectedColor: Color,
-    val menuOptionBackgroundColor: Color,
-    val menuOptionBackgroundSelectedColor: Color,
-    val menuOptionBorderColor: Color,
-    val checkboxIconBackgroundColor: Color,
-    val checkboxIconCheckColor: Color,
-    val checkboxIconBorderColor: Color,
-    val checkmarkIconColor: Color,
-) {
+internal class DropdownColors(val theme: Theme) {
 
-    fun fieldTextColor(
-        state: DropdownInteractiveState
-    ) = if (state == DropdownInteractiveState.Disabled) {
-        fieldTextDisabledColor
-    } else {
-        fieldTextColor
-    }
+    val checkmarkIconColor = theme.iconPrimary
+    val fieldBackgroundColor = theme.field01
+    val fieldBorderErrorColor = theme.supportError
+    val menuOptionBackgroundColor = theme.layer01
+    val menuOptionBorderColor = theme.borderSubtle00
 
-    fun helperTextColor(
+    fun chevronIconColor(
         state: DropdownInteractiveState
-    ) = if (state is DropdownInteractiveState.Error) {
-        helperTextErrorColor
-    } else {
-        helperTextColor
+    ) = with(theme) {
+        if (state == DropdownInteractiveState.Disabled) iconDisabled
+        else iconPrimary
     }
 
     fun fieldBorderColor(
         state: DropdownInteractiveState
-    ) = when (state) {
-        is DropdownInteractiveState.Error -> fieldBorderErrorColor
-        is DropdownInteractiveState.Disabled -> fieldBorderDisabledColor
-        else -> fieldBorderColor
+    ) = with(theme) {
+        when (state) {
+            is DropdownInteractiveState.Error -> supportError
+            is DropdownInteractiveState.Disabled -> Color.Transparent
+            else -> borderStrong01
+        }
     }
 
-    fun chevronIconColor(
+    fun fieldTextColor(
         state: DropdownInteractiveState
-    ) = if (state == DropdownInteractiveState.Disabled) {
-        chevronIconDisabledColor
-    } else {
-        chevronIconColor
+    ) = with(theme) {
+        if (state == DropdownInteractiveState.Disabled) textDisabled
+        else textPrimary
     }
 
-    companion object {
-        @Composable
-        fun colors() = with(LocalCarbonTheme.current) {
-            DropdownColors(
-                labelTextColor = textSecondary,
-                fieldTextColor = textPrimary,
-                fieldTextDisabledColor = textDisabled,
-                fieldTextPromptColor = textHelper,
-                helperTextColor = textPrimary,
-                helperTextErrorColor = textError,
-                fieldBackgroundColor = field01,
-                fieldBorderColor = borderStrong01,
-                fieldBorderErrorColor = supportError,
-                fieldBorderDisabledColor = Color.Transparent,
-                chevronIconColor = iconPrimary,
-                chevronIconDisabledColor = iconDisabled,
-                menuOptionTextColor = textSecondary,
-                menuOptionTextDisabledColor = textDisabled,
-                menuOptionTextSelectedColor = textPrimary,
-                menuOptionBackgroundColor = layer01,
-                menuOptionBackgroundSelectedColor = layerSelected01,
-                menuOptionBorderColor = borderSubtle00,
-                checkboxIconBackgroundColor = iconPrimary,
-                checkboxIconCheckColor = iconPrimary,
-                checkboxIconBorderColor = iconPrimary,
-                checkmarkIconColor = iconPrimary
-            )
+    fun helperTextColor(
+        state: DropdownInteractiveState
+    ) = with(theme) {
+        if (state is DropdownInteractiveState.Error) textError
+        else textPrimary
+    }
+
+    fun menuOptionBackgroundSelectedColor(
+        isSelected: Boolean
+    ) = with(theme) {
+        if (isSelected) layerSelected01
+        else Color.Transparent
+    }
+
+    fun menuOptionTextColor(
+        isEnabled: Boolean,
+        isSelected: Boolean
+    ) = with(theme) {
+        when {
+            !isEnabled -> textDisabled
+            isSelected -> textPrimary
+            else -> textSecondary
         }
     }
 }
