@@ -43,7 +43,6 @@ import androidx.compose.ui.platform.InspectableModifier
 import androidx.compose.ui.platform.debugInspectorInfo
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.Role
-import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.disabled
 import androidx.compose.ui.semantics.onClick
 import androidx.compose.ui.semantics.role
@@ -62,6 +61,7 @@ import androidx.compose.ui.window.PopupPositionProvider
 import androidx.compose.ui.window.PopupProperties
 import carbon.compose.dropdown.DropdownInteractiveState.Companion.helperText
 import carbon.compose.dropdown.DropdownInteractiveState.Companion.isFocusable
+import carbon.compose.dropdown.domain.getChevronStartSpacing
 import carbon.compose.dropdown.domain.getOptionsPopupHeightRatio
 import carbon.compose.foundation.color.LocalCarbonTheme
 import carbon.compose.foundation.input.onEnterKeyEvent
@@ -313,7 +313,10 @@ private fun DropdownField(
             .background(colors.fieldBackgroundColor(state))
             .then(
                 if (state is DropdownInteractiveState.Error) {
-                    Modifier.border(2.dp, colors.fieldBorderErrorColor)
+                    Modifier.border(
+                        width = SpacingScale.spacing01,
+                        color = colors.fieldBorderErrorColor
+                    )
                 } else {
                     Modifier
                 }
@@ -342,7 +345,7 @@ private fun DropdownField(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .fillMaxHeight()
-                .padding(horizontal = 16.dp)
+                .padding(horizontal = SpacingScale.spacing05)
         ) {
             Text(
                 text = fieldPlaceholderText,
@@ -352,16 +355,19 @@ private fun DropdownField(
                 overflow = TextOverflow.Ellipsis,
                 modifier = Modifier
                     .weight(1f)
-                    .padding(end = SpacingScale.spacing03)
                     .testTag(DropdownTestTags.FIELD_PLACEHOLDER)
             )
 
             when (state) {
                 is DropdownInteractiveState.Warning -> WarningIcon(
-                    modifier = Modifier.testTag(DropdownTestTags.FIELD_WARNING_ICON)
+                    modifier = Modifier
+                        .padding(horizontal = SpacingScale.spacing03)
+                        .testTag(DropdownTestTags.FIELD_WARNING_ICON)
                 )
                 is DropdownInteractiveState.Error -> ErrorIcon(
-                    modifier = Modifier.testTag(DropdownTestTags.FIELD_ERROR_ICON)
+                    modifier = Modifier
+                        .padding(horizontal = SpacingScale.spacing03)
+                        .testTag(DropdownTestTags.FIELD_ERROR_ICON)
                 )
                 else -> {}
             }
@@ -371,7 +377,7 @@ private fun DropdownField(
                 contentDescription = null,
                 colorFilter = ColorFilter.tint(colors.chevronIconColor(state)),
                 modifier = Modifier
-                    .padding(start = SpacingScale.spacing03)
+                    .padding(start = getChevronStartSpacing(state))
                     .graphicsLayer {
                         rotationZ = chevronRotation
                     }

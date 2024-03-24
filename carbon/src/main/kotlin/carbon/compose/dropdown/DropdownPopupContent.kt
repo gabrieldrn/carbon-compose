@@ -29,6 +29,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import carbon.compose.foundation.interaction.FocusIndication
+import carbon.compose.foundation.spacing.SpacingScale
 import carbon.compose.foundation.text.CarbonTypography
 import carbon.compose.foundation.text.Text
 
@@ -122,7 +123,7 @@ private fun DropdownMenuOption(
             .background(
                 color = colors.menuOptionBackgroundSelectedColor(isSelected = isSelected),
             )
-            .padding(horizontal = 16.dp)
+            .padding(horizontal = SpacingScale.spacing05)
             .testTag(DropdownTestTags.MENU_OPTION)
     ) {
         if (showDivider) {

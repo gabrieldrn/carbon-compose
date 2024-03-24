@@ -1,6 +1,9 @@
 package carbon.compose.dropdown
 
+import androidx.compose.ui.unit.dp
+import carbon.compose.dropdown.domain.getChevronStartSpacing
 import carbon.compose.dropdown.domain.getOptionsPopupHeightRatio
+import carbon.compose.foundation.spacing.SpacingScale
 import org.junit.Test
 import kotlin.test.assertEquals
 
@@ -32,6 +35,24 @@ class DropdownDrawLogicTest {
                     "and visibleItemsBeforeScroll=$visibleItems, " +
                     "expected $expectedRatio " +
                     "but was $actualRatio"
+            )
+        }
+    }
+
+    @Test
+    fun dropdownDrawLogic_getChevronStartSpacing_returnsCorrectValue() {
+        mapOf(
+            DropdownInteractiveState.Enabled to SpacingScale.spacing05,
+            DropdownInteractiveState.Warning("") to 0.dp,
+            DropdownInteractiveState.Error("") to 0.dp,
+            DropdownInteractiveState.Disabled to SpacingScale.spacing05,
+            DropdownInteractiveState.ReadOnly to SpacingScale.spacing05,
+        ).forEach { (state, expectedSpacing) ->
+            val actualSpacing = getChevronStartSpacing(state)
+            assertEquals(
+                expected = expectedSpacing,
+                actual = actualSpacing,
+                message = "For state=$state, expected $expectedSpacing but was $actualSpacing"
             )
         }
     }

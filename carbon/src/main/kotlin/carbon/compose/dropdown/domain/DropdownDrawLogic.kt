@@ -1,6 +1,9 @@
 package carbon.compose.dropdown.domain
 
 import androidx.annotation.IntRange
+import androidx.compose.ui.unit.dp
+import carbon.compose.dropdown.DropdownInteractiveState
+import carbon.compose.foundation.spacing.SpacingScale
 
 /**
  * Computes the height ratio for the dropdown options popup. The output is intended to be multiplied
@@ -18,3 +21,15 @@ internal fun getOptionsPopupHeightRatio(
     @IntRange(from = 1) visibleItemsBeforeScroll: Int
 ): Float = (visibleItemsBeforeScroll.coerceAtLeast(1) + .5f)
     .coerceAtMost(optionsSize.toFloat())
+
+/**
+ * Returns the start spacing for the chevron icon in the dropdown field based on the current state.
+ */
+internal fun getChevronStartSpacing(state: DropdownInteractiveState) = if (
+    state is DropdownInteractiveState.Warning ||
+    state is DropdownInteractiveState.Error
+) {
+    0.dp
+} else {
+    SpacingScale.spacing05
+}
