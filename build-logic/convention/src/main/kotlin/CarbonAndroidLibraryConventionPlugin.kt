@@ -31,20 +31,6 @@ class CarbonAndroidLibraryConventionPlugin : Plugin<Project> {
 
             configureKotlinAndroidCommon()
 
-            defaultConfig {
-                consumerProguardFiles.add(file("consumer-rules.pro"))
-            }
-
-            buildTypes {
-                release {
-                    isMinifyEnabled = true
-                    proguardFiles(
-                        getDefaultProguardFile("proguard-android-optimize.txt"),
-                        "proguard-rules.pro"
-                    )
-                }
-            }
-
             setupExplicitApi()
 
             applyKotlinOptions(this@with)
