@@ -1,6 +1,5 @@
 import carbon.compose.buildlogic.Constants
 import carbon.compose.buildlogic.configureKotlinAndroidCommon
-import carbon.compose.buildlogic.getLibrary
 import carbon.compose.buildlogic.getPlugin
 import carbon.compose.buildlogic.kotlinOptions
 import carbon.compose.buildlogic.libs
@@ -11,7 +10,6 @@ import org.gradle.api.Project
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 import org.gradle.kotlin.dsl.configure
-import org.gradle.kotlin.dsl.dependencies
 
 /**
  * A plugin used by android libraries modules from Carbon to configure themselves. It
@@ -28,23 +26,10 @@ class CarbonAndroidLibraryConventionPlugin : Plugin<Project> {
         }
 
         extensions.configure<LibraryExtension> {
-
             configureKotlinAndroidCommon()
-
             setupExplicitApi()
-
             applyKotlinOptions(this@with)
-
             applyTestOptions()
-        }
-
-        dependencies {
-            add("testImplementation", libs.getLibrary("junit"))
-            add("testImplementation", libs.getLibrary("kotlin-test"))
-            add("testImplementation", libs.getLibrary("kotlin-test-junit"))
-            add("androidTestImplementation", libs.getLibrary("kotlin-test"))
-            add("androidTestImplementation", libs.getLibrary("androidx-test-ext"))
-            add("androidTestImplementation", libs.getLibrary("androidx-test-espresso"))
         }
     }
 
