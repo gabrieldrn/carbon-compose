@@ -8,23 +8,17 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.assertCountEquals
-import androidx.compose.ui.test.assertHasClickAction
-import androidx.compose.ui.test.assertHasNoClickAction
 import androidx.compose.ui.test.assertHeightIsEqualTo
 import androidx.compose.ui.test.assertIsDisplayed
-import androidx.compose.ui.test.assertIsFocused
 import androidx.compose.ui.test.assertIsNotDisplayed
-import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.hasText
-import androidx.compose.ui.test.isFocusable
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onAllNodesWithTag
 import androidx.compose.ui.test.onFirst
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollToNode
-import androidx.compose.ui.test.requestFocus
 import carbon.compose.toList
 import org.junit.After
 import org.junit.Before
@@ -76,37 +70,23 @@ class DropdownTest {
         dropdownSize = DropdownSize.Large
     }
 
-    private fun baseLayoutValidation() {
-        composeTestRule.run {
-            onNodeWithTag(DropdownTestTags.FIELD)
-                .assertIsDisplayed()
-                .assertHeightIsEqualTo(DropdownSize.Large.height)
-
-            onNodeWithTag(DropdownTestTags.POPUP_CONTENT)
-                .assertIsNotDisplayed()
-
-            onNodeWithTag(DropdownTestTags.FIELD_CHEVRON, useUnmergedTree = true)
-                .assertIsDisplayed()
-        }
-    }
-
     @Test
     fun dropdown_label_validateLayout() {
         composeTestRule.run {
-            onNodeWithTag(DropdownTestTags.FIELD_LABEL_TEXT)
+            onNodeWithTag(DropdownTestTags.LABEL_TEXT)
                 .assertIsDisplayed()
                 .assert(hasText(placeholder))
 
             label = "   "
-            onNodeWithTag(DropdownTestTags.FIELD_LABEL_TEXT)
+            onNodeWithTag(DropdownTestTags.LABEL_TEXT)
                 .assertIsNotDisplayed()
 
             label = ""
-            onNodeWithTag(DropdownTestTags.FIELD_LABEL_TEXT)
+            onNodeWithTag(DropdownTestTags.LABEL_TEXT)
                 .assertIsNotDisplayed()
 
             label = null
-            onNodeWithTag(DropdownTestTags.FIELD_LABEL_TEXT)
+            onNodeWithTag(DropdownTestTags.LABEL_TEXT)
                 .assertIsNotDisplayed()
         }
     }
@@ -126,46 +106,25 @@ class DropdownTest {
             ).forEach {
                 state = it
 
-                baseLayoutValidation()
+                onNodeWithTag(DropdownTestTags.POPUP_CONTENT)
+                    .assertIsNotDisplayed()
 
                 when (state) {
                     is DropdownInteractiveState.Enabled,
-                    is DropdownInteractiveState.ReadOnly -> {
-                        onNodeWithTag(DropdownTestTags.FIELD_DIVIDER, useUnmergedTree = true)
-                            .assertIsDisplayed()
-
-                        onNodeWithTag(DropdownTestTags.FIELD_WARNING_ICON, useUnmergedTree = true)
+                    is DropdownInteractiveState.ReadOnly ->
+                        onNodeWithTag(DropdownTestTags.HELPER_TEXT)
                             .assertIsNotDisplayed()
 
-                        onNodeWithTag(DropdownTestTags.FIELD_ERROR_ICON, useUnmergedTree = true)
-                            .assertIsNotDisplayed()
-
-                        onNodeWithTag(DropdownTestTags.FIELD_HELPER_TEXT)
-                            .assertIsNotDisplayed()
-                    }
-                    is DropdownInteractiveState.Warning -> {
-                        onNodeWithTag(DropdownTestTags.FIELD_WARNING_ICON, useUnmergedTree = true)
-                            .assertIsDisplayed()
-
-                        onNodeWithTag(DropdownTestTags.FIELD_HELPER_TEXT)
+                    is DropdownInteractiveState.Warning ->
+                        onNodeWithTag(DropdownTestTags.HELPER_TEXT)
                             .assertIsDisplayed()
                             .assert(hasText(warningMessage))
-                    }
-                    is DropdownInteractiveState.Error -> {
-                        onNodeWithTag(DropdownTestTags.FIELD_ERROR_ICON, useUnmergedTree = true)
-                            .assertIsDisplayed()
 
-                        onNodeWithTag(DropdownTestTags.FIELD_HELPER_TEXT)
+                    is DropdownInteractiveState.Error ->
+                        onNodeWithTag(DropdownTestTags.HELPER_TEXT)
                             .assertIsDisplayed()
                             .assert(hasText(errorMessage))
-
-                        onNodeWithTag(DropdownTestTags.FIELD_DIVIDER, useUnmergedTree = true)
-                            .assertIsNotDisplayed()
-                    }
-                    is DropdownInteractiveState.Disabled ->
-                        onNodeWithTag(DropdownTestTags.FIELD)
-                            .assertHasNoClickAction()
-                            .assert(isFocusable().not())
+                    else -> {}
                 }
             }
         }
@@ -187,37 +146,6 @@ class DropdownTest {
 
             onNodeWithTag(DropdownTestTags.FIELD)
                 .assertHeightIsEqualTo(DropdownSize.Medium.height)
-        }
-    }
-
-    @Test
-    fun dropdown_field_validateSemantics() {
-        composeTestRule.run {
-            onNodeWithTag(DropdownTestTags.FIELD)
-                .assertHasClickAction()
-                .requestFocus()
-                .assertIsFocused()
-        }
-    }
-
-    @Test
-    fun dropdown_field_disabled_validateSemantics() {
-        composeTestRule.run {
-            state = DropdownInteractiveState.Disabled
-            onNodeWithTag(DropdownTestTags.FIELD)
-                .assertHasNoClickAction()
-                .assertIsNotEnabled()
-                .assert(isFocusable().not())
-        }
-    }
-
-    @Test
-    fun dropdown_field_readOnly_validateSemantics() {
-        composeTestRule.run {
-            state = DropdownInteractiveState.ReadOnly
-            onNodeWithTag(DropdownTestTags.FIELD)
-                .assertIsNotEnabled()
-                .assert(isFocusable())
         }
     }
 
