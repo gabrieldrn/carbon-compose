@@ -1,4 +1,4 @@
-package carbon.compose.dropdown
+package carbon.compose.dropdown.base
 
 import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.animation.core.Transition
@@ -15,6 +15,7 @@ import androidx.compose.foundation.indication
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -38,8 +39,8 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import carbon.compose.dropdown.DropdownInteractiveState.Companion.helperText
-import carbon.compose.dropdown.DropdownInteractiveState.Companion.isFocusable
+import carbon.compose.dropdown.base.DropdownInteractiveState.Companion.helperText
+import carbon.compose.dropdown.base.DropdownInteractiveState.Companion.isFocusable
 import carbon.compose.dropdown.domain.getChevronStartSpacing
 import carbon.compose.foundation.color.LocalCarbonTheme
 import carbon.compose.foundation.input.onEnterKeyEvent
@@ -93,14 +94,21 @@ private fun Modifier.dropdownClickable(
         }
     }
 
+/**
+ * Composable representing the field of a dropdown. Its content is driven by [fieldContent] as it
+ * only provides the field structure and the chevron icon (common to all kinds of dropdowns).
+ *
+ * [DropdownPlaceholderText] and [DropdownStateIcon] are two available components intended to be
+ * used as content for the field.
+ */
 @Composable
 internal fun DropdownField(
-    placeholderText: String,
     state: DropdownInteractiveState,
     dropdownSize: DropdownSize,
     transition: Transition<Boolean>,
     expandedStates: MutableTransitionState<Boolean>,
     onExpandedChange: (Boolean) -> Unit,
+    fieldContent: @Composable RowScope.() -> Unit,
     modifier: Modifier = Modifier,
     colors: DropdownColors = DropdownColors(LocalCarbonTheme.current),
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
@@ -160,30 +168,13 @@ internal fun DropdownField(
                 .fillMaxHeight()
                 .padding(horizontal = SpacingScale.spacing05)
         ) {
-            Text(
-                text = placeholderText,
-                style = CarbonTypography.bodyCompact01,
-                color = colors.fieldTextColor(state),
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
-                    .weight(1f)
-                    .testTag(DropdownTestTags.FIELD_PLACEHOLDER)
+                    .fillMaxHeight()
+                    .weight(1f),
+                content = fieldContent
             )
-
-            when (state) {
-                is DropdownInteractiveState.Warning -> WarningIcon(
-                    modifier = Modifier
-                        .padding(horizontal = SpacingScale.spacing03)
-                        .testTag(DropdownTestTags.FIELD_WARNING_ICON)
-                )
-                is DropdownInteractiveState.Error -> ErrorIcon(
-                    modifier = Modifier
-                        .padding(horizontal = SpacingScale.spacing03)
-                        .testTag(DropdownTestTags.FIELD_ERROR_ICON)
-                )
-                else -> {}
-            }
 
             Image(
                 imageVector = chevronDownIcon,
@@ -208,5 +199,42 @@ internal fun DropdownField(
                     .testTag(DropdownTestTags.FIELD_DIVIDER)
             )
         }
+    }
+}
+
+@Composable
+internal fun DropdownPlaceholderText(
+    placeholderText: String,
+    colors: DropdownColors = DropdownColors(LocalCarbonTheme.current),
+    state: DropdownInteractiveState,
+    modifier: Modifier = Modifier
+) {
+    Text(
+        text = placeholderText,
+        style = CarbonTypography.bodyCompact01,
+        color = colors.fieldTextColor(state),
+        maxLines = 1,
+        overflow = TextOverflow.Ellipsis,
+        modifier = modifier.testTag(DropdownTestTags.FIELD_PLACEHOLDER)
+    )
+}
+
+@Composable
+internal fun DropdownStateIcon(
+    state: DropdownInteractiveState,
+    modifier: Modifier = Modifier
+) {
+    when (state) {
+        is DropdownInteractiveState.Warning -> WarningIcon(
+            modifier = modifier
+                .padding(horizontal = SpacingScale.spacing03)
+                .testTag(DropdownTestTags.FIELD_WARNING_ICON)
+        )
+        is DropdownInteractiveState.Error -> ErrorIcon(
+            modifier = modifier
+                .padding(horizontal = SpacingScale.spacing03)
+                .testTag(DropdownTestTags.FIELD_ERROR_ICON)
+        )
+        else -> {}
     }
 }

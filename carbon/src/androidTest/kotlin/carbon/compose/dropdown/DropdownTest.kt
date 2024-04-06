@@ -19,6 +19,10 @@ import androidx.compose.ui.test.onFirst
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollToNode
+import carbon.compose.dropdown.base.DropdownInteractiveState
+import carbon.compose.dropdown.base.DropdownOption
+import carbon.compose.dropdown.base.DropdownSize
+import carbon.compose.dropdown.base.DropdownTestTags
 import carbon.compose.toList
 import org.junit.After
 import org.junit.Before

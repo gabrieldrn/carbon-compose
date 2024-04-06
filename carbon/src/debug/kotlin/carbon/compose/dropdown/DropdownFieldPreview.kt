@@ -11,6 +11,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import carbon.compose.CarbonDesignSystem
+import carbon.compose.dropdown.base.DropdownField
+import carbon.compose.dropdown.base.DropdownInteractiveState
+import carbon.compose.dropdown.base.DropdownPlaceholderText
+import carbon.compose.dropdown.base.DropdownSize
+import carbon.compose.dropdown.base.DropdownStateIcon
 import carbon.compose.foundation.spacing.SpacingScale
 
 @Preview(showBackground = true, backgroundColor = 0xFFFFFFFF)
@@ -28,8 +33,16 @@ private fun DropdownFieldPreview() {
             dropdownSize = DropdownSize.Large,
             transition = transition,
             expandedStates = expandedStates,
-            placeholderText = "Placeholder",
             onExpandedChange = { expandedStates.targetState = it },
+            fieldContent = {
+                DropdownPlaceholderText(
+                    placeholderText = "Placeholder",
+                    state = state,
+                    modifier = Modifier.weight(1f)
+                )
+
+                DropdownStateIcon(state = state)
+            },
             modifier = Modifier.padding(SpacingScale.spacing03)
         )
     }

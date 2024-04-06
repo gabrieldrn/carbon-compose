@@ -1,6 +1,7 @@
 package carbon.compose.dropdown
 
 import androidx.compose.ui.unit.dp
+import carbon.compose.dropdown.base.DropdownInteractiveState
 import carbon.compose.dropdown.domain.getChevronStartSpacing
 import carbon.compose.dropdown.domain.getOptionsPopupHeightRatio
 import carbon.compose.foundation.spacing.SpacingScale

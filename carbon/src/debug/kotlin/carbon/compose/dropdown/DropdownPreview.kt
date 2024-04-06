@@ -13,6 +13,8 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import carbon.compose.CarbonDesignSystem
+import carbon.compose.dropdown.base.DropdownInteractiveState
+import carbon.compose.dropdown.base.DropdownOption
 
 internal class DropdownStateParameterProvider : PreviewParameterProvider<DropdownInteractiveState> {
     override val values: Sequence<DropdownInteractiveState>

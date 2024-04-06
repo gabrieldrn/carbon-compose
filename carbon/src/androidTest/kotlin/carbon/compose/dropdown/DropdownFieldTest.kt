@@ -6,6 +6,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.assertHasClickAction
 import androidx.compose.ui.test.assertHasNoClickAction
@@ -19,6 +20,12 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.requestFocus
 import carbon.compose.CarbonDesignSystem
+import carbon.compose.dropdown.base.DropdownField
+import carbon.compose.dropdown.base.DropdownInteractiveState
+import carbon.compose.dropdown.base.DropdownPlaceholderText
+import carbon.compose.dropdown.base.DropdownSize
+import carbon.compose.dropdown.base.DropdownStateIcon
+import carbon.compose.dropdown.base.DropdownTestTags
 import carbon.compose.foundation.color.WhiteTheme
 import org.junit.Before
 import org.junit.Rule
@@ -44,8 +51,16 @@ class DropdownFieldTest {
                     dropdownSize = DropdownSize.Large,
                     transition = transition,
                     expandedStates = expandedStates,
-                    placeholderText = placeholder,
-                    onExpandedChange = { expandedStates.targetState = it }
+                    onExpandedChange = { expandedStates.targetState = it },
+                    fieldContent = {
+                        DropdownPlaceholderText(
+                            placeholderText = placeholder,
+                            state = state,
+                            modifier = Modifier.weight(1f)
+                        )
+
+                        DropdownStateIcon(state = state)
+                    }
                 )
             }
         }

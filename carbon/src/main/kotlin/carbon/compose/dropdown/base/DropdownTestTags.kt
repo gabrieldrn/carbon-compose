@@ -1,4 +1,4 @@
-package carbon.compose.dropdown
+package carbon.compose.dropdown.base
 
 internal object DropdownTestTags {
     const val FIELD: String = "carbon_dropdown_field"

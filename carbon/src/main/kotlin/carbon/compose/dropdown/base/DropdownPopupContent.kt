@@ -1,4 +1,4 @@
-package carbon.compose.dropdown
+package carbon.compose.dropdown.base
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

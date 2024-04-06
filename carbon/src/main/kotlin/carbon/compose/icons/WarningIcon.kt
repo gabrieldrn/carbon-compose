@@ -21,7 +21,7 @@ private val warningIconHeight = 32f.dp
 
 internal val warningIcon: ImageVector
     get() = ImageVector.Builder(
-        name = "CheckboxWarningIcon",
+        name = "WarningIcon",
         defaultWidth = warningIconWidth,
         defaultHeight = warningIconHeight,
         viewportWidth = warningIconWidth.value,

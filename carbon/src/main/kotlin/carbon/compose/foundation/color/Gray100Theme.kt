@@ -14,7 +14,7 @@ public object Gray100Theme : Theme {
     override val backgroundActive: Color = Color(0x668D8D8D)
     override val backgroundSelected: Color = Color(0x3D8D8D8D)
     override val backgroundSelectedHover: Color = Color(0x528D8D8D)
-    override val backgroundInverse: Color = Color(0xFF393939)
+    override val backgroundInverse: Color = Color(0xFFF4F4F4)
     override val backgroundInverseHover: Color = Color(0xFFE5E5E5)
     override val backgroundBrand: Color = Color(0xFF0F62FE)
 
