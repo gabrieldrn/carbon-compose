@@ -59,11 +59,18 @@ internal fun <K : Any> DropdownPopupContent(
 ) {
     val focusRequester = remember { FocusRequester() }
 
-    val optionEntries = options.entries.toList()
-    val selectedOptionIndex = optionEntries.indexOfFirst { it.key == selectedOption }
+    val optionEntries = remember(options) {
+        options.entries.toList()
+    }
+
+    val selectedOptionIndex = remember(optionEntries, selectedOption) {
+        optionEntries.indexOfFirst { it.key == selectedOption }
+    }
 
     // Option to focus on when the composition ends.
-    val compositionEndTargetOption = selectedOption ?: options.keys.first()
+    val compositionEndTargetOption = remember(selectedOption, options) {
+        selectedOption ?: options.keys.first()
+    }
 
     LazyColumn(
         state = rememberLazyListState(
