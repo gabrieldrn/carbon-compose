@@ -11,6 +11,7 @@ internal object DropdownTestTags {
     const val LABEL_TEXT: String = "carbon_dropdown_field_label_text"
     const val MENU_OPTION: String = "carbon_dropdown_menu_option"
     const val MENU_OPTION_CHECKMARK: String = "carbon_dropdown_menu_option_checkmark"
+    const val MENU_OPTION_CHECKBOX: String = "carbon_dropdown_menu_option_checkbox"
     const val MENU_OPTION_DIVIDER: String = "carbon_dropdown_menu_option_divider"
     const val POPUP_CONTENT: String = "carbon_dropdown_popup_content"
 }
