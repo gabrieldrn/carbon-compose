@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
@@ -34,6 +33,19 @@ import carbon.compose.foundation.spacing.SpacingScale
 import carbon.compose.foundation.text.CarbonTypography
 import carbon.compose.foundation.text.Text
 
+/**
+ * Shift selected options to the top of the list.
+ */
+private fun <K : Any> List<Map.Entry<K, DropdownOption>>.shiftSelectedOptionsToTop(
+    selectedOptions: List<K>
+): List<Map.Entry<K, DropdownOption>> {
+    if (selectedOptions.isEmpty()) return this
+    val selectedOptionsMap = selectedOptions.associateWith { true }
+    return partition { selectedOptionsMap.containsKey(it.key) }.let { (selected, unselected) ->
+        selected + unselected
+    }
+}
+
 @Composable
 internal fun <K : Any> MultiselectDropdownPopupContent(
     options: Map<K, DropdownOption>,
@@ -45,25 +57,24 @@ internal fun <K : Any> MultiselectDropdownPopupContent(
 ) {
     val focusRequester = remember { FocusRequester() }
 
-    val optionEntries = options.entries.toList()
-    val firstSelectedOptionIndex = optionEntries.indexOfFirst {
-        it.key == selectedOptions.firstOrNull()
+    val optionEntries = remember {
+        options.entries
+            .toList()
+            .shiftSelectedOptionsToTop(selectedOptions)
     }
 
-    // Option to focus on when the composition ends.
-    val compositionEndTargetOption = selectedOptions.firstOrNull() ?: options.keys.first()
+    val firstSelectedOptionIndex = remember(optionEntries, selectedOptions) {
+        optionEntries.indexOfFirst { it.key == selectedOptions.firstOrNull() }
+    }
 
     LazyColumn(
-        state = rememberLazyListState(
-            initialFirstVisibleItemIndex = options.keys.indexOf(compositionEndTargetOption)
-        ),
         modifier = modifier
             .background(color = colors.menuOptionBackgroundColor)
             .testTag(DropdownTestTags.POPUP_CONTENT)
     ) {
         itemsIndexed(optionEntries) { index, optionEntry ->
             SideEffect {
-                if (optionEntry.key == compositionEndTargetOption) {
+                if (index == 0) {
                     focusRequester.requestFocus()
                 }
             }
@@ -78,7 +89,7 @@ internal fun <K : Any> MultiselectDropdownPopupContent(
                     .fillMaxWidth()
                     .height(componentHeight)
                     .then(
-                        if (optionEntry.key == compositionEndTargetOption) {
+                        if (index == 0) {
                             Modifier.focusRequester(focusRequester)
                         } else {
                             Modifier

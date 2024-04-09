@@ -28,7 +28,7 @@ import carbon.compose.foundation.spacing.SpacingScale
  * - Once options have been selected from the menu, a tag appears to the left of the text in the
  *   field containing the total number of selected options. The placeholder text can change to text
  *   that better reflects what is selected.
- * - (TODO) Selected options shift to the top of the menu in alphanumeric order.
+ * - Selected options shift to the top of the menu in alphanumeric order.
  * - Unlike dropdown and combo box, the menu does not close once the user makes selections. Because
  *   multiple selections are possible, the user needs to click outside of the dropdown or on the
  *   parent element to close the menu.
