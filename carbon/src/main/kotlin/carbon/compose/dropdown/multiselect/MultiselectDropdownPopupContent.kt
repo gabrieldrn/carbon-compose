@@ -146,7 +146,7 @@ private fun MultiselectDropdownMenuOption(
                 },
                 label = "",
                 onClick = onOptionClicked,
-                modifier = Modifier.testTag(DropdownTestTags.MENU_OPTION_CHECKMARK)
+                modifier = Modifier.testTag(DropdownTestTags.MENU_OPTION_CHECKBOX)
             )
             Text(
                 text = option.value,
