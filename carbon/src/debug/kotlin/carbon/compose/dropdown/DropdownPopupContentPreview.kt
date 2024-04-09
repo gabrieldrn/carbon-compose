@@ -35,7 +35,7 @@ private fun DropdownPopupContentPreview(
             selectedOption = 1,
             colors = DropdownColors(LocalCarbonTheme.current),
             componentHeight = dropdownSize.height,
-            onOptionSelected = {},
+            onOptionClicked = {},
         )
     }
 }

@@ -1,4 +1,4 @@
-package carbon.compose.dropdown
+package carbon.compose.dropdown.base
 
 import androidx.annotation.IntRange
 import androidx.compose.animation.core.MutableTransitionState
@@ -33,14 +33,7 @@ import androidx.compose.ui.unit.times
 import androidx.compose.ui.window.Popup
 import androidx.compose.ui.window.PopupPositionProvider
 import androidx.compose.ui.window.PopupProperties
-import carbon.compose.dropdown.base.DropdownColors
 import carbon.compose.dropdown.base.DropdownInteractiveState.Companion.helperText
-import carbon.compose.dropdown.base.DropdownField
-import carbon.compose.dropdown.base.DropdownInteractiveState
-import carbon.compose.dropdown.base.DropdownOption
-import carbon.compose.dropdown.base.DropdownPopupContent
-import carbon.compose.dropdown.base.DropdownSize
-import carbon.compose.dropdown.base.DropdownTestTags
 import carbon.compose.dropdown.domain.getOptionsPopupHeightRatio
 import carbon.compose.foundation.color.LocalCarbonTheme
 import carbon.compose.foundation.motion.Motion
@@ -66,24 +59,22 @@ private fun Modifier.onEscape(block: () -> Unit) = onPreviewKeyEvent {
 }
 
 /**
- * Common composable to all kinds of dropdowns. It contains the logic to handle the dropdown state
- * and the popup content.
+ * Common composable to all kinds of dropdowns. It contains the logic to handle the dropdown state.
  */
 @Composable
 internal fun <K : Any> BaseDropdown(
     expanded: Boolean,
-    selectedOption: K?,
     options: Map<K, DropdownOption>,
-    onOptionSelected: (K) -> Unit,
     onExpandedChange: (Boolean) -> Unit,
     onDismissRequest: () -> Unit,
-    fieldContent: @Composable RowScope.() -> Unit,
     modifier: Modifier = Modifier,
     label: String? = null,
     state: DropdownInteractiveState = DropdownInteractiveState.Enabled,
     dropdownSize: DropdownSize = DropdownSize.Large,
     colors: DropdownColors = DropdownColors(LocalCarbonTheme.current),
     @IntRange(from = 1) minVisibleItems: Int = 4,
+    fieldContent: @Composable RowScope.() -> Unit,
+    popupContent: @Composable DropdownPopupScope.() -> Unit,
 ) {
     require(options.isNotEmpty()) {
         "Dropdown must have at least one option."
@@ -139,6 +130,19 @@ internal fun <K : Any> BaseDropdown(
                 }
             )
         ) {
+            val popupScope = remember(this, dropdownSize, onDismissRequest) {
+                object : DropdownPopupScope {
+                    override fun Modifier.anchor(): Modifier = this
+                        .width(maxWidth)
+                        .height(height)
+                        // This should be a box shadow (-> 0 2px 6px 0 rgba(0,0,0,.2)). But
+                        // compose doesn't provide the same API as CSS for shadows. A 3dp
+                        // elevation is the best approximation that could be found for now.
+                        .shadow(elevation = elevation)
+                        .onEscape(onDismissRequest)
+                }
+            }
+
             DropdownField(
                 state = state,
                 dropdownSize = dropdownSize,
@@ -150,31 +154,13 @@ internal fun <K : Any> BaseDropdown(
                 colors = colors
             )
 
-            if (expandedStates.currentState || expandedStates.targetState && options.isNotEmpty()) {
+            if (expandedStates.currentState || expandedStates.targetState) {
                 Popup(
                     popupPositionProvider = DropdownMenuPositionProvider,
                     onDismissRequest = onDismissRequest,
-                    properties = PopupProperties(focusable = true)
-                ) {
-                    DropdownPopupContent(
-                        selectedOption = selectedOption,
-                        options = options,
-                        colors = colors,
-                        componentHeight = componentHeight,
-                        onOptionSelected = { option ->
-                            onOptionSelected(option)
-                            onDismissRequest()
-                        },
-                        modifier = Modifier
-                            .width(maxWidth)
-                            .height(height)
-                            // This should be a box shadow (-> 0 2px 6px 0 rgba(0,0,0,.2)). But
-                            // compose doesn't provide the same API as CSS for shadows. A 3dp
-                            // elevation is the best approximation that could be found for now.
-                            .shadow(elevation = elevation)
-                            .onEscape(onDismissRequest)
-                    )
-                }
+                    properties = PopupProperties(focusable = true),
+                    content = { popupScope.popupContent() }
+                )
             }
         }
 
@@ -189,6 +175,10 @@ internal fun <K : Any> BaseDropdown(
             )
         }
     }
+}
+
+internal interface DropdownPopupScope {
+    fun Modifier.anchor(): Modifier
 }
 
 private object DropdownMenuPositionProvider : PopupPositionProvider {

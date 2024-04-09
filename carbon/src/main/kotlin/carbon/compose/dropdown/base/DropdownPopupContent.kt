@@ -45,7 +45,7 @@ private val checkmarkSize = 16.dp
  * @param selectedOption The currently selected option. If null, no option is selected.
  * @param colors The colors to use for the dropdown.
  * @param componentHeight The height of each option in the dropdown.
- * @param onOptionSelected The callback to call when an option is selected.
+ * @param onOptionClicked The callback to call when an option is selected.
  * @param modifier The modifier to apply to the composable.
  */
 @Composable
@@ -54,7 +54,7 @@ internal fun <K : Any> DropdownPopupContent(
     selectedOption: K?,
     colors: DropdownColors,
     componentHeight: Dp,
-    onOptionSelected: (K) -> Unit,
+    onOptionClicked: (K) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val focusRequester = remember { FocusRequester() }
@@ -82,7 +82,7 @@ internal fun <K : Any> DropdownPopupContent(
             DropdownMenuOption(
                 option = optionEntry.value,
                 isSelected = index == selectedOptionIndex,
-                onOptionSelected = { onOptionSelected(optionEntry.key) },
+                onOptionClicked = { onOptionClicked(optionEntry.key) },
                 // Hide divider: first item + when previous item is selected.
                 showDivider = index != 0 && index - 1 != selectedOptionIndex,
                 colors = colors,
@@ -107,7 +107,7 @@ private fun DropdownMenuOption(
     isSelected: Boolean,
     colors: DropdownColors,
     showDivider: Boolean,
-    onOptionSelected: () -> Unit,
+    onOptionClicked: () -> Unit,
     modifier: Modifier = Modifier,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 ) {
@@ -118,7 +118,7 @@ private fun DropdownMenuOption(
                 interactionSource = interactionSource,
                 indication = FocusIndication(),
                 enabled = option.enabled,
-                onClick = onOptionSelected
+                onClick = onOptionClicked
             )
             .background(
                 color = colors.menuOptionBackgroundSelectedColor(isSelected = isSelected),
@@ -166,7 +166,7 @@ private fun DropdownMenuOption(
 }
 
 @Composable
-private fun DropdownMenuOptionDivider(
+internal fun DropdownMenuOptionDivider(
     color: Color,
     modifier: Modifier = Modifier
 ) {

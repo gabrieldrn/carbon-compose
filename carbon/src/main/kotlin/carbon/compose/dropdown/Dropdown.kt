@@ -4,10 +4,12 @@ import androidx.annotation.IntRange
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import carbon.compose.dropdown.base.BaseDropdown
 import carbon.compose.dropdown.base.DropdownColors
 import carbon.compose.dropdown.base.DropdownInteractiveState
 import carbon.compose.dropdown.base.DropdownOption
 import carbon.compose.dropdown.base.DropdownPlaceholderText
+import carbon.compose.dropdown.base.DropdownPopupContent
 import carbon.compose.dropdown.base.DropdownSize
 import carbon.compose.dropdown.base.DropdownStateIcon
 import carbon.compose.foundation.color.LocalCarbonTheme
@@ -73,11 +75,15 @@ public fun <K : Any> Dropdown(
 
     BaseDropdown(
         expanded = expanded,
-        selectedOption = selectedOption,
         options = options,
-        onOptionSelected = onOptionSelected,
         onExpandedChange = onExpandedChange,
         onDismissRequest = onDismissRequest,
+        modifier = modifier,
+        label = label,
+        state = state,
+        dropdownSize = dropdownSize,
+        colors = colors,
+        minVisibleItems = minVisibleItems,
         fieldContent = {
             DropdownPlaceholderText(
                 placeholderText = fieldText,
@@ -88,11 +94,18 @@ public fun <K : Any> Dropdown(
 
             DropdownStateIcon(state = state)
         },
-        modifier = modifier,
-        label = label,
-        state = state,
-        dropdownSize = dropdownSize,
-        colors = colors,
-        minVisibleItems = minVisibleItems
+        popupContent = {
+            DropdownPopupContent(
+                selectedOption = selectedOption,
+                options = options,
+                colors = colors,
+                componentHeight = dropdownSize.height,
+                onOptionClicked = { option ->
+                    onOptionSelected(option)
+                    onDismissRequest()
+                },
+                modifier = Modifier.anchor()
+            )
+        }
     )
 }
