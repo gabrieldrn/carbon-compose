@@ -90,7 +90,8 @@ public fun <K : Any> MultiselectDropdown(
             if (selectedOptions.isNotEmpty()) {
                 DropdownMultiselectTag(
                     count = selectedOptions.size,
-                    onCloseTagClick = onClearSelection
+                    onCloseTagClick = onClearSelection,
+                    modifier = Modifier.padding(end = SpacingScale.spacing03)
                 )
             }
 
@@ -98,9 +99,7 @@ public fun <K : Any> MultiselectDropdown(
                 placeholderText = fieldPlaceholderText,
                 colors = colors,
                 state = state,
-                modifier = Modifier
-                    .weight(1f)
-                    .padding(start = SpacingScale.spacing03)
+                modifier = Modifier.weight(1f)
             )
 
             DropdownStateIcon(state = state)
