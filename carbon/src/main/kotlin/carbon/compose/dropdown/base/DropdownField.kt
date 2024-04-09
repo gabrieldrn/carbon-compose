@@ -71,14 +71,14 @@ private fun Modifier.dropdownClickable(
     expandedStates: MutableTransitionState<Boolean>,
     onClick: () -> Unit
 ): Modifier = this
-    .pointerInput(Unit) {
+    .pointerInput(onClick) {
         awaitEachGesture {
             // Custom pointer input to handle input events on the field.
-            awaitFirstDown(pass = PointerEventPass.Initial)
+            val downEvent = awaitFirstDown(pass = PointerEventPass.Initial)
             val expandStateOnDown = expandedStates.currentState
             waitForUpOrCancellation(pass = PointerEventPass.Initial)?.let {
                 // Avoid expanding back if the dropdown was expanded on down.
-                if (!expandStateOnDown) {
+                if (!downEvent.isConsumed && !expandStateOnDown) {
                     onClick()
                 }
             }
