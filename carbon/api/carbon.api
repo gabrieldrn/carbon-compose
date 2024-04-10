@@ -50,73 +50,73 @@ public final class carbon/compose/checkbox/CheckboxKt {
 	public static final fun Checkbox (Landroidx/compose/ui/state/ToggleableState;Lcarbon/compose/checkbox/CheckboxInteractiveState;Ljava/lang/String;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Ljava/lang/String;Ljava/lang/String;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;II)V
 }
 
-public abstract interface class carbon/compose/dropdown/DropdownInteractiveState {
-	public static final field Companion Lcarbon/compose/dropdown/DropdownInteractiveState$Companion;
-}
-
-public final class carbon/compose/dropdown/DropdownInteractiveState$Companion {
-}
-
-public final class carbon/compose/dropdown/DropdownInteractiveState$Disabled : carbon/compose/dropdown/DropdownInteractiveState {
-	public static final field $stable I
-	public static final field INSTANCE Lcarbon/compose/dropdown/DropdownInteractiveState$Disabled;
-	public fun equals (Ljava/lang/Object;)Z
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
-}
-
-public final class carbon/compose/dropdown/DropdownInteractiveState$Enabled : carbon/compose/dropdown/DropdownInteractiveState {
-	public static final field $stable I
-	public static final field INSTANCE Lcarbon/compose/dropdown/DropdownInteractiveState$Enabled;
-	public fun equals (Ljava/lang/Object;)Z
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
-}
-
-public final class carbon/compose/dropdown/DropdownInteractiveState$Error : carbon/compose/dropdown/DropdownInteractiveState {
-	public static final field $stable I
-	public fun <init> (Ljava/lang/String;)V
-	public final fun component1 ()Ljava/lang/String;
-	public final fun copy (Ljava/lang/String;)Lcarbon/compose/dropdown/DropdownInteractiveState$Error;
-	public static synthetic fun copy$default (Lcarbon/compose/dropdown/DropdownInteractiveState$Error;Ljava/lang/String;ILjava/lang/Object;)Lcarbon/compose/dropdown/DropdownInteractiveState$Error;
-	public fun equals (Ljava/lang/Object;)Z
-	public final fun getHelperText ()Ljava/lang/String;
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
-}
-
-public final class carbon/compose/dropdown/DropdownInteractiveState$ReadOnly : carbon/compose/dropdown/DropdownInteractiveState {
-	public static final field $stable I
-	public static final field INSTANCE Lcarbon/compose/dropdown/DropdownInteractiveState$ReadOnly;
-	public fun equals (Ljava/lang/Object;)Z
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
-}
-
-public final class carbon/compose/dropdown/DropdownInteractiveState$Warning : carbon/compose/dropdown/DropdownInteractiveState {
-	public static final field $stable I
-	public fun <init> (Ljava/lang/String;)V
-	public final fun component1 ()Ljava/lang/String;
-	public final fun copy (Ljava/lang/String;)Lcarbon/compose/dropdown/DropdownInteractiveState$Warning;
-	public static synthetic fun copy$default (Lcarbon/compose/dropdown/DropdownInteractiveState$Warning;Ljava/lang/String;ILjava/lang/Object;)Lcarbon/compose/dropdown/DropdownInteractiveState$Warning;
-	public fun equals (Ljava/lang/Object;)Z
-	public final fun getHelperText ()Ljava/lang/String;
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
-}
-
 public final class carbon/compose/dropdown/DropdownKt {
-	public static final fun Dropdown (ZLjava/lang/String;Ljava/lang/Object;Ljava/util/Map;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Ljava/lang/String;Lcarbon/compose/dropdown/DropdownInteractiveState;Lcarbon/compose/dropdown/DropdownSize;ILandroidx/compose/runtime/Composer;III)V
+	public static final fun Dropdown (ZLjava/lang/String;Ljava/util/Map;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Ljava/lang/String;Lcarbon/compose/dropdown/base/DropdownInteractiveState;Lcarbon/compose/dropdown/base/DropdownSize;ILandroidx/compose/runtime/Composer;III)V
 }
 
-public final class carbon/compose/dropdown/DropdownOption {
+public abstract interface class carbon/compose/dropdown/base/DropdownInteractiveState {
+	public static final field Companion Lcarbon/compose/dropdown/base/DropdownInteractiveState$Companion;
+}
+
+public final class carbon/compose/dropdown/base/DropdownInteractiveState$Companion {
+}
+
+public final class carbon/compose/dropdown/base/DropdownInteractiveState$Disabled : carbon/compose/dropdown/base/DropdownInteractiveState {
+	public static final field $stable I
+	public static final field INSTANCE Lcarbon/compose/dropdown/base/DropdownInteractiveState$Disabled;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class carbon/compose/dropdown/base/DropdownInteractiveState$Enabled : carbon/compose/dropdown/base/DropdownInteractiveState {
+	public static final field $stable I
+	public static final field INSTANCE Lcarbon/compose/dropdown/base/DropdownInteractiveState$Enabled;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class carbon/compose/dropdown/base/DropdownInteractiveState$Error : carbon/compose/dropdown/base/DropdownInteractiveState {
+	public static final field $stable I
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lcarbon/compose/dropdown/base/DropdownInteractiveState$Error;
+	public static synthetic fun copy$default (Lcarbon/compose/dropdown/base/DropdownInteractiveState$Error;Ljava/lang/String;ILjava/lang/Object;)Lcarbon/compose/dropdown/base/DropdownInteractiveState$Error;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getHelperText ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class carbon/compose/dropdown/base/DropdownInteractiveState$ReadOnly : carbon/compose/dropdown/base/DropdownInteractiveState {
+	public static final field $stable I
+	public static final field INSTANCE Lcarbon/compose/dropdown/base/DropdownInteractiveState$ReadOnly;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class carbon/compose/dropdown/base/DropdownInteractiveState$Warning : carbon/compose/dropdown/base/DropdownInteractiveState {
+	public static final field $stable I
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lcarbon/compose/dropdown/base/DropdownInteractiveState$Warning;
+	public static synthetic fun copy$default (Lcarbon/compose/dropdown/base/DropdownInteractiveState$Warning;Ljava/lang/String;ILjava/lang/Object;)Lcarbon/compose/dropdown/base/DropdownInteractiveState$Warning;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getHelperText ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class carbon/compose/dropdown/base/DropdownOption {
 	public static final field $stable I
 	public fun <init> (Ljava/lang/String;Z)V
 	public synthetic fun <init> (Ljava/lang/String;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
 	public final fun component2 ()Z
-	public final fun copy (Ljava/lang/String;Z)Lcarbon/compose/dropdown/DropdownOption;
-	public static synthetic fun copy$default (Lcarbon/compose/dropdown/DropdownOption;Ljava/lang/String;ZILjava/lang/Object;)Lcarbon/compose/dropdown/DropdownOption;
+	public final fun copy (Ljava/lang/String;Z)Lcarbon/compose/dropdown/base/DropdownOption;
+	public static synthetic fun copy$default (Lcarbon/compose/dropdown/base/DropdownOption;Ljava/lang/String;ZILjava/lang/Object;)Lcarbon/compose/dropdown/base/DropdownOption;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getEnabled ()Z
 	public final fun getValue ()Ljava/lang/String;
@@ -124,13 +124,17 @@ public final class carbon/compose/dropdown/DropdownOption {
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class carbon/compose/dropdown/DropdownSize : java/lang/Enum {
-	public static final field Large Lcarbon/compose/dropdown/DropdownSize;
-	public static final field Medium Lcarbon/compose/dropdown/DropdownSize;
-	public static final field Small Lcarbon/compose/dropdown/DropdownSize;
+public final class carbon/compose/dropdown/base/DropdownSize : java/lang/Enum {
+	public static final field Large Lcarbon/compose/dropdown/base/DropdownSize;
+	public static final field Medium Lcarbon/compose/dropdown/base/DropdownSize;
+	public static final field Small Lcarbon/compose/dropdown/base/DropdownSize;
 	public static fun getEntries ()Lkotlin/enums/EnumEntries;
-	public static fun valueOf (Ljava/lang/String;)Lcarbon/compose/dropdown/DropdownSize;
-	public static fun values ()[Lcarbon/compose/dropdown/DropdownSize;
+	public static fun valueOf (Ljava/lang/String;)Lcarbon/compose/dropdown/base/DropdownSize;
+	public static fun values ()[Lcarbon/compose/dropdown/base/DropdownSize;
+}
+
+public final class carbon/compose/dropdown/multiselect/MultiselectDropdownKt {
+	public static final fun MultiselectDropdown (ZLjava/lang/String;Ljava/util/Map;Ljava/util/List;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Ljava/lang/String;Lcarbon/compose/dropdown/base/DropdownInteractiveState;Lcarbon/compose/dropdown/base/DropdownSize;ILandroidx/compose/runtime/Composer;III)V
 }
 
 public final class carbon/compose/foundation/color/Gray100Theme : carbon/compose/foundation/color/Theme {
