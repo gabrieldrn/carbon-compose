@@ -83,7 +83,19 @@ private fun DemoDropdown(
     modifier: Modifier = Modifier,
     state: DropdownInteractiveState = DropdownInteractiveState.Enabled,
 ) {
-    var selectedOptions by remember { mutableStateOf<List<Int>>(listOf()) }
+    var selectedOptions by remember {
+        mutableStateOf<List<Int>>(
+            if (state in arrayOf(
+                    DropdownInteractiveState.Disabled,
+                    DropdownInteractiveState.ReadOnly
+                )
+            ) {
+                listOf(0)
+            } else {
+                listOf()
+            }
+        )
+    }
     var expanded by remember { mutableStateOf(false) }
 
     MultiselectDropdown(
