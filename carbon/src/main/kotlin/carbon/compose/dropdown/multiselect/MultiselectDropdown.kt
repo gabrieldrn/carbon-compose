@@ -99,7 +99,6 @@ public fun <K : Any> MultiselectDropdown(
                 placeholderText = fieldPlaceholderText,
                 colors = colors,
                 state = state,
-                modifier = Modifier.weight(1f)
             )
 
             DropdownStateIcon(state = state)

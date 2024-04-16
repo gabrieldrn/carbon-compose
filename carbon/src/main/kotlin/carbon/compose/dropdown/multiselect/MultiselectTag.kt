@@ -26,7 +26,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.drawscope.ContentDrawScope
 import androidx.compose.ui.graphics.drawscope.inset
+import androidx.compose.ui.layout.layoutId
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
+import carbon.compose.dropdown.base.DropdownFieldContentId
+import carbon.compose.dropdown.base.DropdownTestTags
 import carbon.compose.foundation.color.LocalCarbonTheme
 import carbon.compose.foundation.color.Theme
 import carbon.compose.foundation.spacing.SpacingScale
@@ -51,7 +55,9 @@ internal fun DropdownMultiselectTag(
                 interactionSource = interactionSource,
                 indication = null,
                 onClick = onCloseTagClick
-            ),
+            )
+            .testTag(DropdownTestTags.FIELD_MULTISELECT_TAG)
+            .layoutId(DropdownFieldContentId.MULTISELECT_TAG),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(

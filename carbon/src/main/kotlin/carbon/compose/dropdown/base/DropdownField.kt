@@ -15,7 +15,6 @@ import androidx.compose.foundation.indication
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -30,6 +29,8 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.PointerEventPass
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.layout.Layout
+import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.disabled
@@ -108,7 +109,7 @@ internal fun DropdownField(
     transition: Transition<Boolean>,
     expandedStates: MutableTransitionState<Boolean>,
     onExpandedChange: (Boolean) -> Unit,
-    fieldContent: @Composable RowScope.() -> Unit,
+    fieldContent: @Composable () -> Unit,
     modifier: Modifier = Modifier,
     colors: DropdownColors = DropdownColors(LocalCarbonTheme.current),
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
@@ -168,12 +169,13 @@ internal fun DropdownField(
                 .fillMaxHeight()
                 .padding(horizontal = SpacingScale.spacing05)
         ) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
+            Layout(
+                content = fieldContent,
+                measurePolicy = DropdownFieldContentMeasurePolicy(),
                 modifier = Modifier
                     .fillMaxHeight()
-                    .weight(1f),
-                content = fieldContent
+                    .weight(1f)
+                    .testTag(DropdownTestTags.FIELD_LAYOUT),
             )
 
             Image(
@@ -205,9 +207,9 @@ internal fun DropdownField(
 @Composable
 internal fun DropdownPlaceholderText(
     placeholderText: String,
-    colors: DropdownColors = DropdownColors(LocalCarbonTheme.current),
     state: DropdownInteractiveState,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    colors: DropdownColors = DropdownColors(LocalCarbonTheme.current),
 ) {
     Text(
         text = placeholderText,
@@ -215,7 +217,9 @@ internal fun DropdownPlaceholderText(
         color = colors.fieldTextColor(state),
         maxLines = 1,
         overflow = TextOverflow.Ellipsis,
-        modifier = modifier.testTag(DropdownTestTags.FIELD_PLACEHOLDER)
+        modifier = modifier
+            .layoutId(DropdownFieldContentId.PLACEHOLDER)
+            .testTag(DropdownTestTags.FIELD_PLACEHOLDER)
     )
 }
 
@@ -228,13 +232,23 @@ internal fun DropdownStateIcon(
         is DropdownInteractiveState.Warning -> WarningIcon(
             modifier = modifier
                 .padding(horizontal = SpacingScale.spacing03)
+                .layoutId(DropdownFieldContentId.STATE_ICON)
                 .testTag(DropdownTestTags.FIELD_WARNING_ICON)
         )
         is DropdownInteractiveState.Error -> ErrorIcon(
             modifier = modifier
                 .padding(horizontal = SpacingScale.spacing03)
+                .layoutId(DropdownFieldContentId.STATE_ICON)
                 .testTag(DropdownTestTags.FIELD_ERROR_ICON)
         )
         else -> {}
     }
+}
+
+internal object DropdownFieldContentId {
+    const val PLACEHOLDER = "placeholder"
+    const val STATE_ICON = "stateIcon"
+    const val MULTISELECT_TAG = "multiselectTag"
+
+    val ids = listOf(PLACEHOLDER, STATE_ICON, MULTISELECT_TAG)
 }

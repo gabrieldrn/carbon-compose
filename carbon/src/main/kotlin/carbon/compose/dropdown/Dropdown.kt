@@ -89,7 +89,6 @@ public fun <K : Any> Dropdown(
                 placeholderText = fieldText,
                 colors = colors,
                 state = state,
-                modifier = Modifier.weight(1f)
             )
 
             DropdownStateIcon(state = state)

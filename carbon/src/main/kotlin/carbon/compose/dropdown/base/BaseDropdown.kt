@@ -8,7 +8,6 @@ import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -59,7 +58,11 @@ private fun Modifier.onEscape(block: () -> Unit) = onPreviewKeyEvent {
 }
 
 /**
- * Common composable to all kinds of dropdowns. It contains the logic to handle the dropdown state.
+ * Common composable to all kinds of dropdowns.
+ * A dropdown consists of a field and a popup. Field content is driven by [fieldContent] and popup
+ * content by [popupContent]. Contents of the field should be marked with layout ids from
+ * [DropdownFieldContentId].
+ * This composable should not be used directly but rather used by the dropdown variants.
  */
 @Composable
 internal fun <K : Any> BaseDropdown(
@@ -73,7 +76,7 @@ internal fun <K : Any> BaseDropdown(
     dropdownSize: DropdownSize = DropdownSize.Large,
     colors: DropdownColors = DropdownColors(LocalCarbonTheme.current),
     @IntRange(from = 1) minVisibleItems: Int = 4,
-    fieldContent: @Composable RowScope.() -> Unit,
+    fieldContent: @Composable () -> Unit,
     popupContent: @Composable DropdownPopupScope.() -> Unit,
 ) {
     require(options.isNotEmpty()) {

@@ -2,6 +2,8 @@ package carbon.compose.dropdown.base
 
 internal object DropdownTestTags {
     const val FIELD: String = "carbon_dropdown_field"
+    const val FIELD_LAYOUT: String = "carbon_dropdown_field_layout"
+    const val FIELD_MULTISELECT_TAG: String = "carbon_dropdown_field_multiselect_tag"
     const val FIELD_CHEVRON: String = "carbon_dropdown_field_chevron"
     const val FIELD_DIVIDER: String = "carbon_dropdown_field_divider"
     const val FIELD_ERROR_ICON: String = "carbon_dropdown_field_error_icon"

@@ -38,7 +38,6 @@ private fun DropdownFieldPreview() {
                 DropdownPlaceholderText(
                     placeholderText = "Placeholder",
                     state = state,
-                    modifier = Modifier.weight(1f)
                 )
 
                 DropdownStateIcon(state = state)

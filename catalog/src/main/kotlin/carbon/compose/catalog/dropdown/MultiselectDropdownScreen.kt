@@ -87,7 +87,7 @@ private fun DemoDropdown(
     var expanded by remember { mutableStateOf(false) }
 
     MultiselectDropdown(
-        label = "Dropdown",
+        label = "Multiselect dropdown",
         expanded = expanded,
         fieldPlaceholderText = title,
         selectedOptions = selectedOptions,
