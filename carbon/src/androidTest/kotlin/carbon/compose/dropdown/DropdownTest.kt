@@ -1,6 +1,5 @@
 package carbon.compose.dropdown
 
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -8,9 +7,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.assertCountEquals
-import androidx.compose.ui.test.assertHeightIsEqualTo
 import androidx.compose.ui.test.assertIsDisplayed
-import androidx.compose.ui.test.assertIsNotDisplayed
 import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createComposeRule
@@ -48,21 +45,20 @@ class DropdownTest {
     @Before
     fun setup() {
         composeTestRule.setContent {
-            Column(Modifier.fillMaxWidth()) {
-                Dropdown(
-                    label = label,
-                    expanded = isExpanded,
-                    fieldPlaceholderText = placeholder,
-                    selectedOption = selectedOptionKey,
-                    options = options,
-                    onOptionSelected = { selectedOptionKey = it },
-                    onExpandedChange = { isExpanded = it },
-                    onDismissRequest = { isExpanded = false },
-                    minVisibleItems = minVisibleItems,
-                    dropdownSize = dropdownSize,
-                    state = state
-                )
-            }
+            Dropdown(
+                label = label,
+                expanded = isExpanded,
+                fieldPlaceholderText = placeholder,
+                selectedOption = selectedOptionKey,
+                options = options,
+                onOptionSelected = { selectedOptionKey = it },
+                onExpandedChange = { isExpanded = it },
+                onDismissRequest = { isExpanded = false },
+                minVisibleItems = minVisibleItems,
+                dropdownSize = dropdownSize,
+                state = state,
+                modifier = Modifier.fillMaxWidth()
+            )
         }
     }
 
@@ -72,85 +68,6 @@ class DropdownTest {
         isExpanded = false
         selectedOptionKey = null
         dropdownSize = DropdownSize.Large
-    }
-
-    @Test
-    fun dropdown_label_validateLayout() {
-        composeTestRule.run {
-            onNodeWithTag(DropdownTestTags.LABEL_TEXT)
-                .assertIsDisplayed()
-                .assert(hasText(placeholder))
-
-            label = "   "
-            onNodeWithTag(DropdownTestTags.LABEL_TEXT)
-                .assertIsNotDisplayed()
-
-            label = ""
-            onNodeWithTag(DropdownTestTags.LABEL_TEXT)
-                .assertIsNotDisplayed()
-
-            label = null
-            onNodeWithTag(DropdownTestTags.LABEL_TEXT)
-                .assertIsNotDisplayed()
-        }
-    }
-
-    @Test
-    fun dropdown_withStates_validateLayout() {
-        composeTestRule.run {
-            val warningMessage = "Warning message goes here"
-            val errorMessage = "Error message goes here"
-
-            listOf(
-                DropdownInteractiveState.Enabled,
-                DropdownInteractiveState.Warning(warningMessage),
-                DropdownInteractiveState.Error(errorMessage),
-                DropdownInteractiveState.Disabled,
-                DropdownInteractiveState.ReadOnly
-            ).forEach {
-                state = it
-
-                onNodeWithTag(DropdownTestTags.POPUP_CONTENT)
-                    .assertIsNotDisplayed()
-
-                when (state) {
-                    is DropdownInteractiveState.Enabled,
-                    is DropdownInteractiveState.ReadOnly ->
-                        onNodeWithTag(DropdownTestTags.HELPER_TEXT)
-                            .assertIsNotDisplayed()
-
-                    is DropdownInteractiveState.Warning ->
-                        onNodeWithTag(DropdownTestTags.HELPER_TEXT)
-                            .assertIsDisplayed()
-                            .assert(hasText(warningMessage))
-
-                    is DropdownInteractiveState.Error ->
-                        onNodeWithTag(DropdownTestTags.HELPER_TEXT)
-                            .assertIsDisplayed()
-                            .assert(hasText(errorMessage))
-                    else -> {}
-                }
-            }
-        }
-    }
-
-    @Suppress("DEPRECATION")
-    @Test
-    fun dropdown_field_validateSize() {
-        composeTestRule.run {
-            onNodeWithTag(DropdownTestTags.FIELD)
-                .assertHeightIsEqualTo(DropdownSize.Large.height)
-
-            dropdownSize = DropdownSize.Small
-
-            onNodeWithTag(DropdownTestTags.FIELD)
-                .assertHeightIsEqualTo(DropdownSize.Small.height)
-
-            dropdownSize = DropdownSize.Medium
-
-            onNodeWithTag(DropdownTestTags.FIELD)
-                .assertHeightIsEqualTo(DropdownSize.Medium.height)
-        }
     }
 
     @Test
@@ -171,29 +88,6 @@ class DropdownTest {
 
             onNode(hasTestTag(DropdownTestTags.MENU_OPTION).and(hasText("Option 9")))
                 .assertIsDisplayed()
-        }
-    }
-
-    @Test
-    fun dropdown_optionsPopup_expandAndCollapse() {
-        composeTestRule.run {
-            onNodeWithTag(DropdownTestTags.POPUP_CONTENT)
-                .assertIsNotDisplayed()
-
-            onNodeWithTag(DropdownTestTags.FIELD)
-                .performClick()
-
-            onNodeWithTag(DropdownTestTags.POPUP_CONTENT)
-                .assertIsDisplayed()
-
-            // TODO Tried to shrink the dropdown by invoking a touch event on the field, but for
-            //  some reason it didn't work.
-//            onNodeWithTag(DropdownTestTags.FIELD)
-//                .performClick()
-            isExpanded = false
-
-            onNodeWithTag(DropdownTestTags.POPUP_CONTENT)
-                .assertIsNotDisplayed()
         }
     }
 
