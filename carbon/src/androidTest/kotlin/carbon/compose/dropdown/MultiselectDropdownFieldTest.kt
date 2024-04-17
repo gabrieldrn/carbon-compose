@@ -38,7 +38,11 @@ class MultiselectDropdownFieldTest : DropdownFieldTest() {
                     expandedStates = expandedStates,
                     onExpandedChange = { expandedStates.targetState = it },
                     fieldContent = {
-                        DropdownMultiselectTag(count = 1, onCloseTagClick = {})
+                        DropdownMultiselectTag(
+                            state = state,
+                            count = 1,
+                            onCloseTagClick = {}
+                        )
 
                         DropdownPlaceholderText(
                             placeholderText = placeholder,

@@ -87,8 +87,9 @@ public fun <K : Any> MultiselectDropdown(
         colors = colors,
         minVisibleItems = minVisibleItems,
         fieldContent = {
-            if (selectedOptions.isNotEmpty()) {
+            if (selectedOptions.isNotEmpty() && state !is DropdownInteractiveState.Disabled) {
                 DropdownMultiselectTag(
+                    state = state,
                     count = selectedOptions.size,
                     onCloseTagClick = onClearSelection,
                     modifier = Modifier.padding(end = SpacingScale.spacing03)
