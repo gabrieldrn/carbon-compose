@@ -2,10 +2,11 @@ package carbon.compose.dropdown
 
 import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.animation.core.updateTransition
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.ui.test.assertHasClickAction
 import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.assertIsEnabled
+import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.getUnclippedBoundsInRoot
 import androidx.compose.ui.test.junit4.ComposeContentTestRule
 import androidx.compose.ui.test.onNodeWithTag
@@ -21,6 +22,7 @@ import carbon.compose.dropdown.base.DropdownTestTags
 import carbon.compose.dropdown.multiselect.DropdownMultiselectTag
 import carbon.compose.foundation.color.WhiteTheme
 import org.junit.Before
+import org.junit.Test
 
 class MultiselectDropdownFieldTest : DropdownFieldTest() {
 
@@ -81,6 +83,27 @@ class MultiselectDropdownFieldTest : DropdownFieldTest() {
                     .getUnclippedBoundsInRoot()
                     .width
             )
+        }
+    }
+
+    @Test
+    fun dropdownField_multiselectTag_validateSemantics() {
+        composeTestRule.run {
+            interactiveStates.forEach { state ->
+                this@MultiselectDropdownFieldTest.state = state
+
+                if (state in arrayOf(
+                        DropdownInteractiveState.Disabled, DropdownInteractiveState.ReadOnly
+                    )
+                ) {
+                    onNodeWithTag(DropdownTestTags.FIELD_MULTISELECT_TAG, useUnmergedTree = true)
+                        .assertIsNotEnabled()
+                } else {
+                    onNodeWithTag(DropdownTestTags.FIELD_MULTISELECT_TAG, useUnmergedTree = true)
+                        .assertIsEnabled()
+                        .assertHasClickAction()
+                }
+            }
         }
     }
 }

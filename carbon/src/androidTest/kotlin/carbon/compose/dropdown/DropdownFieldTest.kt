@@ -42,12 +42,19 @@ open class DropdownFieldTest {
 
     @get:Rule
     val composeTestRule = createComposeRule()
-    val sideComposeTestRule = createComposeRule()
 
     protected var state by mutableStateOf<DropdownInteractiveState>(
         DropdownInteractiveState.Enabled
     )
     protected val placeholder = "Dropdown"
+
+    protected val interactiveStates = listOf(
+        DropdownInteractiveState.Enabled,
+        DropdownInteractiveState.Warning("Warning message goes here"),
+        DropdownInteractiveState.Error("Error message goes here"),
+        DropdownInteractiveState.Disabled,
+        DropdownInteractiveState.ReadOnly
+    )
 
     @Before
     open fun setup() {
@@ -123,16 +130,7 @@ open class DropdownFieldTest {
     @Test
     fun dropdownField_validateContent() {
         composeTestRule.run {
-            val warningMessage = "Warning message goes here"
-            val errorMessage = "Error message goes here"
-
-            listOf(
-                DropdownInteractiveState.Enabled,
-                DropdownInteractiveState.Warning(warningMessage),
-                DropdownInteractiveState.Error(errorMessage),
-                DropdownInteractiveState.Disabled,
-                DropdownInteractiveState.ReadOnly
-            ).forEach {
+            interactiveStates.forEach {
                 state = it
                 onContentValidation(this, state)
             }
@@ -175,18 +173,9 @@ open class DropdownFieldTest {
     @Test
     fun dropdownField_validateLayout() {
         composeTestRule.run {
-            val warningMessage = "Warning message goes here"
-            val errorMessage = "Error message goes here"
-
             val contentWidths = mutableListOf<Dp>()
 
-            listOf(
-                DropdownInteractiveState.Enabled,
-                DropdownInteractiveState.Warning(warningMessage),
-                DropdownInteractiveState.Error(errorMessage),
-                DropdownInteractiveState.Disabled,
-                DropdownInteractiveState.ReadOnly
-            ).forEach {
+            interactiveStates.forEach {
                 state = it
 
                 onLayoutValidationGetFieldContentWidths(this, state, contentWidths)
