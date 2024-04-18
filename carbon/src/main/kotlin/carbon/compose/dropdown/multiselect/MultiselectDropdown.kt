@@ -37,7 +37,7 @@ import carbon.compose.foundation.spacing.SpacingScale
  *
  * @param K Type to identify the options.
  * @param expanded Whether the dropdown is expanded or not.
- * @param fieldPlaceholderText The text to be displayed in the field when no option is selected.
+ * @param placeholder The text to be displayed in the field when no option is selected.
  * @param options The options to be displayed in the dropdown menu. A map signature ensures that the
  * keys are unique and can be used to identify the selected option. The strings associated with each
  * key are the texts to be displayed in the dropdown menu.
@@ -60,7 +60,7 @@ import carbon.compose.foundation.spacing.SpacingScale
 @Composable
 public fun <K : Any> MultiselectDropdown(
     expanded: Boolean,
-    fieldPlaceholderText: String,
+    placeholder: String,
     options: Map<K, DropdownOption>,
     selectedOptions: List<K>,
     onOptionClicked: (K) -> Unit,
@@ -97,7 +97,7 @@ public fun <K : Any> MultiselectDropdown(
             }
 
             DropdownPlaceholderText(
-                placeholderText = fieldPlaceholderText,
+                placeholderText = placeholder,
                 colors = colors,
                 state = state,
             )

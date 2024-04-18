@@ -36,7 +36,7 @@ private fun MultiselectDropdownPreview(
     CarbonDesignSystem {
         MultiselectDropdown(
             expanded = expanded,
-            fieldPlaceholderText = state::class.java.simpleName,
+            placeholder = state::class.java.simpleName,
             options = mapOf(0 to DropdownOption("Option 0")),
             selectedOptions = listOf(0),
             onExpandedChange = { expanded = it },

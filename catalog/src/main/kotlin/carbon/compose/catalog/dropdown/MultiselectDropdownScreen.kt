@@ -101,7 +101,7 @@ private fun DemoDropdown(
     MultiselectDropdown(
         label = "Multiselect dropdown",
         expanded = expanded,
-        fieldPlaceholderText = title,
+        placeholder = title,
         selectedOptions = selectedOptions,
         options = dropdownOptions,
         onOptionClicked = {

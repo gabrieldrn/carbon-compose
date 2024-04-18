@@ -47,7 +47,7 @@ class MultiselectDropdownTest {
         composeTestRule.setContent {
             MultiselectDropdown(
                 expanded = isExpanded,
-                fieldPlaceholderText = placeholder,
+                placeholder = placeholder,
                 options = options,
                 selectedOptions = selectedOptions,
                 onOptionClicked = selectedOptions::add,

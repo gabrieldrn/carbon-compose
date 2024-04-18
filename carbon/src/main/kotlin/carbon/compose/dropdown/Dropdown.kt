@@ -31,7 +31,7 @@ import carbon.compose.foundation.color.LocalCarbonTheme
  *
  * @param K Type to identify the options.
  * @param expanded Whether the dropdown is expanded or not.
- * @param fieldPlaceholderText The text to be displayed in the field when no option is selected.
+ * @param placeholder The text to be displayed in the field when no option is selected.
  * @param options The options to be displayed in the dropdown menu. A map signature ensures that the
  * @param selectedOption The currently selected option. When not null, the option associated with
  * this key will be displayed in the field.
@@ -55,7 +55,7 @@ import carbon.compose.foundation.color.LocalCarbonTheme
 @Composable
 public fun <K : Any> Dropdown(
     expanded: Boolean,
-    fieldPlaceholderText: String,
+    placeholder: String,
     options: Map<K, DropdownOption>,
     selectedOption: K?,
     onOptionSelected: (K) -> Unit,
@@ -68,7 +68,7 @@ public fun <K : Any> Dropdown(
     @IntRange(from = 1) minVisibleItems: Int = 4,
 ) {
     val fieldText = remember(selectedOption) {
-        options[selectedOption]?.value ?: fieldPlaceholderText
+        options[selectedOption]?.value ?: placeholder
     }
 
     val colors = DropdownColors(LocalCarbonTheme.current)

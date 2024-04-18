@@ -48,7 +48,7 @@ class DropdownTest {
             Dropdown(
                 label = label,
                 expanded = isExpanded,
-                fieldPlaceholderText = placeholder,
+                placeholder = placeholder,
                 selectedOption = selectedOptionKey,
                 options = options,
                 onOptionSelected = { selectedOptionKey = it },

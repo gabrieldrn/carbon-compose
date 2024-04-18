@@ -38,7 +38,7 @@ private fun DropdownPreview(
             expanded = expanded,
             onExpandedChange = { expanded = it },
             onDismissRequest = { expanded = false },
-            fieldPlaceholderText = state::class.java.simpleName,
+            placeholder = state::class.java.simpleName,
             selectedOption = null,
             options = mapOf(0 to DropdownOption("Option 0")),
             onOptionSelected = {},

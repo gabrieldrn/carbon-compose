@@ -89,7 +89,7 @@ private fun DemoDropdown(
     Dropdown(
         label = "Dropdown",
         expanded = expanded,
-        fieldPlaceholderText = title,
+        placeholder = title,
         selectedOption = selectedOption,
         options = dropdownOptions,
         onOptionSelected = { selectedOption = it },
