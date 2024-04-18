@@ -2,7 +2,7 @@ package carbon.compose.dropdown.domain
 
 import androidx.annotation.IntRange
 import androidx.compose.ui.unit.dp
-import carbon.compose.dropdown.DropdownInteractiveState
+import carbon.compose.dropdown.base.DropdownInteractiveState
 import carbon.compose.foundation.spacing.SpacingScale
 
 /**

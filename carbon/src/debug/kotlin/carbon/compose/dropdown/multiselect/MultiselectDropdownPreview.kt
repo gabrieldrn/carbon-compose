@@ -1,4 +1,4 @@
-package carbon.compose.dropdown
+package carbon.compose.dropdown.multiselect
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -28,20 +28,21 @@ internal class DropdownStateParameterProvider : PreviewParameterProvider<Dropdow
 
 @Preview(showBackground = true, backgroundColor = 0xFFFFFFFF)
 @Composable
-private fun DropdownPreview(
+private fun MultiselectDropdownPreview(
     @PreviewParameter(DropdownStateParameterProvider::class) state: DropdownInteractiveState,
 ) {
     var expanded by remember { mutableStateOf(false) }
 
     CarbonDesignSystem {
-        Dropdown(
+        MultiselectDropdown(
             expanded = expanded,
+            placeholder = state::class.java.simpleName,
+            options = mapOf(0 to DropdownOption("Option 0")),
+            selectedOptions = listOf(0),
             onExpandedChange = { expanded = it },
             onDismissRequest = { expanded = false },
-            placeholder = state::class.java.simpleName,
-            selectedOption = null,
-            options = mapOf(0 to DropdownOption("Option 0")),
-            onOptionSelected = {},
+            onOptionClicked = {},
+            onClearSelection = {},
             state = state,
             modifier = Modifier
                 .padding(8.dp)

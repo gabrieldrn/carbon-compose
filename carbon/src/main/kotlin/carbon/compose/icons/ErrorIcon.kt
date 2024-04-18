@@ -18,7 +18,7 @@ private val errorIconHeight = 32f.dp
 
 internal val errorIcon: ImageVector
     get() = ImageVector.Builder(
-        name = "CheckboxErrorIcon",
+        name = "ErrorIcon",
         defaultWidth = errorIconWidth,
         defaultHeight = errorIconHeight,
         viewportWidth = errorIconWidth.value,

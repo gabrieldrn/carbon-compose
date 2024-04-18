@@ -1,45 +1,50 @@
-package carbon.compose.dropdown
+package carbon.compose.dropdown.multiselect
 
 import androidx.annotation.IntRange
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import carbon.compose.dropdown.base.BaseDropdown
 import carbon.compose.dropdown.base.DropdownColors
 import carbon.compose.dropdown.base.DropdownInteractiveState
 import carbon.compose.dropdown.base.DropdownOption
 import carbon.compose.dropdown.base.DropdownPlaceholderText
-import carbon.compose.dropdown.base.DropdownPopupContent
 import carbon.compose.dropdown.base.DropdownSize
 import carbon.compose.dropdown.base.DropdownStateIcon
 import carbon.compose.foundation.color.LocalCarbonTheme
+import carbon.compose.foundation.spacing.SpacingScale
 
 /**
- * # Dropdown
+ * # Multiselect Dropdown
  *
- * Dropdowns present a list of options from which a user can select one option.
- * A selected option can represent a value in a form, or can be used as an action to filter or sort
- * existing content.
+ * Use when you can select multiple options from a list or to filter information.
  *
- * Only one option can be selected at a time.
+ * **Making a selection**
  * - By default, the dropdown displays placeholder text in the field when closed.
- * - Clicking on a closed field opens a menu of options.
- * - Selecting an option from the menu closes it and the selected option text replaces the
- * placeholder text in the field and also remains as an option in place if the menu is open.
+ * - Clicking a closed field opens a menu of options. Each option contains a checkbox input to the
+ *   left of the option text.
+ * - The menu stays open while options are being selected. The menu closes by clicking the field or
+ *   outside of the dropdown.
+ * - Once options have been selected from the menu, a tag appears to the left of the text in the
+ *   field containing the total number of selected options. The placeholder text can change to text
+ *   that better reflects what is selected.
+ * - Selected options shift to the top of the menu in alphanumeric order.
+ * - Unlike dropdown and combo box, the menu does not close once the user makes selections. Because
+ *   multiple selections are possible, the user needs to click outside of the dropdown or on the
+ *   parent element to close the menu.
  *
- * (From [Dropdown documentation](https://carbondesignsystem.com/components/dropdown/usage/))
+ * (From [Dropdown documentation](https://carbondesignsystem.com/components/dropdown/usage#multiselect))
  *
  * @param K Type to identify the options.
  * @param expanded Whether the dropdown is expanded or not.
  * @param placeholder The text to be displayed in the field when no option is selected.
  * @param options The options to be displayed in the dropdown menu. A map signature ensures that the
- * @param selectedOption The currently selected option. When not null, the option associated with
- * this key will be displayed in the field.
  * keys are unique and can be used to identify the selected option. The strings associated with each
  * key are the texts to be displayed in the dropdown menu.
- * @param onOptionSelected Callback invoked when an option is selected. The selected option key is
- * passed as a parameter, and the callback should be used to update a remembered state with the new
- * value.
+ * @param selectedOptions The currently selected options.
+ * @param onOptionClicked Callback invoked when an option is clicked. The option key is passed as a
+ * parameter, and the callback should be used to update a remembered state with the new value.
+ * @param onClearSelection Callback invoked when the clear selection button is clicked.
  * @param onExpandedChange Callback invoked when the expanded state of the dropdown changes. It
  * should be used to update a remembered state with the new value.
  * @param onDismissRequest Callback invoked when the dropdown menu should be dismissed.
@@ -53,12 +58,13 @@ import carbon.compose.foundation.color.LocalCarbonTheme
  * @throws IllegalArgumentException If the options map is empty.
  */
 @Composable
-public fun <K : Any> Dropdown(
+public fun <K : Any> MultiselectDropdown(
     expanded: Boolean,
     placeholder: String,
     options: Map<K, DropdownOption>,
-    selectedOption: K?,
-    onOptionSelected: (K) -> Unit,
+    selectedOptions: List<K>,
+    onOptionClicked: (K) -> Unit,
+    onClearSelection: () -> Unit,
     onExpandedChange: (Boolean) -> Unit,
     onDismissRequest: () -> Unit,
     modifier: Modifier = Modifier,
@@ -67,10 +73,6 @@ public fun <K : Any> Dropdown(
     dropdownSize: DropdownSize = DropdownSize.Large,
     @IntRange(from = 1) minVisibleItems: Int = 4,
 ) {
-    val fieldText = remember(selectedOption) {
-        options[selectedOption]?.value ?: placeholder
-    }
-
     val colors = DropdownColors(LocalCarbonTheme.current)
 
     BaseDropdown(
@@ -85,8 +87,17 @@ public fun <K : Any> Dropdown(
         colors = colors,
         minVisibleItems = minVisibleItems,
         fieldContent = {
+            if (selectedOptions.isNotEmpty() && state !is DropdownInteractiveState.Disabled) {
+                DropdownMultiselectTag(
+                    state = state,
+                    count = selectedOptions.size,
+                    onCloseTagClick = onClearSelection,
+                    modifier = Modifier.padding(end = SpacingScale.spacing03)
+                )
+            }
+
             DropdownPlaceholderText(
-                placeholderText = fieldText,
+                placeholderText = placeholder,
                 colors = colors,
                 state = state,
             )
@@ -94,15 +105,12 @@ public fun <K : Any> Dropdown(
             DropdownStateIcon(state = state)
         },
         popupContent = {
-            DropdownPopupContent(
-                selectedOption = selectedOption,
+            MultiselectDropdownPopupContent(
                 options = options,
+                selectedOptions = selectedOptions,
                 colors = colors,
                 componentHeight = dropdownSize.height,
-                onOptionClicked = { option ->
-                    onOptionSelected(option)
-                    onDismissRequest()
-                },
+                onOptionClicked = onOptionClicked,
                 modifier = Modifier.anchor()
             )
         }

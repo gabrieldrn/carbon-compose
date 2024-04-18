@@ -2,6 +2,7 @@ package carbon.compose.dropdown
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -20,6 +21,7 @@ import carbon.compose.dropdown.base.DropdownInteractiveState
 import carbon.compose.dropdown.base.DropdownOption
 import carbon.compose.dropdown.base.DropdownSize
 import carbon.compose.dropdown.base.DropdownTestTags
+import carbon.compose.dropdown.multiselect.MultiselectDropdown
 import carbon.compose.toList
 import org.junit.After
 import org.junit.Before
@@ -27,51 +29,50 @@ import org.junit.Rule
 import org.junit.Test
 import kotlin.test.assertEquals
 
-class DropdownTest {
+class MultiselectDropdownTest {
 
     @get:Rule
     val composeTestRule = createComposeRule()
 
-    private val options = (0..9).associateWith { DropdownOption("Option $it") }
-    private val minVisibleItems = 4
-
-    private var label by mutableStateOf<String?>("Dropdown")
     private var state by mutableStateOf<DropdownInteractiveState>(DropdownInteractiveState.Enabled)
+    private val options = (0..9).associateWith { DropdownOption("Option $it") }
+    private val selectedOptions = mutableStateListOf<Int>()
+    private val minVisibleItems = 4
     private var dropdownSize by mutableStateOf(DropdownSize.Large)
     private var isExpanded by mutableStateOf(false)
-    private var selectedOptionKey by mutableStateOf<Int?>(null)
-    private val placeholder = "Dropdown"
+    private val placeholder = "Multiselect dropdown"
 
     @Before
     fun setup() {
         composeTestRule.setContent {
-            Dropdown(
-                label = label,
+            MultiselectDropdown(
                 expanded = isExpanded,
                 placeholder = placeholder,
-                selectedOption = selectedOptionKey,
                 options = options,
-                onOptionSelected = { selectedOptionKey = it },
+                selectedOptions = selectedOptions,
+                onOptionClicked = selectedOptions::add,
+                onClearSelection = selectedOptions::clear,
                 onExpandedChange = { isExpanded = it },
                 onDismissRequest = { isExpanded = false },
                 minVisibleItems = minVisibleItems,
                 dropdownSize = dropdownSize,
                 state = state,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
             )
         }
     }
 
     @After
     fun tearDown() {
-        label = "Dropdown"
+        state = DropdownInteractiveState.Enabled
         isExpanded = false
-        selectedOptionKey = null
+        selectedOptions.clear()
         dropdownSize = DropdownSize.Large
     }
 
+    // Same test as in DropdownTest.kt, could it be merged?
     @Test
-    fun dropdown_optionsPopup_validateLayout() {
+    fun multiselectDropdown_optionsPopup_validateLayout() {
         isExpanded = true
 
         composeTestRule.run {
@@ -92,7 +93,7 @@ class DropdownTest {
     }
 
     @Test
-    fun dropdown_optionsPopup_onOptionClick_validateCallbackIsInvoked() {
+    fun multiselectDropdown_optionsPopup_onOptionClick_validateCallbackIsInvoked() {
         composeTestRule.run {
             isExpanded = true
 
@@ -101,34 +102,66 @@ class DropdownTest {
                 .performClick()
 
             assertEquals(
-                expected = 0,
-                actual = selectedOptionKey
+                expected = 1,
+                actual = selectedOptions.size
             )
         }
     }
 
     @Test
-    fun dropdown_optionsPopup_onOptionClick_validatePlaceholderFollowsState() {
+    fun multiselectDropdown_optionsPopup_onOptionClick_optionsListIsNotReorganized() {
         composeTestRule.run {
-            onNodeWithTag(DropdownTestTags.FIELD)
-                .assert(hasText(placeholder))
+            isExpanded = true
+
+            onAllNodesWithTag(DropdownTestTags.MENU_OPTION)
+                .get(3)
                 .performClick()
 
             onAllNodesWithTag(DropdownTestTags.MENU_OPTION)
-                .onFirst()
-                .performClick()
-
-            onNodeWithTag(DropdownTestTags.FIELD)
-                .assert(hasText("Option 0"))
+                .get(0)
+                .assert(hasText("Option 0")) // Option 0 is still at the top of the list
         }
     }
 
     @Test
-    fun dropdown_optionsPopup_validatePlaceholderValueOnCompositionComplete() {
-        selectedOptionKey = 0
+    fun multiselectDropdown_optionsPopup_withSelectedOptions_selectedOptionsAreOnTopOfList() {
         composeTestRule.run {
-            onNodeWithTag(DropdownTestTags.FIELD)
-                .assert(hasText("Option 0"))
+            selectedOptions.addAll(listOf(3, 5, 9))
+            isExpanded = true
+
+            onAllNodesWithTag(DropdownTestTags.MENU_OPTION).run {
+                assertCountEquals(minVisibleItems + 1)
+                toList().run {
+                    get(0).assert(hasText("Option 3"))
+                    get(1).assert(hasText("Option 5"))
+                    get(2).assert(hasText("Option 9"))
+                }
+            }
+        }
+    }
+
+    @Test
+    fun multiselectDropdown_withSelectedOptions_tagIsDisplayedWithCountOfSelectedOptions() {
+        composeTestRule.run {
+            selectedOptions.addAll(listOf(1, 2, 3))
+
+            onNodeWithTag(DropdownTestTags.FIELD_MULTISELECT_TAG)
+                .assert(hasText("3"))
+        }
+    }
+
+    @Test
+    fun multiselectDropdown_onClearSelection_validateCallbackIsInvoked() {
+        composeTestRule.run {
+            selectedOptions.addAll(listOf(0, 1, 2))
+
+            onNodeWithTag(DropdownTestTags.FIELD_MULTISELECT_TAG)
+                .performClick()
+
+            assertEquals(
+                expected = 0,
+                actual = selectedOptions.size
+            )
         }
     }
 }

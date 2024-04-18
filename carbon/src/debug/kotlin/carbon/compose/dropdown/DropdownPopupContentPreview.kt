@@ -4,6 +4,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import carbon.compose.CarbonDesignSystem
+import carbon.compose.dropdown.base.DropdownColors
+import carbon.compose.dropdown.base.DropdownOption
+import carbon.compose.dropdown.base.DropdownPopupContent
+import carbon.compose.dropdown.base.DropdownSize
 import carbon.compose.foundation.color.LocalCarbonTheme
 
 @Preview
@@ -31,7 +35,7 @@ private fun DropdownPopupContentPreview(
             selectedOption = 1,
             colors = DropdownColors(LocalCarbonTheme.current),
             componentHeight = dropdownSize.height,
-            onOptionSelected = {},
+            onOptionClicked = {},
         )
     }
 }
