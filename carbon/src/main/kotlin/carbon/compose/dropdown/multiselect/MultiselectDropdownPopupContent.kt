@@ -34,15 +34,17 @@ import carbon.compose.foundation.text.CarbonTypography
 import carbon.compose.foundation.text.Text
 
 /**
- * Shift selected options to the top of the list.
+ * Shifts selected options to the top of the list.
  */
 private fun <K : Any> List<Map.Entry<K, DropdownOption>>.shiftSelectedOptionsToTop(
     selectedOptions: List<K>
 ): List<Map.Entry<K, DropdownOption>> {
     if (selectedOptions.isEmpty()) return this
     val selectedOptionsMap = selectedOptions.associateWith { true }
-    return partition { selectedOptionsMap.containsKey(it.key) }.let { (selected, unselected) ->
-        selected + unselected
+    return partition {
+        selectedOptionsMap.containsKey(it.key)
+    }.let { (selected, unselected) ->
+        selected.sortedBy { it.value.value } + unselected
     }
 }
 
