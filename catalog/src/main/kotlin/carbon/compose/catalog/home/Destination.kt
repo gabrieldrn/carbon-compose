@@ -30,7 +30,7 @@ enum class Destination(
     List("List"),
     Loading("Loading"),
     Modal("Modal"),
-//    MultiSelect("Multi-select"),
+    MultiSelect("Multi-select", R.drawable.tile_mutliselect, Dropdown_MultiSelect.route),
     Notification("Notification"),
     NumberInput("Number input"),
     Pagination("Pagination"),
