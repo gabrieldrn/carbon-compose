@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Carbon">
         <activity
-            android:name=".HomeActivity"
+            android:name=".home.HomeActivity"
             android:exported="true"
             android:theme="@style/Theme.Carbon">
             <intent-filter>
@@ -18,29 +18,5 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity
-            android:name=".buttons.ButtonsDemoActivity"
-            android:exported="false"
-            android:label=""
-            android:theme="@style/Theme.Carbon"/>
-
-        <activity android:name=".checkbox.CheckboxDemoActivity"
-            android:exported="false"
-            android:label=""
-            android:theme="@style/Theme.Carbon"/>
-
-        <activity android:name=".dropdown.DropdownDemoActivity"
-            android:exported="false"
-            android:label=""
-            android:theme="@style/Theme.Carbon"/>
-
-        <activity
-            android:name=".toggle.ToggleDemoActivity"
-            android:exported="false"
-            android:label=""
-            android:theme="@style/Theme.Carbon"/>
-
     </application>
-
 </manifest>

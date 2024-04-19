@@ -37,7 +37,7 @@ import carbon.compose.foundation.text.CarbonTypography
 public fun UiShellHeader(
     headerName: String,
     modifier: Modifier = Modifier,
-    @DrawableRes menuIconRes: Int = 0,
+    @DrawableRes menuIconRes: Int? = null,
     onMenuIconPressed: () -> Unit = {},
     windowInsets: WindowInsets = WindowInsets.statusBars.only(WindowInsetsSides.Top),
     inlineTheme: Theme = LocalCarbonInlineTheme.current,
@@ -58,7 +58,7 @@ public fun UiShellHeader(
                     .fillMaxSize(),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                if (menuIconRes != 0) {
+                if (menuIconRes != null) {
                     MenuButton(
                         onMenuIconPressed = onMenuIconPressed,
                         menuIconRes = menuIconRes

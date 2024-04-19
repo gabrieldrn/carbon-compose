@@ -1,4 +1,4 @@
-package carbon.compose.catalog
+package carbon.compose.catalog.home
 
 import android.content.res.Configuration
 import androidx.compose.foundation.Image
@@ -6,7 +6,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
@@ -17,7 +16,6 @@ import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -32,64 +30,33 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import carbon.compose.catalog.R
 import carbon.compose.foundation.color.LocalCarbonTheme
 import carbon.compose.foundation.spacing.SpacingScale
 import carbon.compose.foundation.text.CarbonTypography
-import carbon.compose.uishell.UiShellHeader
 
 @Composable
 fun HomeScreen(
-    components: List<CarbonComponent>,
-    onTileClicked: (CarbonComponent) -> Unit,
+    onTileClicked: (Destination) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val navBarPaddingValues = WindowInsets.navigationBars
         .only(WindowInsetsSides.Bottom + WindowInsetsSides.Horizontal)
         .asPaddingValues()
 
-    Column(
-        modifier = modifier
-            .background(LocalCarbonTheme.current.background)
-            .fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        UiShellHeader(
-            headerName = "Carbon Design System",
-            windowInsets = WindowInsets.statusBars
-        )
-
-        ComponentsList(
-            components = components,
-            navBarPaddingValues = navBarPaddingValues,
-            onTileClicked = onTileClicked,
-            modifier = Modifier
-                .weight(1f)
-                .fillMaxSize()
-        )
-    }
-}
-
-@Composable
-private fun ComponentsList(
-    components: List<CarbonComponent>,
-    navBarPaddingValues: PaddingValues,
-    onTileClicked: (CarbonComponent) -> Unit,
-    modifier: Modifier = Modifier
-) {
     val isInPortrait = LocalConfiguration.current
         .orientation == Configuration.ORIENTATION_PORTRAIT
 
     if (isInPortrait) {
         ComponentsLazyGrid(
-            components = components,
+            destinations = Destination.homeTilesDestinations,
             navBarPaddingValues = navBarPaddingValues,
             onTileClicked = onTileClicked,
             modifier = modifier
         )
     } else {
         ComponentsLazyRow(
-            components = components,
+            destinations = Destination.homeTilesDestinations,
             navBarPaddingValues = navBarPaddingValues,
             onTileClicked = onTileClicked,
             modifier = modifier
@@ -99,9 +66,9 @@ private fun ComponentsList(
 
 @Composable
 private fun ComponentsLazyRow(
-    components: List<CarbonComponent>,
+    destinations: List<Destination>,
     navBarPaddingValues: PaddingValues,
-    onTileClicked: (CarbonComponent) -> Unit,
+    onTileClicked: (Destination) -> Unit,
     modifier: Modifier = Modifier
 ) {
     LazyRow(
@@ -117,10 +84,10 @@ private fun ComponentsLazyRow(
         horizontalArrangement = Arrangement.spacedBy(1.dp),
         modifier = modifier
     ) {
-        items(components) { component ->
+        items(destinations) { destination ->
             CarbonComponentGridTile(
-                component = component,
-                onTileClicked = { onTileClicked(component) },
+                destination = destination,
+                onTileClicked = { onTileClicked(destination) },
                 modifier = Modifier.aspectRatio(1f)
             )
         }
@@ -129,9 +96,9 @@ private fun ComponentsLazyRow(
 
 @Composable
 private fun ComponentsLazyGrid(
-    components: List<CarbonComponent>,
+    destinations: List<Destination>,
     navBarPaddingValues: PaddingValues,
-    onTileClicked: (CarbonComponent) -> Unit,
+    onTileClicked: (Destination) -> Unit,
     modifier: Modifier = Modifier
 ) {
     LazyVerticalGrid(
@@ -147,10 +114,10 @@ private fun ComponentsLazyGrid(
         horizontalArrangement = Arrangement.spacedBy(1.dp),
         modifier = modifier
     ) {
-        items(components) { component ->
+        items(destinations) { destination ->
             CarbonComponentGridTile(
-                component = component,
-                onTileClicked = { onTileClicked(component) },
+                destination = destination,
+                onTileClicked = { onTileClicked(destination) },
                 modifier = Modifier.aspectRatio(1f)
             )
         }
@@ -159,7 +126,7 @@ private fun ComponentsLazyGrid(
 
 @Composable
 private fun CarbonComponentGridTile(
-    component: CarbonComponent,
+    destination: Destination,
     onTileClicked: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -169,18 +136,17 @@ private fun CarbonComponentGridTile(
             .background(color = LocalCarbonTheme.current.layer01)
             .fillMaxSize()
     ) {
-        if (component.illustration != null) {
+        if (destination.illustration != null) {
             Image(
-                painter = painterResource(id = component.illustration),
+                painter = painterResource(id = destination.illustration),
                 contentDescription = null,
                 modifier = Modifier.fillMaxSize()
             )
         } else {
             PlaceholderIllustration()
         }
-
         BasicText(
-            text = component.title,
+            text = destination.title,
             style = CarbonTypography.body01.copy(
                 color = LocalCarbonTheme.current.textPrimary
             ),
