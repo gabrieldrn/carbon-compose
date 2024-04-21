@@ -602,6 +602,6 @@ public final class carbon/compose/uishell/ComposableSingletons$UiShellHeaderKt {
 }
 
 public final class carbon/compose/uishell/UiShellHeaderKt {
-	public static final fun UiShellHeader (Ljava/lang/String;Landroidx/compose/ui/Modifier;ILkotlin/jvm/functions/Function0;Landroidx/compose/foundation/layout/WindowInsets;Lcarbon/compose/foundation/color/Theme;Landroidx/compose/runtime/Composer;II)V
+	public static final fun UiShellHeader (Ljava/lang/String;Landroidx/compose/ui/Modifier;Ljava/lang/Integer;Lkotlin/jvm/functions/Function0;Landroidx/compose/foundation/layout/WindowInsets;Lcarbon/compose/foundation/color/Theme;Landroidx/compose/runtime/Composer;II)V
 }
 

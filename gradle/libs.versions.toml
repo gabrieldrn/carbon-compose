@@ -1,16 +1,16 @@
 [versions]
 # region Build + build-logic
 androidGradlePlugin = "8.2.2"
-kotlin = "1.9.22"
+kotlin = "1.9.23"
 binaryCompatibilityValidator = "0.13.1"
 # endregion
 # region Libraries
-androidxActivity = "1.8.2"
+androidxActivity = "1.9.0"
 androidxAppcompat = "1.6.1"
 #https://developer.android.com/jetpack/androidx/releases/compose-compiler#declaring_dependencies
 #https://developer.android.com/jetpack/androidx/releases/compose-kotlin
-androidxCompose = "1.6.0"
-androidxCore = "1.12.0"
+androidxCompose = "1.6.6"
+androidxCore = "1.13.0"
 androidxEspresso = "3.5.1"
 androidxLifecycle = "2.7.0"
 androidxNavigation = "2.7.7"
