@@ -10,7 +10,7 @@ internal object Constants {
 
         val JAVA = JavaVersion.VERSION_17
 
-        const val COMPOSE_COMPILER = "1.5.9"
+        const val COMPOSE_COMPILER = "1.5.12"
     }
 
     object CompileArgs {
