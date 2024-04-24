@@ -1,6 +1,10 @@
 name: CI | compile & tests
 
-on: [ push, pull_request ]
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ '*' ]
 
 jobs:
   lib-build:
@@ -33,7 +37,7 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build lib module
-        run: ./gradlew :carbon:build -x check
+        run: ./gradlew :carbon:build --scan --stacktrace -x check
 
   lib-check:
     name: Run check tasks on library module
