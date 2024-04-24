@@ -23,6 +23,7 @@ class CarbonAndroidLibraryConventionPlugin : Plugin<Project> {
         with(pluginManager) {
             apply(libs.getPlugin("android-library"))
             apply(libs.getPlugin("kotlin-android"))
+            apply(libs.getPlugin("vanniktech-publish-plugin"))
         }
 
         extensions.configure<LibraryExtension> {

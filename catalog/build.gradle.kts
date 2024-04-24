@@ -1,3 +1,5 @@
+import carbon.compose.Configuration
+
 plugins {
     id("carbon.android.application")
     alias(libs.plugins.kotlin.android)
@@ -9,8 +11,8 @@ android {
 
     defaultConfig {
         applicationId = "carbon.compose.catalog"
-        versionCode = 1
-        versionName = "0.1"
+        versionCode = Configuration.versionCode
+        versionName = Configuration.versionName
     }
     buildTypes {
         release {

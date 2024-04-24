@@ -15,6 +15,7 @@ plugins {
     alias(libs.plugins.detekt) apply false
     alias(libs.plugins.dokka) apply false //Globally disabled
     alias(libs.plugins.binaryCompatibilityValidator)
+    alias(libs.plugins.vanniktech.publish.plugin)
 }
 
 apiValidation {

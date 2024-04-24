@@ -16,6 +16,7 @@ androidxLifecycle = "2.7.0"
 androidxNavigation = "2.7.7"
 androidxTestCore = "1.5.0"
 androidxTestExtJunit = "1.1.5"
+publish-plugin = "0.28.0"
 detekt = "1.23.3"
 dokka = "1.8.20"
 junit = "4.13.2"
@@ -56,3 +57,4 @@ dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+vanniktech-publish-plugin = { id = "com.vanniktech.maven.publish", version.ref = "publish-plugin" }
