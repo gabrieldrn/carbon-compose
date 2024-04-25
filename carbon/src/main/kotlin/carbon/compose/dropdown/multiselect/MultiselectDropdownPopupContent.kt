@@ -19,7 +19,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import carbon.compose.checkbox.Checkbox
@@ -140,7 +139,7 @@ private fun MultiselectDropdownMenuOption(
             modifier = Modifier.fillMaxSize()
         ) {
             Checkbox(
-                state = ToggleableState(isSelected),
+                checked = isSelected,
                 interactiveState = if (option.enabled) {
                     CheckboxInteractiveState.Default
                 } else {

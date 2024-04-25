@@ -5,12 +5,12 @@ import androidx.compose.foundation.indication
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.selection.triStateToggleable
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.graphics.Color
@@ -50,11 +50,63 @@ private val checkboxCornerRadius = 2.dp
  *
  * (From [Checkbox documentation](https://carbondesignsystem.com/components/checkbox/usage/))
  *
- * @param state The [ToggleableState] of the checkbox.
- * @param interactiveState The [CheckboxInteractiveState] of the checkbox.
+ * @param checked Whether the checkbox is checked.
  * @param label The text to be displayed next to the checkbox.
  * @param onClick Callback invoked when the checkbox is clicked.
  * @param modifier The modifier to be applied to the checkbox.
+ * @param interactiveState The [CheckboxInteractiveState] of the checkbox.
+ * @param errorMessage The error message to be displayed below the checkbox, it will be displayed
+ * only if the [interactiveState] is [CheckboxInteractiveState.Error].
+ * @param warningMessage The warning message to be displayed below the checkbox, it will be
+ * displayed only if the [interactiveState] is [CheckboxInteractiveState.Warning].
+ * @param interactionSource The [MutableInteractionSource] that keeps track of the checkbox state.
+ */
+@Composable
+public fun Checkbox(
+    checked: Boolean,
+    label: String,
+    onClick: (() -> Unit)?,
+    modifier: Modifier = Modifier,
+    interactiveState: CheckboxInteractiveState = CheckboxInteractiveState.Default,
+    errorMessage: String = "",
+    warningMessage: String = "",
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
+) {
+    Checkbox(
+        state = remember(checked) { ToggleableState(checked) },
+        label = label,
+        onClick = onClick,
+        modifier = modifier,
+        interactiveState = interactiveState,
+        errorMessage = errorMessage,
+        warningMessage = warningMessage,
+        interactionSource = interactionSource
+    )
+}
+
+/**
+ * # Carbon Checkbox
+ * Checkboxes are used when there are multiple items to select in a list. Users can select zero,
+ * one, or any number of items.
+ *
+ * ## Content
+ * - The checkbox itself is a square box with a checkmark or an indeterminate mark.
+ * - The label describes the information the user wants to select or unselect.
+ * - The error or warning message are displayed below the checkbox and help the user understand
+ * about a certain state regarding the checkbox context.
+ *
+ * ## Interactions
+ * The component applies a tri-state toggleable interaction to the checkbox root composable if the
+ * [onClick] callback is provided, meaning that the whole component is clickable in order to create
+ * a more accessible click target. Otherwise, the checkbox won't be interactable.
+ *
+ * (From [Checkbox documentation](https://carbondesignsystem.com/components/checkbox/usage/))
+ *
+ * @param state The [ToggleableState] of the checkbox.
+ * @param label The text to be displayed next to the checkbox.
+ * @param onClick Callback invoked when the checkbox is clicked.
+ * @param modifier The modifier to be applied to the checkbox.
+ * @param interactiveState The [CheckboxInteractiveState] of the checkbox.
  * @param errorMessage The error message to be displayed below the checkbox, it will be displayed
  * only if the [interactiveState] is [CheckboxInteractiveState.Error].
  * @param warningMessage The warning message to be displayed below the checkbox, it will be
@@ -64,10 +116,10 @@ private val checkboxCornerRadius = 2.dp
 @Composable
 public fun Checkbox(
     state: ToggleableState,
-    interactiveState: CheckboxInteractiveState,
     label: String,
     onClick: (() -> Unit)?,
     modifier: Modifier = Modifier,
+    interactiveState: CheckboxInteractiveState = CheckboxInteractiveState.Default,
     errorMessage: String = "",
     warningMessage: String = "",
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
@@ -199,16 +251,17 @@ private fun ErrorContent(
     errorMessage: String,
     modifier: Modifier = Modifier
 ) {
-    Row(modifier = modifier) {
+    Row(
+        modifier = modifier,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
         ErrorIcon(
             modifier = Modifier.padding(SpacingScale.spacing01)
         )
         Text(
             text = errorMessage,
             color = colors.errorMessageTextColor,
-            modifier = Modifier
-                .padding(start = SpacingScale.spacing03)
-                .heightIn(min = 20.dp),
+            modifier = Modifier.padding(start = SpacingScale.spacing03),
             style = CarbonTypography.label01
         )
     }
@@ -220,14 +273,15 @@ private fun WarningContent(
     warningMessage: String,
     modifier: Modifier = Modifier
 ) {
-    Row(modifier = modifier) {
+    Row(
+        modifier = modifier,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
         WarningIcon(Modifier.padding(2.dp))
         Text(
             text = warningMessage,
             color = colors.warningMessageTextColor,
-            modifier = Modifier
-                .padding(start = SpacingScale.spacing03)
-                .heightIn(min = 20.dp),
+            modifier = Modifier.padding(start = SpacingScale.spacing03),
             style = CarbonTypography.label01
         )
     }
