@@ -47,7 +47,8 @@ public final class carbon/compose/checkbox/CheckboxInteractiveState : java/lang/
 }
 
 public final class carbon/compose/checkbox/CheckboxKt {
-	public static final fun Checkbox (Landroidx/compose/ui/state/ToggleableState;Lcarbon/compose/checkbox/CheckboxInteractiveState;Ljava/lang/String;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Ljava/lang/String;Ljava/lang/String;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;II)V
+	public static final fun Checkbox (Landroidx/compose/ui/state/ToggleableState;Ljava/lang/String;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Lcarbon/compose/checkbox/CheckboxInteractiveState;Ljava/lang/String;Ljava/lang/String;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;II)V
+	public static final fun Checkbox (ZLjava/lang/String;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Lcarbon/compose/checkbox/CheckboxInteractiveState;Ljava/lang/String;Ljava/lang/String;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;II)V
 }
 
 public final class carbon/compose/dropdown/DropdownKt {
