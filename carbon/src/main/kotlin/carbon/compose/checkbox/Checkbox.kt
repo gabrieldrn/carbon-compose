@@ -199,16 +199,17 @@ private fun ErrorContent(
     errorMessage: String,
     modifier: Modifier = Modifier
 ) {
-    Row(modifier = modifier) {
+    Row(
+        modifier = modifier,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
         ErrorIcon(
             modifier = Modifier.padding(SpacingScale.spacing01)
         )
         Text(
             text = errorMessage,
             color = colors.errorMessageTextColor,
-            modifier = Modifier
-                .padding(start = SpacingScale.spacing03)
-                .heightIn(min = 20.dp),
+            modifier = Modifier.padding(start = SpacingScale.spacing03),
             style = CarbonTypography.label01
         )
     }
@@ -220,14 +221,15 @@ private fun WarningContent(
     warningMessage: String,
     modifier: Modifier = Modifier
 ) {
-    Row(modifier = modifier) {
+    Row(
+        modifier = modifier,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
         WarningIcon(Modifier.padding(2.dp))
         Text(
             text = warningMessage,
             color = colors.warningMessageTextColor,
-            modifier = Modifier
-                .padding(start = SpacingScale.spacing03)
-                .heightIn(min = 20.dp),
+            modifier = Modifier.padding(start = SpacingScale.spacing03),
             style = CarbonTypography.label01
         )
     }
