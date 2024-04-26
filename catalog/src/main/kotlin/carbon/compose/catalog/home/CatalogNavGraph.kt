@@ -11,10 +11,7 @@ import androidx.compose.runtime.remember
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.createGraph
-import carbon.compose.catalog.buttons.ButtonDemoScreen
-import carbon.compose.catalog.checkbox.CheckboxDemoScreen
 import carbon.compose.catalog.dropdown.dropdownNavigation
-import carbon.compose.catalog.toggle.ToggleDemoScreen
 
 val navigationEnterScaleInTransition =
     scaleIn(initialScale = 0.9f) + fadeIn()
@@ -37,47 +34,35 @@ val navigationExitSlideOutInverseTransition =
 @Composable
 fun rememberNavGraph(navController: NavHostController) =
     remember(navController) {
-        navController.createGraph(
-            startDestination = Destination.Home.route
-        ) {
-            composable(
-                route = Destination.Home.route,
-                enterTransition = { navigationEnterScaleInTransition },
-                exitTransition = { navigationExitScaleOutTransition },
-            ) {
-                HomeScreen(
-                    onTileClicked = { destination ->
-                        destination.route
-                            .takeIf { it.isNotEmpty() }
-                            ?.let(navController::navigate)
+        navController.createGraph(startDestination = Destination.Home.route) {
+            Destination
+                .entries
+                .filterNot { it.route.isEmpty() }
+                .forEach { dest ->
+                    when (dest) {
+                        Destination.Home -> composable(
+                            route = Destination.Home.route,
+                            enterTransition = { navigationEnterScaleInTransition },
+                            exitTransition = { navigationExitScaleOutTransition },
+                        ) {
+                            HomeScreen(
+                                onTileClicked = { destination ->
+                                    destination.route
+                                        .takeIf { it.isNotEmpty() }
+                                        ?.let(navController::navigate)
+                                }
+                            )
+                        }
+
+                        Destination.Dropdown -> dropdownNavigation(navController)
+
+                        else -> composable(
+                            route = dest.route,
+                            enterTransition = { navigationEnterSlideInTransition },
+                            exitTransition = { navigationExitSlideOutTransition },
+                            content = { dest.content() }
+                        )
                     }
-                )
-            }
-
-            composable(
-                route = Destination.Button.route,
-                enterTransition = { navigationEnterSlideInTransition },
-                exitTransition = { navigationExitSlideOutTransition },
-            ) {
-                ButtonDemoScreen()
-            }
-
-            composable(
-                route = Destination.Checkbox.route,
-                enterTransition = { navigationEnterSlideInTransition },
-                exitTransition = { navigationExitSlideOutTransition },
-            ) {
-                CheckboxDemoScreen()
-            }
-
-            dropdownNavigation(navController)
-
-            composable(
-                route = Destination.Toggle.route,
-                enterTransition = { navigationEnterSlideInTransition },
-                exitTransition = { navigationExitSlideOutTransition },
-            ) {
-                ToggleDemoScreen()
-            }
+                }
         }
     }

@@ -10,7 +10,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import carbon.compose.button.Button
-import carbon.compose.catalog.home.Destination
 import carbon.compose.catalog.R
 import carbon.compose.foundation.color.LocalCarbonTheme
 import carbon.compose.foundation.spacing.SpacingScale
@@ -30,13 +29,13 @@ fun DropdownDemoMenu(
         Button(
             label = "Default Dropdown",
             iconPainter = painterResource(id = R.drawable.ic_arrow_right),
-            onClick = { onNavigate(Destination.Dropdown_Default.route) },
+            onClick = { onNavigate(DropdownNavDestination.Default.route) },
             modifier = Modifier.fillMaxWidth()
         )
         Button(
             label = "Multiselect Dropdown",
             iconPainter = painterResource(id = R.drawable.ic_arrow_right),
-            onClick = { onNavigate(Destination.Dropdown_MultiSelect.route) },
+            onClick = { onNavigate(DropdownNavDestination.MultiSelect.route) },
             modifier = Modifier.fillMaxWidth()
         )
     }
