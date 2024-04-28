@@ -35,20 +35,9 @@ public final class carbon/compose/button/IconButtonKt {
 	public static final fun IconButton (Landroidx/compose/ui/graphics/painter/Painter;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Lcarbon/compose/button/CarbonButton;ZLandroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;II)V
 }
 
-public final class carbon/compose/checkbox/CheckboxInteractiveState : java/lang/Enum {
-	public static final field Default Lcarbon/compose/checkbox/CheckboxInteractiveState;
-	public static final field Disabled Lcarbon/compose/checkbox/CheckboxInteractiveState;
-	public static final field Error Lcarbon/compose/checkbox/CheckboxInteractiveState;
-	public static final field ReadOnly Lcarbon/compose/checkbox/CheckboxInteractiveState;
-	public static final field Warning Lcarbon/compose/checkbox/CheckboxInteractiveState;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
-	public static fun valueOf (Ljava/lang/String;)Lcarbon/compose/checkbox/CheckboxInteractiveState;
-	public static fun values ()[Lcarbon/compose/checkbox/CheckboxInteractiveState;
-}
-
 public final class carbon/compose/checkbox/CheckboxKt {
-	public static final fun Checkbox (Landroidx/compose/ui/state/ToggleableState;Ljava/lang/String;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Lcarbon/compose/checkbox/CheckboxInteractiveState;Ljava/lang/String;Ljava/lang/String;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;II)V
-	public static final fun Checkbox (ZLjava/lang/String;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Lcarbon/compose/checkbox/CheckboxInteractiveState;Ljava/lang/String;Ljava/lang/String;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;II)V
+	public static final fun Checkbox (Landroidx/compose/ui/state/ToggleableState;Ljava/lang/String;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Lcarbon/compose/foundation/selectable/SelectableInteractiveState;Ljava/lang/String;Ljava/lang/String;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;II)V
+	public static final fun Checkbox (ZLjava/lang/String;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Lcarbon/compose/foundation/selectable/SelectableInteractiveState;Ljava/lang/String;Ljava/lang/String;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;II)V
 }
 
 public final class carbon/compose/dropdown/DropdownKt {
@@ -520,6 +509,17 @@ public final class carbon/compose/foundation/motion/Motion$Standard {
 	public final fun getProductiveEasing ()Landroidx/compose/animation/core/CubicBezierEasing;
 }
 
+public final class carbon/compose/foundation/selectable/SelectableInteractiveState : java/lang/Enum {
+	public static final field Default Lcarbon/compose/foundation/selectable/SelectableInteractiveState;
+	public static final field Disabled Lcarbon/compose/foundation/selectable/SelectableInteractiveState;
+	public static final field Error Lcarbon/compose/foundation/selectable/SelectableInteractiveState;
+	public static final field ReadOnly Lcarbon/compose/foundation/selectable/SelectableInteractiveState;
+	public static final field Warning Lcarbon/compose/foundation/selectable/SelectableInteractiveState;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcarbon/compose/foundation/selectable/SelectableInteractiveState;
+	public static fun values ()[Lcarbon/compose/foundation/selectable/SelectableInteractiveState;
+}
+
 public final class carbon/compose/foundation/spacing/SpacingScale {
 	public static final field $stable I
 	public static final field INSTANCE Lcarbon/compose/foundation/spacing/SpacingScale;
@@ -575,19 +575,8 @@ public final class carbon/compose/foundation/text/CarbonTypographyKt {
 	public static final fun getIbmPlexSerifFamily ()Landroidx/compose/ui/text/font/FontFamily;
 }
 
-public final class carbon/compose/radiobutton/RadioButtonInteractiveState : java/lang/Enum {
-	public static final field Default Lcarbon/compose/radiobutton/RadioButtonInteractiveState;
-	public static final field Disabled Lcarbon/compose/radiobutton/RadioButtonInteractiveState;
-	public static final field Error Lcarbon/compose/radiobutton/RadioButtonInteractiveState;
-	public static final field ReadOnly Lcarbon/compose/radiobutton/RadioButtonInteractiveState;
-	public static final field Warning Lcarbon/compose/radiobutton/RadioButtonInteractiveState;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
-	public static fun valueOf (Ljava/lang/String;)Lcarbon/compose/radiobutton/RadioButtonInteractiveState;
-	public static fun values ()[Lcarbon/compose/radiobutton/RadioButtonInteractiveState;
-}
-
 public final class carbon/compose/radiobutton/RadioButtonKt {
-	public static final fun RadioButton (ZLkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Lcarbon/compose/radiobutton/RadioButtonInteractiveState;Ljava/lang/String;Ljava/lang/String;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;II)V
+	public static final fun RadioButton (ZLkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Lcarbon/compose/foundation/selectable/SelectableInteractiveState;Ljava/lang/String;Ljava/lang/String;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;II)V
 }
 
 public final class carbon/compose/semantics/CarbonSemanticsProperties {

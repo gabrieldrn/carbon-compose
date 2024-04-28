@@ -22,7 +22,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.state.ToggleableState
 import carbon.compose.checkbox.Checkbox
-import carbon.compose.checkbox.CheckboxInteractiveState
+import carbon.compose.foundation.selectable.SelectableInteractiveState
 import carbon.compose.foundation.spacing.SpacingScale
 
 @Composable
@@ -49,16 +49,16 @@ fun CheckboxDemoScreen(modifier: Modifier = Modifier) {
                 Alignment.CenterVertically
             )
         ) {
-            CheckboxInteractiveState.entries.forEach { interactiveState ->
+            SelectableInteractiveState.entries.forEach { interactiveState ->
                 Checkbox(
                     state = checkboxState,
                     interactiveState = interactiveState,
                     label = when (interactiveState) {
-                        CheckboxInteractiveState.Default -> "Default"
-                        CheckboxInteractiveState.Disabled -> "Disabled"
-                        CheckboxInteractiveState.ReadOnly -> "Read-only"
-                        CheckboxInteractiveState.Error -> "Error"
-                        CheckboxInteractiveState.Warning -> "Warning"
+                        SelectableInteractiveState.Default -> "Default"
+                        SelectableInteractiveState.Disabled -> "Disabled"
+                        SelectableInteractiveState.ReadOnly -> "Read-only"
+                        SelectableInteractiveState.Error -> "Error"
+                        SelectableInteractiveState.Warning -> "Warning"
                     },
                     onClick = ::nextState,
                     errorMessage = "Error message goes here",

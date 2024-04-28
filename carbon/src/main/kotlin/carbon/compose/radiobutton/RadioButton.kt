@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.unit.dp
+import carbon.compose.foundation.selectable.SelectableInteractiveState
 
 /**
  * # Carbon Radio button
@@ -27,7 +28,7 @@ public fun RadioButton(
     checked: Boolean,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    radioButtonInteractiveState: RadioButtonInteractiveState = RadioButtonInteractiveState.Default,
+    interactiveState: SelectableInteractiveState = SelectableInteractiveState.Default,
     errorMessage: String = "",
     warningMessage: String = "",
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }

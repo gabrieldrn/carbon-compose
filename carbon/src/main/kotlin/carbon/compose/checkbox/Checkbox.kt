@@ -22,6 +22,7 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.unit.dp
 import carbon.compose.foundation.interaction.ToggleableFocusIndication
+import carbon.compose.foundation.selectable.SelectableInteractiveState
 import carbon.compose.foundation.spacing.SpacingScale
 import carbon.compose.foundation.text.CarbonTypography
 import carbon.compose.foundation.text.Text
@@ -43,22 +44,17 @@ private val checkboxCornerRadius = 2.dp
  * - The error or warning message are displayed below the checkbox and help the user understand
  * about a certain state regarding the checkbox context.
  *
- * ## Interactions
- * The component applies a tri-state toggleable interaction to the checkbox root composable if the
- * [onClick] callback is provided, meaning that the whole component is clickable in order to create
- * a more accessible click target. Otherwise, the checkbox won't be interactable.
- *
  * (From [Checkbox documentation](https://carbondesignsystem.com/components/checkbox/usage/))
  *
  * @param checked Whether the checkbox is checked.
  * @param label The text to be displayed next to the checkbox.
  * @param onClick Callback invoked when the checkbox is clicked.
  * @param modifier The modifier to be applied to the checkbox.
- * @param interactiveState The [CheckboxInteractiveState] of the checkbox.
+ * @param interactiveState The [SelectableInteractiveState] of the checkbox.
  * @param errorMessage The error message to be displayed below the checkbox, it will be displayed
- * only if the [interactiveState] is [CheckboxInteractiveState.Error].
+ * only if the [interactiveState] is [SelectableInteractiveState.Error].
  * @param warningMessage The warning message to be displayed below the checkbox, it will be
- * displayed only if the [interactiveState] is [CheckboxInteractiveState.Warning].
+ * displayed only if the [interactiveState] is [SelectableInteractiveState.Warning].
  * @param interactionSource The [MutableInteractionSource] that keeps track of the checkbox state.
  */
 @Composable
@@ -67,7 +63,7 @@ public fun Checkbox(
     label: String,
     onClick: (() -> Unit)?,
     modifier: Modifier = Modifier,
-    interactiveState: CheckboxInteractiveState = CheckboxInteractiveState.Default,
+    interactiveState: SelectableInteractiveState = SelectableInteractiveState.Default,
     errorMessage: String = "",
     warningMessage: String = "",
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
@@ -106,11 +102,11 @@ public fun Checkbox(
  * @param label The text to be displayed next to the checkbox.
  * @param onClick Callback invoked when the checkbox is clicked.
  * @param modifier The modifier to be applied to the checkbox.
- * @param interactiveState The [CheckboxInteractiveState] of the checkbox.
+ * @param interactiveState The [SelectableInteractiveState] of the checkbox.
  * @param errorMessage The error message to be displayed below the checkbox, it will be displayed
- * only if the [interactiveState] is [CheckboxInteractiveState.Error].
+ * only if the [interactiveState] is [SelectableInteractiveState.Error].
  * @param warningMessage The warning message to be displayed below the checkbox, it will be
- * displayed only if the [interactiveState] is [CheckboxInteractiveState.Warning].
+ * displayed only if the [interactiveState] is [SelectableInteractiveState.Warning].
  * @param interactionSource The [MutableInteractionSource] that keeps track of the checkbox state.
  */
 @Composable
@@ -119,7 +115,7 @@ public fun Checkbox(
     label: String,
     onClick: (() -> Unit)?,
     modifier: Modifier = Modifier,
-    interactiveState: CheckboxInteractiveState = CheckboxInteractiveState.Default,
+    interactiveState: SelectableInteractiveState = SelectableInteractiveState.Default,
     errorMessage: String = "",
     warningMessage: String = "",
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
@@ -127,7 +123,7 @@ public fun Checkbox(
     val colors = CheckboxColors.colors()
 
     val checkboxModifier = when {
-        interactiveState == CheckboxInteractiveState.ReadOnly -> Modifier.readOnly(
+        interactiveState == SelectableInteractiveState.ReadOnly -> Modifier.readOnly(
             role = Role.Checkbox,
             interactionSource = interactionSource,
             state = state,
@@ -136,7 +132,7 @@ public fun Checkbox(
         onClick != null -> Modifier.triStateToggleable(
             state = state,
             interactionSource = interactionSource,
-            enabled = interactiveState != CheckboxInteractiveState.Disabled,
+            enabled = interactiveState != SelectableInteractiveState.Disabled,
             onClick = onClick,
             indication = null,
             role = Role.Checkbox
@@ -162,14 +158,14 @@ public fun Checkbox(
                 style = CarbonTypography.bodyCompact01
             )
         }
-        if (interactiveState == CheckboxInteractiveState.Error) {
+        if (interactiveState == SelectableInteractiveState.Error) {
             ErrorContent(
                 colors = colors,
                 errorMessage = errorMessage,
                 modifier = Modifier.padding(top = SpacingScale.spacing03)
             )
         }
-        if (interactiveState == CheckboxInteractiveState.Warning) {
+        if (interactiveState == SelectableInteractiveState.Warning) {
             WarningContent(
                 colors = colors,
                 warningMessage = warningMessage,
@@ -182,7 +178,7 @@ public fun Checkbox(
 @Composable
 private fun CheckboxComponent(
     colors: CheckboxColors,
-    interactiveState: CheckboxInteractiveState,
+    interactiveState: SelectableInteractiveState,
     state: ToggleableState,
     modifier: Modifier = Modifier
 ) {

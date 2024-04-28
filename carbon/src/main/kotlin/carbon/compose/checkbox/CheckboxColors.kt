@@ -5,6 +5,7 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.state.ToggleableState
 import carbon.compose.foundation.color.LocalCarbonTheme
+import carbon.compose.foundation.selectable.SelectableInteractiveState
 
 /**
  * The set of colors used to style a [Checkbox].
@@ -32,46 +33,46 @@ internal class CheckboxColors(
 ) {
 
     fun borderColor(
-        interactiveState: CheckboxInteractiveState,
+        interactiveState: SelectableInteractiveState,
         state: ToggleableState
     ): Color = when (interactiveState) {
-        CheckboxInteractiveState.Default,
-        CheckboxInteractiveState.Warning ->
+        SelectableInteractiveState.Default,
+        SelectableInteractiveState.Warning ->
             if (state == ToggleableState.Off) borderColor else Color.Transparent
 
-        CheckboxInteractiveState.Disabled ->
+        SelectableInteractiveState.Disabled ->
             if (state == ToggleableState.Off) borderDisabledColor else Color.Transparent
 
-        CheckboxInteractiveState.ReadOnly -> borderReadOnlyColor
-        CheckboxInteractiveState.Error -> borderErrorColor
+        SelectableInteractiveState.ReadOnly -> borderReadOnlyColor
+        SelectableInteractiveState.Error -> borderErrorColor
     }
 
     fun backgroundColor(
-        interactiveState: CheckboxInteractiveState,
+        interactiveState: SelectableInteractiveState,
         state: ToggleableState
     ): Color = when (interactiveState) {
-        CheckboxInteractiveState.Default,
-        CheckboxInteractiveState.Error,
-        CheckboxInteractiveState.Warning ->
+        SelectableInteractiveState.Default,
+        SelectableInteractiveState.Error,
+        SelectableInteractiveState.Warning ->
             if (state == ToggleableState.Off) Color.Transparent else backgroundCheckedColor
 
-        CheckboxInteractiveState.Disabled ->
+        SelectableInteractiveState.Disabled ->
             if (state == ToggleableState.Off) Color.Transparent else backgroundDisabledCheckedColor
 
-        CheckboxInteractiveState.ReadOnly -> Color.Transparent
+        SelectableInteractiveState.ReadOnly -> Color.Transparent
     }
 
     fun checkmarkColor(
-        interactiveState: CheckboxInteractiveState,
+        interactiveState: SelectableInteractiveState,
         state: ToggleableState
     ): Color = when {
         state == ToggleableState.Off -> Color.Transparent
-        interactiveState == CheckboxInteractiveState.ReadOnly -> checkmarkReadOnlyCheckedColor
+        interactiveState == SelectableInteractiveState.ReadOnly -> checkmarkReadOnlyCheckedColor
         else -> checkmarkCheckedColor
     }
 
-    fun labelColor(interactiveState: CheckboxInteractiveState): Color =
-        if (interactiveState == CheckboxInteractiveState.Disabled) {
+    fun labelColor(interactiveState: SelectableInteractiveState): Color =
+        if (interactiveState == SelectableInteractiveState.Disabled) {
             labelDisabledColor
         } else {
             labelColor

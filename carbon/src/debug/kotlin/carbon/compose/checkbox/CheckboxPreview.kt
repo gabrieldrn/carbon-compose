@@ -11,19 +11,21 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import carbon.compose.CarbonDesignSystem
+import carbon.compose.foundation.selectable.SelectableInteractiveState
 import carbon.compose.foundation.spacing.SpacingScale
 
-private class ButtonPreviewParameterProvider : PreviewParameterProvider<CheckboxInteractiveState> {
-    override val values: Sequence<CheckboxInteractiveState> =
-        CheckboxInteractiveState.entries.asSequence()
+private class ButtonPreviewParameterProvider :
+    PreviewParameterProvider<SelectableInteractiveState> {
+    override val values: Sequence<SelectableInteractiveState> =
+        SelectableInteractiveState.entries.asSequence()
 }
 
 private val interactiveLabelStateMap = mapOf(
-    CheckboxInteractiveState.Default to "Enabled",
-    CheckboxInteractiveState.Disabled to "Disabled",
-    CheckboxInteractiveState.ReadOnly to "Read-only",
-    CheckboxInteractiveState.Error to "Error",
-    CheckboxInteractiveState.Warning to "Warning",
+    SelectableInteractiveState.Default to "Enabled",
+    SelectableInteractiveState.Disabled to "Disabled",
+    SelectableInteractiveState.ReadOnly to "Read-only",
+    SelectableInteractiveState.Error to "Error",
+    SelectableInteractiveState.Warning to "Warning",
 )
 
 @Preview(
@@ -35,7 +37,7 @@ private val interactiveLabelStateMap = mapOf(
 @Composable
 private fun CheckboxOffPreview(
     @PreviewParameter(ButtonPreviewParameterProvider::class)
-    interactiveState: CheckboxInteractiveState
+    interactiveState: SelectableInteractiveState
 ) {
     CarbonDesignSystem {
         Checkbox(
@@ -59,7 +61,7 @@ private fun CheckboxOffPreview(
 @Composable
 private fun CheckboxOnPreview(
     @PreviewParameter(ButtonPreviewParameterProvider::class)
-    interactiveState: CheckboxInteractiveState
+    interactiveState: SelectableInteractiveState
 ) {
     CarbonDesignSystem {
         Checkbox(
@@ -83,7 +85,7 @@ private fun CheckboxOnPreview(
 @Composable
 private fun CheckboxIndeterminatePreview(
     @PreviewParameter(ButtonPreviewParameterProvider::class)
-    interactiveState: CheckboxInteractiveState
+    interactiveState: SelectableInteractiveState
 ) {
     CarbonDesignSystem {
         Checkbox(
@@ -115,7 +117,7 @@ private fun CheckboxFocusPreview() {
 
         Checkbox(
             state = ToggleableState.On,
-            interactiveState = CheckboxInteractiveState.Default,
+            interactiveState = SelectableInteractiveState.Default,
             label = "Focused",
             onClick = {},
             modifier = Modifier
