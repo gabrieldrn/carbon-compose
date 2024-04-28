@@ -575,6 +575,10 @@ public final class carbon/compose/foundation/text/CarbonTypographyKt {
 	public static final fun getIbmPlexSerifFamily ()Landroidx/compose/ui/text/font/FontFamily;
 }
 
+public final class carbon/compose/radiobutton/RadioButtonKt {
+	public static final fun RadioButton (ZLkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Ljava/lang/String;Ljava/lang/String;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;II)V
+}
+
 public final class carbon/compose/semantics/CarbonSemanticsProperties {
 	public static final field $stable I
 	public static final field INSTANCE Lcarbon/compose/semantics/CarbonSemanticsProperties;
@@ -605,4 +609,3 @@ public final class carbon/compose/uishell/ComposableSingletons$UiShellHeaderKt {
 public final class carbon/compose/uishell/UiShellHeaderKt {
 	public static final fun UiShellHeader (Ljava/lang/String;Landroidx/compose/ui/Modifier;Ljava/lang/Integer;Lkotlin/jvm/functions/Function0;Landroidx/compose/foundation/layout/WindowInsets;Lcarbon/compose/foundation/color/Theme;Landroidx/compose/runtime/Composer;II)V
 }
-
