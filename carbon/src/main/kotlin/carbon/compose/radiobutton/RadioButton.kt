@@ -15,6 +15,7 @@ public fun RadioButton(
     checked: Boolean,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
+    radioButtonInteractiveState: RadioButtonInteractiveState = RadioButtonInteractiveState.Default,
     errorMessage: String = "",
     warningMessage: String = "",
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }

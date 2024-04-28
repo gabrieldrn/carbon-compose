@@ -575,8 +575,19 @@ public final class carbon/compose/foundation/text/CarbonTypographyKt {
 	public static final fun getIbmPlexSerifFamily ()Landroidx/compose/ui/text/font/FontFamily;
 }
 
+public final class carbon/compose/radiobutton/RadioButtonInteractiveState : java/lang/Enum {
+	public static final field Default Lcarbon/compose/radiobutton/RadioButtonInteractiveState;
+	public static final field Disabled Lcarbon/compose/radiobutton/RadioButtonInteractiveState;
+	public static final field Error Lcarbon/compose/radiobutton/RadioButtonInteractiveState;
+	public static final field ReadOnly Lcarbon/compose/radiobutton/RadioButtonInteractiveState;
+	public static final field Warning Lcarbon/compose/radiobutton/RadioButtonInteractiveState;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcarbon/compose/radiobutton/RadioButtonInteractiveState;
+	public static fun values ()[Lcarbon/compose/radiobutton/RadioButtonInteractiveState;
+}
+
 public final class carbon/compose/radiobutton/RadioButtonKt {
-	public static final fun RadioButton (ZLkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Ljava/lang/String;Ljava/lang/String;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;II)V
+	public static final fun RadioButton (ZLkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Lcarbon/compose/radiobutton/RadioButtonInteractiveState;Ljava/lang/String;Ljava/lang/String;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;II)V
 }
 
 public final class carbon/compose/semantics/CarbonSemanticsProperties {
@@ -609,3 +620,4 @@ public final class carbon/compose/uishell/ComposableSingletons$UiShellHeaderKt {
 public final class carbon/compose/uishell/UiShellHeaderKt {
 	public static final fun UiShellHeader (Ljava/lang/String;Landroidx/compose/ui/Modifier;Ljava/lang/Integer;Lkotlin/jvm/functions/Function0;Landroidx/compose/foundation/layout/WindowInsets;Lcarbon/compose/foundation/color/Theme;Landroidx/compose/runtime/Composer;II)V
 }
+
