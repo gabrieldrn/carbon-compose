@@ -1,30 +1,17 @@
 package carbon.compose.radiobutton
 
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import androidx.compose.ui.unit.dp
 import carbon.compose.CarbonDesignSystem
-import carbon.compose.checkbox.Checkbox
 import carbon.compose.foundation.selectable.SelectableInteractiveState
 import carbon.compose.foundation.spacing.SpacingScale
-
-@Preview
-@Composable
-private fun RadioButtonIconPreview() {
-    Row {
-        RadioButton(selected = false, onClick = {})
-        RadioButton(selected = true, onClick = {}, modifier = Modifier.padding(start = 2.dp))
-    }
-}
 
 private class InteractiveStatePreviewParameterProvider :
     PreviewParameterProvider<SelectableInteractiveState> {
@@ -55,7 +42,7 @@ private fun RadioButtonOffPreview(
         RadioButton(
             selected = false,
             interactiveState = interactiveState,
-//            label = "${interactiveLabelStateMap[interactiveState]} unselected",
+            label = "${interactiveLabelStateMap[interactiveState]} unselected",
             onClick = {},
             modifier = Modifier.padding(SpacingScale.spacing03),
             errorMessage = "Error message goes here",
@@ -79,7 +66,7 @@ private fun RadioButtonOnPreview(
         RadioButton(
             selected = true,
             interactiveState = interactiveState,
-//            label = "${interactiveLabelStateMap[interactiveState]} selected",
+            label = "${interactiveLabelStateMap[interactiveState]} selected",
             onClick = {},
             modifier = Modifier.padding(SpacingScale.spacing03),
             errorMessage = "Error message goes here",
@@ -103,7 +90,7 @@ private fun RadioButtonIndeterminatePreview(
         RadioButton(
             selected = false,
             interactiveState = interactiveState,
-//            label = "${interactiveLabelStateMap[interactiveState]} indeterminate",
+            label = "${interactiveLabelStateMap[interactiveState]} indeterminate",
             onClick = {},
             modifier = Modifier.padding(SpacingScale.spacing03),
             errorMessage = "Error message goes here",
@@ -130,7 +117,7 @@ private fun RadioButtonFocusPreview() {
         RadioButton(
             selected = false,
             interactiveState = SelectableInteractiveState.Default,
-//            label = "Focused",
+            label = "Focused",
             onClick = {},
             modifier = Modifier
                 .padding(SpacingScale.spacing03)

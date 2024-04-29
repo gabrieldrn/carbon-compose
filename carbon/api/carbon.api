@@ -576,7 +576,7 @@ public final class carbon/compose/foundation/text/CarbonTypographyKt {
 }
 
 public final class carbon/compose/radiobutton/RadioButtonKt {
-	public static final fun RadioButton (ZLkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Lcarbon/compose/foundation/selectable/SelectableInteractiveState;Ljava/lang/String;Ljava/lang/String;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;II)V
+	public static final fun RadioButton (ZLjava/lang/String;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Lcarbon/compose/foundation/selectable/SelectableInteractiveState;Ljava/lang/String;Ljava/lang/String;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;II)V
 }
 
 public final class carbon/compose/semantics/CarbonSemanticsProperties {
