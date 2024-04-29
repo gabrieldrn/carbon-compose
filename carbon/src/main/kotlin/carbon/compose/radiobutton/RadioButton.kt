@@ -25,7 +25,7 @@ import carbon.compose.foundation.selectable.SelectableInteractiveState
  */
 @Composable
 public fun RadioButton(
-    checked: Boolean,
+    selected: Boolean,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     interactiveState: SelectableInteractiveState = SelectableInteractiveState.Default,
@@ -33,8 +33,12 @@ public fun RadioButton(
     warningMessage: String = "",
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 ) {
+    val colors = RadioButtonColors.colors()
+
     RadioButtonComponent(
-        checked = checked,
+        colors = colors,
+        interactiveState = interactiveState,
+        selected = selected,
         modifier = modifier
     )
 }
@@ -44,20 +48,20 @@ private val RadioButtonStrokeWidth = 1.dp
 
 @Composable
 private fun RadioButtonComponent(
-    checked: Boolean,
+    colors: RadioButtonColors,
+    interactiveState: SelectableInteractiveState,
+    selected: Boolean,
     modifier: Modifier = Modifier
 ) {
     Canvas(modifier = modifier.requiredSize(RadioButtonSize)) {
         drawCircle(
-            color = Color.Black,
+            color = colors.borderColor(interactiveState, selected),
             radius = (size.width - RadioButtonStrokeWidth.toPx()) * .5f,
             style = Stroke(width = RadioButtonStrokeWidth.toPx())
         )
-        if (checked) {
-            drawCircle(
-                color = Color.Black,
-                radius = size.width * .25f,
-            )
-        }
+        drawCircle(
+            color = colors.dotColor(interactiveState, selected),
+            radius = size.width * .25f,
+        )
     }
 }

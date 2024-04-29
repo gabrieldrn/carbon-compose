@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.selection.triStateToggleable
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.graphics.Color
@@ -22,12 +21,12 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.unit.dp
 import carbon.compose.foundation.interaction.ToggleableFocusIndication
+import carbon.compose.foundation.selectable.ErrorContent
 import carbon.compose.foundation.selectable.SelectableInteractiveState
+import carbon.compose.foundation.selectable.WarningContent
 import carbon.compose.foundation.spacing.SpacingScale
 import carbon.compose.foundation.text.CarbonTypography
 import carbon.compose.foundation.text.Text
-import carbon.compose.icons.ErrorIcon
-import carbon.compose.icons.WarningIcon
 import carbon.compose.semantics.readOnly
 
 private val checkboxBorderWidth = 1.dp
@@ -238,47 +237,5 @@ private fun CheckboxComponent(
                 )
             )
         }
-    }
-}
-
-@Composable
-private fun ErrorContent(
-    colors: CheckboxColors,
-    errorMessage: String,
-    modifier: Modifier = Modifier
-) {
-    Row(
-        modifier = modifier,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        ErrorIcon(
-            modifier = Modifier.padding(SpacingScale.spacing01)
-        )
-        Text(
-            text = errorMessage,
-            color = colors.errorMessageTextColor,
-            modifier = Modifier.padding(start = SpacingScale.spacing03),
-            style = CarbonTypography.label01
-        )
-    }
-}
-
-@Composable
-private fun WarningContent(
-    colors: CheckboxColors,
-    warningMessage: String,
-    modifier: Modifier = Modifier
-) {
-    Row(
-        modifier = modifier,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        WarningIcon(Modifier.padding(2.dp))
-        Text(
-            text = warningMessage,
-            color = colors.warningMessageTextColor,
-            modifier = Modifier.padding(start = SpacingScale.spacing03),
-            style = CarbonTypography.label01
-        )
     }
 }

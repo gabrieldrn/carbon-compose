@@ -14,7 +14,7 @@ import carbon.compose.CarbonDesignSystem
 import carbon.compose.foundation.selectable.SelectableInteractiveState
 import carbon.compose.foundation.spacing.SpacingScale
 
-private class ButtonPreviewParameterProvider :
+private class InteractiveStatePreviewParameterProvider :
     PreviewParameterProvider<SelectableInteractiveState> {
     override val values: Sequence<SelectableInteractiveState> =
         SelectableInteractiveState.entries.asSequence()
@@ -36,7 +36,7 @@ private val interactiveLabelStateMap = mapOf(
 )
 @Composable
 private fun CheckboxOffPreview(
-    @PreviewParameter(ButtonPreviewParameterProvider::class)
+    @PreviewParameter(InteractiveStatePreviewParameterProvider::class)
     interactiveState: SelectableInteractiveState
 ) {
     CarbonDesignSystem {
@@ -60,7 +60,7 @@ private fun CheckboxOffPreview(
 )
 @Composable
 private fun CheckboxOnPreview(
-    @PreviewParameter(ButtonPreviewParameterProvider::class)
+    @PreviewParameter(InteractiveStatePreviewParameterProvider::class)
     interactiveState: SelectableInteractiveState
 ) {
     CarbonDesignSystem {
@@ -84,7 +84,7 @@ private fun CheckboxOnPreview(
 )
 @Composable
 private fun CheckboxIndeterminatePreview(
-    @PreviewParameter(ButtonPreviewParameterProvider::class)
+    @PreviewParameter(InteractiveStatePreviewParameterProvider::class)
     interactiveState: SelectableInteractiveState
 ) {
     CarbonDesignSystem {

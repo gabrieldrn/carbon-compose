@@ -1,4 +1,4 @@
-package carbon.compose.checkbox
+package carbon.compose.radiobutton
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
@@ -9,11 +9,11 @@ import carbon.compose.foundation.selectable.SelectableColors
 import carbon.compose.foundation.selectable.SelectableInteractiveState
 
 /**
- * The set of colors used to style a [Checkbox].
+ * The set of colors used to style a [RadioButton].
  */
 @Immutable
 @Suppress("LongParameterList")
-internal class CheckboxColors(
+internal class RadioButtonColors(
     borderColor: Color,
     borderDisabledColor: Color,
     borderReadOnlyColor: Color,
@@ -22,10 +22,8 @@ internal class CheckboxColors(
     labelDisabledColor: Color,
     errorMessageTextColor: Color,
     warningMessageTextColor: Color,
-    val backgroundCheckedColor: Color,
-    val backgroundDisabledCheckedColor: Color,
-    val checkmarkCheckedColor: Color,
-    val checkmarkReadOnlyCheckedColor: Color,
+    val buttonDotColor: Color,
+    val buttonDotDisabledColor: Color,
 ) : SelectableColors(
     borderColor = borderColor,
     borderDisabledColor = borderDisabledColor,
@@ -37,41 +35,39 @@ internal class CheckboxColors(
     warningMessageTextColor = warningMessageTextColor,
 ) {
 
-    fun checkmarkColor(
+    fun borderColor(
         interactiveState: SelectableInteractiveState,
-        state: ToggleableState
-    ): Color = when {
-        state == ToggleableState.Off -> Color.Transparent
-        interactiveState == SelectableInteractiveState.ReadOnly -> checkmarkReadOnlyCheckedColor
-        else -> checkmarkCheckedColor
-    }
+        selected: Boolean
+    ): Color = borderColor(
+        interactiveState,
+        if (selected) ToggleableState.On else ToggleableState.Off
+    )
 
-    fun backgroundColor(
+    override fun borderColor(
         interactiveState: SelectableInteractiveState,
         state: ToggleableState
     ): Color = when (interactiveState) {
         SelectableInteractiveState.Default,
-        SelectableInteractiveState.Error,
-        SelectableInteractiveState.Warning -> if (state == ToggleableState.Off) {
-            Color.Transparent
-        } else {
-            backgroundCheckedColor
-        }
+        SelectableInteractiveState.Warning -> borderColor
+        SelectableInteractiveState.Disabled,
+        SelectableInteractiveState.ReadOnly -> borderDisabledColor
+        SelectableInteractiveState.Error -> borderErrorColor
+    }
 
-        SelectableInteractiveState.Disabled -> if (state == ToggleableState.Off) {
-            Color.Transparent
-        } else {
-            backgroundDisabledCheckedColor
-        }
-
-        SelectableInteractiveState.ReadOnly -> Color.Transparent
+    fun dotColor(
+        interactiveState: SelectableInteractiveState,
+        selected: Boolean
+    ): Color = when {
+        !selected -> Color.Transparent
+        interactiveState == SelectableInteractiveState.Disabled -> buttonDotDisabledColor
+        else -> buttonDotColor
     }
 
     internal companion object {
 
         @Composable
-        fun colors(): CheckboxColors = with(LocalCarbonTheme.current) {
-            CheckboxColors(
+        fun colors(): RadioButtonColors = with(LocalCarbonTheme.current) {
+            RadioButtonColors(
                 borderColor = iconPrimary,
                 borderDisabledColor = iconDisabled,
                 borderReadOnlyColor = iconDisabled,
@@ -80,10 +76,8 @@ internal class CheckboxColors(
                 labelDisabledColor = textDisabled,
                 errorMessageTextColor = textError,
                 warningMessageTextColor = textPrimary,
-                backgroundCheckedColor = iconPrimary,
-                backgroundDisabledCheckedColor = iconDisabled,
-                checkmarkCheckedColor = iconInverse,
-                checkmarkReadOnlyCheckedColor = iconPrimary
+                buttonDotColor = iconPrimary,
+                buttonDotDisabledColor = iconDisabled,
             )
         }
     }
