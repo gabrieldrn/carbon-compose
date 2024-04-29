@@ -40,7 +40,7 @@ internal class RadioButtonColors(
         selected: Boolean
     ): Color = borderColor(
         interactiveState,
-        if (selected) ToggleableState.On else ToggleableState.Off
+        ToggleableState(selected)
     )
 
     override fun borderColor(
