@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.navigationBars
@@ -34,6 +35,7 @@ fun RadioButtonDemoScreen(modifier: Modifier = Modifier) {
         Column(
             modifier = Modifier
                 .width(IntrinsicSize.Max)
+                .fillMaxHeight()
                 .verticalScroll(state = rememberScrollState())
                 .padding(WindowInsets.navigationBars.asPaddingValues())
                 .align(Alignment.Center),

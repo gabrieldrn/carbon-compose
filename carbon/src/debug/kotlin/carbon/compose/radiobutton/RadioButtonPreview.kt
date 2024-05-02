@@ -78,30 +78,6 @@ private fun RadioButtonOnPreview(
 @Preview(
     backgroundColor = 0xFFFFFFFF,
     showBackground = true,
-    group = "Indeterminate state",
-    device = "spec:width=1080px,height=2340px,dpi=640",
-)
-@Composable
-private fun RadioButtonIndeterminatePreview(
-    @PreviewParameter(InteractiveStatePreviewParameterProvider::class)
-    interactiveState: SelectableInteractiveState
-) {
-    CarbonDesignSystem {
-        RadioButton(
-            selected = false,
-            interactiveState = interactiveState,
-            label = "${interactiveLabelStateMap[interactiveState]} indeterminate",
-            onClick = {},
-            modifier = Modifier.padding(SpacingScale.spacing03),
-            errorMessage = "Error message goes here",
-            warningMessage = "Warning message goes here"
-        )
-    }
-}
-
-@Preview(
-    backgroundColor = 0xFFFFFFFF,
-    showBackground = true,
     group = "Focused state",
     device = "spec:width=1080px,height=2340px,dpi=640",
 )
@@ -116,7 +92,6 @@ private fun RadioButtonFocusPreview() {
 
         RadioButton(
             selected = false,
-            interactiveState = SelectableInteractiveState.Default,
             label = "Focused",
             onClick = {},
             modifier = Modifier

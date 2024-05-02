@@ -2,6 +2,7 @@ package carbon.compose.radiobutton
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.indication
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -14,6 +15,7 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.unit.dp
+import carbon.compose.foundation.interaction.ToggleableFocusIndication
 import carbon.compose.foundation.selectable.ErrorContent
 import carbon.compose.foundation.selectable.SelectableInteractiveState
 import carbon.compose.foundation.selectable.WarningContent
@@ -21,6 +23,9 @@ import carbon.compose.foundation.spacing.SpacingScale
 import carbon.compose.foundation.text.CarbonTypography
 import carbon.compose.foundation.text.Text
 import carbon.compose.semantics.readOnly
+
+private val RadioButtonSize = 20.dp
+private val RadioButtonStrokeWidth = 1.dp
 
 /**
  * # Carbon Radio button
@@ -82,6 +87,10 @@ public fun RadioButton(
                 colors = colors,
                 interactiveState = interactiveState,
                 selected = selected,
+                modifier = Modifier.indication(
+                    interactionSource = interactionSource,
+                    indication = ToggleableFocusIndication(RadioButtonSize)
+                )
             )
             Text(
                 text = label,
@@ -106,9 +115,6 @@ public fun RadioButton(
         }
     }
 }
-
-private val RadioButtonSize = 20.dp
-private val RadioButtonStrokeWidth = 1.dp
 
 @Composable
 private fun RadioButtonComponent(
