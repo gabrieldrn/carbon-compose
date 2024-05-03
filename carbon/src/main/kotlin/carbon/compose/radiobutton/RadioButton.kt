@@ -13,7 +13,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.semantics.Role
-import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.unit.dp
 import carbon.compose.foundation.interaction.ToggleableFocusIndication
 import carbon.compose.foundation.selectable.ErrorContent
@@ -68,7 +67,7 @@ public fun RadioButton(
         interactiveState == SelectableInteractiveState.ReadOnly -> Modifier.readOnly(
             role = Role.RadioButton,
             interactionSource = interactionSource,
-            state = ToggleableState(selected),
+            selected = selected,
             mergeDescendants = true
         )
         onClick != null -> Modifier.selectable(
