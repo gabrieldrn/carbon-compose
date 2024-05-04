@@ -34,6 +34,7 @@ import carbon.compose.dropdown.base.DropdownStateIcon
 import carbon.compose.dropdown.base.DropdownTestTags
 import carbon.compose.foundation.color.WhiteTheme
 import carbon.compose.foundation.spacing.SpacingScale
+import carbon.compose.semantics.assertIsReadOnly
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -215,8 +216,7 @@ open class DropdownFieldTest {
         composeTestRule.run {
             state = DropdownInteractiveState.ReadOnly
             onNodeWithTag(DropdownTestTags.FIELD)
-                .assertIsNotEnabled()
-                .assert(isFocusable())
+                .assertIsReadOnly()
         }
     }
 }

@@ -6,11 +6,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.Role
-import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.state.ToggleableState
-import androidx.compose.ui.test.SemanticsMatcher
-import androidx.compose.ui.test.assert
-import androidx.compose.ui.test.isNotEnabled
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import org.junit.Rule
@@ -39,15 +35,7 @@ class ReadOnlyTest {
 
         composeTestRule
             .onNodeWithTag("ReadOnly")
-            .assert(
-                SemanticsMatcher.expectValue(
-                    SemanticsProperties.ToggleableState,
-                    ToggleableState.Indeterminate
-                ) and
-                    SemanticsMatcher.expectValue(SemanticsProperties.Role, Role.Checkbox) and
-                    isNotEnabled() and
-                    SemanticsMatcher.expectValue(CarbonSemanticsProperties.ReadOnly, true)
-            ) {
+            .assertIsReadOnly {
                 "The node misses the expected semantics for a read-only component."
             }
     }

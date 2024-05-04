@@ -596,6 +596,12 @@ public final class carbon/compose/semantics/ReadOnlyKt {
 	public static synthetic fun readOnly-glApdhM$default (Landroidx/compose/ui/Modifier;ILandroidx/compose/foundation/interaction/MutableInteractionSource;ZZILjava/lang/Object;)Landroidx/compose/ui/Modifier;
 }
 
+public final class carbon/compose/semantics/SemanticsExtKt {
+	public static final fun assertIsReadOnly (Landroidx/compose/ui/test/SemanticsNodeInteraction;Lkotlin/jvm/functions/Function0;)Landroidx/compose/ui/test/SemanticsNodeInteraction;
+	public static synthetic fun assertIsReadOnly$default (Landroidx/compose/ui/test/SemanticsNodeInteraction;Lkotlin/jvm/functions/Function0;ILjava/lang/Object;)Landroidx/compose/ui/test/SemanticsNodeInteraction;
+	public static final fun isReadOnly ()Landroidx/compose/ui/test/SemanticsMatcher;
+}
+
 public final class carbon/compose/toggle/ToggleKt {
 	public static final fun SmallToggle (ZLkotlin/jvm/functions/Function1;Landroidx/compose/ui/Modifier;Ljava/lang/String;ZZLandroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;II)V
 	public static final fun Toggle (ZLkotlin/jvm/functions/Function1;Landroidx/compose/ui/Modifier;Ljava/lang/String;Ljava/lang/String;ZZLandroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;II)V

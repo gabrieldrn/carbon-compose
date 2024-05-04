@@ -5,7 +5,6 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.disabled
-import androidx.compose.ui.semantics.onClick
 import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.toggleableState
@@ -38,10 +37,9 @@ public fun Modifier.readOnly(
     .semantics(
         mergeDescendants = mergeDescendants
     ) {
-        readOnly()
         this.role = role
         if (state != null) { toggleableState = state }
-        onClick(null, null)
+        readOnly()
         disabled()
     }
 
