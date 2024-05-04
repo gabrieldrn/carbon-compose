@@ -24,21 +24,21 @@ internal abstract class SelectableColors(
         interactiveState: SelectableInteractiveState,
         state: ToggleableState
     ): Color = when (interactiveState) {
-        SelectableInteractiveState.Default,
-        SelectableInteractiveState.Warning -> if (state == ToggleableState.Off) {
+        is SelectableInteractiveState.Default,
+        is SelectableInteractiveState.Warning -> if (state == ToggleableState.Off) {
             borderColor
         } else {
             Color.Transparent
         }
 
-        SelectableInteractiveState.Disabled -> if (state == ToggleableState.Off) {
+        is SelectableInteractiveState.Disabled -> if (state == ToggleableState.Off) {
             borderDisabledColor
         } else {
             Color.Transparent
         }
 
-        SelectableInteractiveState.ReadOnly -> borderReadOnlyColor
-        SelectableInteractiveState.Error -> borderErrorColor
+        is SelectableInteractiveState.ReadOnly -> borderReadOnlyColor
+        is SelectableInteractiveState.Error -> borderErrorColor
     }
 
     fun labelColor(interactiveState: SelectableInteractiveState): Color =

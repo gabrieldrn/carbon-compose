@@ -47,11 +47,11 @@ internal class RadioButtonColors(
         interactiveState: SelectableInteractiveState,
         state: ToggleableState
     ): Color = when (interactiveState) {
-        SelectableInteractiveState.Default,
-        SelectableInteractiveState.Warning -> borderColor
-        SelectableInteractiveState.Disabled,
-        SelectableInteractiveState.ReadOnly -> borderDisabledColor
-        SelectableInteractiveState.Error -> borderErrorColor
+        is SelectableInteractiveState.Default,
+        is SelectableInteractiveState.Warning -> borderColor
+        is SelectableInteractiveState.Disabled,
+        is SelectableInteractiveState.ReadOnly -> borderDisabledColor
+        is SelectableInteractiveState.Error -> borderErrorColor
     }
 
     fun dotColor(

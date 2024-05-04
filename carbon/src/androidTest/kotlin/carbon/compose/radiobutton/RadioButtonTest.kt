@@ -24,9 +24,19 @@ class RadioButtonTest {
     val composeTestRule = createComposeRule()
 
     private var selected by mutableStateOf(false)
-    private var interactiveState by mutableStateOf(SelectableInteractiveState.Default)
+    private var interactiveState by mutableStateOf<SelectableInteractiveState>(
+        SelectableInteractiveState.Default
+    )
     private var errorMessage by mutableStateOf("")
     private var warningMessage by mutableStateOf("")
+
+    private val interactiveStates = listOf(
+        SelectableInteractiveState.Default,
+        SelectableInteractiveState.Disabled,
+        SelectableInteractiveState.ReadOnly,
+        SelectableInteractiveState.Error("Error message"),
+        SelectableInteractiveState.Warning("Warning message")
+    )
 
     @Before
     fun setup() {
@@ -36,14 +46,12 @@ class RadioButtonTest {
                 label = "Radio button",
                 onClick = { selected = !selected },
                 interactiveState = interactiveState,
-                modifier = Modifier.testTag("root"),
-                errorMessage = errorMessage,
-                warningMessage = warningMessage
+                modifier = Modifier.testTag("root")
             )
         }
     }
 
-    private fun assertWarningContentisDisplayed(displayed: Boolean) = composeTestRule
+    private fun assertWarningContentIsDisplayed(displayed: Boolean) = composeTestRule
         .onNodeWithTag(RadioButtonTestTags.WARNING_CONTENT, useUnmergedTree = true)
         .run {
             if (displayed) assertIsDisplayed() else assertIsNotDisplayed()
@@ -58,7 +66,7 @@ class RadioButtonTest {
     @Test
     fun radioButton_validateLayout() {
         composeTestRule.run {
-            SelectableInteractiveState.entries.forEach { state ->
+            interactiveStates.forEach { state ->
                 interactiveState = state
 
                 onNodeWithTag(RadioButtonTestTags.BUTTON, useUnmergedTree = true)
@@ -67,40 +75,34 @@ class RadioButtonTest {
                     .assertIsDisplayed()
 
                 when (state) {
-                    SelectableInteractiveState.Default -> {
+                    is SelectableInteractiveState.Default -> {
                         onNodeWithTag("root").assertHasClickAction()
                         assertErrorContentIsDisplayed(false)
-                        assertWarningContentisDisplayed(false)
+                        assertWarningContentIsDisplayed(false)
                     }
 
-                    SelectableInteractiveState.Disabled -> {
+                    is SelectableInteractiveState.Disabled -> {
                         onNodeWithTag("root").assertIsNotEnabled()
                         assertErrorContentIsDisplayed(false)
-                        assertWarningContentisDisplayed(false)
+                        assertWarningContentIsDisplayed(false)
                     }
 
-                    SelectableInteractiveState.ReadOnly -> {
+                    is SelectableInteractiveState.ReadOnly -> {
                         onNodeWithTag("root").assertIsReadOnly()
                         assertErrorContentIsDisplayed(false)
-                        assertWarningContentisDisplayed(false)
+                        assertWarningContentIsDisplayed(false)
                     }
 
-                    SelectableInteractiveState.Error -> {
+                    is SelectableInteractiveState.Error -> {
                         onNodeWithTag("root").assertHasClickAction()
-                        assertWarningContentisDisplayed(false)
-                        errorMessage = ""
-                        assertErrorContentIsDisplayed(false)
-                        errorMessage = "Error message"
+                        assertWarningContentIsDisplayed(false)
                         assertErrorContentIsDisplayed(true)
                     }
 
-                    SelectableInteractiveState.Warning -> {
+                    is SelectableInteractiveState.Warning -> {
                         onNodeWithTag("root").assertHasClickAction()
                         assertErrorContentIsDisplayed(false)
-                        warningMessage = ""
-                        assertWarningContentisDisplayed(false)
-                        warningMessage = "Warning message"
-                        assertWarningContentisDisplayed(true)
+                        assertWarningContentIsDisplayed(true)
                     }
                 }
             }

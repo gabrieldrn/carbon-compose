@@ -50,21 +50,21 @@ internal class CheckboxColors(
         interactiveState: SelectableInteractiveState,
         state: ToggleableState
     ): Color = when (interactiveState) {
-        SelectableInteractiveState.Default,
-        SelectableInteractiveState.Error,
-        SelectableInteractiveState.Warning -> if (state == ToggleableState.Off) {
+        is SelectableInteractiveState.Default,
+        is SelectableInteractiveState.Error,
+        is SelectableInteractiveState.Warning -> if (state == ToggleableState.Off) {
             Color.Transparent
         } else {
             backgroundCheckedColor
         }
 
-        SelectableInteractiveState.Disabled -> if (state == ToggleableState.Off) {
+        is SelectableInteractiveState.Disabled -> if (state == ToggleableState.Off) {
             Color.Transparent
         } else {
             backgroundDisabledCheckedColor
         }
 
-        SelectableInteractiveState.ReadOnly -> Color.Transparent
+        is SelectableInteractiveState.ReadOnly -> Color.Transparent
     }
 
     internal companion object {

@@ -25,6 +25,14 @@ import carbon.compose.foundation.selectable.SelectableInteractiveState
 import carbon.compose.foundation.spacing.SpacingScale
 import carbon.compose.radiobutton.RadioButton
 
+private val interactiveStates = listOf(
+    SelectableInteractiveState.Default,
+    SelectableInteractiveState.Disabled,
+    SelectableInteractiveState.ReadOnly,
+    SelectableInteractiveState.Error("Error message goes here"),
+    SelectableInteractiveState.Warning("Warning message goes here")
+)
+
 @Composable
 fun RadioButtonDemoScreen(modifier: Modifier = Modifier) {
     Box(modifier = modifier.fillMaxSize()) {
@@ -44,19 +52,17 @@ fun RadioButtonDemoScreen(modifier: Modifier = Modifier) {
                 Alignment.CenterVertically
             )
         ) {
-            SelectableInteractiveState.entries.forEach { interactiveState ->
+            interactiveStates.forEach { interactiveState ->
                 RadioButton(
                     selected = checkedButton == interactiveState,
                     label = when (interactiveState) {
-                        SelectableInteractiveState.Default -> "Default"
-                        SelectableInteractiveState.Disabled -> "Disabled"
-                        SelectableInteractiveState.ReadOnly -> "Read-only"
-                        SelectableInteractiveState.Error -> "Error"
-                        SelectableInteractiveState.Warning -> "Warning"
+                        is SelectableInteractiveState.Default -> "Default"
+                        is SelectableInteractiveState.Disabled -> "Disabled"
+                        is SelectableInteractiveState.ReadOnly -> "Read-only"
+                        is SelectableInteractiveState.Error -> "Error"
+                        is SelectableInteractiveState.Warning -> "Warning"
                     },
                     onClick = { checkedButton = interactiveState },
-                    errorMessage = "Error message goes here",
-                    warningMessage = "Warning message goes here",
                     modifier = Modifier.fillMaxWidth(),
                     interactiveState = interactiveState,
                 )

@@ -50,10 +50,6 @@ private val checkboxCornerRadius = 2.dp
  * @param onClick Callback invoked when the checkbox is clicked.
  * @param modifier The modifier to be applied to the checkbox.
  * @param interactiveState The [SelectableInteractiveState] of the checkbox.
- * @param errorMessage The error message to be displayed below the checkbox, it will be displayed
- * only if the [interactiveState] is [SelectableInteractiveState.Error].
- * @param warningMessage The warning message to be displayed below the checkbox, it will be
- * displayed only if the [interactiveState] is [SelectableInteractiveState.Warning].
  * @param interactionSource The [MutableInteractionSource] that keeps track of the checkbox state.
  */
 @Composable
@@ -63,8 +59,6 @@ public fun Checkbox(
     onClick: (() -> Unit)?,
     modifier: Modifier = Modifier,
     interactiveState: SelectableInteractiveState = SelectableInteractiveState.Default,
-    errorMessage: String = "",
-    warningMessage: String = "",
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 ) {
     Checkbox(
@@ -73,8 +67,6 @@ public fun Checkbox(
         onClick = onClick,
         modifier = modifier,
         interactiveState = interactiveState,
-        errorMessage = errorMessage,
-        warningMessage = warningMessage,
         interactionSource = interactionSource
     )
 }
@@ -102,10 +94,6 @@ public fun Checkbox(
  * @param onClick Callback invoked when the checkbox is clicked.
  * @param modifier The modifier to be applied to the checkbox.
  * @param interactiveState The [SelectableInteractiveState] of the checkbox.
- * @param errorMessage The error message to be displayed below the checkbox, it will be displayed
- * only if the [interactiveState] is [SelectableInteractiveState.Error].
- * @param warningMessage The warning message to be displayed below the checkbox, it will be
- * displayed only if the [interactiveState] is [SelectableInteractiveState.Warning].
  * @param interactionSource The [MutableInteractionSource] that keeps track of the checkbox state.
  */
 @Composable
@@ -115,8 +103,6 @@ public fun Checkbox(
     onClick: (() -> Unit)?,
     modifier: Modifier = Modifier,
     interactiveState: SelectableInteractiveState = SelectableInteractiveState.Default,
-    errorMessage: String = "",
-    warningMessage: String = "",
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 ) {
     val colors = CheckboxColors.colors()
@@ -157,17 +143,17 @@ public fun Checkbox(
                 style = CarbonTypography.bodyCompact01
             )
         }
-        if (interactiveState == SelectableInteractiveState.Error) {
+        if (interactiveState is SelectableInteractiveState.Error) {
             ErrorContent(
                 colors = colors,
-                errorMessage = errorMessage,
+                errorMessage = interactiveState.errorMessage,
                 modifier = Modifier.padding(top = SpacingScale.spacing03)
             )
         }
-        if (interactiveState == SelectableInteractiveState.Warning) {
+        if (interactiveState is SelectableInteractiveState.Warning) {
             WarningContent(
                 colors = colors,
-                warningMessage = warningMessage,
+                warningMessage = interactiveState.warningMessage,
                 modifier = Modifier.padding(top = SpacingScale.spacing03)
             )
         }

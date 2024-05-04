@@ -44,10 +44,6 @@ private val RadioButtonStrokeWidth = 1.dp
  * @param onClick Callback invoked when the radio button is clicked.
  * @param modifier The modifier to be applied to the radio button.
  * @param interactiveState The [SelectableInteractiveState] of the radio button.
- * @param errorMessage The error message to be displayed below the radio button, it will be
- * displayed only if the [interactiveState] is [SelectableInteractiveState.Error].
- * @param warningMessage The warning message to be displayed below the radio button, it will be
- * displayed only if the [interactiveState] is [SelectableInteractiveState.Warning].
  * @param interactionSource The [MutableInteractionSource] that keeps track of the radio button
  * state.
  */
@@ -58,8 +54,6 @@ public fun RadioButton(
     onClick: (() -> Unit)?,
     modifier: Modifier = Modifier,
     interactiveState: SelectableInteractiveState = SelectableInteractiveState.Default,
-    errorMessage: String = "",
-    warningMessage: String = "",
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 ) {
     val colors = RadioButtonColors.colors()
@@ -102,19 +96,19 @@ public fun RadioButton(
                 style = CarbonTypography.bodyCompact01
             )
         }
-        if (interactiveState == SelectableInteractiveState.Error && errorMessage.isNotEmpty()) {
+        if (interactiveState is SelectableInteractiveState.Error) {
             ErrorContent(
                 colors = colors,
-                errorMessage = errorMessage,
+                errorMessage = interactiveState.errorMessage,
                 modifier = Modifier
                     .padding(top = SpacingScale.spacing03)
                     .testTag(RadioButtonTestTags.ERROR_CONTENT)
             )
         }
-        if (interactiveState == SelectableInteractiveState.Warning && warningMessage.isNotEmpty()) {
+        if (interactiveState is SelectableInteractiveState.Warning) {
             WarningContent(
                 colors = colors,
-                warningMessage = warningMessage,
+                warningMessage = interactiveState.warningMessage,
                 modifier = Modifier
                     .padding(top = SpacingScale.spacing03)
                     .testTag(RadioButtonTestTags.WARNING_CONTENT)

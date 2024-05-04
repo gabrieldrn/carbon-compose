@@ -9,24 +9,11 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
-import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import carbon.compose.CarbonDesignSystem
+import carbon.compose.InteractiveStatePreviewParameterProvider
 import carbon.compose.foundation.selectable.SelectableInteractiveState
 import carbon.compose.foundation.spacing.SpacingScale
-
-private class InteractiveStatePreviewParameterProvider :
-    PreviewParameterProvider<SelectableInteractiveState> {
-    override val values: Sequence<SelectableInteractiveState> =
-        SelectableInteractiveState.entries.asSequence()
-}
-
-private val interactiveLabelStateMap = mapOf(
-    SelectableInteractiveState.Default to "Enabled",
-    SelectableInteractiveState.Disabled to "Disabled",
-    SelectableInteractiveState.ReadOnly to "Read-only",
-    SelectableInteractiveState.Error to "Error",
-    SelectableInteractiveState.Warning to "Warning",
-)
+import carbon.compose.toLabel
 
 @Preview(
     backgroundColor = 0xFFFFFFFF,
@@ -43,11 +30,9 @@ private fun CheckboxOffPreview(
         Checkbox(
             state = ToggleableState.Off,
             interactiveState = interactiveState,
-            label = "${interactiveLabelStateMap[interactiveState]} unselected",
+            label = "${interactiveState.toLabel()} unselected",
             onClick = {},
-            modifier = Modifier.padding(SpacingScale.spacing03),
-            errorMessage = "Error message goes here",
-            warningMessage = "Warning message goes here",
+            modifier = Modifier.padding(SpacingScale.spacing03)
         )
     }
 }
@@ -67,11 +52,9 @@ private fun CheckboxOnPreview(
         Checkbox(
             state = ToggleableState.On,
             interactiveState = interactiveState,
-            label = "${interactiveLabelStateMap[interactiveState]} selected",
+            label = "${interactiveState.toLabel()} selected",
             onClick = {},
-            modifier = Modifier.padding(SpacingScale.spacing03),
-            errorMessage = "Error message goes here",
-            warningMessage = "Warning message goes here",
+            modifier = Modifier.padding(SpacingScale.spacing03)
         )
     }
 }
@@ -91,11 +74,9 @@ private fun CheckboxIndeterminatePreview(
         Checkbox(
             state = ToggleableState.Indeterminate,
             interactiveState = interactiveState,
-            label = "${interactiveLabelStateMap[interactiveState]} indeterminate",
+            label = "${interactiveState.toLabel()} indeterminate",
             onClick = {},
-            modifier = Modifier.padding(SpacingScale.spacing03),
-            errorMessage = "Error message goes here",
-            warningMessage = "Warning message goes here"
+            modifier = Modifier.padding(SpacingScale.spacing03)
         )
     }
 }
@@ -122,9 +103,7 @@ private fun CheckboxFocusPreview() {
             onClick = {},
             modifier = Modifier
                 .padding(SpacingScale.spacing03)
-                .focusRequester(focusRequester),
-            errorMessage = "Error message goes here",
-            warningMessage = "Warning message goes here"
+                .focusRequester(focusRequester)
         )
     }
 }
