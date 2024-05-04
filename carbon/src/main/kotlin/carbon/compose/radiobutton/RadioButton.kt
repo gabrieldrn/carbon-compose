@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import carbon.compose.foundation.interaction.ToggleableFocusIndication
@@ -95,22 +96,28 @@ public fun RadioButton(
             Text(
                 text = label,
                 color = colors.labelColor(interactiveState = interactiveState),
-                modifier = Modifier.padding(start = SpacingScale.spacing03),
+                modifier = Modifier
+                    .padding(start = SpacingScale.spacing03)
+                    .testTag(RadioButtonTestTags.LABEL),
                 style = CarbonTypography.bodyCompact01
             )
         }
-        if (interactiveState == SelectableInteractiveState.Error) {
+        if (interactiveState == SelectableInteractiveState.Error && errorMessage.isNotEmpty()) {
             ErrorContent(
                 colors = colors,
                 errorMessage = errorMessage,
-                modifier = Modifier.padding(top = SpacingScale.spacing03)
+                modifier = Modifier
+                    .padding(top = SpacingScale.spacing03)
+                    .testTag(RadioButtonTestTags.ERROR_CONTENT)
             )
         }
-        if (interactiveState == SelectableInteractiveState.Warning) {
+        if (interactiveState == SelectableInteractiveState.Warning && warningMessage.isNotEmpty()) {
             WarningContent(
                 colors = colors,
                 warningMessage = warningMessage,
-                modifier = Modifier.padding(top = SpacingScale.spacing03)
+                modifier = Modifier
+                    .padding(top = SpacingScale.spacing03)
+                    .testTag(RadioButtonTestTags.WARNING_CONTENT)
             )
         }
     }
@@ -123,7 +130,11 @@ private fun RadioButtonComponent(
     selected: Boolean,
     modifier: Modifier = Modifier
 ) {
-    Canvas(modifier = modifier.requiredSize(RadioButtonSize)) {
+    Canvas(
+        modifier = modifier
+            .requiredSize(RadioButtonSize)
+            .testTag(RadioButtonTestTags.BUTTON)
+    ) {
         drawCircle(
             color = colors.borderColor(interactiveState, selected),
             radius = (size.width - RadioButtonStrokeWidth.toPx()) * .5f,
