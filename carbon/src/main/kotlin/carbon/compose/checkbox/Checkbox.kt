@@ -17,6 +17,7 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.inset
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.unit.dp
@@ -139,7 +140,9 @@ public fun Checkbox(
             Text(
                 text = label,
                 color = colors.labelColor(interactiveState = interactiveState),
-                modifier = Modifier.padding(start = SpacingScale.spacing03),
+                modifier = Modifier
+                    .padding(start = SpacingScale.spacing03)
+                    .testTag(CheckboxTestTags.LABEL),
                 style = CarbonTypography.bodyCompact01
             )
         }
@@ -147,14 +150,18 @@ public fun Checkbox(
             ErrorContent(
                 colors = colors,
                 errorMessage = interactiveState.errorMessage,
-                modifier = Modifier.padding(top = SpacingScale.spacing03)
+                modifier = Modifier
+                    .padding(top = SpacingScale.spacing03)
+                    .testTag(CheckboxTestTags.ERROR_CONTENT)
             )
         }
         if (interactiveState is SelectableInteractiveState.Warning) {
             WarningContent(
                 colors = colors,
                 warningMessage = interactiveState.warningMessage,
-                modifier = Modifier.padding(top = SpacingScale.spacing03)
+                modifier = Modifier
+                    .padding(top = SpacingScale.spacing03)
+                    .testTag(CheckboxTestTags.WARNING_CONTENT)
             )
         }
     }
@@ -179,6 +186,7 @@ private fun CheckboxComponent(
         modifier = Modifier
             .padding(2.dp)
             .requiredSize(16.dp)
+            .testTag(CheckboxTestTags.BUTTON)
             .then(modifier)
     ) {
         val borderWidth = checkboxBorderWidth.toPx()

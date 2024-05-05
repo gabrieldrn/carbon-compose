@@ -1,10 +1,11 @@
-package carbon.compose.radiobutton
+package carbon.compose.checkbox
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.test.assertHasClickAction
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsNotDisplayed
@@ -18,12 +19,12 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
-class RadioButtonTest {
+class CheckboxTest {
 
     @get:Rule
     val composeTestRule = createComposeRule()
 
-    private var selected by mutableStateOf(false)
+    private var state by mutableStateOf<ToggleableState>(ToggleableState.Off)
     private var interactiveState by mutableStateOf<SelectableInteractiveState>(
         SelectableInteractiveState.Default
     )
@@ -36,13 +37,19 @@ class RadioButtonTest {
         SelectableInteractiveState.Warning("Warning message")
     )
 
+    private fun nextState() {
+        state = ToggleableState.entries.toTypedArray().let { states ->
+            states[(states.indexOf(state) + 1) % states.size]
+        }
+    }
+
     @Before
     fun setup() {
         composeTestRule.setContent {
-            RadioButton(
-                selected = selected,
-                label = "Radio button",
-                onClick = { selected = !selected },
+            Checkbox(
+                state = state,
+                label = "Checkbox",
+                onClick = ::nextState,
                 interactiveState = interactiveState,
                 modifier = Modifier.testTag("root")
             )
@@ -50,13 +57,13 @@ class RadioButtonTest {
     }
 
     private fun assertWarningContentIsDisplayed(displayed: Boolean) = composeTestRule
-        .onNodeWithTag(RadioButtonTestTags.WARNING_CONTENT, useUnmergedTree = true)
+        .onNodeWithTag(CheckboxTestTags.WARNING_CONTENT, useUnmergedTree = true)
         .run {
             if (displayed) assertIsDisplayed() else assertIsNotDisplayed()
         }
 
     private fun assertErrorContentIsDisplayed(displayed: Boolean) = composeTestRule
-        .onNodeWithTag(RadioButtonTestTags.ERROR_CONTENT, useUnmergedTree = true)
+        .onNodeWithTag(CheckboxTestTags.ERROR_CONTENT, useUnmergedTree = true)
         .run {
             if (displayed) assertIsDisplayed() else assertIsNotDisplayed()
         }
@@ -67,9 +74,9 @@ class RadioButtonTest {
             interactiveStates.forEach { state ->
                 interactiveState = state
 
-                onNodeWithTag(RadioButtonTestTags.BUTTON, useUnmergedTree = true)
+                onNodeWithTag(CheckboxTestTags.BUTTON, useUnmergedTree = true)
                     .assertIsDisplayed()
-                onNodeWithTag(RadioButtonTestTags.LABEL, useUnmergedTree = true)
+                onNodeWithTag(CheckboxTestTags.LABEL, useUnmergedTree = true)
                     .assertIsDisplayed()
 
                 when (state) {
@@ -109,10 +116,10 @@ class RadioButtonTest {
 
     @Test
     fun radioButton_onClick_stateGetsUpdated() {
-        selected = false
+        val oldState = state
         composeTestRule.run {
             onNodeWithTag("root").performClick()
-            assert(selected)
+            assert(state != oldState)
         }
     }
 }
