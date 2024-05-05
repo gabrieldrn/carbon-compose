@@ -23,6 +23,7 @@ class CarbonDetektConventionPlugin : Plugin<Project> {
             debug = false
             ignoreFailures = true
             basePath = this@with.projectDir.absolutePath
+            ignoredBuildTypes = listOf("debug")
         }
 
         tasks.named<Detekt>("detekt").configure {

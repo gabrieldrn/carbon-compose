@@ -21,6 +21,7 @@ import androidx.compose.ui.test.onAllNodesWithTag
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.unit.dp
+import carbon.compose.semantics.isReadOnly
 import org.junit.Rule
 import org.junit.Test
 
@@ -102,6 +103,34 @@ class ToggleTest {
                     SemanticsProperties.ToggleableState,
                     ToggleableState.Off
                 )
+            )
+        }
+    }
+
+    @Test
+    fun toggle_readOnly_validateSemantics() {
+        var isToggled by mutableStateOf(false)
+        composeTestRule.setContent {
+            Column {
+                Toggle(
+                    isToggled = isToggled,
+                    onToggleChange = {},
+                    modifier = Modifier.testTag("Toggle"),
+                    isReadOnly = true
+                )
+                SmallToggle(
+                    isToggled = isToggled,
+                    onToggleChange = {},
+                    modifier = Modifier.testTag("Toggle"),
+                    isReadOnly = true
+                )
+            }
+        }
+
+        composeTestRule.onAllNodesWithTag("Toggle").run {
+            assertAll(
+                SemanticsMatcher.expectValue(SemanticsProperties.Role, Role.Switch)
+                and isReadOnly()
             )
         }
     }

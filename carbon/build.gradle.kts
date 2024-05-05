@@ -46,6 +46,9 @@ dependencies {
     implementation(libs.androidx.compose.foundation)
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.uiTooling)
+    implementation(libs.androidx.compose.ui.test) {
+        exclude(group = "androidx.test.espresso", module = "espresso-core")
+    }
 
     implementation(libs.timber)
 

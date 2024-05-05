@@ -12,7 +12,7 @@ import androidx.compose.ui.semantics.SemanticsPropertyReceiver
 public object CarbonSemanticsProperties {
 
     /**
-     * @see [carbon.compose.semantics.readOnly]
+     * @see [readOnly]
      */
     public val ReadOnly: SemanticsPropertyKey<Boolean> = SemanticsPropertyKey("ReadOnly")
 

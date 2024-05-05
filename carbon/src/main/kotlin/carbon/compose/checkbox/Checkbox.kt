@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.selection.triStateToggleable
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.graphics.Color
@@ -18,15 +17,17 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.inset
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.unit.dp
 import carbon.compose.foundation.interaction.ToggleableFocusIndication
+import carbon.compose.foundation.selectable.ErrorContent
+import carbon.compose.foundation.selectable.SelectableInteractiveState
+import carbon.compose.foundation.selectable.WarningContent
 import carbon.compose.foundation.spacing.SpacingScale
 import carbon.compose.foundation.text.CarbonTypography
 import carbon.compose.foundation.text.Text
-import carbon.compose.icons.ErrorIcon
-import carbon.compose.icons.WarningIcon
 import carbon.compose.semantics.readOnly
 
 private val checkboxBorderWidth = 1.dp
@@ -43,22 +44,13 @@ private val checkboxCornerRadius = 2.dp
  * - The error or warning message are displayed below the checkbox and help the user understand
  * about a certain state regarding the checkbox context.
  *
- * ## Interactions
- * The component applies a tri-state toggleable interaction to the checkbox root composable if the
- * [onClick] callback is provided, meaning that the whole component is clickable in order to create
- * a more accessible click target. Otherwise, the checkbox won't be interactable.
- *
  * (From [Checkbox documentation](https://carbondesignsystem.com/components/checkbox/usage/))
  *
  * @param checked Whether the checkbox is checked.
  * @param label The text to be displayed next to the checkbox.
  * @param onClick Callback invoked when the checkbox is clicked.
  * @param modifier The modifier to be applied to the checkbox.
- * @param interactiveState The [CheckboxInteractiveState] of the checkbox.
- * @param errorMessage The error message to be displayed below the checkbox, it will be displayed
- * only if the [interactiveState] is [CheckboxInteractiveState.Error].
- * @param warningMessage The warning message to be displayed below the checkbox, it will be
- * displayed only if the [interactiveState] is [CheckboxInteractiveState.Warning].
+ * @param interactiveState The [SelectableInteractiveState] of the checkbox.
  * @param interactionSource The [MutableInteractionSource] that keeps track of the checkbox state.
  */
 @Composable
@@ -67,9 +59,7 @@ public fun Checkbox(
     label: String,
     onClick: (() -> Unit)?,
     modifier: Modifier = Modifier,
-    interactiveState: CheckboxInteractiveState = CheckboxInteractiveState.Default,
-    errorMessage: String = "",
-    warningMessage: String = "",
+    interactiveState: SelectableInteractiveState = SelectableInteractiveState.Default,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 ) {
     Checkbox(
@@ -78,8 +68,6 @@ public fun Checkbox(
         onClick = onClick,
         modifier = modifier,
         interactiveState = interactiveState,
-        errorMessage = errorMessage,
-        warningMessage = warningMessage,
         interactionSource = interactionSource
     )
 }
@@ -106,11 +94,7 @@ public fun Checkbox(
  * @param label The text to be displayed next to the checkbox.
  * @param onClick Callback invoked when the checkbox is clicked.
  * @param modifier The modifier to be applied to the checkbox.
- * @param interactiveState The [CheckboxInteractiveState] of the checkbox.
- * @param errorMessage The error message to be displayed below the checkbox, it will be displayed
- * only if the [interactiveState] is [CheckboxInteractiveState.Error].
- * @param warningMessage The warning message to be displayed below the checkbox, it will be
- * displayed only if the [interactiveState] is [CheckboxInteractiveState.Warning].
+ * @param interactiveState The [SelectableInteractiveState] of the checkbox.
  * @param interactionSource The [MutableInteractionSource] that keeps track of the checkbox state.
  */
 @Composable
@@ -119,15 +103,13 @@ public fun Checkbox(
     label: String,
     onClick: (() -> Unit)?,
     modifier: Modifier = Modifier,
-    interactiveState: CheckboxInteractiveState = CheckboxInteractiveState.Default,
-    errorMessage: String = "",
-    warningMessage: String = "",
+    interactiveState: SelectableInteractiveState = SelectableInteractiveState.Default,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 ) {
     val colors = CheckboxColors.colors()
 
     val checkboxModifier = when {
-        interactiveState == CheckboxInteractiveState.ReadOnly -> Modifier.readOnly(
+        interactiveState == SelectableInteractiveState.ReadOnly -> Modifier.readOnly(
             role = Role.Checkbox,
             interactionSource = interactionSource,
             state = state,
@@ -136,7 +118,7 @@ public fun Checkbox(
         onClick != null -> Modifier.triStateToggleable(
             state = state,
             interactionSource = interactionSource,
-            enabled = interactiveState != CheckboxInteractiveState.Disabled,
+            enabled = interactiveState != SelectableInteractiveState.Disabled,
             onClick = onClick,
             indication = null,
             role = Role.Checkbox
@@ -158,22 +140,28 @@ public fun Checkbox(
             Text(
                 text = label,
                 color = colors.labelColor(interactiveState = interactiveState),
-                modifier = Modifier.padding(start = SpacingScale.spacing03),
+                modifier = Modifier
+                    .padding(start = SpacingScale.spacing03)
+                    .testTag(CheckboxTestTags.LABEL),
                 style = CarbonTypography.bodyCompact01
             )
         }
-        if (interactiveState == CheckboxInteractiveState.Error) {
+        if (interactiveState is SelectableInteractiveState.Error) {
             ErrorContent(
                 colors = colors,
-                errorMessage = errorMessage,
-                modifier = Modifier.padding(top = SpacingScale.spacing03)
+                errorMessage = interactiveState.errorMessage,
+                modifier = Modifier
+                    .padding(top = SpacingScale.spacing03)
+                    .testTag(CheckboxTestTags.ERROR_CONTENT)
             )
         }
-        if (interactiveState == CheckboxInteractiveState.Warning) {
+        if (interactiveState is SelectableInteractiveState.Warning) {
             WarningContent(
                 colors = colors,
-                warningMessage = warningMessage,
-                modifier = Modifier.padding(top = SpacingScale.spacing03)
+                warningMessage = interactiveState.warningMessage,
+                modifier = Modifier
+                    .padding(top = SpacingScale.spacing03)
+                    .testTag(CheckboxTestTags.WARNING_CONTENT)
             )
         }
     }
@@ -182,7 +170,7 @@ public fun Checkbox(
 @Composable
 private fun CheckboxComponent(
     colors: CheckboxColors,
-    interactiveState: CheckboxInteractiveState,
+    interactiveState: SelectableInteractiveState,
     state: ToggleableState,
     modifier: Modifier = Modifier
 ) {
@@ -198,6 +186,7 @@ private fun CheckboxComponent(
         modifier = Modifier
             .padding(2.dp)
             .requiredSize(16.dp)
+            .testTag(CheckboxTestTags.BUTTON)
             .then(modifier)
     ) {
         val borderWidth = checkboxBorderWidth.toPx()
@@ -242,47 +231,5 @@ private fun CheckboxComponent(
                 )
             )
         }
-    }
-}
-
-@Composable
-private fun ErrorContent(
-    colors: CheckboxColors,
-    errorMessage: String,
-    modifier: Modifier = Modifier
-) {
-    Row(
-        modifier = modifier,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        ErrorIcon(
-            modifier = Modifier.padding(SpacingScale.spacing01)
-        )
-        Text(
-            text = errorMessage,
-            color = colors.errorMessageTextColor,
-            modifier = Modifier.padding(start = SpacingScale.spacing03),
-            style = CarbonTypography.label01
-        )
-    }
-}
-
-@Composable
-private fun WarningContent(
-    colors: CheckboxColors,
-    warningMessage: String,
-    modifier: Modifier = Modifier
-) {
-    Row(
-        modifier = modifier,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        WarningIcon(Modifier.padding(2.dp))
-        Text(
-            text = warningMessage,
-            color = colors.warningMessageTextColor,
-            modifier = Modifier.padding(start = SpacingScale.spacing03),
-            style = CarbonTypography.label01
-        )
     }
 }

@@ -1,4 +1,4 @@
-package carbon.compose.checkbox
+package carbon.compose.radiobutton
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -6,7 +6,6 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import carbon.compose.CarbonDesignSystem
@@ -22,13 +21,13 @@ import carbon.compose.toLabel
     device = "spec:width=1080px,height=2340px,dpi=640",
 )
 @Composable
-private fun CheckboxOffPreview(
+private fun RadioButtonOffPreview(
     @PreviewParameter(InteractiveStatePreviewParameterProvider::class)
     interactiveState: SelectableInteractiveState
 ) {
     CarbonDesignSystem {
-        Checkbox(
-            state = ToggleableState.Off,
+        RadioButton(
+            selected = false,
             interactiveState = interactiveState,
             label = "${interactiveState.toLabel()} unselected",
             onClick = {},
@@ -44,37 +43,15 @@ private fun CheckboxOffPreview(
     device = "spec:width=1080px,height=2340px,dpi=640",
 )
 @Composable
-private fun CheckboxOnPreview(
+private fun RadioButtonOnPreview(
     @PreviewParameter(InteractiveStatePreviewParameterProvider::class)
     interactiveState: SelectableInteractiveState
 ) {
     CarbonDesignSystem {
-        Checkbox(
-            state = ToggleableState.On,
+        RadioButton(
+            selected = true,
             interactiveState = interactiveState,
             label = "${interactiveState.toLabel()} selected",
-            onClick = {},
-            modifier = Modifier.padding(SpacingScale.spacing03)
-        )
-    }
-}
-
-@Preview(
-    backgroundColor = 0xFFFFFFFF,
-    showBackground = true,
-    group = "Indeterminate state",
-    device = "spec:width=1080px,height=2340px,dpi=640",
-)
-@Composable
-private fun CheckboxIndeterminatePreview(
-    @PreviewParameter(InteractiveStatePreviewParameterProvider::class)
-    interactiveState: SelectableInteractiveState
-) {
-    CarbonDesignSystem {
-        Checkbox(
-            state = ToggleableState.Indeterminate,
-            interactiveState = interactiveState,
-            label = "${interactiveState.toLabel()} indeterminate",
             onClick = {},
             modifier = Modifier.padding(SpacingScale.spacing03)
         )
@@ -88,7 +65,7 @@ private fun CheckboxIndeterminatePreview(
     device = "spec:width=1080px,height=2340px,dpi=640",
 )
 @Composable
-private fun CheckboxFocusPreview() {
+private fun RadioButtonFocusPreview() {
     CarbonDesignSystem {
         val focusRequester = FocusRequester()
 
@@ -96,9 +73,8 @@ private fun CheckboxFocusPreview() {
             focusRequester.requestFocus()
         }
 
-        Checkbox(
-            state = ToggleableState.On,
-            interactiveState = SelectableInteractiveState.Default,
+        RadioButton(
+            selected = false,
             label = "Focused",
             onClick = {},
             modifier = Modifier

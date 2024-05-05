@@ -22,12 +22,12 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import carbon.compose.checkbox.Checkbox
-import carbon.compose.checkbox.CheckboxInteractiveState
 import carbon.compose.dropdown.base.DropdownColors
 import carbon.compose.dropdown.base.DropdownMenuOptionDivider
 import carbon.compose.dropdown.base.DropdownOption
 import carbon.compose.dropdown.base.DropdownTestTags
 import carbon.compose.foundation.interaction.FocusIndication
+import carbon.compose.foundation.selectable.SelectableInteractiveState
 import carbon.compose.foundation.spacing.SpacingScale
 import carbon.compose.foundation.text.CarbonTypography
 import carbon.compose.foundation.text.Text
@@ -141,9 +141,9 @@ private fun MultiselectDropdownMenuOption(
             Checkbox(
                 checked = isSelected,
                 interactiveState = if (option.enabled) {
-                    CheckboxInteractiveState.Default
+                    SelectableInteractiveState.Default
                 } else {
-                    CheckboxInteractiveState.Disabled
+                    SelectableInteractiveState.Disabled
                 },
                 label = "",
                 onClick = onOptionClicked,

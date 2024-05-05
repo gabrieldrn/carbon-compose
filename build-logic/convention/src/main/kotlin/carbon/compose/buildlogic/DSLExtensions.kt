@@ -14,7 +14,7 @@ internal fun CommonExtension<*, *, *, *, *>.kotlinOptions(block: KotlinJvmOption
 }
 
 /**
- * Setup explicit api for all kotlin compile tasks except tests.
+ * Setup explicit api for all kotlin compile tasks except tests and debug.
  * @see <a href="https://github.com/Kotlin/KEEP/blob/master/proposals/explicit-api-mode.md">
  *     Explicit API mode
  * </a>
@@ -23,6 +23,9 @@ internal fun Project.setupExplicitApi() {
     tasks
         .matching {
             it is KotlinCompile && !it.name.contains("test", ignoreCase = true)
+        }
+        .matching {
+            it is KotlinCompile && !it.name.contains("debug", ignoreCase = true)
         }
         .matching {
             (it as KotlinCompile).kotlinOptions

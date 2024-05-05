@@ -1,4 +1,4 @@
-package carbon.compose.catalog.checkbox
+package carbon.compose.catalog.radiobutton
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -21,10 +21,9 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.state.ToggleableState
-import carbon.compose.checkbox.Checkbox
 import carbon.compose.foundation.selectable.SelectableInteractiveState
 import carbon.compose.foundation.spacing.SpacingScale
+import carbon.compose.radiobutton.RadioButton
 
 private val interactiveStates = listOf(
     SelectableInteractiveState.Default,
@@ -35,16 +34,10 @@ private val interactiveStates = listOf(
 )
 
 @Composable
-fun CheckboxDemoScreen(modifier: Modifier = Modifier) {
+fun RadioButtonDemoScreen(modifier: Modifier = Modifier) {
     Box(modifier = modifier.fillMaxSize()) {
-        var checkboxState by rememberSaveable {
-            mutableStateOf(ToggleableState.Off)
-        }
-
-        fun nextState() {
-            checkboxState = ToggleableState.entries.toTypedArray().let { states ->
-                states[(states.indexOf(checkboxState) + 1) % states.size]
-            }
+        var checkedButton by rememberSaveable {
+            mutableStateOf(SelectableInteractiveState.Default.toString())
         }
 
         Column(
@@ -60,9 +53,8 @@ fun CheckboxDemoScreen(modifier: Modifier = Modifier) {
             )
         ) {
             interactiveStates.forEach { interactiveState ->
-                Checkbox(
-                    state = checkboxState,
-                    interactiveState = interactiveState,
+                RadioButton(
+                    selected = checkedButton == interactiveState.toString(),
                     label = when (interactiveState) {
                         is SelectableInteractiveState.Default -> "Default"
                         is SelectableInteractiveState.Disabled -> "Disabled"
@@ -70,8 +62,9 @@ fun CheckboxDemoScreen(modifier: Modifier = Modifier) {
                         is SelectableInteractiveState.Error -> "Error"
                         is SelectableInteractiveState.Warning -> "Warning"
                     },
-                    onClick = ::nextState,
-                    modifier = Modifier.fillMaxWidth()
+                    onClick = { checkedButton = interactiveState.toString() },
+                    modifier = Modifier.fillMaxWidth(),
+                    interactiveState = interactiveState,
                 )
             }
         }

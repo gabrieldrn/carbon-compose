@@ -18,13 +18,18 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import carbon.compose.catalog.R
-import carbon.compose.catalog.home.Destination.Companion.eq
+import carbon.compose.catalog.dropdown.BaseDestination
+import carbon.compose.catalog.dropdown.BaseDestination.Companion.eq
+import carbon.compose.catalog.dropdown.DropdownNavDestination
 import carbon.compose.catalog.theme.CarbonCatalogTheme
 import carbon.compose.foundation.color.LocalCarbonTheme
 import carbon.compose.uishell.UiShellHeader
 
 @Suppress("UndocumentedPublicClass")
 class HomeActivity : AppCompatActivity() {
+
+    private val allDestinations: List<BaseDestination> =
+        Destination.entries + DropdownNavDestination.entries
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,16 +38,14 @@ class HomeActivity : AppCompatActivity() {
 
         setContent {
             CarbonCatalogTheme {
-                var currentScreen: Destination by remember {
+                var currentScreen: BaseDestination by remember {
                     mutableStateOf(Destination.Home)
                 }
 
                 val navController = rememberNavController().apply {
                     addOnDestinationChangedListener(
                         NavController.OnDestinationChangedListener { _, destination, _ ->
-                            currentScreen = Destination
-                                .entries
-                                .first { it eq destination }
+                            currentScreen = allDestinations.first { it eq destination }
                         }
                     )
                 }
