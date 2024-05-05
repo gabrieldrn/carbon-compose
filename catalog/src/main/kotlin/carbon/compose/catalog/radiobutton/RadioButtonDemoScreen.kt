@@ -37,7 +37,7 @@ private val interactiveStates = listOf(
 fun RadioButtonDemoScreen(modifier: Modifier = Modifier) {
     Box(modifier = modifier.fillMaxSize()) {
         var checkedButton by rememberSaveable {
-            mutableStateOf<SelectableInteractiveState>(SelectableInteractiveState.Default)
+            mutableStateOf(SelectableInteractiveState.Default.toString())
         }
 
         Column(
@@ -54,7 +54,7 @@ fun RadioButtonDemoScreen(modifier: Modifier = Modifier) {
         ) {
             interactiveStates.forEach { interactiveState ->
                 RadioButton(
-                    selected = checkedButton == interactiveState,
+                    selected = checkedButton == interactiveState.toString(),
                     label = when (interactiveState) {
                         is SelectableInteractiveState.Default -> "Default"
                         is SelectableInteractiveState.Disabled -> "Disabled"
@@ -62,7 +62,7 @@ fun RadioButtonDemoScreen(modifier: Modifier = Modifier) {
                         is SelectableInteractiveState.Error -> "Error"
                         is SelectableInteractiveState.Warning -> "Warning"
                     },
-                    onClick = { checkedButton = interactiveState },
+                    onClick = { checkedButton = interactiveState.toString() },
                     modifier = Modifier.fillMaxWidth(),
                     interactiveState = interactiveState,
                 )
