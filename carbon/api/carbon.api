@@ -618,6 +618,7 @@ public final class carbon/compose/foundation/text/CarbonTypographyKt {
 
 public final class carbon/compose/loading/LoadingKt {
 	public static final fun Loading (Landroidx/compose/ui/Modifier;Landroidx/compose/runtime/Composer;II)V
+	public static final fun SmallLoading (Landroidx/compose/ui/Modifier;Landroidx/compose/runtime/Composer;II)V
 }
 
 public final class carbon/compose/radiobutton/RadioButtonKt {
