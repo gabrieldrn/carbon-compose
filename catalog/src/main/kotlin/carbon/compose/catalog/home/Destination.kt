@@ -7,6 +7,7 @@ import carbon.compose.catalog.buttons.ButtonDemoScreen
 import carbon.compose.catalog.checkbox.CheckboxDemoScreen
 import carbon.compose.catalog.dropdown.BaseDestination
 import carbon.compose.catalog.dropdown.MultiselectDropdownScreen
+import carbon.compose.catalog.radiobutton.LoadingDemoScreen
 import carbon.compose.catalog.radiobutton.RadioButtonDemoScreen
 import carbon.compose.catalog.toggle.ToggleDemoScreen
 
@@ -50,7 +51,12 @@ enum class Destination(
     InlineLoading("Inline loading"),
     Link("Link"),
     List("List"),
-    Loading("Loading"),
+    Loading(
+        title = "Loading",
+        illustration = R.drawable.tile_loading,
+        route = "loading",
+        content = { LoadingDemoScreen() }
+    ),
     Modal("Modal"),
     MultiSelect(
         title = "Multi-select",

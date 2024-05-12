@@ -616,6 +616,11 @@ public final class carbon/compose/foundation/text/CarbonTypographyKt {
 	public static final fun getIbmPlexSerifFamily ()Landroidx/compose/ui/text/font/FontFamily;
 }
 
+public final class carbon/compose/loading/LoadingKt {
+	public static final fun Loading (Landroidx/compose/ui/Modifier;Landroidx/compose/runtime/Composer;II)V
+	public static final fun SmallLoading (Landroidx/compose/ui/Modifier;Landroidx/compose/runtime/Composer;II)V
+}
+
 public final class carbon/compose/radiobutton/RadioButtonKt {
 	public static final fun RadioButton (ZLjava/lang/String;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Lcarbon/compose/foundation/selectable/SelectableInteractiveState;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;II)V
 }
