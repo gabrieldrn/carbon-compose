@@ -21,20 +21,18 @@ internal fun CommonExtension<*, *, *, *, *>.kotlinOptions(block: KotlinJvmOption
  */
 internal fun Project.setupExplicitApi() {
     tasks
-        .matching {
-            it is KotlinCompile && !it.name.contains("test", ignoreCase = true)
+        .withType(KotlinCompile::class.java)
+        .matching { !it.name.contains("test", ignoreCase = true) }
+        .also {
+            logger.quiet("Configuring explicit API for tasks ${it.map { t -> t.path }}")
         }
         .matching {
-            it is KotlinCompile && !it.name.contains("debug", ignoreCase = true)
-        }
-        .matching {
-            (it as KotlinCompile).kotlinOptions
+            it.kotlinOptions
                 .freeCompilerArgs
                 .contains("-X" + Constants.CompileArgs.STRICT_API)
                 .not()
         }
         .configureEach {
-            (this as KotlinCompile).kotlinOptions
-                .freeCompilerArgs += listOf("-X" + Constants.CompileArgs.STRICT_API)
+            kotlinOptions.freeCompilerArgs += listOf("-X" + Constants.CompileArgs.STRICT_API)
         }
 }

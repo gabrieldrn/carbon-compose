@@ -28,7 +28,7 @@ class CarbonAndroidLibraryConventionPlugin : Plugin<Project> {
 
         extensions.configure<LibraryExtension> {
             configureKotlinAndroidCommon()
-            setupExplicitApi()
+            afterEvaluate { setupExplicitApi() }
             applyKotlinOptions(this@with)
             applyTestOptions()
         }

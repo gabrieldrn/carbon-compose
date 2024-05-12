@@ -3,7 +3,7 @@ package carbon.compose
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import carbon.compose.foundation.selectable.SelectableInteractiveState
 
-class InteractiveStatePreviewParameterProvider :
+internal class InteractiveStatePreviewParameterProvider :
     PreviewParameterProvider<SelectableInteractiveState> {
     override val values: Sequence<SelectableInteractiveState> = sequenceOf(
         SelectableInteractiveState.Default,
@@ -14,7 +14,7 @@ class InteractiveStatePreviewParameterProvider :
     )
 }
 
-fun SelectableInteractiveState.toLabel(): String = when (this) {
+internal fun SelectableInteractiveState.toLabel(): String = when (this) {
     is SelectableInteractiveState.Default -> "Enabled"
     is SelectableInteractiveState.Disabled -> "Disabled"
     is SelectableInteractiveState.ReadOnly -> "Read-only"
