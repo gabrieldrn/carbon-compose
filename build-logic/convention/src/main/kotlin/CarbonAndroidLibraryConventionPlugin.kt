@@ -1,9 +1,9 @@
-import carbon.buildlogic.Constants
 import carbon.buildlogic.applyTestOptions
 import carbon.buildlogic.configureKotlinAndroidCommon
 import carbon.buildlogic.getPlugin
 import carbon.buildlogic.kotlinOptions
 import carbon.buildlogic.libs
+import carbon.buildlogic.setupComposeCompilerOptions
 import carbon.buildlogic.setupExplicitApi
 import com.android.build.gradle.LibraryExtension
 import org.gradle.api.Plugin
@@ -28,26 +28,10 @@ class CarbonAndroidLibraryConventionPlugin : Plugin<Project> {
         extensions.configure<LibraryExtension> {
             configureKotlinAndroidCommon()
             afterEvaluate { setupExplicitApi() }
-            applyKotlinOptions(this@with)
-            applyTestOptions()
-        }
-    }
-
-    private fun LibraryExtension.applyKotlinOptions(project: Project) = with(project) {
-        kotlinOptions {
-            freeCompilerArgs += listOf(
-                "-P",
-                Constants.CompileArgs.COMPOSE_METRICS_PRE + "${buildDir}/compose/metrics",
-                "-P",
-                Constants.CompileArgs.COMPOSE_REPORT_PRE + "${buildDir}/compose/reports",
-            )
-
-            file("compose_compiler_config.conf").takeIf { it.exists() }?.let {
-                freeCompilerArgs += listOf(
-                    "-P",
-                    Constants.CompileArgs.COMPOSE_STABILITY_CONFIG_PRE + it
-                )
+            kotlinOptions {
+                options.setupComposeCompilerOptions(this@with)
             }
+            applyTestOptions()
         }
     }
 }

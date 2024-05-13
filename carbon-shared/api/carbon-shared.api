@@ -1,5 +1,666 @@
-public final class carbon/kmp/shared/Greeting {
+public final class carbon/android/CarbonKt {
+	public static final fun CarbonDesignSystem (Lcarbon/android/foundation/color/Theme;Lcarbon/android/foundation/color/Theme;Lkotlin/jvm/functions/Function2;Landroidx/compose/runtime/Composer;II)V
+}
+
+public final class carbon/android/button/ButtonKt {
+	public static final fun Button (Ljava/lang/String;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Landroidx/compose/ui/graphics/painter/Painter;ZLcarbon/android/button/CarbonButton;Lcarbon/android/button/ButtonSize;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;II)V
+}
+
+public final class carbon/android/button/ButtonSize : java/lang/Enum {
+	public static final field ExtraLarge Lcarbon/android/button/ButtonSize;
+	public static final field LargeExpressive Lcarbon/android/button/ButtonSize;
+	public static final field LargeProductive Lcarbon/android/button/ButtonSize;
+	public static final field Medium Lcarbon/android/button/ButtonSize;
+	public static final field Small Lcarbon/android/button/ButtonSize;
+	public static final field TwiceExtraLarge Lcarbon/android/button/ButtonSize;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcarbon/android/button/ButtonSize;
+	public static fun values ()[Lcarbon/android/button/ButtonSize;
+}
+
+public final class carbon/android/button/CarbonButton : java/lang/Enum {
+	public static final field Ghost Lcarbon/android/button/CarbonButton;
+	public static final field GhostDanger Lcarbon/android/button/CarbonButton;
+	public static final field Primary Lcarbon/android/button/CarbonButton;
+	public static final field PrimaryDanger Lcarbon/android/button/CarbonButton;
+	public static final field Secondary Lcarbon/android/button/CarbonButton;
+	public static final field Tertiary Lcarbon/android/button/CarbonButton;
+	public static final field TertiaryDanger Lcarbon/android/button/CarbonButton;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcarbon/android/button/CarbonButton;
+	public static fun values ()[Lcarbon/android/button/CarbonButton;
+}
+
+public final class carbon/android/button/IconButtonKt {
+	public static final fun IconButton (Landroidx/compose/ui/graphics/painter/Painter;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Lcarbon/android/button/CarbonButton;ZLandroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;II)V
+}
+
+public final class carbon/android/checkbox/CheckboxKt {
+	public static final fun Checkbox (Landroidx/compose/ui/state/ToggleableState;Ljava/lang/String;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Lcarbon/android/foundation/selectable/SelectableInteractiveState;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;II)V
+	public static final fun Checkbox (ZLjava/lang/String;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Lcarbon/android/foundation/selectable/SelectableInteractiveState;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;II)V
+}
+
+public final class carbon/android/dropdown/DropdownKt {
+	public static final fun Dropdown (ZLjava/lang/String;Ljava/util/Map;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Ljava/lang/String;Lcarbon/android/dropdown/base/DropdownInteractiveState;Lcarbon/android/dropdown/base/DropdownSize;ILandroidx/compose/runtime/Composer;III)V
+}
+
+public abstract interface class carbon/android/dropdown/base/DropdownInteractiveState {
+	public static final field Companion Lcarbon/android/dropdown/base/DropdownInteractiveState$Companion;
+}
+
+public final class carbon/android/dropdown/base/DropdownInteractiveState$Companion {
+}
+
+public final class carbon/android/dropdown/base/DropdownInteractiveState$Disabled : carbon/android/dropdown/base/DropdownInteractiveState {
+	public static final field $stable I
+	public static final field INSTANCE Lcarbon/android/dropdown/base/DropdownInteractiveState$Disabled;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class carbon/android/dropdown/base/DropdownInteractiveState$Enabled : carbon/android/dropdown/base/DropdownInteractiveState {
+	public static final field $stable I
+	public static final field INSTANCE Lcarbon/android/dropdown/base/DropdownInteractiveState$Enabled;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class carbon/android/dropdown/base/DropdownInteractiveState$Error : carbon/android/dropdown/base/DropdownInteractiveState {
+	public static final field $stable I
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lcarbon/android/dropdown/base/DropdownInteractiveState$Error;
+	public static synthetic fun copy$default (Lcarbon/android/dropdown/base/DropdownInteractiveState$Error;Ljava/lang/String;ILjava/lang/Object;)Lcarbon/android/dropdown/base/DropdownInteractiveState$Error;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getHelperText ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class carbon/android/dropdown/base/DropdownInteractiveState$ReadOnly : carbon/android/dropdown/base/DropdownInteractiveState {
+	public static final field $stable I
+	public static final field INSTANCE Lcarbon/android/dropdown/base/DropdownInteractiveState$ReadOnly;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class carbon/android/dropdown/base/DropdownInteractiveState$Warning : carbon/android/dropdown/base/DropdownInteractiveState {
+	public static final field $stable I
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lcarbon/android/dropdown/base/DropdownInteractiveState$Warning;
+	public static synthetic fun copy$default (Lcarbon/android/dropdown/base/DropdownInteractiveState$Warning;Ljava/lang/String;ILjava/lang/Object;)Lcarbon/android/dropdown/base/DropdownInteractiveState$Warning;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getHelperText ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class carbon/android/dropdown/base/DropdownOption {
+	public static final field $stable I
+	public fun <init> (Ljava/lang/String;Z)V
+	public synthetic fun <init> (Ljava/lang/String;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Z
+	public final fun copy (Ljava/lang/String;Z)Lcarbon/android/dropdown/base/DropdownOption;
+	public static synthetic fun copy$default (Lcarbon/android/dropdown/base/DropdownOption;Ljava/lang/String;ZILjava/lang/Object;)Lcarbon/android/dropdown/base/DropdownOption;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getEnabled ()Z
+	public final fun getValue ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class carbon/android/dropdown/base/DropdownSize : java/lang/Enum {
+	public static final field Large Lcarbon/android/dropdown/base/DropdownSize;
+	public static final field Medium Lcarbon/android/dropdown/base/DropdownSize;
+	public static final field Small Lcarbon/android/dropdown/base/DropdownSize;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcarbon/android/dropdown/base/DropdownSize;
+	public static fun values ()[Lcarbon/android/dropdown/base/DropdownSize;
+}
+
+public final class carbon/android/dropdown/multiselect/MultiselectDropdownKt {
+	public static final fun MultiselectDropdown (ZLjava/lang/String;Ljava/util/Map;Ljava/util/List;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Ljava/lang/String;Lcarbon/android/dropdown/base/DropdownInteractiveState;Lcarbon/android/dropdown/base/DropdownSize;ILandroidx/compose/runtime/Composer;III)V
+}
+
+public final class carbon/android/foundation/color/Gray100Theme : carbon/android/foundation/color/Theme {
+	public static final field $stable I
+	public static final field INSTANCE Lcarbon/android/foundation/color/Gray100Theme;
+	public fun getBackground-0d7_KjU ()J
+	public fun getBackgroundActive-0d7_KjU ()J
+	public fun getBackgroundBrand-0d7_KjU ()J
+	public fun getBackgroundHover-0d7_KjU ()J
+	public fun getBackgroundInverse-0d7_KjU ()J
+	public fun getBackgroundInverseHover-0d7_KjU ()J
+	public fun getBackgroundSelected-0d7_KjU ()J
+	public fun getBackgroundSelectedHover-0d7_KjU ()J
+	public fun getBorderDisabled-0d7_KjU ()J
+	public fun getBorderInteractive-0d7_KjU ()J
+	public fun getBorderInverse-0d7_KjU ()J
+	public fun getBorderStrong01-0d7_KjU ()J
+	public fun getBorderStrong02-0d7_KjU ()J
+	public fun getBorderStrong03-0d7_KjU ()J
+	public fun getBorderSubtle00-0d7_KjU ()J
+	public fun getBorderSubtle01-0d7_KjU ()J
+	public fun getBorderSubtle02-0d7_KjU ()J
+	public fun getBorderSubtle03-0d7_KjU ()J
+	public fun getBorderSubtleSelected01-0d7_KjU ()J
+	public fun getBorderSubtleSelected02-0d7_KjU ()J
+	public fun getBorderSubtleSelected03-0d7_KjU ()J
+	public fun getBorderTile01-0d7_KjU ()J
+	public fun getBorderTile02-0d7_KjU ()J
+	public fun getBorderTile03-0d7_KjU ()J
+	public fun getButtonDangerActive-0d7_KjU ()J
+	public fun getButtonDangerHover-0d7_KjU ()J
+	public fun getButtonDangerPrimary-0d7_KjU ()J
+	public fun getButtonDangerSecondary-0d7_KjU ()J
+	public fun getButtonDisabled-0d7_KjU ()J
+	public fun getButtonPrimary-0d7_KjU ()J
+	public fun getButtonPrimaryActive-0d7_KjU ()J
+	public fun getButtonPrimaryHover-0d7_KjU ()J
+	public fun getButtonSecondary-0d7_KjU ()J
+	public fun getButtonSecondaryActive-0d7_KjU ()J
+	public fun getButtonSecondaryHover-0d7_KjU ()J
+	public fun getButtonSeparator-0d7_KjU ()J
+	public fun getButtonTertiary-0d7_KjU ()J
+	public fun getButtonTertiaryActive-0d7_KjU ()J
+	public fun getButtonTertiaryHover-0d7_KjU ()J
+	public fun getField01-0d7_KjU ()J
+	public fun getField02-0d7_KjU ()J
+	public fun getField03-0d7_KjU ()J
+	public fun getFieldHover01-0d7_KjU ()J
+	public fun getFieldHover02-0d7_KjU ()J
+	public fun getFieldHover03-0d7_KjU ()J
+	public fun getFocus-0d7_KjU ()J
+	public fun getFocusInset-0d7_KjU ()J
+	public fun getFocusInverse-0d7_KjU ()J
+	public fun getHighlight-0d7_KjU ()J
+	public fun getIconDisabled-0d7_KjU ()J
+	public fun getIconInteractive-0d7_KjU ()J
+	public fun getIconInverse-0d7_KjU ()J
+	public fun getIconOnColor-0d7_KjU ()J
+	public fun getIconOnColorDisabled-0d7_KjU ()J
+	public fun getIconPrimary-0d7_KjU ()J
+	public fun getIconSecondary-0d7_KjU ()J
+	public fun getInteractive-0d7_KjU ()J
+	public fun getLayer01-0d7_KjU ()J
+	public fun getLayer02-0d7_KjU ()J
+	public fun getLayer03-0d7_KjU ()J
+	public fun getLayerAccent01-0d7_KjU ()J
+	public fun getLayerAccent02-0d7_KjU ()J
+	public fun getLayerAccent03-0d7_KjU ()J
+	public fun getLayerAccentActive01-0d7_KjU ()J
+	public fun getLayerAccentActive02-0d7_KjU ()J
+	public fun getLayerAccentActive03-0d7_KjU ()J
+	public fun getLayerAccentHover01-0d7_KjU ()J
+	public fun getLayerAccentHover02-0d7_KjU ()J
+	public fun getLayerAccentHover03-0d7_KjU ()J
+	public fun getLayerActive01-0d7_KjU ()J
+	public fun getLayerActive02-0d7_KjU ()J
+	public fun getLayerActive03-0d7_KjU ()J
+	public fun getLayerHover01-0d7_KjU ()J
+	public fun getLayerHover02-0d7_KjU ()J
+	public fun getLayerHover03-0d7_KjU ()J
+	public fun getLayerSelected01-0d7_KjU ()J
+	public fun getLayerSelected02-0d7_KjU ()J
+	public fun getLayerSelected03-0d7_KjU ()J
+	public fun getLayerSelectedDisabled-0d7_KjU ()J
+	public fun getLayerSelectedHover01-0d7_KjU ()J
+	public fun getLayerSelectedHover02-0d7_KjU ()J
+	public fun getLayerSelectedHover03-0d7_KjU ()J
+	public fun getLayerSelectedInverse-0d7_KjU ()J
+	public fun getLinkInverse-0d7_KjU ()J
+	public fun getLinkPrimary-0d7_KjU ()J
+	public fun getLinkPrimaryHover-0d7_KjU ()J
+	public fun getLinkSecondary-0d7_KjU ()J
+	public fun getLinkVisited-0d7_KjU ()J
+	public fun getOverlay-0d7_KjU ()J
+	public fun getSkeletonBackground-0d7_KjU ()J
+	public fun getSkeletonElement-0d7_KjU ()J
+	public fun getSupportError-0d7_KjU ()J
+	public fun getSupportErrorInverse-0d7_KjU ()J
+	public fun getSupportInfo-0d7_KjU ()J
+	public fun getSupportInfoInverse-0d7_KjU ()J
+	public fun getSupportSuccess-0d7_KjU ()J
+	public fun getSupportSuccessInverse-0d7_KjU ()J
+	public fun getSupportWarning-0d7_KjU ()J
+	public fun getSupportWarningInverse-0d7_KjU ()J
+	public fun getTextDisabled-0d7_KjU ()J
+	public fun getTextError-0d7_KjU ()J
+	public fun getTextHelper-0d7_KjU ()J
+	public fun getTextInverse-0d7_KjU ()J
+	public fun getTextOnColor-0d7_KjU ()J
+	public fun getTextOnColorDisabled-0d7_KjU ()J
+	public fun getTextPlaceholder-0d7_KjU ()J
+	public fun getTextPrimary-0d7_KjU ()J
+	public fun getTextSecondary-0d7_KjU ()J
+	public fun getToggleOff-0d7_KjU ()J
+}
+
+public abstract interface class carbon/android/foundation/color/Theme {
+	public abstract fun getBackground-0d7_KjU ()J
+	public abstract fun getBackgroundActive-0d7_KjU ()J
+	public abstract fun getBackgroundBrand-0d7_KjU ()J
+	public abstract fun getBackgroundHover-0d7_KjU ()J
+	public abstract fun getBackgroundInverse-0d7_KjU ()J
+	public abstract fun getBackgroundInverseHover-0d7_KjU ()J
+	public abstract fun getBackgroundSelected-0d7_KjU ()J
+	public abstract fun getBackgroundSelectedHover-0d7_KjU ()J
+	public abstract fun getBorderDisabled-0d7_KjU ()J
+	public abstract fun getBorderInteractive-0d7_KjU ()J
+	public abstract fun getBorderInverse-0d7_KjU ()J
+	public abstract fun getBorderStrong01-0d7_KjU ()J
+	public abstract fun getBorderStrong02-0d7_KjU ()J
+	public abstract fun getBorderStrong03-0d7_KjU ()J
+	public abstract fun getBorderSubtle00-0d7_KjU ()J
+	public abstract fun getBorderSubtle01-0d7_KjU ()J
+	public abstract fun getBorderSubtle02-0d7_KjU ()J
+	public abstract fun getBorderSubtle03-0d7_KjU ()J
+	public abstract fun getBorderSubtleSelected01-0d7_KjU ()J
+	public abstract fun getBorderSubtleSelected02-0d7_KjU ()J
+	public abstract fun getBorderSubtleSelected03-0d7_KjU ()J
+	public abstract fun getBorderTile01-0d7_KjU ()J
+	public abstract fun getBorderTile02-0d7_KjU ()J
+	public abstract fun getBorderTile03-0d7_KjU ()J
+	public abstract fun getButtonDangerActive-0d7_KjU ()J
+	public abstract fun getButtonDangerHover-0d7_KjU ()J
+	public abstract fun getButtonDangerPrimary-0d7_KjU ()J
+	public abstract fun getButtonDangerSecondary-0d7_KjU ()J
+	public abstract fun getButtonDisabled-0d7_KjU ()J
+	public abstract fun getButtonPrimary-0d7_KjU ()J
+	public abstract fun getButtonPrimaryActive-0d7_KjU ()J
+	public abstract fun getButtonPrimaryHover-0d7_KjU ()J
+	public abstract fun getButtonSecondary-0d7_KjU ()J
+	public abstract fun getButtonSecondaryActive-0d7_KjU ()J
+	public abstract fun getButtonSecondaryHover-0d7_KjU ()J
+	public abstract fun getButtonSeparator-0d7_KjU ()J
+	public abstract fun getButtonTertiary-0d7_KjU ()J
+	public abstract fun getButtonTertiaryActive-0d7_KjU ()J
+	public abstract fun getButtonTertiaryHover-0d7_KjU ()J
+	public abstract fun getField01-0d7_KjU ()J
+	public abstract fun getField02-0d7_KjU ()J
+	public abstract fun getField03-0d7_KjU ()J
+	public abstract fun getFieldHover01-0d7_KjU ()J
+	public abstract fun getFieldHover02-0d7_KjU ()J
+	public abstract fun getFieldHover03-0d7_KjU ()J
+	public abstract fun getFocus-0d7_KjU ()J
+	public abstract fun getFocusInset-0d7_KjU ()J
+	public abstract fun getFocusInverse-0d7_KjU ()J
+	public abstract fun getHighlight-0d7_KjU ()J
+	public abstract fun getIconDisabled-0d7_KjU ()J
+	public abstract fun getIconInteractive-0d7_KjU ()J
+	public abstract fun getIconInverse-0d7_KjU ()J
+	public abstract fun getIconOnColor-0d7_KjU ()J
+	public abstract fun getIconOnColorDisabled-0d7_KjU ()J
+	public abstract fun getIconPrimary-0d7_KjU ()J
+	public abstract fun getIconSecondary-0d7_KjU ()J
+	public abstract fun getInteractive-0d7_KjU ()J
+	public abstract fun getLayer01-0d7_KjU ()J
+	public abstract fun getLayer02-0d7_KjU ()J
+	public abstract fun getLayer03-0d7_KjU ()J
+	public abstract fun getLayerAccent01-0d7_KjU ()J
+	public abstract fun getLayerAccent02-0d7_KjU ()J
+	public abstract fun getLayerAccent03-0d7_KjU ()J
+	public abstract fun getLayerAccentActive01-0d7_KjU ()J
+	public abstract fun getLayerAccentActive02-0d7_KjU ()J
+	public abstract fun getLayerAccentActive03-0d7_KjU ()J
+	public abstract fun getLayerAccentHover01-0d7_KjU ()J
+	public abstract fun getLayerAccentHover02-0d7_KjU ()J
+	public abstract fun getLayerAccentHover03-0d7_KjU ()J
+	public abstract fun getLayerActive01-0d7_KjU ()J
+	public abstract fun getLayerActive02-0d7_KjU ()J
+	public abstract fun getLayerActive03-0d7_KjU ()J
+	public abstract fun getLayerHover01-0d7_KjU ()J
+	public abstract fun getLayerHover02-0d7_KjU ()J
+	public abstract fun getLayerHover03-0d7_KjU ()J
+	public abstract fun getLayerSelected01-0d7_KjU ()J
+	public abstract fun getLayerSelected02-0d7_KjU ()J
+	public abstract fun getLayerSelected03-0d7_KjU ()J
+	public abstract fun getLayerSelectedDisabled-0d7_KjU ()J
+	public abstract fun getLayerSelectedHover01-0d7_KjU ()J
+	public abstract fun getLayerSelectedHover02-0d7_KjU ()J
+	public abstract fun getLayerSelectedHover03-0d7_KjU ()J
+	public abstract fun getLayerSelectedInverse-0d7_KjU ()J
+	public abstract fun getLinkInverse-0d7_KjU ()J
+	public abstract fun getLinkPrimary-0d7_KjU ()J
+	public abstract fun getLinkPrimaryHover-0d7_KjU ()J
+	public abstract fun getLinkSecondary-0d7_KjU ()J
+	public abstract fun getLinkVisited-0d7_KjU ()J
+	public abstract fun getOverlay-0d7_KjU ()J
+	public abstract fun getSkeletonBackground-0d7_KjU ()J
+	public abstract fun getSkeletonElement-0d7_KjU ()J
+	public abstract fun getSupportError-0d7_KjU ()J
+	public abstract fun getSupportErrorInverse-0d7_KjU ()J
+	public abstract fun getSupportInfo-0d7_KjU ()J
+	public abstract fun getSupportInfoInverse-0d7_KjU ()J
+	public abstract fun getSupportSuccess-0d7_KjU ()J
+	public abstract fun getSupportSuccessInverse-0d7_KjU ()J
+	public abstract fun getSupportWarning-0d7_KjU ()J
+	public abstract fun getSupportWarningInverse-0d7_KjU ()J
+	public abstract fun getTextDisabled-0d7_KjU ()J
+	public abstract fun getTextError-0d7_KjU ()J
+	public abstract fun getTextHelper-0d7_KjU ()J
+	public abstract fun getTextInverse-0d7_KjU ()J
+	public abstract fun getTextOnColor-0d7_KjU ()J
+	public abstract fun getTextOnColorDisabled-0d7_KjU ()J
+	public abstract fun getTextPlaceholder-0d7_KjU ()J
+	public abstract fun getTextPrimary-0d7_KjU ()J
+	public abstract fun getTextSecondary-0d7_KjU ()J
+	public abstract fun getToggleOff-0d7_KjU ()J
+}
+
+public final class carbon/android/foundation/color/ThemeStaticCompositionKt {
+	public static final fun getLocalCarbonInlineTheme ()Landroidx/compose/runtime/ProvidableCompositionLocal;
+	public static final fun getLocalCarbonTheme ()Landroidx/compose/runtime/ProvidableCompositionLocal;
+}
+
+public final class carbon/android/foundation/color/WhiteTheme : carbon/android/foundation/color/Theme {
+	public static final field $stable I
+	public static final field INSTANCE Lcarbon/android/foundation/color/WhiteTheme;
+	public fun getBackground-0d7_KjU ()J
+	public fun getBackgroundActive-0d7_KjU ()J
+	public fun getBackgroundBrand-0d7_KjU ()J
+	public fun getBackgroundHover-0d7_KjU ()J
+	public fun getBackgroundInverse-0d7_KjU ()J
+	public fun getBackgroundInverseHover-0d7_KjU ()J
+	public fun getBackgroundSelected-0d7_KjU ()J
+	public fun getBackgroundSelectedHover-0d7_KjU ()J
+	public fun getBorderDisabled-0d7_KjU ()J
+	public fun getBorderInteractive-0d7_KjU ()J
+	public fun getBorderInverse-0d7_KjU ()J
+	public fun getBorderStrong01-0d7_KjU ()J
+	public fun getBorderStrong02-0d7_KjU ()J
+	public fun getBorderStrong03-0d7_KjU ()J
+	public fun getBorderSubtle00-0d7_KjU ()J
+	public fun getBorderSubtle01-0d7_KjU ()J
+	public fun getBorderSubtle02-0d7_KjU ()J
+	public fun getBorderSubtle03-0d7_KjU ()J
+	public fun getBorderSubtleSelected01-0d7_KjU ()J
+	public fun getBorderSubtleSelected02-0d7_KjU ()J
+	public fun getBorderSubtleSelected03-0d7_KjU ()J
+	public fun getBorderTile01-0d7_KjU ()J
+	public fun getBorderTile02-0d7_KjU ()J
+	public fun getBorderTile03-0d7_KjU ()J
+	public fun getButtonDangerActive-0d7_KjU ()J
+	public fun getButtonDangerHover-0d7_KjU ()J
+	public fun getButtonDangerPrimary-0d7_KjU ()J
+	public fun getButtonDangerSecondary-0d7_KjU ()J
+	public fun getButtonDisabled-0d7_KjU ()J
+	public fun getButtonPrimary-0d7_KjU ()J
+	public fun getButtonPrimaryActive-0d7_KjU ()J
+	public fun getButtonPrimaryHover-0d7_KjU ()J
+	public fun getButtonSecondary-0d7_KjU ()J
+	public fun getButtonSecondaryActive-0d7_KjU ()J
+	public fun getButtonSecondaryHover-0d7_KjU ()J
+	public fun getButtonSeparator-0d7_KjU ()J
+	public fun getButtonTertiary-0d7_KjU ()J
+	public fun getButtonTertiaryActive-0d7_KjU ()J
+	public fun getButtonTertiaryHover-0d7_KjU ()J
+	public fun getField01-0d7_KjU ()J
+	public fun getField02-0d7_KjU ()J
+	public fun getField03-0d7_KjU ()J
+	public fun getFieldHover01-0d7_KjU ()J
+	public fun getFieldHover02-0d7_KjU ()J
+	public fun getFieldHover03-0d7_KjU ()J
+	public fun getFocus-0d7_KjU ()J
+	public fun getFocusInset-0d7_KjU ()J
+	public fun getFocusInverse-0d7_KjU ()J
+	public fun getHighlight-0d7_KjU ()J
+	public fun getIconDisabled-0d7_KjU ()J
+	public fun getIconInteractive-0d7_KjU ()J
+	public fun getIconInverse-0d7_KjU ()J
+	public fun getIconOnColor-0d7_KjU ()J
+	public fun getIconOnColorDisabled-0d7_KjU ()J
+	public fun getIconPrimary-0d7_KjU ()J
+	public fun getIconSecondary-0d7_KjU ()J
+	public fun getInteractive-0d7_KjU ()J
+	public fun getLayer01-0d7_KjU ()J
+	public fun getLayer02-0d7_KjU ()J
+	public fun getLayer03-0d7_KjU ()J
+	public fun getLayerAccent01-0d7_KjU ()J
+	public fun getLayerAccent02-0d7_KjU ()J
+	public fun getLayerAccent03-0d7_KjU ()J
+	public fun getLayerAccentActive01-0d7_KjU ()J
+	public fun getLayerAccentActive02-0d7_KjU ()J
+	public fun getLayerAccentActive03-0d7_KjU ()J
+	public fun getLayerAccentHover01-0d7_KjU ()J
+	public fun getLayerAccentHover02-0d7_KjU ()J
+	public fun getLayerAccentHover03-0d7_KjU ()J
+	public fun getLayerActive01-0d7_KjU ()J
+	public fun getLayerActive02-0d7_KjU ()J
+	public fun getLayerActive03-0d7_KjU ()J
+	public fun getLayerHover01-0d7_KjU ()J
+	public fun getLayerHover02-0d7_KjU ()J
+	public fun getLayerHover03-0d7_KjU ()J
+	public fun getLayerSelected01-0d7_KjU ()J
+	public fun getLayerSelected02-0d7_KjU ()J
+	public fun getLayerSelected03-0d7_KjU ()J
+	public fun getLayerSelectedDisabled-0d7_KjU ()J
+	public fun getLayerSelectedHover01-0d7_KjU ()J
+	public fun getLayerSelectedHover02-0d7_KjU ()J
+	public fun getLayerSelectedHover03-0d7_KjU ()J
+	public fun getLayerSelectedInverse-0d7_KjU ()J
+	public fun getLinkInverse-0d7_KjU ()J
+	public fun getLinkPrimary-0d7_KjU ()J
+	public fun getLinkPrimaryHover-0d7_KjU ()J
+	public fun getLinkSecondary-0d7_KjU ()J
+	public fun getLinkVisited-0d7_KjU ()J
+	public fun getOverlay-0d7_KjU ()J
+	public fun getSkeletonBackground-0d7_KjU ()J
+	public fun getSkeletonElement-0d7_KjU ()J
+	public fun getSupportError-0d7_KjU ()J
+	public fun getSupportErrorInverse-0d7_KjU ()J
+	public fun getSupportInfo-0d7_KjU ()J
+	public fun getSupportInfoInverse-0d7_KjU ()J
+	public fun getSupportSuccess-0d7_KjU ()J
+	public fun getSupportSuccessInverse-0d7_KjU ()J
+	public fun getSupportWarning-0d7_KjU ()J
+	public fun getSupportWarningInverse-0d7_KjU ()J
+	public fun getTextDisabled-0d7_KjU ()J
+	public fun getTextError-0d7_KjU ()J
+	public fun getTextHelper-0d7_KjU ()J
+	public fun getTextInverse-0d7_KjU ()J
+	public fun getTextOnColor-0d7_KjU ()J
+	public fun getTextOnColorDisabled-0d7_KjU ()J
+	public fun getTextPlaceholder-0d7_KjU ()J
+	public fun getTextPrimary-0d7_KjU ()J
+	public fun getTextSecondary-0d7_KjU ()J
+	public fun getToggleOff-0d7_KjU ()J
+}
+
+public final class carbon/android/foundation/motion/Motion {
+	public static final field $stable I
+	public static final field INSTANCE Lcarbon/android/foundation/motion/Motion;
+}
+
+public final class carbon/android/foundation/motion/Motion$Duration {
+	public static final field $stable I
+	public static final field INSTANCE Lcarbon/android/foundation/motion/Motion$Duration;
+	public static final field fast01 I
+	public static final field fast02 I
+	public static final field moderate01 I
+	public static final field moderate02 I
+	public static final field slow01 I
+	public static final field slow02 I
+}
+
+public final class carbon/android/foundation/motion/Motion$Entrance {
+	public static final field $stable I
+	public static final field INSTANCE Lcarbon/android/foundation/motion/Motion$Entrance;
+	public final fun getExpressiveEasing ()Landroidx/compose/animation/core/CubicBezierEasing;
+	public final fun getProductiveEasing ()Landroidx/compose/animation/core/CubicBezierEasing;
+}
+
+public final class carbon/android/foundation/motion/Motion$Exit {
+	public static final field $stable I
+	public static final field INSTANCE Lcarbon/android/foundation/motion/Motion$Exit;
+	public final fun getExpressiveEasing ()Landroidx/compose/animation/core/CubicBezierEasing;
+	public final fun getProductiveEasing ()Landroidx/compose/animation/core/CubicBezierEasing;
+}
+
+public final class carbon/android/foundation/motion/Motion$Standard {
+	public static final field $stable I
+	public static final field INSTANCE Lcarbon/android/foundation/motion/Motion$Standard;
+	public final fun getExpressiveEasing ()Landroidx/compose/animation/core/CubicBezierEasing;
+	public final fun getProductiveEasing ()Landroidx/compose/animation/core/CubicBezierEasing;
+}
+
+public abstract class carbon/android/foundation/selectable/SelectableInteractiveState {
+	public static final field $stable I
+}
+
+public final class carbon/android/foundation/selectable/SelectableInteractiveState$Default : carbon/android/foundation/selectable/SelectableInteractiveState {
+	public static final field $stable I
+	public static final field INSTANCE Lcarbon/android/foundation/selectable/SelectableInteractiveState$Default;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class carbon/android/foundation/selectable/SelectableInteractiveState$Disabled : carbon/android/foundation/selectable/SelectableInteractiveState {
+	public static final field $stable I
+	public static final field INSTANCE Lcarbon/android/foundation/selectable/SelectableInteractiveState$Disabled;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class carbon/android/foundation/selectable/SelectableInteractiveState$Error : carbon/android/foundation/selectable/SelectableInteractiveState {
+	public static final field $stable I
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lcarbon/android/foundation/selectable/SelectableInteractiveState$Error;
+	public static synthetic fun copy$default (Lcarbon/android/foundation/selectable/SelectableInteractiveState$Error;Ljava/lang/String;ILjava/lang/Object;)Lcarbon/android/foundation/selectable/SelectableInteractiveState$Error;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getErrorMessage ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class carbon/android/foundation/selectable/SelectableInteractiveState$ReadOnly : carbon/android/foundation/selectable/SelectableInteractiveState {
+	public static final field $stable I
+	public static final field INSTANCE Lcarbon/android/foundation/selectable/SelectableInteractiveState$ReadOnly;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class carbon/android/foundation/selectable/SelectableInteractiveState$Warning : carbon/android/foundation/selectable/SelectableInteractiveState {
+	public static final field $stable I
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lcarbon/android/foundation/selectable/SelectableInteractiveState$Warning;
+	public static synthetic fun copy$default (Lcarbon/android/foundation/selectable/SelectableInteractiveState$Warning;Ljava/lang/String;ILjava/lang/Object;)Lcarbon/android/foundation/selectable/SelectableInteractiveState$Warning;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getWarningMessage ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class carbon/android/foundation/spacing/SpacingScale {
+	public static final field $stable I
+	public static final field INSTANCE Lcarbon/android/foundation/spacing/SpacingScale;
+	public final fun getSpacing01-D9Ej5fM ()F
+	public final fun getSpacing02-D9Ej5fM ()F
+	public final fun getSpacing03-D9Ej5fM ()F
+	public final fun getSpacing04-D9Ej5fM ()F
+	public final fun getSpacing05-D9Ej5fM ()F
+	public final fun getSpacing06-D9Ej5fM ()F
+	public final fun getSpacing07-D9Ej5fM ()F
+	public final fun getSpacing08-D9Ej5fM ()F
+	public final fun getSpacing09-D9Ej5fM ()F
+	public final fun getSpacing10-D9Ej5fM ()F
+	public final fun getSpacing11-D9Ej5fM ()F
+	public final fun getSpacing12-D9Ej5fM ()F
+	public final fun getSpacing13-D9Ej5fM ()F
+}
+
+public final class carbon/android/foundation/text/CarbonTypography {
+	public static final field $stable I
+	public static final field INSTANCE Lcarbon/android/foundation/text/CarbonTypography;
+	public final fun getBody01 ()Landroidx/compose/ui/text/TextStyle;
+	public final fun getBody02 ()Landroidx/compose/ui/text/TextStyle;
+	public final fun getBodyCompact01 ()Landroidx/compose/ui/text/TextStyle;
+	public final fun getBodyCompact02 ()Landroidx/compose/ui/text/TextStyle;
+	public final fun getCode01 ()Landroidx/compose/ui/text/TextStyle;
+	public final fun getCode02 ()Landroidx/compose/ui/text/TextStyle;
+	public final fun getDisplay01 ()Landroidx/compose/ui/text/TextStyle;
+	public final fun getDisplay02 ()Landroidx/compose/ui/text/TextStyle;
+	public final fun getHeading01 ()Landroidx/compose/ui/text/TextStyle;
+	public final fun getHeading02 ()Landroidx/compose/ui/text/TextStyle;
+	public final fun getHeading03 ()Landroidx/compose/ui/text/TextStyle;
+	public final fun getHeading04 ()Landroidx/compose/ui/text/TextStyle;
+	public final fun getHeading05 ()Landroidx/compose/ui/text/TextStyle;
+	public final fun getHeading06 ()Landroidx/compose/ui/text/TextStyle;
+	public final fun getHeading07 ()Landroidx/compose/ui/text/TextStyle;
+	public final fun getHeadingCompact01 ()Landroidx/compose/ui/text/TextStyle;
+	public final fun getHeadingCompact02 ()Landroidx/compose/ui/text/TextStyle;
+	public final fun getHelperText01 ()Landroidx/compose/ui/text/TextStyle;
+	public final fun getHelperText02 ()Landroidx/compose/ui/text/TextStyle;
+	public final fun getLabel01 ()Landroidx/compose/ui/text/TextStyle;
+	public final fun getLabel02 ()Landroidx/compose/ui/text/TextStyle;
+	public final fun getLegal01 ()Landroidx/compose/ui/text/TextStyle;
+	public final fun getLegal02 ()Landroidx/compose/ui/text/TextStyle;
+	public final fun getParagraph01 ()Landroidx/compose/ui/text/TextStyle;
+	public final fun getQuotation01 ()Landroidx/compose/ui/text/TextStyle;
+	public final fun getQuotation02 ()Landroidx/compose/ui/text/TextStyle;
+}
+
+public final class carbon/android/foundation/text/CarbonTypographyKt {
+	public static final fun getIbmPlexMonoFamily ()Landroidx/compose/ui/text/font/FontFamily;
+	public static final fun getIbmPlexSansFamily ()Landroidx/compose/ui/text/font/FontFamily;
+	public static final fun getIbmPlexSerifFamily ()Landroidx/compose/ui/text/font/FontFamily;
+}
+
+public final class carbon/android/loading/LoadingKt {
+	public static final fun Loading (Landroidx/compose/ui/Modifier;Landroidx/compose/runtime/Composer;II)V
+	public static final fun SmallLoading (Landroidx/compose/ui/Modifier;Landroidx/compose/runtime/Composer;II)V
+}
+
+public final class carbon/android/radiobutton/RadioButtonKt {
+	public static final fun RadioButton (ZLjava/lang/String;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Lcarbon/android/foundation/selectable/SelectableInteractiveState;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;II)V
+}
+
+public final class carbon/android/semantics/CarbonSemanticsProperties {
+	public static final field $stable I
+	public static final field INSTANCE Lcarbon/android/semantics/CarbonSemanticsProperties;
+	public final fun getReadOnly ()Landroidx/compose/ui/semantics/SemanticsPropertyKey;
+}
+
+public final class carbon/android/semantics/CarbonSemanticsPropertiesKt {
+	public static final fun readOnly (Landroidx/compose/ui/semantics/SemanticsPropertyReceiver;)V
+}
+
+public final class carbon/android/semantics/ReadOnlyKt {
+	public static final fun readOnly-glApdhM (Landroidx/compose/ui/Modifier;ILandroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/ui/state/ToggleableState;Z)Landroidx/compose/ui/Modifier;
+	public static final fun readOnly-glApdhM (Landroidx/compose/ui/Modifier;ILandroidx/compose/foundation/interaction/MutableInteractionSource;ZZ)Landroidx/compose/ui/Modifier;
+	public static synthetic fun readOnly-glApdhM$default (Landroidx/compose/ui/Modifier;ILandroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/ui/state/ToggleableState;ZILjava/lang/Object;)Landroidx/compose/ui/Modifier;
+	public static synthetic fun readOnly-glApdhM$default (Landroidx/compose/ui/Modifier;ILandroidx/compose/foundation/interaction/MutableInteractionSource;ZZILjava/lang/Object;)Landroidx/compose/ui/Modifier;
+}
+
+public final class carbon/android/semantics/SemanticsExtKt {
+	public static final fun assertIsReadOnly (Landroidx/compose/ui/test/SemanticsNodeInteraction;Lkotlin/jvm/functions/Function0;)Landroidx/compose/ui/test/SemanticsNodeInteraction;
+	public static synthetic fun assertIsReadOnly$default (Landroidx/compose/ui/test/SemanticsNodeInteraction;Lkotlin/jvm/functions/Function0;ILjava/lang/Object;)Landroidx/compose/ui/test/SemanticsNodeInteraction;
+	public static final fun isReadOnly ()Landroidx/compose/ui/test/SemanticsMatcher;
+}
+
+public final class carbon/android/toggle/ToggleKt {
+	public static final fun SmallToggle (ZLkotlin/jvm/functions/Function1;Landroidx/compose/ui/Modifier;Ljava/lang/String;ZZLandroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;II)V
+	public static final fun Toggle (ZLkotlin/jvm/functions/Function1;Landroidx/compose/ui/Modifier;Ljava/lang/String;Ljava/lang/String;ZZLandroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;II)V
+}
+
+public final class carbon/android/uishell/ComposableSingletons$UiShellHeaderKt {
+	public static final field INSTANCE Lcarbon/android/uishell/ComposableSingletons$UiShellHeaderKt;
+	public static field lambda-1 Lkotlin/jvm/functions/Function2;
 	public fun <init> ()V
-	public final fun greet ()Ljava/lang/String;
+	public final fun getLambda-1$carbon_shared_release ()Lkotlin/jvm/functions/Function2;
+}
+
+public final class carbon/android/uishell/UiShellHeaderKt {
+	public static final fun UiShellHeader (Ljava/lang/String;Landroidx/compose/ui/Modifier;Ljava/lang/Integer;Lkotlin/jvm/functions/Function0;Landroidx/compose/foundation/layout/WindowInsets;Lcarbon/android/foundation/color/Theme;Landroidx/compose/runtime/Composer;II)V
 }
 

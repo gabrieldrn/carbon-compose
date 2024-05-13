@@ -1,7 +1,9 @@
 import carbon.buildlogic.Constants
 import carbon.buildlogic.applyTestOptions
+import carbon.buildlogic.configureKotlinAndroidCommon
 import carbon.buildlogic.getPlugin
 import carbon.buildlogic.libs
+import carbon.buildlogic.setupComposeCompilerOptions
 import carbon.buildlogic.setupExplicitApi
 import com.android.build.gradle.LibraryExtension
 import org.gradle.api.Plugin
@@ -29,6 +31,9 @@ class CarbonMultiplatformLibraryConventionPlugin : Plugin<Project> {
                     kotlinOptions {
                         jvmTarget = Constants.Versions.JAVA.toString()
                     }
+                    compileTaskProvider.configure {
+                        compilerOptions.setupComposeCompilerOptions(this@with)
+                    }
                 }
             }
 
@@ -36,12 +41,7 @@ class CarbonMultiplatformLibraryConventionPlugin : Plugin<Project> {
         }
 
         extensions.configure<LibraryExtension> {
-            compileSdk = Constants.Versions.COMPILE_SDK
-            defaultConfig.minSdk = Constants.Versions.MIN_SDK
-            compileOptions {
-                sourceCompatibility = Constants.Versions.JAVA
-                targetCompatibility = Constants.Versions.JAVA
-            }
+            configureKotlinAndroidCommon()
             applyTestOptions()
         }
     }
