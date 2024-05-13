@@ -22,8 +22,8 @@ android {
 }
 
 dependencies {
-    implementation(project(":carbon"))
 
+    implementation(project(":carbon"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.activity.compose)

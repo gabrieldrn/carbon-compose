@@ -1,4 +1,5 @@
 import carbon.compose.buildlogic.Constants
+import carbon.compose.buildlogic.applyTestOptions
 import carbon.compose.buildlogic.configureKotlinAndroidCommon
 import carbon.compose.buildlogic.getPlugin
 import carbon.compose.buildlogic.kotlinOptions
@@ -7,8 +8,6 @@ import carbon.compose.buildlogic.setupExplicitApi
 import com.android.build.gradle.LibraryExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.api.tasks.testing.logging.TestExceptionFormat
-import org.gradle.api.tasks.testing.logging.TestLogEvent
 import org.gradle.kotlin.dsl.configure
 
 /**
@@ -48,33 +47,6 @@ class CarbonAndroidLibraryConventionPlugin : Plugin<Project> {
                     "-P",
                     Constants.CompileArgs.COMPOSE_STABILITY_CONFIG_PRE + it
                 )
-            }
-        }
-    }
-
-    @Suppress("UnstableApiUsage")
-    private fun LibraryExtension.applyTestOptions() {
-        testOptions {
-            // Somehow this must be specified for instrumentation tests to work. If not, the
-            // Android system warns that the generated app is made for a lower API level.
-            targetSdk = Constants.Versions.COMPILE_SDK
-
-            unitTests.all {
-                it.testLogging {
-                    events = setOf(
-                        TestLogEvent.PASSED,
-                        TestLogEvent.SKIPPED,
-                        TestLogEvent.FAILED,
-//                        TestLogEvent.STANDARD_OUT,
-//                        TestLogEvent.STANDARD_ERROR
-                    )
-                    exceptionFormat = TestExceptionFormat.FULL
-                    showStandardStreams = true
-                    showExceptions = true
-                    showCauses = true
-                    showStackTraces = true
-                    showStandardStreams = true
-                }
             }
         }
     }
