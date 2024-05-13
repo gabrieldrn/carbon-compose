@@ -22,9 +22,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.state.ToggleableState
-import carbon.compose.checkbox.Checkbox
-import carbon.compose.foundation.selectable.SelectableInteractiveState
-import carbon.compose.foundation.spacing.SpacingScale
+import carbon.android.checkbox.Checkbox
+import carbon.android.foundation.selectable.SelectableInteractiveState
+import carbon.android.foundation.spacing.SpacingScale
 
 private val interactiveStates = listOf(
     SelectableInteractiveState.Default,

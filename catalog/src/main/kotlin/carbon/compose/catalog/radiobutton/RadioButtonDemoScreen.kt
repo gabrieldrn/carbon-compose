@@ -21,9 +21,9 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import carbon.compose.foundation.selectable.SelectableInteractiveState
-import carbon.compose.foundation.spacing.SpacingScale
-import carbon.compose.radiobutton.RadioButton
+import carbon.android.foundation.selectable.SelectableInteractiveState
+import carbon.android.foundation.spacing.SpacingScale
+import carbon.android.radiobutton.RadioButton
 
 private val interactiveStates = listOf(
     SelectableInteractiveState.Default,

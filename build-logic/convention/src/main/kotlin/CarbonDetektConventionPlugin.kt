@@ -1,6 +1,6 @@
-import carbon.compose.buildlogic.getPlugin
-import carbon.compose.buildlogic.getVersion
-import carbon.compose.buildlogic.libs
+import carbon.kmp.buildlogic.getPlugin
+import carbon.kmp.buildlogic.getVersion
+import carbon.kmp.buildlogic.libs
 import io.gitlab.arturbosch.detekt.Detekt
 import io.gitlab.arturbosch.detekt.extensions.DetektExtension
 import org.gradle.api.Plugin

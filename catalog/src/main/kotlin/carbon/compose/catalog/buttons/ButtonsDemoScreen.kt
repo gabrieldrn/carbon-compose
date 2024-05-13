@@ -21,13 +21,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import carbon.compose.button.Button
-import carbon.compose.button.ButtonSize
-import carbon.compose.button.CarbonButton
-import carbon.compose.button.IconButton
+import carbon.android.button.Button
+import carbon.android.button.ButtonSize
+import carbon.android.button.CarbonButton
+import carbon.android.button.IconButton
+import carbon.android.foundation.spacing.SpacingScale
+import carbon.android.toggle.Toggle
 import carbon.compose.catalog.R
-import carbon.compose.foundation.spacing.SpacingScale
-import carbon.compose.toggle.Toggle
 
 private val buttons = mapOf(
     "Primary" to CarbonButton.Primary,

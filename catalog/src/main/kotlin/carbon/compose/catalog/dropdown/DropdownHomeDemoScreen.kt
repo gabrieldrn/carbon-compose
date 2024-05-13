@@ -9,10 +9,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import carbon.compose.button.Button
+import carbon.android.button.Button
+import carbon.android.foundation.color.LocalCarbonTheme
+import carbon.android.foundation.spacing.SpacingScale
 import carbon.compose.catalog.R
-import carbon.compose.foundation.color.LocalCarbonTheme
-import carbon.compose.foundation.spacing.SpacingScale
 
 @Composable
 fun DropdownDemoMenu(

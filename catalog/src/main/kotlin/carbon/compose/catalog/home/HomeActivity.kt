@@ -17,13 +17,13 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
+import carbon.android.foundation.color.LocalCarbonTheme
+import carbon.android.uishell.UiShellHeader
 import carbon.compose.catalog.R
 import carbon.compose.catalog.dropdown.BaseDestination
 import carbon.compose.catalog.dropdown.BaseDestination.Companion.eq
 import carbon.compose.catalog.dropdown.DropdownNavDestination
 import carbon.compose.catalog.theme.CarbonCatalogTheme
-import carbon.compose.foundation.color.LocalCarbonTheme
-import carbon.compose.uishell.UiShellHeader
 
 @Suppress("UndocumentedPublicClass")
 class HomeActivity : AppCompatActivity() {

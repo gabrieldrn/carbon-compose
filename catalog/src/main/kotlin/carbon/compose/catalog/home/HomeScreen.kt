@@ -39,10 +39,10 @@ import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import carbon.compose.catalog.R
-import carbon.compose.foundation.color.LocalCarbonTheme
-import carbon.compose.foundation.motion.Motion
-import carbon.compose.foundation.spacing.SpacingScale
-import carbon.compose.foundation.text.CarbonTypography
+import carbon.android.foundation.color.LocalCarbonTheme
+import carbon.android.foundation.motion.Motion
+import carbon.android.foundation.spacing.SpacingScale
+import carbon.android.foundation.text.CarbonTypography
 import kotlinx.coroutines.launch
 
 @Composable

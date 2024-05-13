@@ -15,9 +15,9 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import carbon.compose.foundation.spacing.SpacingScale
-import carbon.compose.toggle.SmallToggle
-import carbon.compose.toggle.Toggle
+import carbon.android.foundation.spacing.SpacingScale
+import carbon.android.toggle.SmallToggle
+import carbon.android.toggle.Toggle
 
 @Composable
 fun ToggleDemoScreen(modifier: Modifier = Modifier) {

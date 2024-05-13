@@ -17,11 +17,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import carbon.compose.dropdown.Dropdown
-import carbon.compose.dropdown.base.DropdownInteractiveState
-import carbon.compose.dropdown.base.DropdownOption
-import carbon.compose.foundation.color.LocalCarbonTheme
-import carbon.compose.foundation.spacing.SpacingScale
+import carbon.android.dropdown.Dropdown
+import carbon.android.dropdown.base.DropdownInteractiveState
+import carbon.android.dropdown.base.DropdownOption
+import carbon.android.foundation.color.LocalCarbonTheme
+import carbon.android.foundation.spacing.SpacingScale
 
 private val dropdownOptions: Map<Int, DropdownOption> = (0..9)
     .associateWith { DropdownOption("Option $it") }

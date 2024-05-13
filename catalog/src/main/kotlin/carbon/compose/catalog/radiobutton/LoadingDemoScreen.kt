@@ -11,11 +11,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
-import carbon.compose.foundation.color.LocalCarbonTheme
-import carbon.compose.foundation.spacing.SpacingScale
-import carbon.compose.foundation.text.CarbonTypography
-import carbon.compose.loading.Loading
-import carbon.compose.loading.SmallLoading
+import carbon.android.foundation.color.LocalCarbonTheme
+import carbon.android.foundation.spacing.SpacingScale
+import carbon.android.foundation.text.CarbonTypography
+import carbon.android.loading.Loading
+import carbon.android.loading.SmallLoading
 
 @Composable
 fun LoadingDemoScreen(modifier: Modifier = Modifier) {

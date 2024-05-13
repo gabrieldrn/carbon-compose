@@ -1,8 +1,8 @@
 package carbon.compose.catalog.theme
 
 import androidx.compose.runtime.Composable
-import carbon.compose.CarbonDesignSystem
-import carbon.compose.foundation.color.Gray100Theme
+import carbon.android.CarbonDesignSystem
+import carbon.android.foundation.color.Gray100Theme
 
 @Composable
 @Suppress("UndocumentedPublicFunction")

@@ -1,4 +1,4 @@
-import carbon.compose.Configuration
+import carbon.kmp.Configuration
 
 apply(plugin = "com.vanniktech.maven.publish")
 

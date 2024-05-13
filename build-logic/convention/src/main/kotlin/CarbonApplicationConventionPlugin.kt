@@ -1,8 +1,8 @@
-import carbon.compose.buildlogic.Constants
+import carbon.kmp.buildlogic.Constants
+import carbon.kmp.buildlogic.configureKotlinAndroidCommon
+import carbon.kmp.buildlogic.getPlugin
+import carbon.kmp.buildlogic.libs
 import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
-import carbon.compose.buildlogic.configureKotlinAndroidCommon
-import carbon.compose.buildlogic.getPlugin
-import carbon.compose.buildlogic.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
