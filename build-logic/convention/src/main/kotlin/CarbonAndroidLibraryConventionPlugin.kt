@@ -1,10 +1,10 @@
-import carbon.kmp.buildlogic.Constants
-import carbon.kmp.buildlogic.applyTestOptions
-import carbon.kmp.buildlogic.configureKotlinAndroidCommon
-import carbon.kmp.buildlogic.getPlugin
-import carbon.kmp.buildlogic.kotlinOptions
-import carbon.kmp.buildlogic.libs
-import carbon.kmp.buildlogic.setupExplicitApi
+import carbon.buildlogic.Constants
+import carbon.buildlogic.applyTestOptions
+import carbon.buildlogic.configureKotlinAndroidCommon
+import carbon.buildlogic.getPlugin
+import carbon.buildlogic.kotlinOptions
+import carbon.buildlogic.libs
+import carbon.buildlogic.setupExplicitApi
 import com.android.build.gradle.LibraryExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project

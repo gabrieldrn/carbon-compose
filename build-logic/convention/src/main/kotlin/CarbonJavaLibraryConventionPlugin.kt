@@ -1,7 +1,7 @@
-import carbon.kmp.buildlogic.getPlugin
-import carbon.kmp.buildlogic.Constants
-import carbon.kmp.buildlogic.libs
-import carbon.kmp.buildlogic.setupExplicitApi
+import carbon.buildlogic.getPlugin
+import carbon.buildlogic.Constants
+import carbon.buildlogic.libs
+import carbon.buildlogic.setupExplicitApi
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.plugins.JavaPluginExtension

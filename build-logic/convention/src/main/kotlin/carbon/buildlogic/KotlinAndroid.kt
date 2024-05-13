@@ -1,4 +1,4 @@
-package carbon.kmp.buildlogic
+package carbon.buildlogic
 
 import com.android.build.api.dsl.CommonExtension
 import com.android.build.gradle.LibraryExtension

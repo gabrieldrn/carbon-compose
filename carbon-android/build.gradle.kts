@@ -1,4 +1,4 @@
-import carbon.kmp.Configuration
+import carbon.Configuration
 
 plugins {
     id("carbon.android.library")

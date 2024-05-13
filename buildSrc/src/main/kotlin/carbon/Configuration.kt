@@ -1,4 +1,4 @@
-package carbon.kmp
+package carbon
 
 object Configuration {
     const val majorVersion = 0

@@ -1,4 +1,4 @@
-package carbon.kmp.buildlogic
+package carbon.buildlogic
 
 import org.gradle.api.JavaVersion
 
