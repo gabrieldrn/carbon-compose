@@ -19,5 +19,5 @@ rootProject.name = "Carbon"
 
 include(
     ":catalog-android",
-    ":carbon-shared"
+    ":carbon"
 )
