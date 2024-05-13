@@ -18,7 +18,7 @@ dependencyResolutionManagement {
 rootProject.name = "Carbon"
 
 include(
-    ":catalog",
+    ":catalog-android",
     ":carbon-android",
     ":carbon-shared"
 )

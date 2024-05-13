@@ -23,7 +23,7 @@ apiValidation {
     /**
      * Sub-projects that are excluded from API validation
      */
-    ignoredProjects.addAll(listOf("catalog"))
+    ignoredProjects.addAll(listOf("catalog-android"))
 }
 
 tasks.register("clean", Delete::class) {
