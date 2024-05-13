@@ -1,6 +1,39 @@
+import carbon.Configuration
+
 plugins {
     id("carbon.kmp")
     id("carbon.detekt")
+}
+
+apply(from = "${rootDir}/scripts/publishing.gradle.kts")
+
+mavenPublishing {
+    val artifactId = "carbon"
+
+    publishing {
+        repositories {
+            maven {
+                name = "GitHub"
+                url = uri("https://maven.pkg.github.com/gabrieldrn/carbon-compose")
+                credentials {
+                    username = System.getenv("GITHUB_ACTOR")
+                        ?: project.findProperty("CARBON_GITHUB_USER").toString()
+                    password = System.getenv("GITHUB_TOKEN")
+                        ?: project.findProperty("CARBON_GITHUB_TOKEN").toString()
+                }
+            }
+        }
+    }
+
+    coordinates(
+        groupId = Configuration.artifactGroup,
+        artifactId = artifactId,
+        version = rootProject.extra.get("libVersion").toString()
+    )
+
+    pom {
+        name.set(artifactId)
+    }
 }
 
 kotlin {

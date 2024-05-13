@@ -23,6 +23,7 @@ class CarbonMultiplatformLibraryConventionPlugin : Plugin<Project> {
         with(pluginManager) {
             apply(libs.getPlugin("android-library"))
             apply(libs.getPlugin("kotlin-multiplatform"))
+            apply(libs.getPlugin("vanniktech-publish-plugin"))
         }
 
         extensions.configure<KotlinMultiplatformExtension> {
