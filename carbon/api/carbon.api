@@ -657,7 +657,7 @@ public final class carbon/android/uishell/ComposableSingletons$UiShellHeaderKt {
 	public static final field INSTANCE Lcarbon/android/uishell/ComposableSingletons$UiShellHeaderKt;
 	public static field lambda-1 Lkotlin/jvm/functions/Function2;
 	public fun <init> ()V
-	public final fun getLambda-1$carbon_shared_release ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda-1$carbon_release ()Lkotlin/jvm/functions/Function2;
 }
 
 public final class carbon/android/uishell/UiShellHeaderKt {
