@@ -95,7 +95,7 @@ jobs:
             ~/.gradle/wrapper
 
       - name: Build catalog app
-        run: ./gradlew :catalog:build -x check
+        run: ./gradlew :catalog-android:build -x check
 
   delete-cache:
     name: Delete cache
