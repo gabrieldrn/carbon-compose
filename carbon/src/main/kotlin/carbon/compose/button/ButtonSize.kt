@@ -10,6 +10,8 @@ import carbon.compose.foundation.spacing.SpacingScale
  * Enum class representing different sizes for a button.
  * Each size has an associated height in dp.
  *
+ * (From [Button documentation](https://carbondesignsystem.com/components/button/usage/))
+ *
  * @property height The height of the button in dp.
  */
 public enum class ButtonSize(internal val height: Dp) {
