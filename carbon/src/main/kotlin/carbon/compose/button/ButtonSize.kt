@@ -47,13 +47,17 @@ public sealed class ButtonSize(internal val height: Dp) {
 
     /**
      * Use when buttons bleed to the edge of a larger component, like side panels or modals.
+     *
+     * Carbon only offers this button in the context of the modal component.
      */
-    public data object ExtraLarge : ButtonSize(height = 64.dp)
+    internal data object ExtraLarge : ButtonSize(height = 64.dp)
 
     /**
      * Use when buttons bleed to the edge of a larger component, like side panels or modals.
+     *
+     * Carbon only offers this button in the context of the modal component.
      */
-    public data object TwiceExtraLarge : ButtonSize(height = 80.dp)
+    internal data object TwiceExtraLarge : ButtonSize(height = 80.dp)
 
     internal companion object {
         val ButtonSize.isExtraLarge get() = this == ExtraLarge || this == TwiceExtraLarge
