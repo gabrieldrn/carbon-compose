@@ -16,7 +16,7 @@ private class ButtonPreviewParameterProvider :
 
     override val values: Sequence<Pair<CarbonButton, ButtonSize>>
         get() = CarbonButton.entries.flatMap { type ->
-            ButtonSize.entries.map { size -> type to size }
+            ButtonSize.values.map { size -> type to size }
         }.asSequence()
 }
 
@@ -35,7 +35,7 @@ private fun ButtonPreview(
 ) {
     Box(modifier = Modifier.padding(8.dp)) {
         Button(
-            label = "${combination.first.name} - ${combination.second.name}",
+            label = "${combination.first.name} - ${combination.second::class.simpleName}",
             onClick = {},
             buttonType = combination.first,
             buttonSize = combination.second,
