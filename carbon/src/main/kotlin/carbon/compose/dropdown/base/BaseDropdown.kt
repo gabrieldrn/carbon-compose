@@ -32,9 +32,10 @@ import androidx.compose.ui.unit.times
 import androidx.compose.ui.window.Popup
 import androidx.compose.ui.window.PopupPositionProvider
 import androidx.compose.ui.window.PopupProperties
+import carbon.compose.Carbon
 import carbon.compose.dropdown.base.DropdownInteractiveState.Companion.helperText
 import carbon.compose.dropdown.domain.getOptionsPopupHeightRatio
-import carbon.compose.foundation.color.LocalCarbonTheme
+import carbon.compose.foundation.color.Layer
 import carbon.compose.foundation.motion.Motion
 import carbon.compose.foundation.spacing.SpacingScale
 import carbon.compose.foundation.text.CarbonTypography
@@ -74,13 +75,17 @@ internal fun <K : Any> BaseDropdown(
     label: String? = null,
     state: DropdownInteractiveState = DropdownInteractiveState.Enabled,
     dropdownSize: DropdownSize = DropdownSize.Large,
-    colors: DropdownColors = DropdownColors(LocalCarbonTheme.current),
+    colors: DropdownColors = DropdownColors.colors(),
     @IntRange(from = 1) minVisibleItems: Int = 4,
     fieldContent: @Composable () -> Unit,
     popupContent: @Composable DropdownPopupScope.() -> Unit,
 ) {
     require(options.isNotEmpty()) {
         "Dropdown must have at least one option."
+    }
+
+    require(Carbon.layer < Layer.Layer03) {
+        "A dropdown can't be placed on layer 03"
     }
 
     val interactionSource = remember { MutableInteractionSource() }

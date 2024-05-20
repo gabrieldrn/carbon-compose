@@ -1,21 +1,37 @@
 package carbon.compose.dropdown.base
 
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
+import carbon.compose.foundation.color.Layer
+import carbon.compose.foundation.color.LocalCarbonLayer
+import carbon.compose.foundation.color.LocalCarbonTheme
 import carbon.compose.foundation.color.Theme
 
 /**
  * The colors used by the dropdown composable based on the current [theme].
  *
  * @param theme The theme to use for the colors.
+ * @param layer Current layer where the dropdown is placed on.
  */
 @Immutable
-internal class DropdownColors(val theme: Theme) {
+internal class DropdownColors(
+    val theme: Theme,
+    val layer: Layer
+) {
 
     val checkmarkIconColor = theme.iconPrimary
     val fieldBorderErrorColor = theme.supportError
-    val menuOptionBackgroundColor = theme.layer01
-    val menuOptionBorderColor = theme.borderSubtle00
+    val menuOptionBackgroundColor = when (layer) {
+        Layer.Layer00 -> theme.layer01
+        Layer.Layer01 -> theme.layer02
+        else -> theme.layer03
+    }
+    val menuOptionBorderColor = when (layer) {
+        Layer.Layer00 -> theme.borderSubtle01
+        Layer.Layer01 -> theme.borderSubtle02
+        else -> theme.borderSubtle03
+    }
 
     fun chevronIconColor(
         state: DropdownInteractiveState
@@ -28,7 +44,11 @@ internal class DropdownColors(val theme: Theme) {
         state: DropdownInteractiveState
     ) = with(theme) {
         if (state == DropdownInteractiveState.ReadOnly) Color.Transparent
-        else field01
+        else when (layer) {
+            Layer.Layer00 -> field01
+            Layer.Layer01 -> field02
+            else -> field03
+        }
     }
 
     fun fieldBorderColor(
@@ -37,8 +57,16 @@ internal class DropdownColors(val theme: Theme) {
         when (state) {
             is DropdownInteractiveState.Error -> supportError
             is DropdownInteractiveState.Disabled -> Color.Transparent
-            is DropdownInteractiveState.ReadOnly -> borderSubtle00
-            else -> borderStrong01
+            is DropdownInteractiveState.ReadOnly -> when (layer) {
+                Layer.Layer00 -> borderSubtle01
+                Layer.Layer01 -> borderSubtle02
+                else -> borderSubtle03
+            }
+            else -> when (layer) {
+                Layer.Layer00 -> borderStrong01
+                Layer.Layer01 -> borderStrong02
+                else -> borderStrong03
+            }
         }
     }
 
@@ -66,7 +94,11 @@ internal class DropdownColors(val theme: Theme) {
     fun menuOptionBackgroundSelectedColor(
         isSelected: Boolean
     ) = with(theme) {
-        if (isSelected) layerSelected01
+        if (isSelected) when (layer) {
+            Layer.Layer00 -> layerSelected01
+            Layer.Layer02 -> layerSelected02
+            else -> layerSelected03
+        }
         else Color.Transparent
     }
 
@@ -79,5 +111,11 @@ internal class DropdownColors(val theme: Theme) {
             isSelected -> textPrimary
             else -> textSecondary
         }
+    }
+
+    companion object {
+
+        @Composable
+        public fun colors() = DropdownColors(LocalCarbonTheme.current, LocalCarbonLayer.current)
     }
 }

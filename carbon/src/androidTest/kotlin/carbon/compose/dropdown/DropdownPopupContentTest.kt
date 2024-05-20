@@ -69,7 +69,7 @@ class DropdownPopupContentTest {
                 DropdownPopupContent(
                     options = options,
                     selectedOption = selectedOptionKey,
-                    colors = DropdownColors(LocalCarbonTheme.current),
+                    colors = DropdownColors.colors(),
                     componentHeight = dropdownSize.height,
                     onOptionClicked = { selectedOptionKey = it },
                     modifier = Modifier.weight(1f)

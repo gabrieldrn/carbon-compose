@@ -11,7 +11,6 @@ import carbon.compose.dropdown.base.DropdownOption
 import carbon.compose.dropdown.base.DropdownPlaceholderText
 import carbon.compose.dropdown.base.DropdownSize
 import carbon.compose.dropdown.base.DropdownStateIcon
-import carbon.compose.foundation.color.LocalCarbonTheme
 import carbon.compose.foundation.spacing.SpacingScale
 
 /**
@@ -73,7 +72,7 @@ public fun <K : Any> MultiselectDropdown(
     dropdownSize: DropdownSize = DropdownSize.Large,
     @IntRange(from = 1) minVisibleItems: Int = 4,
 ) {
-    val colors = DropdownColors(LocalCarbonTheme.current)
+    val colors = DropdownColors.colors()
 
     BaseDropdown(
         expanded = expanded,

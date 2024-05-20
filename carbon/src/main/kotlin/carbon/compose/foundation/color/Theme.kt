@@ -650,4 +650,14 @@ public interface Theme {
 
     // endregion
 
+    /**
+     * Returns the container color based on a provided [layer].
+     * @param layer Associated layer. Defaults to layer 00.
+     */
+    public fun containerColor(layer: Layer = Layer.Layer00): Color = when (layer) {
+        Layer.Layer00 -> background
+        Layer.Layer01 -> layer01
+        Layer.Layer02 -> layer02
+        Layer.Layer03 -> layer03
+    }
 }
