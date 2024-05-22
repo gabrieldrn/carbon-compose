@@ -1,30 +1,35 @@
 package carbon.compose.toggle
 
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
+import carbon.compose.Carbon
 import carbon.compose.foundation.color.Theme
 import carbon.compose.toggle.domain.ToggleState
 
 /**
  * Colors to be used by a [Toggle] based on its state.
  */
-internal data class ToggleColors(
-    val backgroundColor: Color,
-    val toggledBackgroundColor: Color,
-    val disabledBackgroundColor: Color,
-    val readOnlyBackgroundColor: Color,
+@Immutable
+internal data class ToggleColors(val theme: Theme) {
 
-    val readOnlyBorderColor: Color,
+    val backgroundColor = theme.toggleOff
+    val toggledBackgroundColor = theme.supportSuccess
+    val disabledBackgroundColor = theme.buttonDisabled
+    val readOnlyBackgroundColor = Color.Transparent
 
-    val handleColor: Color,
-    val disabledHandleColor: Color,
-    val readOnlyHandleColor: Color,
+    val readOnlyBorderColor = theme.borderSubtle01
 
-    val handleCheckmarkColor: Color,
-    val disabledHandleCheckmarkColor: Color,
+    val handleColor = theme.iconOnColor
+    val disabledHandleColor = theme.iconOnColorDisabled
+    val readOnlyHandleColor = theme.iconPrimary
 
-    val textColor: Color,
-    val disabledTextColor: Color,
-) {
+    val handleCheckmarkColor = theme.supportSuccess
+    val disabledHandleCheckmarkColor = theme.buttonDisabled
+
+    val textColor = theme.textPrimary
+    val disabledTextColor = theme.textDisabled
+
     fun backgroundColor(state: ToggleState): Color = when {
         !state.isEnabled -> disabledBackgroundColor
         state.isReadOnly -> readOnlyBackgroundColor
@@ -53,19 +58,8 @@ internal data class ToggleColors(
         else disabledTextColor
 
     companion object {
-        fun fromTheme(theme: Theme): ToggleColors = ToggleColors(
-            backgroundColor = theme.toggleOff,
-            toggledBackgroundColor = theme.supportSuccess,
-            disabledBackgroundColor = theme.buttonDisabled,
-            readOnlyBackgroundColor = Color.Transparent,
-            readOnlyBorderColor = theme.borderSubtle01,
-            handleColor = theme.iconOnColor,
-            disabledHandleColor = theme.iconOnColorDisabled,
-            readOnlyHandleColor = theme.iconPrimary,
-            handleCheckmarkColor = theme.supportSuccess,
-            disabledHandleCheckmarkColor = theme.buttonDisabled,
-            textColor = theme.textPrimary,
-            disabledTextColor = theme.textDisabled,
-        )
+
+        @Composable
+        fun colors() = ToggleColors(Carbon.theme)
     }
 }

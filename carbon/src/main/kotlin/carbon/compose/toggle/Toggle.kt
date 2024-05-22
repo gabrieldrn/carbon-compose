@@ -34,7 +34,6 @@ import androidx.compose.ui.platform.inspectable
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.unit.dp
-import carbon.compose.foundation.color.LocalCarbonTheme
 import carbon.compose.foundation.interaction.ToggleableFocusIndication
 import carbon.compose.foundation.motion.Motion
 import carbon.compose.foundation.spacing.SpacingScale
@@ -164,7 +163,6 @@ private fun ToggleImpl(
     isEnabled: Boolean = true,
     isReadOnly: Boolean = false,
 ) {
-    val theme = LocalCarbonTheme.current
     val density = LocalDensity.current
 
     val toggleState by remember(isToggled, isEnabled, isReadOnly) {
@@ -179,9 +177,7 @@ private fun ToggleImpl(
         mutableStateOf(ToggleDrawValues.buildValues(toggleType, density))
     }
 
-    val toggleColors by remember(theme) {
-        mutableStateOf(ToggleColors.fromTheme(theme))
-    }
+    val colors = ToggleColors.colors()
 
     val toggleModifier = when {
         isReadOnly -> Modifier.readOnly(
@@ -210,26 +206,26 @@ private fun ToggleImpl(
             ) { modifier.then(toggleModifier) }
     ) {
         val backgroundColor: Color by animateColorAsState(
-            targetValue = toggleColors.backgroundColor(toggleState),
+            targetValue = colors.backgroundColor(toggleState),
             animationSpec = TOGGLE_COLOR_ANIMATION_SPEC,
             label = "Toggle background color"
         )
 
         val borderColor: Color by animateColorAsState(
             // TODO Impl contextual border color based on layer
-            targetValue = toggleColors.borderColor(toggleState),
+            targetValue = colors.borderColor(toggleState),
             animationSpec = TOGGLE_COLOR_ANIMATION_SPEC,
             label = "Toggle border color"
         )
 
         val handleColor: Color by animateColorAsState(
-            targetValue = toggleColors.handleColor(toggleState),
+            targetValue = colors.handleColor(toggleState),
             animationSpec = TOGGLE_COLOR_ANIMATION_SPEC,
             label = "Handle color"
         )
 
         val handleCheckmarkColor: Color by animateColorAsState(
-            targetValue = toggleColors.handleCheckmarkColor(toggleState),
+            targetValue = colors.handleCheckmarkColor(toggleState),
             animationSpec = TOGGLE_COLOR_ANIMATION_SPEC,
             label = "Handle checkmark color"
         )
@@ -241,7 +237,7 @@ private fun ToggleImpl(
         )
 
         val textColor by animateColorAsState(
-            targetValue = toggleColors.textColor(toggleState),
+            targetValue = colors.textColor(toggleState),
             animationSpec = TOGGLE_COLOR_ANIMATION_SPEC,
             label = "Toggle text color"
         )

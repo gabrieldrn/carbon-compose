@@ -3,9 +3,8 @@ package carbon.compose.dropdown.base
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
+import carbon.compose.Carbon
 import carbon.compose.foundation.color.Layer
-import carbon.compose.foundation.color.LocalCarbonLayer
-import carbon.compose.foundation.color.LocalCarbonTheme
 import carbon.compose.foundation.color.Theme
 
 /**
@@ -116,6 +115,6 @@ internal class DropdownColors(
     companion object {
 
         @Composable
-        public fun colors() = DropdownColors(LocalCarbonTheme.current, LocalCarbonLayer.current)
+        public fun colors() = DropdownColors(Carbon.theme, Carbon.layer)
     }
 }
