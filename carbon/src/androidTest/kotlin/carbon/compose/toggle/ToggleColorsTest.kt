@@ -5,8 +5,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.test.junit4.createComposeRule
-import carbon.compose.Carbon
-import carbon.compose.foundation.color.Theme
+import carbon.compose.CarbonDesignSystem
+import carbon.compose.foundation.color.Layer
+import carbon.compose.foundation.color.WhiteTheme
 import carbon.compose.toggle.domain.ToggleState
 import org.junit.Before
 import org.junit.Rule
@@ -19,34 +20,38 @@ class ToggleColorsTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 
-    private var theme by mutableStateOf<Theme?>(null)
+    private val theme = WhiteTheme
+    private var layer by mutableStateOf<Layer>(Layer.Layer00)
     private var toggleColors by mutableStateOf<ToggleColors?>(null)
 
     @Before
     fun setup() {
         composeTestRule.setContent {
-            theme = Carbon.theme
-            toggleColors = ToggleColors.colors()
+            CarbonDesignSystem(
+                theme = theme,
+                layer = layer
+            ) {
+                toggleColors = ToggleColors.colors()
+            }
         }
     }
 
     @Test
     fun toggleColors_static_colorsAreCorrect() {
-        assertNotNull(theme)
         assertNotNull(toggleColors)
 
         assertEquals(
-            expected = theme!!.toggleOff,
+            expected = theme.toggleOff,
             actual = toggleColors!!.backgroundColor
         )
 
         assertEquals(
-            expected = theme!!.supportSuccess,
+            expected = theme.supportSuccess,
             actual = toggleColors!!.toggledBackgroundColor
         )
 
         assertEquals(
-            expected = theme!!.buttonDisabled,
+            expected = theme.buttonDisabled,
             actual = toggleColors!!.disabledBackgroundColor
         )
 
@@ -56,42 +61,37 @@ class ToggleColorsTest {
         )
 
         assertEquals(
-            expected = theme!!.borderSubtle01,
-            actual = toggleColors!!.readOnlyBorderColor
-        )
-
-        assertEquals(
-            expected = theme!!.iconOnColor,
+            expected = theme.iconOnColor,
             actual = toggleColors!!.handleColor
         )
 
         assertEquals(
-            expected = theme!!.iconOnColorDisabled,
+            expected = theme.iconOnColorDisabled,
             actual = toggleColors!!.disabledHandleColor
         )
 
         assertEquals(
-            expected = theme!!.iconPrimary,
+            expected = theme.iconPrimary,
             actual = toggleColors!!.readOnlyHandleColor
         )
 
         assertEquals(
-            expected = theme!!.supportSuccess,
+            expected = theme.supportSuccess,
             actual = toggleColors!!.handleCheckmarkColor
         )
 
         assertEquals(
-            expected = theme!!.buttonDisabled,
+            expected = theme.buttonDisabled,
             actual = toggleColors!!.disabledHandleCheckmarkColor
         )
 
         assertEquals(
-            expected = theme!!.textPrimary,
+            expected = theme.textPrimary,
             actual = toggleColors!!.textColor
         )
 
         assertEquals(
-            expected = theme!!.textDisabled,
+            expected = theme.textDisabled,
             actual = toggleColors!!.disabledTextColor
         )
     }
@@ -137,7 +137,12 @@ class ToggleColorsTest {
                 isEnabled = true,
                 isReadOnly = true,
                 isToggled = false
-            ) to toggleColors!!.readOnlyBorderColor,
+            ) to mapOf(
+                Layer.Layer00 to theme.borderSubtle01,
+                Layer.Layer01 to theme.borderSubtle02,
+                Layer.Layer02 to theme.borderSubtle03,
+                Layer.Layer03 to theme.borderSubtle03
+            ),
             ToggleState(
                 isEnabled = false,
                 isReadOnly = false,
@@ -156,11 +161,20 @@ class ToggleColorsTest {
         )
 
         testRuns.forEach { (state, expected) ->
-            assertEquals(
-                expected = expected,
-                actual = toggleColors!!.borderColor(state),
-                message = "For state $state"
-            )
+            Layer.entries.forEach { layer ->
+                this.layer = layer
+                composeTestRule.waitForIdle()
+
+                assertEquals(
+                    expected = if (expected is Map<*, *>) {
+                        expected[layer]
+                    } else {
+                        expected
+                    },
+                    actual = toggleColors!!.borderColor(state),
+                    message = "For state $state, layer $layer"
+                )
+            }
         }
     }
 

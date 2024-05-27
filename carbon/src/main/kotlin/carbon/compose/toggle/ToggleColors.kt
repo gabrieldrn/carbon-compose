@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
 import carbon.compose.Carbon
+import carbon.compose.foundation.color.Layer
 import carbon.compose.foundation.color.Theme
 import carbon.compose.toggle.domain.ToggleState
 
@@ -11,14 +12,15 @@ import carbon.compose.toggle.domain.ToggleState
  * Colors to be used by a [Toggle] based on its state.
  */
 @Immutable
-internal data class ToggleColors private constructor(val theme: Theme) {
+internal data class ToggleColors private constructor(
+    val theme: Theme,
+    val layer: Layer
+) {
 
     val backgroundColor = theme.toggleOff
     val toggledBackgroundColor = theme.supportSuccess
     val disabledBackgroundColor = theme.buttonDisabled
     val readOnlyBackgroundColor = Color.Transparent
-
-    val readOnlyBorderColor = theme.borderSubtle01
 
     val handleColor = theme.iconOnColor
     val disabledHandleColor = theme.iconOnColorDisabled
@@ -38,8 +40,15 @@ internal data class ToggleColors private constructor(val theme: Theme) {
     }
 
     fun borderColor(state: ToggleState): Color =
-        if (state.isReadOnly && state.isEnabled) readOnlyBorderColor
-        else Color.Transparent
+        if (state.isReadOnly && state.isEnabled) {
+            when (layer) {
+                Layer.Layer00 -> theme.borderSubtle01
+                Layer.Layer01 -> theme.borderSubtle02
+                else -> theme.borderSubtle03
+            }
+        } else {
+            Color.Transparent
+        }
 
     fun handleColor(state: ToggleState): Color = when {
         !state.isEnabled -> disabledHandleColor
@@ -60,6 +69,6 @@ internal data class ToggleColors private constructor(val theme: Theme) {
     companion object {
 
         @Composable
-        fun colors() = ToggleColors(Carbon.theme)
+        fun colors() = ToggleColors(Carbon.theme, Carbon.layer)
     }
 }
