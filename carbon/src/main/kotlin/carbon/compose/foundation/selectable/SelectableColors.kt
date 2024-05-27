@@ -3,22 +3,20 @@ package carbon.compose.foundation.selectable
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.state.ToggleableState
+import carbon.compose.foundation.color.Theme
 
 /**
  * The set of colors used to style a selectable.
  */
 @Immutable
 @Suppress("LongParameterList")
-internal abstract class SelectableColors(
-    val borderColor: Color,
-    val borderDisabledColor: Color,
-    val borderReadOnlyColor: Color,
-    val borderErrorColor: Color,
-    val labelColor: Color,
-    val labelDisabledColor: Color,
-    val errorMessageTextColor: Color,
-    val warningMessageTextColor: Color,
-) {
+internal abstract class SelectableColors(val theme: Theme) {
+
+    protected val borderColor = theme.iconPrimary
+    protected val borderDisabledColor = theme.iconDisabled
+    protected val borderErrorColor = theme.supportError
+    val errorMessageTextColor = theme.textError
+    val warningMessageTextColor = theme.textPrimary
 
     open fun borderColor(
         interactiveState: SelectableInteractiveState,
@@ -37,14 +35,14 @@ internal abstract class SelectableColors(
             Color.Transparent
         }
 
-        is SelectableInteractiveState.ReadOnly -> borderReadOnlyColor
+        is SelectableInteractiveState.ReadOnly -> theme.iconDisabled
         is SelectableInteractiveState.Error -> borderErrorColor
     }
 
     fun labelColor(interactiveState: SelectableInteractiveState): Color =
         if (interactiveState == SelectableInteractiveState.Disabled) {
-            labelDisabledColor
+            theme.textDisabled
         } else {
-            labelColor
+            theme.textPrimary
         }
 }
