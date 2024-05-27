@@ -11,7 +11,7 @@ import carbon.compose.toggle.domain.ToggleState
  * Colors to be used by a [Toggle] based on its state.
  */
 @Immutable
-internal data class ToggleColors(val theme: Theme) {
+internal data class ToggleColors private constructor(val theme: Theme) {
 
     val backgroundColor = theme.toggleOff
     val toggledBackgroundColor = theme.supportSuccess

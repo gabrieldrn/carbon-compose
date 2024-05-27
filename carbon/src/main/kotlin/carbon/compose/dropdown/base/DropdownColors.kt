@@ -14,9 +14,9 @@ import carbon.compose.foundation.color.Theme
  * @param layer Current layer where the dropdown is placed on.
  */
 @Immutable
-internal class DropdownColors(
-    val theme: Theme,
-    val layer: Layer
+internal class DropdownColors private constructor(
+    private val theme: Theme,
+    private val layer: Layer
 ) {
 
     val checkmarkIconColor = theme.iconPrimary
@@ -95,7 +95,7 @@ internal class DropdownColors(
     ) = with(theme) {
         if (isSelected) when (layer) {
             Layer.Layer00 -> layerSelected01
-            Layer.Layer02 -> layerSelected02
+            Layer.Layer01 -> layerSelected02
             else -> layerSelected03
         }
         else Color.Transparent
