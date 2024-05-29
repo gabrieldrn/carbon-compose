@@ -26,7 +26,10 @@ public enum class Layer {
     Layer02,
     Layer03;
 
-    internal fun next(): Layer {
+    /**
+     * Returns the next layer in the layering model from this layer.
+     */
+    public fun next(): Layer {
         return when (this) {
             Layer00 -> Layer01
             Layer01 -> Layer02
@@ -36,5 +39,12 @@ public enum class Layer {
                     Log.w(LOG_TAG, "Current layer ($it) is already the highest layer available.")
                 }
         }
+    }
+
+    override fun toString(): String = when (this) {
+        Layer00 -> "Layer 00"
+        Layer01 -> "Layer 01"
+        Layer02 -> "Layer 02"
+        Layer03 -> "Layer 03"
     }
 }

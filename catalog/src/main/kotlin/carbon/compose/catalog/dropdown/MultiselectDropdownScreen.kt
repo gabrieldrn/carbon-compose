@@ -1,10 +1,10 @@
 package carbon.compose.catalog.dropdown
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
@@ -15,12 +15,16 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
+import carbon.compose.button.Button
+import carbon.compose.catalog.R
 import carbon.compose.dropdown.base.DropdownInteractiveState
 import carbon.compose.dropdown.base.DropdownOption
 import carbon.compose.dropdown.multiselect.MultiselectDropdown
-import carbon.compose.foundation.color.LocalCarbonTheme
+import carbon.compose.foundation.color.CarbonLayer
+import carbon.compose.foundation.color.Layer
+import carbon.compose.foundation.color.containerBackground
 import carbon.compose.foundation.spacing.SpacingScale
 
 private val dropdownOptions: Map<Int, DropdownOption> = (0..9)
@@ -39,16 +43,15 @@ private val dropdownOptions: Map<Int, DropdownOption> = (0..9)
 
 @Composable
 internal fun MultiselectDropdownScreen(modifier: Modifier = Modifier) {
-    Column(
-        modifier = modifier.background(LocalCarbonTheme.current.background),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
+    var layer by remember { mutableStateOf(Layer.Layer00) }
+
+    CarbonLayer(layer = layer) {
         Column(
-            modifier = Modifier
+            modifier = modifier
+                .fillMaxSize()
+                .containerBackground()
                 .verticalScroll(state = rememberScrollState())
-                .weight(1f)
-                .fillMaxWidth()
-                .padding(SpacingScale.spacing03)
+                .padding(SpacingScale.spacing05)
                 .padding(WindowInsets.navigationBars.asPaddingValues()),
             verticalArrangement = Arrangement.spacedBy(SpacingScale.spacing05)
         ) {
@@ -72,6 +75,19 @@ internal fun MultiselectDropdownScreen(modifier: Modifier = Modifier) {
             DemoDropdown(
                 title = "Read-only dropdown",
                 state = DropdownInteractiveState.ReadOnly,
+            )
+
+            Button(
+                label = "Change layer ($layer)",
+                iconPainter = painterResource(id = R.drawable.ic_layers),
+                onClick = {
+                    if (layer == Layer.Layer02) {
+                        layer = Layer.Layer00
+                    } else {
+                        layer = layer.next()
+                    }
+                },
+                modifier = Modifier.fillMaxWidth()
             )
         }
     }

@@ -1,9 +1,12 @@
 package carbon.compose.foundation.color
 
+import androidx.compose.foundation.background
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.ProvidableCompositionLocal
 import androidx.compose.runtime.staticCompositionLocalOf
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.composed
 import carbon.compose.Carbon
 
 internal val carbonDefaultTheme = WhiteTheme
@@ -54,4 +57,11 @@ public fun CarbonLayer(
         value = LocalCarbonLayer provides layer,
         content = content
     )
+}
+
+/**
+ * Applies a background color to the modifier based on the current [Layer].
+ */
+public fun Modifier.containerBackground(): Modifier = this.composed {
+    background(Carbon.theme.containerColor(Carbon.layer))
 }
