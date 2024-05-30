@@ -43,7 +43,6 @@ import androidx.compose.ui.unit.dp
 import carbon.compose.dropdown.base.DropdownInteractiveState.Companion.helperText
 import carbon.compose.dropdown.base.DropdownInteractiveState.Companion.isFocusable
 import carbon.compose.dropdown.domain.getChevronStartSpacing
-import carbon.compose.foundation.color.LocalCarbonTheme
 import carbon.compose.foundation.input.onEnterKeyEvent
 import carbon.compose.foundation.interaction.FocusIndication
 import carbon.compose.foundation.motion.Motion
@@ -111,7 +110,7 @@ internal fun DropdownField(
     onExpandedChange: (Boolean) -> Unit,
     fieldContent: @Composable () -> Unit,
     modifier: Modifier = Modifier,
-    colors: DropdownColors = DropdownColors(LocalCarbonTheme.current),
+    colors: DropdownColors = DropdownColors.colors(),
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
 ) {
     val chevronRotation by transition.animateFloat(
@@ -209,7 +208,7 @@ internal fun DropdownPlaceholderText(
     placeholderText: String,
     state: DropdownInteractiveState,
     modifier: Modifier = Modifier,
-    colors: DropdownColors = DropdownColors(LocalCarbonTheme.current),
+    colors: DropdownColors = DropdownColors.colors(),
 ) {
     Text(
         text = placeholderText,

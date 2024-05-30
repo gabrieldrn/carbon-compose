@@ -63,7 +63,7 @@ class BaseDropdownTest {
                 fieldContent = {
                     DropdownPlaceholderText(
                         placeholderText = placeholder,
-                        colors = DropdownColors(LocalCarbonTheme.current),
+                        colors = DropdownColors.colors(),
                         state = state,
                     )
                 },

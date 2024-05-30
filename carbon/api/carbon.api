@@ -1,5 +1,13 @@
+public final class carbon/compose/Carbon {
+	public static final field $stable I
+	public static final field INSTANCE Lcarbon/compose/Carbon;
+	public final fun getInlineTheme (Landroidx/compose/runtime/Composer;I)Lcarbon/compose/foundation/color/Theme;
+	public final fun getLayer (Landroidx/compose/runtime/Composer;I)Lcarbon/compose/foundation/color/Layer;
+	public final fun getTheme (Landroidx/compose/runtime/Composer;I)Lcarbon/compose/foundation/color/Theme;
+}
+
 public final class carbon/compose/CarbonKt {
-	public static final fun CarbonDesignSystem (Lcarbon/compose/foundation/color/Theme;Lcarbon/compose/foundation/color/Theme;Lkotlin/jvm/functions/Function2;Landroidx/compose/runtime/Composer;II)V
+	public static final fun CarbonDesignSystem (Lcarbon/compose/foundation/color/Theme;Lcarbon/compose/foundation/color/Theme;Lcarbon/compose/foundation/color/Layer;Lkotlin/jvm/functions/Function2;Landroidx/compose/runtime/Composer;II)V
 }
 
 public final class carbon/compose/button/ButtonKt {
@@ -171,6 +179,7 @@ public final class carbon/compose/dropdown/multiselect/MultiselectDropdownKt {
 public final class carbon/compose/foundation/color/Gray100Theme : carbon/compose/foundation/color/Theme {
 	public static final field $stable I
 	public static final field INSTANCE Lcarbon/compose/foundation/color/Gray100Theme;
+	public fun containerColor-vNxB06k (Lcarbon/compose/foundation/color/Layer;)J
 	public fun getBackground-0d7_KjU ()J
 	public fun getBackgroundActive-0d7_KjU ()J
 	public fun getBackgroundBrand-0d7_KjU ()J
@@ -282,7 +291,18 @@ public final class carbon/compose/foundation/color/Gray100Theme : carbon/compose
 	public fun getToggleOff-0d7_KjU ()J
 }
 
+public final class carbon/compose/foundation/color/Layer : java/lang/Enum {
+	public static final field Layer00 Lcarbon/compose/foundation/color/Layer;
+	public static final field Layer01 Lcarbon/compose/foundation/color/Layer;
+	public static final field Layer02 Lcarbon/compose/foundation/color/Layer;
+	public static final field Layer03 Lcarbon/compose/foundation/color/Layer;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcarbon/compose/foundation/color/Layer;
+	public static fun values ()[Lcarbon/compose/foundation/color/Layer;
+}
+
 public abstract interface class carbon/compose/foundation/color/Theme {
+	public abstract fun containerColor-vNxB06k (Lcarbon/compose/foundation/color/Layer;)J
 	public abstract fun getBackground-0d7_KjU ()J
 	public abstract fun getBackgroundActive-0d7_KjU ()J
 	public abstract fun getBackgroundBrand-0d7_KjU ()J
@@ -394,14 +414,23 @@ public abstract interface class carbon/compose/foundation/color/Theme {
 	public abstract fun getToggleOff-0d7_KjU ()J
 }
 
+public final class carbon/compose/foundation/color/Theme$DefaultImpls {
+	public static fun containerColor-vNxB06k (Lcarbon/compose/foundation/color/Theme;Lcarbon/compose/foundation/color/Layer;)J
+	public static synthetic fun containerColor-vNxB06k$default (Lcarbon/compose/foundation/color/Theme;Lcarbon/compose/foundation/color/Layer;ILjava/lang/Object;)J
+}
+
 public final class carbon/compose/foundation/color/ThemeStaticCompositionKt {
+	public static final fun CarbonLayer (Lcarbon/compose/foundation/color/Layer;Lkotlin/jvm/functions/Function2;Landroidx/compose/runtime/Composer;I)V
+	public static final fun CarbonLayer (Lkotlin/jvm/functions/Function2;Landroidx/compose/runtime/Composer;I)V
 	public static final fun getLocalCarbonInlineTheme ()Landroidx/compose/runtime/ProvidableCompositionLocal;
+	public static final fun getLocalCarbonLayer ()Landroidx/compose/runtime/ProvidableCompositionLocal;
 	public static final fun getLocalCarbonTheme ()Landroidx/compose/runtime/ProvidableCompositionLocal;
 }
 
 public final class carbon/compose/foundation/color/WhiteTheme : carbon/compose/foundation/color/Theme {
 	public static final field $stable I
 	public static final field INSTANCE Lcarbon/compose/foundation/color/WhiteTheme;
+	public fun containerColor-vNxB06k (Lcarbon/compose/foundation/color/Layer;)J
 	public fun getBackground-0d7_KjU ()J
 	public fun getBackgroundActive-0d7_KjU ()J
 	public fun getBackgroundBrand-0d7_KjU ()J

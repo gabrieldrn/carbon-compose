@@ -4,7 +4,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.state.ToggleableState
-import carbon.compose.foundation.color.LocalCarbonTheme
+import carbon.compose.Carbon
+import carbon.compose.foundation.color.Theme
 import carbon.compose.foundation.selectable.SelectableColors
 import carbon.compose.foundation.selectable.SelectableInteractiveState
 
@@ -13,37 +14,15 @@ import carbon.compose.foundation.selectable.SelectableInteractiveState
  */
 @Immutable
 @Suppress("LongParameterList")
-internal class CheckboxColors(
-    borderColor: Color,
-    borderDisabledColor: Color,
-    borderReadOnlyColor: Color,
-    borderErrorColor: Color,
-    labelColor: Color,
-    labelDisabledColor: Color,
-    errorMessageTextColor: Color,
-    warningMessageTextColor: Color,
-    val backgroundCheckedColor: Color,
-    val backgroundDisabledCheckedColor: Color,
-    val checkmarkCheckedColor: Color,
-    val checkmarkReadOnlyCheckedColor: Color,
-) : SelectableColors(
-    borderColor = borderColor,
-    borderDisabledColor = borderDisabledColor,
-    borderReadOnlyColor = borderReadOnlyColor,
-    borderErrorColor = borderErrorColor,
-    labelColor = labelColor,
-    labelDisabledColor = labelDisabledColor,
-    errorMessageTextColor = errorMessageTextColor,
-    warningMessageTextColor = warningMessageTextColor,
-) {
+internal class CheckboxColors private constructor(theme: Theme) : SelectableColors(theme) {
 
     fun checkmarkColor(
         interactiveState: SelectableInteractiveState,
         state: ToggleableState
     ): Color = when {
         state == ToggleableState.Off -> Color.Transparent
-        interactiveState == SelectableInteractiveState.ReadOnly -> checkmarkReadOnlyCheckedColor
-        else -> checkmarkCheckedColor
+        interactiveState == SelectableInteractiveState.ReadOnly -> theme.iconPrimary
+        else -> theme.iconInverse
     }
 
     fun backgroundColor(
@@ -55,13 +34,13 @@ internal class CheckboxColors(
         is SelectableInteractiveState.Warning -> if (state == ToggleableState.Off) {
             Color.Transparent
         } else {
-            backgroundCheckedColor
+            theme.iconPrimary
         }
 
         is SelectableInteractiveState.Disabled -> if (state == ToggleableState.Off) {
             Color.Transparent
         } else {
-            backgroundDisabledCheckedColor
+            theme.iconDisabled
         }
 
         is SelectableInteractiveState.ReadOnly -> Color.Transparent
@@ -70,21 +49,6 @@ internal class CheckboxColors(
     internal companion object {
 
         @Composable
-        fun colors(): CheckboxColors = with(LocalCarbonTheme.current) {
-            CheckboxColors(
-                borderColor = iconPrimary,
-                borderDisabledColor = iconDisabled,
-                borderReadOnlyColor = iconDisabled,
-                borderErrorColor = supportError,
-                labelColor = textPrimary,
-                labelDisabledColor = textDisabled,
-                errorMessageTextColor = textError,
-                warningMessageTextColor = textPrimary,
-                backgroundCheckedColor = iconPrimary,
-                backgroundDisabledCheckedColor = iconDisabled,
-                checkmarkCheckedColor = iconInverse,
-                checkmarkReadOnlyCheckedColor = iconPrimary
-            )
-        }
+        fun colors(): CheckboxColors = CheckboxColors(Carbon.theme)
     }
 }

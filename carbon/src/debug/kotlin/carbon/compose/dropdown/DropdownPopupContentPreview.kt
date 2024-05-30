@@ -8,7 +8,6 @@ import carbon.compose.dropdown.base.DropdownColors
 import carbon.compose.dropdown.base.DropdownOption
 import carbon.compose.dropdown.base.DropdownPopupContent
 import carbon.compose.dropdown.base.DropdownSize
-import carbon.compose.foundation.color.LocalCarbonTheme
 
 @Preview
 @Composable
@@ -33,7 +32,7 @@ private fun DropdownPopupContentPreview(
         DropdownPopupContent(
             options = options,
             selectedOption = 1,
-            colors = DropdownColors(LocalCarbonTheme.current),
+            colors = DropdownColors.colors(),
             componentHeight = dropdownSize.height,
             onOptionClicked = {},
         )

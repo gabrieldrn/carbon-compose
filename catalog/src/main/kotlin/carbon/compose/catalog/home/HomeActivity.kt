@@ -6,7 +6,6 @@ import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.getValue
@@ -22,7 +21,7 @@ import carbon.compose.catalog.dropdown.BaseDestination
 import carbon.compose.catalog.dropdown.BaseDestination.Companion.eq
 import carbon.compose.catalog.dropdown.DropdownNavDestination
 import carbon.compose.catalog.theme.CarbonCatalogTheme
-import carbon.compose.foundation.color.LocalCarbonTheme
+import carbon.compose.foundation.color.containerBackground
 import carbon.compose.uishell.UiShellHeader
 
 @Suppress("UndocumentedPublicClass")
@@ -55,7 +54,7 @@ class HomeActivity : AppCompatActivity() {
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
-                        .background(LocalCarbonTheme.current.background)
+                        .containerBackground()
                 ) {
                     UiShellHeader(
                         headerName = currentScreen.title,

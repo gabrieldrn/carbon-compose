@@ -4,7 +4,6 @@ import android.content.res.Configuration
 import androidx.compose.animation.core.animate
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -38,8 +37,10 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import carbon.compose.Carbon
 import carbon.compose.catalog.R
-import carbon.compose.foundation.color.LocalCarbonTheme
+import carbon.compose.foundation.color.CarbonLayer
+import carbon.compose.foundation.color.containerBackground
 import carbon.compose.foundation.motion.Motion
 import carbon.compose.foundation.spacing.SpacingScale
 import carbon.compose.foundation.text.CarbonTypography
@@ -57,20 +58,22 @@ fun HomeScreen(
     val isInPortrait = LocalConfiguration.current
         .orientation == Configuration.ORIENTATION_PORTRAIT
 
-    if (isInPortrait) {
-        ComponentsLazyGrid(
-            destinations = Destination.homeTilesDestinations,
-            navBarPaddingValues = navBarPaddingValues,
-            onTileClicked = onTileClicked,
-            modifier = modifier
-        )
-    } else {
-        ComponentsLazyRow(
-            destinations = Destination.homeTilesDestinations,
-            navBarPaddingValues = navBarPaddingValues,
-            onTileClicked = onTileClicked,
-            modifier = modifier
-        )
+    CarbonLayer {
+        if (isInPortrait) {
+            ComponentsLazyGrid(
+                destinations = Destination.homeTilesDestinations,
+                navBarPaddingValues = navBarPaddingValues,
+                onTileClicked = onTileClicked,
+                modifier = modifier
+            )
+        } else {
+            ComponentsLazyRow(
+                destinations = Destination.homeTilesDestinations,
+                navBarPaddingValues = navBarPaddingValues,
+                onTileClicked = onTileClicked,
+                modifier = modifier
+            )
+        }
     }
 }
 
@@ -173,7 +176,7 @@ private fun CarbonComponentGridTile(
     Box(
         modifier = modifier
             .clickable(onClick = onTileClicked)
-            .background(color = LocalCarbonTheme.current.layer01)
+            .containerBackground()
             .fillMaxSize()
     ) {
         Box(
@@ -196,7 +199,7 @@ private fun CarbonComponentGridTile(
             BasicText(
                 text = destination.title,
                 style = CarbonTypography.body01.copy(
-                    color = LocalCarbonTheme.current.textPrimary
+                    color = Carbon.theme.textPrimary
                 ),
                 modifier = Modifier.padding(SpacingScale.spacing05)
             )
@@ -215,7 +218,7 @@ private fun PlaceholderIllustration(modifier: Modifier = Modifier) {
         Image(
             painter = painterResource(id = R.drawable.picto_construction_worker),
             contentDescription = null,
-            colorFilter = ColorFilter.tint(LocalCarbonTheme.current.iconPrimary),
+            colorFilter = ColorFilter.tint(Carbon.theme.iconPrimary),
             modifier = Modifier.size(48.dp)
         )
     }

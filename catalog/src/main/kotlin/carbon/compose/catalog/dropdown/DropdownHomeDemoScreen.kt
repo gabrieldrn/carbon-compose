@@ -22,7 +22,7 @@ fun DropdownDemoMenu(
     Column(
         modifier = modifier
             .background(LocalCarbonTheme.current.background)
-            .padding(SpacingScale.spacing03)
+            .padding(SpacingScale.spacing05)
             .fillMaxSize(),
         verticalArrangement = Arrangement.spacedBy(SpacingScale.spacing03)
     ) {

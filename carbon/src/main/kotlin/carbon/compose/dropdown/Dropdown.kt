@@ -12,7 +12,6 @@ import carbon.compose.dropdown.base.DropdownPlaceholderText
 import carbon.compose.dropdown.base.DropdownPopupContent
 import carbon.compose.dropdown.base.DropdownSize
 import carbon.compose.dropdown.base.DropdownStateIcon
-import carbon.compose.foundation.color.LocalCarbonTheme
 
 /**
  * # Dropdown
@@ -71,7 +70,7 @@ public fun <K : Any> Dropdown(
         options[selectedOption]?.value ?: placeholder
     }
 
-    val colors = DropdownColors(LocalCarbonTheme.current)
+    val colors = DropdownColors.colors()
 
     BaseDropdown(
         expanded = expanded,
