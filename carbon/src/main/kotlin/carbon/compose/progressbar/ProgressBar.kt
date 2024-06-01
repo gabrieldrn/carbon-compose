@@ -228,19 +228,6 @@ private fun ProgressBarTrack(
     }
 }
 
-private fun DrawScope.drawTrack(
-    trackHead: Float,
-    trackTail: Float,
-    color: Color
-) {
-    drawLine(
-        color = color,
-        start = Offset(trackTail * this.size.width, this.size.height / 2),
-        end = Offset(trackHead * this.size.width, this.size.height / 2),
-        strokeWidth = this.size.height
-    )
-}
-
 private const val DurationAnimation = 1400
 private val TrackDuration = (DurationAnimation * .75f * .25f).toInt()
 private val AnimationDelay = TrackDuration
@@ -296,4 +283,17 @@ private fun IndeterminateProgressBarTrack(
             color = theme.borderInteractive
         )
     }
+}
+
+private fun DrawScope.drawTrack(
+    trackHead: Float,
+    trackTail: Float,
+    color: Color
+) {
+    drawLine(
+        color = color,
+        start = Offset(trackTail * this.size.width, this.size.height / 2),
+        end = Offset(trackHead * this.size.width, this.size.height / 2),
+        strokeWidth = this.size.height
+    )
 }
