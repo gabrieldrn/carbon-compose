@@ -28,3 +28,22 @@ private fun InlinedProgressBarPreview() {
         modifier = Modifier.padding(SpacingScale.spacing03)
     )
 }
+
+@Preview(showBackground = true, backgroundColor = 0xFFFFFFFF)
+@Composable
+private fun IndeterminateProgressBarPreview() {
+    IndeterminateProgressBar(
+        labelText = "Loading",
+        modifier = Modifier.padding(SpacingScale.spacing03),
+    )
+}
+
+@Preview(showBackground = true, backgroundColor = 0xFFFFFFFF)
+@Composable
+private fun IndeterminateInlinedProgressBarPreview() {
+    IndeterminateProgressBar(
+        labelText = "Loading",
+        inlined = true,
+        modifier = Modifier.padding(SpacingScale.spacing03),
+    )
+}

@@ -683,6 +683,19 @@ public final class carbon/compose/loading/LoadingKt {
 	public static final fun SmallLoading (Landroidx/compose/ui/Modifier;Landroidx/compose/runtime/Composer;II)V
 }
 
+public final class carbon/compose/progressbar/ProgressBarKt {
+	public static final fun IndeterminateProgressBar (Landroidx/compose/ui/Modifier;Ljava/lang/String;Ljava/lang/String;ZZLcarbon/compose/progressbar/ProgressBarSize;Landroidx/compose/runtime/Composer;II)V
+	public static final fun ProgressBar (FLandroidx/compose/ui/Modifier;Ljava/lang/String;Ljava/lang/String;ZZLcarbon/compose/progressbar/ProgressBarSize;Landroidx/compose/runtime/Composer;II)V
+}
+
+public final class carbon/compose/progressbar/ProgressBarSize : java/lang/Enum {
+	public static final field Big Lcarbon/compose/progressbar/ProgressBarSize;
+	public static final field Small Lcarbon/compose/progressbar/ProgressBarSize;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcarbon/compose/progressbar/ProgressBarSize;
+	public static fun values ()[Lcarbon/compose/progressbar/ProgressBarSize;
+}
+
 public final class carbon/compose/radiobutton/RadioButtonKt {
 	public static final fun RadioButton (ZLjava/lang/String;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Lcarbon/compose/foundation/selectable/SelectableInteractiveState;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;II)V
 }
