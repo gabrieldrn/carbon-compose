@@ -20,9 +20,11 @@ private fun ProgressBarPreview() {
 @Preview(showBackground = true, backgroundColor = 0xFFFFFFFF)
 @Composable
 private fun InlinedProgressBarPreview() {
-    InlinedProgressBar(
+    ProgressBar(
         value = 0.5f,
         labelText = "Loading",
-        modifier = Modifier.padding(SpacingScale.spacing03),
+        helperText = "50 %",
+        inlined = true,
+        modifier = Modifier.padding(SpacingScale.spacing03)
     )
 }
