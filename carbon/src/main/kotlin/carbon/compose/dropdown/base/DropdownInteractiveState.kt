@@ -1,8 +1,11 @@
 package carbon.compose.dropdown.base
 
+import androidx.compose.runtime.Immutable
+
 /**
  * Represents the state of a dropdown.
  */
+@Immutable
 public sealed interface DropdownInteractiveState {
 
     /**

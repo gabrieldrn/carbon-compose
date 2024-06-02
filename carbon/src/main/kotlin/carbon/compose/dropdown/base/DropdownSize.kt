@@ -1,5 +1,6 @@
 package carbon.compose.dropdown.base
 
+import androidx.compose.runtime.Stable
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import carbon.compose.foundation.SMALL_TOUCH_TARGET_SIZE_MESSAGE
@@ -11,6 +12,7 @@ internal const val DROPDOWN_HEIGHT_LARGE_DP = 48
 /**
  * Input height for dropdowns.
  */
+@Stable
 public enum class DropdownSize(internal val height: Dp) {
 
     /**

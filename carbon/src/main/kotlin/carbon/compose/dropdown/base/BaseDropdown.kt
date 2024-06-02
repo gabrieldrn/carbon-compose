@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -185,10 +186,12 @@ internal fun <K : Any> BaseDropdown(
     }
 }
 
+@Stable
 internal interface DropdownPopupScope {
     fun Modifier.anchor(): Modifier
 }
 
+@Stable
 private object DropdownMenuPositionProvider : PopupPositionProvider {
 
     override fun calculatePosition(
