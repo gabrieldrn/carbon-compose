@@ -177,7 +177,7 @@ private fun ProgressBarColumnLayout(
                 color = Carbon.theme.textHelper,
                 modifier = Modifier.padding(
                     top = SpacingScale.spacing03,
-                    end = if (indented) {
+                    start = if (indented) {
                         SpacingScale.spacing05
                     } else {
                         0.dp
