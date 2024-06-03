@@ -46,6 +46,7 @@ fun ProgressBarDemoScreen(modifier: Modifier = Modifier) {
     var size by remember { mutableStateOf<ProgressBarSize>(ProgressBarSize.Small) }
     var isInlined by remember { mutableStateOf(false) }
     var isIndented by remember { mutableStateOf(false) }
+    val isIndentedToggleEnabled by remember { derivedStateOf { !isInlined } }
     var progressBarVariantDropdownExpanded by remember { mutableStateOf(false) }
     var progressBarStateDropdownExpanded by remember { mutableStateOf(false) }
     val progressBarStateState by remember {
@@ -138,6 +139,7 @@ fun ProgressBarDemoScreen(modifier: Modifier = Modifier) {
                 Toggle(
                     actionText = "Indented",
                     isToggled = isIndented,
+                    isEnabled = isIndentedToggleEnabled,
                     onToggleChange = { isIndented = it }
                 )
             }
