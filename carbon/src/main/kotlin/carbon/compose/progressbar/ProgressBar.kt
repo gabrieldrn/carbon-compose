@@ -1,6 +1,7 @@
 package carbon.compose.progressbar
 
 import androidx.annotation.FloatRange
+import androidx.compose.foundation.progressSemantics
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
@@ -38,7 +39,7 @@ public fun ProgressBar(
         helperText = helperText,
         inlined = inlined,
         indented = indented,
-        modifier = modifier,
+        modifier = modifier.progressSemantics(value = value, valueRange = 0f..1f),
         state = state,
         trackContent = {
             ProgressBarTrack(
@@ -80,7 +81,7 @@ public fun IndeterminateProgressBar(
         helperText = helperText,
         inlined = inlined,
         indented = indented,
-        modifier = modifier,
+        modifier = modifier.progressSemantics(),
         trackContent = {
             IndeterminateProgressBarTrack(size = size)
         }
