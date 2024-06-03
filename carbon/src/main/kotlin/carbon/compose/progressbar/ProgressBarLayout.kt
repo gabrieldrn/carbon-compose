@@ -11,7 +11,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import carbon.compose.Carbon
 import carbon.compose.foundation.spacing.SpacingScale
@@ -34,6 +33,8 @@ internal fun ProgressBarRootLayout(
     if (inlined) {
         InlinedProgressBarLayout(
             labelText = labelText,
+            state = state,
+            colors = colors,
             modifier = modifier,
             trackContent = trackContent
         )
@@ -60,8 +61,6 @@ internal fun DefaultProgressBarLayout(
     modifier: Modifier = Modifier,
     trackContent: @Composable () -> Unit
 ) {
-    val iconColor by colors.iconColor(state)
-
     Column(modifier = modifier) {
         Row(
             modifier = if (indented) {
@@ -79,7 +78,7 @@ internal fun DefaultProgressBarLayout(
                 Box(modifier = Modifier.weight(1f))
             }
 
-            Icon(state = state, tint = iconColor)
+            Icon(state = state, colors = colors)
         }
 
         Spacer(modifier = Modifier.height(SpacingScale.spacing03))
@@ -107,6 +106,8 @@ internal fun DefaultProgressBarLayout(
 @Composable
 private fun InlinedProgressBarLayout(
     labelText: String?,
+    state: ProgressBarState,
+    colors: ProgressBarColors,
     modifier: Modifier = Modifier,
     trackContent: @Composable () -> Unit
 ) {
@@ -118,7 +119,12 @@ private fun InlinedProgressBarLayout(
             LabelText(text = labelText)
         }
         Spacer(modifier = Modifier.width(SpacingScale.spacing05))
-        trackContent()
+
+        if (state == ProgressBarState.Active) {
+            trackContent()
+        } else {
+            Icon(state = state, colors = colors)
+        }
     }
 }
 
@@ -138,18 +144,20 @@ private fun LabelText(
 @Composable
 private fun Icon(
     state: ProgressBarState,
-    tint: Color,
+    colors: ProgressBarColors,
     modifier: Modifier = Modifier
 ) {
+    val iconColor by colors.iconColor(state)
+
     when (state) {
         ProgressBarState.Active -> {}
         ProgressBarState.Success -> CheckmarkFilledIcon(
-            tint = tint,
+            tint = iconColor,
             size = 16.dp,
             modifier = modifier
         )
         ProgressBarState.Error -> ErrorFilledIcon(
-            tint = tint,
+            tint = iconColor,
             size = 16.dp,
             modifier = modifier
         )

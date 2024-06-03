@@ -56,6 +56,15 @@ fun ProgressBarDemoScreen(modifier: Modifier = Modifier) {
         }
     }
     var progressBarSizeDropdownExpanded by remember { mutableStateOf(false) }
+    val progressBarSizeDropdownState by remember {
+        derivedStateOf {
+            if (isInlined && state in arrayOf(ProgressBarState.Success, ProgressBarState.Error)) {
+                DropdownInteractiveState.Disabled
+            } else {
+                DropdownInteractiveState.Enabled
+            }
+        }
+    }
 
     Column(
         modifier = modifier
@@ -125,6 +134,7 @@ fun ProgressBarDemoScreen(modifier: Modifier = Modifier) {
                     label = "Size",
                     options = progressBarSizeOptions,
                     selectedOption = size,
+                    state = progressBarSizeDropdownState,
                     onOptionSelected = { option -> size = option },
                     onExpandedChange = { progressBarSizeDropdownExpanded = it },
                     onDismissRequest = { progressBarSizeDropdownExpanded = false }
