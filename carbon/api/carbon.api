@@ -685,7 +685,7 @@ public final class carbon/compose/loading/LoadingKt {
 
 public final class carbon/compose/progressbar/ProgressBarKt {
 	public static final fun IndeterminateProgressBar (Landroidx/compose/ui/Modifier;Ljava/lang/String;Ljava/lang/String;ZZLcarbon/compose/progressbar/ProgressBarSize;Landroidx/compose/runtime/Composer;II)V
-	public static final fun ProgressBar (FLandroidx/compose/ui/Modifier;Ljava/lang/String;Ljava/lang/String;ZZLcarbon/compose/progressbar/ProgressBarSize;Landroidx/compose/runtime/Composer;II)V
+	public static final fun ProgressBar (FLandroidx/compose/ui/Modifier;Ljava/lang/String;Ljava/lang/String;ZZLcarbon/compose/progressbar/ProgressBarState;Lcarbon/compose/progressbar/ProgressBarSize;Landroidx/compose/runtime/Composer;II)V
 }
 
 public final class carbon/compose/progressbar/ProgressBarSize : java/lang/Enum {
@@ -694,6 +694,15 @@ public final class carbon/compose/progressbar/ProgressBarSize : java/lang/Enum {
 	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public static fun valueOf (Ljava/lang/String;)Lcarbon/compose/progressbar/ProgressBarSize;
 	public static fun values ()[Lcarbon/compose/progressbar/ProgressBarSize;
+}
+
+public final class carbon/compose/progressbar/ProgressBarState : java/lang/Enum {
+	public static final field Active Lcarbon/compose/progressbar/ProgressBarState;
+	public static final field Error Lcarbon/compose/progressbar/ProgressBarState;
+	public static final field Success Lcarbon/compose/progressbar/ProgressBarState;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcarbon/compose/progressbar/ProgressBarState;
+	public static fun values ()[Lcarbon/compose/progressbar/ProgressBarState;
 }
 
 public final class carbon/compose/radiobutton/RadioButtonKt {
