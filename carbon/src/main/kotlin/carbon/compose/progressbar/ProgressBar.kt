@@ -6,6 +6,7 @@ import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.keyframes
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -25,6 +26,8 @@ import carbon.compose.Carbon
 import carbon.compose.foundation.spacing.SpacingScale
 import carbon.compose.foundation.text.CarbonTypography
 import carbon.compose.foundation.text.Text
+import carbon.compose.icons.CheckmarkFilledIcon
+import carbon.compose.icons.ErrorFilledIcon
 
 /**
  * # Progress Bar | Determinate
@@ -41,6 +44,7 @@ import carbon.compose.foundation.text.Text
  * @param indented Whether to indent the label and helper texts.
  * @param inlined When true, sets the label text inlined with the progress bar. In this case the
  * helper text is not displayed.
+ * @param state The state of the progress bar.
  * @param size The size type of the progress bar.
  */
 @Composable
@@ -51,6 +55,7 @@ public fun ProgressBar(
     helperText: String? = null,
     indented: Boolean = false,
     inlined: Boolean = false,
+    state: ProgressBarState = ProgressBarState.Active,
     size: ProgressBarSize = ProgressBarSize.Big,
 ) {
     ProgressBarRootLayout(
@@ -59,8 +64,13 @@ public fun ProgressBar(
         inlined = inlined,
         indented = indented,
         modifier = modifier,
+        state = state,
         trackContent = {
-            ProgressBarTrack(size = size, value = value)
+            ProgressBarTrack(
+                size = size,
+                value = value,
+                state = state
+            )
         }
     )
 }
@@ -109,19 +119,23 @@ private fun ProgressBarRootLayout(
     inlined: Boolean,
     indented: Boolean,
     modifier: Modifier = Modifier,
+    state: ProgressBarState = ProgressBarState.Active,
+    colors: ProgressBarColors = ProgressBarColors.colors(),
     trackContent: @Composable () -> Unit
 ) {
     if (inlined) {
-        ProgressBarRowLayout(
+        InlinedProgressBarLayout(
             labelText = labelText,
             modifier = modifier,
             trackContent = trackContent
         )
     } else {
-        ProgressBarColumnLayout(
+        DefaultProgressBarLayout(
             labelText = labelText,
             helperText = helperText,
             indented = indented,
+            state = state,
+            colors = colors,
             modifier = modifier,
             trackContent = trackContent
         )
@@ -129,41 +143,35 @@ private fun ProgressBarRootLayout(
 }
 
 @Composable
-private fun ProgressBarRowLayout(
-    labelText: String?,
-    modifier: Modifier = Modifier,
-    trackContent: @Composable () -> Unit
-) {
-    Row(
-        modifier = modifier,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        if (labelText != null) {
-            LabelText(text = labelText)
-        }
-        Spacer(modifier = Modifier.width(SpacingScale.spacing05))
-        trackContent()
-    }
-}
-
-@Composable
-private fun ProgressBarColumnLayout(
+private fun DefaultProgressBarLayout(
     labelText: String?,
     helperText: String?,
     indented: Boolean,
+    state: ProgressBarState,
+    colors: ProgressBarColors,
     modifier: Modifier = Modifier,
     trackContent: @Composable () -> Unit
 ) {
+    val iconColor by colors.iconColor(state)
+
     Column(modifier = modifier) {
-        if (labelText != null) {
-            LabelText(
-                text = labelText,
-                modifier = if (indented) {
-                    Modifier.padding(start = SpacingScale.spacing05)
-                } else {
-                    Modifier
-                }
-            )
+        Row(
+            modifier = if (indented) {
+                Modifier.padding(horizontal = SpacingScale.spacing05)
+            } else {
+                Modifier
+            }
+        ) {
+            if (labelText != null) {
+                LabelText(
+                    text = labelText,
+                    modifier = Modifier.weight(1f)
+                )
+            } else {
+                Box(modifier = Modifier.weight(1f))
+            }
+
+            Icon(state = state, tint = iconColor)
         }
 
         Spacer(modifier = Modifier.height(SpacingScale.spacing03))
@@ -189,6 +197,24 @@ private fun ProgressBarColumnLayout(
 }
 
 @Composable
+private fun InlinedProgressBarLayout(
+    labelText: String?,
+    modifier: Modifier = Modifier,
+    trackContent: @Composable () -> Unit
+) {
+    Row(
+        modifier = modifier,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        if (labelText != null) {
+            LabelText(text = labelText)
+        }
+        Spacer(modifier = Modifier.width(SpacingScale.spacing05))
+        trackContent()
+    }
+}
+
+@Composable
 private fun LabelText(
     text: String,
     modifier: Modifier = Modifier
@@ -202,12 +228,36 @@ private fun LabelText(
 }
 
 @Composable
+private fun Icon(
+    state: ProgressBarState,
+    tint: Color,
+    modifier: Modifier = Modifier
+) {
+    when (state) {
+        ProgressBarState.Active -> {}
+        ProgressBarState.Success -> CheckmarkFilledIcon(
+            tint = tint,
+            size = 16.dp,
+            modifier = modifier
+        )
+        ProgressBarState.Error -> ErrorFilledIcon(
+            tint = tint,
+            size = 16.dp,
+            modifier = modifier
+        )
+    }
+}
+
+@Composable
 private fun ProgressBarTrack(
     size: ProgressBarSize,
     value: Float,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    state: ProgressBarState = ProgressBarState.Active,
+    colors:ProgressBarColors = ProgressBarColors.colors()
 ) {
     val theme = Carbon.theme
+    val trackColor by colors.trackColor(state)
 
     Canvas(
         modifier = modifier
@@ -221,9 +271,9 @@ private fun ProgressBarTrack(
     ) {
         drawRect(color = theme.borderSubtle00)
         drawTrack(
-            trackHead = value,
+            trackHead = if (state == ProgressBarState.Active) value else 1f,
             trackTail = 0f,
-            color = theme.borderInteractive
+            color = trackColor
         )
     }
 }
