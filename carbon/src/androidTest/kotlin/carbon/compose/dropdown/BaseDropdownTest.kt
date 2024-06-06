@@ -24,7 +24,6 @@ import carbon.compose.dropdown.base.DropdownOption
 import carbon.compose.dropdown.base.DropdownPlaceholderText
 import carbon.compose.dropdown.base.DropdownSize
 import carbon.compose.dropdown.base.DropdownTestTags
-import carbon.compose.foundation.color.LocalCarbonTheme
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -55,6 +54,7 @@ class BaseDropdownTest {
                 label = label,
                 expanded = isExpanded,
                 options = options,
+                colors = DropdownColors.colors(),
                 onExpandedChange = { isExpanded = it },
                 onDismissRequest = { isExpanded = false },
                 minVisibleItems = minVisibleItems,

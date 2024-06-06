@@ -17,6 +17,7 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -118,6 +119,15 @@ private fun DropdownMenuOption(
     modifier: Modifier = Modifier,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 ) {
+    val menuOptionBackgroundSelectedColor by colors.menuOptionBackgroundSelectedColor(
+        isSelected = isSelected
+    )
+
+    val menuOptionTextColor by colors.menuOptionTextColor(
+        isEnabled = option.enabled,
+        isSelected = isSelected
+    )
+
     Box(
         modifier = modifier
             .selectable(
@@ -127,9 +137,7 @@ private fun DropdownMenuOption(
                 enabled = option.enabled,
                 onClick = onOptionClicked
             )
-            .background(
-                color = colors.menuOptionBackgroundSelectedColor(isSelected = isSelected),
-            )
+            .background(color = menuOptionBackgroundSelectedColor)
             .padding(horizontal = SpacingScale.spacing05)
             .testTag(DropdownTestTags.MENU_OPTION)
     ) {
@@ -148,10 +156,7 @@ private fun DropdownMenuOption(
             Text(
                 text = option.value,
                 style = CarbonTypography.bodyCompact01,
-                color = colors.menuOptionTextColor(
-                    isEnabled = option.enabled,
-                    isSelected = isSelected
-                ),
+                color = menuOptionTextColor,
                 overflow = TextOverflow.Ellipsis,
                 maxLines = 1,
                 modifier = Modifier.weight(1f)

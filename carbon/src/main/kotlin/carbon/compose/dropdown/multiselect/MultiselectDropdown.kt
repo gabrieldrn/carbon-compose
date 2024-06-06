@@ -79,11 +79,11 @@ public fun <K : Any> MultiselectDropdown(
         options = options,
         onExpandedChange = onExpandedChange,
         onDismissRequest = onDismissRequest,
+        colors = colors,
         modifier = modifier,
         label = label,
         state = state,
         dropdownSize = dropdownSize,
-        colors = colors,
         minVisibleItems = minVisibleItems,
         fieldContent = {
             if (selectedOptions.isNotEmpty() && state !is DropdownInteractiveState.Disabled) {

@@ -77,11 +77,11 @@ public fun <K : Any> Dropdown(
         options = options,
         onExpandedChange = onExpandedChange,
         onDismissRequest = onDismissRequest,
+        colors = colors,
         modifier = modifier,
         label = label,
         state = state,
         dropdownSize = dropdownSize,
-        colors = colors,
         minVisibleItems = minVisibleItems,
         fieldContent = {
             DropdownPlaceholderText(

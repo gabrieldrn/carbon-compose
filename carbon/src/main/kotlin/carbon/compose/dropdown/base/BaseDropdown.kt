@@ -70,13 +70,13 @@ private fun Modifier.onEscape(block: () -> Unit) = onPreviewKeyEvent {
 internal fun <K : Any> BaseDropdown(
     expanded: Boolean,
     options: Map<K, DropdownOption>,
+    colors: DropdownColors,
     onExpandedChange: (Boolean) -> Unit,
     onDismissRequest: () -> Unit,
     modifier: Modifier = Modifier,
     label: String? = null,
     state: DropdownInteractiveState = DropdownInteractiveState.Enabled,
     dropdownSize: DropdownSize = DropdownSize.Large,
-    colors: DropdownColors = DropdownColors.colors(),
     @IntRange(from = 1) minVisibleItems: Int = 4,
     fieldContent: @Composable () -> Unit,
     popupContent: @Composable DropdownPopupScope.() -> Unit,
@@ -110,19 +110,15 @@ internal fun <K : Any> BaseDropdown(
         }
     }
 
-    val elevation by transition.animateDp(
-        transitionSpec = { dropdownTransitionSpecDp },
-        label = "Popup content shadow"
-    ) {
-        if (it) 3.dp else 0.dp
-    }
+    val labelTextColor by colors.labelTextColor(state)
+    val helperTextColor by colors.helperTextColor(state)
 
     Column(modifier = modifier) {
         label.takeIf { !it.isNullOrBlank() }?.let {
             Text(
                 text = it,
                 style = CarbonTypography.label01,
-                color = colors.labelTextColor(state),
+                color = labelTextColor,
                 modifier = Modifier
                     .padding(bottom = SpacingScale.spacing03)
                     .testTag(DropdownTestTags.LABEL_TEXT)
@@ -139,6 +135,13 @@ internal fun <K : Any> BaseDropdown(
                 }
             )
         ) {
+            val elevation by transition.animateDp(
+                transitionSpec = { dropdownTransitionSpecDp },
+                label = "Popup content shadow"
+            ) {
+                if (it) 3.dp else 0.dp
+            }
+
             val popupScope = remember(this, dropdownSize, onDismissRequest) {
                 object : DropdownPopupScope {
                     override fun Modifier.anchor(): Modifier = this
@@ -157,10 +160,10 @@ internal fun <K : Any> BaseDropdown(
                 dropdownSize = dropdownSize,
                 interactionSource = interactionSource,
                 transition = transition,
+                colors = colors,
                 expandedStates = expandedStates,
                 onExpandedChange = onExpandedChange,
                 fieldContent = fieldContent,
-                colors = colors
             )
 
             if (expandedStates.currentState || expandedStates.targetState) {
@@ -177,7 +180,7 @@ internal fun <K : Any> BaseDropdown(
             Text(
                 text = it,
                 style = CarbonTypography.helperText01,
-                color = colors.helperTextColor(state),
+                color = helperTextColor,
                 modifier = Modifier
                     .padding(top = SpacingScale.spacing02)
                     .testTag(DropdownTestTags.HELPER_TEXT)

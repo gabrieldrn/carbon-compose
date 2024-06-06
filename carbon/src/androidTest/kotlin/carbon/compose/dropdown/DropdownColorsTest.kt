@@ -1,5 +1,6 @@
 package carbon.compose.dropdown
 
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -10,7 +11,6 @@ import carbon.compose.dropdown.base.DropdownColors
 import carbon.compose.dropdown.base.DropdownInteractiveState
 import carbon.compose.foundation.color.Layer
 import carbon.compose.foundation.color.WhiteTheme
-import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import kotlin.test.assertEquals
@@ -21,7 +21,7 @@ class DropdownColorsTest {
     val composeTestRule = createComposeRule()
 
     private val theme = WhiteTheme
-    private var layer by mutableStateOf<Layer>(Layer.Layer00)
+
     private var dropdownColors by mutableStateOf<DropdownColors?>(null)
 
     private val interactiveStates = mapOf(
@@ -40,38 +40,76 @@ class DropdownColorsTest {
         else it
     }
 
-    private fun checkColorByStateAndLayer(
-        expectedColors: Map<Any, Any>,
-        actual: (state: DropdownInteractiveState, layer: Layer) -> Color
-    ) {
-        interactiveStates.values.forEach { state ->
+    private fun forAllLayers(block: @Composable (layer: Layer) -> Unit) {
+        composeTestRule.setContent {
             Layer.entries.forEach { layer ->
-                this.layer = layer
-                composeTestRule.waitForIdle()
-
-                assertEquals(
-                    expected = expectedColors.getColorByStateAndLayer(state, layer),
-                    actual = actual(state, layer),
-                    message = "State: $state, Layer: $layer"
-                )
+                CarbonDesignSystem(theme = theme, layer = layer) {
+                    block(layer)
+                }
             }
         }
     }
 
-    @Before
-    fun setup() {
+    private fun <T : Any> forAllLayersAndStates(
+        statesUnderTest: Collection<T>,
+        block: @Composable (state: T, layer: Layer) -> Unit
+    ) {
         composeTestRule.setContent {
-            CarbonDesignSystem(
-                theme = theme,
-                layer = layer
-            ) {
-                dropdownColors = DropdownColors.colors()
+            statesUnderTest.forEach { state ->
+                Layer.entries.forEach { layer ->
+                    CarbonDesignSystem(theme = theme, layer = layer) {
+                        block(state, layer)
+                    }
+                }
             }
+        }
+    }
+
+    private fun <T : Any, U : Any> forAllLayersAndStates(
+        statesUnderTest1: Collection<T>,
+        statesUnderTest2: Collection<U>,
+        block: @Composable (state1: T, state2: U, layer: Layer) -> Unit
+    ) {
+        composeTestRule.setContent {
+            statesUnderTest1.forEach { state1 ->
+                statesUnderTest2.forEach { state2 ->
+                    Layer.entries.forEach { layer ->
+                        CarbonDesignSystem(theme = theme, layer = layer) {
+                            block(state1, state2, layer)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun checkColorByInteractiveStateAndLayer(
+        expectedColors: Map<Any, Any>,
+        actual: @Composable (state: DropdownInteractiveState) -> Color
+    ) {
+        var result by mutableStateOf<Color>(Color.Unspecified)
+
+        forAllLayersAndStates(
+            statesUnderTest = interactiveStates.values
+        ) { state, layer ->
+            result = actual(state)
+
+            assertEquals(
+                expected = expectedColors.getColorByStateAndLayer(state, layer),
+                actual = result,
+                message = "State: $state, Layer: $layer"
+            )
         }
     }
 
     @Test
     fun dropdownColors_staticColorsWithoutContextualLayer_colorsAreCorrect() {
+        composeTestRule.setContent {
+            CarbonDesignSystem(theme = theme) {
+                dropdownColors = DropdownColors.colors()
+            }
+        }
+
         assertEquals(
             expected = theme.iconPrimary,
             actual = dropdownColors!!.checkmarkIconColor
@@ -85,36 +123,34 @@ class DropdownColorsTest {
 
     @Test
     fun dropdownColors_menuOptionBackgroundColor_colorsAreCorrect() {
-        Layer.values().forEach {
-            layer = it
-            composeTestRule.waitForIdle()
+        forAllLayers { layer ->
             assertEquals(
-                expected = when (it) {
+                expected = when (layer) {
                     Layer.Layer00 -> theme.layer01
                     Layer.Layer01 -> theme.layer02
                     Layer.Layer02 -> theme.layer03
                     Layer.Layer03 -> theme.layer03
                 },
-                actual = dropdownColors!!.menuOptionBackgroundColor,
-                message = "Layer: $it"
+                actual = DropdownColors.colors().menuOptionBackgroundColor,
+                message = "Layer: $layer"
             )
         }
     }
 
     @Test
     fun dropdownColors_menuOptionBorderColor_colorsAreCorrect() {
-        Layer.values().forEach {
-            layer = it
-            composeTestRule.waitForIdle()
+        forAllLayers { layer ->
+            dropdownColors = DropdownColors.colors()
+
             assertEquals(
-                expected = when (it) {
+                expected = when (layer) {
                     Layer.Layer00 -> theme.borderSubtle01
                     Layer.Layer01 -> theme.borderSubtle02
                     Layer.Layer02 -> theme.borderSubtle03
                     Layer.Layer03 -> theme.borderSubtle03
                 },
                 actual = dropdownColors!!.menuOptionBorderColor,
-                message = "Layer: $it"
+                message = "Layer: $layer"
             )
         }
     }
@@ -127,8 +163,8 @@ class DropdownColorsTest {
                 else it to theme.iconPrimary
             }
 
-        checkColorByStateAndLayer(expectedColors) { state, _ ->
-            dropdownColors!!.chevronIconColor(state)
+        checkColorByInteractiveStateAndLayer(expectedColors) { state ->
+            DropdownColors.colors().chevronIconColor(state).value
         }
     }
 
@@ -142,8 +178,8 @@ class DropdownColorsTest {
             Layer.Layer03 to theme.field03,
         )
 
-        checkColorByStateAndLayer(colorsExpected) { state, _ ->
-            dropdownColors!!.fieldBackgroundColor(state)
+        checkColorByInteractiveStateAndLayer(colorsExpected) { state ->
+            DropdownColors.colors().fieldBackgroundColor(state).value
         }
     }
 
@@ -164,8 +200,8 @@ class DropdownColorsTest {
             Layer.Layer03 to theme.borderStrong03,
         )
 
-        checkColorByStateAndLayer(colorsExpected) { state, _ ->
-            dropdownColors!!.fieldBorderColor(state)
+        checkColorByInteractiveStateAndLayer(colorsExpected) { state ->
+            DropdownColors.colors().fieldBorderColor(state).value
         }
     }
 
@@ -176,8 +212,8 @@ class DropdownColorsTest {
             else it to theme.textPrimary
         }
 
-        checkColorByStateAndLayer(colorsExpected) { state, _ ->
-            dropdownColors!!.fieldTextColor(state)
+        checkColorByInteractiveStateAndLayer(colorsExpected) { state ->
+            DropdownColors.colors().fieldTextColor(state).value
         }
     }
 
@@ -188,8 +224,8 @@ class DropdownColorsTest {
             else it to theme.textPrimary
         }
 
-        checkColorByStateAndLayer(colorsExpected) { state, _ ->
-            dropdownColors!!.helperTextColor(state)
+        checkColorByInteractiveStateAndLayer(colorsExpected) { state ->
+            DropdownColors.colors().helperTextColor(state).value
         }
     }
 
@@ -200,57 +236,62 @@ class DropdownColorsTest {
             else it to theme.textSecondary
         }
 
-        checkColorByStateAndLayer(colorsExpected) { state, _ ->
-            dropdownColors!!.labelTextColor(state)
+        checkColorByInteractiveStateAndLayer(colorsExpected) { state ->
+            DropdownColors.colors().labelTextColor(state).value
         }
     }
 
     @Test
     fun dropdownColors_menuOptionBackgroundSelectedColor_colorsAreCorrect() {
-        listOf(true, false).forEach { isSelected ->
-            Layer.entries.forEach { layer ->
-                this.layer = layer
-                composeTestRule.waitForIdle()
+        var result by mutableStateOf<Color>(Color.Unspecified)
 
-                assertEquals(
-                    expected = if (isSelected) {
-                        when (layer) {
-                            Layer.Layer00 -> theme.layerSelected01
-                            Layer.Layer01 -> theme.layerSelected02
-                            Layer.Layer02 -> theme.layerSelected03
-                            Layer.Layer03 -> theme.layerSelected03
-                        }
-                    } else {
-                        Color.Transparent
-                    },
-                    actual = dropdownColors!!.menuOptionBackgroundSelectedColor(
-                        isSelected = isSelected
-                    ),
-                    message = "isSelected: $isSelected, Layer: $layer"
-                )
-            }
+        forAllLayersAndStates(statesUnderTest = listOf(true, false)) { isSelected, layer ->
+            result = DropdownColors
+                .colors()
+                .menuOptionBackgroundSelectedColor(isSelected = isSelected)
+                .value
+
+            assertEquals(
+                expected = if (isSelected) {
+                    when (layer) {
+                        Layer.Layer00 -> theme.layerSelected01
+                        Layer.Layer01 -> theme.layerSelected02
+                        Layer.Layer02 -> theme.layerSelected03
+                        Layer.Layer03 -> theme.layerSelected03
+                    }
+                } else {
+                    Color.Transparent
+                },
+                actual = result,
+                message = "isSelected: $isSelected, Layer: $layer"
+            )
         }
     }
 
     @Test
     fun dropdownColors_menuOptionTextColor_colorsAreCorrect() {
-        listOf(true, false).forEach { isEnabled ->
-            listOf(true, false).forEach { isSelected ->
-                Layer.entries.forEach { layer ->
-                    assertEquals(
-                        expected = when {
-                            !isEnabled -> theme.textDisabled
-                            isSelected -> theme.textPrimary
-                            else -> theme.textSecondary
-                        },
-                        actual = dropdownColors!!.menuOptionTextColor(
-                            isEnabled = isEnabled,
-                            isSelected = isSelected
-                        ),
-                        message = "isEnabled: $isEnabled, isSelected: $isSelected, Layer: $layer"
-                    )
-                }
-            }
+        var result by mutableStateOf<Color>(Color.Unspecified)
+
+        forAllLayersAndStates(
+            statesUnderTest1 = listOf(true, false),
+            statesUnderTest2 = listOf(true, false)
+        ) { isEnabled, isSelected, layer ->
+            result = DropdownColors.colors().menuOptionTextColor(
+                isEnabled = isEnabled,
+                isSelected = isSelected
+            ).value
+
+            assertEquals(
+                expected = when {
+                    !isEnabled -> theme.textDisabled
+                    isSelected -> theme.textPrimary
+                    else -> theme.textSecondary
+                },
+                actual = result,
+                message = "isEnabled: $isEnabled, " +
+                    "isSelected: $isSelected, " +
+                    "Layer: $layer"
+            )
         }
     }
 }
