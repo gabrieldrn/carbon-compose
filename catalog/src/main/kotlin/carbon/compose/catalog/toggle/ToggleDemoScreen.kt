@@ -51,11 +51,11 @@ fun ToggleDemoScreen(modifier: Modifier = Modifier) {
                     isToggled = isToggled,
                     onToggleChange = { isToggled = it }
                 )
-//                SmallToggles(
-//                    isToggled = isToggled,
-//                    onToggleChange = { isToggled = it },
-//                    modifier = Modifier.padding(top = SpacingScale.spacing05)
-//                )
+                SmallToggles(
+                    isToggled = isToggled,
+                    onToggleChange = { isToggled = it },
+                    modifier = Modifier.padding(top = SpacingScale.spacing05)
+                )
             }
         }
 
@@ -95,20 +95,20 @@ private fun DefaultToggles(
             isToggled = isToggled,
             onToggleChange = onToggleChange,
             label = "Toggle",
-//            actionText = if (isToggled) "On" else "Off",
+            actionText = if (isToggled) "On" else "Off",
         )
-//        Toggle(
-//            isToggled = isToggled,
-//            isEnabled = false,
-//            onToggleChange = {},
-//            actionText = "Disabled",
-//        )
-//        Toggle(
-//            isToggled = isToggled,
-//            isReadOnly = true,
-//            onToggleChange = {},
-//            actionText = "Read only",
-//        )
+        Toggle(
+            isToggled = isToggled,
+            isEnabled = false,
+            onToggleChange = {},
+            actionText = "Disabled",
+        )
+        Toggle(
+            isToggled = isToggled,
+            isReadOnly = true,
+            onToggleChange = {},
+            actionText = "Read only",
+        )
     }
 }
 
