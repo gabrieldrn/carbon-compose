@@ -43,7 +43,7 @@ private fun DropdownFieldPreview(
     val expandedStates = remember { MutableTransitionState(false) }
     val transition = updateTransition(expandedStates, "Dropdown")
 
-    CarbonLayer {
+    CarbonLayer(layer = layer) {
         val colors = DropdownColors.colors()
         DropdownField(
             state = state,
