@@ -1,52 +1,28 @@
 package carbon.compose.foundation
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.state.ToggleableState
-import androidx.compose.ui.test.junit4.createComposeRule
-import carbon.compose.CarbonDesignSystem
-import carbon.compose.foundation.color.WhiteTheme
 import carbon.compose.foundation.selectable.SelectableColors
 import carbon.compose.foundation.selectable.SelectableInteractiveState
-import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 
 class SelectableColorsTest : BaseSelectableColorsTest() {
 
-    @get:Rule
-    val composeTestRule = createComposeRule()
-
-    private val theme = WhiteTheme
-    private var abstractSelectableColors by mutableStateOf<SelectableColors?>(null)
-
-    @Before
-    fun setup() {
-        composeTestRule.setContent {
-            CarbonDesignSystem(
-                theme = theme
-            ) {
-                abstractSelectableColors = object : SelectableColors(theme) {}
-            }
-        }
-    }
-
     @Test
     fun abstractSelectableColors_static_colorsAreCorrect() {
-        assertNotNull(abstractSelectableColors)
+        val colors = object : SelectableColors(theme) {}
+        assertNotNull(colors)
 
         assertEquals(
             expected = theme.textError,
-            actual = abstractSelectableColors!!.errorMessageTextColor
+            actual = colors.errorMessageTextColor
         )
 
         assertEquals(
             expected = theme.textPrimary,
-            actual = abstractSelectableColors!!.warningMessageTextColor
+            actual = colors.warningMessageTextColor
         )
     }
 
@@ -72,34 +48,40 @@ class SelectableColorsTest : BaseSelectableColorsTest() {
             interactiveStates["error"]!! to theme.supportError,
         )
 
-        interactiveStates.values.forEach { interactiveState ->
-            ToggleableState.entries.forEach { toggleableState ->
-                assertEquals(
-                    expected = expectedColors.getColor(
-                        interactiveState = interactiveState,
-                        toggleableState = toggleableState
-                    ),
-                    actual = abstractSelectableColors!!.borderColor(
+        forAllLayersAndStates(
+            interactiveStates.values,
+            ToggleableState.entries
+        ) { interactiveState, toggleableState, _ ->
+
+            assertEquals(
+                expected = expectedColors.getColor(
+                    interactiveState = interactiveState,
+                    toggleableState = toggleableState
+                ),
+                actual = object : SelectableColors(theme) {}
+                    .borderColor(
                         interactiveState = interactiveState,
                         state = toggleableState
-                    ),
-                    message = "Interactive state: $interactiveState, " +
-                        "toggleable state: $toggleableState"
-                )
-            }
+                    )
+                    .value,
+                message = "Interactive state: $interactiveState, " +
+                    "toggleable state: $toggleableState"
+            )
         }
     }
 
     @Test
     fun abstractSelectableColors_labelColor_colorsAreCorrect() {
-        interactiveStates.values.forEach { interactiveState ->
+        forAllLayersAndStates(interactiveStates.values) { interactiveState, _ ->
             assertEquals(
                 expected = if (interactiveState == SelectableInteractiveState.Disabled) {
                     theme.textDisabled
                 } else {
                     theme.textPrimary
                 },
-                actual = abstractSelectableColors!!.labelColor(interactiveState),
+                actual = object : SelectableColors(theme) {}
+                    .labelColor(interactiveState)
+                    .value,
                 message = "Interactive state: $interactiveState"
             )
         }

@@ -1,5 +1,6 @@
 package carbon.compose.toggle.domain
 
+import androidx.compose.runtime.Stable
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.unit.Density
 import carbon.compose.toggle.Toggle
@@ -10,6 +11,7 @@ import carbon.compose.toggle.toggleCheckmarkIconWidth
 /**
  * Represents the state of a [Toggle].
  */
+@Stable
 internal data class ToggleState(
     val isToggled: Boolean,
     val isEnabled: Boolean,

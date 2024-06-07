@@ -177,8 +177,6 @@ private fun ToggleImpl(
         mutableStateOf(ToggleDrawValues.buildValues(toggleType, density))
     }
 
-    val colors = ToggleColors.colors()
-
     val toggleModifier = when {
         isReadOnly -> Modifier.readOnly(
             role = Role.Switch,
@@ -205,27 +203,29 @@ private fun ToggleImpl(
                 }
             ) { modifier.then(toggleModifier) }
     ) {
+        val colors = ToggleColors.colors()
+
         val backgroundColor: Color by animateColorAsState(
-            targetValue = colors.backgroundColor(toggleState),
+            targetValue = colors.backgroundColor(toggleState).value,
             animationSpec = TOGGLE_COLOR_ANIMATION_SPEC,
             label = "Toggle background color"
         )
 
         val borderColor: Color by animateColorAsState(
             // TODO Impl contextual border color based on layer
-            targetValue = colors.borderColor(toggleState),
+            targetValue = colors.borderColor(toggleState).value,
             animationSpec = TOGGLE_COLOR_ANIMATION_SPEC,
             label = "Toggle border color"
         )
 
         val handleColor: Color by animateColorAsState(
-            targetValue = colors.handleColor(toggleState),
+            targetValue = colors.handleColor(toggleState).value,
             animationSpec = TOGGLE_COLOR_ANIMATION_SPEC,
             label = "Handle color"
         )
 
         val handleCheckmarkColor: Color by animateColorAsState(
-            targetValue = colors.handleCheckmarkColor(toggleState),
+            targetValue = colors.handleCheckmarkColor(toggleState).value,
             animationSpec = TOGGLE_COLOR_ANIMATION_SPEC,
             label = "Handle checkmark color"
         )
@@ -237,7 +237,7 @@ private fun ToggleImpl(
         )
 
         val textColor by animateColorAsState(
-            targetValue = colors.textColor(toggleState),
+            targetValue = colors.textColor(toggleState).value,
             animationSpec = TOGGLE_COLOR_ANIMATION_SPEC,
             label = "Toggle text color"
         )

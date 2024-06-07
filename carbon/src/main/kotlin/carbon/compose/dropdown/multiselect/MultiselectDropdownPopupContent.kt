@@ -13,6 +13,7 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -111,6 +112,15 @@ private fun MultiselectDropdownMenuOption(
     modifier: Modifier = Modifier,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 ) {
+    val menuOptionBackgroundSelectedColor by colors.menuOptionBackgroundSelectedColor(
+        isSelected = isSelected
+    )
+
+    val menuOptionTextColor by colors.menuOptionTextColor(
+        isEnabled = option.enabled,
+        isSelected = isSelected
+    )
+
     Box(
         modifier = modifier
             .selectable(
@@ -121,7 +131,7 @@ private fun MultiselectDropdownMenuOption(
                 onClick = onOptionClicked
             )
             .background(
-                color = colors.menuOptionBackgroundSelectedColor(isSelected = isSelected),
+                color = menuOptionBackgroundSelectedColor,
             )
             .padding(horizontal = SpacingScale.spacing05)
             .testTag(DropdownTestTags.MENU_OPTION)
@@ -152,10 +162,7 @@ private fun MultiselectDropdownMenuOption(
             Text(
                 text = option.value,
                 style = CarbonTypography.bodyCompact01,
-                color = colors.menuOptionTextColor(
-                    isEnabled = option.enabled,
-                    isSelected = isSelected
-                ),
+                color = menuOptionTextColor,
                 overflow = TextOverflow.Ellipsis,
                 maxLines = 1,
                 modifier = Modifier.weight(1f)

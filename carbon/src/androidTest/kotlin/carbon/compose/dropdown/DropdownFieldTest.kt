@@ -26,6 +26,7 @@ import androidx.compose.ui.test.requestFocus
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.width
 import carbon.compose.CarbonDesignSystem
+import carbon.compose.dropdown.base.DropdownColors
 import carbon.compose.dropdown.base.DropdownField
 import carbon.compose.dropdown.base.DropdownInteractiveState
 import carbon.compose.dropdown.base.DropdownPlaceholderText
@@ -64,16 +65,19 @@ open class DropdownFieldTest {
             val transition = updateTransition(expandedStates, "Dropdown")
 
             CarbonDesignSystem(WhiteTheme) {
+                val colors = DropdownColors.colors()
                 DropdownField(
                     state = state,
                     dropdownSize = DropdownSize.Large,
                     transition = transition,
                     expandedStates = expandedStates,
+                    colors = colors,
                     onExpandedChange = { expandedStates.targetState = it },
                     fieldContent = {
                         DropdownPlaceholderText(
                             placeholderText = placeholder,
                             state = state,
+                            colors = colors
                         )
 
                         DropdownStateIcon(state = state)

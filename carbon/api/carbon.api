@@ -19,14 +19,6 @@ public abstract class carbon/compose/button/ButtonSize {
 	public synthetic fun <init> (FLkotlin/jvm/internal/DefaultConstructorMarker;)V
 }
 
-public final class carbon/compose/button/ButtonSize$ExtraLarge : carbon/compose/button/ButtonSize {
-	public static final field $stable I
-	public static final field INSTANCE Lcarbon/compose/button/ButtonSize$ExtraLarge;
-	public fun equals (Ljava/lang/Object;)Z
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
-}
-
 public final class carbon/compose/button/ButtonSize$LargeExpressive : carbon/compose/button/ButtonSize {
 	public static final field $stable I
 	public static final field INSTANCE Lcarbon/compose/button/ButtonSize$LargeExpressive;
@@ -54,14 +46,6 @@ public final class carbon/compose/button/ButtonSize$Medium : carbon/compose/butt
 public final class carbon/compose/button/ButtonSize$Small : carbon/compose/button/ButtonSize {
 	public static final field $stable I
 	public static final field INSTANCE Lcarbon/compose/button/ButtonSize$Small;
-	public fun equals (Ljava/lang/Object;)Z
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
-}
-
-public final class carbon/compose/button/ButtonSize$TwiceExtraLarge : carbon/compose/button/ButtonSize {
-	public static final field $stable I
-	public static final field INSTANCE Lcarbon/compose/button/ButtonSize$TwiceExtraLarge;
 	public fun equals (Ljava/lang/Object;)Z
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
@@ -297,6 +281,8 @@ public final class carbon/compose/foundation/color/Layer : java/lang/Enum {
 	public static final field Layer02 Lcarbon/compose/foundation/color/Layer;
 	public static final field Layer03 Lcarbon/compose/foundation/color/Layer;
 	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public final fun next ()Lcarbon/compose/foundation/color/Layer;
+	public fun toString ()Ljava/lang/String;
 	public static fun valueOf (Ljava/lang/String;)Lcarbon/compose/foundation/color/Layer;
 	public static fun values ()[Lcarbon/compose/foundation/color/Layer;
 }
@@ -422,6 +408,7 @@ public final class carbon/compose/foundation/color/Theme$DefaultImpls {
 public final class carbon/compose/foundation/color/ThemeStaticCompositionKt {
 	public static final fun CarbonLayer (Lcarbon/compose/foundation/color/Layer;Lkotlin/jvm/functions/Function2;Landroidx/compose/runtime/Composer;I)V
 	public static final fun CarbonLayer (Lkotlin/jvm/functions/Function2;Landroidx/compose/runtime/Composer;I)V
+	public static final fun containerBackground (Landroidx/compose/ui/Modifier;)Landroidx/compose/ui/Modifier;
 	public static final fun getLocalCarbonInlineTheme ()Landroidx/compose/runtime/ProvidableCompositionLocal;
 	public static final fun getLocalCarbonLayer ()Landroidx/compose/runtime/ProvidableCompositionLocal;
 	public static final fun getLocalCarbonTheme ()Landroidx/compose/runtime/ProvidableCompositionLocal;

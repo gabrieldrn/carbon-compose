@@ -2,9 +2,10 @@ package carbon.compose.foundation
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.state.ToggleableState
+import carbon.compose.BaseColorsTest
 import carbon.compose.foundation.selectable.SelectableInteractiveState
 
-abstract class BaseSelectableColorsTest {
+abstract class BaseSelectableColorsTest : BaseColorsTest() {
 
     protected val interactiveStates = mapOf(
         "default" to SelectableInteractiveState.Default,

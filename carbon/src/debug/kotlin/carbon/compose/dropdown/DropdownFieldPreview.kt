@@ -14,6 +14,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import carbon.compose.Carbon
+import carbon.compose.dropdown.base.DropdownColors
 import carbon.compose.dropdown.base.DropdownField
 import carbon.compose.dropdown.base.DropdownInteractiveState
 import carbon.compose.dropdown.base.DropdownPlaceholderText
@@ -43,16 +44,19 @@ private fun DropdownFieldPreview(
     val transition = updateTransition(expandedStates, "Dropdown")
 
     CarbonLayer {
+        val colors = DropdownColors.colors()
         DropdownField(
             state = state,
             dropdownSize = DropdownSize.Large,
             transition = transition,
             expandedStates = expandedStates,
+            colors = colors,
             onExpandedChange = { expandedStates.targetState = it },
             fieldContent = {
                 DropdownPlaceholderText(
                     placeholderText = "Placeholder",
                     state = state,
+                    colors = colors
                 )
 
                 DropdownStateIcon(state = state)

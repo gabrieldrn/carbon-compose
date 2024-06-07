@@ -1,52 +1,33 @@
 package carbon.compose.checkbox
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.state.ToggleableState
-import androidx.compose.ui.test.junit4.createComposeRule
-import carbon.compose.CarbonDesignSystem
 import carbon.compose.foundation.BaseSelectableColorsTest
-import carbon.compose.foundation.color.WhiteTheme
 import carbon.compose.foundation.selectable.SelectableInteractiveState
-import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import kotlin.test.assertEquals
 
 class CheckboxColorsTest : BaseSelectableColorsTest() {
 
-    @get:Rule
-    val composeTestRule = createComposeRule()
-
-    private val theme = WhiteTheme
-    private var checkboxColors by mutableStateOf<CheckboxColors?>(null)
-
-    @Before
-    fun setup() {
-        composeTestRule.setContent {
-            CarbonDesignSystem(theme = theme) {
-                checkboxColors = CheckboxColors.colors()
-            }
-        }
-    }
-
     @Test
     fun checkboxColors_checkmarkColor_colorsAreCorrect() {
-        interactiveStates.values.forEach { interactiveState ->
-            ToggleableState.entries.forEach { toggleableState ->
-                assertEquals(
-                    expected = when {
-                        toggleableState == ToggleableState.Off -> Color.Transparent
-                        interactiveState == SelectableInteractiveState.ReadOnly -> theme.iconPrimary
-                        else -> theme.iconInverse
-                    },
-                    actual = checkboxColors!!.checkmarkColor(interactiveState, toggleableState),
-                    message = "Interactive state: $interactiveState, " +
-                        "toggleable state: $toggleableState"
-                )
-            }
+        forAllLayersAndStates(
+            interactiveStates.values,
+            ToggleableState.entries
+        ) { interactiveState, toggleableState, _ ->
+            assertEquals(
+                expected = when {
+                    toggleableState == ToggleableState.Off -> Color.Transparent
+                    interactiveState == SelectableInteractiveState.ReadOnly -> theme.iconPrimary
+                    else -> theme.iconInverse
+                },
+                actual = CheckboxColors
+                    .colors()
+                    .checkmarkColor(interactiveState, toggleableState)
+                    .value,
+                message = "Interactive state: $interactiveState, " +
+                    "toggleable state: $toggleableState"
+            )
         }
     }
 
@@ -76,21 +57,25 @@ class CheckboxColorsTest : BaseSelectableColorsTest() {
             ),
         )
 
-        interactiveStates.values.forEach { interactiveState ->
-            ToggleableState.entries.forEach { toggleableState ->
-                assertEquals(
-                    expected = expectedColors.getColor(
-                        interactiveState = interactiveState,
-                        toggleableState = toggleableState
-                    ),
-                    actual = checkboxColors!!.backgroundColor(
+        forAllLayersAndStates(
+            interactiveStates.values,
+            ToggleableState.entries
+        ) { interactiveState, toggleableState, _ ->
+            assertEquals(
+                expected = expectedColors.getColor(
+                    interactiveState = interactiveState,
+                    toggleableState = toggleableState
+                ),
+                actual = CheckboxColors
+                    .colors()
+                    .backgroundColor(
                         interactiveState = interactiveState,
                         state = toggleableState
-                    ),
-                    message = "Interactive state: $interactiveState, " +
-                        "toggleable state: $toggleableState"
-                )
-            }
+                    )
+                    .value,
+                message = "Interactive state: $interactiveState, " +
+                    "toggleable state: $toggleableState"
+            )
         }
     }
 }

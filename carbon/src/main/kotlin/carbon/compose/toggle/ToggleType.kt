@@ -1,8 +1,10 @@
 package carbon.compose.toggle
 
+import androidx.compose.runtime.Immutable
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
+@Immutable
 internal sealed class ToggleType(
     val width: Dp,
     val height: Dp,

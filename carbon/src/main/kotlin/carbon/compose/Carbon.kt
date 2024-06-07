@@ -3,6 +3,7 @@ package carbon.compose
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.ReadOnlyComposable
 import carbon.compose.foundation.color.Gray100Theme
 import carbon.compose.foundation.color.Layer
 import carbon.compose.foundation.color.LocalCarbonInlineTheme
@@ -51,17 +52,23 @@ public object Carbon {
      * Current Carbon theme in curent composition.
      */
     public val theme: Theme
-        @Composable get() = LocalCarbonTheme.current
+        @Composable
+        @ReadOnlyComposable
+        get() = LocalCarbonTheme.current
 
     /**
      * Current Carbon inline theme in current composition.
      */
     public val inlineTheme: Theme
-        @Composable get() = LocalCarbonInlineTheme.current
+        @Composable
+        @ReadOnlyComposable
+        get() = LocalCarbonInlineTheme.current
 
     /**
      * Current Carbon layer in current composition.
      */
     public val layer: Layer
-        @Composable get() = LocalCarbonLayer.current
+        @Composable
+        @ReadOnlyComposable
+        get() = LocalCarbonLayer.current
 }

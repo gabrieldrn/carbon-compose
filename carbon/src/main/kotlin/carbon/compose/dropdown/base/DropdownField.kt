@@ -107,10 +107,10 @@ internal fun DropdownField(
     dropdownSize: DropdownSize,
     transition: Transition<Boolean>,
     expandedStates: MutableTransitionState<Boolean>,
+    colors: DropdownColors,
     onExpandedChange: (Boolean) -> Unit,
     fieldContent: @Composable () -> Unit,
     modifier: Modifier = Modifier,
-    colors: DropdownColors = DropdownColors.colors(),
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
 ) {
     val chevronRotation by transition.animateFloat(
@@ -119,6 +119,10 @@ internal fun DropdownField(
     ) {
         if (it) CHEVRON_ROTATION_ANGLE else 0f
     }
+
+    val fieldBackgroundColor by colors.fieldBackgroundColor(state)
+    val fieldBorderColor by colors.fieldBorderColor(state)
+    val chevronIconColor by colors.chevronIconColor(state)
 
     Box(
         modifier = modifier
@@ -131,7 +135,7 @@ internal fun DropdownField(
                 interactionSource = interactionSource
             )
             .height(dropdownSize.height)
-            .background(colors.fieldBackgroundColor(state))
+            .background(fieldBackgroundColor)
             .then(
                 if (state is DropdownInteractiveState.Error) {
                     Modifier.border(
@@ -180,7 +184,7 @@ internal fun DropdownField(
             Image(
                 imageVector = chevronDownIcon,
                 contentDescription = null,
-                colorFilter = ColorFilter.tint(colors.chevronIconColor(state)),
+                colorFilter = ColorFilter.tint(chevronIconColor),
                 modifier = Modifier
                     .padding(start = getChevronStartSpacing(state))
                     .graphicsLayer {
@@ -193,7 +197,7 @@ internal fun DropdownField(
         if (state !is DropdownInteractiveState.Error) {
             Spacer(
                 modifier = Modifier
-                    .background(color = colors.fieldBorderColor(state))
+                    .background(color = fieldBorderColor)
                     .height(1.dp)
                     .fillMaxWidth()
                     .align(Alignment.BottomCenter)
@@ -207,13 +211,13 @@ internal fun DropdownField(
 internal fun DropdownPlaceholderText(
     placeholderText: String,
     state: DropdownInteractiveState,
-    modifier: Modifier = Modifier,
-    colors: DropdownColors = DropdownColors.colors(),
+    colors: DropdownColors,
+    modifier: Modifier = Modifier
 ) {
     Text(
         text = placeholderText,
         style = CarbonTypography.bodyCompact01,
-        color = colors.fieldTextColor(state),
+        color = colors.fieldTextColor(state).value,
         maxLines = 1,
         overflow = TextOverflow.Ellipsis,
         modifier = modifier
