@@ -23,7 +23,7 @@ import carbon.compose.foundation.spacing.SpacingScale
  * @param iconPainter Icon painter to be displayed in the button.
  * @param onClick Callback invoked when the button is clicked.
  * @param modifier The modifier to be applied to the button.
- * @param buttonType A [CarbonButton] that defines the button's type.
+ * @param buttonType A [ButtonType] that defines the button's type.
  * @param isEnabled Whether the button is enabled or disabled.
  * @param interactionSource The [MutableInteractionSource] that keeps track of the button's state.
  *
@@ -34,7 +34,7 @@ public fun IconButton(
     iconPainter: Painter,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    buttonType: CarbonButton = CarbonButton.Primary,
+    buttonType: ButtonType = ButtonType.Primary,
     isEnabled: Boolean = true,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
 ) {

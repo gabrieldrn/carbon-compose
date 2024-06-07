@@ -9,7 +9,7 @@ package carbon.compose.button
  *
  * (From [Button documentation](https://carbondesignsystem.com/components/button/usage/))
  */
-public enum class CarbonButton {
+public enum class ButtonType {
 
     /**
      * For the principal call to action on the page. Primary buttons should only appear once per

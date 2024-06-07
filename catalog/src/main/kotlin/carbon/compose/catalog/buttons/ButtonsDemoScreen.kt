@@ -23,20 +23,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import carbon.compose.button.Button
 import carbon.compose.button.ButtonSize
-import carbon.compose.button.CarbonButton
+import carbon.compose.button.ButtonType
 import carbon.compose.button.IconButton
 import carbon.compose.catalog.R
 import carbon.compose.foundation.spacing.SpacingScale
 import carbon.compose.toggle.Toggle
 
 private val buttons = mapOf(
-    "Primary" to CarbonButton.Primary,
-    "Secondary" to CarbonButton.Secondary,
-    "Tertiary" to CarbonButton.Tertiary,
-    "Ghost" to CarbonButton.Ghost,
-    "PrimaryDanger" to CarbonButton.PrimaryDanger,
-    "TertiaryDanger" to CarbonButton.TertiaryDanger,
-    "GhostDanger" to CarbonButton.GhostDanger,
+    "Primary" to ButtonType.Primary,
+    "Secondary" to ButtonType.Secondary,
+    "Tertiary" to ButtonType.Tertiary,
+    "Ghost" to ButtonType.Ghost,
+    "PrimaryDanger" to ButtonType.PrimaryDanger,
+    "TertiaryDanger" to ButtonType.TertiaryDanger,
+    "GhostDanger" to ButtonType.GhostDanger,
 )
 
 @Composable
