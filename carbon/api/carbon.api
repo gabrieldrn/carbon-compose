@@ -11,7 +11,7 @@ public final class carbon/compose/CarbonKt {
 }
 
 public final class carbon/compose/button/ButtonKt {
-	public static final fun Button (Ljava/lang/String;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Landroidx/compose/ui/graphics/painter/Painter;ZLcarbon/compose/button/CarbonButton;Lcarbon/compose/button/ButtonSize;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;II)V
+	public static final fun Button (Ljava/lang/String;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Landroidx/compose/ui/graphics/painter/Painter;ZLcarbon/compose/button/ButtonType;Lcarbon/compose/button/ButtonSize;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;II)V
 }
 
 public abstract class carbon/compose/button/ButtonSize {
@@ -51,21 +51,21 @@ public final class carbon/compose/button/ButtonSize$Small : carbon/compose/butto
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class carbon/compose/button/CarbonButton : java/lang/Enum {
-	public static final field Ghost Lcarbon/compose/button/CarbonButton;
-	public static final field GhostDanger Lcarbon/compose/button/CarbonButton;
-	public static final field Primary Lcarbon/compose/button/CarbonButton;
-	public static final field PrimaryDanger Lcarbon/compose/button/CarbonButton;
-	public static final field Secondary Lcarbon/compose/button/CarbonButton;
-	public static final field Tertiary Lcarbon/compose/button/CarbonButton;
-	public static final field TertiaryDanger Lcarbon/compose/button/CarbonButton;
+public final class carbon/compose/button/ButtonType : java/lang/Enum {
+	public static final field Ghost Lcarbon/compose/button/ButtonType;
+	public static final field GhostDanger Lcarbon/compose/button/ButtonType;
+	public static final field Primary Lcarbon/compose/button/ButtonType;
+	public static final field PrimaryDanger Lcarbon/compose/button/ButtonType;
+	public static final field Secondary Lcarbon/compose/button/ButtonType;
+	public static final field Tertiary Lcarbon/compose/button/ButtonType;
+	public static final field TertiaryDanger Lcarbon/compose/button/ButtonType;
 	public static fun getEntries ()Lkotlin/enums/EnumEntries;
-	public static fun valueOf (Ljava/lang/String;)Lcarbon/compose/button/CarbonButton;
-	public static fun values ()[Lcarbon/compose/button/CarbonButton;
+	public static fun valueOf (Ljava/lang/String;)Lcarbon/compose/button/ButtonType;
+	public static fun values ()[Lcarbon/compose/button/ButtonType;
 }
 
 public final class carbon/compose/button/IconButtonKt {
-	public static final fun IconButton (Landroidx/compose/ui/graphics/painter/Painter;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Lcarbon/compose/button/CarbonButton;ZLandroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;II)V
+	public static final fun IconButton (Landroidx/compose/ui/graphics/painter/Painter;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Lcarbon/compose/button/ButtonType;ZLandroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;II)V
 }
 
 public final class carbon/compose/checkbox/CheckboxKt {
@@ -145,6 +145,11 @@ public final class carbon/compose/dropdown/base/DropdownOption {
 	public final fun getValue ()Ljava/lang/String;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
+}
+
+public final class carbon/compose/dropdown/base/DropdownOptionKt {
+	public static final fun dropdownOptionsOf ([Ljava/lang/String;)Ljava/util/Map;
+	public static final fun toDropdownOptions (Ljava/util/Collection;)Ljava/util/Map;
 }
 
 public final class carbon/compose/dropdown/base/DropdownSize : java/lang/Enum {
