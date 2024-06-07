@@ -5,22 +5,15 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.test.junit4.createComposeRule
+import carbon.compose.BaseColorsTest
 import carbon.compose.CarbonDesignSystem
 import carbon.compose.dropdown.base.DropdownColors
 import carbon.compose.dropdown.base.DropdownInteractiveState
 import carbon.compose.foundation.color.Layer
-import carbon.compose.foundation.color.WhiteTheme
-import org.junit.Rule
 import org.junit.Test
 import kotlin.test.assertEquals
 
-class DropdownColorsTest {
-
-    @get:Rule
-    val composeTestRule = createComposeRule()
-
-    private val theme = WhiteTheme
+class DropdownColorsTest : BaseColorsTest() {
 
     private var dropdownColors by mutableStateOf<DropdownColors?>(null)
 
@@ -38,49 +31,6 @@ class DropdownColorsTest {
     ) = (this[state] ?: this[layer]!!).let {
         if (it is Map<*, *>) it[layer] as Color
         else it
-    }
-
-    private fun forAllLayers(block: @Composable (layer: Layer) -> Unit) {
-        composeTestRule.setContent {
-            Layer.entries.forEach { layer ->
-                CarbonDesignSystem(theme = theme, layer = layer) {
-                    block(layer)
-                }
-            }
-        }
-    }
-
-    private fun <T : Any> forAllLayersAndStates(
-        statesUnderTest: Collection<T>,
-        block: @Composable (state: T, layer: Layer) -> Unit
-    ) {
-        composeTestRule.setContent {
-            statesUnderTest.forEach { state ->
-                Layer.entries.forEach { layer ->
-                    CarbonDesignSystem(theme = theme, layer = layer) {
-                        block(state, layer)
-                    }
-                }
-            }
-        }
-    }
-
-    private fun <T : Any, U : Any> forAllLayersAndStates(
-        statesUnderTest1: Collection<T>,
-        statesUnderTest2: Collection<U>,
-        block: @Composable (state1: T, state2: U, layer: Layer) -> Unit
-    ) {
-        composeTestRule.setContent {
-            statesUnderTest1.forEach { state1 ->
-                statesUnderTest2.forEach { state2 ->
-                    Layer.entries.forEach { layer ->
-                        CarbonDesignSystem(theme = theme, layer = layer) {
-                            block(state1, state2, layer)
-                        }
-                    }
-                }
-            }
-        }
     }
 
     private fun checkColorByInteractiveStateAndLayer(

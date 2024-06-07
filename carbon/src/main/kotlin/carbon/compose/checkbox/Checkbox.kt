@@ -9,6 +9,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.selection.triStateToggleable
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.CornerRadius
@@ -107,6 +110,7 @@ public fun Checkbox(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 ) {
     val colors = CheckboxColors.colors()
+    val labelColor by colors.labelColor(interactiveState = interactiveState)
 
     val checkboxModifier = when {
         interactiveState == SelectableInteractiveState.ReadOnly -> Modifier.readOnly(
@@ -139,7 +143,7 @@ public fun Checkbox(
             )
             Text(
                 text = label,
-                color = colors.labelColor(interactiveState = interactiveState),
+                color = labelColor,
                 modifier = Modifier
                     .padding(start = SpacingScale.spacing03)
                     .testTag(CheckboxTestTags.LABEL),
@@ -176,10 +180,26 @@ private fun CheckboxComponent(
 ) {
     val checkmarkIcon = rememberVectorPainter(image = checkboxCheckmarkIcon)
     val indeterminateIcon = rememberVectorPainter(image = checkboxIndeterminateIcon)
-    val icon = when (state) {
-        ToggleableState.On -> checkmarkIcon
-        ToggleableState.Indeterminate -> indeterminateIcon
-        ToggleableState.Off -> null
+    val icon by remember(state) {
+        mutableStateOf(
+            when (state) {
+                ToggleableState.On -> checkmarkIcon
+                ToggleableState.Indeterminate -> indeterminateIcon
+                ToggleableState.Off -> null
+            }
+        )
+    }
+    val borderColor by colors.borderColor(interactiveState = interactiveState, state = state)
+    val backgroundColor by colors.backgroundColor(
+        interactiveState = interactiveState,
+        state = state
+    )
+    val checkmarkColor by colors.checkmarkColor(interactiveState = interactiveState, state = state)
+
+    val drawBorder by remember(borderColor) {
+        derivedStateOf {
+            borderColor != Color.Transparent
+        }
     }
 
     Canvas(
@@ -191,21 +211,13 @@ private fun CheckboxComponent(
     ) {
         val borderWidth = checkboxBorderWidth.toPx()
 
-        val borderColor = colors.borderColor(
-            interactiveState = interactiveState,
-            state = state
-        )
-        val drawBorder = borderColor != Color.Transparent
 
         // Background
         // Antialiasing issue: this inset is to reduce the background size when drawing
         // border to avoid antialiasing artifacts outside the border
         inset(if (drawBorder) borderWidth * .5f else 0f) {
             drawRoundRect(
-                color = colors.backgroundColor(
-                    interactiveState = interactiveState,
-                    state = state
-                ),
+                color = backgroundColor,
                 cornerRadius = CornerRadius(checkboxCornerRadius.toPx()),
             )
         }
@@ -223,12 +235,7 @@ private fun CheckboxComponent(
         icon?.run {
             draw(
                 size = intrinsicSize * .5f,
-                colorFilter = ColorFilter.tint(
-                    colors.checkmarkColor(
-                        interactiveState = interactiveState,
-                        state = state
-                    )
-                )
+                colorFilter = ColorFilter.tint(checkmarkColor)
             )
         }
     }

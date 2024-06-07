@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.drawscope.Stroke
@@ -57,6 +58,7 @@ public fun RadioButton(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 ) {
     val colors = RadioButtonColors.colors()
+    val labelColor by colors.labelColor(interactiveState = interactiveState)
 
     val radioButtonModifier = when {
         interactiveState == SelectableInteractiveState.ReadOnly -> Modifier.readOnly(
@@ -89,7 +91,7 @@ public fun RadioButton(
             )
             Text(
                 text = label,
-                color = colors.labelColor(interactiveState = interactiveState),
+                color = labelColor,
                 modifier = Modifier
                     .padding(start = SpacingScale.spacing03)
                     .testTag(RadioButtonTestTags.LABEL),
@@ -124,18 +126,21 @@ private fun RadioButtonComponent(
     selected: Boolean,
     modifier: Modifier = Modifier
 ) {
+    val borderColor by colors.borderColor(interactiveState, selected)
+    val dotColor by colors.dotColor(interactiveState, selected)
+
     Canvas(
         modifier = modifier
             .requiredSize(RadioButtonSize)
             .testTag(RadioButtonTestTags.BUTTON)
     ) {
         drawCircle(
-            color = colors.borderColor(interactiveState, selected),
+            color = borderColor,
             radius = (size.width - RadioButtonStrokeWidth.toPx()) * .5f,
             style = Stroke(width = RadioButtonStrokeWidth.toPx())
         )
         drawCircle(
-            color = colors.dotColor(interactiveState, selected),
+            color = dotColor,
             radius = size.width * .25f,
         )
     }
