@@ -61,7 +61,7 @@ internal fun ButtonRowImpl(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable RowScope.(ButtonScope) -> Unit,
 ) {
-    val colors = ButtonColors.buttonColors(buttonType = buttonType)
+    val colors = ButtonColors.colors(buttonType)
     val containerColor = remember { Animatable(colors.containerColor) }
     val indication = remember { ButtonFocusIndication(buttonType) }
 
