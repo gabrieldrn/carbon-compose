@@ -12,6 +12,9 @@ import androidx.compose.ui.platform.testTag
  * A progress bar provides feedback about the duration and progression of a process, such as a
  * download, file transfer, or installation, to indicate how long a user will be waiting.
  *
+ * Determinate progress bars are used when the loading progress can be tracked and translated into a
+ * bar indicator which fills the track from 0% to 100% and never decreases in value or resets.
+ *
  * (From [Progress bar documentation](https://carbondesignsystem.com/components/progress-bar/usage))
  *
  * @param value The progress value, between 0 and 1.
@@ -54,10 +57,13 @@ public fun ProgressBar(
 }
 
 /**
- * # Progress Bar | Intederminate
+ * # Progress Bar | Indeterminate
  *
  * A progress bar provides feedback about the duration and progression of a process, such as a
  * download, file transfer, or installation, to indicate how long a user will be waiting.
+ *
+ * Indeterminate progress bars are used when the loading progress is unknown or the amount of wait
+ * time can’t be calculated.
  *
  * (From [Progress bar documentation](https://carbondesignsystem.com/components/progress-bar/usage))
  *
