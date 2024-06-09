@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import carbon.compose.Carbon
 import carbon.compose.foundation.spacing.SpacingScale
@@ -72,7 +73,9 @@ internal fun DefaultProgressBarLayout(
             if (labelText != null) {
                 LabelText(
                     text = labelText,
-                    modifier = Modifier.weight(1f)
+                    modifier = Modifier
+                        .weight(1f)
+                        .testTag(ProgressBarTestTags.LABEL_TEXT)
                 )
             } else {
                 Box(modifier = Modifier.weight(1f))
@@ -90,14 +93,16 @@ internal fun DefaultProgressBarLayout(
                 text = helperText,
                 style = CarbonTypography.helperText01,
                 color = Carbon.theme.textHelper,
-                modifier = Modifier.padding(
-                    top = SpacingScale.spacing03,
-                    start = if (indented) {
-                        SpacingScale.spacing05
-                    } else {
-                        0.dp
-                    }
-                )
+                modifier = Modifier
+                    .padding(
+                        top = SpacingScale.spacing03,
+                        start = if (indented) {
+                            SpacingScale.spacing05
+                        } else {
+                            0.dp
+                        }
+                    )
+                    .testTag(ProgressBarTestTags.HELPER_TEXT)
             )
         }
     }
@@ -116,7 +121,10 @@ private fun InlinedProgressBarLayout(
         verticalAlignment = Alignment.CenterVertically
     ) {
         if (labelText != null) {
-            LabelText(text = labelText)
+            LabelText(
+                text = labelText,
+                modifier = Modifier.testTag(ProgressBarTestTags.LABEL_TEXT)
+            )
         }
         Spacer(modifier = Modifier.width(SpacingScale.spacing05))
 

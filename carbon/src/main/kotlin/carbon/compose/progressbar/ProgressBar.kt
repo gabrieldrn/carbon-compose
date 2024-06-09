@@ -4,6 +4,7 @@ import androidx.annotation.FloatRange
 import androidx.compose.foundation.progressSemantics
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 
 /**
  * # Progress Bar | Determinate
@@ -45,7 +46,8 @@ public fun ProgressBar(
             ProgressBarTrack(
                 size = size,
                 value = value,
-                state = state
+                state = state,
+                modifier = Modifier.testTag(ProgressBarTestTags.TRACK)
             )
         }
     )
@@ -83,7 +85,10 @@ public fun IndeterminateProgressBar(
         indented = indented,
         modifier = modifier.progressSemantics(),
         trackContent = {
-            IndeterminateProgressBarTrack(size = size)
+            IndeterminateProgressBarTrack(
+                size = size,
+                modifier = Modifier.testTag(ProgressBarTestTags.TRACK)
+            )
         }
     )
 }

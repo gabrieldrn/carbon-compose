@@ -1,6 +1,6 @@
 package carbon.compose.progressbar
 
-import androidx.compose.runtime.Stable
+import androidx.compose.runtime.Immutable
 
 /**
  * There are three states for the progress bar: active, success, and error. These states also apply
@@ -10,7 +10,7 @@ import androidx.compose.runtime.Stable
  *
  * (From [Progress bar documentation](https://carbondesignsystem.com/components/progress-bar/usage))
  */
-@Stable
+@Immutable
 public enum class ProgressBarState {
     Active,
     Success,

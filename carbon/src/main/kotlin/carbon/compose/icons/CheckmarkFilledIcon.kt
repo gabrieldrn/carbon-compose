@@ -9,9 +9,10 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.path
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import carbon.compose.foundation.color.LocalCarbonTheme
+import carbon.compose.Carbon
 
 private val iconSize = 32f.dp
 
@@ -41,13 +42,15 @@ internal val checkmarkFilledIcon: ImageVector
 @Composable
 internal fun CheckmarkFilledIcon(
     modifier: Modifier = Modifier,
-    tint: Color = LocalCarbonTheme.current.iconPrimary,
+    tint: Color = Carbon.theme.iconPrimary,
     size: Dp = 16.dp
 ) {
     Image(
         imageVector = checkmarkFilledIcon,
         contentDescription = null,
         colorFilter = ColorFilter.tint(tint),
-        modifier = modifier.requiredSize(size)
+        modifier = modifier
+            .requiredSize(size)
+            .testTag(checkmarkFilledIcon.name)
     )
 }

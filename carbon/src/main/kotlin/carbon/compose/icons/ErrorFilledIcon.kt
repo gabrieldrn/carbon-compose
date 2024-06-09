@@ -9,9 +9,10 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.path
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import carbon.compose.foundation.color.LocalCarbonTheme
+import carbon.compose.Carbon
 
 private val iconSize = 32f.dp
 
@@ -40,13 +41,15 @@ internal val errorFilledIcon: ImageVector
 @Composable
 internal fun ErrorFilledIcon(
     modifier: Modifier = Modifier,
-    tint: Color = LocalCarbonTheme.current.iconPrimary,
+    tint: Color = Carbon.theme.iconPrimary,
     size: Dp = 16.dp
 ) {
     Image(
         imageVector = errorFilledIcon,
         contentDescription = null,
         colorFilter = ColorFilter.tint(tint),
-        modifier = modifier.requiredSize(size)
+        modifier = modifier
+            .requiredSize(size)
+            .testTag(errorFilledIcon.name)
     )
 }
