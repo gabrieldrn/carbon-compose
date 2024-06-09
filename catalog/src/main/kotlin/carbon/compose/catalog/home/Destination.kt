@@ -10,6 +10,7 @@ import carbon.compose.catalog.dropdown.MultiselectDropdownScreen
 import carbon.compose.catalog.radiobutton.LoadingDemoScreen
 import carbon.compose.catalog.radiobutton.RadioButtonDemoScreen
 import carbon.compose.catalog.toggle.ToggleDemoScreen
+import carbon.compose.progressbar.ProgressBarDemoScreen
 
 @Suppress("UndocumentedPublicClass", "UndocumentedPublicProperty")
 enum class Destination(
@@ -67,6 +68,12 @@ enum class Destination(
     Notification("Notification"),
     NumberInput("Number input"),
     Pagination("Pagination"),
+    ProgressBar(
+        title = "Progress bar",
+        illustration = R.drawable.tile_progress_bar,
+        route = "progressbar",
+        content = { ProgressBarDemoScreen() }
+    ),
     ProgressIndicator("Progress indicator"),
     OverflowMenu("Overflow menu"),
     RadioButton(
