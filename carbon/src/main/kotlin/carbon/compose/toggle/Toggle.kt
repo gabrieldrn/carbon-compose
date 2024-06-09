@@ -1,7 +1,9 @@
 package carbon.compose.toggle
 
 import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.DurationBasedAnimationSpec
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.snap
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.indication
@@ -13,7 +15,6 @@ import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -41,7 +42,6 @@ import carbon.compose.foundation.text.CarbonTypography
 import carbon.compose.foundation.text.Text
 import carbon.compose.semantics.readOnly
 import carbon.compose.toggle.domain.ToggleDrawValues
-import carbon.compose.toggle.domain.ToggleState
 import kotlin.math.max
 
 private val TOGGLE_COLOR_ANIMATION_SPEC = tween<Color>(
@@ -52,6 +52,12 @@ private val TOGGLE_FLOAT_ANIMATION_SPEC = tween<Float>(
     durationMillis = Motion.Duration.fast01,
     easing = Motion.Entrance.productiveEasing
 )
+
+private fun getToggleColorAnimationSpec(isEnabled: Boolean): DurationBasedAnimationSpec<Color> =
+    if (isEnabled) TOGGLE_COLOR_ANIMATION_SPEC else snap()
+
+private fun getToggleFloatAnimationSpec(isEnabled: Boolean): DurationBasedAnimationSpec<Float> =
+    if (isEnabled) TOGGLE_FLOAT_ANIMATION_SPEC else snap()
 
 /**
  * # Carbon Toggle
@@ -162,21 +168,8 @@ private fun ToggleImpl(
     actionText: String = "",
     isEnabled: Boolean = true,
     isReadOnly: Boolean = false,
+    colors: ToggleColors = ToggleColors.colors()
 ) {
-    val density = LocalDensity.current
-
-    val toggleState by remember(isToggled, isEnabled, isReadOnly) {
-        mutableStateOf(ToggleState(isToggled, isEnabled, isReadOnly))
-    }
-
-    val indication by remember {
-        mutableStateOf(ToggleableFocusIndication(toggleType.height))
-    }
-
-    val toggleDrawValues by remember(toggleType) {
-        mutableStateOf(ToggleDrawValues.buildValues(toggleType, density))
-    }
-
     val toggleModifier = when {
         isReadOnly -> Modifier.readOnly(
             role = Role.Switch,
@@ -203,89 +196,116 @@ private fun ToggleImpl(
                 }
             ) { modifier.then(toggleModifier) }
     ) {
-        val colors = ToggleColors.colors()
-
-        val backgroundColor: Color by animateColorAsState(
-            targetValue = colors.backgroundColor(toggleState).value,
-            animationSpec = TOGGLE_COLOR_ANIMATION_SPEC,
-            label = "Toggle background color"
-        )
-
-        val borderColor: Color by animateColorAsState(
-            // TODO Impl contextual border color based on layer
-            targetValue = colors.borderColor(toggleState).value,
-            animationSpec = TOGGLE_COLOR_ANIMATION_SPEC,
-            label = "Toggle border color"
-        )
-
-        val handleColor: Color by animateColorAsState(
-            targetValue = colors.handleColor(toggleState).value,
-            animationSpec = TOGGLE_COLOR_ANIMATION_SPEC,
-            label = "Handle color"
-        )
-
-        val handleCheckmarkColor: Color by animateColorAsState(
-            targetValue = colors.handleCheckmarkColor(toggleState).value,
-            animationSpec = TOGGLE_COLOR_ANIMATION_SPEC,
-            label = "Handle checkmark color"
-        )
-
-        val handleXPos: Float by animateFloatAsState(
-            targetValue = toggleDrawValues.handleXPos(toggleState),
-            animationSpec = TOGGLE_FLOAT_ANIMATION_SPEC,
-            label = "Toggle handle position"
-        )
-
-        val textColor by animateColorAsState(
-            targetValue = colors.textColor(toggleState).value,
-            animationSpec = TOGGLE_COLOR_ANIMATION_SPEC,
-            label = "Toggle text color"
-        )
-
         if (label.isNotEmpty()) {
             Text(
                 text = label,
-                style = CarbonTypography.label01.copy(color = textColor),
+                style = CarbonTypography.label01,
+                color = colors.textColor(isEnabled).value,
                 modifier = Modifier.padding(bottom = SpacingScale.spacing04)
             )
         }
 
         Row(verticalAlignment = Alignment.CenterVertically) {
-            val handleCheckmarkIcon = rememberVectorPainter(image = toggleCheckmarkIcon)
-                .takeIf { toggleType == ToggleType.Small }
+            ToggleCanvas(
+                isToggled = isToggled,
+                isEnabled = isEnabled,
+                isReadOnly = isReadOnly,
+                toggleType = toggleType,
+                colors = colors,
+                interactionSource = interactionSource,
+            )
 
-            Canvas(
-                modifier = Modifier
-                    .requiredSize(toggleType.width, toggleType.height)
-                    .indication(
-                        interactionSource = interactionSource,
-                        indication = indication
-                    )
-            ) {
-                drawToggleBackground(
-                    backgroundColor = backgroundColor,
-                    toggleHeight = toggleDrawValues.toggleHeight,
-                    borderColor = borderColor,
-                )
-
-                drawToggleHandle(
-                    handleXPos = handleXPos,
-                    handleYPos = toggleDrawValues.handleYOffPos,
-                    handleColor = handleColor,
-                    handleSizePx = toggleDrawValues.handleSize,
-                    handleCheckmarkOffset = toggleDrawValues.handleCheckmarkOffset,
-                    handleCheckmarkIcon = handleCheckmarkIcon,
-                    handleCheckmarkColor = handleCheckmarkColor
-                )
-            }
             if (actionText.isNotEmpty()) {
                 Text(
                     text = actionText,
-                    style = CarbonTypography.bodyCompact01.copy(color = textColor),
+                    style = CarbonTypography.bodyCompact01,
+                    color = colors.textColor(isEnabled).value,
                     modifier = Modifier.padding(start = SpacingScale.spacing03)
                 )
             }
         }
+    }
+}
+
+@Composable
+private fun ToggleCanvas(
+    isToggled: Boolean,
+    isEnabled: Boolean,
+    isReadOnly: Boolean,
+    toggleType: ToggleType,
+    colors: ToggleColors,
+    interactionSource: MutableInteractionSource,
+) {
+    val density = LocalDensity.current
+
+    val indication = remember {
+        ToggleableFocusIndication(toggleType.height)
+    }
+
+    val toggleDrawValues = remember(toggleType) {
+        ToggleDrawValues.buildValues(toggleType, density)
+    }
+
+    val handleCheckmarkIcon = rememberVectorPainter(image = toggleCheckmarkIcon)
+        .takeIf { toggleType == ToggleType.Small }
+
+    val animationSpec = remember(isEnabled) {
+        getToggleColorAnimationSpec(isEnabled)
+    }
+
+    val backgroundColor: Color by animateColorAsState(
+        targetValue = colors.backgroundColor(isEnabled, isReadOnly, isToggled).value,
+        animationSpec = animationSpec,
+        label = "Toggle background color"
+    )
+
+    val borderColor: Color by animateColorAsState(
+        targetValue = colors.borderColor(isEnabled, isReadOnly).value,
+        animationSpec = animationSpec,
+        label = "Toggle border color"
+    )
+
+    val handleColor: Color by animateColorAsState(
+        targetValue = colors.handleColor(isEnabled, isReadOnly).value,
+        animationSpec = animationSpec,
+        label = "Handle color"
+    )
+
+    val handleCheckmarkColor: Color by animateColorAsState(
+        targetValue = colors.handleCheckmarkColor(isEnabled, isReadOnly, isToggled).value,
+        animationSpec = animationSpec,
+        label = "Handle checkmark color"
+    )
+
+    val handleXPos: Float by animateFloatAsState(
+        targetValue = toggleDrawValues.handleXPos(isToggled).value,
+        animationSpec = getToggleFloatAnimationSpec(isEnabled),
+        label = "Toggle handle position"
+    )
+
+    Canvas(
+        modifier = Modifier
+            .requiredSize(toggleType.width, toggleType.height)
+            .indication(
+                interactionSource = interactionSource,
+                indication = indication
+            )
+    ) {
+        drawToggleBackground(
+            backgroundColor = backgroundColor,
+            toggleHeight = toggleDrawValues.toggleHeight,
+            borderColor = borderColor,
+        )
+
+        drawToggleHandle(
+            handleXPos = handleXPos,
+            handleYPos = toggleDrawValues.handleYOffPos,
+            handleColor = handleColor,
+            handleSizePx = toggleDrawValues.handleSize,
+            handleCheckmarkOffset = toggleDrawValues.handleCheckmarkOffset,
+            handleCheckmarkIcon = handleCheckmarkIcon,
+            handleCheckmarkColor = handleCheckmarkColor
+        )
     }
 }
 
