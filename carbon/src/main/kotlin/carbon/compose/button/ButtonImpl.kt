@@ -46,14 +46,14 @@ private fun Modifier.buttonModifier(buttonSize: ButtonSize) =
 
 internal data class ButtonScope(
     val colors: ButtonColors,
-    val buttonType: CarbonButton,
+    val buttonType: ButtonType,
     val buttonSize: ButtonSize,
 )
 
 @Composable
 internal fun ButtonRowImpl(
     onClick: () -> Unit,
-    buttonType: CarbonButton,
+    buttonType: ButtonType,
     buttonSize: ButtonSize,
     isEnabled: Boolean,
     modifier: Modifier = Modifier,
@@ -61,7 +61,7 @@ internal fun ButtonRowImpl(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable RowScope.(ButtonScope) -> Unit,
 ) {
-    val colors = ButtonColors.buttonColors(buttonType = buttonType)
+    val colors = ButtonColors.colors(buttonType)
     val containerColor = remember { Animatable(colors.containerColor) }
     val indication = remember { ButtonFocusIndication(buttonType) }
 

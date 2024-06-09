@@ -16,15 +16,15 @@ import carbon.compose.foundation.motion.Motion
 import kotlinx.coroutines.flow.filterIsInstance
 
 internal class ButtonFocusIndication(
-    private val buttonType: CarbonButton
+    private val buttonType: ButtonType
 ) : FocusIndication() {
 
     private class ButtonIndicationInstance(
         theme: Theme,
-        buttonType: CarbonButton
+        buttonType: ButtonType
     ) : DefaultFocusIndicationInstance(theme) {
 
-        override val insetFocusColor = if (buttonType == CarbonButton.Ghost) {
+        override val insetFocusColor = if (buttonType == ButtonType.Ghost) {
             Color.Transparent
         } else {
             theme.focusInset

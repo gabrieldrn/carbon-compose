@@ -1,11 +1,15 @@
 package carbon.compose.catalog.toggle
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
@@ -17,9 +21,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import carbon.compose.Carbon
 import carbon.compose.catalog.misc.LayerSelectionDropdown
+import carbon.compose.dropdown.Dropdown
+import carbon.compose.dropdown.base.dropdownOptionsOf
 import carbon.compose.foundation.color.CarbonLayer
 import carbon.compose.foundation.color.Layer
 import carbon.compose.foundation.color.containerBackground
@@ -27,6 +35,10 @@ import carbon.compose.foundation.spacing.SpacingScale
 import carbon.compose.foundation.text.CarbonTypography
 import carbon.compose.toggle.SmallToggle
 import carbon.compose.toggle.Toggle
+
+private const val SmallToggleType = "Small"
+private const val DefaultToggleType = "Default"
+private val toggleTypesOptions = dropdownOptionsOf(DefaultToggleType, SmallToggleType)
 
 @Composable
 fun ToggleDemoScreen(modifier: Modifier = Modifier) {
@@ -37,25 +49,42 @@ fun ToggleDemoScreen(modifier: Modifier = Modifier) {
             .verticalScroll(state = rememberScrollState())
             .padding(WindowInsets.navigationBars.asPaddingValues())
     ) {
+        var toggleType by rememberSaveable {
+            mutableStateOf(DefaultToggleType)
+        }
+        var isEnabled by rememberSaveable { mutableStateOf(true) }
+        var isReadOnly by rememberSaveable { mutableStateOf(false) }
         var isToggled by rememberSaveable { mutableStateOf(false) }
         var layer by remember { mutableStateOf(Layer.Layer00) }
 
         CarbonLayer(layer = layer) {
-            Column(
+            Box(
                 modifier = Modifier
                     .fillMaxWidth()
+                    .height(200.dp)
                     .containerBackground()
                     .padding(SpacingScale.spacing05)
             ) {
-                DefaultToggles(
-                    isToggled = isToggled,
-                    onToggleChange = { isToggled = it }
-                )
-//                SmallToggles(
-//                    isToggled = isToggled,
-//                    onToggleChange = { isToggled = it },
-//                    modifier = Modifier.padding(top = SpacingScale.spacing05)
-//                )
+                if (toggleType == DefaultToggleType) {
+                    Toggle(
+                        label = "Toggle",
+                        isToggled = isToggled,
+                        isEnabled = isEnabled,
+                        isReadOnly = isReadOnly,
+                        onToggleChange = { isToggled = it },
+                        actionText = "Action text",
+                        modifier = Modifier.align(Alignment.Center)
+                    )
+                } else {
+                    SmallToggle(
+                        isToggled = isToggled,
+                        isEnabled = isEnabled,
+                        isReadOnly = isReadOnly,
+                        onToggleChange = { isToggled = it },
+                        actionText = "Action text",
+                        modifier = Modifier.align(Alignment.Center)
+                    )
+                }
             }
         }
 
@@ -64,80 +93,51 @@ fun ToggleDemoScreen(modifier: Modifier = Modifier) {
                 modifier = Modifier
                     .padding(SpacingScale.spacing05)
                     .containerBackground()
-                    .padding(SpacingScale.spacing05)
+                    .padding(SpacingScale.spacing05),
+                verticalArrangement = Arrangement.spacedBy(SpacingScale.spacing03)
             ) {
+                var useSmallToggleDropdownExpanded by remember { mutableStateOf(false) }
+
                 BasicText(
                     text = "Configuration",
                     style = CarbonTypography.heading02.copy(color = Carbon.theme.textPrimary)
                 )
 
+                Dropdown(
+                    label = "Toggle type",
+                    expanded = useSmallToggleDropdownExpanded,
+                    placeholder = "Choose option",
+                    options = toggleTypesOptions,
+                    selectedOption = toggleType,
+                    onOptionSelected = { toggleType = it },
+                    onExpandedChange = { useSmallToggleDropdownExpanded = it },
+                    onDismissRequest = { useSmallToggleDropdownExpanded = false }
+                )
+
+                Toggle(
+                    label = "Enabled",
+                    isToggled = isEnabled,
+                    onToggleChange = { isEnabled = it },
+                )
+
+                Toggle(
+                    label = "Read only",
+                    isToggled = isReadOnly,
+                    onToggleChange = { isReadOnly = it },
+                )
+
+                Spacer(
+                    modifier = Modifier
+                        .background(Carbon.theme.borderStrong01)
+                        .fillMaxWidth()
+                        .height(1.dp)
+                )
+
                 LayerSelectionDropdown(
                     selectedLayer = layer,
                     onLayerSelected = { layer = it },
-                    modifier = Modifier.padding(top = SpacingScale.spacing03)
                 )
             }
         }
-    }
-}
-
-@Composable
-private fun DefaultToggles(
-    isToggled: Boolean,
-    onToggleChange: (Boolean) -> Unit,
-    modifier: Modifier = Modifier
-) {
-    Column(
-        modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(SpacingScale.spacing05)
-    ) {
-        Toggle(
-            isToggled = isToggled,
-            onToggleChange = onToggleChange,
-            label = "Toggle",
-//            actionText = if (isToggled) "On" else "Off",
-        )
-//        Toggle(
-//            isToggled = isToggled,
-//            isEnabled = false,
-//            onToggleChange = {},
-//            actionText = "Disabled",
-//        )
-//        Toggle(
-//            isToggled = isToggled,
-//            isReadOnly = true,
-//            onToggleChange = {},
-//            actionText = "Read only",
-//        )
-    }
-}
-
-@Composable
-private fun SmallToggles(
-    isToggled: Boolean,
-    onToggleChange: (Boolean) -> Unit,
-    modifier: Modifier = Modifier
-) {
-    Column(
-        modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(SpacingScale.spacing05)
-    ) {
-        SmallToggle(
-            isToggled = isToggled,
-            onToggleChange = onToggleChange,
-            actionText = if (isToggled) "On" else "Off",
-        )
-        SmallToggle(
-            isToggled = isToggled,
-            isEnabled = false,
-            onToggleChange = {},
-            actionText = "Disabled",
-        )
-        SmallToggle(
-            isToggled = isToggled,
-            isReadOnly = true,
-            onToggleChange = {},
-            actionText = "Read only",
-        )
     }
 }

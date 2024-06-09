@@ -12,3 +12,15 @@ public data class DropdownOption(
     val value: String,
     val enabled: Boolean = true
 )
+
+/**
+ * Converts a list of strings to a map of strings to [DropdownOption]s.
+ */
+public fun Collection<String>.toDropdownOptions(): Map<String, DropdownOption> =
+    associateWith { DropdownOption(it) }
+
+/**
+ * Returns a map of strings to [DropdownOption]s.
+ */
+public fun dropdownOptionsOf(vararg values: String): Map<String, DropdownOption> = values
+    .associateWith { DropdownOption(it) }

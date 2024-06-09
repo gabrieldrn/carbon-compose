@@ -3,7 +3,6 @@ package carbon.compose.toggle
 import androidx.compose.ui.graphics.Color
 import carbon.compose.BaseColorsTest
 import carbon.compose.foundation.color.Layer
-import carbon.compose.toggle.domain.ToggleState
 import org.junit.Test
 import kotlin.test.assertEquals
 
@@ -12,33 +11,30 @@ class ToggleColorsTest : BaseColorsTest() {
     @Test
     fun toggleColors_backgroundColorByState_returnsCorrectColor() {
         val expectedColors = mapOf(
-            ToggleState(
-                isEnabled = false,
-                isReadOnly = false,
-                isToggled = false
+            Triple(
+                /*isEnabled=*/false, /*isReadOnly=*/false, /*isToggled=*/false
             ) to theme.buttonDisabled,
-            ToggleState(
-                isEnabled = true,
-                isReadOnly = false,
-                isToggled = false
+            Triple(
+                true, false, false
             ) to theme.toggleOff,
-            ToggleState(
-                isEnabled = true,
-                isReadOnly = true,
-                isToggled = false
+            Triple(
+                true, true, false
             ) to Color.Transparent,
-            ToggleState(
-                isEnabled = true,
-                isReadOnly = false,
-                isToggled = true
+            Triple(
+                true, false, true
             ) to theme.supportSuccess,
         )
 
         forAllLayersAndStates(expectedColors.keys) { state, _ ->
             assertEquals(
                 expected = expectedColors[state],
-                actual = ToggleColors.colors().backgroundColor(state).value,
-                message = "For state $state"
+                actual = ToggleColors.colors()
+                    .backgroundColor(state.first, state.second, state.third)
+                    .value,
+                message = "For state (" +
+                    "isEnabled = ${state.first}, " +
+                    "isReadOnly = ${state.second}, " +
+                    "isToggled = ${state.third})"
             )
         }
     }
@@ -46,31 +42,14 @@ class ToggleColorsTest : BaseColorsTest() {
     @Test
     fun toggleColors_borderColorByState_returnsCorrectColor() {
         val expectedColors = mapOf(
-            ToggleState(
-                isEnabled = true,
-                isReadOnly = true,
-                isToggled = false
-            ) to mapOf(
+            /*isEnabled=*/true to /*isReadOnly=*/true to mapOf(
                 Layer.Layer00 to theme.borderSubtle01,
                 Layer.Layer01 to theme.borderSubtle02,
                 Layer.Layer02 to theme.borderSubtle03,
                 Layer.Layer03 to theme.borderSubtle03
             ),
-            ToggleState(
-                isEnabled = false,
-                isReadOnly = false,
-                isToggled = false
-            ) to Color.Transparent,
-            ToggleState(
-                isEnabled = true,
-                isReadOnly = false,
-                isToggled = false
-            ) to Color.Transparent,
-            ToggleState(
-                isEnabled = true,
-                isReadOnly = false,
-                isToggled = true
-            ) to Color.Transparent,
+            false to false to Color.Transparent,
+            true to false to Color.Transparent,
         )
 
         forAllLayersAndStates(expectedColors.keys) { state, layer ->
@@ -81,8 +60,9 @@ class ToggleColorsTest : BaseColorsTest() {
                 } else {
                     expected
                 },
-                actual = ToggleColors.colors().borderColor(state).value,
-                message = "For state $state, layer $layer"
+                actual = ToggleColors.colors().borderColor(state.first, state.second).value,
+                message = "For state (isEnabled = ${state.first}, isReadOnly = ${state.second}), " +
+                    "layer $layer"
             )
         }
     }
@@ -90,38 +70,17 @@ class ToggleColorsTest : BaseColorsTest() {
     @Test
     fun toggleColors_handleColorByState_returnsCorrectColor() {
         val expectedColors = mapOf(
-            ToggleState(
-                isEnabled = false,
-                isReadOnly = false,
-                isToggled = false
-            ) to theme.iconOnColorDisabled,
-            ToggleState(
-                isEnabled = true,
-                isReadOnly = false,
-                isToggled = false
-            ) to theme.iconOnColor,
-            ToggleState(
-                isEnabled = true,
-                isReadOnly = true,
-                isToggled = false
-            ) to theme.iconPrimary,
-            ToggleState(
-                isEnabled = true,
-                isReadOnly = false,
-                isToggled = true
-            ) to theme.iconOnColor,
-            ToggleState(
-                isEnabled = true,
-                isReadOnly = true,
-                isToggled = true
-            ) to theme.iconPrimary,
+            /*isEnabled = */ false to /*isReadOnly = */ false to theme.iconOnColorDisabled,
+            false to true to theme.iconOnColorDisabled,
+            true to false to theme.iconOnColor,
+            true to true to theme.iconPrimary,
         )
 
         forAllLayersAndStates(expectedColors.keys) { state, _ ->
             assertEquals(
                 expected = expectedColors[state],
-                actual = ToggleColors.colors().handleColor(state).value,
-                message = "For state $state"
+                actual = ToggleColors.colors().handleColor(state.first, state.second).value,
+                message = "For state (isEnabled = ${state.first}, isReadOnly = ${state.second})"
             )
         }
     }
@@ -129,42 +88,32 @@ class ToggleColorsTest : BaseColorsTest() {
     @Test
     fun toggleColors_handleCheckmarkColorByState_returnsCorrectColor() {
         val expectedColors = mapOf(
-            ToggleState(
-                isEnabled = false,
-                isReadOnly = false,
-                isToggled = false
+            Triple(
+                /*isEnabled=*/false, /*isReadOnly=*/false, /*isToggled=*/false
             ) to Color.Transparent,
-            ToggleState(
-                isEnabled = false,
-                isReadOnly = true,
-                isToggled = false
+            Triple(
+                false, true, false
             ) to Color.Transparent,
-            ToggleState(
-                isEnabled = true,
-                isReadOnly = true,
-                isToggled = false
+            Triple(
+                true, true, false
             ) to Color.Transparent,
-            ToggleState(
-                isEnabled = false,
-                isReadOnly = false,
-                isToggled = true
+            Triple(
+                false, false, true
             ) to theme.buttonDisabled,
-            ToggleState(
-                isEnabled = true,
-                isReadOnly = false,
-                isToggled = true
+            Triple(
+                true, false, true
             ) to theme.supportSuccess,
-            ToggleState(
-                isEnabled = true,
-                isReadOnly = true,
-                isToggled = true
+            Triple(
+                true, true, true
             ) to Color.Transparent,
         )
 
         forAllLayersAndStates(expectedColors.keys) { state, _ ->
             assertEquals(
                 expected = expectedColors[state],
-                actual = ToggleColors.colors().handleCheckmarkColor(state).value,
+                actual = ToggleColors.colors()
+                    .handleCheckmarkColor(state.first, state.second, state.third)
+                    .value,
                 message = "For state $state"
             )
         }

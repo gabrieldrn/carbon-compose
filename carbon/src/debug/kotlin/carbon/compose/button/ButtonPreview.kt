@@ -12,26 +12,26 @@ import androidx.compose.ui.unit.dp
 import carbon.compose.R
 
 private class ButtonPreviewParameterProvider :
-    PreviewParameterProvider<Pair<CarbonButton, ButtonSize>> {
+    PreviewParameterProvider<Pair<ButtonType, ButtonSize>> {
 
-    override val values: Sequence<Pair<CarbonButton, ButtonSize>>
-        get() = CarbonButton.entries.flatMap { type ->
+    override val values: Sequence<Pair<ButtonType, ButtonSize>>
+        get() = ButtonType.entries.flatMap { type ->
             ButtonSize.values.map { size -> type to size }
         }.asSequence()
 }
 
 private class IconButtonPreviewParameterProvider :
-    PreviewParameterProvider<CarbonButton> {
+    PreviewParameterProvider<ButtonType> {
 
-    override val values: Sequence<CarbonButton>
-        get() = CarbonButton.entries.asSequence()
+    override val values: Sequence<ButtonType>
+        get() = ButtonType.entries.asSequence()
 }
 
 @Preview(group = "All")
 @Composable
 private fun ButtonPreview(
     @PreviewParameter(ButtonPreviewParameterProvider::class)
-    combination: Pair<CarbonButton, ButtonSize>,
+    combination: Pair<ButtonType, ButtonSize>,
 ) {
     Box(modifier = Modifier.padding(8.dp)) {
         Button(
@@ -48,7 +48,7 @@ private fun ButtonPreview(
 @Composable
 private fun IconButtonPreview(
     @PreviewParameter(IconButtonPreviewParameterProvider::class)
-    buttonType: CarbonButton,
+    buttonType: ButtonType,
 ) {
     Box(modifier = Modifier.padding(8.dp)) {
         IconButton(
