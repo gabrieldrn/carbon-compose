@@ -14,11 +14,6 @@ internal class TextInputColors private constructor(
     private val theme: Theme,
     private val layer: Layer
 ) {
-    val placeholderTextColor: Color
-        get() = theme.textPlaceholder
-
-    val borderErrorColor = theme.supportError
-
     val backgroundColor: Color
         get() {
             return when (layer) {
@@ -56,11 +51,23 @@ internal class TextInputColors private constructor(
         )
 
     @Composable
+    fun placeholderTextColor(state: TextInputState): State<Color> =
+        rememberUpdatedState(
+            newValue = with(theme) {
+                if (state == TextInputState.Disabled) textDisabled
+                else textPlaceholder
+            }
+        )
+
+    @Composable
     fun helperTextColor(state: TextInputState): State<Color> =
         rememberUpdatedState(
             newValue = with(theme) {
-                if (state == TextInputState.Error) textError
-                else textPrimary
+                when (state) {
+                    TextInputState.Error -> textError
+                    TextInputState.Disabled -> textDisabled
+                    else -> textPrimary
+                }
             }
         )
 

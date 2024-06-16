@@ -17,6 +17,7 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -27,6 +28,7 @@ import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import carbon.compose.Carbon
 import carbon.compose.foundation.interaction.FocusIndication
 import carbon.compose.foundation.spacing.SpacingScale
 import carbon.compose.foundation.text.CarbonTypography
@@ -49,11 +51,12 @@ public fun TextInput(
     visualTransformation: VisualTransformation = VisualTransformation.None,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 ) {
+    val theme = Carbon.theme
     val colors = TextInputColors.colors()
 
     val fieldTextColor by colors.fieldTextColor(state = state)
-    val fieldTextStyle = remember(fieldTextColor) {
-        CarbonTypography.bodyCompact01.copy(color = fieldTextColor)
+    val fieldTextStyle by remember(fieldTextColor) {
+        mutableStateOf(CarbonTypography.bodyCompact01.copy(color = fieldTextColor))
     }
 
     Column(modifier = modifier) {
@@ -61,8 +64,7 @@ public fun TextInput(
             text = label,
             style = CarbonTypography.label01,
             color = colors.labelTextColor(state = state).value,
-            modifier = Modifier
-                .padding(bottom = SpacingScale.spacing03)
+            modifier = Modifier.padding(bottom = SpacingScale.spacing03)
         )
 
         Box(
@@ -81,7 +83,7 @@ public fun TextInput(
                     if (state == TextInputState.Error) {
                         Modifier.border(
                             width = SpacingScale.spacing01,
-                            color = colors.borderErrorColor
+                            color = theme.supportError
                         )
                     } else {
                         Modifier
@@ -124,7 +126,9 @@ public fun TextInput(
                         innerTextField()
                         if (value.isEmpty()) {
                             PlaceholderText(
-                                value = placeholderText, colors = colors
+                                value = placeholderText,
+                                colors = colors,
+                                state = state,
                             )
                         }
                     }
@@ -158,15 +162,15 @@ public fun TextInput(
 internal fun PlaceholderText(
     value: String,
     colors: TextInputColors,
+    state: TextInputState,
     modifier: Modifier = Modifier
 ) {
     Text(
         text = value,
         style = CarbonTypography.bodyCompact01,
-        color = colors.placeholderTextColor,
+        color = colors.placeholderTextColor(state = state).value,
         maxLines = 1,
         overflow = TextOverflow.Ellipsis,
-        modifier = modifier
-            .testTag("TODO")
+        modifier = modifier.testTag("TODO")
     )
 }
