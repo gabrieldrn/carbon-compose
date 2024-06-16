@@ -9,6 +9,7 @@ import carbon.compose.catalog.dropdown.BaseDestination
 import carbon.compose.catalog.dropdown.MultiselectDropdownScreen
 import carbon.compose.catalog.radiobutton.LoadingDemoScreen
 import carbon.compose.catalog.radiobutton.RadioButtonDemoScreen
+import carbon.compose.catalog.textinput.TextInputDemoScreen
 import carbon.compose.catalog.toggle.ToggleDemoScreen
 import carbon.compose.progressbar.ProgressBarDemoScreen
 
@@ -88,7 +89,12 @@ enum class Destination(
     StructuredList("Structured list"),
     Tabs("Tabs"),
     Tag("Tag"),
-    TextInput("Text input"),
+    TextInput(
+        title = "Text input",
+        illustration = R.drawable.tile_text_input,
+        route = "textinput",
+        content = { TextInputDemoScreen() }
+    ),
     Tile("Tile"),
     Toggle(
         title = "Toggle",
