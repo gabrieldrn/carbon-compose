@@ -14,23 +14,41 @@ internal class TextInputColors private constructor(
     private val theme: Theme,
     private val layer: Layer
 ) {
-    val backgroundColor: Color
-        get() {
-            return when (layer) {
-                Layer.Layer00 -> theme.field01
-                Layer.Layer01 -> theme.field02
-                Layer.Layer02,
-                Layer.Layer03 -> theme.field03
-            }
-        }
 
-    val borderColor: Color
-        get() = when (layer) {
-            Layer.Layer00 -> theme.borderStrong01
-            Layer.Layer01 -> theme.borderStrong02
-            Layer.Layer02,
-            Layer.Layer03 -> theme.borderStrong03
-        }
+    @Composable
+    fun fieldBorderColor(state: TextInputState): State<Color> =
+        rememberUpdatedState(
+            newValue = if (state == TextInputState.ReadOnly) {
+                when (layer) {
+                    Layer.Layer00 -> theme.borderSubtle00
+                    Layer.Layer01 -> theme.borderSubtle01
+                    Layer.Layer02 -> theme.borderSubtle02
+                    Layer.Layer03 -> theme.borderSubtle03
+                }
+            } else {
+                when (layer) {
+                    Layer.Layer00 -> theme.borderStrong01
+                    Layer.Layer01 -> theme.borderStrong02
+                    Layer.Layer02,
+                    Layer.Layer03 -> theme.borderStrong03
+                }
+            }
+        )
+
+    @Composable
+    fun fieldBackgroundColor(state: TextInputState): State<Color> =
+        rememberUpdatedState(
+            newValue = if (state == TextInputState.ReadOnly) {
+                Color.Transparent
+            } else {
+                when (layer) {
+                    Layer.Layer00 -> theme.field01
+                    Layer.Layer01 -> theme.field02
+                    Layer.Layer02,
+                    Layer.Layer03 -> theme.field03
+                }
+            }
+        )
 
     @Composable
     fun labelTextColor(state: TextInputState): State<Color> =

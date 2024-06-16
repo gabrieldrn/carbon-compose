@@ -78,7 +78,7 @@ public fun TextInput(
                     interactionSource = interactionSource
                 )
                 .height(size.height)
-                .background(color = colors.backgroundColor)
+                .background(color = colors.fieldBackgroundColor(state = state).value)
                 .then(
                     if (state == TextInputState.Error) {
                         Modifier.border(
@@ -108,7 +108,7 @@ public fun TextInput(
                 value = value,
                 onValueChange = onValueChange,
                 modifier = Modifier.align(Alignment.CenterStart),
-                enabled = state == TextInputState.Enabled,
+                enabled = state != TextInputState.Disabled,
                 readOnly = state == TextInputState.ReadOnly,
                 textStyle = fieldTextStyle,
                 keyboardOptions = keyboardOptions,
@@ -138,7 +138,7 @@ public fun TextInput(
             if (state != TextInputState.Disabled) {
                 Spacer(
                     modifier = Modifier
-                        .background(color = colors.borderColor)
+                        .background(color = colors.fieldBorderColor(state = state).value)
                         .height(1.dp)
                         .fillMaxWidth()
                         .align(Alignment.BottomCenter)

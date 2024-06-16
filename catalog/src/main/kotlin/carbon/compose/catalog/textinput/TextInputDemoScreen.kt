@@ -17,11 +17,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import carbon.compose.Carbon
+import carbon.compose.catalog.misc.LayerSelectionDropdown
 import carbon.compose.dropdown.Dropdown
 import carbon.compose.dropdown.base.toDropdownOptions
 import carbon.compose.foundation.color.CarbonLayer
@@ -43,9 +45,9 @@ fun TextInputDemoScreen(modifier: Modifier = Modifier) {
             .verticalScroll(state = rememberScrollState())
             .padding(WindowInsets.navigationBars.asPaddingValues())
     ) {
-        var layer by remember { mutableStateOf(Layer.Layer00) }
-        var textInputState by remember { mutableStateOf(TextInputState.Enabled) }
-        var text by remember { mutableStateOf("") }
+        var layer by rememberSaveable { mutableStateOf(Layer.Layer00) }
+        var textInputState by rememberSaveable { mutableStateOf(TextInputState.Enabled) }
+        var text by rememberSaveable { mutableStateOf("") }
 
         CarbonLayer(layer = layer) {
             Box(
@@ -91,6 +93,11 @@ fun TextInputDemoScreen(modifier: Modifier = Modifier) {
                     onOptionSelected = { textInputState = it },
                     onExpandedChange = { textFieldStateDropdownExpanded = it },
                     onDismissRequest = { textFieldStateDropdownExpanded = false })
+
+                LayerSelectionDropdown(
+                    selectedLayer = layer,
+                    onLayerSelected = { layer = it },
+                )
             }
         }
     }
