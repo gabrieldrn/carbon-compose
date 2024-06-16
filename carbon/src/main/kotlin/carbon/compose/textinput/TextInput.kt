@@ -135,14 +135,16 @@ public fun TextInput(
                 }
             )
 
-            Spacer(
-                modifier = Modifier
-                    .background(color = colors.borderColor)
-                    .height(1.dp)
-                    .fillMaxWidth()
-                    .align(Alignment.BottomCenter)
-                    .testTag("TODO")
-            )
+            if (state != TextInputState.Disabled) {
+                Spacer(
+                    modifier = Modifier
+                        .background(color = colors.borderColor)
+                        .height(1.dp)
+                        .fillMaxWidth()
+                        .align(Alignment.BottomCenter)
+                        .testTag("TODO")
+                )
+            }
         }
 
         if (helperText.isNotEmpty()) {
