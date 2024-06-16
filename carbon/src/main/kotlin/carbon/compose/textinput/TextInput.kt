@@ -7,6 +7,7 @@ import androidx.compose.foundation.indication
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -33,6 +34,8 @@ import carbon.compose.foundation.interaction.FocusIndication
 import carbon.compose.foundation.spacing.SpacingScale
 import carbon.compose.foundation.text.CarbonTypography
 import carbon.compose.foundation.text.Text
+import carbon.compose.icons.WarningAltIcon
+import carbon.compose.icons.WarningIcon
 import carbon.compose.semantics.readOnly
 import carbon.compose.textinput.TextInputState.Companion.isFocusable
 
@@ -117,21 +120,13 @@ public fun TextInput(
                 visualTransformation = visualTransformation,
                 interactionSource = interactionSource,
                 decorationBox = { innerTextField ->
-                    Box(
-                        modifier = Modifier
-                            .padding(horizontal = SpacingScale.spacing05)
-                            .fillMaxSize(),
-                        contentAlignment = Alignment.CenterStart
-                    ) {
-                        innerTextField()
-                        if (value.isEmpty()) {
-                            PlaceholderText(
-                                value = placeholderText,
-                                colors = colors,
-                                state = state,
-                            )
-                        }
-                    }
+                    FieldContent(
+                        value = value,
+                        placeholderText = placeholderText,
+                        colors = colors,
+                        innerTextField = innerTextField,
+                        state = state
+                    )
                 }
             )
 
@@ -161,18 +156,44 @@ public fun TextInput(
 }
 
 @Composable
-internal fun PlaceholderText(
+private fun FieldContent(
     value: String,
+    placeholderText: String,
     colors: TextInputColors,
     state: TextInputState,
+    innerTextField: @Composable () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Text(
-        text = value,
-        style = CarbonTypography.bodyCompact01,
-        color = colors.placeholderTextColor(state = state).value,
-        maxLines = 1,
-        overflow = TextOverflow.Ellipsis,
-        modifier = modifier.testTag("TODO")
-    )
+    Row(
+        modifier = modifier
+            .padding(horizontal = SpacingScale.spacing05)
+            .fillMaxSize(),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Box(
+            modifier = Modifier.weight(1f),
+            contentAlignment = Alignment.CenterStart
+        ) {
+            innerTextField()
+            if (value.isEmpty()) {
+                Text(
+                    text = placeholderText,
+                    style = CarbonTypography.bodyCompact01,
+                    color = colors.placeholderTextColor(state = state).value,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    modifier = Modifier.testTag("TODO")
+                )
+            }
+        }
+        when (state) {
+            TextInputState.Error -> WarningIcon(
+                modifier = Modifier.padding(start = SpacingScale.spacing05)
+            )
+            TextInputState.Warning -> WarningAltIcon(
+                modifier = Modifier.padding(start = SpacingScale.spacing05)
+            )
+            else -> {}
+        }
+    }
 }
