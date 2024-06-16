@@ -1,0 +1,172 @@
+package carbon.compose.textinput
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.focusable
+import androidx.compose.foundation.indication
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.semantics.disabled
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
+import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.dp
+import carbon.compose.foundation.interaction.FocusIndication
+import carbon.compose.foundation.spacing.SpacingScale
+import carbon.compose.foundation.text.CarbonTypography
+import carbon.compose.foundation.text.Text
+import carbon.compose.semantics.readOnly
+import carbon.compose.textinput.TextInputState.Companion.isFocusable
+
+@Composable
+public fun TextInput(
+    label: String,
+    value: String,
+    onValueChange: (String) -> Unit,
+    modifier: Modifier = Modifier,
+    placeholderText: String = "",
+    helperText: String = "",
+    state: TextInputState = TextInputState.Enabled,
+    size: TextInputSize = TextInputSize.Large,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+    keyboardActions: KeyboardActions = KeyboardActions.Default,
+    visualTransformation: VisualTransformation = VisualTransformation.None,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
+) {
+    val colors = TextInputColors.colors()
+
+    val fieldTextColor by colors.fieldTextColor(state = state)
+    val fieldTextStyle = remember(fieldTextColor) {
+        CarbonTypography.bodyCompact01.copy(color = fieldTextColor)
+    }
+
+    Column(modifier = modifier) {
+        Text(
+            text = label,
+            style = CarbonTypography.label01,
+            color = colors.labelTextColor(state = state).value,
+            modifier = Modifier
+                .padding(bottom = SpacingScale.spacing03)
+        )
+
+        Box(
+            modifier = Modifier
+                .indication(
+                    interactionSource = interactionSource,
+                    indication = FocusIndication()
+                )
+                .focusable(
+                    enabled = state.isFocusable,
+                    interactionSource = interactionSource
+                )
+                .height(size.height)
+                .background(color = colors.backgroundColor)
+                .then(
+                    if (state == TextInputState.Error) {
+                        Modifier.border(
+                            width = SpacingScale.spacing01,
+                            color = colors.borderErrorColor
+                        )
+                    } else {
+                        Modifier
+                    }
+                )
+                .then(
+                    when (state) {
+                        TextInputState.Disabled -> Modifier.semantics { disabled() }
+                        TextInputState.ReadOnly -> Modifier.readOnly(
+                            role = null,
+                            interactionSource = interactionSource,
+                            mergeDescendants = true
+                        )
+                        else -> Modifier
+                    }
+                )
+                .semantics(mergeDescendants = true) {
+                    stateDescription = helperText
+                }
+        ) {
+            BasicTextField(
+                value = value,
+                onValueChange = onValueChange,
+                modifier = Modifier.align(Alignment.CenterStart),
+                enabled = state == TextInputState.Enabled,
+                readOnly = state == TextInputState.ReadOnly,
+                textStyle = fieldTextStyle,
+                keyboardOptions = keyboardOptions,
+                keyboardActions = keyboardActions,
+                singleLine = true,
+                visualTransformation = visualTransformation,
+                interactionSource = interactionSource,
+                decorationBox = { innerTextField ->
+                    Box(
+                        modifier = Modifier
+                            .padding(horizontal = SpacingScale.spacing05)
+                            .fillMaxSize(),
+                        contentAlignment = Alignment.CenterStart
+                    ) {
+                        innerTextField()
+                        if (value.isEmpty()) {
+                            PlaceholderText(
+                                value = placeholderText, colors = colors
+                            )
+                        }
+                    }
+                }
+            )
+
+            Spacer(
+                modifier = Modifier
+                    .background(color = colors.borderColor)
+                    .height(1.dp)
+                    .fillMaxWidth()
+                    .align(Alignment.BottomCenter)
+                    .testTag("TODO")
+            )
+        }
+
+        if (helperText.isNotEmpty()) {
+            Text(
+                text = helperText,
+                style = CarbonTypography.helperText01,
+                color = colors.helperTextColor(state = state).value,
+                modifier = Modifier
+                    .padding(top = SpacingScale.spacing02)
+                    .testTag("TODO")
+            )
+        }
+    }
+}
+
+@Composable
+internal fun PlaceholderText(
+    value: String,
+    colors: TextInputColors,
+    modifier: Modifier = Modifier
+) {
+    Text(
+        text = value,
+        style = CarbonTypography.bodyCompact01,
+        color = colors.placeholderTextColor,
+        maxLines = 1,
+        overflow = TextOverflow.Ellipsis,
+        modifier = modifier
+            .testTag("TODO")
+    )
+}

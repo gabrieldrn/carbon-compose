@@ -25,7 +25,7 @@ import androidx.compose.ui.state.ToggleableState
  * @param mergeDescendants Whether to merge descendants into a single tree.
  */
 public fun Modifier.readOnly(
-    role: Role,
+    role: Role?,
     interactionSource: MutableInteractionSource,
     state: ToggleableState? = null,
     mergeDescendants: Boolean = false,
@@ -37,7 +37,7 @@ public fun Modifier.readOnly(
     .semantics(
         mergeDescendants = mergeDescendants
     ) {
-        this.role = role
+        if (role != null) { this.role = role }
         if (state != null) { toggleableState = state }
         readOnly()
         disabled()
@@ -58,7 +58,7 @@ public fun Modifier.readOnly(
  * @param mergeDescendants Whether to merge descendants into a single tree.
  */
 public fun Modifier.readOnly(
-    role: Role,
+    role: Role?,
     interactionSource: MutableInteractionSource,
     selected: Boolean,
     mergeDescendants: Boolean = false,
