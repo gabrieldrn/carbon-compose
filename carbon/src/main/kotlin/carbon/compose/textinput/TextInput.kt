@@ -23,6 +23,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.disabled
 import androidx.compose.ui.semantics.semantics
@@ -129,6 +130,7 @@ public fun TextInput(
                 minLines = minLines,
                 visualTransformation = visualTransformation,
                 interactionSource = interactionSource,
+                cursorBrush = SolidColor(colors.fieldTextColor(state = state).value),
                 decorationBox = { innerTextField ->
                     FieldContent(
                         singleLine = singleLine,
