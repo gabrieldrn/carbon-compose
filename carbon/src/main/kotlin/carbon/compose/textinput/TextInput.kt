@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -28,6 +29,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import carbon.compose.Carbon
 import carbon.compose.foundation.interaction.FocusIndication
@@ -51,6 +53,9 @@ public fun TextInput(
     size: TextInputSize = TextInputSize.Large,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
+    singleLine: Boolean = false,
+    maxLines: Int = if (singleLine) 1 else Int.MAX_VALUE,
+    minLines: Int = 1,
     visualTransformation: VisualTransformation = VisualTransformation.None,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 ) {
@@ -80,7 +85,10 @@ public fun TextInput(
                     enabled = state.isFocusable,
                     interactionSource = interactionSource
                 )
-                .height(size.height)
+                .sizeIn(
+                    maxHeight = size.height.takeIf { singleLine } ?: Dp.Unspecified,
+                    minHeight = TextInputSize.Large.height.takeIf { !singleLine } ?: Dp.Unspecified
+                )
                 .background(color = colors.fieldBackgroundColor(state = state).value)
                 .then(
                     if (state == TextInputState.Error) {
@@ -116,11 +124,14 @@ public fun TextInput(
                 textStyle = fieldTextStyle,
                 keyboardOptions = keyboardOptions,
                 keyboardActions = keyboardActions,
-                singleLine = true,
+                singleLine = singleLine,
+                maxLines = maxLines,
+                minLines = minLines,
                 visualTransformation = visualTransformation,
                 interactionSource = interactionSource,
                 decorationBox = { innerTextField ->
                     FieldContent(
+                        singleLine = singleLine,
                         value = value,
                         placeholderText = placeholderText,
                         colors = colors,
@@ -157,6 +168,7 @@ public fun TextInput(
 
 @Composable
 private fun FieldContent(
+    singleLine: Boolean,
     value: String,
     placeholderText: String,
     colors: TextInputColors,
@@ -166,8 +178,17 @@ private fun FieldContent(
 ) {
     Row(
         modifier = modifier
-            .padding(horizontal = SpacingScale.spacing05)
-            .fillMaxSize(),
+            .padding(
+                horizontal = SpacingScale.spacing05,
+                vertical = 11.dp.takeIf { !singleLine } ?: 0.dp
+            )
+            .then(
+                if (singleLine) {
+                    Modifier.fillMaxSize()
+                } else {
+                    Modifier.fillMaxWidth()
+                }
+            ),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Box(
@@ -186,14 +207,29 @@ private fun FieldContent(
                 )
             }
         }
-        when (state) {
-            TextInputState.Error -> WarningIcon(
-                modifier = Modifier.padding(start = SpacingScale.spacing05)
-            )
-            TextInputState.Warning -> WarningAltIcon(
-                modifier = Modifier.padding(start = SpacingScale.spacing05)
-            )
-            else -> {}
-        }
+        StateIcon(
+            state = state,
+            modifier = Modifier
+                .then(
+                    if (singleLine) {
+                        Modifier.padding(start = SpacingScale.spacing05)
+                    } else {
+                        Modifier.align(Alignment.Top)
+                    }
+                )
+                .testTag("TODO")
+        )
+    }
+}
+
+@Composable
+private fun StateIcon(
+    state: TextInputState,
+    modifier: Modifier = Modifier
+) {
+    when (state) {
+        TextInputState.Error -> WarningIcon(modifier = modifier)
+        TextInputState.Warning -> WarningAltIcon(modifier = modifier)
+        else -> {}
     }
 }

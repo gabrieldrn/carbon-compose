@@ -3,6 +3,7 @@ package carbon.compose.catalog.textinput
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -21,8 +22,12 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import carbon.compose.Carbon
+import carbon.compose.button.Button
+import carbon.compose.button.IconButton
+import carbon.compose.catalog.R
 import carbon.compose.catalog.misc.LayerSelectionDropdown
 import carbon.compose.dropdown.Dropdown
 import carbon.compose.dropdown.base.toDropdownOptions
@@ -33,8 +38,19 @@ import carbon.compose.foundation.spacing.SpacingScale
 import carbon.compose.foundation.text.CarbonTypography
 import carbon.compose.textinput.TextInput
 import carbon.compose.textinput.TextInputState
+import carbon.compose.toggle.Toggle
+import kotlin.math.sin
 
 private val textInputStateOptions = TextInputState.entries.toDropdownOptions()
+
+private val loremIpsum =
+    """
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
+        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco 
+        laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in 
+        voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat 
+        cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+    """.trimIndent().replace("\n","")
 
 @Composable
 fun TextInputDemoScreen(modifier: Modifier = Modifier) {
@@ -47,6 +63,7 @@ fun TextInputDemoScreen(modifier: Modifier = Modifier) {
     ) {
         var layer by rememberSaveable { mutableStateOf(Layer.Layer00) }
         var textInputState by rememberSaveable { mutableStateOf(TextInputState.Enabled) }
+        var singleLine by rememberSaveable { mutableStateOf(true) }
         var text by rememberSaveable { mutableStateOf("") }
 
         CarbonLayer(layer = layer) {
@@ -57,15 +74,30 @@ fun TextInputDemoScreen(modifier: Modifier = Modifier) {
                     .containerBackground()
                     .padding(SpacingScale.spacing05)
             ) {
-                TextInput(
-                    label = "Label",
-                    value = text,
-                    onValueChange = { text = it },
-                    modifier = Modifier.align(Alignment.Center),
-                    placeholderText = "Placeholder",
-                    helperText = textInputState.name,
-                    state = textInputState
-                )
+                if (singleLine) {
+                    TextInput(
+                        label = "Label",
+                        value = text,
+                        onValueChange = { text = it },
+                        modifier = Modifier.align(Alignment.Center),
+                        placeholderText = "Placeholder",
+                        helperText = textInputState.name,
+                        state = textInputState,
+                        singleLine = true,
+                    )
+                } else {
+                    TextInput(
+                        label = "Label",
+                        value = text,
+                        onValueChange = { text = it },
+                        modifier = Modifier.align(Alignment.Center),
+                        placeholderText = "Placeholder",
+                        helperText = textInputState.name,
+                        state = textInputState,
+                        singleLine = false,
+                        maxLines = 5
+                    )
+                }
             }
         }
 
@@ -75,7 +107,7 @@ fun TextInputDemoScreen(modifier: Modifier = Modifier) {
                     .padding(SpacingScale.spacing05)
                     .containerBackground()
                     .padding(SpacingScale.spacing05),
-                verticalArrangement = Arrangement.spacedBy(SpacingScale.spacing03)
+                verticalArrangement = Arrangement.spacedBy(SpacingScale.spacing05)
             ) {
                 var textFieldStateDropdownExpanded by remember { mutableStateOf(false) }
 
@@ -93,6 +125,27 @@ fun TextInputDemoScreen(modifier: Modifier = Modifier) {
                     onOptionSelected = { textInputState = it },
                     onExpandedChange = { textFieldStateDropdownExpanded = it },
                     onDismissRequest = { textFieldStateDropdownExpanded = false })
+
+                Toggle(
+                    label = "Variant",
+                    isToggled = singleLine,
+                    onToggleChange = { singleLine = it },
+                    actionText = if (singleLine) "Text input (single line)" else "Text area"
+                )
+
+                Row(modifier = Modifier.fillMaxWidth()) {
+                    Button(
+                        label = "Lorem ipsum",
+                        onClick = { text = loremIpsum },
+                        iconPainter = painterResource(id = R.drawable.ic_text_long_paragraph),
+                        modifier = Modifier.weight(1f)
+                    )
+                    IconButton(
+                        iconPainter = painterResource(id = R.drawable.ic_delete),
+                        onClick = { text = "" },
+                        modifier = Modifier.padding(start = SpacingScale.spacing03)
+                    )
+                }
 
                 LayerSelectionDropdown(
                     selectedLayer = layer,
