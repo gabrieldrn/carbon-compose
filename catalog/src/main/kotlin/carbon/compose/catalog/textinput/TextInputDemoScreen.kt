@@ -30,18 +30,21 @@ import carbon.compose.button.IconButton
 import carbon.compose.catalog.R
 import carbon.compose.catalog.misc.LayerSelectionDropdown
 import carbon.compose.dropdown.Dropdown
+import carbon.compose.dropdown.base.dropdownOptionsOf
 import carbon.compose.dropdown.base.toDropdownOptions
 import carbon.compose.foundation.color.CarbonLayer
 import carbon.compose.foundation.color.Layer
 import carbon.compose.foundation.color.containerBackground
 import carbon.compose.foundation.spacing.SpacingScale
 import carbon.compose.foundation.text.CarbonTypography
+import carbon.compose.textinput.TextArea
 import carbon.compose.textinput.TextInput
 import carbon.compose.textinput.TextInputState
-import carbon.compose.toggle.Toggle
-import kotlin.math.sin
 
+private const val TEXT_INPUT_VARIANT = "Text input (single line)"
+private const val TEXT_AREA_VARIANT = "Text area"
 private val textInputStateOptions = TextInputState.entries.toDropdownOptions()
+private val textInputVariantOptions = dropdownOptionsOf(TEXT_INPUT_VARIANT, TEXT_AREA_VARIANT)
 
 private val loremIpsum =
     """
@@ -63,7 +66,7 @@ fun TextInputDemoScreen(modifier: Modifier = Modifier) {
     ) {
         var layer by rememberSaveable { mutableStateOf(Layer.Layer00) }
         var textInputState by rememberSaveable { mutableStateOf(TextInputState.Enabled) }
-        var singleLine by rememberSaveable { mutableStateOf(true) }
+        var variant by rememberSaveable { mutableStateOf(TEXT_INPUT_VARIANT) }
         var text by rememberSaveable { mutableStateOf("") }
 
         CarbonLayer(layer = layer) {
@@ -74,7 +77,7 @@ fun TextInputDemoScreen(modifier: Modifier = Modifier) {
                     .containerBackground()
                     .padding(SpacingScale.spacing05)
             ) {
-                if (singleLine) {
+                if (variant == TEXT_INPUT_VARIANT) {
                     TextInput(
                         label = "Label",
                         value = text,
@@ -83,10 +86,9 @@ fun TextInputDemoScreen(modifier: Modifier = Modifier) {
                         placeholderText = "Placeholder",
                         helperText = textInputState.name,
                         state = textInputState,
-                        singleLine = true,
                     )
                 } else {
-                    TextInput(
+                    TextArea(
                         label = "Label",
                         value = text,
                         onValueChange = { text = it },
@@ -94,7 +96,6 @@ fun TextInputDemoScreen(modifier: Modifier = Modifier) {
                         placeholderText = "Placeholder",
                         helperText = textInputState.name,
                         state = textInputState,
-                        singleLine = false,
                         maxLines = 5
                     )
                 }
@@ -110,6 +111,7 @@ fun TextInputDemoScreen(modifier: Modifier = Modifier) {
                 verticalArrangement = Arrangement.spacedBy(SpacingScale.spacing05)
             ) {
                 var textFieldStateDropdownExpanded by remember { mutableStateOf(false) }
+                var variantDropdownExpanded by remember { mutableStateOf(false) }
 
                 BasicText(
                     text = "Configuration",
@@ -124,13 +126,18 @@ fun TextInputDemoScreen(modifier: Modifier = Modifier) {
                     selectedOption = textInputState,
                     onOptionSelected = { textInputState = it },
                     onExpandedChange = { textFieldStateDropdownExpanded = it },
-                    onDismissRequest = { textFieldStateDropdownExpanded = false })
+                    onDismissRequest = { textFieldStateDropdownExpanded = false }
+                )
 
-                Toggle(
-                    label = "Variant",
-                    isToggled = singleLine,
-                    onToggleChange = { singleLine = it },
-                    actionText = if (singleLine) "Text input (single line)" else "Text area"
+                Dropdown(
+                    label = "Text input variant",
+                    expanded = variantDropdownExpanded,
+                    placeholder = "Choose a variant",
+                    options = textInputVariantOptions,
+                    selectedOption = variant,
+                    onOptionSelected = { variant = it },
+                    onExpandedChange = { variantDropdownExpanded = it },
+                    onDismissRequest = { variantDropdownExpanded = false }
                 )
 
                 Row(modifier = Modifier.fillMaxWidth()) {

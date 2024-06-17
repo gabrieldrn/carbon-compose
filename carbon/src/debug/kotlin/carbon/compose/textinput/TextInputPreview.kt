@@ -29,7 +29,7 @@ private class TextInputStatePreviewParameterProvider : PreviewParameterProvider<
 
 @Preview
 @Composable
-private fun EmptySingleLineTextInputPreview(
+private fun EmptyTextInputPreview(
 ) {
     var text by remember {
         mutableStateOf("")
@@ -42,14 +42,13 @@ private fun EmptySingleLineTextInputPreview(
             onValueChange = { text = it },
             modifier = Modifier.padding(SpacingScale.spacing03),
             placeholderText = "Placeholder",
-            singleLine = true
         )
     }
 }
 
 @Preview
 @Composable
-private fun SingleLineTextInputPreview(
+private fun TextInputPreview(
     @PreviewParameter(TextInputStatePreviewParameterProvider::class) state: TextInputState
 ) {
     var text by remember {
@@ -65,21 +64,20 @@ private fun SingleLineTextInputPreview(
             placeholderText = "Placeholder",
             helperText = state.name,
             state = state,
-            singleLine = true
         )
     }
 }
 
 @Preview
 @Composable
-private fun EmptyMultiLineTextInputPreview(
+private fun EmptyTextAreaPreview(
 ) {
     var text by remember {
         mutableStateOf("")
     }
 
     CarbonDesignSystem {
-        TextInput(
+        TextArea(
             label = "Label",
             value = text,
             onValueChange = { text = it },
@@ -92,7 +90,7 @@ private fun EmptyMultiLineTextInputPreview(
 
 @Preview
 @Composable
-private fun MultiLineTextInputPreview(
+private fun TextAreaPreview(
     @PreviewParameter(TextInputStatePreviewParameterProvider::class) state: TextInputState
 ) {
     var text by remember {
@@ -100,7 +98,7 @@ private fun MultiLineTextInputPreview(
     }
 
     CarbonDesignSystem {
-        TextInput(
+        TextArea(
             label = "Label",
             value = text,
             onValueChange = { text = it },

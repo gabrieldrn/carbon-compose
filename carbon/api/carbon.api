@@ -720,16 +720,45 @@ public final class carbon/compose/semantics/CarbonSemanticsPropertiesKt {
 }
 
 public final class carbon/compose/semantics/ReadOnlyKt {
-	public static final fun readOnly-glApdhM (Landroidx/compose/ui/Modifier;ILandroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/ui/state/ToggleableState;Z)Landroidx/compose/ui/Modifier;
-	public static final fun readOnly-glApdhM (Landroidx/compose/ui/Modifier;ILandroidx/compose/foundation/interaction/MutableInteractionSource;ZZ)Landroidx/compose/ui/Modifier;
-	public static synthetic fun readOnly-glApdhM$default (Landroidx/compose/ui/Modifier;ILandroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/ui/state/ToggleableState;ZILjava/lang/Object;)Landroidx/compose/ui/Modifier;
-	public static synthetic fun readOnly-glApdhM$default (Landroidx/compose/ui/Modifier;ILandroidx/compose/foundation/interaction/MutableInteractionSource;ZZILjava/lang/Object;)Landroidx/compose/ui/Modifier;
+	public static final fun readOnly-jlSe5Mo (Landroidx/compose/ui/Modifier;Landroidx/compose/ui/semantics/Role;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/ui/state/ToggleableState;Z)Landroidx/compose/ui/Modifier;
+	public static final fun readOnly-jlSe5Mo (Landroidx/compose/ui/Modifier;Landroidx/compose/ui/semantics/Role;Landroidx/compose/foundation/interaction/MutableInteractionSource;ZZ)Landroidx/compose/ui/Modifier;
+	public static synthetic fun readOnly-jlSe5Mo$default (Landroidx/compose/ui/Modifier;Landroidx/compose/ui/semantics/Role;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/ui/state/ToggleableState;ZILjava/lang/Object;)Landroidx/compose/ui/Modifier;
+	public static synthetic fun readOnly-jlSe5Mo$default (Landroidx/compose/ui/Modifier;Landroidx/compose/ui/semantics/Role;Landroidx/compose/foundation/interaction/MutableInteractionSource;ZZILjava/lang/Object;)Landroidx/compose/ui/Modifier;
 }
 
 public final class carbon/compose/semantics/SemanticsExtKt {
 	public static final fun assertIsReadOnly (Landroidx/compose/ui/test/SemanticsNodeInteraction;Lkotlin/jvm/functions/Function0;)Landroidx/compose/ui/test/SemanticsNodeInteraction;
 	public static synthetic fun assertIsReadOnly$default (Landroidx/compose/ui/test/SemanticsNodeInteraction;Lkotlin/jvm/functions/Function0;ILjava/lang/Object;)Landroidx/compose/ui/test/SemanticsNodeInteraction;
 	public static final fun isReadOnly ()Landroidx/compose/ui/test/SemanticsMatcher;
+}
+
+public final class carbon/compose/textinput/TextInputKt {
+	public static final fun TextArea (Ljava/lang/String;Ljava/lang/String;Lkotlin/jvm/functions/Function1;Landroidx/compose/ui/Modifier;Ljava/lang/String;Ljava/lang/String;Lcarbon/compose/textinput/TextInputState;Landroidx/compose/foundation/text/KeyboardOptions;Landroidx/compose/foundation/text/KeyboardActions;IILandroidx/compose/ui/text/input/VisualTransformation;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;III)V
+	public static final fun TextInput (Ljava/lang/String;Ljava/lang/String;Lkotlin/jvm/functions/Function1;Landroidx/compose/ui/Modifier;Ljava/lang/String;Ljava/lang/String;Lcarbon/compose/textinput/TextInputState;Lcarbon/compose/textinput/TextInputSize;Landroidx/compose/foundation/text/KeyboardOptions;Landroidx/compose/foundation/text/KeyboardActions;Landroidx/compose/ui/text/input/VisualTransformation;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;III)V
+}
+
+public final class carbon/compose/textinput/TextInputSize : java/lang/Enum {
+	public static final field Large Lcarbon/compose/textinput/TextInputSize;
+	public static final field Medium Lcarbon/compose/textinput/TextInputSize;
+	public static final field Small Lcarbon/compose/textinput/TextInputSize;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcarbon/compose/textinput/TextInputSize;
+	public static fun values ()[Lcarbon/compose/textinput/TextInputSize;
+}
+
+public final class carbon/compose/textinput/TextInputState : java/lang/Enum {
+	public static final field Companion Lcarbon/compose/textinput/TextInputState$Companion;
+	public static final field Disabled Lcarbon/compose/textinput/TextInputState;
+	public static final field Enabled Lcarbon/compose/textinput/TextInputState;
+	public static final field Error Lcarbon/compose/textinput/TextInputState;
+	public static final field ReadOnly Lcarbon/compose/textinput/TextInputState;
+	public static final field Warning Lcarbon/compose/textinput/TextInputState;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcarbon/compose/textinput/TextInputState;
+	public static fun values ()[Lcarbon/compose/textinput/TextInputState;
+}
+
+public final class carbon/compose/textinput/TextInputState$Companion {
 }
 
 public final class carbon/compose/toggle/ToggleKt {
