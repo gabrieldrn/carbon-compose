@@ -9,7 +9,6 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -46,12 +45,20 @@ import carbon.compose.icons.WarningIcon
 import carbon.compose.semantics.readOnly
 import carbon.compose.textinput.TextInputState.Companion.isFocusable
 
+internal const val TEXT_INPUT_HEIGHT_LARGE_DP = 48
+
 /**
  * # Text input
  *
  * Text inputs enable users to enter free-form text data. The type of text field used should reflect
  * the length of the content you expect the user to enter. The default text input is for short,
  * one-line content, whereas text area is for longer, multi-line entries.
+ *
+ * ## Implementation note:
+ * As per Carbon's documentation, the text input can have three different sizes. However, the small
+ * and medium sizes does not comply with accessibility on Android, as the minimum touch target size
+ * for an interactible component should be at least 48dp. This implementation then provides only the
+ * large text input.
  *
  * (From [Text input documentation](https://carbondesignsystem.com/components/text-input/usage/))
  *
@@ -64,7 +71,6 @@ import carbon.compose.textinput.TextInputState.Companion.isFocusable
  * @param helperText Optional helper text is pertinent information that assists the user in
  * correctly completing a field. It is often used to explain the correct data format.
  * @param state The interactive state of the text input.
- * @param size Defines the height of the text input.
  * @param keyboardOptions software keyboard options that contains configuration such as
  * [KeyboardType] and [ImeAction].
  * @param keyboardActions when the input service emits an IME action, the corresponding callback
@@ -86,7 +92,6 @@ public fun TextInput(
     placeholderText: String = "",
     helperText: String = "",
     state: TextInputState = TextInputState.Enabled,
-    size: TextInputSize = TextInputSize.Large,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
     visualTransformation: VisualTransformation = VisualTransformation.None,
@@ -122,7 +127,7 @@ public fun TextInput(
                 minLines = 1,
                 visualTransformation = visualTransformation,
                 interactionSource = interactionSource,
-                modifier = Modifier.sizeIn(maxHeight = size.height)
+                modifier = Modifier.sizeIn(maxHeight = TEXT_INPUT_HEIGHT_LARGE_DP.dp)
             )
         },
         modifier = modifier
@@ -184,8 +189,6 @@ public fun TextArea(
     visualTransformation: VisualTransformation = VisualTransformation.None,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 ) {
-
-
     val theme = Carbon.theme
     val colors = TextInputColors.colors()
 
@@ -216,7 +219,7 @@ public fun TextArea(
                 minLines = minLines,
                 visualTransformation = visualTransformation,
                 interactionSource = interactionSource,
-                modifier = Modifier.sizeIn(minHeight = TextInputSize.Large.height)
+                modifier = Modifier.sizeIn(minHeight = TEXT_INPUT_HEIGHT_LARGE_DP.dp)
             )
         },
         modifier = modifier
@@ -237,7 +240,10 @@ private fun TextInputRoot(
             text = label,
             style = CarbonTypography.label01,
             color = colors.labelTextColor(state = state).value,
-            modifier = Modifier.padding(bottom = SpacingScale.spacing03)
+            maxLines = 1,
+            modifier = Modifier
+                .padding(bottom = SpacingScale.spacing03)
+                .testTag(TextInputTestTags.LABEL)
         )
 
         field()
@@ -249,7 +255,7 @@ private fun TextInputRoot(
                 color = colors.helperTextColor(state = state).value,
                 modifier = Modifier
                     .padding(top = SpacingScale.spacing02)
-                    .testTag("TODO")
+                    .testTag(TextInputTestTags.HELPER_TEXT)
             )
         }
     }
@@ -309,6 +315,7 @@ private fun TextInputField(
             .semantics(mergeDescendants = true) {
                 stateDescription = helperText
             }
+            .testTag(TextInputTestTags.FIELD)
     ) {
         BasicTextField(
             value = value,
@@ -338,13 +345,13 @@ private fun TextInputField(
         )
 
         if (state != TextInputState.Disabled) {
-            Spacer(
+            Box(
                 modifier = Modifier
                     .background(color = colors.fieldBorderColor(state = state).value)
                     .height(1.dp)
                     .fillMaxWidth()
                     .align(Alignment.BottomCenter)
-                    .testTag("TODO")
+                    .testTag(TextInputTestTags.FIELD_BORDER)
             )
         }
     }
@@ -387,7 +394,7 @@ private fun FieldContent(
                     color = colors.placeholderTextColor(state = state).value,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
-                    modifier = Modifier.testTag("TODO")
+                    modifier = Modifier.testTag(TextInputTestTags.PLACEHOLDER)
                 )
             }
         }
@@ -401,7 +408,7 @@ private fun FieldContent(
                         Modifier.align(Alignment.Top)
                     }
                 )
-                .testTag("TODO")
+
         )
     }
 }
@@ -412,8 +419,12 @@ private fun StateIcon(
     modifier: Modifier = Modifier
 ) {
     when (state) {
-        TextInputState.Error -> WarningIcon(modifier = modifier)
-        TextInputState.Warning -> WarningAltIcon(modifier = modifier)
+        TextInputState.Error -> WarningIcon(
+            modifier = modifier.testTag(TextInputTestTags.STATE_ICON_ERROR)
+        )
+        TextInputState.Warning -> WarningAltIcon(
+            modifier = modifier.testTag(TextInputTestTags.STATE_ICON_WARNING)
+        )
         else -> {}
     }
 }
