@@ -168,7 +168,6 @@ public final class carbon/compose/dropdown/multiselect/MultiselectDropdownKt {
 public final class carbon/compose/foundation/color/Gray100Theme : carbon/compose/foundation/color/Theme {
 	public static final field $stable I
 	public static final field INSTANCE Lcarbon/compose/foundation/color/Gray100Theme;
-	public fun containerColor-vNxB06k (Lcarbon/compose/foundation/color/Layer;)J
 	public fun getBackground-0d7_KjU ()J
 	public fun getBackgroundActive-0d7_KjU ()J
 	public fun getBackgroundBrand-0d7_KjU ()J
@@ -292,8 +291,13 @@ public final class carbon/compose/foundation/color/Layer : java/lang/Enum {
 	public static fun values ()[Lcarbon/compose/foundation/color/Layer;
 }
 
-public abstract interface class carbon/compose/foundation/color/Theme {
-	public abstract fun containerColor-vNxB06k (Lcarbon/compose/foundation/color/Layer;)J
+public abstract class carbon/compose/foundation/color/Theme {
+	public static final field $stable I
+	public fun <init> ()V
+	public final fun containerColor-vNxB06k (Lcarbon/compose/foundation/color/Layer;)J
+	public static synthetic fun containerColor-vNxB06k$default (Lcarbon/compose/foundation/color/Theme;Lcarbon/compose/foundation/color/Layer;ILjava/lang/Object;)J
+	public static synthetic fun copy-HhgsYS8$carbon_release$default (Lcarbon/compose/foundation/color/Theme;JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJIIIILjava/lang/Object;)Lcarbon/compose/foundation/color/Theme;
+	public fun equals (Ljava/lang/Object;)Z
 	public abstract fun getBackground-0d7_KjU ()J
 	public abstract fun getBackgroundActive-0d7_KjU ()J
 	public abstract fun getBackgroundBrand-0d7_KjU ()J
@@ -403,11 +407,7 @@ public abstract interface class carbon/compose/foundation/color/Theme {
 	public abstract fun getTextPrimary-0d7_KjU ()J
 	public abstract fun getTextSecondary-0d7_KjU ()J
 	public abstract fun getToggleOff-0d7_KjU ()J
-}
-
-public final class carbon/compose/foundation/color/Theme$DefaultImpls {
-	public static fun containerColor-vNxB06k (Lcarbon/compose/foundation/color/Theme;Lcarbon/compose/foundation/color/Layer;)J
-	public static synthetic fun containerColor-vNxB06k$default (Lcarbon/compose/foundation/color/Theme;Lcarbon/compose/foundation/color/Layer;ILjava/lang/Object;)J
+	public fun hashCode ()I
 }
 
 public final class carbon/compose/foundation/color/ThemeStaticCompositionKt {
@@ -422,7 +422,6 @@ public final class carbon/compose/foundation/color/ThemeStaticCompositionKt {
 public final class carbon/compose/foundation/color/WhiteTheme : carbon/compose/foundation/color/Theme {
 	public static final field $stable I
 	public static final field INSTANCE Lcarbon/compose/foundation/color/WhiteTheme;
-	public fun containerColor-vNxB06k (Lcarbon/compose/foundation/color/Layer;)J
 	public fun getBackground-0d7_KjU ()J
 	public fun getBackgroundActive-0d7_KjU ()J
 	public fun getBackgroundBrand-0d7_KjU ()J
@@ -732,18 +731,17 @@ public final class carbon/compose/semantics/SemanticsExtKt {
 	public static final fun isReadOnly ()Landroidx/compose/ui/test/SemanticsMatcher;
 }
 
-public final class carbon/compose/textinput/TextInputKt {
-	public static final fun TextArea (Ljava/lang/String;Ljava/lang/String;Lkotlin/jvm/functions/Function1;Landroidx/compose/ui/Modifier;Ljava/lang/String;Ljava/lang/String;Lcarbon/compose/textinput/TextInputState;Landroidx/compose/foundation/text/KeyboardOptions;Landroidx/compose/foundation/text/KeyboardActions;IILandroidx/compose/ui/text/input/VisualTransformation;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;III)V
-	public static final fun TextInput (Ljava/lang/String;Ljava/lang/String;Lkotlin/jvm/functions/Function1;Landroidx/compose/ui/Modifier;Ljava/lang/String;Ljava/lang/String;Lcarbon/compose/textinput/TextInputState;Lcarbon/compose/textinput/TextInputSize;Landroidx/compose/foundation/text/KeyboardOptions;Landroidx/compose/foundation/text/KeyboardActions;Landroidx/compose/ui/text/input/VisualTransformation;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;III)V
+public final class carbon/compose/textinput/PasswordInputKt {
+	public static final fun PasswordInput (Ljava/lang/String;Ljava/lang/String;ZLkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Landroidx/compose/ui/Modifier;Ljava/lang/String;Ljava/lang/String;Lcarbon/compose/textinput/TextInputState;Landroidx/compose/foundation/text/KeyboardOptions;Landroidx/compose/foundation/text/KeyboardActions;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;III)V
+	public static final fun getPasswordKeyboardOptions ()Landroidx/compose/foundation/text/KeyboardOptions;
 }
 
-public final class carbon/compose/textinput/TextInputSize : java/lang/Enum {
-	public static final field Large Lcarbon/compose/textinput/TextInputSize;
-	public static final field Medium Lcarbon/compose/textinput/TextInputSize;
-	public static final field Small Lcarbon/compose/textinput/TextInputSize;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
-	public static fun valueOf (Ljava/lang/String;)Lcarbon/compose/textinput/TextInputSize;
-	public static fun values ()[Lcarbon/compose/textinput/TextInputSize;
+public final class carbon/compose/textinput/TextAreaKt {
+	public static final fun TextArea (Ljava/lang/String;Ljava/lang/String;Lkotlin/jvm/functions/Function1;Landroidx/compose/ui/Modifier;Ljava/lang/String;Ljava/lang/String;Lcarbon/compose/textinput/TextInputState;Landroidx/compose/foundation/text/KeyboardOptions;Landroidx/compose/foundation/text/KeyboardActions;IILandroidx/compose/ui/text/input/VisualTransformation;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;III)V
+}
+
+public final class carbon/compose/textinput/TextInputKt {
+	public static final fun TextInput (Ljava/lang/String;Ljava/lang/String;Lkotlin/jvm/functions/Function1;Landroidx/compose/ui/Modifier;Ljava/lang/String;Ljava/lang/String;Lcarbon/compose/textinput/TextInputState;Landroidx/compose/foundation/text/KeyboardOptions;Landroidx/compose/foundation/text/KeyboardActions;Landroidx/compose/ui/text/input/VisualTransformation;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;III)V
 }
 
 public final class carbon/compose/textinput/TextInputState : java/lang/Enum {
