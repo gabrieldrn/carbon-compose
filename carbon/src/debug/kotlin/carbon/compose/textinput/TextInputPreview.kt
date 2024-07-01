@@ -22,7 +22,7 @@ private val loremIpsum =
         cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
     """.trimIndent().replace("\n","")
 
-private class TextInputStatePreviewParameterProvider : PreviewParameterProvider<TextInputState> {
+internal class TextInputStatePreviewParameterProvider : PreviewParameterProvider<TextInputState> {
     override val values: Sequence<TextInputState>
         get() = TextInputState.entries.asSequence()
 }

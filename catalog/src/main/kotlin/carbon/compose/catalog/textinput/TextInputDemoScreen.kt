@@ -1,9 +1,11 @@
 package carbon.compose.catalog.textinput
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,6 +17,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -37,14 +40,18 @@ import carbon.compose.foundation.color.Layer
 import carbon.compose.foundation.color.containerBackground
 import carbon.compose.foundation.spacing.SpacingScale
 import carbon.compose.foundation.text.CarbonTypography
+import carbon.compose.textinput.PasswordInput
 import carbon.compose.textinput.TextArea
 import carbon.compose.textinput.TextInput
 import carbon.compose.textinput.TextInputState
 
 private const val TEXT_INPUT_VARIANT = "Text input (single line)"
 private const val TEXT_AREA_VARIANT = "Text area"
+private const val PASSWORD_INPUT_VARIANT = "Password area"
 private val textInputStateOptions = TextInputState.entries.toDropdownOptions()
-private val textInputVariantOptions = dropdownOptionsOf(TEXT_INPUT_VARIANT, TEXT_AREA_VARIANT)
+private val textInputVariantOptions = dropdownOptionsOf(
+    TEXT_INPUT_VARIANT, TEXT_AREA_VARIANT, PASSWORD_INPUT_VARIANT
+)
 
 private val loremIpsum =
     """
@@ -53,7 +60,7 @@ private val loremIpsum =
         laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in 
         voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat 
         cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
-    """.trimIndent().replace("\n","")
+    """.trimIndent().replace("\n", "")
 
 @Composable
 fun TextInputDemoScreen(modifier: Modifier = Modifier) {
@@ -68,6 +75,13 @@ fun TextInputDemoScreen(modifier: Modifier = Modifier) {
         var textInputState by rememberSaveable { mutableStateOf(TextInputState.Enabled) }
         var variant by rememberSaveable { mutableStateOf(TEXT_INPUT_VARIANT) }
         var text by rememberSaveable { mutableStateOf("") }
+        var passwordHidden by rememberSaveable { mutableStateOf(true) }
+
+        LaunchedEffect(variant) {
+            if (variant == PASSWORD_INPUT_VARIANT) {
+                text = ""
+            }
+        }
 
         CarbonLayer(layer = layer) {
             Box(
@@ -77,9 +91,9 @@ fun TextInputDemoScreen(modifier: Modifier = Modifier) {
                     .containerBackground()
                     .padding(SpacingScale.spacing05)
             ) {
-                if (variant == TEXT_INPUT_VARIANT) {
-                    TextInput(
-                        label = "Label",
+                when (variant) {
+                    TEXT_INPUT_VARIANT -> TextInput(
+                        label = "Text input",
                         value = text,
                         onValueChange = { text = it },
                         modifier = Modifier.align(Alignment.Center),
@@ -87,9 +101,18 @@ fun TextInputDemoScreen(modifier: Modifier = Modifier) {
                         helperText = textInputState.name,
                         state = textInputState,
                     )
-                } else {
-                    TextArea(
-                        label = "Label",
+                    PASSWORD_INPUT_VARIANT -> PasswordInput(
+                        label = "Password input",
+                        value = text,
+                        passwordHidden = passwordHidden,
+                        onValueChange = { text = it },
+                        onPasswordHiddenChange = { passwordHidden = it },
+                        modifier = Modifier.align(Alignment.Center),
+                        helperText = textInputState.name,
+                        state = textInputState,
+                    )
+                    TEXT_AREA_VARIANT -> TextArea(
+                        label = "Text area",
                         value = text,
                         onValueChange = { text = it },
                         modifier = Modifier.align(Alignment.Center),
@@ -119,18 +142,7 @@ fun TextInputDemoScreen(modifier: Modifier = Modifier) {
                 )
 
                 Dropdown(
-                    label = "Text input state",
-                    expanded = textFieldStateDropdownExpanded,
-                    placeholder = "Choose an option",
-                    options = textInputStateOptions,
-                    selectedOption = textInputState,
-                    onOptionSelected = { textInputState = it },
-                    onExpandedChange = { textFieldStateDropdownExpanded = it },
-                    onDismissRequest = { textFieldStateDropdownExpanded = false }
-                )
-
-                Dropdown(
-                    label = "Text input variant",
+                    label = "Variant / modifier",
                     expanded = variantDropdownExpanded,
                     placeholder = "Choose a variant",
                     options = textInputVariantOptions,
@@ -140,11 +152,30 @@ fun TextInputDemoScreen(modifier: Modifier = Modifier) {
                     onDismissRequest = { variantDropdownExpanded = false }
                 )
 
+                Spacer(
+                    modifier = Modifier
+                        .background(color = Carbon.theme.borderStrong01)
+                        .fillMaxWidth()
+                        .height(1.dp)
+                )
+
+                Dropdown(
+                    label = "State",
+                    expanded = textFieldStateDropdownExpanded,
+                    placeholder = "Choose an option",
+                    options = textInputStateOptions,
+                    selectedOption = textInputState,
+                    onOptionSelected = { textInputState = it },
+                    onExpandedChange = { textFieldStateDropdownExpanded = it },
+                    onDismissRequest = { textFieldStateDropdownExpanded = false }
+                )
+
                 Row(modifier = Modifier.fillMaxWidth()) {
                     Button(
                         label = "Lorem ipsum",
                         onClick = { text = loremIpsum },
                         iconPainter = painterResource(id = R.drawable.ic_text_long_paragraph),
+                        isEnabled = variant != PASSWORD_INPUT_VARIANT,
                         modifier = Modifier.weight(1f)
                     )
                     IconButton(
