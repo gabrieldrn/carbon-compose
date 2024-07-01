@@ -8,7 +8,7 @@ import androidx.compose.ui.graphics.Color
  * background color.
  */
 @Immutable
-public object Gray100Theme : Theme {
+public object Gray100Theme : Theme() {
     override val background: Color = Color(0xFF161616)
     override val backgroundHover: Color = Color(0x298D8D8D)
     override val backgroundActive: Color = Color(0x668D8D8D)
