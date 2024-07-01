@@ -186,7 +186,8 @@ internal fun TextInputField(
     minLines: Int,
     visualTransformation: VisualTransformation,
     interactionSource: MutableInteractionSource,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    trailingIcon: @Composable (() -> Unit)? = null
 ) {
     Box(
         modifier = modifier
@@ -247,7 +248,8 @@ internal fun TextInputField(
                     placeholderText = placeholderText,
                     colors = colors,
                     innerTextField = innerTextField,
-                    state = state
+                    state = state,
+                    trailingIcon = trailingIcon,
                 )
             }
         )
@@ -273,12 +275,16 @@ private fun FieldContent(
     colors: TextInputColors,
     state: TextInputState,
     innerTextField: @Composable () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    trailingIcon: @Composable (() -> Unit)? = null
 ) {
     Row(
         modifier = modifier
             .padding(
-                horizontal = SpacingScale.spacing05,
+                start = SpacingScale.spacing05,
+                end = SpacingScale.spacing05.takeIf { trailingIcon == null } ?: 0.dp
+            )
+            .padding(
                 vertical = 11.dp.takeIf { !singleLine } ?: 0.dp
             )
             .then(
@@ -316,8 +322,8 @@ private fun FieldContent(
                         Modifier.align(Alignment.Top)
                     }
                 )
-
         )
+        trailingIcon?.invoke()
     }
 }
 
