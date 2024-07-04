@@ -31,3 +31,16 @@ public fun SemanticsNodeInteraction.assertIsReadOnly(
     matcher = isReadOnly(),
     messagePrefixOnError = messagePrefixOnError
 )
+
+/**
+ * Returns whether the node has an icon with the given name.
+ */
+internal fun SemanticsNodeInteraction.assertHasImageVector(
+    iconName: String
+): SemanticsNodeInteraction = assert(
+    matcher = SemanticsMatcher(
+        description = "has icon with name: $iconName",
+        matcher = { it.config[CarbonSemanticsProperties.ImageVectorName] == iconName }
+    ),
+    messagePrefixOnError = { "Has icon with name: $iconName" }
+)

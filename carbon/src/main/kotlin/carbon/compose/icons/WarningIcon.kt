@@ -1,11 +1,8 @@
 package carbon.compose.icons
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.requiredSize
-import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
@@ -21,48 +18,30 @@ private val warningIconHeight = 32f.dp
 
 internal val warningIcon: ImageVector
     get() = ImageVector.Builder(
-        name = "WarningIcon",
+        name = "ErrorIcon",
         defaultWidth = warningIconWidth,
         defaultHeight = warningIconHeight,
         viewportWidth = warningIconWidth.value,
         viewportHeight = warningIconHeight.value
     ).apply {
         path(fill = SolidColor(Color(0xFF000000))) {
-            moveTo(30.9f, 32f)
-            horizontalLineTo(1.1f)
-            curveTo(0.5f, 32f, 0f, 31.5f, 0f, 30.9f)
-            curveTo(0f, 30.7f, 0f, 30.5f, 0.1f, 30.5f)
-            lineTo(15f, 1.8f)
-            curveTo(15.3f, 1.2f, 15.9f, 1f, 16.4f, 1.3f)
-            curveTo(16.6f, 1.4f, 16.8f, 1.6f, 16.9f, 1.8f)
-            lineTo(31.8f, 30.4f)
-            curveTo(32.1f, 31f, 31.9f, 31.7f, 31.3f, 32f)
-            curveTo(31.2f, 32f, 31.1f, 32f, 31f, 32f)
+            moveTo(16f, 0f)
+            curveTo(7.2f, 0f, 0f, 7.2f, 0f, 16f)
+            curveTo(0f, 24.8f, 7.2f, 32f, 16f, 32f)
+            curveTo(24.8f, 32f, 32f, 24.8f, 32f, 16f)
+            curveTo(32f, 7.2f, 24.8f, 0f, 16f, 0f)
             close()
-        }
-    }.build()
-
-internal val warningInnerIcon: ImageVector
-    get() = ImageVector.Builder(
-        name = "CheckboxWarningInnerIcon",
-        defaultWidth = warningIconWidth,
-        defaultHeight = warningIconHeight,
-        viewportWidth = warningIconWidth.value,
-        viewportHeight = warningIconHeight.value
-    ).apply {
-        path(fill = SolidColor(Color(0xFF000000))) {
-            moveTo(16f, 28f)
-            curveTo(15.1f, 28f, 14.3f, 27.2f, 14.3f, 26.3f)
-            curveTo(14.3f, 25.4f, 15.1f, 24.6f, 16f, 24.6f)
-            curveTo(16.9f, 24.6f, 17.7f, 25.4f, 17.7f, 26.3f)
-            curveTo(17.7f, 27.2f, 16.9f, 28f, 16f, 28f)
-            close()
-
-            moveTo(14.7f, 11.4f)
+            moveTo(14.7f, 6.9f)
             horizontalLineTo(17.2f)
-            verticalLineTo(21.7f)
+            verticalLineTo(19.5f)
             horizontalLineTo(14.7f)
-            verticalLineTo(11.4f)
+            verticalLineTo(6.9f)
+            close()
+            moveTo(16f, 26.3f)
+            curveTo(15.1f, 26.3f, 14.3f, 25.5f, 14.3f, 24.6f)
+            curveTo(14.3f, 23.7f, 15.1f, 22.9f, 16f, 22.9f)
+            curveTo(16.9f, 22.9f, 17.7f, 23.7f, 17.7f, 24.6f)
+            curveTo(17.7f, 25.5f, 16.9f, 26.3f, 16f, 26.3f)
             close()
         }
     }.build()
@@ -72,21 +51,10 @@ internal fun WarningIcon(
     modifier: Modifier = Modifier,
     size: Dp = 16.dp
 ) {
-    Box(modifier = modifier.size(size)) {
-        Image(
-            imageVector = warningIcon,
-            contentDescription = null,
-            colorFilter = ColorFilter.tint(LocalCarbonTheme.current.supportWarning),
-            modifier = Modifier
-                .requiredSize(size)
-                .align(Alignment.Center)
-        )
-        Image(
-            imageVector = warningInnerIcon,
-            contentDescription = null,
-            modifier = Modifier
-                .requiredSize(size)
-                .align(Alignment.Center)
-        )
-    }
+    Image(
+        imageVector = warningIcon,
+        contentDescription = null,
+        colorFilter = ColorFilter.tint(LocalCarbonTheme.current.supportError),
+        modifier = modifier.requiredSize(size)
+    )
 }

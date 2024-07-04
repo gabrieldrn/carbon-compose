@@ -9,8 +9,8 @@ import androidx.compose.ui.unit.dp
 import carbon.compose.foundation.spacing.SpacingScale
 import carbon.compose.foundation.text.CarbonTypography
 import carbon.compose.foundation.text.Text
-import carbon.compose.icons.ErrorIcon
 import carbon.compose.icons.WarningIcon
+import carbon.compose.icons.WarningAltIcon
 
 @Composable
 internal fun ErrorContent(
@@ -22,7 +22,7 @@ internal fun ErrorContent(
         modifier = modifier,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        ErrorIcon(
+        WarningIcon(
             modifier = Modifier.padding(SpacingScale.spacing01)
         )
         Text(
@@ -44,7 +44,7 @@ internal fun WarningContent(
         modifier = modifier,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        WarningIcon(Modifier.padding(2.dp))
+        WarningAltIcon(Modifier.padding(2.dp))
         Text(
             text = warningMessage,
             color = colors.warningMessageTextColor,

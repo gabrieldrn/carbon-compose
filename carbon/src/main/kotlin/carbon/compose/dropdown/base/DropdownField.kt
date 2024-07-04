@@ -49,8 +49,8 @@ import carbon.compose.foundation.motion.Motion
 import carbon.compose.foundation.spacing.SpacingScale
 import carbon.compose.foundation.text.CarbonTypography
 import carbon.compose.foundation.text.Text
-import carbon.compose.icons.ErrorIcon
 import carbon.compose.icons.WarningIcon
+import carbon.compose.icons.WarningAltIcon
 import carbon.compose.semantics.readOnly
 
 private val dropdownTransitionSpecFloat = tween<Float>(
@@ -232,13 +232,13 @@ internal fun DropdownStateIcon(
     modifier: Modifier = Modifier
 ) {
     when (state) {
-        is DropdownInteractiveState.Warning -> WarningIcon(
+        is DropdownInteractiveState.Warning -> WarningAltIcon(
             modifier = modifier
                 .padding(horizontal = SpacingScale.spacing03)
                 .layoutId(DropdownFieldContentId.STATE_ICON)
                 .testTag(DropdownTestTags.FIELD_WARNING_ICON)
         )
-        is DropdownInteractiveState.Error -> ErrorIcon(
+        is DropdownInteractiveState.Error -> WarningIcon(
             modifier = modifier
                 .padding(horizontal = SpacingScale.spacing03)
                 .layoutId(DropdownFieldContentId.STATE_ICON)
