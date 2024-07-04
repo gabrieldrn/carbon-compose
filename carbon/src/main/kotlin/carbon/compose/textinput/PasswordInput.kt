@@ -9,9 +9,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.referentialEqualityPolicy
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -21,9 +25,11 @@ import carbon.compose.Carbon
 import carbon.compose.button.ButtonType
 import carbon.compose.button.IconButton
 import carbon.compose.foundation.color.LocalCarbonTheme
+import carbon.compose.foundation.color.Theme
 import carbon.compose.foundation.text.CarbonTypography
 import carbon.compose.icons.viewIcon
 import carbon.compose.icons.viewOffIcon
+import carbon.compose.semantics.imageVectorName
 
 /**
  * A modified [KeyboardOptions.Default] with autoCorrect set to false and keyboardType set to
@@ -87,17 +93,17 @@ public fun PasswordInput(
 
     val passwordHiddenIcon = remember { viewIcon }
     val passwordVisibleIcon = remember { viewOffIcon }
+    val icon = remember(passwordHidden) {
+        if (passwordHidden) {
+            passwordHiddenIcon
+        } else {
+            passwordVisibleIcon
+        }
+    }
 
     val fieldTextColor by colors.fieldTextColor(state = state)
     val fieldTextStyle by remember(fieldTextColor) {
         mutableStateOf(CarbonTypography.bodyCompact01.copy(color = fieldTextColor))
-    }
-
-    val iconTheme = remember {
-        theme.copy(
-            linkPrimary = theme.iconPrimary,
-            linkPrimaryHover = theme.iconPrimary
-        )
     }
 
     TextInputRoot(
@@ -127,20 +133,49 @@ public fun PasswordInput(
                 },
                 interactionSource = interactionSource,
                 trailingIcon = {
-                    CompositionLocalProvider(LocalCarbonTheme provides iconTheme) {
-                        IconButton(
-                            iconPainter = rememberVectorPainter(
-                                if (passwordHidden) passwordHiddenIcon else passwordVisibleIcon
-                            ),
-                            buttonType = ButtonType.Ghost,
-                            isEnabled = state != TextInputState.Disabled,
-                            onClick = { onPasswordHiddenChange(!passwordHidden) }
-                        )
-                    }
+                    HidePasswordButton(
+                        theme = theme,
+                        passwordHidden = passwordHidden,
+                        icon = icon,
+                        state = state,
+                        onPasswordHiddenChange = onPasswordHiddenChange
+                    )
                 },
                 modifier = Modifier.sizeIn(maxHeight = TEXT_INPUT_HEIGHT_LARGE_DP.dp)
             )
         },
         modifier = modifier
     )
+}
+
+@Composable
+private fun HidePasswordButton(
+    theme: Theme,
+    passwordHidden: Boolean,
+    icon: ImageVector,
+    state: TextInputState,
+    onPasswordHiddenChange: (Boolean) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    val hidePasswordButtonTheme by remember(theme) {
+        mutableStateOf(
+            value = theme.copy(
+                linkPrimary = theme.iconPrimary,
+                linkPrimaryHover = theme.iconPrimary
+            ),
+            policy = referentialEqualityPolicy()
+        )
+    }
+
+    CompositionLocalProvider(LocalCarbonTheme provides hidePasswordButtonTheme) {
+        IconButton(
+            iconPainter = rememberVectorPainter(icon),
+            buttonType = ButtonType.Ghost,
+            isEnabled = state != TextInputState.Disabled,
+            onClick = { onPasswordHiddenChange(!passwordHidden) },
+            modifier = modifier
+                .semantics { imageVectorName(icon.name) }
+                .testTag(TextInputTestTags.HIDE_PASSWORD_BUTTON)
+        )
+    }
 }

@@ -12,6 +12,9 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import carbon.compose.CarbonDesignSystem
+import carbon.compose.icons.viewIcon
+import carbon.compose.icons.viewOffIcon
+import carbon.compose.semantics.assertHasImageVector
 import carbon.compose.semantics.isReadOnly
 import org.junit.Rule
 import org.junit.Test
@@ -19,9 +22,9 @@ import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
 
 @RunWith(Parameterized::class)
-class TextInputTest(
-    private val variant: TextInputVariant,
+class PasswordInputTest(
     private val value: String,
+    private val passwordHidden: Boolean,
     private val placeholderText: String,
     private val helperText: String,
     private val state: TextInputState,
@@ -30,29 +33,24 @@ class TextInputTest(
     @get:Rule
     val composeTestRule = createComposeRule()
 
+    private val _viewIcon = viewIcon
+    private val _viewOffIcon = viewOffIcon
+
     @Test
-    fun textInput_validateLayout() {
+    @Suppress("CognitiveComplexMethod", "NestedBlockDepth")
+    fun passwordInput_validateLayout() {
         composeTestRule.setContent {
             CarbonDesignSystem {
-                when (variant) {
-                    TextInputVariant.INPUT -> TextInput(
-                        // The label is not parameterized as it's a mandatory element.
-                        label = "Label",
-                        value = value,
-                        onValueChange = {},
-                        placeholderText = placeholderText,
-                        helperText = helperText,
-                        state = state,
-                    )
-                    TextInputVariant.AREA -> TextArea(
-                        label = "Label",
-                        value = value,
-                        onValueChange = {},
-                        placeholderText = placeholderText,
-                        helperText = helperText,
-                        state = state,
-                    )
-                }
+                PasswordInput(
+                    label = "Label",
+                    value = value,
+                    passwordHidden = passwordHidden,
+                    state = state,
+                    placeholderText = placeholderText,
+                    helperText = helperText,
+                    onValueChange = {},
+                    onPasswordHiddenChange = {}
+                )
             }
         }
 
@@ -76,13 +74,25 @@ class TextInputTest(
                 onNodeWithTag(TextInputTestTags.PLACEHOLDER, useUnmergedTree = true)
                     .assertIsNotDisplayed()
 
-                onNodeWithText(value).assertIsDisplayed()
+                onNodeWithText(
+                    if (passwordHidden) exampleHiddenPassword else examplePassword
+                ).assertIsDisplayed()
             }
+
+            onNodeWithTag(TextInputTestTags.HIDE_PASSWORD_BUTTON, useUnmergedTree = true)
+                .assertIsDisplayed()
+                .run {
+                    if (passwordHidden) {
+                        assertHasImageVector(_viewIcon.name)
+                    } else {
+                        assertHasImageVector(_viewOffIcon.name)
+                    }
+                }
         }
     }
 
     @Test
-    fun textInput_validateSemantics() {
+    fun passwordInput_validateSemantics() {
         composeTestRule.setContent {
             CarbonDesignSystem {
                 TextInput(
@@ -117,33 +127,26 @@ class TextInputTest(
 
     companion object {
 
-        private val loremIpsum =
-            """
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
-                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud 
-                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute 
-                irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla 
-                pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia 
-                deserunt mollit anim id est laborum
-            """.trimIndent().replace("\n","")
+        const val examplePassword = "S0mePa55word%"
+        const val exampleHiddenPassword = "•••••••••••••"
 
         @Suppress("NestedBlockDepth")
         @JvmStatic
         @Parameterized.Parameters(
-            name = "textInputVariant={0}, value={1}, placeholderText={2}, helperText={3}, state={4}"
+            name = "value={0}, passwordHidden={1}, placeholderText={2}, helperText={3}, state={4}"
         )
         fun parameters(): Iterable<Array<Any?>> {
             val parameters = mutableListOf<Array<Any?>>()
 
-            TextInputVariant.entries.forEach { variant ->
-                listOf("", loremIpsum).forEach { value ->
+            listOf("", examplePassword).forEach { value ->
+                listOf(true, false).forEach { passwordHidden ->
                     listOf("", "Placeholder").forEach { placeholderText ->
                         listOf("", "Helper").forEach { helperText ->
                             TextInputState.entries.forEach { state ->
                                 parameters.add(
                                     arrayOf(
-                                        variant,
                                         value,
+                                        passwordHidden,
                                         placeholderText,
                                         helperText,
                                         state,
@@ -156,10 +159,6 @@ class TextInputTest(
             }
 
             return parameters
-        }
-
-        enum class TextInputVariant {
-            INPUT, AREA
         }
     }
 }

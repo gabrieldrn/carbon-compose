@@ -14,7 +14,14 @@ public object CarbonSemanticsProperties {
     /**
      * @see [readOnly]
      */
-    public val ReadOnly: SemanticsPropertyKey<Boolean> = SemanticsPropertyKey("ReadOnly")
+    public val ReadOnly: SemanticsPropertyKey<Boolean> =
+        SemanticsPropertyKey("ReadOnly")
+
+    /**
+     * @see [imageVectorName]
+     */
+    internal val ImageVectorName: SemanticsPropertyKey<String> =
+        SemanticsPropertyKey("ImageVectorName")
 
 }
 
@@ -23,4 +30,11 @@ public object CarbonSemanticsProperties {
  */
 public fun SemanticsPropertyReceiver.readOnly() {
     this[CarbonSemanticsProperties.ReadOnly] = true
+}
+
+/**
+ * Mark semantic node that contains an icon identified by its name.
+ */
+internal fun SemanticsPropertyReceiver.imageVectorName(name: String) {
+    this[CarbonSemanticsProperties.ImageVectorName] = name
 }

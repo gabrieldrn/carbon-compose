@@ -141,18 +141,31 @@ internal fun TextInputRoot(
     helperText: String,
     colors: TextInputColors,
     field: @Composable () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    counter: Pair<Int, Int>? = null,
 ) {
     Column(modifier = modifier) {
-        Text(
-            text = label,
-            style = CarbonTypography.label01,
-            color = colors.labelTextColor(state = state).value,
-            maxLines = 1,
-            modifier = Modifier
-                .padding(bottom = SpacingScale.spacing03)
-                .testTag(TextInputTestTags.LABEL)
-        )
+        Row(modifier = Modifier.padding(bottom = SpacingScale.spacing03)) {
+            Text(
+                text = label,
+                style = CarbonTypography.label01,
+                color = colors.labelTextColor(state = state).value,
+                maxLines = 1,
+                modifier = Modifier
+                    .weight(1f)
+                    .testTag(TextInputTestTags.LABEL)
+            )
+
+            if (counter != null) {
+                Text(
+                    text = "${counter.first}/${counter.second}",
+                    style = CarbonTypography.label01,
+                    color = colors.labelTextColor(state = state).value,
+                    maxLines = 1,
+                    modifier = Modifier.testTag(TextInputTestTags.COUNTER)
+                )
+            }
+        }
 
         field()
 

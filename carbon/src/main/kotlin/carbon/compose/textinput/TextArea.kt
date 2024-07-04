@@ -37,6 +37,8 @@ import carbon.compose.foundation.text.CarbonTypography
  * @param helperText Optional helper text is pertinent information that assists the user in
  * correctly completing a field. It is often used to explain the correct data format.
  * @param state The interactive state of the text input.
+ * @param counter Word/character counter values to be displayed next to the label. The first value
+ * is the current count and the second value is the maximum value.
  * @param keyboardOptions software keyboard options that contains configuration such as
  * [KeyboardType] and [ImeAction].
  * @param keyboardActions when the input service emits an IME action, the corresponding callback
@@ -62,6 +64,7 @@ public fun TextArea(
     placeholderText: String = "",
     helperText: String = "",
     state: TextInputState = TextInputState.Enabled,
+    counter: Pair<Int, Int>? = null,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
     maxLines: Int = Int.MAX_VALUE,
@@ -82,6 +85,7 @@ public fun TextArea(
         label = label,
         helperText = helperText,
         colors = colors,
+        counter = counter,
         field = {
             TextInputField(
                 value = value,
