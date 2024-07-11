@@ -683,7 +683,7 @@ public final class carbon/compose/loading/LoadingKt {
 }
 
 public final class carbon/compose/progressbar/ProgressBarKt {
-	public static final fun IndeterminateProgressBar (Landroidx/compose/ui/Modifier;Ljava/lang/String;Ljava/lang/String;ZZLcarbon/compose/progressbar/ProgressBarSize;Landroidx/compose/runtime/Composer;II)V
+	public static final fun IndeterminateProgressBar (Landroidx/compose/ui/Modifier;Ljava/lang/String;Ljava/lang/String;ZZLcarbon/compose/progressbar/ProgressBarState;Lcarbon/compose/progressbar/ProgressBarSize;Landroidx/compose/runtime/Composer;II)V
 	public static final fun ProgressBar (FLandroidx/compose/ui/Modifier;Ljava/lang/String;Ljava/lang/String;ZZLcarbon/compose/progressbar/ProgressBarState;Lcarbon/compose/progressbar/ProgressBarSize;Landroidx/compose/runtime/Composer;II)V
 }
 

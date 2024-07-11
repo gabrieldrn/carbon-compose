@@ -85,6 +85,7 @@ class ProgressBarTest(
                     labelText = labelText,
                     helperText = helperText,
                     inlined = inlined,
+                    state = state
                 )
             }
         }

@@ -82,6 +82,7 @@ public fun IndeterminateProgressBar(
     helperText: String? = null,
     indented: Boolean = false,
     inlined: Boolean = false,
+    state: ProgressBarState = ProgressBarState.Active,
     size: ProgressBarSize = ProgressBarSize.Big,
 ) {
     ProgressBarRootLayout(
@@ -90,6 +91,7 @@ public fun IndeterminateProgressBar(
         inlined = inlined,
         indented = indented,
         modifier = modifier.progressSemantics(),
+        state = state,
         trackContent = {
             IndeterminateProgressBarTrack(
                 size = size,
