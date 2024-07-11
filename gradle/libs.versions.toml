@@ -15,6 +15,7 @@ androidxEspresso = "3.6.1"
 androidxNavigation = "2.7.0-alpha07"
 androidxTestExtJunit = "1.2.1"
 kotlinxSerializationJson = "1.7.3"
+composeScreenshot = "0.0.1-alpha02"
 
 # Community libraries
 kotlinPoet = "1.18.0"
@@ -68,6 +69,7 @@ kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", versi
 binaryCompatibilityValidator = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "binaryCompatibilityValidator" }
 jetbrains-compose = { id = "org.jetbrains.compose", version.ref = "compose" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+compose-screenshot = { id = "com.android.compose.screenshot", version.ref = "composeScreenshot" }
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
 android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
 vanniktech-publish-plugin = { id = "com.vanniktech.maven.publish", version.ref = "publish-plugin" }

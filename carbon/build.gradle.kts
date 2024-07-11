@@ -7,6 +7,7 @@ import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 plugins {
     id("carbon.kmp.library")
     id("carbon.detekt")
+    alias(libs.plugins.compose.screenshot)
     alias(libs.plugins.vanniktech.publish.plugin)
     alias(libs.plugins.dokka)
 }
@@ -86,8 +87,9 @@ compose.resources {
 }
 
 android {
+    namespace = "carbon.compose"
 
-    namespace = "com.gabrieldrn.carbon"
+    experimentalProperties["android.experimental.enableScreenshotTest"] = true
 
     dependencies {
         debugImplementation(compose.uiTooling)
