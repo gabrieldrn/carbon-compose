@@ -22,6 +22,18 @@ internal class ButtonColors private constructor(
         ButtonType.GhostDanger -> Color.Transparent
     }
 
+    val containerBorderColor: Color = when (buttonType) {
+        ButtonType.Tertiary -> theme.buttonTertiary
+        ButtonType.TertiaryDanger -> theme.buttonDangerSecondary
+        else -> Color.Transparent
+    }
+
+    val containerBorderDisabledColor: Color = when (buttonType) {
+        ButtonType.Tertiary,
+        ButtonType.TertiaryDanger -> theme.buttonDisabled
+        else -> Color.Transparent
+    }
+
     val containerActiveColor: Color = when (buttonType) {
         ButtonType.Primary -> theme.buttonPrimaryActive
         ButtonType.Secondary -> theme.buttonSecondaryActive

@@ -28,6 +28,24 @@ class ButtonColorsTest : BaseColorsTest() {
 
             assertEquals(
                 expected = when (buttonType) {
+                    ButtonType.Tertiary -> theme.buttonTertiary
+                    ButtonType.TertiaryDanger -> theme.buttonDangerSecondary
+                    else -> Color.Transparent
+                },
+                actual = colors.containerBorderColor
+            )
+
+            assertEquals(
+                expected = when (buttonType) {
+                    ButtonType.Tertiary,
+                    ButtonType.TertiaryDanger -> theme.buttonDisabled
+                    else -> Color.Transparent
+                },
+                actual = colors.containerBorderDisabledColor
+            )
+
+            assertEquals(
+                expected = when (buttonType) {
                     ButtonType.Primary -> theme.buttonPrimaryActive
                     ButtonType.Secondary -> theme.buttonSecondaryActive
                     ButtonType.Tertiary -> theme.buttonTertiaryActive
