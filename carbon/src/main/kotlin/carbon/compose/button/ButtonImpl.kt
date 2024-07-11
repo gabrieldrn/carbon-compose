@@ -31,7 +31,6 @@ import androidx.compose.ui.platform.debugInspectorInfo
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import carbon.compose.button.ButtonSize.Companion.getContainerPaddings
-import carbon.compose.foundation.color.LocalCarbonTheme
 import carbon.compose.foundation.motion.Motion
 import carbon.compose.foundation.spacing.SpacingScale
 import carbon.compose.foundation.text.CarbonTypography
@@ -75,7 +74,7 @@ internal fun ButtonRowImpl(
         )
     }
 
-    LaunchedEffect(interactionSource, containerColor, colors) {
+    LaunchedEffect(interactionSource, isEnabled, containerColor, colors) {
         interactionSource.interactions.collect {
             if (!isEnabled) return@collect
             containerColor.stop()
@@ -140,8 +139,6 @@ internal fun Label(
     interactionSource: MutableInteractionSource,
     modifier: Modifier = Modifier,
 ) {
-    val theme = LocalCarbonTheme.current
-
     val animatedLabelTextColor = remember(colors) { Animatable(colors.labelColor) }
 
     LaunchedEffect(isEnabled, colors) {
@@ -151,7 +148,7 @@ internal fun Label(
         )
     }
 
-    LaunchedEffect(theme, animatedLabelTextColor, colors) {
+    LaunchedEffect(animatedLabelTextColor, isEnabled, colors) {
         interactionSource
             .interactions
             .collect { interaction ->
@@ -188,8 +185,6 @@ internal fun ButtonIcon(
     interactionSource: MutableInteractionSource,
     modifier: Modifier = Modifier,
 ) {
-    val theme = LocalCarbonTheme.current
-
     val animatedIconColor = remember(colors) { Animatable(colors.iconColor) }
 
     LaunchedEffect(isEnabled, colors) {
@@ -199,7 +194,7 @@ internal fun ButtonIcon(
         )
     }
 
-    LaunchedEffect(theme, animatedIconColor, colors) {
+    LaunchedEffect(animatedIconColor, isEnabled, colors) {
         interactionSource
             .interactions
             .collect { interaction ->
