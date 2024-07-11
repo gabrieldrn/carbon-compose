@@ -3,7 +3,7 @@
 # Carbon | Jetpack Compose
 
 [![Kotlin](https://img.shields.io/badge/1.9.23-blue?logo=kotlin&logoColor=white&color=7F52FF)](http://kotlinlang.org)
-[![Jetpack Compose](https://img.shields.io/badge/1.6.6-green?logo=jetpackcompose&logoColor=white&color=4285F4)](https://developer.android.com/jetpack/compose)
+[![Jetpack Compose](https://img.shields.io/badge/1.6.8-green?logo=jetpackcompose&logoColor=white&color=4285F4)](https://developer.android.com/jetpack/compose)
 
 [![CI | compile & tests](https://github.com/gabrieldrn/carbon-compose/actions/workflows/ci-lib-workflow.yml/badge.svg)](https://github.com/gabrieldrn/carbon-compose/actions/workflows/ci-lib-workflow.yml)
 
