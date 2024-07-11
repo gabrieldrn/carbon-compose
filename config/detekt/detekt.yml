@@ -72,6 +72,7 @@ comments:
       - '**/androidUnitTest/**'
       - '**/androidInstrumentedTest/**'
       - '**/commonTest/**'
+      - '**/screenshotTest/**'
       - '**/jvmTest/**'
       - '**/jsTest/**'
       - '**/nativeTest/**'
