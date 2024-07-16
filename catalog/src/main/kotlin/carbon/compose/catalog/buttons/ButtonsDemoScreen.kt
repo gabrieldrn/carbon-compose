@@ -24,10 +24,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import carbon.compose.Carbon
 import carbon.compose.button.Button
+import carbon.compose.button.ButtonSize
 import carbon.compose.button.ButtonType
 import carbon.compose.button.IconButton
 import carbon.compose.catalog.R
 import carbon.compose.dropdown.Dropdown
+import carbon.compose.dropdown.base.DropdownInteractiveState
 import carbon.compose.dropdown.base.DropdownOption
 import carbon.compose.foundation.color.CarbonLayer
 import carbon.compose.foundation.color.containerBackground
@@ -37,10 +39,12 @@ import carbon.compose.toggle.Toggle
 
 private enum class ButtonVariant { Default, Icon }
 
-private val buttonTypes = ButtonType.entries.associateWith { DropdownOption(it.name) }
 private val buttonVariants = ButtonVariant.entries.associateWith { DropdownOption(it.name) }
+private val buttonTypes = ButtonType.entries.associateWith { DropdownOption(it.name) }
+private val buttonSizes = ButtonSize.entries.associateWith { DropdownOption(it.name) }
 
 @Composable
+@Suppress("DEPRECATION")
 fun ButtonDemoScreen(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
@@ -50,8 +54,9 @@ fun ButtonDemoScreen(modifier: Modifier = Modifier) {
             .padding(WindowInsets.navigationBars.asPaddingValues()),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        var buttonType by rememberSaveable { mutableStateOf(ButtonType.Primary) }
         var buttonVariant by rememberSaveable { mutableStateOf(buttonVariants.keys.first()) }
+        var buttonType by rememberSaveable { mutableStateOf(ButtonType.Primary) }
+        var buttonSize by rememberSaveable { mutableStateOf(ButtonSize.LargeProductive) }
         var isEnabled by rememberSaveable { mutableStateOf(true) }
 
         Box(
@@ -67,16 +72,17 @@ fun ButtonDemoScreen(modifier: Modifier = Modifier) {
                 ButtonVariant.Default -> Button(
                     label = buttonType.name,
                     onClick = {},
-                    buttonType = buttonType,
-                    isEnabled = isEnabled,
+                    modifier = Modifier.fillMaxWidth(),
                     iconPainter = icon,
-                    modifier = Modifier.fillMaxWidth()
+                    isEnabled = isEnabled,
+                    buttonType = buttonType,
+                    buttonSize = buttonSize
                 )
                 ButtonVariant.Icon -> IconButton(
                     onClick = {},
-                    buttonType = buttonType,
-                    isEnabled = isEnabled,
                     iconPainter = icon,
+                    isEnabled = isEnabled,
+                    buttonType = buttonType,
                 )
             }
         }
@@ -87,14 +93,26 @@ fun ButtonDemoScreen(modifier: Modifier = Modifier) {
                     .padding(SpacingScale.spacing05)
                     .containerBackground()
                     .padding(SpacingScale.spacing05),
-                verticalArrangement = Arrangement.spacedBy(SpacingScale.spacing03)
+                verticalArrangement = Arrangement.spacedBy(SpacingScale.spacing04)
             ) {
-                var buttonTypeDropdownExpanded by rememberSaveable { mutableStateOf(false) }
                 var buttonVariantDropdownExpanded by rememberSaveable { mutableStateOf(false) }
+                var buttonTypeDropdownExpanded by rememberSaveable { mutableStateOf(false) }
+                var buttonSizeDropdownExpanded by rememberSaveable { mutableStateOf(false) }
 
                 BasicText(
                     text = "Configuration",
                     style = CarbonTypography.heading02.copy(color = Carbon.theme.textPrimary)
+                )
+
+                Dropdown(
+                    label = "Button variant",
+                    expanded = buttonVariantDropdownExpanded,
+                    placeholder = "Choose option",
+                    options = buttonVariants,
+                    selectedOption = buttonVariant,
+                    onOptionSelected = { buttonVariant = it },
+                    onExpandedChange = { buttonVariantDropdownExpanded = it },
+                    onDismissRequest = { buttonVariantDropdownExpanded = false }
                 )
 
                 Dropdown(
@@ -109,18 +127,27 @@ fun ButtonDemoScreen(modifier: Modifier = Modifier) {
                 )
 
                 Dropdown(
-                    label = "Button variant",
-                    expanded = buttonVariantDropdownExpanded,
+                    label = "Button size",
+                    expanded = buttonSizeDropdownExpanded,
                     placeholder = "Choose option",
-                    options = buttonVariants,
-                    selectedOption = buttonVariant,
-                    onOptionSelected = { buttonVariant = it },
-                    onExpandedChange = { buttonVariantDropdownExpanded = it },
-                    onDismissRequest = { buttonVariantDropdownExpanded = false }
+                    options = buttonSizes,
+                    selectedOption = buttonSize,
+                    state = when {
+                        buttonVariant == ButtonVariant.Icon ->
+                            DropdownInteractiveState.Disabled
+                        buttonSize == ButtonSize.Small ||
+                        buttonSize == ButtonSize.Medium ->
+                            DropdownInteractiveState.Warning("Discouraged size usage")
+                        else ->
+                            DropdownInteractiveState.Enabled
+                    },
+                    onOptionSelected = { buttonSize = it },
+                    onExpandedChange = { buttonSizeDropdownExpanded = it },
+                    onDismissRequest = { buttonSizeDropdownExpanded = false }
                 )
 
                 Toggle(
-                    label = "Enable buttons",
+                    label = "Enable button",
                     isToggled = isEnabled,
                     onToggleChange = { isEnabled = it },
                 )
