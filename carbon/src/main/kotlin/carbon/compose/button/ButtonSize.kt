@@ -14,7 +14,7 @@ import carbon.compose.foundation.spacing.SpacingScale
  *
  * @property height The height of the button in dp.
  */
-public sealed class ButtonSize(internal val height: Dp) {
+public enum class ButtonSize(internal val height: Dp) {
 
     /**
      * Use when there is not enough vertical space for the default or field-sized button.
@@ -23,7 +23,7 @@ public sealed class ButtonSize(internal val height: Dp) {
         SMALL_TOUCH_TARGET_SIZE_MESSAGE,
         ReplaceWith("LargeProductive")
     )
-    public data object Small : ButtonSize(height = 32.dp)
+    Small(height = 32.dp),
 
     /**
      * Use when buttons are paired with input fields.
@@ -32,60 +32,31 @@ public sealed class ButtonSize(internal val height: Dp) {
         SMALL_TOUCH_TARGET_SIZE_MESSAGE,
         ReplaceWith("LargeProductive")
     )
-    public data object Medium : ButtonSize(height = 40.dp)
+    Medium(height = 40.dp),
 
     /**
      * This is the most common button size.
      */
-    public data object LargeProductive : ButtonSize(height = 48.dp)
+    LargeProductive(height = 48.dp),
 
     /**
      * The larger expressive type size within this button provides balance when used with 16sp body
      * copy. Used by the IBM.com team in website banners.
      */
-    public data object LargeExpressive : ButtonSize(height = 48.dp)
+    LargeExpressive(height = 48.dp),
 
     /**
      * Use when buttons bleed to the edge of a larger component, like side panels or modals.
-     *
-     * Carbon only offers this button in the context of the modal component.
      */
-    internal data object ExtraLarge : ButtonSize(height = 64.dp)
+    ExtraLarge(height = 64.dp),
 
     /**
      * Use when buttons bleed to the edge of a larger component, like side panels or modals.
-     *
-     * Carbon only offers this button in the context of the modal component.
      */
-    internal data object TwiceExtraLarge : ButtonSize(height = 80.dp)
+    TwiceExtraLarge(height = 80.dp);
 
-    internal companion object {
-        val ButtonSize.isExtraLarge get() = this == ExtraLarge || this == TwiceExtraLarge
-
-        @Suppress("DEPRECATION")
-        val values: Array<ButtonSize> = arrayOf(
-            Small,
-            Medium,
-            LargeProductive,
-            LargeExpressive,
-            ExtraLarge,
-            TwiceExtraLarge
-        )
-
-        @Suppress("DEPRECATION")
-        fun valueOf(value: String): ButtonSize {
-            return when (value) {
-                "Small" -> Small
-                "Medium" -> Medium
-                "LargeProductive" -> LargeProductive
-                "LargeExpressive" -> LargeExpressive
-                "ExtraLarge" -> ExtraLarge
-                "TwiceExtraLarge" -> TwiceExtraLarge
-                else -> throw IllegalArgumentException(
-                    "No object carbon.compose.button.ButtonSize.$value"
-                )
-            }
-        }
+    public companion object {
+        internal val ButtonSize.isExtraLarge get() = this == ExtraLarge || this == TwiceExtraLarge
 
         @Suppress("DEPRECATION")
         internal fun ButtonSize.getContainerPaddings(): PaddingValues = when (this) {
