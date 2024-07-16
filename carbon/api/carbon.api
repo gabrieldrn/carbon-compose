@@ -57,7 +57,7 @@ public final class carbon/compose/dropdown/DropdownKt {
 	public static final fun Dropdown (ZLjava/lang/String;Ljava/util/Map;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Ljava/lang/String;Lcarbon/compose/dropdown/base/DropdownInteractiveState;Lcarbon/compose/dropdown/base/DropdownSize;ILandroidx/compose/runtime/Composer;III)V
 }
 
-public abstract interface class carbon/compose/dropdown/base/DropdownInteractiveState {
+public abstract interface class carbon/compose/dropdown/base/DropdownInteractiveState : java/io/Serializable {
 	public static final field Companion Lcarbon/compose/dropdown/base/DropdownInteractiveState$Companion;
 }
 

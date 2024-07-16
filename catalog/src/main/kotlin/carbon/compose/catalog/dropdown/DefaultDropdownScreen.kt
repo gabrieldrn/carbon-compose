@@ -1,11 +1,13 @@
 package carbon.compose.catalog.dropdown
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
@@ -16,8 +18,11 @@ import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import carbon.compose.Carbon
 import carbon.compose.catalog.misc.LayerSelectionDropdown
 import carbon.compose.dropdown.Dropdown
@@ -44,12 +49,20 @@ private val dropdownOptions: Map<Int, DropdownOption> = (0..9)
         set(2, DropdownOption("Disabled", enabled = false))
     }
 
+private val dropdownStates = listOf(
+    DropdownInteractiveState.Enabled,
+    DropdownInteractiveState.Warning("Warning message goes here"),
+    DropdownInteractiveState.Error("Error message goes here"),
+    DropdownInteractiveState.Disabled,
+    DropdownInteractiveState.ReadOnly,
+).associateWith { DropdownOption(it::class.java.simpleName) }
+
 private val layersOptions =
     Layer.entries.associateWith { DropdownOption(it.toString(), enabled = it != Layer.Layer03) }
 
 @Composable
 internal fun DefaultDropdownScreen(modifier: Modifier = Modifier) {
-    var layer by remember { mutableStateOf(Layer.Layer00) }
+    var layer by rememberSaveable { mutableStateOf(Layer.Layer00) }
 
     Column(
         modifier = modifier
@@ -58,34 +71,28 @@ internal fun DefaultDropdownScreen(modifier: Modifier = Modifier) {
             .verticalScroll(state = rememberScrollState())
             .padding(WindowInsets.navigationBars.asPaddingValues())
     ) {
+        var dropdownState by rememberSaveable {
+            mutableStateOf<DropdownInteractiveState>(DropdownInteractiveState.Enabled)
+        }
+
         CarbonLayer(layer = layer) {
-            Column(
+            Box(
                 modifier = Modifier
                     .fillMaxWidth()
+                    .height(200.dp)
                     .containerBackground()
                     .padding(SpacingScale.spacing05),
-                verticalArrangement = Arrangement.spacedBy(SpacingScale.spacing05)
+                contentAlignment = Alignment.Center
             ) {
-                DemoDropdown(title = "Dropdown")
+                var selectedOption by remember { mutableStateOf<Int?>(null) }
 
-                DemoDropdown(
-                    title = "Warning dropdown",
-                    state = DropdownInteractiveState.Warning("Warning message goes here"),
-                )
-
-                DemoDropdown(
-                    title = "Error dropdown",
-                    state = DropdownInteractiveState.Error("Error message goes here"),
-                )
-
-                DemoDropdown(
-                    title = "Disabled dropdown",
-                    state = DropdownInteractiveState.Disabled,
-                )
-
-                DemoDropdown(
-                    title = "Read-only dropdown",
-                    state = DropdownInteractiveState.ReadOnly,
+                Dropdown(
+                    label = "Dropdown",
+                    placeholder = "${dropdownState::class.java.simpleName} dropdown",
+                    selectedOption = selectedOption,
+                    options = dropdownOptions,
+                    onOptionSelected = { selectedOption = it },
+                    state = dropdownState,
                 )
             }
         }
@@ -95,11 +102,20 @@ internal fun DefaultDropdownScreen(modifier: Modifier = Modifier) {
                 modifier = Modifier
                     .padding(SpacingScale.spacing05)
                     .containerBackground()
-                    .padding(SpacingScale.spacing05)
+                    .padding(SpacingScale.spacing05),
+                verticalArrangement = Arrangement.spacedBy(SpacingScale.spacing04)
             ) {
                 BasicText(
                     text = "Configuration",
                     style = CarbonTypography.heading02.copy(color = Carbon.theme.textPrimary)
+                )
+
+                Dropdown(
+                    placeholder = "Choose option",
+                    label = "Dropdown state",
+                    options = dropdownStates,
+                    selectedOption = dropdownState,
+                    onOptionSelected = { dropdownState = it },
                 )
 
                 LayerSelectionDropdown(
@@ -111,27 +127,4 @@ internal fun DefaultDropdownScreen(modifier: Modifier = Modifier) {
             }
         }
     }
-}
-
-@Composable
-private fun DemoDropdown(
-    title: String,
-    modifier: Modifier = Modifier,
-    state: DropdownInteractiveState = DropdownInteractiveState.Enabled,
-) {
-    var selectedOption by remember { mutableStateOf<Int?>(null) }
-    var expanded by remember { mutableStateOf(false) }
-
-    Dropdown(
-        label = "Dropdown",
-        expanded = expanded,
-        placeholder = title,
-        selectedOption = selectedOption,
-        options = dropdownOptions,
-        onOptionSelected = { selectedOption = it },
-        onExpandedChange = { expanded = it },
-        onDismissRequest = { expanded = false },
-        state = state,
-        modifier = modifier,
-    )
 }
