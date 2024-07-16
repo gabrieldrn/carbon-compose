@@ -16,7 +16,7 @@ private class ButtonPreviewParameterProvider :
 
     override val values: Sequence<Pair<ButtonType, ButtonSize>>
         get() = ButtonType.entries.flatMap { type ->
-            ButtonSize.values.map { size -> type to size }
+            ButtonSize.entries.map { size -> type to size }
         }.asSequence()
 }
 

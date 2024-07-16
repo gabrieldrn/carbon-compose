@@ -14,41 +14,20 @@ public final class carbon/compose/button/ButtonKt {
 	public static final fun Button (Ljava/lang/String;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Landroidx/compose/ui/graphics/painter/Painter;ZLcarbon/compose/button/ButtonType;Lcarbon/compose/button/ButtonSize;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;II)V
 }
 
-public abstract class carbon/compose/button/ButtonSize {
-	public static final field $stable I
-	public synthetic fun <init> (FLkotlin/jvm/internal/DefaultConstructorMarker;)V
+public final class carbon/compose/button/ButtonSize : java/lang/Enum {
+	public static final field Companion Lcarbon/compose/button/ButtonSize$Companion;
+	public static final field ExtraLarge Lcarbon/compose/button/ButtonSize;
+	public static final field LargeExpressive Lcarbon/compose/button/ButtonSize;
+	public static final field LargeProductive Lcarbon/compose/button/ButtonSize;
+	public static final field Medium Lcarbon/compose/button/ButtonSize;
+	public static final field Small Lcarbon/compose/button/ButtonSize;
+	public static final field TwiceExtraLarge Lcarbon/compose/button/ButtonSize;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcarbon/compose/button/ButtonSize;
+	public static fun values ()[Lcarbon/compose/button/ButtonSize;
 }
 
-public final class carbon/compose/button/ButtonSize$LargeExpressive : carbon/compose/button/ButtonSize {
-	public static final field $stable I
-	public static final field INSTANCE Lcarbon/compose/button/ButtonSize$LargeExpressive;
-	public fun equals (Ljava/lang/Object;)Z
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
-}
-
-public final class carbon/compose/button/ButtonSize$LargeProductive : carbon/compose/button/ButtonSize {
-	public static final field $stable I
-	public static final field INSTANCE Lcarbon/compose/button/ButtonSize$LargeProductive;
-	public fun equals (Ljava/lang/Object;)Z
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
-}
-
-public final class carbon/compose/button/ButtonSize$Medium : carbon/compose/button/ButtonSize {
-	public static final field $stable I
-	public static final field INSTANCE Lcarbon/compose/button/ButtonSize$Medium;
-	public fun equals (Ljava/lang/Object;)Z
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
-}
-
-public final class carbon/compose/button/ButtonSize$Small : carbon/compose/button/ButtonSize {
-	public static final field $stable I
-	public static final field INSTANCE Lcarbon/compose/button/ButtonSize$Small;
-	public fun equals (Ljava/lang/Object;)Z
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
+public final class carbon/compose/button/ButtonSize$Companion {
 }
 
 public final class carbon/compose/button/ButtonType : java/lang/Enum {
