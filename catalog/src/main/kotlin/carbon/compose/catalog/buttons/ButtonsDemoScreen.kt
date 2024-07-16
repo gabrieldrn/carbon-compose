@@ -30,7 +30,7 @@ import carbon.compose.button.IconButton
 import carbon.compose.catalog.R
 import carbon.compose.dropdown.Dropdown
 import carbon.compose.dropdown.base.DropdownInteractiveState
-import carbon.compose.dropdown.base.DropdownOption
+import carbon.compose.dropdown.base.toDropdownOptions
 import carbon.compose.foundation.color.CarbonLayer
 import carbon.compose.foundation.color.containerBackground
 import carbon.compose.foundation.spacing.SpacingScale
@@ -39,9 +39,9 @@ import carbon.compose.toggle.Toggle
 
 private enum class ButtonVariant { Default, Icon }
 
-private val buttonVariants = ButtonVariant.entries.associateWith { DropdownOption(it.name) }
-private val buttonTypes = ButtonType.entries.associateWith { DropdownOption(it.name) }
-private val buttonSizes = ButtonSize.entries.associateWith { DropdownOption(it.name) }
+private val buttonVariants = ButtonVariant.entries.toDropdownOptions()
+private val buttonTypes = ButtonType.entries.toDropdownOptions()
+private val buttonSizes = ButtonSize.entries.toDropdownOptions()
 
 @Composable
 @Suppress("DEPRECATION")
@@ -95,10 +95,6 @@ fun ButtonDemoScreen(modifier: Modifier = Modifier) {
                     .padding(SpacingScale.spacing05),
                 verticalArrangement = Arrangement.spacedBy(SpacingScale.spacing04)
             ) {
-                var buttonVariantDropdownExpanded by rememberSaveable { mutableStateOf(false) }
-                var buttonTypeDropdownExpanded by rememberSaveable { mutableStateOf(false) }
-                var buttonSizeDropdownExpanded by rememberSaveable { mutableStateOf(false) }
-
                 BasicText(
                     text = "Configuration",
                     style = CarbonTypography.heading02.copy(color = Carbon.theme.textPrimary)
@@ -106,29 +102,22 @@ fun ButtonDemoScreen(modifier: Modifier = Modifier) {
 
                 Dropdown(
                     label = "Button variant",
-                    expanded = buttonVariantDropdownExpanded,
                     placeholder = "Choose option",
                     options = buttonVariants,
                     selectedOption = buttonVariant,
                     onOptionSelected = { buttonVariant = it },
-                    onExpandedChange = { buttonVariantDropdownExpanded = it },
-                    onDismissRequest = { buttonVariantDropdownExpanded = false }
                 )
 
                 Dropdown(
                     label = "Button type",
-                    expanded = buttonTypeDropdownExpanded,
                     placeholder = "Choose option",
                     options = buttonTypes,
                     selectedOption = buttonType,
                     onOptionSelected = { buttonType = it },
-                    onExpandedChange = { buttonTypeDropdownExpanded = it },
-                    onDismissRequest = { buttonTypeDropdownExpanded = false }
                 )
 
                 Dropdown(
                     label = "Button size",
-                    expanded = buttonSizeDropdownExpanded,
                     placeholder = "Choose option",
                     options = buttonSizes,
                     selectedOption = buttonSize,
@@ -142,8 +131,6 @@ fun ButtonDemoScreen(modifier: Modifier = Modifier) {
                             DropdownInteractiveState.Enabled
                     },
                     onOptionSelected = { buttonSize = it },
-                    onExpandedChange = { buttonSizeDropdownExpanded = it },
-                    onDismissRequest = { buttonSizeDropdownExpanded = false }
                 )
 
                 Toggle(

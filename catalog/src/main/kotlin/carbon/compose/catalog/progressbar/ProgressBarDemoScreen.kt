@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import carbon.compose.dropdown.Dropdown
 import carbon.compose.dropdown.base.DropdownInteractiveState
 import carbon.compose.dropdown.base.DropdownOption
+import carbon.compose.dropdown.base.toDropdownOptions
 import carbon.compose.foundation.color.CarbonLayer
 import carbon.compose.foundation.color.containerBackground
 import carbon.compose.foundation.spacing.SpacingScale
@@ -30,18 +31,14 @@ import carbon.compose.progressbar.ProgressBarSize
 import carbon.compose.progressbar.ProgressBarState
 import carbon.compose.toggle.Toggle
 
-private val progressBarStateOptions = ProgressBarState
-    .entries
-    .associateWith { DropdownOption(it.name) }
+private val progressBarStateOptions = ProgressBarState.entries.toDropdownOptions()
 
 private val progressBarVariantOptions = mapOf(
     false to DropdownOption("Determinate"),
     true to DropdownOption("Indeterminate")
 )
 
-private val progressBarSizeOptions = ProgressBarSize
-    .entries
-    .associateWith { DropdownOption(it.name) }
+private val progressBarSizeOptions = ProgressBarSize.entries.toDropdownOptions()
 
 @Composable
 fun ProgressBarDemoScreen(modifier: Modifier = Modifier) {
@@ -51,15 +48,12 @@ fun ProgressBarDemoScreen(modifier: Modifier = Modifier) {
     var isInlined by remember { mutableStateOf(false) }
     var isIndented by remember { mutableStateOf(false) }
     val isIndentedToggleEnabled by remember { derivedStateOf { !isInlined } }
-    var progressBarVariantDropdownExpanded by remember { mutableStateOf(false) }
-    var progressBarStateDropdownExpanded by remember { mutableStateOf(false) }
     val progressBarStateState by remember {
         derivedStateOf {
             if (isIndeterminate) DropdownInteractiveState.Disabled
             else DropdownInteractiveState.Enabled
         }
     }
-    var progressBarSizeDropdownExpanded by remember { mutableStateOf(false) }
     val progressBarSizeDropdownState by remember {
         derivedStateOf {
             if (isInlined && state in arrayOf(ProgressBarState.Success, ProgressBarState.Error)) {
@@ -110,38 +104,29 @@ fun ProgressBarDemoScreen(modifier: Modifier = Modifier) {
                 verticalArrangement = Arrangement.spacedBy(SpacingScale.spacing05)
             ) {
                 Dropdown(
-                    expanded = progressBarVariantDropdownExpanded,
                     placeholder = "Progress bar variant",
                     label = "Variant",
                     options = progressBarVariantOptions,
                     selectedOption = isIndeterminate,
                     onOptionSelected = { option -> isIndeterminate = option },
-                    onExpandedChange = { progressBarVariantDropdownExpanded = it },
-                    onDismissRequest = { progressBarVariantDropdownExpanded = false }
                 )
 
                 Dropdown(
-                    expanded = progressBarStateDropdownExpanded,
                     placeholder = "Progress bar state",
                     label = "State",
                     options = progressBarStateOptions,
                     selectedOption = state,
                     state = progressBarStateState,
                     onOptionSelected = { option -> state = option },
-                    onExpandedChange = { progressBarStateDropdownExpanded = it },
-                    onDismissRequest = { progressBarStateDropdownExpanded = false }
                 )
 
                 Dropdown(
-                    expanded = progressBarSizeDropdownExpanded,
                     placeholder = "Progress bar size",
                     label = "Size",
                     options = progressBarSizeOptions,
                     selectedOption = size,
                     state = progressBarSizeDropdownState,
                     onOptionSelected = { option -> size = option },
-                    onExpandedChange = { progressBarSizeDropdownExpanded = it },
-                    onDismissRequest = { progressBarSizeDropdownExpanded = false }
                 )
 
                 Toggle(
