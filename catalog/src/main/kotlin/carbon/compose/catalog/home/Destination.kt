@@ -11,7 +11,7 @@ import carbon.compose.catalog.radiobutton.LoadingDemoScreen
 import carbon.compose.catalog.radiobutton.RadioButtonDemoScreen
 import carbon.compose.catalog.textinput.TextInputDemoScreen
 import carbon.compose.catalog.toggle.ToggleDemoScreen
-import carbon.compose.progressbar.ProgressBarDemoScreen
+import carbon.compose.catalog.progressbar.ProgressBarDemoScreen
 
 @Suppress("UndocumentedPublicClass", "UndocumentedPublicProperty")
 enum class Destination(

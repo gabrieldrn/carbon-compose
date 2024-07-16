@@ -1,4 +1,4 @@
-package carbon.compose.progressbar
+package carbon.compose.catalog.progressbar
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -24,6 +24,10 @@ import carbon.compose.dropdown.base.DropdownOption
 import carbon.compose.foundation.color.CarbonLayer
 import carbon.compose.foundation.color.containerBackground
 import carbon.compose.foundation.spacing.SpacingScale
+import carbon.compose.progressbar.IndeterminateProgressBar
+import carbon.compose.progressbar.ProgressBar
+import carbon.compose.progressbar.ProgressBarSize
+import carbon.compose.progressbar.ProgressBarState
 import carbon.compose.toggle.Toggle
 
 private val progressBarStateOptions = ProgressBarState
