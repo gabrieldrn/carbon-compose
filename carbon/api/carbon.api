@@ -142,6 +142,7 @@ public final class carbon/compose/dropdown/base/DropdownSize : java/lang/Enum {
 }
 
 public final class carbon/compose/dropdown/multiselect/MultiselectDropdownKt {
+	public static final fun MultiselectDropdown (Ljava/lang/String;Ljava/util/Map;Ljava/util/List;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Ljava/lang/String;Lcarbon/compose/dropdown/base/DropdownInteractiveState;Lcarbon/compose/dropdown/base/DropdownSize;ILandroidx/compose/runtime/Composer;II)V
 	public static final fun MultiselectDropdown (ZLjava/lang/String;Ljava/util/Map;Ljava/util/List;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Ljava/lang/String;Lcarbon/compose/dropdown/base/DropdownInteractiveState;Lcarbon/compose/dropdown/base/DropdownSize;ILandroidx/compose/runtime/Composer;III)V
 }
 

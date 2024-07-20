@@ -14,10 +14,8 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -34,21 +32,6 @@ import carbon.compose.foundation.color.containerBackground
 import carbon.compose.foundation.spacing.SpacingScale
 import carbon.compose.foundation.text.CarbonTypography
 
-@Stable
-private val dropdownOptions: Map<Int, DropdownOption> = (0..9)
-    .associateWith { DropdownOption("Option $it") }
-    .toMutableMap()
-    .apply {
-        set(
-            1, DropdownOption(
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. " +
-                    "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris " +
-                    "nisi ut aliquip ex ea commodo consequat."
-            )
-        )
-        set(2, DropdownOption("Disabled", enabled = false))
-    }
-
 private val dropdownStates = listOf(
     DropdownInteractiveState.Enabled,
     DropdownInteractiveState.Warning("Warning message goes here"),
@@ -61,7 +44,10 @@ private val layersOptions =
     Layer.entries.associateWith { DropdownOption(it.toString(), enabled = it != Layer.Layer03) }
 
 @Composable
-internal fun DefaultDropdownScreen(modifier: Modifier = Modifier) {
+internal fun DropdownDemoScreen(
+    variant: DropdownVariant,
+    modifier: Modifier = Modifier
+) {
     var layer by rememberSaveable { mutableStateOf(Layer.Layer00) }
 
     Column(
@@ -84,16 +70,10 @@ internal fun DefaultDropdownScreen(modifier: Modifier = Modifier) {
                     .padding(SpacingScale.spacing05),
                 contentAlignment = Alignment.Center
             ) {
-                var selectedOption by remember { mutableStateOf<Int?>(null) }
-
-                Dropdown(
-                    label = "Dropdown",
-                    placeholder = "${dropdownState::class.java.simpleName} dropdown",
-                    selectedOption = selectedOption,
-                    options = dropdownOptions,
-                    onOptionSelected = { selectedOption = it },
-                    state = dropdownState,
-                )
+                when (variant) {
+                    DropdownVariant.Default -> DefaultDemoDropdown(state = dropdownState)
+                    DropdownVariant.Multiselect -> MultiselectDemoDropdown(state = dropdownState)
+                }
             }
         }
 

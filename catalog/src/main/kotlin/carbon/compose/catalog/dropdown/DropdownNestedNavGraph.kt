@@ -46,7 +46,7 @@ fun NavGraphBuilder.dropdownNavigation(
         enterTransition = { navigationEnterSlideInTransition },
         exitTransition = { navigationExitSlideOutTransition },
     ) {
-        DefaultDropdownScreen()
+        DropdownDemoScreen(DropdownVariant.Default)
     }
 
     composable(
@@ -54,6 +54,6 @@ fun NavGraphBuilder.dropdownNavigation(
         enterTransition = { navigationEnterSlideInTransition },
         exitTransition = { navigationExitSlideOutTransition },
     ) {
-        MultiselectDropdownScreen()
+        DropdownDemoScreen(DropdownVariant.Multiselect)
     }
 }
