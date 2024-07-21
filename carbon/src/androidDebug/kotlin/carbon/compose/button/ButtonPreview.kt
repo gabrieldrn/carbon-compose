@@ -29,7 +29,7 @@ private class IconButtonPreviewParameterProvider :
 
 @Preview(group = "All")
 @Composable
-private fun ButtonPreview(
+fun ButtonPreview(
     @PreviewParameter(ButtonPreviewParameterProvider::class)
     combination: Pair<ButtonType, ButtonSize>,
 ) {

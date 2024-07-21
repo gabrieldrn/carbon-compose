@@ -69,9 +69,8 @@ comments:
   KDocReferencesNonPublicProperty:
     active: false
     excludes: &folders
-      - '**/test/**'
-      - '**/debug/**'
-      - '**/androidTest/**'
+      - '**/androidUnitTest/**'
+      - '**/androidInstrumentedTest/**'
       - '**/commonTest/**'
       - '**/jvmTest/**'
       - '**/jsTest/**'
