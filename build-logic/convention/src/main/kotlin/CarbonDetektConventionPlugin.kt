@@ -16,6 +16,12 @@ class CarbonDetektConventionPlugin : Plugin<Project> {
         pluginManager.apply(libs.getPlugin("detekt"))
 
         extensions.configure<DetektExtension> {
+            source.setFrom(
+                "src/main/kotlin",
+                "src/commonMain/kotlin",
+                "src/androidMain/kotlin",
+                "src/iosMain/kotlin",
+            )
             toolVersion = libs.getVersion("detekt")
             parallel = false
             config.setFrom("$rootDir/config/detekt/detekt.yml")
