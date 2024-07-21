@@ -192,7 +192,10 @@ private fun ToggleImpl(
         modifier = Modifier
             .inspectable(
                 debugInspectorInfo {
-                    properties["toggleType"] = toggleType::class.java.simpleName
+                    properties["toggleType"] = when (toggleType) {
+                        ToggleType.Default -> "Default"
+                        ToggleType.Small -> "Small"
+                    }
                 }
             ) { modifier.then(toggleModifier) }
     ) {

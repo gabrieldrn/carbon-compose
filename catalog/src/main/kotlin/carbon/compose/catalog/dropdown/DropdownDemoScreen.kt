@@ -38,7 +38,17 @@ private val dropdownStates = listOf(
     DropdownInteractiveState.Error("Error message goes here"),
     DropdownInteractiveState.Disabled,
     DropdownInteractiveState.ReadOnly,
-).associateWith { DropdownOption(it::class.java.simpleName) }
+).associateWith {
+    DropdownOption(
+        when (it) {
+            is DropdownInteractiveState.Enabled -> "Enabled"
+            is DropdownInteractiveState.Warning -> "Warning"
+            is DropdownInteractiveState.Error -> "Error"
+            is DropdownInteractiveState.Disabled -> "Disabled"
+            is DropdownInteractiveState.ReadOnly -> "Read-only"
+        }
+    )
+}
 
 private val layersOptions =
     Layer.entries.associateWith { DropdownOption(it.toString(), enabled = it != Layer.Layer03) }

@@ -130,7 +130,13 @@ internal fun <K : Any> BaseDropdown(
                 InspectableModifier {
                     debugInspectorInfo {
                         properties["isExpanded"] = expanded.toString()
-                        properties["interactiveState"] = state::class.java.simpleName
+                        properties["interactiveState"] = when (state) {
+                            is DropdownInteractiveState.Disabled -> "Disabled"
+                            is DropdownInteractiveState.Enabled -> "Enabled"
+                            is DropdownInteractiveState.Error -> "Error"
+                            is DropdownInteractiveState.Warning -> "Warning"
+                            is DropdownInteractiveState.ReadOnly -> "Read-only"
+                        }
                     }
                 }
             )
