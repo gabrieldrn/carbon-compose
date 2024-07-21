@@ -32,8 +32,10 @@ val navigationExitSlideOutInverseTransition =
     slideOutHorizontally(targetOffsetX = { -it }) + fadeOut() // right to left
 
 @Composable
-fun rememberNavGraph(navController: NavHostController) =
-    remember(navController) {
+fun rememberNavGraph(
+    navController: NavHostController,
+    onOpenLink: (String) -> Unit
+) = remember(navController) {
         navController.createGraph(startDestination = Destination.Home.route) {
             Destination
                 .entries
@@ -50,7 +52,8 @@ fun rememberNavGraph(navController: NavHostController) =
                                     destination.route
                                         .takeIf { it.isNotEmpty() }
                                         ?.let(navController::navigate)
-                                }
+                                },
+                                onOpenLink = onOpenLink
                             )
                         }
 

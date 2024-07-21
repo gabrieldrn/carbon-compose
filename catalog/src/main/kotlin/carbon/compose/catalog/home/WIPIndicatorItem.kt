@@ -38,18 +38,18 @@ private const val wipItemVerticalRotation = -90f
 
 @Composable
 fun WIPIndicatorItem(
-    isVertical: Boolean,
+    isInVerticalLayout: Boolean,
     modifier: Modifier = Modifier
 ) {
     Box(
         modifier = modifier
             .then(
-                if (isVertical) Modifier
-                    .padding(horizontal = SpacingScale.spacing05)
-                    .fillMaxHeight()
-                else Modifier
+                if (isInVerticalLayout) Modifier
                     .padding(vertical = SpacingScale.spacing05)
                     .fillMaxWidth()
+                else Modifier
+                    .padding(horizontal = SpacingScale.spacing05)
+                    .fillMaxHeight()
             )
             .wipBackground()
             .padding(SpacingScale.spacing05),
@@ -58,7 +58,7 @@ fun WIPIndicatorItem(
         @Composable
         fun content() {
             val arrow = painterResource(
-                id = if (isVertical) R.drawable.ic_arrow_right else R.drawable.ic_arrow_down
+                id = if (isInVerticalLayout) R.drawable.ic_arrow_down else R.drawable.ic_arrow_right
             )
             Image(
                 painter = arrow,
@@ -69,7 +69,9 @@ fun WIPIndicatorItem(
             BasicText(
                 text = "TO BE IMPLEMENTED",
                 style = CarbonTypography.code02.copy(color = Carbon.theme.textPrimary),
-                modifier = Modifier.then(if (isVertical) Modifier.rotateVertical() else Modifier)
+                modifier = Modifier.then(
+                    if (isInVerticalLayout) Modifier else Modifier.rotateVertical()
+                )
             )
             Image(
                 painter = arrow,
@@ -79,20 +81,7 @@ fun WIPIndicatorItem(
             )
         }
 
-        if (isVertical) {
-            Column(
-                modifier = Modifier
-                    .composed { background(Carbon.theme.background.copy(alpha = .9f)) }
-                    .padding(SpacingScale.spacing03),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(
-                    SpacingScale.spacing03,
-                    Alignment.CenterVertically
-                )
-            ) {
-                content()
-            }
-        } else {
+        if (isInVerticalLayout) {
             Row(
                 modifier = Modifier
                     .composed { background(Carbon.theme.background.copy(alpha = .9f)) }
@@ -101,6 +90,19 @@ fun WIPIndicatorItem(
                 horizontalArrangement = Arrangement.spacedBy(
                     SpacingScale.spacing03,
                     Alignment.CenterHorizontally
+                )
+            ) {
+                content()
+            }
+        } else {
+            Column(
+                modifier = Modifier
+                    .composed { background(Carbon.theme.background.copy(alpha = .9f)) }
+                    .padding(SpacingScale.spacing03),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(
+                    SpacingScale.spacing03,
+                    Alignment.CenterVertically
                 )
             ) {
                 content()

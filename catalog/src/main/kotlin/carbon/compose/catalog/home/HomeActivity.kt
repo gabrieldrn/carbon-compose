@@ -1,6 +1,8 @@
 package carbon.compose.catalog.home
 
+import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
@@ -49,7 +51,14 @@ class HomeActivity : AppCompatActivity() {
                     )
                 }
 
-                val navGraph = rememberNavGraph(navController)
+                val navGraph = rememberNavGraph(
+                    navController = navController,
+                    onOpenLink = {
+                        startActivity(
+                            Intent(Intent.ACTION_VIEW, Uri.parse(it))
+                        )
+                    }
+                )
 
                 Column(
                     modifier = Modifier

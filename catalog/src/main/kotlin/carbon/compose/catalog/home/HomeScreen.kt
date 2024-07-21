@@ -31,6 +31,7 @@ import carbon.compose.foundation.spacing.SpacingScale
 @Composable
 fun HomeScreen(
     onTileClicked: (Destination) -> Unit,
+    onOpenLink: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val navBarPaddingValues = WindowInsets.navigationBars
@@ -56,6 +57,7 @@ fun HomeScreen(
                 wipDestinations = wipDestinations,
                 navBarPaddingValues = navBarPaddingValues,
                 onTileClicked = onTileClicked,
+                onOpenLink = onOpenLink,
                 modifier = modifier
             )
         } else {
@@ -64,6 +66,7 @@ fun HomeScreen(
                 wipDestinations = wipDestinations,
                 navBarPaddingValues = navBarPaddingValues,
                 onTileClicked = onTileClicked,
+                onOpenLink = onOpenLink,
                 modifier = modifier
             )
         }
@@ -76,6 +79,7 @@ private fun ComponentsLazyRow(
     wipDestinations: List<Destination>,
     navBarPaddingValues: PaddingValues,
     onTileClicked: (Destination) -> Unit,
+    onOpenLink: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     LazyRow(
@@ -93,9 +97,10 @@ private fun ComponentsLazyRow(
     ) {
         destinationItems(destinationsWithDemo, onTileClicked)
         if (wipDestinations.isNotEmpty()) {
-            item { WIPIndicatorItem(isVertical = true) }
+            item { WIPIndicatorItem(isInVerticalLayout = false) }
             destinationItems(wipDestinations, onTileClicked)
         }
+        item { HomeLinksItem(onOpenLink = onOpenLink, isVertical = false) }
     }
 }
 
@@ -105,6 +110,7 @@ private fun ComponentsLazyGrid(
     wipDestinations: List<Destination>,
     navBarPaddingValues: PaddingValues,
     onTileClicked: (Destination) -> Unit,
+    onOpenLink: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     LazyVerticalGrid(
@@ -123,9 +129,12 @@ private fun ComponentsLazyGrid(
         destinationItems(destinationsWithDemo, onTileClicked)
         if (wipDestinations.isNotEmpty()) {
             item(span = { GridItemSpan(2) }) {
-                WIPIndicatorItem(isVertical = false)
+                WIPIndicatorItem(isInVerticalLayout = true)
             }
             destinationItems(wipDestinations, onTileClicked)
+        }
+        item(span = { GridItemSpan(2) }) {
+            HomeLinksItem(onOpenLink = onOpenLink, isVertical = true)
         }
     }
 }
