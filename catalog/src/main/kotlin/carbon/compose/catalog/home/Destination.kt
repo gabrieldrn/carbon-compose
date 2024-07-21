@@ -6,12 +6,13 @@ import carbon.compose.catalog.R
 import carbon.compose.catalog.buttons.ButtonDemoScreen
 import carbon.compose.catalog.checkbox.CheckboxDemoScreen
 import carbon.compose.catalog.dropdown.BaseDestination
-import carbon.compose.catalog.dropdown.MultiselectDropdownScreen
+import carbon.compose.catalog.dropdown.DropdownDemoScreen
+import carbon.compose.catalog.dropdown.DropdownVariant
 import carbon.compose.catalog.radiobutton.LoadingDemoScreen
 import carbon.compose.catalog.radiobutton.RadioButtonDemoScreen
 import carbon.compose.catalog.textinput.TextInputDemoScreen
 import carbon.compose.catalog.toggle.ToggleDemoScreen
-import carbon.compose.progressbar.ProgressBarDemoScreen
+import carbon.compose.catalog.progressbar.ProgressBarDemoScreen
 
 @Suppress("UndocumentedPublicClass", "UndocumentedPublicProperty")
 enum class Destination(
@@ -64,7 +65,7 @@ enum class Destination(
         title = "Multi-select",
         illustration = R.drawable.tile_mutliselect,
         route = "dropdown/multiselect",
-        content = { MultiselectDropdownScreen() }
+        content = { DropdownDemoScreen(DropdownVariant.Multiselect) }
     ),
     Notification("Notification"),
     NumberInput("Number input"),

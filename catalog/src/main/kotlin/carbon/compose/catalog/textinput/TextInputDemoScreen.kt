@@ -20,7 +20,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -133,9 +132,6 @@ fun TextInputDemoScreen(modifier: Modifier = Modifier) {
                     .padding(SpacingScale.spacing05),
                 verticalArrangement = Arrangement.spacedBy(SpacingScale.spacing05)
             ) {
-                var textFieldStateDropdownExpanded by remember { mutableStateOf(false) }
-                var variantDropdownExpanded by remember { mutableStateOf(false) }
-
                 BasicText(
                     text = "Configuration",
                     style = CarbonTypography.heading02.copy(color = Carbon.theme.textPrimary)
@@ -143,13 +139,10 @@ fun TextInputDemoScreen(modifier: Modifier = Modifier) {
 
                 Dropdown(
                     label = "Variant / modifier",
-                    expanded = variantDropdownExpanded,
                     placeholder = "Choose a variant",
                     options = textInputVariantOptions,
                     selectedOption = variant,
                     onOptionSelected = { variant = it },
-                    onExpandedChange = { variantDropdownExpanded = it },
-                    onDismissRequest = { variantDropdownExpanded = false }
                 )
 
                 Spacer(
@@ -161,13 +154,10 @@ fun TextInputDemoScreen(modifier: Modifier = Modifier) {
 
                 Dropdown(
                     label = "State",
-                    expanded = textFieldStateDropdownExpanded,
                     placeholder = "Choose an option",
                     options = textInputStateOptions,
                     selectedOption = textInputState,
                     onOptionSelected = { textInputState = it },
-                    onExpandedChange = { textFieldStateDropdownExpanded = it },
-                    onDismissRequest = { textFieldStateDropdownExpanded = false }
                 )
 
                 Row(modifier = Modifier.fillMaxWidth()) {

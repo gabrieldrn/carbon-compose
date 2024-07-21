@@ -1,12 +1,13 @@
 package carbon.compose.dropdown.base
 
 import androidx.compose.runtime.Immutable
+import java.io.Serializable
 
 /**
  * Represents the state of a dropdown.
  */
 @Immutable
-public sealed interface DropdownInteractiveState {
+public sealed interface DropdownInteractiveState : Serializable {
 
     /**
      * Default state of the dropdown.

@@ -18,7 +18,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -55,7 +54,7 @@ fun ToggleDemoScreen(modifier: Modifier = Modifier) {
         var isEnabled by rememberSaveable { mutableStateOf(true) }
         var isReadOnly by rememberSaveable { mutableStateOf(false) }
         var isToggled by rememberSaveable { mutableStateOf(false) }
-        var layer by remember { mutableStateOf(Layer.Layer00) }
+        var layer by rememberSaveable { mutableStateOf(Layer.Layer00) }
 
         CarbonLayer(layer = layer) {
             Box(
@@ -96,8 +95,6 @@ fun ToggleDemoScreen(modifier: Modifier = Modifier) {
                     .padding(SpacingScale.spacing05),
                 verticalArrangement = Arrangement.spacedBy(SpacingScale.spacing03)
             ) {
-                var useSmallToggleDropdownExpanded by remember { mutableStateOf(false) }
-
                 BasicText(
                     text = "Configuration",
                     style = CarbonTypography.heading02.copy(color = Carbon.theme.textPrimary)
@@ -105,13 +102,10 @@ fun ToggleDemoScreen(modifier: Modifier = Modifier) {
 
                 Dropdown(
                     label = "Toggle type",
-                    expanded = useSmallToggleDropdownExpanded,
                     placeholder = "Choose option",
                     options = toggleTypesOptions,
                     selectedOption = toggleType,
                     onOptionSelected = { toggleType = it },
-                    onExpandedChange = { useSmallToggleDropdownExpanded = it },
-                    onDismissRequest = { useSmallToggleDropdownExpanded = false }
                 )
 
                 Toggle(

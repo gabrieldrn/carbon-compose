@@ -107,7 +107,7 @@ class DropdownColorsTest : BaseColorsTest() {
 
     @Test
     fun dropdownColors_chevronIconColor_colorsAreCorrect() {
-        val expectedColors =
+        val expectedColors: Map<Any, Any> =
             (interactiveStates.values + Layer.entries).associate {
                 if (it is DropdownInteractiveState.Disabled) it to theme.iconDisabled
                 else it to theme.iconPrimary
@@ -120,7 +120,7 @@ class DropdownColorsTest : BaseColorsTest() {
 
     @Test
     fun dropdownColors_fieldBackgroundColor_colorsAreCorrect() {
-        val colorsExpected = mapOf(
+        val colorsExpected = mapOf<Any, Any>(
             DropdownInteractiveState.ReadOnly to Color.Transparent,
             Layer.Layer00 to theme.field01,
             Layer.Layer01 to theme.field02,
@@ -135,7 +135,7 @@ class DropdownColorsTest : BaseColorsTest() {
 
     @Test
     fun dropdownColors_fieldBorderColor_colorsAreCorrect() {
-        val colorsExpected = mapOf(
+        val colorsExpected = mapOf<Any, Any>(
             interactiveStates["error"]!! to theme.supportError,
             interactiveStates["disabled"]!! to Color.Transparent,
             interactiveStates["readOnly"]!! to mapOf(
@@ -157,7 +157,7 @@ class DropdownColorsTest : BaseColorsTest() {
 
     @Test
     fun dropdownColors_fieldTextColor_colorsAreCorrect() {
-        val colorsExpected = (interactiveStates.values + Layer.entries).associate {
+        val colorsExpected: Map<Any, Any> = (interactiveStates.values + Layer.entries).associate {
             if (it is DropdownInteractiveState.Disabled) it to theme.textDisabled
             else it to theme.textPrimary
         }
@@ -169,7 +169,7 @@ class DropdownColorsTest : BaseColorsTest() {
 
     @Test
     fun dropdownColors_helperTextColor_colorsAreCorrect() {
-        val colorsExpected = (interactiveStates.values + Layer.entries).associate {
+        val colorsExpected: Map<Any, Any> = (interactiveStates.values + Layer.entries).associate {
             if (it is DropdownInteractiveState.Error) it to theme.textError
             else it to theme.textPrimary
         }
@@ -181,7 +181,7 @@ class DropdownColorsTest : BaseColorsTest() {
 
     @Test
     fun dropdownColors_labelTextColor_colorsAreCorrect() {
-        val colorsExpected = (interactiveStates.values + Layer.entries).associate {
+        val colorsExpected: Map<Any, Any> = (interactiveStates.values + Layer.entries).associate {
             if (it is DropdownInteractiveState.Disabled) it to theme.textDisabled
             else it to theme.textSecondary
         }
