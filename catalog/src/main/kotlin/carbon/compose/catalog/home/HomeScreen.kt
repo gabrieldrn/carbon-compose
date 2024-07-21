@@ -9,18 +9,21 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
@@ -39,6 +42,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.ImageShader
 import androidx.compose.ui.graphics.ShaderBrush
@@ -46,6 +50,7 @@ import androidx.compose.ui.graphics.TileMode
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.layout.layout
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLayoutDirection
@@ -73,17 +78,28 @@ fun HomeScreen(
     val isInPortrait = LocalConfiguration.current
         .orientation == Configuration.ORIENTATION_PORTRAIT
 
+    val destinations = remember { Destination.homeTilesDestinations }
+
+    val destinationsWithDemo by remember(destinations) {
+        mutableStateOf(destinations.filter { it.route.isNotEmpty() })
+    }
+    val wipDestinations by remember(destinations) {
+        mutableStateOf(destinations.filter { it.route.isEmpty() })
+    }
+
     CarbonLayer {
         if (isInPortrait) {
             ComponentsLazyGrid(
-                destinations = Destination.homeTilesDestinations,
+                destinationsWithDemo = destinationsWithDemo,
+                wipDestinations = wipDestinations,
                 navBarPaddingValues = navBarPaddingValues,
                 onTileClicked = onTileClicked,
                 modifier = modifier
             )
         } else {
             ComponentsLazyRow(
-                destinations = Destination.homeTilesDestinations,
+                destinationsWithDemo = destinationsWithDemo,
+                wipDestinations = wipDestinations,
                 navBarPaddingValues = navBarPaddingValues,
                 onTileClicked = onTileClicked,
                 modifier = modifier
@@ -94,7 +110,8 @@ fun HomeScreen(
 
 @Composable
 private fun ComponentsLazyRow(
-    destinations: List<Destination>,
+    destinationsWithDemo: List<Destination>,
+    wipDestinations: List<Destination>,
     navBarPaddingValues: PaddingValues,
     onTileClicked: (Destination) -> Unit,
     modifier: Modifier = Modifier
@@ -112,29 +129,22 @@ private fun ComponentsLazyRow(
         horizontalArrangement = Arrangement.spacedBy(1.dp),
         modifier = modifier
     ) {
-        items(destinations) { destination ->
-            CarbonComponentGridTile(
-                destination = destination,
-                onTileClicked = { onTileClicked(destination) },
-                modifier = Modifier.aspectRatio(1f)
-            )
+        destinationItems(destinationsWithDemo, onTileClicked)
+        if (wipDestinations.isNotEmpty()) {
+            item { WIPIndicatorItem(isVertical = true) }
+            destinationItems(wipDestinations, onTileClicked)
         }
     }
 }
 
 @Composable
 private fun ComponentsLazyGrid(
-    destinations: List<Destination>,
+    destinationsWithDemo: List<Destination>,
+    wipDestinations: List<Destination>,
     navBarPaddingValues: PaddingValues,
     onTileClicked: (Destination) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val destinationsWithDemo by remember(destinations) {
-        mutableStateOf(destinations.filter { it.route.isNotEmpty() })
-    }
-    val wipDestinations by remember(destinations) {
-        mutableStateOf(destinations.filter { it.route.isEmpty() })
-    }
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
         contentPadding = PaddingValues(
@@ -149,14 +159,25 @@ private fun ComponentsLazyGrid(
         modifier = modifier
     ) {
         destinationItems(destinationsWithDemo, onTileClicked)
-
         if (wipDestinations.isNotEmpty()) {
             item(span = { GridItemSpan(2) }) {
-                WIPIndicatorGridItem()
+                WIPIndicatorItem(isVertical = false)
             }
-
             destinationItems(wipDestinations, onTileClicked)
         }
+    }
+}
+
+private fun LazyListScope.destinationItems(
+    destinationsWithDemo: List<Destination>,
+    onTileClicked: (Destination) -> Unit
+) {
+    items(destinationsWithDemo) { destination ->
+        CarbonComponentGridTile(
+            destination = destination,
+            onTileClicked = { onTileClicked(destination) },
+            modifier = Modifier.aspectRatio(1f)
+        )
     }
 }
 
@@ -260,28 +281,34 @@ private fun PlaceholderIllustration(modifier: Modifier = Modifier) {
     }
 }
 
+private const val wipItemVerticalRotation = -90f
+
 @Composable
-private fun WIPIndicatorGridItem(modifier: Modifier = Modifier) {
+private fun WIPIndicatorItem(
+    isVertical: Boolean,
+    modifier: Modifier = Modifier
+) {
     Box(
         modifier = modifier
-            .padding(vertical = SpacingScale.spacing05)
-            .fillMaxWidth()
+            .then(
+                if (isVertical) Modifier
+                    .padding(horizontal = SpacingScale.spacing05)
+                    .fillMaxHeight()
+                else Modifier
+                    .padding(vertical = SpacingScale.spacing05)
+                    .fillMaxWidth()
+            )
             .wipBackground()
             .padding(SpacingScale.spacing05),
         contentAlignment = Alignment.Center
     ) {
-        Row(
-            modifier = Modifier
-                .composed { background(Carbon.theme.background.copy(alpha = .9f)) }
-                .padding(SpacingScale.spacing03),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(
-                SpacingScale.spacing03,
-                Alignment.CenterHorizontally
+        @Composable
+        fun content() {
+            val arrow = painterResource(
+                id = if (isVertical) R.drawable.ic_arrow_right else R.drawable.ic_arrow_down
             )
-        ) {
             Image(
-                painter = painterResource(id = R.drawable.ic_arrow_down),
+                painter = arrow,
                 colorFilter = ColorFilter.tint(Carbon.theme.textPrimary),
                 contentDescription = null,
                 modifier = Modifier.size(16.dp)
@@ -289,16 +316,57 @@ private fun WIPIndicatorGridItem(modifier: Modifier = Modifier) {
             BasicText(
                 text = "TO BE IMPLEMENTED",
                 style = CarbonTypography.code02.copy(color = Carbon.theme.textPrimary),
+                modifier = Modifier.then(if (isVertical) Modifier.rotateVertical() else Modifier)
             )
             Image(
-                painter = painterResource(id = R.drawable.ic_arrow_down),
+                painter = arrow,
                 colorFilter = ColorFilter.tint(Carbon.theme.textPrimary),
                 contentDescription = null,
                 modifier = Modifier.size(16.dp)
             )
         }
+
+        if (isVertical) {
+            Column(
+                modifier = Modifier
+                    .composed { background(Carbon.theme.background.copy(alpha = .9f)) }
+                    .padding(SpacingScale.spacing03),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(
+                    SpacingScale.spacing03,
+                    Alignment.CenterVertically
+                )
+            ) {
+                content()
+            }
+        } else {
+            Row(
+                modifier = Modifier
+                    .composed { background(Carbon.theme.background.copy(alpha = .9f)) }
+                    .padding(SpacingScale.spacing03),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(
+                    SpacingScale.spacing03,
+                    Alignment.CenterHorizontally
+                )
+            ) {
+                content()
+            }
+        }
     }
 }
+
+private fun Modifier.rotateVertical(): Modifier = this
+    .layout { measurable, constraints ->
+        val placeable = measurable.measure(constraints)
+        layout(placeable.height, placeable.width) {
+            placeable.place(
+                x = -(placeable.width / 2 - placeable.height / 2),
+                y = -(placeable.height / 2 - placeable.width / 2)
+            )
+        }
+    }
+    .rotate(wipItemVerticalRotation)
 
 private fun Modifier.wipBackground(): Modifier = this.composed {
     val context = LocalContext.current
