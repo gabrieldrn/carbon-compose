@@ -44,9 +44,17 @@ internal fun CommonExtension<*, *, *, *, *>.configureKotlinAndroidCommon() {
  */
 internal fun Project.setupExplicitApi() {
     tasks.withType(KotlinCompile::class.java)
-        .matching { !it.name.contains("test", ignoreCase = true) }
-        .also {
-            logger.quiet("Configuring explicit API for tasks ${it.map { t -> t.path }}")
+        .matching {
+            !it.name.contains("test", ignoreCase = true)
+        }
+        .matching {
+            !it.name.contains("debug", ignoreCase = true)
+        }
+        .also { tasks ->
+            logger.quiet(
+                "Configuring explicit API for tasks\n" +
+                    tasks.map { it.path }.joinToString(separator = "\n")
+            )
         }
         .matching {
             it.kotlinOptions
