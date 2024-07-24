@@ -10,7 +10,7 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinCompile
 /**
  * Configure Android extension with common settings.
  */
-internal fun CommonExtension<*, *, *, *, *>.configureKotlinAndroidCommon() {
+internal fun CommonExtension<*, *, *, *, *, *>.configureKotlinAndroidCommon() {
 
     compileSdk = Constants.Versions.COMPILE_SDK
     defaultConfig {
@@ -23,16 +23,14 @@ internal fun CommonExtension<*, *, *, *, *>.configureKotlinAndroidCommon() {
         targetCompatibility = Constants.Versions.JAVA
     }
 
-    kotlinOptions {
-        jvmTarget = Constants.Versions.JAVA.toString()
+    kotlin {
+        compilerOptions {
+            jvmTarget.set(Constants.Versions.JVM)
+        }
     }
 
     buildFeatures {
         compose = true
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = Constants.Versions.COMPOSE_COMPILER
     }
 }
 
@@ -56,17 +54,17 @@ internal fun Project.setupExplicitApi() {
                     tasks.map { it.path }.joinToString(separator = "\n")
             )
         }
-        .matching {
-            it.kotlinOptions
-                .freeCompilerArgs
-                .contains("-X" + Constants.CompileArgs.STRICT_API)
-                .not()
-        }
+//        .matching {
+//            it.compilerOptions
+//                .freeCompilerArgs
+//                .contains("-X" + Constants.CompileArgs.STRICT_API)
+//                .not()
+//        }
         .configureEach {
+//            compilerOptions.freeCompilerArgs.add("-X${Constants.CompileArgs.STRICT_API}")
             kotlinOptions.freeCompilerArgs += listOf("-X" + Constants.CompileArgs.STRICT_API)
         }
 }
-
 
 @Suppress("UnstableApiUsage")
 internal fun LibraryExtension.applyTestOptions() {

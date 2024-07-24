@@ -21,7 +21,14 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            //put your multiplatform dependencies here
+            implementation(compose.runtime)
+            implementation(compose.foundation)
+            implementation(compose.ui)
+//            implementation(compose.uiTooling)
+            implementation(compose.animation)
+            implementation(compose.components.resources)
+
+            implementation(libs.touchlab.kermit)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
@@ -30,6 +37,7 @@ kotlin {
 }
 
 android {
+
     namespace = "carbon.compose"
 
     dependencies {

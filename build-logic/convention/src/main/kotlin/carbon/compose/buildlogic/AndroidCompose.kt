@@ -7,9 +7,11 @@ internal fun KotlinCommonCompilerToolOptions.setupComposeCompilerOptions(project
     with(project) {
         freeCompilerArgs.addAll(
             "-P",
-            Constants.CompileArgs.COMPOSE_METRICS_PRE + "${buildDir}/compose/metrics",
+            Constants.CompileArgs.COMPOSE_METRICS_PRE +
+                "\"${layout.buildDirectory.get()}/compose/metrics\"",
             "-P",
-            Constants.CompileArgs.COMPOSE_REPORT_PRE + "${buildDir}/compose/reports",
+            Constants.CompileArgs.COMPOSE_REPORT_PRE +
+                "\"${layout.buildDirectory.get()}/compose/reports\"",
         )
         file("${projectDir.absolutePath}/compose_compiler_config.conf")
             .takeIf { it.exists() }

@@ -18,6 +18,7 @@ class CarbonApplicationConventionPlugin : Plugin<Project> {
         with(pluginManager) {
             apply(libs.getPlugin("android-application"))
             apply(libs.getPlugin("kotlin-android"))
+            apply(libs.getPlugin("compose-compiler"))
         }
 
         extensions.configure<BaseAppModuleExtension> {

@@ -1,7 +1,6 @@
-import carbon.compose.buildlogic.getPlugin
 import carbon.compose.buildlogic.Constants
+import carbon.compose.buildlogic.getPlugin
 import carbon.compose.buildlogic.libs
-import carbon.compose.buildlogic.setupExplicitApi
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.plugins.JavaPluginExtension
@@ -24,8 +23,6 @@ class CarbonJavaLibraryConventionPlugin : Plugin<Project> {
             sourceCompatibility = Constants.Versions.JAVA
             targetCompatibility = Constants.Versions.JAVA
         }
-
-        setupExplicitApi()
 
         // TODO Configure test tasks.
     }

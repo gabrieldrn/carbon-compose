@@ -1,6 +1,7 @@
 package carbon.compose.buildlogic
 
 import org.gradle.api.JavaVersion
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 internal object Constants {
 
@@ -9,8 +10,7 @@ internal object Constants {
         const val MIN_SDK = 23
 
         val JAVA = JavaVersion.VERSION_17
-
-        const val COMPOSE_COMPILER = "1.5.12"
+        val JVM = JvmTarget.JVM_17
     }
 
     object CompileArgs {
