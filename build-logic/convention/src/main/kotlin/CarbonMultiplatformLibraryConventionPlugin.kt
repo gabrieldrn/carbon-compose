@@ -30,8 +30,6 @@ class CarbonMultiplatformLibraryConventionPlugin : Plugin<Project> {
         }
 
         extensions.configure<KotlinMultiplatformExtension> {
-//            explicitApi()
-
             androidTarget {
                 compilerOptions {
                     jvmTarget.set(Constants.Versions.JVM)
@@ -40,12 +38,12 @@ class CarbonMultiplatformLibraryConventionPlugin : Plugin<Project> {
                     compileTaskProvider.configure {
                         compilerOptions {
                             setupComposeCompilerOptions(this@with)
-//                            freeCompilerArgs.add("-X${Constants.CompileArgs.STRICT_API}")
                         }
                     }
                 }
             }
 
+            explicitApi()
         }
 
         extensions.configure<LibraryExtension> {
