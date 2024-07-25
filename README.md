@@ -1,3 +1,6 @@
+> [!CAUTION]
+> Please note that this library is **still under development** and **unofficial**. Contributions are welcomed.
+
 ![Carbon Design System](catalog/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp)
 
 # Carbon | Jetpack Compose
