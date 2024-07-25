@@ -2,10 +2,11 @@ package carbon.compose.foundation
 
 import androidx.compose.ui.graphics.Color
 import carbon.compose.foundation.color.WhiteTheme
-import org.junit.Test
 import kotlin.random.Random
+import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals
+import kotlin.test.assertTrue
 
 class ThemeTest {
 
@@ -15,9 +16,7 @@ class ThemeTest {
 
         val newTheme = theme.copy()
 
-        assert(newTheme !== theme) {
-            "newTheme should not be the same instance as theme"
-        }
+        assertTrue(newTheme !== theme, "newTheme should not be the same instance as theme")
         assertEquals(theme, newTheme, "newTheme should have the same values as theme")
     }
 
@@ -31,9 +30,7 @@ class ThemeTest {
             layer01 = newColor
         )
 
-        assert(newTheme !== theme) {
-            "newTheme should not be the same instance as theme"
-        }
+        assertTrue(newTheme !== theme, "newTheme should not be the same instance as theme")
         assertNotEquals(theme, newTheme, "newTheme should have different values than theme")
         assertEquals(newColor, newTheme.layer01, "layer01 should equal to newColor")
     }

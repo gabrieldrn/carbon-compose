@@ -26,7 +26,6 @@ import carbon.compose.button.ButtonType
 import carbon.compose.button.IconButton
 import carbon.compose.foundation.color.LocalCarbonTheme
 import carbon.compose.foundation.color.Theme
-import carbon.compose.foundation.text.CarbonTypography
 import carbon.compose.icons.viewIcon
 import carbon.compose.icons.viewOffIcon
 import carbon.compose.semantics.imageVectorName
@@ -89,6 +88,7 @@ public fun PasswordInput(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 ) {
     val theme = Carbon.theme
+    val typography = Carbon.typography
     val colors = TextInputColors.colors()
 
     val passwordHiddenIcon = remember { viewIcon }
@@ -103,7 +103,7 @@ public fun PasswordInput(
 
     val fieldTextColor by colors.fieldTextColor(state = state)
     val fieldTextStyle by remember(fieldTextColor) {
-        mutableStateOf(CarbonTypography.bodyCompact01.copy(color = fieldTextColor))
+        mutableStateOf(typography.bodyCompact01.copy(color = fieldTextColor))
     }
 
     TextInputRoot(

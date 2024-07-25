@@ -1,7 +1,7 @@
 package carbon.compose
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import carbon.compose.foundation.selectable.SelectableInteractiveState
+import carbon.compose.common.selectable.SelectableInteractiveState
 
 internal class InteractiveStatePreviewParameterProvider :
     PreviewParameterProvider<SelectableInteractiveState> {

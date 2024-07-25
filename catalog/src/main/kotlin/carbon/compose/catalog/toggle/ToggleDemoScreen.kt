@@ -31,7 +31,6 @@ import carbon.compose.foundation.color.CarbonLayer
 import carbon.compose.foundation.color.Layer
 import carbon.compose.foundation.color.containerBackground
 import carbon.compose.foundation.spacing.SpacingScale
-import carbon.compose.foundation.text.CarbonTypography
 import carbon.compose.toggle.SmallToggle
 import carbon.compose.toggle.Toggle
 
@@ -97,7 +96,7 @@ fun ToggleDemoScreen(modifier: Modifier = Modifier) {
             ) {
                 BasicText(
                     text = "Configuration",
-                    style = CarbonTypography.heading02.copy(color = Carbon.theme.textPrimary)
+                    style = Carbon.typography.heading02.copy(color = Carbon.theme.textPrimary)
                 )
 
                 Dropdown(

@@ -4,6 +4,7 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.ReadOnlyComposable
+import androidx.compose.runtime.remember
 import carbon.compose.foundation.color.Gray100Theme
 import carbon.compose.foundation.color.Layer
 import carbon.compose.foundation.color.LocalCarbonInlineTheme
@@ -11,6 +12,11 @@ import carbon.compose.foundation.color.LocalCarbonLayer
 import carbon.compose.foundation.color.LocalCarbonTheme
 import carbon.compose.foundation.color.Theme
 import carbon.compose.foundation.color.WhiteTheme
+import carbon.compose.foundation.text.CarbonTypography
+import carbon.compose.foundation.text.LocalCarbonTypography
+import carbon.compose.foundation.text.getIBMPlexMonoFamily
+import carbon.compose.foundation.text.getIBMPlexSansFamily
+import carbon.compose.foundation.text.getIBMPlexSerifFamily
 
 internal const val LOG_TAG = "CarbonDesignSystem"
 
@@ -34,10 +40,23 @@ public fun CarbonDesignSystem(
     layer: Layer = Layer.Layer00,
     content: @Composable () -> Unit,
 ) {
+    val ibmPlexSansFamily = getIBMPlexSansFamily()
+    val ibmPlexSerifFamily = getIBMPlexSerifFamily()
+    val ibmPlexMonoFamily = getIBMPlexMonoFamily()
+
+    val typography = remember(ibmPlexSansFamily, ibmPlexSerifFamily, ibmPlexMonoFamily) {
+        CarbonTypography(
+            ibmPlexSansFamily = ibmPlexSansFamily,
+            ibmPlexSerifFamily = ibmPlexSerifFamily,
+            ibmPlexMonoFamily = ibmPlexMonoFamily
+        )
+    }
+
     CompositionLocalProvider(
         LocalCarbonTheme provides theme,
         LocalCarbonInlineTheme provides uiShellInlineTheme,
-        LocalCarbonLayer provides layer
+        LocalCarbonLayer provides layer,
+        LocalCarbonTypography provides typography,
     ) {
         content()
     }
@@ -71,4 +90,12 @@ public object Carbon {
         @Composable
         @ReadOnlyComposable
         get() = LocalCarbonLayer.current
+
+    /**
+     * Current Carbon typography in current composition.
+     */
+    public val typography: CarbonTypography
+        @Composable
+        @ReadOnlyComposable
+        get() = LocalCarbonTypography.current
 }

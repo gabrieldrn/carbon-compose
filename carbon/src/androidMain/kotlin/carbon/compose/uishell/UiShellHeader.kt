@@ -26,12 +26,12 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import carbon.compose.Carbon
 import carbon.compose.CarbonDesignSystem
 import carbon.compose.foundation.color.LocalCarbonInlineTheme
 import carbon.compose.foundation.color.LocalCarbonTheme
 import carbon.compose.foundation.color.Theme
 import carbon.compose.foundation.spacing.SpacingScale
-import carbon.compose.foundation.text.CarbonTypography
 
 @Composable
 public fun UiShellHeader(
@@ -70,7 +70,7 @@ public fun UiShellHeader(
 
                 BasicText(
                     text = headerName,
-                    style = CarbonTypography.headingCompact02.copy(
+                    style = Carbon.typography.headingCompact02.copy(
                         color = LocalCarbonTheme.current.textPrimary
                     ),
                     modifier = Modifier

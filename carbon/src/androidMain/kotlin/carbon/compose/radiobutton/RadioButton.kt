@@ -16,12 +16,12 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
+import carbon.compose.Carbon
 import carbon.compose.foundation.interaction.ToggleableFocusIndication
-import carbon.compose.foundation.selectable.ErrorContent
-import carbon.compose.foundation.selectable.SelectableInteractiveState
-import carbon.compose.foundation.selectable.WarningContent
+import carbon.compose.common.selectable.ErrorContent
+import carbon.compose.common.selectable.SelectableInteractiveState
+import carbon.compose.common.selectable.WarningContent
 import carbon.compose.foundation.spacing.SpacingScale
-import carbon.compose.foundation.text.CarbonTypography
 import carbon.compose.foundation.text.Text
 import carbon.compose.semantics.readOnly
 
@@ -95,7 +95,7 @@ public fun RadioButton(
                 modifier = Modifier
                     .padding(start = SpacingScale.spacing03)
                     .testTag(RadioButtonTestTags.LABEL),
-                style = CarbonTypography.bodyCompact01
+                style = Carbon.typography.bodyCompact01
             )
         }
         if (interactiveState is SelectableInteractiveState.Error) {

@@ -12,7 +12,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import carbon.compose.Carbon
-import carbon.compose.foundation.text.CarbonTypography
 
 /**
  * # Text area
@@ -73,11 +72,12 @@ public fun TextArea(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 ) {
     val theme = Carbon.theme
+    val typography = Carbon.typography
     val colors = TextInputColors.colors()
 
     val fieldTextColor by colors.fieldTextColor(state = state)
     val fieldTextStyle by remember(fieldTextColor) {
-        mutableStateOf(CarbonTypography.bodyCompact01.copy(color = fieldTextColor))
+        mutableStateOf(typography.bodyCompact01.copy(color = fieldTextColor))
     }
 
     TextInputRoot(

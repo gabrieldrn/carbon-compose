@@ -21,7 +21,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import carbon.compose.foundation.selectable.SelectableInteractiveState
+import carbon.compose.common.selectable.SelectableInteractiveState
 import carbon.compose.foundation.spacing.SpacingScale
 import carbon.compose.radiobutton.RadioButton
 

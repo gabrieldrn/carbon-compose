@@ -26,7 +26,6 @@ import carbon.compose.catalog.R
 import carbon.compose.foundation.color.containerBackground
 import carbon.compose.foundation.motion.Motion
 import carbon.compose.foundation.spacing.SpacingScale
-import carbon.compose.foundation.text.CarbonTypography
 import kotlinx.coroutines.launch
 
 private val itemAppearanceAnimationSpec = tween<Float>(
@@ -89,7 +88,7 @@ fun CarbonComponentGridTile(
             }
             BasicText(
                 text = destination.title,
-                style = CarbonTypography.body01.copy(
+                style = Carbon.typography.body01.copy(
                     color = Carbon.theme.textPrimary
                 ),
                 modifier = Modifier.padding(SpacingScale.spacing05)

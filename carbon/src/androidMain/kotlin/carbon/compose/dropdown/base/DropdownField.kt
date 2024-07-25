@@ -40,6 +40,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import carbon.compose.Carbon
 import carbon.compose.dropdown.base.DropdownInteractiveState.Companion.helperText
 import carbon.compose.dropdown.base.DropdownInteractiveState.Companion.isFocusable
 import carbon.compose.dropdown.domain.getChevronStartSpacing
@@ -47,7 +48,6 @@ import carbon.compose.foundation.input.onEnterKeyEvent
 import carbon.compose.foundation.interaction.FocusIndication
 import carbon.compose.foundation.motion.Motion
 import carbon.compose.foundation.spacing.SpacingScale
-import carbon.compose.foundation.text.CarbonTypography
 import carbon.compose.foundation.text.Text
 import carbon.compose.icons.WarningIcon
 import carbon.compose.icons.WarningAltIcon
@@ -216,7 +216,7 @@ internal fun DropdownPlaceholderText(
 ) {
     Text(
         text = placeholderText,
-        style = CarbonTypography.bodyCompact01,
+        style = Carbon.typography.bodyCompact01,
         color = colors.fieldTextColor(state).value,
         maxLines = 1,
         overflow = TextOverflow.Ellipsis,

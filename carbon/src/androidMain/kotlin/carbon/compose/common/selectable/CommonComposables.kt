@@ -1,4 +1,4 @@
-package carbon.compose.foundation.selectable
+package carbon.compose.common.selectable
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -6,11 +6,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import carbon.compose.Carbon
 import carbon.compose.foundation.spacing.SpacingScale
-import carbon.compose.foundation.text.CarbonTypography
 import carbon.compose.foundation.text.Text
-import carbon.compose.icons.WarningIcon
 import carbon.compose.icons.WarningAltIcon
+import carbon.compose.icons.WarningIcon
 
 @Composable
 internal fun ErrorContent(
@@ -29,7 +29,7 @@ internal fun ErrorContent(
             text = errorMessage,
             color = colors.errorMessageTextColor,
             modifier = Modifier.padding(start = SpacingScale.spacing03),
-            style = CarbonTypography.label01
+            style = Carbon.typography.label01
         )
     }
 }
@@ -49,7 +49,7 @@ internal fun WarningContent(
             text = warningMessage,
             color = colors.warningMessageTextColor,
             modifier = Modifier.padding(start = SpacingScale.spacing03),
-            style = CarbonTypography.label01
+            style = Carbon.typography.label01
         )
     }
 }

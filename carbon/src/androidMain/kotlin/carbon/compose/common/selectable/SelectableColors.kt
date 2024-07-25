@@ -1,4 +1,4 @@
-package carbon.compose.foundation.selectable
+package carbon.compose.common.selectable
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable

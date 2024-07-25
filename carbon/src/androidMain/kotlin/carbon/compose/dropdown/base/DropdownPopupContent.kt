@@ -29,9 +29,9 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import carbon.compose.Carbon
 import carbon.compose.foundation.interaction.FocusIndication
 import carbon.compose.foundation.spacing.SpacingScale
-import carbon.compose.foundation.text.CarbonTypography
 import carbon.compose.foundation.text.Text
 
 private val checkmarkSize = 16.dp
@@ -155,7 +155,7 @@ private fun DropdownMenuOption(
         ) {
             Text(
                 text = option.value,
-                style = CarbonTypography.bodyCompact01,
+                style = Carbon.typography.bodyCompact01,
                 color = menuOptionTextColor,
                 overflow = TextOverflow.Ellipsis,
                 maxLines = 1,

@@ -11,9 +11,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
+import carbon.compose.Carbon
 import carbon.compose.foundation.color.LocalCarbonTheme
 import carbon.compose.foundation.spacing.SpacingScale
-import carbon.compose.foundation.text.CarbonTypography
 import carbon.compose.loading.Loading
 import carbon.compose.loading.SmallLoading
 
@@ -24,7 +24,7 @@ fun LoadingDemoScreen(modifier: Modifier = Modifier) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             BasicText(
                 text = "Large",
-                style = CarbonTypography.bodyCompact01.copy(
+                style = Carbon.typography.bodyCompact01.copy(
                     color = LocalCarbonTheme.current.textPrimary
                 )
             )
@@ -37,7 +37,7 @@ fun LoadingDemoScreen(modifier: Modifier = Modifier) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             BasicText(
                 text = "Small",
-                style = CarbonTypography.bodyCompact01.copy(
+                style = Carbon.typography.bodyCompact01.copy(
                     color = LocalCarbonTheme.current.textPrimary
                 )
             )

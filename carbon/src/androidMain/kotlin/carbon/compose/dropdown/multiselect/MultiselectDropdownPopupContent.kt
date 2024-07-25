@@ -22,15 +22,15 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
+import carbon.compose.Carbon
 import carbon.compose.checkbox.Checkbox
 import carbon.compose.dropdown.base.DropdownColors
 import carbon.compose.dropdown.base.DropdownMenuOptionDivider
 import carbon.compose.dropdown.base.DropdownOption
 import carbon.compose.dropdown.base.DropdownTestTags
 import carbon.compose.foundation.interaction.FocusIndication
-import carbon.compose.foundation.selectable.SelectableInteractiveState
+import carbon.compose.common.selectable.SelectableInteractiveState
 import carbon.compose.foundation.spacing.SpacingScale
-import carbon.compose.foundation.text.CarbonTypography
 import carbon.compose.foundation.text.Text
 
 /**
@@ -161,7 +161,7 @@ private fun MultiselectDropdownMenuOption(
             )
             Text(
                 text = option.value,
-                style = CarbonTypography.bodyCompact01,
+                style = Carbon.typography.bodyCompact01,
                 color = menuOptionTextColor,
                 overflow = TextOverflow.Ellipsis,
                 maxLines = 1,

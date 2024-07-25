@@ -8,8 +8,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.state.ToggleableState
 import carbon.compose.Carbon
 import carbon.compose.foundation.color.Theme
-import carbon.compose.foundation.selectable.SelectableColors
-import carbon.compose.foundation.selectable.SelectableInteractiveState
+import carbon.compose.common.selectable.SelectableColors
+import carbon.compose.common.selectable.SelectableInteractiveState
 
 /**
  * The set of colors used to style a [RadioButton].

@@ -12,7 +12,7 @@ import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
-import carbon.compose.foundation.selectable.SelectableInteractiveState
+import carbon.compose.common.selectable.SelectableInteractiveState
 import carbon.compose.semantics.assertIsReadOnly
 import org.junit.Before
 import org.junit.Rule

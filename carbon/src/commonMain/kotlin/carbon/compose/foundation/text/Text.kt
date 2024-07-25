@@ -13,6 +13,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.TextUnit
+import carbon.compose.Carbon
 
 // Material implementation
 @Composable
@@ -33,7 +34,7 @@ internal fun Text(
     maxLines: Int = Int.MAX_VALUE,
     minLines: Int = 1,
     onTextLayout: (TextLayoutResult) -> Unit = {},
-    style: TextStyle = CarbonTypography.body01
+    style: TextStyle = Carbon.typography.body01
 ) {
     val mergedStyle = style.merge(
         TextStyle(

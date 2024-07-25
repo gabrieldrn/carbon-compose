@@ -30,10 +30,10 @@ import androidx.compose.ui.platform.InspectableModifier
 import androidx.compose.ui.platform.debugInspectorInfo
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
+import carbon.compose.Carbon
 import carbon.compose.button.ButtonSize.Companion.getContainerPaddings
 import carbon.compose.foundation.motion.Motion
 import carbon.compose.foundation.spacing.SpacingScale
-import carbon.compose.foundation.text.CarbonTypography
 
 internal val buttonTransitionSpec: AnimationSpec<Color> = tween(
     durationMillis = Motion.Duration.fast01,
@@ -168,7 +168,7 @@ internal fun Label(
     BasicText(
         text = label,
         modifier = modifier,
-        style = CarbonTypography.bodyCompact01,
+        style = Carbon.typography.bodyCompact01,
         color = { animatedLabelTextColor.value },
         maxLines = 1,
         softWrap = false,

@@ -2,8 +2,8 @@ package carbon.compose.checkbox
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.state.ToggleableState
-import carbon.compose.foundation.BaseSelectableColorsTest
-import carbon.compose.foundation.selectable.SelectableInteractiveState
+import carbon.compose.common.BaseSelectableColorsTest
+import carbon.compose.common.selectable.SelectableInteractiveState
 import org.junit.Test
 import kotlin.test.assertEquals
 

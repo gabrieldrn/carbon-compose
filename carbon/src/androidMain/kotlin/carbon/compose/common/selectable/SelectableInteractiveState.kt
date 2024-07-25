@@ -1,4 +1,4 @@
-package carbon.compose.foundation.selectable
+package carbon.compose.common.selectable
 
 /**
  * Represents the possible interactive states of a selectable.

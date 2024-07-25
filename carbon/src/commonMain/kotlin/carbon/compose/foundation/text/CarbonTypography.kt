@@ -1,49 +1,89 @@
 package carbon.compose.foundation.text
 
-import androidx.compose.ui.text.PlatformTextStyle
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.ProvidableCompositionLocal
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.BaselineShift
 import androidx.compose.ui.unit.sp
-import carbon.compose.R
+import carbon.compose.Res
+import carbon.compose.ibmplexmono_italic
+import carbon.compose.ibmplexmono_light
+import carbon.compose.ibmplexmono_lightitalic
+import carbon.compose.ibmplexmono_regular
+import carbon.compose.ibmplexmono_semibold
+import carbon.compose.ibmplexmono_semibolditalic
+import carbon.compose.ibmplexsans_italic
+import carbon.compose.ibmplexsans_light
+import carbon.compose.ibmplexsans_lightitalic
+import carbon.compose.ibmplexsans_regular
+import carbon.compose.ibmplexsans_semibold
+import carbon.compose.ibmplexsans_semibolditalic
+import carbon.compose.ibmplexserif_italic
+import carbon.compose.ibmplexserif_light
+import carbon.compose.ibmplexserif_lightitalic
+import carbon.compose.ibmplexserif_regular
+import carbon.compose.ibmplexserif_semibold
+import carbon.compose.ibmplexserif_semibolditalic
+import co.touchlab.kermit.Logger
+import org.jetbrains.compose.resources.Font
 
 /**
- * IBM Plex Sans font family.
+ * A [staticCompositionLocalOf] that provides the current [CarbonTypography].
  */
-public val ibmPlexSansFamily: FontFamily = FontFamily(
-    Font(R.font.ibmplexsans_light, FontWeight.Light),
-    Font(R.font.ibmplexsans_lightitalic, FontWeight.Light, FontStyle.Italic),
-    Font(R.font.ibmplexsans_regular, FontWeight.Normal),
-    Font(R.font.ibmplexsans_italic, FontWeight.Normal, FontStyle.Italic),
-    Font(R.font.ibmplexsans_semibold, FontWeight.SemiBold),
-    Font(R.font.ibmplexsans_semibolditalic, FontWeight.SemiBold, FontStyle.Italic),
+public val LocalCarbonTypography: ProvidableCompositionLocal<CarbonTypography> =
+    staticCompositionLocalOf {
+        Logger.w(
+            "No Typography provided, please make sure to wrap your UI " +
+                "with the CarbonDesignSystem composable."
+        )
+        CarbonTypography(
+            FontFamily.SansSerif,
+            FontFamily.Serif,
+            FontFamily.Monospace
+        )
+    }
+
+/**
+ * Builds and returns a [FontFamily] of the IBM Plex **sans serif** font.
+ */
+@Composable
+public fun getIBMPlexSansFamily(): FontFamily = FontFamily(
+    Font(Res.font.ibmplexsans_light, FontWeight.Light),
+    Font(Res.font.ibmplexsans_lightitalic, FontWeight.Light, FontStyle.Italic),
+    Font(Res.font.ibmplexsans_regular, FontWeight.Normal),
+    Font(Res.font.ibmplexsans_italic, FontWeight.Normal, FontStyle.Italic),
+    Font(Res.font.ibmplexsans_semibold, FontWeight.SemiBold),
+    Font(Res.font.ibmplexsans_semibolditalic, FontWeight.SemiBold, FontStyle.Italic),
 )
 
 /**
- * IBM Plex Serif font family.
+ * Builds and returns a [FontFamily] of the IBM Plex **serif** font.
  */
-public val ibmPlexSerifFamily: FontFamily = FontFamily(
-    Font(R.font.ibmplexserif_light, FontWeight.Light),
-    Font(R.font.ibmplexserif_lightitalic, FontWeight.Light, FontStyle.Italic),
-    Font(R.font.ibmplexserif_regular, FontWeight.Normal),
-    Font(R.font.ibmplexserif_italic, FontWeight.Normal, FontStyle.Italic),
-    Font(R.font.ibmplexserif_semibold, FontWeight.SemiBold),
-    Font(R.font.ibmplexserif_semibolditalic, FontWeight.SemiBold, FontStyle.Italic),
+@Composable
+public fun getIBMPlexSerifFamily(): FontFamily = FontFamily(
+    Font(Res.font.ibmplexserif_light, FontWeight.Light),
+    Font(Res.font.ibmplexserif_lightitalic, FontWeight.Light, FontStyle.Italic),
+    Font(Res.font.ibmplexserif_regular, FontWeight.Normal),
+    Font(Res.font.ibmplexserif_italic, FontWeight.Normal, FontStyle.Italic),
+    Font(Res.font.ibmplexserif_semibold, FontWeight.SemiBold),
+    Font(Res.font.ibmplexserif_semibolditalic, FontWeight.SemiBold, FontStyle.Italic),
 )
 
 /**
- * IBM Plex Mono font family.
+ * Builds and returns a [FontFamily] of the IBM Plex **monospace** font.
  */
-public val ibmPlexMonoFamily: FontFamily = FontFamily(
-    Font(R.font.ibmplexmono_light, FontWeight.Light),
-    Font(R.font.ibmplexmono_lightitalic, FontWeight.Light, FontStyle.Italic),
-    Font(R.font.ibmplexmono_regular, FontWeight.Normal),
-    Font(R.font.ibmplexmono_italic, FontWeight.Normal, FontStyle.Italic),
-    Font(R.font.ibmplexmono_semibold, FontWeight.SemiBold),
-    Font(R.font.ibmplexmono_semibolditalic, FontWeight.SemiBold, FontStyle.Italic),
+@Composable
+public fun getIBMPlexMonoFamily(): FontFamily = FontFamily(
+    Font(Res.font.ibmplexmono_light, FontWeight.Light),
+    Font(Res.font.ibmplexmono_lightitalic, FontWeight.Light, FontStyle.Italic),
+    Font(Res.font.ibmplexmono_regular, FontWeight.Normal),
+    Font(Res.font.ibmplexmono_italic, FontWeight.Normal, FontStyle.Italic),
+    Font(Res.font.ibmplexmono_semibold, FontWeight.SemiBold),
+    Font(Res.font.ibmplexmono_semibolditalic, FontWeight.SemiBold, FontStyle.Italic),
 )
 
 /**
@@ -53,7 +93,11 @@ public val ibmPlexMonoFamily: FontFamily = FontFamily(
  * more information.
  */
 @Suppress("UndocumentedPublicProperty")
-public object CarbonTypography {
+public class CarbonTypography(
+    ibmPlexSansFamily: FontFamily,
+    ibmPlexSerifFamily: FontFamily,
+    ibmPlexMonoFamily: FontFamily,
+) {
     // region Utility
 
     public val code01: TextStyle = TextStyle(
@@ -114,7 +158,6 @@ public object CarbonTypography {
         fontFamily = ibmPlexSansFamily,
         fontSize = 14.sp,
         lineHeight = 18.sp,
-        platformStyle = PlatformTextStyle(includeFontPadding = false),
         letterSpacing = .16f.sp,
         baselineShift = BaselineShift(.16f),
     )

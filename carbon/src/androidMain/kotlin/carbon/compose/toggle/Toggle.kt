@@ -35,10 +35,10 @@ import androidx.compose.ui.platform.inspectable
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.unit.dp
+import carbon.compose.Carbon
 import carbon.compose.foundation.interaction.ToggleableFocusIndication
 import carbon.compose.foundation.motion.Motion
 import carbon.compose.foundation.spacing.SpacingScale
-import carbon.compose.foundation.text.CarbonTypography
 import carbon.compose.foundation.text.Text
 import carbon.compose.semantics.readOnly
 import carbon.compose.toggle.domain.ToggleDrawValues
@@ -202,7 +202,7 @@ private fun ToggleImpl(
         if (label.isNotEmpty()) {
             Text(
                 text = label,
-                style = CarbonTypography.label01,
+                style = Carbon.typography.label01,
                 color = colors.textColor(isEnabled).value,
                 modifier = Modifier.padding(bottom = SpacingScale.spacing04)
             )
@@ -221,7 +221,7 @@ private fun ToggleImpl(
             if (actionText.isNotEmpty()) {
                 Text(
                     text = actionText,
-                    style = CarbonTypography.bodyCompact01,
+                    style = Carbon.typography.bodyCompact01,
                     color = colors.textColor(isEnabled).value,
                     modifier = Modifier.padding(start = SpacingScale.spacing03)
                 )

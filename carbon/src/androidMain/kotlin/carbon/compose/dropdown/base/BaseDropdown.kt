@@ -39,7 +39,6 @@ import carbon.compose.dropdown.domain.getOptionsPopupHeightRatio
 import carbon.compose.foundation.color.Layer
 import carbon.compose.foundation.motion.Motion
 import carbon.compose.foundation.spacing.SpacingScale
-import carbon.compose.foundation.text.CarbonTypography
 import carbon.compose.foundation.text.Text
 
 private val dropdownTransitionSpecDp = tween<Dp>(
@@ -117,7 +116,7 @@ internal fun <K : Any> BaseDropdown(
         label.takeIf { !it.isNullOrBlank() }?.let {
             Text(
                 text = it,
-                style = CarbonTypography.label01,
+                style = Carbon.typography.label01,
                 color = labelTextColor,
                 modifier = Modifier
                     .padding(bottom = SpacingScale.spacing03)
@@ -185,7 +184,7 @@ internal fun <K : Any> BaseDropdown(
         state.helperText?.let {
             Text(
                 text = it,
-                style = CarbonTypography.helperText01,
+                style = Carbon.typography.helperText01,
                 color = helperTextColor,
                 modifier = Modifier
                     .padding(top = SpacingScale.spacing02)

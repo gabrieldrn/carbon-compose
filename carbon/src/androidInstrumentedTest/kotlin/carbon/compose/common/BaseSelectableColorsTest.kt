@@ -1,9 +1,9 @@
-package carbon.compose.foundation
+package carbon.compose.common
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.state.ToggleableState
 import carbon.compose.BaseColorsTest
-import carbon.compose.foundation.selectable.SelectableInteractiveState
+import carbon.compose.common.selectable.SelectableInteractiveState
 
 abstract class BaseSelectableColorsTest : BaseColorsTest() {
 

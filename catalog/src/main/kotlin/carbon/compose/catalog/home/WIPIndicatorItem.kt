@@ -32,7 +32,6 @@ import androidx.core.graphics.drawable.toBitmap
 import carbon.compose.Carbon
 import carbon.compose.catalog.R
 import carbon.compose.foundation.spacing.SpacingScale
-import carbon.compose.foundation.text.CarbonTypography
 
 private const val wipItemVerticalRotation = -90f
 
@@ -68,7 +67,7 @@ fun WIPIndicatorItem(
             )
             BasicText(
                 text = "TO BE IMPLEMENTED",
-                style = CarbonTypography.code02.copy(color = Carbon.theme.textPrimary),
+                style = Carbon.typography.code02.copy(color = Carbon.theme.textPrimary),
                 modifier = Modifier.then(
                     if (isInVerticalLayout) Modifier else Modifier.rotateVertical()
                 )

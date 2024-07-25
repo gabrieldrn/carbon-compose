@@ -38,7 +38,6 @@ import carbon.compose.Carbon
 import carbon.compose.foundation.color.Theme
 import carbon.compose.foundation.interaction.FocusIndication
 import carbon.compose.foundation.spacing.SpacingScale
-import carbon.compose.foundation.text.CarbonTypography
 import carbon.compose.foundation.text.Text
 import carbon.compose.icons.WarningAltIcon
 import carbon.compose.icons.WarningIcon
@@ -98,11 +97,12 @@ public fun TextInput(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 ) {
     val theme = Carbon.theme
+    val typography = Carbon.typography
     val colors = TextInputColors.colors()
 
     val fieldTextColor by colors.fieldTextColor(state = state)
     val fieldTextStyle by remember(fieldTextColor) {
-        mutableStateOf(CarbonTypography.bodyCompact01.copy(color = fieldTextColor))
+        mutableStateOf(typography.bodyCompact01.copy(color = fieldTextColor))
     }
 
     TextInputRoot(
@@ -148,7 +148,7 @@ internal fun TextInputRoot(
         Row(modifier = Modifier.padding(bottom = SpacingScale.spacing03)) {
             Text(
                 text = label,
-                style = CarbonTypography.label01,
+                style = Carbon.typography.label01,
                 color = colors.labelTextColor(state = state).value,
                 maxLines = 1,
                 modifier = Modifier
@@ -159,7 +159,7 @@ internal fun TextInputRoot(
             if (counter != null) {
                 Text(
                     text = "${counter.first}/${counter.second}",
-                    style = CarbonTypography.label01,
+                    style = Carbon.typography.label01,
                     color = colors.labelTextColor(state = state).value,
                     maxLines = 1,
                     modifier = Modifier.testTag(TextInputTestTags.COUNTER)
@@ -172,7 +172,7 @@ internal fun TextInputRoot(
         if (helperText.isNotEmpty()) {
             Text(
                 text = helperText,
-                style = CarbonTypography.helperText01,
+                style = Carbon.typography.helperText01,
                 color = colors.helperTextColor(state = state).value,
                 modifier = Modifier
                     .padding(top = SpacingScale.spacing02)
@@ -317,7 +317,7 @@ private fun FieldContent(
             if (value.isEmpty()) {
                 Text(
                     text = placeholderText,
-                    style = CarbonTypography.bodyCompact01,
+                    style = Carbon.typography.bodyCompact01,
                     color = colors.placeholderTextColor(state = state).value,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,

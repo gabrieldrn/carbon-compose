@@ -11,7 +11,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import carbon.compose.CarbonDesignSystem
 import carbon.compose.InteractiveStatePreviewParameterProvider
-import carbon.compose.foundation.selectable.SelectableInteractiveState
+import carbon.compose.common.selectable.SelectableInteractiveState
 import carbon.compose.foundation.spacing.SpacingScale
 import carbon.compose.toLabel
 

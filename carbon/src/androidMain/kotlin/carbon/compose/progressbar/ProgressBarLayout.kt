@@ -15,7 +15,6 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import carbon.compose.Carbon
 import carbon.compose.foundation.spacing.SpacingScale
-import carbon.compose.foundation.text.CarbonTypography
 import carbon.compose.foundation.text.Text
 import carbon.compose.icons.CheckmarkFilledIcon
 import carbon.compose.icons.ErrorFilledIcon
@@ -91,7 +90,7 @@ internal fun DefaultProgressBarLayout(
         if (helperText != null) {
             Text(
                 text = helperText,
-                style = CarbonTypography.helperText01,
+                style = Carbon.typography.helperText01,
                 color = Carbon.theme.textHelper,
                 modifier = Modifier
                     .padding(
@@ -143,7 +142,7 @@ private fun LabelText(
 ) {
     Text(
         text = text,
-        style = CarbonTypography.label01,
+        style = Carbon.typography.label01,
         color = Carbon.theme.textPrimary,
         modifier = modifier
     )
