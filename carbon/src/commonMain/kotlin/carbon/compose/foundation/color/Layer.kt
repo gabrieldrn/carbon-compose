@@ -1,7 +1,6 @@
 package carbon.compose.foundation.color
 
-import android.util.Log
-import carbon.compose.LOG_TAG
+import co.touchlab.kermit.Logger
 
 /**
  * # Layering tokens
@@ -36,7 +35,7 @@ public enum class Layer {
             Layer02 -> Layer03
             Layer03 -> Layer03
                 .also {
-                    Log.w(LOG_TAG, "Current layer ($it) is already the highest layer available.")
+                    Logger.w("Current layer ($it) is already the highest layer available.")
                 }
         }
     }
