@@ -114,7 +114,7 @@ internal fun ButtonRowImpl(
                 InspectableModifier(
                     debugInspectorInfo {
                         properties["buttonType"] = buttonType.name
-                        properties["buttonSize"] = buttonSize::class.java.name
+                        properties["buttonSize"] = buttonSize::class.simpleName
                         properties["isIconButton"] = isIconButton.toString()
                     }
                 )

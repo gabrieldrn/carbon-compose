@@ -37,7 +37,6 @@ kotlin {
 }
 
 compose.resources {
-    publicResClass = true
     packageOfResClass = "carbon.compose"
     generateResClass = always
 }
