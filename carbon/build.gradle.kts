@@ -50,13 +50,12 @@ android {
     namespace = "carbon.compose"
 
     dependencies {
-        implementation(libs.androidx.lifecycle.runtime.ktx)
-        implementation(libs.androidx.lifecycle.viewModel.compose)
-        implementation(libs.androidx.compose.foundation)
-        implementation(libs.androidx.compose.ui)
-        implementation(libs.androidx.compose.uiTooling)
-
-        implementation(libs.timber)
+        // Disabled while there's no specific Android implementations.
+//        implementation(libs.androidx.lifecycle.runtime.ktx)
+//        implementation(libs.androidx.lifecycle.viewModel.compose)
+//        implementation(libs.androidx.compose.foundation)
+//        implementation(libs.androidx.compose.ui)
+//        implementation(libs.androidx.compose.uiTooling)
 
         debugImplementation(libs.androidx.compose.ui.test.manifest)
 
