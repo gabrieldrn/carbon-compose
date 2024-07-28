@@ -15,6 +15,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
@@ -67,8 +68,8 @@ class HomeActivity : AppCompatActivity() {
                 ) {
                     UiShellHeader(
                         headerName = currentScreen.title,
-                        menuIconRes = if (currentScreen != Destination.Home) {
-                            R.drawable.ic_arrow_left
+                        menuIconPainter = if (currentScreen != Destination.Home) {
+                            painterResource(id = R.drawable.ic_arrow_left)
                         } else {
                             null
                         },

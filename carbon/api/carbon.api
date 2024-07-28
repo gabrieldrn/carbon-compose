@@ -4,6 +4,7 @@ public final class carbon/compose/Carbon {
 	public final fun getInlineTheme (Landroidx/compose/runtime/Composer;I)Lcarbon/compose/foundation/color/Theme;
 	public final fun getLayer (Landroidx/compose/runtime/Composer;I)Lcarbon/compose/foundation/color/Layer;
 	public final fun getTheme (Landroidx/compose/runtime/Composer;I)Lcarbon/compose/foundation/color/Theme;
+	public final fun getTypography (Landroidx/compose/runtime/Composer;I)Lcarbon/compose/foundation/text/CarbonTypography;
 }
 
 public final class carbon/compose/CarbonKt {
@@ -48,8 +49,60 @@ public final class carbon/compose/button/IconButtonKt {
 }
 
 public final class carbon/compose/checkbox/CheckboxKt {
-	public static final fun Checkbox (Landroidx/compose/ui/state/ToggleableState;Ljava/lang/String;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Lcarbon/compose/foundation/selectable/SelectableInteractiveState;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;II)V
-	public static final fun Checkbox (ZLjava/lang/String;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Lcarbon/compose/foundation/selectable/SelectableInteractiveState;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;II)V
+	public static final fun Checkbox (Landroidx/compose/ui/state/ToggleableState;Ljava/lang/String;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Lcarbon/compose/common/selectable/SelectableInteractiveState;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;II)V
+	public static final fun Checkbox (ZLjava/lang/String;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Lcarbon/compose/common/selectable/SelectableInteractiveState;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;II)V
+}
+
+public abstract class carbon/compose/common/selectable/SelectableInteractiveState {
+	public static final field $stable I
+}
+
+public final class carbon/compose/common/selectable/SelectableInteractiveState$Default : carbon/compose/common/selectable/SelectableInteractiveState {
+	public static final field $stable I
+	public static final field INSTANCE Lcarbon/compose/common/selectable/SelectableInteractiveState$Default;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class carbon/compose/common/selectable/SelectableInteractiveState$Disabled : carbon/compose/common/selectable/SelectableInteractiveState {
+	public static final field $stable I
+	public static final field INSTANCE Lcarbon/compose/common/selectable/SelectableInteractiveState$Disabled;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class carbon/compose/common/selectable/SelectableInteractiveState$Error : carbon/compose/common/selectable/SelectableInteractiveState {
+	public static final field $stable I
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lcarbon/compose/common/selectable/SelectableInteractiveState$Error;
+	public static synthetic fun copy$default (Lcarbon/compose/common/selectable/SelectableInteractiveState$Error;Ljava/lang/String;ILjava/lang/Object;)Lcarbon/compose/common/selectable/SelectableInteractiveState$Error;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getErrorMessage ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class carbon/compose/common/selectable/SelectableInteractiveState$ReadOnly : carbon/compose/common/selectable/SelectableInteractiveState {
+	public static final field $stable I
+	public static final field INSTANCE Lcarbon/compose/common/selectable/SelectableInteractiveState$ReadOnly;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class carbon/compose/common/selectable/SelectableInteractiveState$Warning : carbon/compose/common/selectable/SelectableInteractiveState {
+	public static final field $stable I
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lcarbon/compose/common/selectable/SelectableInteractiveState$Warning;
+	public static synthetic fun copy$default (Lcarbon/compose/common/selectable/SelectableInteractiveState$Warning;Ljava/lang/String;ILjava/lang/Object;)Lcarbon/compose/common/selectable/SelectableInteractiveState$Warning;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getWarningMessage ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
 }
 
 public final class carbon/compose/dropdown/DropdownKt {
@@ -551,58 +604,6 @@ public final class carbon/compose/foundation/motion/Motion$Standard {
 	public final fun getProductiveEasing ()Landroidx/compose/animation/core/CubicBezierEasing;
 }
 
-public abstract class carbon/compose/foundation/selectable/SelectableInteractiveState {
-	public static final field $stable I
-}
-
-public final class carbon/compose/foundation/selectable/SelectableInteractiveState$Default : carbon/compose/foundation/selectable/SelectableInteractiveState {
-	public static final field $stable I
-	public static final field INSTANCE Lcarbon/compose/foundation/selectable/SelectableInteractiveState$Default;
-	public fun equals (Ljava/lang/Object;)Z
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
-}
-
-public final class carbon/compose/foundation/selectable/SelectableInteractiveState$Disabled : carbon/compose/foundation/selectable/SelectableInteractiveState {
-	public static final field $stable I
-	public static final field INSTANCE Lcarbon/compose/foundation/selectable/SelectableInteractiveState$Disabled;
-	public fun equals (Ljava/lang/Object;)Z
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
-}
-
-public final class carbon/compose/foundation/selectable/SelectableInteractiveState$Error : carbon/compose/foundation/selectable/SelectableInteractiveState {
-	public static final field $stable I
-	public fun <init> (Ljava/lang/String;)V
-	public final fun component1 ()Ljava/lang/String;
-	public final fun copy (Ljava/lang/String;)Lcarbon/compose/foundation/selectable/SelectableInteractiveState$Error;
-	public static synthetic fun copy$default (Lcarbon/compose/foundation/selectable/SelectableInteractiveState$Error;Ljava/lang/String;ILjava/lang/Object;)Lcarbon/compose/foundation/selectable/SelectableInteractiveState$Error;
-	public fun equals (Ljava/lang/Object;)Z
-	public final fun getErrorMessage ()Ljava/lang/String;
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
-}
-
-public final class carbon/compose/foundation/selectable/SelectableInteractiveState$ReadOnly : carbon/compose/foundation/selectable/SelectableInteractiveState {
-	public static final field $stable I
-	public static final field INSTANCE Lcarbon/compose/foundation/selectable/SelectableInteractiveState$ReadOnly;
-	public fun equals (Ljava/lang/Object;)Z
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
-}
-
-public final class carbon/compose/foundation/selectable/SelectableInteractiveState$Warning : carbon/compose/foundation/selectable/SelectableInteractiveState {
-	public static final field $stable I
-	public fun <init> (Ljava/lang/String;)V
-	public final fun component1 ()Ljava/lang/String;
-	public final fun copy (Ljava/lang/String;)Lcarbon/compose/foundation/selectable/SelectableInteractiveState$Warning;
-	public static synthetic fun copy$default (Lcarbon/compose/foundation/selectable/SelectableInteractiveState$Warning;Ljava/lang/String;ILjava/lang/Object;)Lcarbon/compose/foundation/selectable/SelectableInteractiveState$Warning;
-	public fun equals (Ljava/lang/Object;)Z
-	public final fun getWarningMessage ()Ljava/lang/String;
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
-}
-
 public final class carbon/compose/foundation/spacing/SpacingScale {
 	public static final field $stable I
 	public static final field INSTANCE Lcarbon/compose/foundation/spacing/SpacingScale;
@@ -623,7 +624,7 @@ public final class carbon/compose/foundation/spacing/SpacingScale {
 
 public final class carbon/compose/foundation/text/CarbonTypography {
 	public static final field $stable I
-	public static final field INSTANCE Lcarbon/compose/foundation/text/CarbonTypography;
+	public fun <init> (Landroidx/compose/ui/text/font/FontFamily;Landroidx/compose/ui/text/font/FontFamily;Landroidx/compose/ui/text/font/FontFamily;)V
 	public final fun getBody01 ()Landroidx/compose/ui/text/TextStyle;
 	public final fun getBody02 ()Landroidx/compose/ui/text/TextStyle;
 	public final fun getBodyCompact01 ()Landroidx/compose/ui/text/TextStyle;
@@ -653,9 +654,10 @@ public final class carbon/compose/foundation/text/CarbonTypography {
 }
 
 public final class carbon/compose/foundation/text/CarbonTypographyKt {
-	public static final fun getIbmPlexMonoFamily ()Landroidx/compose/ui/text/font/FontFamily;
-	public static final fun getIbmPlexSansFamily ()Landroidx/compose/ui/text/font/FontFamily;
-	public static final fun getIbmPlexSerifFamily ()Landroidx/compose/ui/text/font/FontFamily;
+	public static final fun getIBMPlexMonoFamily (Landroidx/compose/runtime/Composer;I)Landroidx/compose/ui/text/font/FontFamily;
+	public static final fun getIBMPlexSansFamily (Landroidx/compose/runtime/Composer;I)Landroidx/compose/ui/text/font/FontFamily;
+	public static final fun getIBMPlexSerifFamily (Landroidx/compose/runtime/Composer;I)Landroidx/compose/ui/text/font/FontFamily;
+	public static final fun getLocalCarbonTypography ()Landroidx/compose/runtime/ProvidableCompositionLocal;
 }
 
 public final class carbon/compose/loading/LoadingKt {
@@ -686,7 +688,7 @@ public final class carbon/compose/progressbar/ProgressBarState : java/lang/Enum 
 }
 
 public final class carbon/compose/radiobutton/RadioButtonKt {
-	public static final fun RadioButton (ZLjava/lang/String;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Lcarbon/compose/foundation/selectable/SelectableInteractiveState;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;II)V
+	public static final fun RadioButton (ZLjava/lang/String;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Lcarbon/compose/common/selectable/SelectableInteractiveState;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;II)V
 }
 
 public final class carbon/compose/semantics/CarbonSemanticsProperties {
@@ -745,14 +747,7 @@ public final class carbon/compose/toggle/ToggleKt {
 	public static final fun Toggle (ZLkotlin/jvm/functions/Function1;Landroidx/compose/ui/Modifier;Ljava/lang/String;Ljava/lang/String;ZZLandroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;II)V
 }
 
-public final class carbon/compose/uishell/ComposableSingletons$UiShellHeaderKt {
-	public static final field INSTANCE Lcarbon/compose/uishell/ComposableSingletons$UiShellHeaderKt;
-	public static field lambda-1 Lkotlin/jvm/functions/Function2;
-	public fun <init> ()V
-	public final fun getLambda-1$carbon_release ()Lkotlin/jvm/functions/Function2;
-}
-
-public final class carbon/compose/uishell/UiShellHeaderKt {
-	public static final fun UiShellHeader (Ljava/lang/String;Landroidx/compose/ui/Modifier;Ljava/lang/Integer;Lkotlin/jvm/functions/Function0;Landroidx/compose/foundation/layout/WindowInsets;Lcarbon/compose/foundation/color/Theme;Landroidx/compose/runtime/Composer;II)V
+public final class carbon/compose/uishell/UIShellHeaderKt {
+	public static final fun UiShellHeader (Ljava/lang/String;Landroidx/compose/ui/Modifier;Landroidx/compose/ui/graphics/painter/Painter;Lkotlin/jvm/functions/Function0;Landroidx/compose/foundation/layout/WindowInsets;Lcarbon/compose/foundation/color/Theme;Landroidx/compose/runtime/Composer;II)V
 }
 

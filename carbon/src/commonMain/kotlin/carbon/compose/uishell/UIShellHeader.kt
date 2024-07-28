@@ -1,6 +1,5 @@
 package carbon.compose.uishell
 
-import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -23,8 +22,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.dp
 import carbon.compose.Carbon
 import carbon.compose.CarbonDesignSystem
@@ -37,7 +35,7 @@ import carbon.compose.foundation.spacing.SpacingScale
 public fun UiShellHeader(
     headerName: String,
     modifier: Modifier = Modifier,
-    @DrawableRes menuIconRes: Int? = null,
+    menuIconPainter: Painter? = null,
     onMenuIconPressed: () -> Unit = {},
     windowInsets: WindowInsets = WindowInsets.statusBars.only(WindowInsetsSides.Top),
     inlineTheme: Theme = LocalCarbonInlineTheme.current,
@@ -58,10 +56,10 @@ public fun UiShellHeader(
                     .fillMaxSize(),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                if (menuIconRes != null) {
+                if (menuIconPainter != null) {
                     MenuButton(
                         onMenuIconPressed = onMenuIconPressed,
-                        menuIconRes = menuIconRes
+                        menuIconPainter = menuIconPainter
                     )
                     Spacer(modifier = Modifier.width(SpacingScale.spacing03))
                 } else {
@@ -89,7 +87,7 @@ public fun UiShellHeader(
 @Composable
 private fun MenuButton(
     onMenuIconPressed: () -> Unit,
-    menuIconRes: Int,
+    menuIconPainter: Painter,
     modifier: Modifier = Modifier,
 ) {
     Box(
@@ -99,21 +97,11 @@ private fun MenuButton(
         contentAlignment = Alignment.Center,
     ) {
         Image(
-            painter = painterResource(id = menuIconRes),
+            painter = menuIconPainter,
             contentDescription = "Back",
             colorFilter = ColorFilter.tint(LocalCarbonTheme.current.textPrimary),
             modifier = Modifier
                 .size(24.dp)
-        )
-    }
-}
-
-@Preview
-@Composable
-private fun UiShellHeaderPreview() {
-    CarbonDesignSystem {
-        UiShellHeader(
-            headerName = "Carbon Design System",
         )
     }
 }

@@ -1,4 +1,5 @@
 import carbon.compose.Configuration
+import org.jetbrains.compose.ExperimentalComposeLibrary
 
 plugins {
     id("carbon.kmp.library")
@@ -25,6 +26,8 @@ kotlin {
             implementation(compose.foundation)
             implementation(compose.ui)
 //            implementation(compose.uiTooling)
+            @OptIn(ExperimentalComposeLibrary::class)
+            implementation(compose.uiTest)
             implementation(compose.animation)
             implementation(compose.components.resources)
 
@@ -51,9 +54,6 @@ android {
         implementation(libs.androidx.compose.foundation)
         implementation(libs.androidx.compose.ui)
         implementation(libs.androidx.compose.uiTooling)
-        implementation(libs.androidx.compose.ui.test) {
-            exclude(group = "androidx.test.espresso", module = "espresso-core")
-        }
 
         implementation(libs.timber)
 
