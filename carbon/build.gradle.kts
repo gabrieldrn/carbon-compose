@@ -9,16 +9,17 @@ plugins {
 apply(from = "${rootDir}/scripts/publishing.gradle.kts")
 
 kotlin {
-    listOf(
-        iosX64(),
-        iosArm64(),
-        iosSimulatorArm64()
-    ).forEach {
-        it.binaries.framework {
-            baseName = "carbon"
-            isStatic = true
-        }
-    }
+    // Disabled until actual iOS support is added
+//    listOf(
+//        iosX64(),
+//        iosArm64(),
+//        iosSimulatorArm64()
+//    ).forEach {
+//        it.binaries.framework {
+//            baseName = "carbon"
+//            isStatic = true
+//        }
+//    }
 
     sourceSets {
         commonMain.dependencies {
