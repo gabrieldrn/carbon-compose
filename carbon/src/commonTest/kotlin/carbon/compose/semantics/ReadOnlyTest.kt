@@ -7,19 +7,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.state.ToggleableState
-import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
-import org.junit.Rule
+import androidx.compose.ui.test.runComposeUiTest
 import org.junit.Test
 
 class ReadOnlyTest {
 
-    @get:Rule
-    val composeTestRule = createComposeRule()
-
     @Test
-    fun readOnly_validateSemantics() {
-        composeTestRule.setContent {
+    fun readOnly_validateSemantics() = runComposeUiTest {
+        setContent {
             val interactionSource = remember { MutableInteractionSource() }
             Box(
                 modifier = Modifier
@@ -33,8 +29,7 @@ class ReadOnlyTest {
             )
         }
 
-        composeTestRule
-            .onNodeWithTag("ReadOnly")
+        onNodeWithTag("ReadOnly")
             .assertIsReadOnly {
                 "The node misses the expected semantics for a read-only component."
             }

@@ -1,16 +1,16 @@
 package carbon.compose.textinput
 
+import androidx.compose.ui.test.ComposeUiTest
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertTextEquals
-import androidx.compose.ui.test.junit4.ComposeTestRule
 import androidx.compose.ui.test.onNodeWithTag
 
 @Suppress("NestedBlockDepth")
-fun ComposeTestRule.runGlobalTextInputLayoutAssertions(
+fun ComposeUiTest.runGlobalTextInputLayoutAssertions(
     label: String,
     helperText: String,
     state: TextInputState,
-) = run {
+) {
     onNodeWithTag(TextInputTestTags.LABEL, useUnmergedTree = true).run {
         assertIsDisplayed()
         assertTextEquals(label)

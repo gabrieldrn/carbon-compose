@@ -8,15 +8,14 @@ import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.hasStateDescription
 import androidx.compose.ui.test.isFocusable
-import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.runComposeUiTest
 import carbon.compose.CarbonDesignSystem
 import carbon.compose.semantics.isReadOnly
-import org.junit.Rule
-import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
+import kotlin.test.Test
 
 @RunWith(Parameterized::class)
 class TextInputTest(
@@ -27,12 +26,9 @@ class TextInputTest(
     private val state: TextInputState,
 ) {
 
-    @get:Rule
-    val composeTestRule = createComposeRule()
-
     @Test
-    fun textInput_validateLayout() {
-        composeTestRule.setContent {
+    fun textInput_validateLayout() = runComposeUiTest {
+        setContent {
             CarbonDesignSystem {
                 when (variant) {
                     TextInputVariant.INPUT -> TextInput(
@@ -56,34 +52,32 @@ class TextInputTest(
             }
         }
 
-        composeTestRule.run {
-            runGlobalTextInputLayoutAssertions(
-                label = "Label",
-                helperText = helperText,
-                state = state
-            )
+        runGlobalTextInputLayoutAssertions(
+            label = "Label",
+            helperText = helperText,
+            state = state
+        )
 
-            if (value.isEmpty()) {
-                onNodeWithTag(TextInputTestTags.PLACEHOLDER, useUnmergedTree = true).run {
-                    if (placeholderText.isNotEmpty()) {
-                        assertIsDisplayed()
-                        assertTextEquals(placeholderText)
-                    } else {
-                        assertIsNotDisplayed()
-                    }
+        if (value.isEmpty()) {
+            onNodeWithTag(TextInputTestTags.PLACEHOLDER, useUnmergedTree = true).run {
+                if (placeholderText.isNotEmpty()) {
+                    assertIsDisplayed()
+                    assertTextEquals(placeholderText)
+                } else {
+                    assertIsNotDisplayed()
                 }
-            } else {
-                onNodeWithTag(TextInputTestTags.PLACEHOLDER, useUnmergedTree = true)
-                    .assertIsNotDisplayed()
-
-                onNodeWithText(value).assertIsDisplayed()
             }
+        } else {
+            onNodeWithTag(TextInputTestTags.PLACEHOLDER, useUnmergedTree = true)
+                .assertIsNotDisplayed()
+
+            onNodeWithText(value).assertIsDisplayed()
         }
     }
 
     @Test
-    fun textInput_validateSemantics() {
-        composeTestRule.setContent {
+    fun textInput_validateSemantics() = runComposeUiTest {
+        setContent {
             CarbonDesignSystem {
                 TextInput(
                     label = "Label", // The label is not parameterized as it's a mandatory element.
@@ -97,20 +91,18 @@ class TextInputTest(
             }
         }
 
-        composeTestRule.run {
-            // Field state
-            onNodeWithTag(TextInputTestTags.FIELD, useUnmergedTree = true).run {
-                when (state) {
-                    TextInputState.Disabled -> assertIsNotEnabled()
-                    TextInputState.ReadOnly -> {
-                        assert(isFocusable())
-                        assert(isReadOnly())
-                    }
-                    else -> assertIsEnabled()
+        // Field state
+        onNodeWithTag(TextInputTestTags.FIELD, useUnmergedTree = true).run {
+            when (state) {
+                TextInputState.Disabled -> assertIsNotEnabled()
+                TextInputState.ReadOnly -> {
+                    assert(isFocusable())
+                    assert(isReadOnly())
                 }
-                if (helperText.isNotEmpty()) {
-                    hasStateDescription(helperText)
-                }
+                else -> assertIsEnabled()
+            }
+            if (helperText.isNotEmpty()) {
+                hasStateDescription(helperText)
             }
         }
     }
@@ -125,7 +117,7 @@ class TextInputTest(
                 irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla 
                 pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia 
                 deserunt mollit anim id est laborum
-            """.trimIndent().replace("\n","")
+            """.trimIndent().replace("\n", "")
 
         @Suppress("NestedBlockDepth")
         @JvmStatic
