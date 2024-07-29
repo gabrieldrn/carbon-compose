@@ -2,16 +2,17 @@ package carbon.compose.common
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.state.ToggleableState
+import androidx.compose.ui.test.runComposeUiTest
 import carbon.compose.common.selectable.SelectableColors
 import carbon.compose.common.selectable.SelectableInteractiveState
-import org.junit.Test
+import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 
 class SelectableColorsTest : BaseSelectableColorsTest() {
 
     @Test
-    fun abstractSelectableColors_static_colorsAreCorrect() {
+    fun abstractSelectableColors_static_colorsAreCorrect() = runComposeUiTest {
         val colors = object : SelectableColors(theme) {}
         assertNotNull(colors)
 
@@ -27,7 +28,7 @@ class SelectableColorsTest : BaseSelectableColorsTest() {
     }
 
     @Test
-    fun abstractSelectableColors_borderColor_colorsAreCorrect() {
+    fun abstractSelectableColors_borderColor_colorsAreCorrect() = runComposeUiTest {
         val expectedColors: Map<SelectableInteractiveState, Any> = mapOf(
             interactiveStates["default"]!! to mapOf(
                 ToggleableState.Off to theme.iconPrimary,
@@ -71,7 +72,7 @@ class SelectableColorsTest : BaseSelectableColorsTest() {
     }
 
     @Test
-    fun abstractSelectableColors_labelColor_colorsAreCorrect() {
+    fun abstractSelectableColors_labelColor_colorsAreCorrect() = runComposeUiTest {
         forAllLayersAndStates(interactiveStates.values) { interactiveState, _ ->
             assertEquals(
                 expected = if (interactiveState == SelectableInteractiveState.Disabled) {

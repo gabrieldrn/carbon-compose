@@ -1,15 +1,16 @@
 package carbon.compose.toggle
 
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.test.runComposeUiTest
 import carbon.compose.BaseColorsTest
 import carbon.compose.foundation.color.Layer
-import org.junit.Test
+import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class ToggleColorsTest : BaseColorsTest() {
 
     @Test
-    fun toggleColors_backgroundColorByState_returnsCorrectColor() {
+    fun toggleColors_backgroundColorByState_returnsCorrectColor() = runComposeUiTest {
         val expectedColors = mapOf(
             Triple(
                 /*isEnabled=*/false, /*isReadOnly=*/false, /*isToggled=*/false
@@ -40,7 +41,7 @@ class ToggleColorsTest : BaseColorsTest() {
     }
 
     @Test
-    fun toggleColors_borderColorByState_returnsCorrectColor() {
+    fun toggleColors_borderColorByState_returnsCorrectColor() = runComposeUiTest {
         val expectedColors = mapOf(
             /*isEnabled=*/true to /*isReadOnly=*/true to mapOf(
                 Layer.Layer00 to theme.borderSubtle01,
@@ -68,7 +69,7 @@ class ToggleColorsTest : BaseColorsTest() {
     }
 
     @Test
-    fun toggleColors_handleColorByState_returnsCorrectColor() {
+    fun toggleColors_handleColorByState_returnsCorrectColor() = runComposeUiTest {
         val expectedColors = mapOf(
             /*isEnabled = */ false to /*isReadOnly = */ false to theme.iconOnColorDisabled,
             false to true to theme.iconOnColorDisabled,
@@ -86,7 +87,7 @@ class ToggleColorsTest : BaseColorsTest() {
     }
 
     @Test
-    fun toggleColors_handleCheckmarkColorByState_returnsCorrectColor() {
+    fun toggleColors_handleCheckmarkColorByState_returnsCorrectColor() = runComposeUiTest {
         val expectedColors = mapOf(
             Triple(
                 /*isEnabled=*/false, /*isReadOnly=*/false, /*isToggled=*/false

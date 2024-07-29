@@ -16,21 +16,17 @@ import androidx.compose.ui.test.assertWidthIsEqualTo
 import androidx.compose.ui.test.hasClickAction
 import androidx.compose.ui.test.isEnabled
 import androidx.compose.ui.test.isFocusable
-import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.runComposeUiTest
 import androidx.compose.ui.unit.dp
 import carbon.compose.R
-import org.junit.Rule
-import org.junit.Test
+import kotlin.test.Test
 
 class IconButtonTest {
 
-    @get:Rule
-    val composeTestRule = createComposeRule()
-
     @Test
-    fun iconButton_validateLayout() {
-        composeTestRule.setContent {
+    fun iconButton_validateLayout() = runComposeUiTest {
+        setContent {
             IconButton(
                 iconPainter = painterResource(id = R.drawable.ic_add),
                 onClick = {},
@@ -38,17 +34,16 @@ class IconButtonTest {
             )
         }
 
-        composeTestRule
-            .onNodeWithTag("IconButton")
+        onNodeWithTag("IconButton")
             .assertExists()
             .assertWidthIsEqualTo(48.dp)
             .assertHeightIsEqualTo(48.dp)
     }
 
     @Test
-    fun iconButton_validateSemantics() {
+    fun iconButton_validateSemantics() = runComposeUiTest {
         var isEnabled by mutableStateOf(true)
-        composeTestRule.setContent {
+        setContent {
             IconButton(
                 iconPainter = painterResource(id = R.drawable.ic_add),
                 onClick = { isEnabled = !isEnabled },
@@ -57,7 +52,7 @@ class IconButtonTest {
             )
         }
 
-        composeTestRule.onNodeWithTag("IconButton").run {
+        onNodeWithTag("IconButton").run {
             assert(
                 hasClickAction() and
                     SemanticsMatcher.expectValue(SemanticsProperties.Role, Role.Button) and

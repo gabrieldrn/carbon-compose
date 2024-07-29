@@ -2,15 +2,16 @@ package carbon.compose.checkbox
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.state.ToggleableState
+import androidx.compose.ui.test.runComposeUiTest
 import carbon.compose.common.BaseSelectableColorsTest
 import carbon.compose.common.selectable.SelectableInteractiveState
-import org.junit.Test
+import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class CheckboxColorsTest : BaseSelectableColorsTest() {
 
     @Test
-    fun checkboxColors_checkmarkColor_colorsAreCorrect() {
+    fun checkboxColors_checkmarkColor_colorsAreCorrect() = runComposeUiTest {
         forAllLayersAndStates(
             interactiveStates.values,
             ToggleableState.entries
@@ -21,8 +22,7 @@ class CheckboxColorsTest : BaseSelectableColorsTest() {
                     interactiveState == SelectableInteractiveState.ReadOnly -> theme.iconPrimary
                     else -> theme.iconInverse
                 },
-                actual = CheckboxColors
-                    .colors()
+                actual = CheckboxColors.colors()
                     .checkmarkColor(interactiveState, toggleableState)
                     .value,
                 message = "Interactive state: $interactiveState, " +
@@ -32,7 +32,7 @@ class CheckboxColorsTest : BaseSelectableColorsTest() {
     }
 
     @Test
-    fun checkboxColors_backgroundColor_colorsAreCorrect() {
+    fun checkboxColors_backgroundColor_colorsAreCorrect() = runComposeUiTest {
         val expectedColors: Map<SelectableInteractiveState, Any> = mapOf(
             interactiveStates["default"]!! to mapOf(
                 ToggleableState.Off to Color.Transparent,
@@ -66,8 +66,7 @@ class CheckboxColorsTest : BaseSelectableColorsTest() {
                     interactiveState = interactiveState,
                     toggleableState = toggleableState
                 ),
-                actual = CheckboxColors
-                    .colors()
+                actual = CheckboxColors.colors()
                     .backgroundColor(
                         interactiveState = interactiveState,
                         state = toggleableState

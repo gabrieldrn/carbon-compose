@@ -2,15 +2,16 @@ package carbon.compose.radiobutton
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.state.ToggleableState
+import androidx.compose.ui.test.runComposeUiTest
 import carbon.compose.common.BaseSelectableColorsTest
 import carbon.compose.common.selectable.SelectableInteractiveState
-import org.junit.Test
+import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class RadioButtonColorsTest : BaseSelectableColorsTest() {
 
     @Test
-    fun radioButtonColors_borderColor_colorsAreCorrect() {
+    fun radioButtonColors_borderColor_colorsAreCorrect() = runComposeUiTest {
         val expectedColors: Map<SelectableInteractiveState, Any> = mapOf(
             interactiveStates["default"]!! to theme.iconPrimary,
             interactiveStates["warning"]!! to theme.iconPrimary,
@@ -28,8 +29,7 @@ class RadioButtonColorsTest : BaseSelectableColorsTest() {
                     interactiveState = interactiveState,
                     toggleableState = toggleableState
                 ),
-                actual = RadioButtonColors
-                    .colors()
+                actual = RadioButtonColors.colors()
                     .borderColor(
                         interactiveState = interactiveState,
                         state = toggleableState
@@ -42,7 +42,7 @@ class RadioButtonColorsTest : BaseSelectableColorsTest() {
     }
 
     @Test
-    fun checkboxColors_dotColor_colorsAreCorrect() {
+    fun checkboxColors_dotColor_colorsAreCorrect() = runComposeUiTest {
         forAllLayersAndStates(
             interactiveStates.values,
             listOf(true, false)
@@ -54,8 +54,7 @@ class RadioButtonColorsTest : BaseSelectableColorsTest() {
                         theme.iconDisabled
                     else -> theme.iconPrimary
                 },
-                actual = RadioButtonColors
-                    .colors()
+                actual = RadioButtonColors.colors()
                     .dotColor(interactiveState, isSelected)
                     .value,
                 message = "Interactive state: $interactiveState, isSelected: $isSelected"

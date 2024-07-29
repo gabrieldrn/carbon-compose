@@ -1,15 +1,15 @@
 package carbon.compose.button
 
 import androidx.compose.ui.graphics.Color
-import carbon.compose.BaseColorsTest
-import org.junit.Test
+import androidx.compose.ui.test.runComposeUiTest
+import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class ButtonColorsTest : BaseColorsTest() {
+class ButtonColorsTest : carbon.compose.BaseColorsTest() {
 
     @Suppress("CognitiveComplexMethod", "CyclomaticComplexMethod", "LongMethod")
     @Test
-    fun buttonColors_static_colorsAreCorrect() {
+    fun buttonColors_static_colorsAreCorrect() = runComposeUiTest {
         forAllLayersAndStates(ButtonType.entries) { buttonType, _ ->
             val colors = ButtonColors.colors(buttonType = buttonType)
 

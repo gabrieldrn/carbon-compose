@@ -16,23 +16,19 @@ import androidx.compose.ui.test.assertHeightIsEqualTo
 import androidx.compose.ui.test.assertWidthIsEqualTo
 import androidx.compose.ui.test.hasClickAction
 import androidx.compose.ui.test.isFocusable
-import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onAllNodesWithTag
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.runComposeUiTest
 import androidx.compose.ui.unit.dp
 import carbon.compose.semantics.isReadOnly
-import org.junit.Rule
-import org.junit.Test
+import kotlin.test.Test
 
 class ToggleTest {
 
-    @get:Rule
-    val composeTestRule = createComposeRule()
-
     @Test
-    fun toggle_default_validateLayout() {
-        composeTestRule.setContent {
+    fun toggle_default_validateLayout() = runComposeUiTest {
+        setContent {
             Toggle(
                 isToggled = false,
                 onToggleChange = {},
@@ -40,16 +36,15 @@ class ToggleTest {
             )
         }
 
-        composeTestRule
-            .onNodeWithTag("Toggle")
+        onNodeWithTag("Toggle")
             .assertExists()
             .assertWidthIsEqualTo(48.dp)
             .assertHeightIsEqualTo(24.dp)
     }
 
     @Test
-    fun toggle_small_validateLayout() {
-        composeTestRule.setContent {
+    fun toggle_small_validateLayout() = runComposeUiTest {
+        setContent {
             SmallToggle(
                 isToggled = false,
                 onToggleChange = {},
@@ -57,17 +52,16 @@ class ToggleTest {
             )
         }
 
-        composeTestRule
-            .onNodeWithTag("Toggle")
+        onNodeWithTag("Toggle")
             .assertExists()
             .assertWidthIsEqualTo(32.dp)
             .assertHeightIsEqualTo(16.dp)
     }
 
     @Test
-    fun toggle_validateSemantics() {
+    fun toggle_validateSemantics() = runComposeUiTest {
         var isToggled by mutableStateOf(false)
-        composeTestRule.setContent {
+        setContent {
             Column {
                 Toggle(
                     isToggled = isToggled,
@@ -82,7 +76,7 @@ class ToggleTest {
             }
         }
 
-        composeTestRule.onAllNodesWithTag("Toggle").run {
+        onAllNodesWithTag("Toggle").run {
             assertAll(
                 hasClickAction() and
                     SemanticsMatcher.expectValue(SemanticsProperties.Role, Role.Switch) and
@@ -108,9 +102,9 @@ class ToggleTest {
     }
 
     @Test
-    fun toggle_readOnly_validateSemantics() {
+    fun toggle_readOnly_validateSemantics() = runComposeUiTest {
         var isToggled by mutableStateOf(false)
-        composeTestRule.setContent {
+        setContent {
             Column {
                 Toggle(
                     isToggled = isToggled,
@@ -127,18 +121,18 @@ class ToggleTest {
             }
         }
 
-        composeTestRule.onAllNodesWithTag("Toggle").run {
+        onAllNodesWithTag("Toggle").run {
             assertAll(
                 SemanticsMatcher.expectValue(SemanticsProperties.Role, Role.Switch)
-                and isReadOnly()
+                    and isReadOnly()
             )
         }
     }
 
     @Test
-    fun toggle_validateInteraction() {
+    fun toggle_validateInteraction() = runComposeUiTest {
         var isToggled by mutableStateOf(false)
-        composeTestRule.setContent {
+        setContent {
             Toggle(
                 isToggled = isToggled,
                 onToggleChange = { isToggled = it },
@@ -146,7 +140,7 @@ class ToggleTest {
             )
         }
 
-        composeTestRule.onNodeWithTag("Toggle").run {
+        onNodeWithTag("Toggle").run {
             assert(
                 hasClickAction() and
                     SemanticsMatcher.expectValue(SemanticsProperties.Role, Role.Switch) and

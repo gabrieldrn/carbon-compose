@@ -5,12 +5,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.test.ComposeUiTest
+import androidx.compose.ui.test.runComposeUiTest
 import carbon.compose.BaseColorsTest
 import carbon.compose.CarbonDesignSystem
 import carbon.compose.dropdown.base.DropdownColors
 import carbon.compose.dropdown.base.DropdownInteractiveState
 import carbon.compose.foundation.color.Layer
-import org.junit.Test
+import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class DropdownColorsTest : BaseColorsTest() {
@@ -33,7 +35,7 @@ class DropdownColorsTest : BaseColorsTest() {
         else it
     }
 
-    private fun checkColorByInteractiveStateAndLayer(
+    private fun ComposeUiTest.checkColorByInteractiveStateAndLayer(
         expectedColors: Map<Any, Any>,
         actual: @Composable (state: DropdownInteractiveState) -> Color
     ) {
@@ -53,8 +55,8 @@ class DropdownColorsTest : BaseColorsTest() {
     }
 
     @Test
-    fun dropdownColors_staticColorsWithoutContextualLayer_colorsAreCorrect() {
-        composeTestRule.setContent {
+    fun dropdownColors_staticColorsWithoutContextualLayer_colorsAreCorrect() = runComposeUiTest {
+        setContent {
             CarbonDesignSystem(theme = theme) {
                 dropdownColors = DropdownColors.colors()
             }
@@ -72,7 +74,7 @@ class DropdownColorsTest : BaseColorsTest() {
     }
 
     @Test
-    fun dropdownColors_menuOptionBackgroundColor_colorsAreCorrect() {
+    fun dropdownColors_menuOptionBackgroundColor_colorsAreCorrect() = runComposeUiTest {
         forAllLayers { layer ->
             assertEquals(
                 expected = when (layer) {
@@ -88,7 +90,7 @@ class DropdownColorsTest : BaseColorsTest() {
     }
 
     @Test
-    fun dropdownColors_menuOptionBorderColor_colorsAreCorrect() {
+    fun dropdownColors_menuOptionBorderColor_colorsAreCorrect() = runComposeUiTest {
         forAllLayers { layer ->
             dropdownColors = DropdownColors.colors()
 
@@ -106,7 +108,7 @@ class DropdownColorsTest : BaseColorsTest() {
     }
 
     @Test
-    fun dropdownColors_chevronIconColor_colorsAreCorrect() {
+    fun dropdownColors_chevronIconColor_colorsAreCorrect() = runComposeUiTest{
         val expectedColors: Map<Any, Any> =
             (interactiveStates.values + Layer.entries).associate {
                 if (it is DropdownInteractiveState.Disabled) it to theme.iconDisabled
@@ -119,7 +121,7 @@ class DropdownColorsTest : BaseColorsTest() {
     }
 
     @Test
-    fun dropdownColors_fieldBackgroundColor_colorsAreCorrect() {
+    fun dropdownColors_fieldBackgroundColor_colorsAreCorrect() = runComposeUiTest {
         val colorsExpected = mapOf<Any, Any>(
             DropdownInteractiveState.ReadOnly to Color.Transparent,
             Layer.Layer00 to theme.field01,
@@ -134,7 +136,7 @@ class DropdownColorsTest : BaseColorsTest() {
     }
 
     @Test
-    fun dropdownColors_fieldBorderColor_colorsAreCorrect() {
+    fun dropdownColors_fieldBorderColor_colorsAreCorrect() = runComposeUiTest {
         val colorsExpected = mapOf<Any, Any>(
             interactiveStates["error"]!! to theme.supportError,
             interactiveStates["disabled"]!! to Color.Transparent,
@@ -156,7 +158,7 @@ class DropdownColorsTest : BaseColorsTest() {
     }
 
     @Test
-    fun dropdownColors_fieldTextColor_colorsAreCorrect() {
+    fun dropdownColors_fieldTextColor_colorsAreCorrect() = runComposeUiTest {
         val colorsExpected: Map<Any, Any> = (interactiveStates.values + Layer.entries).associate {
             if (it is DropdownInteractiveState.Disabled) it to theme.textDisabled
             else it to theme.textPrimary
@@ -168,7 +170,7 @@ class DropdownColorsTest : BaseColorsTest() {
     }
 
     @Test
-    fun dropdownColors_helperTextColor_colorsAreCorrect() {
+    fun dropdownColors_helperTextColor_colorsAreCorrect() = runComposeUiTest {
         val colorsExpected: Map<Any, Any> = (interactiveStates.values + Layer.entries).associate {
             if (it is DropdownInteractiveState.Error) it to theme.textError
             else it to theme.textPrimary
@@ -180,7 +182,7 @@ class DropdownColorsTest : BaseColorsTest() {
     }
 
     @Test
-    fun dropdownColors_labelTextColor_colorsAreCorrect() {
+    fun dropdownColors_labelTextColor_colorsAreCorrect() = runComposeUiTest {
         val colorsExpected: Map<Any, Any> = (interactiveStates.values + Layer.entries).associate {
             if (it is DropdownInteractiveState.Disabled) it to theme.textDisabled
             else it to theme.textSecondary
@@ -192,7 +194,7 @@ class DropdownColorsTest : BaseColorsTest() {
     }
 
     @Test
-    fun dropdownColors_menuOptionBackgroundSelectedColor_colorsAreCorrect() {
+    fun dropdownColors_menuOptionBackgroundSelectedColor_colorsAreCorrect() = runComposeUiTest {
         var result by mutableStateOf<Color>(Color.Unspecified)
 
         forAllLayersAndStates(statesUnderTest = listOf(true, false)) { isSelected, layer ->
@@ -219,7 +221,7 @@ class DropdownColorsTest : BaseColorsTest() {
     }
 
     @Test
-    fun dropdownColors_menuOptionTextColor_colorsAreCorrect() {
+    fun dropdownColors_menuOptionTextColor_colorsAreCorrect() = runComposeUiTest {
         var result by mutableStateOf<Color>(Color.Unspecified)
 
         forAllLayersAndStates(

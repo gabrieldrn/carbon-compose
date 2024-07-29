@@ -1,5 +1,7 @@
 import carbon.compose.Configuration
 import org.jetbrains.compose.ExperimentalComposeLibrary
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
 
 plugins {
     id("carbon.kmp.library")
@@ -21,13 +23,22 @@ kotlin {
 //        }
 //    }
 
+    androidTarget {
+        @OptIn(ExperimentalKotlinGradlePluginApi::class)
+        instrumentedTestVariant.sourceSetTree.set(KotlinSourceSetTree.test)
+    }
+
+    @OptIn(ExperimentalComposeLibrary::class)
     sourceSets {
+        all {
+            languageSettings.optIn("androidx.compose.ui.test.ExperimentalTestApi")
+        }
+
         commonMain.dependencies {
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.ui)
 //            implementation(compose.uiTooling)
-            @OptIn(ExperimentalComposeLibrary::class)
             implementation(compose.uiTest)
             implementation(compose.animation)
             implementation(compose.components.resources)
@@ -36,6 +47,8 @@ kotlin {
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
+            implementation(compose.uiTest)
+            implementation(libs.androidx.compose.ui.test.android)
         }
     }
 }
@@ -49,13 +62,17 @@ android {
 
     namespace = "carbon.compose"
 
+    defaultConfig {
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
     dependencies {
         // Disabled while there's no specific Android implementations.
 //        implementation(libs.androidx.lifecycle.runtime.ktx)
 //        implementation(libs.androidx.lifecycle.viewModel.compose)
 //        implementation(libs.androidx.compose.foundation)
 //        implementation(libs.androidx.compose.ui)
-//        implementation(libs.androidx.compose.uiTooling)
+        implementation(libs.androidx.compose.uiTooling)
 
         debugImplementation(libs.androidx.compose.ui.test.manifest)
 

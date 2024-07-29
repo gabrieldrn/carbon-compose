@@ -3,13 +3,14 @@ package carbon.compose.dropdown
 import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.animation.core.updateTransition
 import androidx.compose.runtime.remember
+import androidx.compose.ui.test.ComposeUiTest
 import androidx.compose.ui.test.assertHasClickAction
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsEnabled
 import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.getUnclippedBoundsInRoot
-import androidx.compose.ui.test.junit4.ComposeContentTestRule
 import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.runComposeUiTest
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.width
 import carbon.compose.CarbonDesignSystem
@@ -22,14 +23,12 @@ import carbon.compose.dropdown.base.DropdownStateIcon
 import carbon.compose.dropdown.base.DropdownTestTags
 import carbon.compose.dropdown.multiselect.DropdownMultiselectTag
 import carbon.compose.foundation.color.WhiteTheme
-import org.junit.Before
-import org.junit.Test
+import kotlin.test.Test
 
 class MultiselectDropdownFieldTest : DropdownFieldTest() {
 
-    @Before
-    override fun setup() {
-        composeTestRule.setContent {
+    override fun ComposeUiTest.setup() {
+        setContent {
             val expandedStates = remember { MutableTransitionState(false) }
             val transition = updateTransition(expandedStates, "Dropdown")
 
@@ -64,50 +63,46 @@ class MultiselectDropdownFieldTest : DropdownFieldTest() {
     }
 
     override fun onContentValidation(
-        testRule: ComposeContentTestRule,
+        testScope: ComposeUiTest,
         state: DropdownInteractiveState
     ) {
-        super.onContentValidation(testRule, state)
+        super.onContentValidation(testScope, state)
 
-        with(testRule) {
-            onNodeWithTag(DropdownTestTags.FIELD_MULTISELECT_TAG, useUnmergedTree = true)
-                .assertIsDisplayed()
-        }
+        testScope.onNodeWithTag(DropdownTestTags.FIELD_MULTISELECT_TAG, useUnmergedTree = true)
+            .assertIsDisplayed()
     }
 
     override fun onLayoutValidationGetFieldContentWidths(
-        testRule: ComposeContentTestRule,
+        testScope: ComposeUiTest,
         state: DropdownInteractiveState,
         contentWidths: MutableList<Dp>
     ) {
-        super.onLayoutValidationGetFieldContentWidths(testRule, state, contentWidths)
+        super.onLayoutValidationGetFieldContentWidths(testScope, state, contentWidths)
 
-        with(testRule) {
-            contentWidths.add(
-                onNodeWithTag(DropdownTestTags.FIELD_MULTISELECT_TAG, useUnmergedTree = true)
-                    .getUnclippedBoundsInRoot()
-                    .width
-            )
-        }
+        contentWidths.add(
+            testScope.onNodeWithTag(DropdownTestTags.FIELD_MULTISELECT_TAG, useUnmergedTree = true)
+                .getUnclippedBoundsInRoot()
+                .width
+        )
     }
 
     @Test
-    fun dropdownField_multiselectTag_validateSemantics() {
-        composeTestRule.run {
-            interactiveStates.forEach { state ->
-                this@MultiselectDropdownFieldTest.state = state
+    fun dropdownField_multiselectTag_validateSemantics() = runComposeUiTest {
+        setup()
 
-                if (state in arrayOf(
-                        DropdownInteractiveState.Disabled, DropdownInteractiveState.ReadOnly
-                    )
-                ) {
-                    onNodeWithTag(DropdownTestTags.FIELD_MULTISELECT_TAG, useUnmergedTree = true)
-                        .assertIsNotEnabled()
-                } else {
-                    onNodeWithTag(DropdownTestTags.FIELD_MULTISELECT_TAG, useUnmergedTree = true)
-                        .assertIsEnabled()
-                        .assertHasClickAction()
-                }
+        interactiveStates.forEach { state ->
+            this@MultiselectDropdownFieldTest.state = state
+
+            if (state in arrayOf(
+                    DropdownInteractiveState.Disabled, DropdownInteractiveState.ReadOnly
+                )
+            ) {
+                onNodeWithTag(DropdownTestTags.FIELD_MULTISELECT_TAG, useUnmergedTree = true)
+                    .assertIsNotEnabled()
+            } else {
+                onNodeWithTag(DropdownTestTags.FIELD_MULTISELECT_TAG, useUnmergedTree = true)
+                    .assertIsEnabled()
+                    .assertHasClickAction()
             }
         }
     }
