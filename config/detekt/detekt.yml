@@ -102,6 +102,7 @@ complexity:
   CognitiveComplexMethod:
     active: true
     threshold: 15
+    excludes: *folders
   ComplexCondition:
     active: true
     threshold: 6

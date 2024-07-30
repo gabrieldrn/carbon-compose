@@ -9,7 +9,7 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.runComposeUiTest
-import org.junit.Test
+import kotlin.test.Test
 
 class ReadOnlyTest {
 

@@ -17,6 +17,7 @@ import androidx.compose.ui.test.runComposeUiTest
 import carbon.compose.common.selectable.SelectableInteractiveState
 import carbon.compose.semantics.assertIsReadOnly
 import kotlin.test.Test
+import kotlin.test.assertNotEquals
 
 class CheckboxTest {
 
@@ -113,6 +114,6 @@ class CheckboxTest {
         setup()
         val oldState = state
         onNodeWithTag("root").performClick()
-        assert(state != oldState)
+        assertNotEquals(oldState, state)
     }
 }

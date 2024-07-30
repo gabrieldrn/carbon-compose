@@ -4,8 +4,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.test.SemanticsMatcher
@@ -19,7 +19,7 @@ import androidx.compose.ui.test.isFocusable
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.runComposeUiTest
 import androidx.compose.ui.unit.dp
-import carbon.compose.R
+import carbon.compose.icons.closeIcon
 import kotlin.test.Test
 
 class IconButtonTest {
@@ -28,7 +28,7 @@ class IconButtonTest {
     fun iconButton_validateLayout() = runComposeUiTest {
         setContent {
             IconButton(
-                iconPainter = painterResource(id = R.drawable.ic_add),
+                iconPainter = rememberVectorPainter(closeIcon),
                 onClick = {},
                 modifier = Modifier.testTag("IconButton")
             )
@@ -45,7 +45,7 @@ class IconButtonTest {
         var isEnabled by mutableStateOf(true)
         setContent {
             IconButton(
-                iconPainter = painterResource(id = R.drawable.ic_add),
+                iconPainter = rememberVectorPainter(closeIcon),
                 onClick = { isEnabled = !isEnabled },
                 isEnabled = isEnabled,
                 modifier = Modifier.testTag("IconButton")

@@ -131,9 +131,7 @@ internal class DropdownColors private constructor(
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-
-        other as DropdownColors
+        if (other !is DropdownColors) return false
 
         if (theme != other.theme) return false
         if (layer != other.layer) return false

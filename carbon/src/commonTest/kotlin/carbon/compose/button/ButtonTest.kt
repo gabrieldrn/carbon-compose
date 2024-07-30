@@ -7,8 +7,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.test.SemanticsMatcher
@@ -30,10 +30,11 @@ import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.test.runComposeUiTest
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.width
-import carbon.compose.R
 import carbon.compose.foundation.spacing.SpacingScale
+import carbon.compose.icons.closeIcon
 import carbon.compose.toList
 import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class ButtonTest {
 
@@ -100,13 +101,13 @@ class ButtonTest {
                 Button(
                     label = "Basic Icon",
                     onClick = {},
-                    iconPainter = painterResource(id = R.drawable.ic_add),
+                    iconPainter = rememberVectorPainter(closeIcon),
                     modifier = Modifier.testTag("Button 1")
                 )
                 Button(
                     label = "Basic Icon",
                     onClick = {},
-                    iconPainter = painterResource(id = R.drawable.ic_add),
+                    iconPainter = rememberVectorPainter(closeIcon),
                     modifier = Modifier
                         .width(300.dp)
                         .testTag("Button 2"),
@@ -114,7 +115,7 @@ class ButtonTest {
                 Button(
                     label = "Basic Icon",
                     onClick = {},
-                    iconPainter = painterResource(id = R.drawable.ic_add),
+                    iconPainter = rememberVectorPainter(closeIcon),
                     modifier = Modifier
                         .fillMaxWidth()
                         .testTag("Button 3"),
@@ -140,7 +141,7 @@ class ButtonTest {
                     SpacingScale.spacing05 // End padding
             }
 
-        assert(buttonIconNodes.size == 3)
+        assertEquals(3, buttonIconNodes.size)
 
         buttonIconNodes.forEach { it.assertIsDisplayed() }
 

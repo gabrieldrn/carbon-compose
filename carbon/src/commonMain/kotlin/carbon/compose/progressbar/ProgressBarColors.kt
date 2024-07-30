@@ -33,9 +33,7 @@ internal class ProgressBarColors private constructor(private val theme: Theme) {
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-
-        other as ProgressBarColors
+        if (other !is ProgressBarColors) return false
 
         return theme == other.theme
     }

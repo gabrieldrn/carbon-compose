@@ -16,6 +16,7 @@ import androidx.compose.ui.test.runComposeUiTest
 import carbon.compose.common.selectable.SelectableInteractiveState
 import carbon.compose.semantics.assertIsReadOnly
 import kotlin.test.Test
+import kotlin.test.assertTrue
 
 class RadioButtonTest {
 
@@ -107,6 +108,6 @@ class RadioButtonTest {
 
         selected = false
         onNodeWithTag("root").performClick()
-        assert(selected)
+        assertTrue(selected)
     }
 }

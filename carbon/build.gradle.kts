@@ -48,7 +48,6 @@ kotlin {
         commonTest.dependencies {
             implementation(libs.kotlin.test)
             implementation(compose.uiTest)
-            implementation(libs.androidx.compose.ui.test.android)
         }
     }
 }

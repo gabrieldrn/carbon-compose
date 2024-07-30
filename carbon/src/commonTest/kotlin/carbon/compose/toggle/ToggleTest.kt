@@ -23,6 +23,7 @@ import androidx.compose.ui.test.runComposeUiTest
 import androidx.compose.ui.unit.dp
 import carbon.compose.semantics.isReadOnly
 import kotlin.test.Test
+import kotlin.test.assertTrue
 
 class ToggleTest {
 
@@ -154,7 +155,7 @@ class ToggleTest {
                     ToggleableState.On
                 )
             )
-            assert(isToggled)
+            assertTrue(isToggled)
         }
     }
 }
