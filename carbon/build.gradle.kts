@@ -11,17 +11,16 @@ plugins {
 apply(from = "${rootDir}/scripts/publishing.gradle.kts")
 
 kotlin {
-    // Disabled until actual iOS support is added
-//    listOf(
-//        iosX64(),
-//        iosArm64(),
-//        iosSimulatorArm64()
-//    ).forEach {
-//        it.binaries.framework {
-//            baseName = "carbon"
-//            isStatic = true
-//        }
-//    }
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach {
+        it.binaries.framework {
+            baseName = "carbon"
+            isStatic = true
+        }
+    }
 
     androidTarget {
         @OptIn(ExperimentalKotlinGradlePluginApi::class)
