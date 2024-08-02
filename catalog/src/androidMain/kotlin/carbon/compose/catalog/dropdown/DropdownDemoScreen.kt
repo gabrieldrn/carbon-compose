@@ -16,6 +16,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.Saver
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -25,6 +26,11 @@ import carbon.compose.Carbon
 import carbon.compose.catalog.misc.LayerSelectionDropdown
 import carbon.compose.dropdown.Dropdown
 import carbon.compose.dropdown.base.DropdownInteractiveState
+import carbon.compose.dropdown.base.DropdownInteractiveState.Disabled
+import carbon.compose.dropdown.base.DropdownInteractiveState.Enabled
+import carbon.compose.dropdown.base.DropdownInteractiveState.Error
+import carbon.compose.dropdown.base.DropdownInteractiveState.ReadOnly
+import carbon.compose.dropdown.base.DropdownInteractiveState.Warning
 import carbon.compose.dropdown.base.DropdownOption
 import carbon.compose.foundation.color.CarbonLayer
 import carbon.compose.foundation.color.Layer
@@ -52,6 +58,20 @@ private val dropdownStates = listOf(
 private val layersOptions =
     Layer.entries.associateWith { DropdownOption(it.toString(), enabled = it != Layer.Layer03) }
 
+private val stateSaver = Saver<DropdownInteractiveState, String>(
+    save = { it::class.simpleName },
+    restore = {
+        when (it) {
+            "Enabled" -> Enabled
+            "Warning" -> Warning("Warning message goes here")
+            "Error" -> Error("Error message goes here")
+            "Disabled" -> Disabled
+            "ReadOnly" -> ReadOnly
+            else -> throw IllegalArgumentException("Unknown state: $it")
+        }
+    }
+)
+
 @Composable
 internal fun DropdownDemoScreen(
     variant: DropdownVariant,
@@ -66,7 +86,7 @@ internal fun DropdownDemoScreen(
             .verticalScroll(state = rememberScrollState())
             .padding(WindowInsets.navigationBars.asPaddingValues())
     ) {
-        var dropdownState by rememberSaveable {
+        var dropdownState by rememberSaveable(Unit, stateSaver = stateSaver) {
             mutableStateOf<DropdownInteractiveState>(DropdownInteractiveState.Enabled)
         }
 
