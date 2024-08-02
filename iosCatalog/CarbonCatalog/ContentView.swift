@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import carbon
+import Carbon
 
 struct ComposeView: UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> UIViewController {
