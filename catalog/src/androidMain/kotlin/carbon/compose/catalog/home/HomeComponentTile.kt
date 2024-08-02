@@ -21,6 +21,7 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
 import carbon.compose.Carbon
+import carbon.compose.catalog.Destination
 import carbon.compose.catalog.Res
 import carbon.compose.catalog.picto_construction_worker
 import carbon.compose.foundation.color.containerBackground

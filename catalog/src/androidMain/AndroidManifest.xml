@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Carbon">
         <activity
-            android:name=".home.HomeActivity"
+            android:name=".HomeActivity"
             android:exported="true"
             android:theme="@style/Theme.Carbon">
             <intent-filter>

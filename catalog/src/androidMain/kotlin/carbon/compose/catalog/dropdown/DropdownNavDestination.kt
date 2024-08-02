@@ -1,7 +1,8 @@
 package carbon.compose.catalog.dropdown
 
 import androidx.annotation.DrawableRes
-import carbon.compose.catalog.home.Destination
+import carbon.compose.catalog.BaseDestination
+import carbon.compose.catalog.Destination
 
 @Suppress("UndocumentedPublicClass", "UndocumentedPublicProperty")
 enum class DropdownNavDestination(

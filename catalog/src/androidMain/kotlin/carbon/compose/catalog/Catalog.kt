@@ -12,12 +12,8 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import carbon.compose.catalog.CatalogLayoutType.Companion.LocalLayoutType
-import carbon.compose.catalog.dropdown.BaseDestination
-import carbon.compose.catalog.dropdown.BaseDestination.Companion.eq
+import carbon.compose.catalog.BaseDestination.Companion.eq
 import carbon.compose.catalog.dropdown.DropdownNavDestination
-import carbon.compose.catalog.home.Destination
-import carbon.compose.catalog.home.rememberNavGraph
 import carbon.compose.catalog.theme.CarbonCatalogTheme
 import carbon.compose.foundation.color.containerBackground
 import carbon.compose.uishell.UiShellHeader

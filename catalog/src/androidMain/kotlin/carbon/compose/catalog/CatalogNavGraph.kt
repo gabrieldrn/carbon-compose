@@ -1,4 +1,4 @@
-package carbon.compose.catalog.home
+package carbon.compose.catalog
 
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -12,6 +12,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.createGraph
 import carbon.compose.catalog.dropdown.dropdownNavigation
+import carbon.compose.catalog.home.HomeScreen
 
 val navigationEnterScaleInTransition =
     scaleIn(initialScale = 0.9f) + fadeIn()

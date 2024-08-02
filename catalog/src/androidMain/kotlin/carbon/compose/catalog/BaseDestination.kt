@@ -1,4 +1,4 @@
-package carbon.compose.catalog.dropdown
+package carbon.compose.catalog
 
 import androidx.navigation.NavDestination
 

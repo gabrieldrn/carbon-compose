@@ -4,12 +4,12 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import carbon.compose.catalog.dropdown.BaseDestination.Companion.eq
-import carbon.compose.catalog.home.Destination
-import carbon.compose.catalog.home.navigationEnterSlideInInverseTransition
-import carbon.compose.catalog.home.navigationEnterSlideInTransition
-import carbon.compose.catalog.home.navigationExitSlideOutInverseTransition
-import carbon.compose.catalog.home.navigationExitSlideOutTransition
+import carbon.compose.catalog.BaseDestination.Companion.eq
+import carbon.compose.catalog.Destination
+import carbon.compose.catalog.navigationEnterSlideInInverseTransition
+import carbon.compose.catalog.navigationEnterSlideInTransition
+import carbon.compose.catalog.navigationExitSlideOutInverseTransition
+import carbon.compose.catalog.navigationExitSlideOutTransition
 
 fun NavGraphBuilder.dropdownNavigation(
     navController: NavController

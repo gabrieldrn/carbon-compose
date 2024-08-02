@@ -11,7 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import carbon.compose.Carbon
 import carbon.compose.catalog.CatalogLayoutType
-import carbon.compose.catalog.CatalogLayoutType.Companion.LocalLayoutType
+import carbon.compose.catalog.LocalLayoutType
 import carbon.compose.foundation.color.LocalCarbonTheme
 import carbon.compose.foundation.spacing.SpacingScale
 import carbon.compose.loading.Loading

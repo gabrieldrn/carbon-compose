@@ -1,25 +1,14 @@
-package carbon.compose.catalog.home
+package carbon.compose.catalog
 
 import androidx.compose.runtime.Composable
-import carbon.compose.catalog.Res
 import carbon.compose.catalog.buttons.ButtonDemoScreen
 import carbon.compose.catalog.checkbox.CheckboxDemoScreen
-import carbon.compose.catalog.dropdown.BaseDestination
 import carbon.compose.catalog.dropdown.DropdownDemoScreen
 import carbon.compose.catalog.dropdown.DropdownVariant
 import carbon.compose.catalog.progressbar.ProgressBarDemoScreen
 import carbon.compose.catalog.radiobutton.LoadingDemoScreen
 import carbon.compose.catalog.radiobutton.RadioButtonDemoScreen
 import carbon.compose.catalog.textinput.TextInputDemoScreen
-import carbon.compose.catalog.tile_button
-import carbon.compose.catalog.tile_checkbox
-import carbon.compose.catalog.tile_dropdown
-import carbon.compose.catalog.tile_loading
-import carbon.compose.catalog.tile_mutliselect
-import carbon.compose.catalog.tile_progress_bar
-import carbon.compose.catalog.tile_radiobutton
-import carbon.compose.catalog.tile_text_input
-import carbon.compose.catalog.tile_toggle
 import carbon.compose.catalog.toggle.ToggleDemoScreen
 import org.jetbrains.compose.resources.DrawableResource
 

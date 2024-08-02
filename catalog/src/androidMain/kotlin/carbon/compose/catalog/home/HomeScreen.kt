@@ -24,7 +24,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.unit.dp
 import carbon.compose.catalog.CatalogLayoutType
-import carbon.compose.catalog.CatalogLayoutType.Companion.LocalLayoutType
+import carbon.compose.catalog.LocalLayoutType
+import carbon.compose.catalog.Destination
 import carbon.compose.foundation.color.CarbonLayer
 import carbon.compose.foundation.spacing.SpacingScale
 

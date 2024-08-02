@@ -1,4 +1,4 @@
-package carbon.compose.catalog.home
+package carbon.compose.catalog
 
 import android.content.Intent
 import android.graphics.Color
@@ -8,7 +8,6 @@ import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import carbon.compose.catalog.Catalog
 
 @Suppress("UndocumentedPublicClass")
 class HomeActivity : AppCompatActivity() {
