@@ -3,6 +3,7 @@ package carbon.compose.catalog
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -11,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
+import carbon.compose.catalog.CatalogLayoutType.Companion.LocalLayoutType
 import carbon.compose.catalog.dropdown.BaseDestination
 import carbon.compose.catalog.dropdown.BaseDestination.Companion.eq
 import carbon.compose.catalog.dropdown.DropdownNavDestination
@@ -23,7 +25,9 @@ import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun Catalog(
-    onOpenLink: (String) -> Unit
+    onOpenLink: (String) -> Unit,
+    modifier: Modifier = Modifier,
+    layoutType: CatalogLayoutType = CatalogLayoutType.Vertical,
 ) {
     CarbonCatalogTheme {
         val allDestinations = remember {
@@ -47,25 +51,27 @@ fun Catalog(
             onOpenLink = onOpenLink,
         )
 
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .containerBackground()
-        ) {
-            UiShellHeader(
-                headerName = currentScreen.title,
-                menuIconPainter = if (currentScreen != Destination.Home) {
-                    painterResource(Res.drawable.ic_arrow_left)
-                } else {
-                    null
-                },
-                onMenuIconPressed = { navController.navigateUp() },
-            )
+        CompositionLocalProvider(LocalLayoutType provides layoutType) {
+            Column(
+                modifier = modifier
+                    .fillMaxSize()
+                    .containerBackground()
+            ) {
+                UiShellHeader(
+                    headerName = currentScreen.title,
+                    menuIconPainter = if (currentScreen != Destination.Home) {
+                        painterResource(Res.drawable.ic_arrow_left)
+                    } else {
+                        null
+                    },
+                    onMenuIconPressed = { navController.navigateUp() },
+                )
 
-            NavHost(
-                navController = navController,
-                graph = navGraph,
-            )
+                NavHost(
+                    navController = navController,
+                    graph = navGraph,
+                )
+            }
         }
     }
 }

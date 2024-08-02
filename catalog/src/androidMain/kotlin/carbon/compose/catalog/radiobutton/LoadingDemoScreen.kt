@@ -1,6 +1,5 @@
 package carbon.compose.catalog.radiobutton
 
-import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -10,8 +9,9 @@ import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalConfiguration
 import carbon.compose.Carbon
+import carbon.compose.catalog.CatalogLayoutType
+import carbon.compose.catalog.CatalogLayoutType.Companion.LocalLayoutType
 import carbon.compose.foundation.color.LocalCarbonTheme
 import carbon.compose.foundation.spacing.SpacingScale
 import carbon.compose.loading.Loading
@@ -45,10 +45,9 @@ fun LoadingDemoScreen(modifier: Modifier = Modifier) {
         }
     }
 
-    val isInPortrait = LocalConfiguration.current
-        .orientation == Configuration.ORIENTATION_PORTRAIT
+    val isVertical = LocalLayoutType.current == CatalogLayoutType.Vertical
 
-    if (isInPortrait) {
+    if (isVertical) {
         Column(
             modifier = modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,

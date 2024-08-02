@@ -1,6 +1,5 @@
 package carbon.compose.catalog.home
 
-import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets
@@ -22,9 +21,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.unit.dp
+import carbon.compose.catalog.CatalogLayoutType
+import carbon.compose.catalog.CatalogLayoutType.Companion.LocalLayoutType
 import carbon.compose.foundation.color.CarbonLayer
 import carbon.compose.foundation.spacing.SpacingScale
 
@@ -38,8 +38,7 @@ fun HomeScreen(
         .only(WindowInsetsSides.Bottom + WindowInsetsSides.Horizontal)
         .asPaddingValues()
 
-    val isInPortrait = LocalConfiguration.current
-        .orientation == Configuration.ORIENTATION_PORTRAIT
+    val isVertical = LocalLayoutType.current == CatalogLayoutType.Vertical
 
     val destinations = remember { Destination.homeTilesDestinations }
 
@@ -51,7 +50,7 @@ fun HomeScreen(
     }
 
     CarbonLayer {
-        if (isInPortrait) {
+        if (isVertical) {
             ComponentsLazyGrid(
                 destinationsWithDemo = destinationsWithDemo,
                 wipDestinations = wipDestinations,
