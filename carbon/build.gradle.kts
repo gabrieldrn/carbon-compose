@@ -1,7 +1,5 @@
 import carbon.compose.Configuration
 import org.jetbrains.compose.ExperimentalComposeLibrary
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
-import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
 
 plugins {
     id("carbon.kmp.library")
@@ -22,17 +20,8 @@ kotlin {
         }
     }
 
-    androidTarget {
-        @OptIn(ExperimentalKotlinGradlePluginApi::class)
-        instrumentedTestVariant.sourceSetTree.set(KotlinSourceSetTree.test)
-    }
-
     @OptIn(ExperimentalComposeLibrary::class)
     sourceSets {
-        all {
-            languageSettings.optIn("androidx.compose.ui.test.ExperimentalTestApi")
-        }
-
         commonMain.dependencies {
             implementation(compose.runtime)
             implementation(compose.foundation)
@@ -59,10 +48,6 @@ compose.resources {
 android {
 
     namespace = "carbon.compose"
-
-    defaultConfig {
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
 
     dependencies {
         // Disabled while there's no specific Android implementations.

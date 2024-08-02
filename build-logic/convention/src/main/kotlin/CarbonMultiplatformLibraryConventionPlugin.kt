@@ -10,6 +10,7 @@ import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
+import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
 
 /**
  * A plugin used by kmp libraries modules from Carbon to configure themselves. It
@@ -31,9 +32,13 @@ class CarbonMultiplatformLibraryConventionPlugin : Plugin<Project> {
 
         extensions.configure<KotlinMultiplatformExtension> {
             androidTarget {
+                @OptIn(ExperimentalKotlinGradlePluginApi::class)
+                instrumentedTestVariant.sourceSetTree.set(KotlinSourceSetTree.test)
+
                 compilerOptions {
                     jvmTarget.set(Constants.Versions.JVM)
                 }
+
                 compilations.all {
                     compileTaskProvider.configure {
                         compilerOptions {
@@ -43,11 +48,22 @@ class CarbonMultiplatformLibraryConventionPlugin : Plugin<Project> {
                 }
             }
 
+            sourceSets.apply {
+                all {
+                    languageSettings.optIn("androidx.compose.ui.test.ExperimentalTestApi")
+                }
+            }
+
             explicitApi()
         }
 
         extensions.configure<LibraryExtension> {
+            defaultConfig {
+                testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+            }
+
             configureKotlinAndroidCommon()
+
             applyTestOptions()
         }
     }
