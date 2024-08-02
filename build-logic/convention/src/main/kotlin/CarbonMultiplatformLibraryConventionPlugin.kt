@@ -27,7 +27,6 @@ class CarbonMultiplatformLibraryConventionPlugin : Plugin<Project> {
             apply(libs.getPlugin("kotlin-multiplatform"))
             apply(libs.getPlugin("jetbrains-compose"))
             apply(libs.getPlugin("compose-compiler"))
-            apply(libs.getPlugin("vanniktech-publish-plugin"))
         }
 
         extensions.configure<KotlinMultiplatformExtension> {

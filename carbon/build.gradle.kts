@@ -4,6 +4,7 @@ import org.jetbrains.compose.ExperimentalComposeLibrary
 plugins {
     id("carbon.kmp.library")
     id("carbon.detekt")
+    alias(libs.plugins.vanniktech.publish.plugin)
 }
 
 apply(from = "${rootDir}/scripts/publishing.gradle.kts")
