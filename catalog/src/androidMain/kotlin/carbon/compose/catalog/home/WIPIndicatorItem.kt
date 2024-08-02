@@ -1,6 +1,5 @@
 package carbon.compose.catalog.home
 
-import androidx.appcompat.content.res.AppCompatResources
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -18,22 +17,28 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Canvas
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.ImageShader
 import androidx.compose.ui.graphics.ShaderBrush
 import androidx.compose.ui.graphics.TileMode
-import androidx.compose.ui.graphics.asImageBitmap
-import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.graphics.drawscope.CanvasDrawScope
 import androidx.compose.ui.layout.layout
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
-import androidx.core.graphics.drawable.toBitmap
 import carbon.compose.Carbon
-import carbon.compose.catalog.R
+import carbon.compose.catalog.Res
+import carbon.compose.catalog.ic_arrow_down
+import carbon.compose.catalog.ic_arrow_right
+import carbon.compose.catalog.pattern_diagonal_stripes
 import carbon.compose.foundation.spacing.SpacingScale
+import org.jetbrains.compose.resources.painterResource
 
 private const val wipItemVerticalRotation = -90f
+private const val wipBackgroundPatternSize = 40f
 
 @Composable
 fun WIPIndicatorItem(
@@ -57,7 +62,7 @@ fun WIPIndicatorItem(
         @Composable
         fun content() {
             val arrow = painterResource(
-                id = if (isInVerticalLayout) R.drawable.ic_arrow_down else R.drawable.ic_arrow_right
+                if (isInVerticalLayout) Res.drawable.ic_arrow_down else Res.drawable.ic_arrow_right
             )
             Image(
                 painter = arrow,
@@ -123,14 +128,28 @@ private fun Modifier.rotateVertical(): Modifier = this
     .rotate(wipItemVerticalRotation)
 
 private fun Modifier.wipBackground(): Modifier = this.composed {
-    val context = LocalContext.current
     val backgroundInverse = Carbon.theme.backgroundInverse
+    val density = LocalDensity.current
+    val pattern = painterResource(resource = Res.drawable.pattern_diagonal_stripes)
     val brush = remember {
-        val pattern = AppCompatResources.getDrawable(context, R.drawable.pattern_diagonal_stripes)!!
-            .apply { setTint(backgroundInverse.toArgb()) }
-            .toBitmap()
-            .asImageBitmap()
-        ShaderBrush(ImageShader(pattern, TileMode.Repeated, TileMode.Repeated))
+        val intSize = with(density) { wipBackgroundPatternSize.dp.toPx() }
+
+        val bitmap = ImageBitmap(intSize.toInt(), intSize.toInt())
+        val canvas = Canvas(bitmap)
+
+        CanvasDrawScope().draw(
+            density = density,
+            layoutDirection = LayoutDirection.Ltr,
+            canvas = canvas,
+            size = Size(intSize, intSize)
+        ) {
+            pattern.run {
+                draw(this@draw.size, 1f, ColorFilter.tint(backgroundInverse))
+            }
+        }
+
+        ShaderBrush(ImageShader(bitmap, TileMode.Repeated, TileMode.Repeated))
     }
+
     background(Carbon.theme.supportWarning).background(brush)
 }

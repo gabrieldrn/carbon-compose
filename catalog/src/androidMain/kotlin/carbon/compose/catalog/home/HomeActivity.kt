@@ -15,17 +15,18 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import carbon.compose.catalog.R
+import carbon.compose.catalog.Res
 import carbon.compose.catalog.dropdown.BaseDestination
 import carbon.compose.catalog.dropdown.BaseDestination.Companion.eq
 import carbon.compose.catalog.dropdown.DropdownNavDestination
+import carbon.compose.catalog.ic_arrow_left
 import carbon.compose.catalog.theme.CarbonCatalogTheme
 import carbon.compose.foundation.color.containerBackground
 import carbon.compose.uishell.UiShellHeader
+import org.jetbrains.compose.resources.painterResource
 
 @Suppress("UndocumentedPublicClass")
 class HomeActivity : AppCompatActivity() {
@@ -69,7 +70,7 @@ class HomeActivity : AppCompatActivity() {
                     UiShellHeader(
                         headerName = currentScreen.title,
                         menuIconPainter = if (currentScreen != Destination.Home) {
-                            painterResource(id = R.drawable.ic_arrow_left)
+                            painterResource(Res.drawable.ic_arrow_left)
                         } else {
                             null
                         },

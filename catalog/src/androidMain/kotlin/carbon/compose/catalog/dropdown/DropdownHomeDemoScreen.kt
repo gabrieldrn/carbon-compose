@@ -8,11 +8,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import carbon.compose.button.Button
-import carbon.compose.catalog.R
+import carbon.compose.catalog.Res
+import carbon.compose.catalog.ic_arrow_right
 import carbon.compose.foundation.color.LocalCarbonTheme
 import carbon.compose.foundation.spacing.SpacingScale
+import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun DropdownDemoMenu(
@@ -28,13 +29,13 @@ fun DropdownDemoMenu(
     ) {
         Button(
             label = "Default Dropdown",
-            iconPainter = painterResource(id = R.drawable.ic_arrow_right),
+            iconPainter = painterResource(Res.drawable.ic_arrow_right),
             onClick = { onNavigate(DropdownNavDestination.Default.route) },
             modifier = Modifier.fillMaxWidth()
         )
         Button(
             label = "Multiselect Dropdown",
-            iconPainter = painterResource(id = R.drawable.ic_arrow_right),
+            iconPainter = painterResource(Res.drawable.ic_arrow_right),
             onClick = { onNavigate(DropdownNavDestination.MultiSelect.route) },
             modifier = Modifier.fillMaxWidth()
         )

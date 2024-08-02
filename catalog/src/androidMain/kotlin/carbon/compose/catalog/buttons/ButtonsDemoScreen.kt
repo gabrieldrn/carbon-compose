@@ -20,14 +20,14 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import carbon.compose.Carbon
 import carbon.compose.button.Button
 import carbon.compose.button.ButtonSize
 import carbon.compose.button.ButtonType
 import carbon.compose.button.IconButton
-import carbon.compose.catalog.R
+import carbon.compose.catalog.Res
+import carbon.compose.catalog.ic_add
 import carbon.compose.dropdown.Dropdown
 import carbon.compose.dropdown.base.DropdownInteractiveState
 import carbon.compose.dropdown.base.toDropdownOptions
@@ -35,6 +35,7 @@ import carbon.compose.foundation.color.CarbonLayer
 import carbon.compose.foundation.color.containerBackground
 import carbon.compose.foundation.spacing.SpacingScale
 import carbon.compose.toggle.Toggle
+import org.jetbrains.compose.resources.painterResource
 
 private enum class ButtonVariant { Default, Icon }
 
@@ -65,7 +66,7 @@ fun ButtonDemoScreen(modifier: Modifier = Modifier) {
                 .padding(SpacingScale.spacing05),
             contentAlignment = Alignment.Center
         ) {
-            val icon = painterResource(id = R.drawable.ic_add)
+            val icon = painterResource(Res.drawable.ic_add)
 
             when (buttonVariant) {
                 ButtonVariant.Default -> Button(

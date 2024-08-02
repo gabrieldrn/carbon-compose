@@ -36,14 +36,19 @@ kotlin {
 
             implementation(libs.timber)
         }
-//        commonMain.dependencies {
+        commonMain.dependencies {
+            implementation(compose.components.resources)
 //            implementation(compose.runtime)
 //            implementation(compose.foundation)
 //            implementation(compose.ui)
-//            implementation(compose.components.resources)
 //            implementation(compose.components.uiToolingPreview)
-//        }
+        }
     }
+}
+
+compose.resources {
+    packageOfResClass = "carbon.compose.catalog"
+    generateResClass = always
 }
 
 android {

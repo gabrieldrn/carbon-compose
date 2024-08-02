@@ -24,12 +24,13 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import carbon.compose.Carbon
 import carbon.compose.button.Button
 import carbon.compose.button.IconButton
-import carbon.compose.catalog.R
+import carbon.compose.catalog.Res
+import carbon.compose.catalog.ic_delete
+import carbon.compose.catalog.ic_text_long_paragraph
 import carbon.compose.catalog.misc.LayerSelectionDropdown
 import carbon.compose.dropdown.Dropdown
 import carbon.compose.dropdown.base.dropdownOptionsOf
@@ -42,6 +43,7 @@ import carbon.compose.textinput.PasswordInput
 import carbon.compose.textinput.TextArea
 import carbon.compose.textinput.TextInput
 import carbon.compose.textinput.TextInputState
+import org.jetbrains.compose.resources.painterResource
 
 private const val TEXT_INPUT_VARIANT = "Text input (single line)"
 private const val TEXT_AREA_VARIANT = "Text area"
@@ -163,12 +165,12 @@ fun TextInputDemoScreen(modifier: Modifier = Modifier) {
                     Button(
                         label = "Lorem ipsum",
                         onClick = { text = loremIpsum },
-                        iconPainter = painterResource(id = R.drawable.ic_text_long_paragraph),
+                        iconPainter = painterResource(Res.drawable.ic_text_long_paragraph),
                         isEnabled = variant != PASSWORD_INPUT_VARIANT,
                         modifier = Modifier.weight(1f)
                     )
                     IconButton(
-                        iconPainter = painterResource(id = R.drawable.ic_delete),
+                        iconPainter = painterResource(Res.drawable.ic_delete),
                         onClick = { text = "" },
                         modifier = Modifier.padding(start = SpacingScale.spacing03)
                     )

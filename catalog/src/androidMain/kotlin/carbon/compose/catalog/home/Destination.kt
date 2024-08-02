@@ -1,23 +1,32 @@
 package carbon.compose.catalog.home
 
-import androidx.annotation.DrawableRes
 import androidx.compose.runtime.Composable
-import carbon.compose.catalog.R
+import carbon.compose.catalog.Res
 import carbon.compose.catalog.buttons.ButtonDemoScreen
 import carbon.compose.catalog.checkbox.CheckboxDemoScreen
 import carbon.compose.catalog.dropdown.BaseDestination
 import carbon.compose.catalog.dropdown.DropdownDemoScreen
 import carbon.compose.catalog.dropdown.DropdownVariant
+import carbon.compose.catalog.progressbar.ProgressBarDemoScreen
 import carbon.compose.catalog.radiobutton.LoadingDemoScreen
 import carbon.compose.catalog.radiobutton.RadioButtonDemoScreen
 import carbon.compose.catalog.textinput.TextInputDemoScreen
+import carbon.compose.catalog.tile_button
+import carbon.compose.catalog.tile_checkbox
+import carbon.compose.catalog.tile_dropdown
+import carbon.compose.catalog.tile_loading
+import carbon.compose.catalog.tile_mutliselect
+import carbon.compose.catalog.tile_progress_bar
+import carbon.compose.catalog.tile_radiobutton
+import carbon.compose.catalog.tile_text_input
+import carbon.compose.catalog.tile_toggle
 import carbon.compose.catalog.toggle.ToggleDemoScreen
-import carbon.compose.catalog.progressbar.ProgressBarDemoScreen
+import org.jetbrains.compose.resources.DrawableResource
 
 @Suppress("UndocumentedPublicClass", "UndocumentedPublicProperty")
 enum class Destination(
     override val title: String,
-    @DrawableRes val illustration: Int? = null,
+    val illustration: DrawableResource? = null,
     override val route: String = "",
     val content: @Composable () -> Unit = {}
 ) : BaseDestination {
@@ -30,13 +39,13 @@ enum class Destination(
     Breadcrumb("Breadcrumb"),
     Button(
         title = "Button",
-        illustration = R.drawable.tile_button,
+        illustration = Res.drawable.tile_button,
         route = "button",
         content = { ButtonDemoScreen() }
     ),
     Checkbox(
         title = "Checkbox",
-        illustration = R.drawable.tile_checkbox,
+        illustration = Res.drawable.tile_checkbox,
         route = "checkbox",
         content = { CheckboxDemoScreen() }
     ),
@@ -46,7 +55,7 @@ enum class Destination(
     DatePicker("Date picker"),
     Dropdown(
         title = "Dropdown",
-        illustration = R.drawable.tile_dropdown,
+        illustration = Res.drawable.tile_dropdown,
         route = "dropdown"
     ),
     FileUploader("File uploader"),
@@ -56,14 +65,14 @@ enum class Destination(
     List("List"),
     Loading(
         title = "Loading",
-        illustration = R.drawable.tile_loading,
+        illustration = Res.drawable.tile_loading,
         route = "loading",
         content = { LoadingDemoScreen() }
     ),
     Modal("Modal"),
     MultiSelect(
         title = "Multi-select",
-        illustration = R.drawable.tile_mutliselect,
+        illustration = Res.drawable.tile_mutliselect,
         route = "dropdown/multiselect",
         content = { DropdownDemoScreen(DropdownVariant.Multiselect) }
     ),
@@ -72,7 +81,7 @@ enum class Destination(
     Pagination("Pagination"),
     ProgressBar(
         title = "Progress bar",
-        illustration = R.drawable.tile_progress_bar,
+        illustration = Res.drawable.tile_progress_bar,
         route = "progressbar",
         content = { ProgressBarDemoScreen() }
     ),
@@ -80,7 +89,7 @@ enum class Destination(
     OverflowMenu("Overflow menu"),
     RadioButton(
         title = "Radio button",
-        illustration = R.drawable.tile_radiobutton,
+        illustration = Res.drawable.tile_radiobutton,
         route = "radiobutton",
         content = { RadioButtonDemoScreen() }
     ),
@@ -92,14 +101,14 @@ enum class Destination(
     Tag("Tag"),
     TextInput(
         title = "Text input",
-        illustration = R.drawable.tile_text_input,
+        illustration = Res.drawable.tile_text_input,
         route = "textinput",
         content = { TextInputDemoScreen() }
     ),
     Tile("Tile"),
     Toggle(
         title = "Toggle",
-        illustration = R.drawable.tile_toggle,
+        illustration = Res.drawable.tile_toggle,
         route = "toggle",
         content = { ToggleDemoScreen() }
     ),

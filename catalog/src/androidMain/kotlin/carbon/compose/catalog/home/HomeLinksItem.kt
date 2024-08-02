@@ -6,11 +6,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import carbon.compose.button.Button
 import carbon.compose.button.ButtonType
-import carbon.compose.catalog.R
+import carbon.compose.catalog.Res
+import carbon.compose.catalog.ic_carbon
+import carbon.compose.catalog.ic_logo_github
 import carbon.compose.foundation.spacing.SpacingScale
+import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun HomeLinksItem(
@@ -34,14 +36,14 @@ fun HomeLinksItem(
             label = "Carbon Design System",
             onClick = { onOpenLink("https://carbondesignsystem.com/") },
             buttonType = ButtonType.Primary,
-            iconPainter = painterResource(id = R.drawable.ic_carbon),
+            iconPainter = painterResource(Res.drawable.ic_carbon),
         )
 
         Button(
             label = "⭐️ Star on GitHub",
             onClick = { onOpenLink("https://github.com/gabrieldrn/carbon-compose") },
             buttonType = ButtonType.Tertiary,
-            iconPainter = painterResource(id = R.drawable.ic_logo_github),
+            iconPainter = painterResource(Res.drawable.ic_logo_github),
         )
     }
 }

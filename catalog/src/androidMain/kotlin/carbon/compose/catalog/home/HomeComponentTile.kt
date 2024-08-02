@@ -19,14 +19,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import carbon.compose.Carbon
-import carbon.compose.catalog.R
+import carbon.compose.catalog.Res
+import carbon.compose.catalog.picto_construction_worker
 import carbon.compose.foundation.color.containerBackground
 import carbon.compose.foundation.motion.Motion
 import carbon.compose.foundation.spacing.SpacingScale
 import kotlinx.coroutines.launch
+import org.jetbrains.compose.resources.painterResource
 
 private val itemAppearanceAnimationSpec = tween<Float>(
     delayMillis = Motion.Duration.moderate01,
@@ -79,7 +80,7 @@ fun CarbonComponentGridTile(
         ) {
             if (destination.illustration != null) {
                 Image(
-                    painter = painterResource(id = destination.illustration),
+                    painter = painterResource(destination.illustration),
                     contentDescription = null,
                     modifier = Modifier.fillMaxSize()
                 )
@@ -106,7 +107,7 @@ fun PlaceholderIllustration(modifier: Modifier = Modifier) {
         contentAlignment = Alignment.BottomEnd
     ) {
         Image(
-            painter = painterResource(id = R.drawable.picto_construction_worker),
+            painter = painterResource(Res.drawable.picto_construction_worker),
             contentDescription = null,
             colorFilter = ColorFilter.tint(Carbon.theme.iconPrimary),
             modifier = Modifier.size(48.dp)
