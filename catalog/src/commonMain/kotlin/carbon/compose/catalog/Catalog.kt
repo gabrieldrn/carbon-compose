@@ -9,7 +9,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import carbon.compose.catalog.BaseDestination.Companion.eq
@@ -35,11 +34,9 @@ fun Catalog(
         }
 
         val navController = rememberNavController().apply {
-            addOnDestinationChangedListener(
-                NavController.OnDestinationChangedListener { _, destination, _ ->
-                    currentScreen = allDestinations.first { it eq destination }
-                }
-            )
+            addOnDestinationChangedListener { _, destination, _ ->
+                currentScreen = allDestinations.first { it eq destination }
+            }
         }
 
         val navGraph = rememberNavGraph(
