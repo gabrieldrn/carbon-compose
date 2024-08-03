@@ -1,13 +1,13 @@
 package carbon.compose.catalog.dropdown
 
-import androidx.annotation.DrawableRes
 import carbon.compose.catalog.BaseDestination
 import carbon.compose.catalog.Destination
+import org.jetbrains.compose.resources.DrawableResource
 
 @Suppress("UndocumentedPublicClass", "UndocumentedPublicProperty")
 enum class DropdownNavDestination(
     override val title: String,
-    @DrawableRes val illustration: Int? = null,
+    val illustration: DrawableResource? = null,
     override val route: String = "",
 ) : BaseDestination {
     Home("Dropdown", null, "dropdown_home"),

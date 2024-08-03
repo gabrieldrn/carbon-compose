@@ -14,7 +14,7 @@ androidxCompose = "1.6.8"
 androidxCore = "1.13.1"
 androidxEspresso = "3.6.1"
 androidxLifecycle = "2.8.3"
-androidxNavigation = "2.7.7"
+androidxNavigation = "2.7.0-alpha07"
 androidxTestCore = "1.6.1"
 androidxTestExtJunit = "1.1.5"
 publish-plugin = "0.28.0"
@@ -37,7 +37,7 @@ androidx-compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-mani
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "androidxCore" }
 androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidxLifecycle" }
 androidx-lifecycle-viewModel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "androidxLifecycle" }
-androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "androidxNavigation" }
+androidx-navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "androidxNavigation" }
 androidx-test-core = { module = "androidx.test:core-ktx", version.ref = "androidxTestCore" }
 androidx-test-espresso = { module = "androidx.test.espresso:espresso-core", version.ref = "androidxEspresso" }
 androidx-test-ext = { module = "androidx.test.ext:junit", version.ref = "androidxTestExtJunit" }

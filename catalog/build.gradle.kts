@@ -20,28 +20,21 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(project(":carbon"))
+
+            implementation(compose.runtime)
+            implementation(compose.foundation)
+            implementation(compose.ui)
+            implementation(compose.animation)
+            implementation(compose.components.uiToolingPreview)
+            implementation(compose.components.resources)
+
+            implementation(libs.androidx.navigation.compose)
         }
 
         androidMain.dependencies {
-//            implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
-            implementation(libs.androidx.core.ktx)
             implementation(libs.androidx.appcompat)
-            implementation(libs.androidx.activity.compose)
-            implementation(libs.androidx.compose.foundation)
-            implementation(libs.androidx.compose.ui)
-            implementation(libs.androidx.compose.uiTooling)
-            implementation(libs.androidx.navigation.compose)
-            implementation(libs.androidx.lifecycle.runtime.ktx)
-
             implementation(libs.timber)
-        }
-        commonMain.dependencies {
-            implementation(compose.components.resources)
-//            implementation(compose.runtime)
-//            implementation(compose.foundation)
-//            implementation(compose.ui)
-//            implementation(compose.components.uiToolingPreview)
         }
     }
 }
