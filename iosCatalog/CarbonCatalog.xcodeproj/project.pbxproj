@@ -134,7 +134,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C0055DAB2C584B8E00FE2BBA /* Build configuration list for PBXNativeTarget "CarbonCatalog" */;
 			buildPhases = (
-				C0D767972C584BD40006C38A /* ShellScript */,
+				C0D767972C584BD40006C38A /* Run Script */,
 				C0055D832C584B8D00FE2BBA /* Sources */,
 				C0055D842C584B8D00FE2BBA /* Frameworks */,
 				C0055D852C584B8D00FE2BBA /* Resources */,
@@ -254,7 +254,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		C0D767972C584BD40006C38A /* ShellScript */ = {
+		C0D767972C584BD40006C38A /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -263,13 +263,14 @@
 			);
 			inputPaths = (
 			);
+			name = "Run Script";
 			outputFileListPaths = (
 			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/zsh;
-			shellScript = "source ~/.zshrc\ncd \"$SRCROOT/..\"\n./gradlew :carbon:embedAndSignAppleFrameworkForXcode\n";
+			shellScript = "source ~/.zshrc\ncd \"$SRCROOT/..\"\n./gradlew :catalog:embedAndSignAppleFrameworkForXcode\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

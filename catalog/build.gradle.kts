@@ -6,16 +6,16 @@ plugins {
 }
 
 kotlin {
-//    listOf(
-//        iosX64(),
-//        iosArm64(),
-//        iosSimulatorArm64()
-//    ).forEach { iosTarget ->
-//        iosTarget.binaries.framework {
-//            baseName = "CarbonCatalog"
-//            isStatic = true
-//        }
-//    }
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach { iosTarget ->
+        iosTarget.binaries.framework {
+            baseName = "Catalog"
+            isStatic = true
+        }
+    }
 
     sourceSets {
         commonMain.dependencies {

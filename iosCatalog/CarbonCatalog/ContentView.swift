@@ -6,11 +6,14 @@
 //
 
 import SwiftUI
-import Carbon
+import Catalog
 
 struct ComposeView: UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> UIViewController {
-        return MainViewControllerKt.MainViewController()
+        return MainViewControllerKt.MainViewController(onOpenLink: { link in
+            guard let url = URL(string: link) else { return }
+            UIApplication.shared.open(url)
+        })
     }
 
     func updateUIViewController(_ uiViewController: UIViewController, context: Context) {}

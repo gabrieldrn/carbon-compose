@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import Carbon
+import Catalog
 
 @main
 struct CarbonCatalogApp: App {
