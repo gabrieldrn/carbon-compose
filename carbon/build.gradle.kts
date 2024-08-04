@@ -27,7 +27,6 @@ kotlin {
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.ui)
-//            implementation(compose.uiTooling)
             implementation(compose.uiTest)
             implementation(compose.animation)
             implementation(compose.components.resources)

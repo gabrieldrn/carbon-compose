@@ -1,6 +1,5 @@
 package carbon.compose.dropdown.domain
 
-import androidx.annotation.IntRange
 import androidx.compose.ui.unit.dp
 import carbon.compose.dropdown.base.DropdownInteractiveState
 import carbon.compose.foundation.spacing.SpacingScale
@@ -18,7 +17,7 @@ import carbon.compose.foundation.spacing.SpacingScale
  */
 internal fun getOptionsPopupHeightRatio(
     optionsSize: Int,
-    @IntRange(from = 1) visibleItemsBeforeScroll: Int
+    visibleItemsBeforeScroll: Int
 ): Float = (visibleItemsBeforeScroll.coerceAtLeast(1) + .5f)
     .coerceAtMost(optionsSize.toFloat())
 

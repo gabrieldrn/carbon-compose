@@ -1,4 +1,5 @@
 import carbon.compose.Configuration
+import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 
 plugins {
     id("carbon.android.application")
@@ -18,6 +19,8 @@ kotlin {
     }
 
     sourceSets {
+        val desktopMain by getting
+
         commonMain.dependencies {
             implementation(project(":carbon"))
 
@@ -36,12 +39,11 @@ kotlin {
             implementation(libs.androidx.appcompat)
             implementation(libs.timber)
         }
-    }
-}
 
-compose.resources {
-    packageOfResClass = "carbon.compose.catalog"
-    generateResClass = always
+        desktopMain.dependencies {
+            implementation(compose.desktop.currentOs)
+        }
+    }
 }
 
 android {
@@ -55,6 +57,44 @@ android {
     buildTypes {
         release {
             signingConfig = signingConfigs.getByName("debug")
+        }
+    }
+}
+
+compose {
+    resources {
+        packageOfResClass = "carbon.compose.catalog"
+        generateResClass = always
+    }
+
+    desktop {
+        application {
+            mainClass = "carbon.compose.catalog.MainKt"
+
+            nativeDistributions {
+                targetFormats(
+                    // Disabled because major version 0 is not allowed
+                    // To compile for macOS, uncomment the following line and comment the one
+                    // configuring packageVersion
+//                    TargetFormat.Dmg,
+                    TargetFormat.Msi,
+                    TargetFormat.Deb
+                )
+                packageName = "Carbon catalog"
+                packageVersion = Configuration.versionName
+
+                macOS {
+                    iconFile.set(project.file("carbon_catalog_icon.icns"))
+                }
+
+                windows {
+                    iconFile.set(project.file("carbon_catalog_icon.ico"))
+                }
+
+                linux {
+                    iconFile.set(project.file("carbon_catalog_icon.png"))
+                }
+            }
         }
     }
 }

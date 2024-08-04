@@ -47,6 +47,12 @@ class CarbonMultiplatformLibraryConventionPlugin : Plugin<Project> {
                 }
             }
 
+            jvm("desktop") {
+                compilerOptions {
+                    jvmTarget.set(Constants.Versions.JVM)
+                }
+            }
+
             sourceSets.apply {
                 all {
                     languageSettings.optIn("androidx.compose.ui.test.ExperimentalTestApi")

@@ -1,8 +1,8 @@
 import carbon.compose.buildlogic.Constants
-import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
 import carbon.compose.buildlogic.configureKotlinAndroidCommon
 import carbon.compose.buildlogic.getPlugin
 import carbon.compose.buildlogic.libs
+import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
@@ -27,6 +27,12 @@ class CarbonApplicationConventionPlugin : Plugin<Project> {
 
         extensions.configure<KotlinMultiplatformExtension> {
             androidTarget {
+                compilerOptions {
+                    jvmTarget.set(Constants.Versions.JVM)
+                }
+            }
+
+            jvm("desktop") {
                 compilerOptions {
                     jvmTarget.set(Constants.Versions.JVM)
                 }

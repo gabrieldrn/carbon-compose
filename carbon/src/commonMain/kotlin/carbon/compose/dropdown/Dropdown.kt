@@ -1,6 +1,5 @@
 package carbon.compose.dropdown
 
-import androidx.annotation.IntRange
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -15,6 +14,7 @@ import carbon.compose.dropdown.base.DropdownPlaceholderText
 import carbon.compose.dropdown.base.DropdownPopupContent
 import carbon.compose.dropdown.base.DropdownSize
 import carbon.compose.dropdown.base.DropdownStateIcon
+import co.touchlab.kermit.Logger
 
 /**
  * # Dropdown
@@ -67,10 +67,17 @@ public fun <K : Any> Dropdown(
     label: String? = null,
     state: DropdownInteractiveState = DropdownInteractiveState.Enabled,
     dropdownSize: DropdownSize = DropdownSize.Large,
-    @IntRange(from = 1) minVisibleItems: Int = 4,
+    minVisibleItems: Int = 4,
 ) {
     val fieldText = remember(selectedOption) {
         options[selectedOption]?.value ?: placeholder
+    }
+
+    val actualMinVisibleItems = remember(minVisibleItems) {
+        if (minVisibleItems < 1) {
+            Logger.w("minVisibleItems must be > 0. Using 1 instead.")
+        }
+        minVisibleItems.coerceAtLeast(1)
     }
 
     val colors = DropdownColors.colors()
@@ -85,7 +92,7 @@ public fun <K : Any> Dropdown(
         label = label,
         state = state,
         dropdownSize = dropdownSize,
-        minVisibleItems = minVisibleItems,
+        minVisibleItems = actualMinVisibleItems,
         fieldContent = {
             DropdownPlaceholderText(
                 placeholderText = fieldText,
@@ -157,9 +164,16 @@ public fun <K : Any> Dropdown(
     label: String? = null,
     state: DropdownInteractiveState = DropdownInteractiveState.Enabled,
     dropdownSize: DropdownSize = DropdownSize.Large,
-    @IntRange(from = 1) minVisibleItems: Int = 4,
+    minVisibleItems: Int = 4,
 ) {
     var isExpanded by remember { mutableStateOf(false) }
+
+    val actualMinVisibleItems = remember(minVisibleItems) {
+        if (minVisibleItems < 1) {
+            Logger.w("minVisibleItems must be > 0. Using 1 instead.")
+        }
+        minVisibleItems.coerceAtLeast(1)
+    }
 
     Dropdown(
         expanded = isExpanded,
@@ -173,6 +187,6 @@ public fun <K : Any> Dropdown(
         label = label,
         state = state,
         dropdownSize = dropdownSize,
-        minVisibleItems = minVisibleItems,
+        minVisibleItems = actualMinVisibleItems,
     )
 }

@@ -1,6 +1,5 @@
 package carbon.compose.dropdown.base
 
-import androidx.annotation.IntRange
 import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.animation.core.animateDp
 import androidx.compose.animation.core.tween
@@ -76,7 +75,7 @@ internal fun <K : Any> BaseDropdown(
     label: String? = null,
     state: DropdownInteractiveState = DropdownInteractiveState.Enabled,
     dropdownSize: DropdownSize = DropdownSize.Large,
-    @IntRange(from = 1) minVisibleItems: Int = 4,
+    minVisibleItems: Int,
     fieldContent: @Composable () -> Unit,
     popupContent: @Composable DropdownPopupScope.() -> Unit,
 ) {

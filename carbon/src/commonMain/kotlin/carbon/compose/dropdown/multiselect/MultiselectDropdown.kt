@@ -1,6 +1,5 @@
 package carbon.compose.dropdown.multiselect
 
-import androidx.annotation.IntRange
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -16,6 +15,7 @@ import carbon.compose.dropdown.base.DropdownPlaceholderText
 import carbon.compose.dropdown.base.DropdownSize
 import carbon.compose.dropdown.base.DropdownStateIcon
 import carbon.compose.foundation.spacing.SpacingScale
+import co.touchlab.kermit.Logger
 
 /**
  * # Multiselect Dropdown
@@ -74,9 +74,16 @@ public fun <K : Any> MultiselectDropdown(
     label: String? = null,
     state: DropdownInteractiveState = DropdownInteractiveState.Enabled,
     dropdownSize: DropdownSize = DropdownSize.Large,
-    @IntRange(from = 1) minVisibleItems: Int = 4,
+    minVisibleItems: Int = 4,
 ) {
     val colors = DropdownColors.colors()
+
+    val actualMinVisibleItems = remember(minVisibleItems) {
+        if (minVisibleItems < 1) {
+            Logger.w("minVisibleItems must be > 0. Using 1 instead.")
+        }
+        minVisibleItems.coerceAtLeast(1)
+    }
 
     BaseDropdown(
         expanded = expanded,
@@ -88,7 +95,7 @@ public fun <K : Any> MultiselectDropdown(
         label = label,
         state = state,
         dropdownSize = dropdownSize,
-        minVisibleItems = minVisibleItems,
+        minVisibleItems = actualMinVisibleItems,
         fieldContent = {
             if (selectedOptions.isNotEmpty() && state !is DropdownInteractiveState.Disabled) {
                 DropdownMultiselectTag(
@@ -172,9 +179,16 @@ public fun <K : Any> MultiselectDropdown(
     label: String? = null,
     state: DropdownInteractiveState = DropdownInteractiveState.Enabled,
     dropdownSize: DropdownSize = DropdownSize.Large,
-    @IntRange(from = 1) minVisibleItems: Int = 4,
+    minVisibleItems: Int = 4,
 ) {
     var isExpanded by remember { mutableStateOf(false) }
+
+    val actualMinVisibleItems = remember(minVisibleItems) {
+        if (minVisibleItems < 1) {
+            Logger.w("minVisibleItems must be > 0. Using 1 instead.")
+        }
+        minVisibleItems.coerceAtLeast(1)
+    }
 
     MultiselectDropdown(
         expanded = isExpanded,
@@ -189,6 +203,6 @@ public fun <K : Any> MultiselectDropdown(
         label = label,
         state = state,
         dropdownSize = dropdownSize,
-        minVisibleItems = minVisibleItems,
+        minVisibleItems = actualMinVisibleItems,
     )
 }

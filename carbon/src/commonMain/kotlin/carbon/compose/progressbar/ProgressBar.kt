@@ -1,8 +1,8 @@
 package carbon.compose.progressbar
 
-import androidx.annotation.FloatRange
 import androidx.compose.foundation.progressSemantics
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 
@@ -29,7 +29,7 @@ import androidx.compose.ui.platform.testTag
  */
 @Composable
 public fun ProgressBar(
-    @FloatRange(from = 0.0, to = 1.0) value: Float,
+    value: Float,
     modifier: Modifier = Modifier,
     labelText: String? = null,
     helperText: String? = null,
@@ -38,17 +38,21 @@ public fun ProgressBar(
     state: ProgressBarState = ProgressBarState.Active,
     size: ProgressBarSize = ProgressBarSize.Big,
 ) {
+    val actualProgressValue = remember(value) {
+        value.coerceIn(0f, 1f)
+    }
+
     ProgressBarRootLayout(
         labelText = labelText,
         helperText = helperText,
         inlined = inlined,
         indented = indented,
-        modifier = modifier.progressSemantics(value = value, valueRange = 0f..1f),
+        modifier = modifier.progressSemantics(value = actualProgressValue),
         state = state,
         trackContent = {
             ProgressBarTrack(
                 size = size,
-                value = value,
+                value = actualProgressValue,
                 state = state,
                 modifier = Modifier.testTag(ProgressBarTestTags.TRACK)
             )
