@@ -1,5 +1,8 @@
 package carbon.compose.textinput
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsEnabled
@@ -17,32 +20,45 @@ import kotlin.test.Test
 
 class TextInputTest {
 
+    private var _variant by mutableStateOf(TextInputVariant.INPUT)
+    private var _value by mutableStateOf("")
+    private var _placeholderText by mutableStateOf("")
+    private var _helperText by mutableStateOf("")
+    private var _state by mutableStateOf(TextInputState.Enabled)
+
     @Test
     fun textInput_validateLayout() = runComposeUiTest {
-        forEachParameter { variant, value, placeholderText, helperText, state ->
-            setContent {
-                CarbonDesignSystem {
-                    when (variant) {
-                        TextInputVariant.INPUT -> TextInput(
-                            // The label is not parameterized as it's a mandatory element.
-                            label = "Label",
-                            value = value,
-                            onValueChange = {},
-                            placeholderText = placeholderText,
-                            helperText = helperText,
-                            state = state,
-                        )
-                        TextInputVariant.AREA -> TextArea(
-                            label = "Label",
-                            value = value,
-                            onValueChange = {},
-                            placeholderText = placeholderText,
-                            helperText = helperText,
-                            state = state,
-                        )
-                    }
+        setContent {
+            CarbonDesignSystem {
+                when (_variant) {
+                    TextInputVariant.INPUT -> TextInput(
+                        // The label is not parameterized as it's a mandatory element.
+                        label = "Label",
+                        value = _value,
+                        onValueChange = {},
+                        placeholderText = _placeholderText,
+                        helperText = _helperText,
+                        state = _state,
+                    )
+                    TextInputVariant.AREA -> TextArea(
+                        label = "Label",
+                        value = _value,
+                        onValueChange = {},
+                        placeholderText = _placeholderText,
+                        helperText = _helperText,
+                        state = _state,
+                    )
                 }
             }
+        }
+
+        forEachParameter { variant, value, placeholderText, helperText, state ->
+
+            _variant = variant
+            _value = value
+            _placeholderText = placeholderText
+            _helperText = helperText
+            _state = state
 
             runGlobalTextInputLayoutAssertions(
                 label = "Label",
@@ -70,21 +86,28 @@ class TextInputTest {
 
     @Test
     fun textInput_validateSemantics() = runComposeUiTest {
-        forEachParameter { variant, value, placeholderText, helperText, state ->
-            setContent {
-                CarbonDesignSystem {
-                    TextInput(
-                        // The label is not parameterized as it's a mandatory element.
-                        label = "Label",
-                        value = value,
-                        onValueChange = {},
-                        placeholderText = placeholderText,
-                        helperText = helperText,
-                        state = state,
-                        // Size is not tested as only one size is technically supported
-                    )
-                }
+        setContent {
+            CarbonDesignSystem {
+                TextInput(
+                    // The label is not parameterized as it's a mandatory element.
+                    label = "Label",
+                    value = _value,
+                    onValueChange = {},
+                    placeholderText = _placeholderText,
+                    helperText = _helperText,
+                    state = _state,
+                    // Size is not tested as only one size is technically supported
+                )
             }
+        }
+
+        forEachParameter { variant, value, placeholderText, helperText, state ->
+
+            _variant = variant
+            _value = value
+            _placeholderText = placeholderText
+            _helperText = helperText
+            _state = state
 
             // Field state
             onNodeWithTag(TextInputTestTags.FIELD, useUnmergedTree = true).run {
@@ -103,6 +126,29 @@ class TextInputTest {
         }
     }
 
+    @Suppress("NestedBlockDepth")
+    private fun forEachParameter(
+        testBlock: (TextInputVariant, String, String, String, TextInputState) -> Unit
+    ) {
+        TextInputVariant.entries.forEach { variant ->
+            listOf("", loremIpsum).forEach { value ->
+                listOf("", "Placeholder").forEach { placeholderText ->
+                    listOf("", "Helper").forEach { helperText ->
+                        TextInputState.entries.forEach { state ->
+                            testBlock(
+                                variant,
+                                value,
+                                placeholderText,
+                                helperText,
+                                state
+                            )
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     companion object {
 
         private val loremIpsum =
@@ -114,29 +160,6 @@ class TextInputTest {
                 pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia 
                 deserunt mollit anim id est laborum
             """.trimIndent().replace("\n", "")
-
-        @Suppress("NestedBlockDepth")
-        fun forEachParameter(
-            testBlock: (TextInputVariant, String, String, String, TextInputState) -> Unit
-        ) {
-            TextInputVariant.entries.forEach { variant ->
-                listOf("", loremIpsum).forEach { value ->
-                    listOf("", "Placeholder").forEach { placeholderText ->
-                        listOf("", "Helper").forEach { helperText ->
-                            TextInputState.entries.forEach { state ->
-                                testBlock(
-                                    variant,
-                                    value,
-                                    placeholderText,
-                                    helperText,
-                                    state
-                                )
-                            }
-                        }
-                    }
-                }
-            }
-        }
 
         enum class TextInputVariant {
             INPUT, AREA

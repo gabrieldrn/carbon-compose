@@ -1,5 +1,8 @@
 package carbon.compose.progressbar
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsNotDisplayed
 import androidx.compose.ui.test.assertTextEquals
@@ -12,21 +15,32 @@ import kotlin.test.Test
 
 class ProgressBarTest {
 
+    private var _labelText by mutableStateOf<String?>(null)
+    private var _helperText by mutableStateOf<String?>(null)
+    private var _inlined by mutableStateOf(false)
+    private var _state by mutableStateOf(ProgressBarState.Active)
+
     @Test
     @Suppress("CognitiveComplexMethod", "CyclomaticComplexMethod")
     fun progressBar_default_validateLayout() = runComposeUiTest {
-        forEachParameter { labelText, helperText, inlined, state ->
-            setContent {
-                CarbonDesignSystem {
-                    ProgressBar(
-                        value = 0.5f,
-                        labelText = labelText,
-                        helperText = helperText,
-                        inlined = inlined,
-                        state = state,
-                    )
-                }
+        setContent {
+            CarbonDesignSystem {
+                ProgressBar(
+                    value = 0.5f,
+                    labelText = _labelText,
+                    helperText = _helperText,
+                    inlined = _inlined,
+                    state = _state,
+                )
             }
+        }
+
+        forEachParameter { labelText, helperText, inlined, state ->
+
+            _labelText = labelText
+            _helperText = helperText
+            _inlined = inlined
+            _state = state
 
             onNodeWithTag(ProgressBarTestTags.LABEL_TEXT, useUnmergedTree = true).run {
                 if (labelText != null) {
@@ -67,17 +81,24 @@ class ProgressBarTest {
 
     @Test
     fun progressBar_indeterminate_validateLayout() = runComposeUiTest {
-        forEachParameter { labelText, helperText, inlined, state ->
-            setContent {
-                CarbonDesignSystem {
-                    IndeterminateProgressBar(
-                        labelText = labelText,
-                        helperText = helperText,
-                        inlined = inlined,
-                        state = state
-                    )
-                }
+
+        setContent {
+            CarbonDesignSystem {
+                IndeterminateProgressBar(
+                    labelText = _labelText,
+                    helperText = _helperText,
+                    inlined = _inlined,
+                    state = _state
+                )
             }
+        }
+
+        forEachParameter { labelText, helperText, inlined, state ->
+
+            _labelText = labelText
+            _helperText = helperText
+            _inlined = inlined
+            _state = state
 
             onNodeWithTag(ProgressBarTestTags.LABEL_TEXT, useUnmergedTree = true).run {
                 if (labelText != null) {
@@ -106,18 +127,15 @@ class ProgressBarTest {
         }
     }
 
-    companion object {
-
-        @Suppress("NestedBlockDepth")
-        fun forEachParameter(
-            testBlock: (String?, String?, Boolean, ProgressBarState) -> Unit
-        ) {
-            listOf("Label", null).forEach { labelText ->
-                listOf("Helper", null).forEach { helperText ->
-                    listOf(false, true).forEach { inlined ->
-                        ProgressBarState.entries.forEach { state ->
-                            testBlock(labelText, helperText, inlined, state)
-                        }
+    @Suppress("NestedBlockDepth")
+    private fun forEachParameter(
+        testBlock: (String?, String?, Boolean, ProgressBarState) -> Unit
+    ) {
+        listOf("Label", null).forEach { labelText ->
+            listOf("Helper", null).forEach { helperText ->
+                listOf(false, true).forEach { inlined ->
+                    ProgressBarState.entries.forEach { state ->
+                        testBlock(labelText, helperText, inlined, state)
                     }
                 }
             }

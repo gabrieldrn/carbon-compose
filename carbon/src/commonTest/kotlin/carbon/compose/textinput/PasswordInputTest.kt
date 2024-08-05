@@ -1,5 +1,8 @@
 package carbon.compose.textinput
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsEnabled
@@ -23,24 +26,37 @@ class PasswordInputTest {
     private val _viewIcon = viewIcon
     private val _viewOffIcon = viewOffIcon
 
+    private var _value by mutableStateOf("")
+    private var _passwordHidden by mutableStateOf(false)
+    private var _placeholderText by mutableStateOf("")
+    private var _helperText by mutableStateOf("")
+    private var _state by mutableStateOf(TextInputState.Enabled)
+
     @Test
     @Suppress("CognitiveComplexMethod", "NestedBlockDepth")
     fun passwordInput_validateLayout() = runComposeUiTest {
-        forEachParameter { value, passwordHidden, placeholderText, helperText, state ->
-            setContent {
-                CarbonDesignSystem {
-                    PasswordInput(
-                        label = "Label",
-                        value = value,
-                        passwordHidden = passwordHidden,
-                        state = state,
-                        placeholderText = placeholderText,
-                        helperText = helperText,
-                        onValueChange = {},
-                        onPasswordHiddenChange = {}
-                    )
-                }
+        setContent {
+            CarbonDesignSystem {
+                PasswordInput(
+                    label = "Label",
+                    value = _value,
+                    passwordHidden = _passwordHidden,
+                    state = _state,
+                    placeholderText = _placeholderText,
+                    helperText = _helperText,
+                    onValueChange = {},
+                    onPasswordHiddenChange = {}
+                )
             }
+        }
+
+        forEachParameter { value, passwordHidden, placeholderText, helperText, state ->
+
+            _value = value
+            _passwordHidden = passwordHidden
+            _placeholderText = placeholderText
+            _helperText = helperText
+            _state = state
 
             runGlobalTextInputLayoutAssertions(
                 label = "Label",
@@ -80,21 +96,28 @@ class PasswordInputTest {
 
     @Test
     fun passwordInput_validateSemantics() = runComposeUiTest {
-        forEachParameter { value, passwordHidden, placeholderText, helperText, state ->
-            setContent {
-                CarbonDesignSystem {
-                    TextInput(
-                        // The label is not parameterized as it's a mandatory element.
-                        label = "Label",
-                        value = value,
-                        onValueChange = {},
-                        placeholderText = placeholderText,
-                        helperText = helperText,
-                        state = state,
-                        // Size is not tested as only one size is technically supported
-                    )
-                }
+        setContent {
+            CarbonDesignSystem {
+                TextInput(
+                    // The label is not parameterized as it's a mandatory element.
+                    label = "Label",
+                    value = _value,
+                    onValueChange = {},
+                    placeholderText = _placeholderText,
+                    helperText = _helperText,
+                    state = _state,
+                    // Size is not tested as only one size is technically supported
+                )
             }
+        }
+
+        forEachParameter { value, passwordHidden, placeholderText, helperText, state ->
+
+            _value = value
+            _passwordHidden = passwordHidden
+            _placeholderText = placeholderText
+            _helperText = helperText
+            _state = state
 
             // Field state
             onNodeWithTag(TextInputTestTags.FIELD, useUnmergedTree = true).run {
@@ -113,32 +136,31 @@ class PasswordInputTest {
         }
     }
 
-    companion object {
-
-        const val examplePassword = "S0mePa55word%"
-        const val exampleHiddenPassword = "•••••••••••••"
-
-        @Suppress("NestedBlockDepth")
-        fun forEachParameter(
-            testBlock: (String, Boolean, String, String, TextInputState) -> Unit
-        ) {
-            listOf("", examplePassword).forEach { value ->
-                listOf(true, false).forEach { passwordHidden ->
-                    listOf("", "Placeholder").forEach { placeholderText ->
-                        listOf("", "Helper").forEach { helperText ->
-                            TextInputState.entries.forEach { state ->
-                                testBlock(
-                                    value,
-                                    passwordHidden,
-                                    placeholderText,
-                                    helperText,
-                                    state,
-                                )
-                            }
+    @Suppress("NestedBlockDepth")
+    private fun forEachParameter(
+        testBlock: (String, Boolean, String, String, TextInputState) -> Unit
+    ) {
+        listOf("", examplePassword).forEach { value ->
+            listOf(true, false).forEach { passwordHidden ->
+                listOf("", "Placeholder").forEach { placeholderText ->
+                    listOf("", "Helper").forEach { helperText ->
+                        TextInputState.entries.forEach { state ->
+                            testBlock(
+                                value,
+                                passwordHidden,
+                                placeholderText,
+                                helperText,
+                                state,
+                            )
                         }
                     }
                 }
             }
         }
+    }
+
+    companion object {
+        const val examplePassword = "S0mePa55word%"
+        const val exampleHiddenPassword = "•••••••••••••"
     }
 }

@@ -1,6 +1,5 @@
 package carbon.compose.dropdown
 
-import androidx.annotation.CallSuper
 import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.animation.core.updateTransition
 import androidx.compose.runtime.getValue
@@ -81,7 +80,6 @@ open class DropdownFieldTest {
         }
     }
 
-    @CallSuper
     open fun onContentValidation(
         testScope: ComposeUiTest,
         state: DropdownInteractiveState
@@ -135,7 +133,6 @@ open class DropdownFieldTest {
         }
     }
 
-    @CallSuper
     open fun onLayoutValidationGetFieldContentWidths(
         testScope: ComposeUiTest,
         state: DropdownInteractiveState,
