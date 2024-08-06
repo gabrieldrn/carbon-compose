@@ -6,7 +6,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsEnabled
-import androidx.compose.ui.test.assertIsNotDisplayed
 import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.hasStateDescription
@@ -60,6 +59,8 @@ class TextInputTest {
             _helperText = helperText
             _state = state
 
+            waitForIdle()
+
             runGlobalTextInputLayoutAssertions(
                 label = "Label",
                 helperText = helperText,
@@ -72,12 +73,12 @@ class TextInputTest {
                         assertIsDisplayed()
                         assertTextEquals(placeholderText)
                     } else {
-                        assertIsNotDisplayed()
+                        assertTextEquals("")
                     }
                 }
             } else {
                 onNodeWithTag(TextInputTestTags.PLACEHOLDER, useUnmergedTree = true)
-                    .assertIsNotDisplayed()
+                    .assertDoesNotExist()
 
                 onNodeWithText(value).assertIsDisplayed()
             }

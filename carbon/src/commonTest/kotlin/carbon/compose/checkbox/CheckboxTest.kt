@@ -9,7 +9,6 @@ import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.test.ComposeUiTest
 import androidx.compose.ui.test.assertHasClickAction
 import androidx.compose.ui.test.assertIsDisplayed
-import androidx.compose.ui.test.assertIsNotDisplayed
 import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
@@ -55,13 +54,13 @@ class CheckboxTest {
     private fun ComposeUiTest.assertWarningContentIsDisplayed(displayed: Boolean) =
         onNodeWithTag(CheckboxTestTags.WARNING_CONTENT, useUnmergedTree = true)
             .run {
-                if (displayed) assertIsDisplayed() else assertIsNotDisplayed()
+                if (displayed) assertIsDisplayed() else assertDoesNotExist()
             }
 
     private fun ComposeUiTest.assertErrorContentIsDisplayed(displayed: Boolean) =
         onNodeWithTag(CheckboxTestTags.ERROR_CONTENT, useUnmergedTree = true)
             .run {
-                if (displayed) assertIsDisplayed() else assertIsNotDisplayed()
+                if (displayed) assertIsDisplayed() else assertDoesNotExist()
             }
 
     @Test

@@ -12,7 +12,6 @@ import androidx.compose.ui.test.ComposeUiTest
 import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.assertHeightIsEqualTo
 import androidx.compose.ui.test.assertIsDisplayed
-import androidx.compose.ui.test.assertIsNotDisplayed
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
@@ -91,15 +90,15 @@ class BaseDropdownTest {
 
         label = "   "
         onNodeWithTag(DropdownTestTags.LABEL_TEXT)
-            .assertIsNotDisplayed()
+            .assertDoesNotExist()
 
         label = ""
         onNodeWithTag(DropdownTestTags.LABEL_TEXT)
-            .assertIsNotDisplayed()
+            .assertDoesNotExist()
 
         label = null
         onNodeWithTag(DropdownTestTags.LABEL_TEXT)
-            .assertIsNotDisplayed()
+            .assertDoesNotExist()
 
         tearDown()
     }
@@ -121,13 +120,13 @@ class BaseDropdownTest {
             state = it
 
             onNodeWithTag(DropdownTestTags.POPUP_CONTENT)
-                .assertIsNotDisplayed()
+                .assertDoesNotExist()
 
             when (state) {
                 is DropdownInteractiveState.Enabled,
                 is DropdownInteractiveState.ReadOnly ->
                     onNodeWithTag(DropdownTestTags.HELPER_TEXT)
-                        .assertIsNotDisplayed()
+                        .assertDoesNotExist()
 
                 is DropdownInteractiveState.Warning ->
                     onNodeWithTag(DropdownTestTags.HELPER_TEXT)
@@ -171,7 +170,7 @@ class BaseDropdownTest {
         setup()
 
         onNodeWithTag(popupContentMockTestTag)
-            .assertIsNotDisplayed()
+            .assertDoesNotExist()
 
         onNodeWithTag(DropdownTestTags.FIELD)
             .performClick()
@@ -191,7 +190,7 @@ class BaseDropdownTest {
         isExpanded = false
 
         onNodeWithTag(popupContentMockTestTag)
-            .assertIsNotDisplayed()
+            .assertDoesNotExist()
 
         tearDown()
     }

@@ -8,7 +8,6 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.test.ComposeUiTest
 import androidx.compose.ui.test.assertHasClickAction
 import androidx.compose.ui.test.assertIsDisplayed
-import androidx.compose.ui.test.assertIsNotDisplayed
 import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
@@ -48,13 +47,13 @@ class RadioButtonTest {
     private fun ComposeUiTest.assertWarningContentIsDisplayed(displayed: Boolean) =
         onNodeWithTag(RadioButtonTestTags.WARNING_CONTENT, useUnmergedTree = true)
             .run {
-                if (displayed) assertIsDisplayed() else assertIsNotDisplayed()
+                if (displayed) assertIsDisplayed() else assertDoesNotExist()
             }
 
     private fun ComposeUiTest.assertErrorContentIsDisplayed(displayed: Boolean) =
         onNodeWithTag(RadioButtonTestTags.ERROR_CONTENT, useUnmergedTree = true)
             .run {
-                if (displayed) assertIsDisplayed() else assertIsNotDisplayed()
+                if (displayed) assertIsDisplayed() else assertDoesNotExist()
             }
 
     @Test

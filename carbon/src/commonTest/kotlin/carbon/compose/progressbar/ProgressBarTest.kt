@@ -4,7 +4,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.test.assertIsDisplayed
-import androidx.compose.ui.test.assertIsNotDisplayed
 import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.runComposeUiTest
@@ -47,34 +46,34 @@ class ProgressBarTest {
                     assertIsDisplayed()
                     assertTextEquals(labelText)
                 } else {
-                    assertIsNotDisplayed()
+                    assertDoesNotExist()
                 }
             }
 
             onNodeWithTag(ProgressBarTestTags.HELPER_TEXT, useUnmergedTree = true).run {
                 when {
-                    inlined -> assertIsNotDisplayed()
+                    inlined -> assertDoesNotExist()
                     helperText != null -> {
                         assertIsDisplayed()
                         assertTextEquals(helperText)
                     }
-                    else -> assertIsNotDisplayed()
+                    else -> assertDoesNotExist()
                 }
             }
 
             onNodeWithTag(ProgressBarTestTags.TRACK, useUnmergedTree = true).run {
-                if (inlined && state != ProgressBarState.Active) assertIsNotDisplayed()
+                if (inlined && state != ProgressBarState.Active) assertDoesNotExist()
                 else assertIsDisplayed()
             }
 
             onNodeWithTag(errorFilledIcon.name, useUnmergedTree = true).run {
                 if (state == ProgressBarState.Error) assertIsDisplayed()
-                else assertIsNotDisplayed()
+                else assertDoesNotExist()
             }
 
             onNodeWithTag(checkmarkFilledIcon.name, useUnmergedTree = true).run {
                 if (state == ProgressBarState.Success) assertIsDisplayed()
-                else assertIsNotDisplayed()
+                else assertDoesNotExist()
             }
         }
     }
@@ -105,23 +104,23 @@ class ProgressBarTest {
                     assertIsDisplayed()
                     assertTextEquals(labelText)
                 } else {
-                    assertIsNotDisplayed()
+                    assertDoesNotExist()
                 }
             }
 
             onNodeWithTag(ProgressBarTestTags.HELPER_TEXT, useUnmergedTree = true).run {
                 when {
-                    inlined -> assertIsNotDisplayed()
+                    inlined -> assertDoesNotExist()
                     helperText != null -> {
                         assertIsDisplayed()
                         assertTextEquals(helperText)
                     }
-                    else -> assertIsNotDisplayed()
+                    else -> assertDoesNotExist()
                 }
             }
 
             onNodeWithTag(ProgressBarTestTags.TRACK, useUnmergedTree = true).run {
-                if (inlined && state != ProgressBarState.Active) assertIsNotDisplayed()
+                if (inlined && state != ProgressBarState.Active) assertDoesNotExist()
                 else assertIsDisplayed()
             }
         }

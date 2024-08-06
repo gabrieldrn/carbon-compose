@@ -13,7 +13,6 @@ import androidx.compose.ui.test.assertHasNoClickAction
 import androidx.compose.ui.test.assertHeightIsEqualTo
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsFocused
-import androidx.compose.ui.test.assertIsNotDisplayed
 import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.assertLeftPositionInRootIsEqualTo
 import androidx.compose.ui.test.assertWidthIsEqualTo
@@ -101,10 +100,10 @@ open class DropdownFieldTest {
                     .assertIsDisplayed()
 
                 onNodeWithTag(DropdownTestTags.FIELD_WARNING_ICON, useUnmergedTree = true)
-                    .assertIsNotDisplayed()
+                    .assertDoesNotExist()
 
                 onNodeWithTag(DropdownTestTags.FIELD_ERROR_ICON, useUnmergedTree = true)
-                    .assertIsNotDisplayed()
+                    .assertDoesNotExist()
             }
             is DropdownInteractiveState.Warning ->
                 onNodeWithTag(DropdownTestTags.FIELD_WARNING_ICON, useUnmergedTree = true)
@@ -115,7 +114,7 @@ open class DropdownFieldTest {
                     .assertIsDisplayed()
 
                 onNodeWithTag(DropdownTestTags.FIELD_DIVIDER, useUnmergedTree = true)
-                    .assertIsNotDisplayed()
+                    .assertDoesNotExist()
             }
             is DropdownInteractiveState.Disabled ->
                 onNodeWithTag(DropdownTestTags.FIELD)
