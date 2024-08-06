@@ -27,7 +27,9 @@ kotlin {
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.ui)
-            implementation(compose.uiTest)
+            implementation(compose.uiTest) {
+                exclude(group = "androidx.test.espresso", module = "espresso-core")
+            }
             implementation(compose.animation)
             implementation(compose.components.resources)
 
