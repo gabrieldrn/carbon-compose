@@ -5,14 +5,14 @@ import carbon.compose.dropdown.base.DropdownInteractiveState
 import carbon.compose.dropdown.domain.getChevronStartSpacing
 import carbon.compose.dropdown.domain.getOptionsPopupHeightRatio
 import carbon.compose.foundation.spacing.SpacingScale
-import org.junit.Test
+import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class DropdownDrawLogicTest {
 
     @Test
     fun dropdownDrawLogic_getOptionsPopupHeightRatio_returnsCorrectValue() {
-        mapOf(
+        mapOf<Pair<Int, Int>, Float>(
             1 to 0 to 1f,
             1 to 1 to 1f,
             1 to 2 to 1f,
@@ -24,7 +24,9 @@ class DropdownDrawLogicTest {
             3 to 2 to 2.5f,
             3 to 3 to 3f,
             4 to 3 to 3.5f,
-        ).forEach { (optionsSize, visibleItems), expectedRatio ->
+        ).forEach {
+            val (optionsSize, visibleItems) = it.key
+            val expectedRatio = it.value
             val actualRatio = getOptionsPopupHeightRatio(
                 optionsSize = optionsSize,
                 visibleItemsBeforeScroll = visibleItems

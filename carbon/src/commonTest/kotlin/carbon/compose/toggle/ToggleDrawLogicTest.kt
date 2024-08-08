@@ -2,7 +2,7 @@ package carbon.compose.toggle
 
 import androidx.compose.ui.unit.Density
 import carbon.compose.toggle.domain.ToggleDrawValues
-import org.junit.Test
+import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class ToggleDrawLogicTest {
