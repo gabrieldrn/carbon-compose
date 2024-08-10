@@ -2,7 +2,7 @@ name: CI | compile & tests
 
 on:
   push:
-    branches: [ main, kmp-migration ]
+    branches: [ main ]
   pull_request:
     branches: [ '*' ]
 
