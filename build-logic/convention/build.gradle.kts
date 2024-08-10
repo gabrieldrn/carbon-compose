@@ -19,15 +19,9 @@ dependencies {
 
 gradlePlugin {
     plugins {
-        register("androidLibrary") {
-            id = "carbon.android.library"
-            implementationClass = "CarbonAndroidLibraryConventionPlugin"
-        }
-
-        // Not used yet, but it's here for potential future use.
-        register("javaLibrary") {
-            id = "carbon.java.library"
-            implementationClass = "CarbonJavaLibraryConventionPlugin"
+        register("kmpLibrary") {
+            id = "carbon.kmp.library"
+            implementationClass = "CarbonMultiplatformLibraryConventionPlugin"
         }
 
         register("application") {

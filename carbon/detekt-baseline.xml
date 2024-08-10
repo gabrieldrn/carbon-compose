@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<SmellBaseline>
+  <ManuallySuppressedIssues/>
+  <CurrentIssues>
+    <ID>CognitiveComplexMethod:BaseDropdown.kt$@Composable internal fun &lt;K : Any> BaseDropdown( expanded: Boolean, options: Map&lt;K, DropdownOption>, colors: DropdownColors, onExpandedChange: (Boolean) -> Unit, onDismissRequest: () -> Unit, modifier: Modifier = Modifier, label: String? = null, state: DropdownInteractiveState = DropdownInteractiveState.Enabled, dropdownSize: DropdownSize = DropdownSize.Large, minVisibleItems: Int, fieldContent: @Composable () -> Unit, popupContent: @Composable DropdownPopupScope.() -> Unit, )</ID>
+    <ID>OutdatedDocumentation:ProgressBar.kt$@Composable public fun IndeterminateProgressBar( modifier: Modifier = Modifier, labelText: String? = null, helperText: String? = null, indented: Boolean = false, inlined: Boolean = false, state: ProgressBarState = ProgressBarState.Active, size: ProgressBarSize = ProgressBarSize.Big, )</ID>
+    <ID>UndocumentedPublicFunction:UIShellHeader.kt$@Composable public fun UiShellHeader( headerName: String, modifier: Modifier = Modifier, menuIconPainter: Painter? = null, onMenuIconPressed: () -> Unit = {}, windowInsets: WindowInsets = WindowInsets.statusBars.only(WindowInsetsSides.Top), inlineTheme: Theme = LocalCarbonInlineTheme.current, )</ID>
+  </CurrentIssues>
+</SmellBaseline>
