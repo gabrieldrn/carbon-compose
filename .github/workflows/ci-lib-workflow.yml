@@ -37,7 +37,7 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build lib module
-        run: ./gradlew :carbon:build --scan --stacktrace -x check
+        run: ./gradlew :carbon:build --stacktrace -x check
 
   lib-build-and-test-ios:
     name: Build and test Carbon library module for iOS
@@ -66,7 +66,7 @@ jobs:
           version: latest
 
       - name: Build lib module
-        run: ./gradlew :carbon:build --scan --stacktrace -x check
+        run: ./gradlew :carbon:build --stacktrace -x check
 
       - name: Run tests
         run: ./gradlew :carbon:iosSimulatorArm64Test
