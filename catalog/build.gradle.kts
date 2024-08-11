@@ -1,4 +1,4 @@
-import carbon.compose.Configuration
+import com.gabrieldrn.carbon.Configuration
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 
 plugins {
@@ -47,10 +47,10 @@ kotlin {
 }
 
 android {
-    namespace = "carbon.compose.catalog"
+    namespace = "com.gabrieldrn.carbon.catalog"
 
     defaultConfig {
-        applicationId = "carbon.compose.catalog"
+        applicationId = "com.gabrieldrn.carbon.catalog"
         versionCode = Configuration.versionCode
         versionName = Configuration.versionName
     }
@@ -63,13 +63,13 @@ android {
 
 compose {
     resources {
-        packageOfResClass = "carbon.compose.catalog"
+        packageOfResClass = "com.gabrieldrn.carbon.catalog"
         generateResClass = always
     }
 
     desktop {
         application {
-            mainClass = "carbon.compose.catalog.MainKt"
+            mainClass = "com.gabrieldrn.carbon.catalog.MainKt"
 
             nativeDistributions {
                 targetFormats(

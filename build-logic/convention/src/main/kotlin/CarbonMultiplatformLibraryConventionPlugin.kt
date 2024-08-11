@@ -1,9 +1,9 @@
-import carbon.compose.buildlogic.Constants
-import carbon.compose.buildlogic.applyTestOptions
-import carbon.compose.buildlogic.configureKotlinAndroidCommon
-import carbon.compose.buildlogic.getPlugin
-import carbon.compose.buildlogic.libs
-import carbon.compose.buildlogic.setupComposeCompilerOptions
+import com.gabrieldrn.carbon.buildlogic.Constants
+import com.gabrieldrn.carbon.buildlogic.applyTestOptions
+import com.gabrieldrn.carbon.buildlogic.configureKotlinAndroidCommon
+import com.gabrieldrn.carbon.buildlogic.getPlugin
+import com.gabrieldrn.carbon.buildlogic.libs
+import com.gabrieldrn.carbon.buildlogic.setupComposeCompilerOptions
 import com.android.build.gradle.LibraryExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project

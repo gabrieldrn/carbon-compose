@@ -25,7 +25,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Carbon">
         <activity
-            android:name=".HomeActivity"
+            android:name="com.gabrieldrn.carbon.catalog.HomeActivity"
             android:exported="true"
             android:theme="@style/Theme.Carbon">
             <intent-filter>

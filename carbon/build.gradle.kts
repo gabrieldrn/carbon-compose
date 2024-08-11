@@ -1,4 +1,4 @@
-import carbon.compose.Configuration
+import com.gabrieldrn.carbon.Configuration
 import org.jetbrains.compose.ExperimentalComposeLibrary
 
 plugins {
@@ -46,13 +46,13 @@ kotlin {
 }
 
 compose.resources {
-    packageOfResClass = "carbon.compose"
+    packageOfResClass = "com.gabrieldrn.carbon"
     generateResClass = always
 }
 
 android {
 
-    namespace = "carbon.compose"
+    namespace = "com.gabrieldrn.carbon"
 
     dependencies {
         // Disabled while there's no specific Android implementations.

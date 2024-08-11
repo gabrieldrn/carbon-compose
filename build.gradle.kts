@@ -28,6 +28,6 @@ apiValidation {
     ignoredProjects.addAll(listOf("catalog"))
 }
 
-tasks.register("clean", Delete::class) {
-    delete(rootProject.layout.buildDirectory)
-}
+//tasks.register("clean", Delete::class) {
+//    delete(rootProject.layout.buildDirectory)
+//}
