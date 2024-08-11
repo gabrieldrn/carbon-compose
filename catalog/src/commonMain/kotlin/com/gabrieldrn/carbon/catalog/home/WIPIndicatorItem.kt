@@ -53,8 +53,8 @@ import com.gabrieldrn.carbon.catalog.pattern_diagonal_stripes
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 import org.jetbrains.compose.resources.painterResource
 
-private const val wipItemVerticalRotation = -90f
-private const val wipBackgroundPatternSize = 40f
+private const val WIPItemVerticalRotation = -90f
+private const val WIPBackgroundPatternSize = 40f
 
 @Composable
 fun WIPIndicatorItem(
@@ -141,14 +141,14 @@ private fun Modifier.rotateVertical(): Modifier = this
             )
         }
     }
-    .rotate(wipItemVerticalRotation)
+    .rotate(WIPItemVerticalRotation)
 
 private fun Modifier.wipBackground(): Modifier = this.composed {
     val backgroundInverse = Carbon.theme.backgroundInverse
     val density = LocalDensity.current
     val pattern = painterResource(resource = Res.drawable.pattern_diagonal_stripes)
     val brush = remember {
-        val intSize = with(density) { wipBackgroundPatternSize.dp.toPx() }
+        val intSize = with(density) { WIPBackgroundPatternSize.dp.toPx() }
 
         val bitmap = ImageBitmap(intSize.toInt(), intSize.toInt())
         val canvas = Canvas(bitmap)

@@ -25,6 +25,7 @@ import com.gabrieldrn.carbon.CarbonDesignSystem
 import com.gabrieldrn.carbon.foundation.color.containerBackground
 import platform.UIKit.UIViewController
 
+@Suppress("FunctionNaming")
 public fun MainViewController(onOpenLink: (String) -> Unit): UIViewController =
     ComposeUIViewController {
         CarbonDesignSystem {

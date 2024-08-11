@@ -17,7 +17,6 @@
 package com.gabrieldrn.carbon.catalog
 
 import androidx.compose.runtime.Composable
-import com.gabrieldrn.carbon.catalog.Res
 import com.gabrieldrn.carbon.catalog.buttons.ButtonDemoScreen
 import com.gabrieldrn.carbon.catalog.checkbox.CheckboxDemoScreen
 import com.gabrieldrn.carbon.catalog.dropdown.DropdownDemoScreen
@@ -26,15 +25,6 @@ import com.gabrieldrn.carbon.catalog.progressbar.ProgressBarDemoScreen
 import com.gabrieldrn.carbon.catalog.radiobutton.LoadingDemoScreen
 import com.gabrieldrn.carbon.catalog.radiobutton.RadioButtonDemoScreen
 import com.gabrieldrn.carbon.catalog.textinput.TextInputDemoScreen
-import com.gabrieldrn.carbon.catalog.tile_button
-import com.gabrieldrn.carbon.catalog.tile_checkbox
-import com.gabrieldrn.carbon.catalog.tile_dropdown
-import com.gabrieldrn.carbon.catalog.tile_loading
-import com.gabrieldrn.carbon.catalog.tile_mutliselect
-import com.gabrieldrn.carbon.catalog.tile_progress_bar
-import com.gabrieldrn.carbon.catalog.tile_radiobutton
-import com.gabrieldrn.carbon.catalog.tile_text_input
-import com.gabrieldrn.carbon.catalog.tile_toggle
 import com.gabrieldrn.carbon.catalog.toggle.ToggleDemoScreen
 import org.jetbrains.compose.resources.DrawableResource
 
