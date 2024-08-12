@@ -1,15 +1,12 @@
-name: CD | Publish library to GitHub Packages
+name: CD | Publish library to Maven Central
 on:
   release:
-    types: [released]
+    types: [ released ]
   workflow_dispatch:
 
 jobs:
   publish:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
 
@@ -25,7 +22,11 @@ jobs:
       - name: Assemble lib
         run: ./gradlew :carbon:assemble --scan
 
-      - name: Publish package
-        run: ./gradlew :carbon:publishMavenPublicationToGitHubRepository
+      - name: Publish to MavenCentral
+        run: ./gradlew :carbon:publishAllPublicationsToMavenCentral --no-configuration-cache
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
+          ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}
+          ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.SIGNING_KEY }}
+          ORG_GRADLE_PROJECT_signingInMemoryKeyId: ${{ secrets.SIGNING_KEY_ID }}
+          ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.SIGNING_PASSWORD }}
