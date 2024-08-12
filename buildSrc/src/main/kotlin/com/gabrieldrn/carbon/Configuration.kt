@@ -23,5 +23,5 @@ object Configuration {
     const val versionName = "$majorVersion.$minorVersion.$patchVersion"
     const val versionCode = 1
     const val snapshotVersionName = "$majorVersion.$minorVersion.${patchVersion + 1}-SNAPSHOT"
-    const val artifactGroup = "com.gabrieldrn.carbon"
+    const val artifactGroup = "com.github.gabrieldrn"
 }
