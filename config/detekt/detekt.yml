@@ -68,7 +68,7 @@ comments:
     endOfSentenceFormat: '([.?!][ \t\n\r\f<])|([.?!:]$)'
   KDocReferencesNonPublicProperty:
     active: false
-    excludes: &folders
+    excludes: &lib_folders
       - '**/androidUnitTest/**'
       - '**/androidInstrumentedTest/**'
       - '**/commonTest/**'
@@ -82,7 +82,14 @@ comments:
     allowParamOnConstructorProperties: true
   UndocumentedPublicClass:
     active: true
-    excludes: *folders
+    excludes: &undocumented_folders
+      - '**/androidUnitTest/**'
+      - '**/androidInstrumentedTest/**'
+      - '**/commonTest/**'
+      - '**/jvmTest/**'
+      - '**/jsTest/**'
+      - '**/iosTest/**'
+      - '**/catalog/src/**'
     searchInNestedClass: true
     searchInInnerClass: true
     searchInInnerObject: true
@@ -90,11 +97,11 @@ comments:
     searchInProtectedClass: false
   UndocumentedPublicFunction:
     active: true
-    excludes: *folders
+    excludes: *undocumented_folders
     searchProtectedFunction: false
   UndocumentedPublicProperty:
     active: true
-    excludes: *folders
+    excludes: *undocumented_folders
     searchProtectedProperty: false
 
 complexity:
@@ -102,7 +109,7 @@ complexity:
   CognitiveComplexMethod:
     active: true
     threshold: 15
-    excludes: *folders
+    excludes: *lib_folders
   ComplexCondition:
     active: true
     threshold: 6
@@ -168,14 +175,14 @@ complexity:
     active: false # No real visibility gain out of this.
   StringLiteralDuplication:
     active: false
-    excludes: *folders
+    excludes: *lib_folders
     threshold: 3
     ignoreAnnotation: true
     excludeStringsWithLessThan5Characters: true
     ignoreStringsRegex: '$^'
   TooManyFunctions:
     active: true
-    excludes: *folders
+    excludes: *lib_folders
     thresholdInFiles: 11
     thresholdInClasses: 15
     thresholdInInterfaces: 15
@@ -252,7 +259,7 @@ exceptions:
       - 'toString'
   InstanceOfCheckForException:
     active: true
-    excludes: *folders
+    excludes: *lib_folders
   NotImplementedDeclaration:
     active: false
   ObjectExtendsThrowable:
@@ -278,7 +285,7 @@ exceptions:
     active: false
   ThrowingExceptionsWithoutMessageOrCause:
     active: true
-    excludes: *folders
+    excludes: *lib_folders
     exceptions:
       - 'ArrayIndexOutOfBoundsException'
       - 'Error'
@@ -294,7 +301,7 @@ exceptions:
     active: true
   TooGenericExceptionCaught:
     active: true
-    excludes: *folders
+    excludes: *lib_folders
     exceptionNames:
       - 'ArrayIndexOutOfBoundsException'
       - 'Error'
@@ -316,44 +323,44 @@ naming:
   active: true
   BooleanPropertyNaming:
     active: true
-    excludes: *folders
+    excludes: *lib_folders
     allowedPattern: '^(is|has|are)'
   ClassNaming:
     active: true
-    excludes: *folders
+    excludes: *lib_folders
     classPattern: '[A-Z][a-zA-Z0-9]*'
   ConstructorParameterNaming:
     active: true
-    excludes: *folders
+    excludes: *lib_folders
     parameterPattern: '[a-z][A-Za-z0-9]*'
     privateParameterPattern: '[a-z][A-Za-z0-9]*'
     excludeClassPattern: '$^'
   EnumNaming:
     active: true
-    excludes: *folders
+    excludes: *lib_folders
     enumEntryPattern: '[A-Z][_a-zA-Z0-9]*'
   ForbiddenClassName:
     active: false
-    excludes: *folders
+    excludes: *lib_folders
     forbiddenName: []
   FunctionMaxLength:
     active: false
-    excludes: *folders
+    excludes: *lib_folders
     maximumFunctionNameLength: 30
   FunctionMinLength:
     active: false
-    excludes: *folders
+    excludes: *lib_folders
     minimumFunctionNameLength: 3
   FunctionNaming:
     active: true
-    excludes: *folders
+    excludes: *lib_folders
     functionPattern: '([a-z][a-zA-Z0-9]*)|(`.*`)'
     excludeClassPattern: '$^'
     ignoreAnnotated:
       - 'Composable'
   FunctionParameterNaming:
     active: true
-    excludes: *folders
+    excludes: *lib_folders
     parameterPattern: '[a-z][A-Za-z0-9]*'
     excludeClassPattern: '$^'
   InvalidPackageDeclaration:
@@ -374,10 +381,10 @@ naming:
     active: true
   NonBooleanPropertyPrefixedWithIs:
     active: true
-    excludes: *folders
+    excludes: *lib_folders
   ObjectPropertyNaming:
     active: true
-    excludes: *folders
+    excludes: *lib_folders
     constantPattern: '[A-Za-z][_A-Za-z0-9]*'
     propertyPattern: '[A-Za-z][_A-Za-z0-9]*'
     privatePropertyPattern: '(_)?[A-Za-z][_A-Za-z0-9]*'
@@ -386,7 +393,7 @@ naming:
     packagePattern: '[a-z]+(\.[a-z]*)*'
   TopLevelPropertyNaming:
     active: true
-    excludes: *folders
+    excludes: *lib_folders
     constantPattern: '[A-Z][_A-Za-z0-9]*' # Camel case prescribed by Jetpack Compose
     propertyPattern: '[A-Za-z][_A-Za-z]*'
     privatePropertyPattern: '_?[A-Za-z][_A-Za-z]*'
@@ -406,10 +413,10 @@ performance:
     threshold: 3
   ForEachOnRange:
     active: true
-    excludes: *folders
+    excludes: *lib_folders
   SpreadOperator:
     active: true
-    excludes: *folders
+    excludes: *lib_folders
   UnnecessaryPartOfBinaryExpression:
     active: true
   UnnecessaryTemporaryInstantiation:
@@ -478,7 +485,7 @@ potential-bugs:
     active: true
   LateinitUsage:
     active: true
-    excludes: *folders
+    excludes: *lib_folders
     ignoreOnClassesPattern: ''
   MapGetWithNotNullAssertionOperator:
     active: true
@@ -505,7 +512,7 @@ potential-bugs:
     active: true
   UnsafeCallOnNullableType:
     active: true
-    excludes: *folders
+    excludes: *lib_folders
   UnsafeCast:
     active: true
   UnusedUnaryOperator:
@@ -759,7 +766,7 @@ style:
     ignoreLateinitVar: false
   WildcardImport:
     active: true
-    excludes: *folders
+    excludes: *lib_folders
     excludeImports:
       - 'java.util.*'
       - 'androidx.compose.foundation.layout.*'

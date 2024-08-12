@@ -4,7 +4,7 @@ plugins {
     `maven-publish`
 }
 
-group = "carbon.compose.buildlogic"
+group = "com.gabrieldrn.carbon.buildlogic"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_17
