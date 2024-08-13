@@ -38,9 +38,9 @@ To run the iOS catalog app, open the Xcode project located in `<git repo>/iosCat
 
 ## Desktop 🖥️
 
-You can run the desktop version by executing the `desktopRun` Gradle task in a terminal:
+You can run the desktop version by executing the `run` Gradle task in a terminal:
 ```
-./gradlew :catalog:desktopRun -DmainClass=com.gabrieldrn.carbon.catalog.MainKt
+./gradlew :catalog:run
 ```
 
 # ✏️ Usage
