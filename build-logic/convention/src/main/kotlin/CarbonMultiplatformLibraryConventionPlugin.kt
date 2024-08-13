@@ -53,6 +53,8 @@ class CarbonMultiplatformLibraryConventionPlugin : Plugin<Project> {
                 }
             }
 
+            wasmJs { browser() }
+
             sourceSets.apply {
                 all {
                     languageSettings.optIn("androidx.compose.ui.test.ExperimentalTestApi")
