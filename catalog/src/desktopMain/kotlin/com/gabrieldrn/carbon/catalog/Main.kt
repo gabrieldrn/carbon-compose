@@ -18,22 +18,12 @@ package com.gabrieldrn.carbon.catalog
 
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
-import java.awt.Desktop
-import java.net.URI
 
 fun main() = application {
     Window(
         onCloseRequest = ::exitApplication,
         title = "Carbon catalog",
     ) {
-        Catalog(
-            onOpenLink = {
-                Desktop.getDesktop()
-                    ?.takeIf { it.isSupported(Desktop.Action.BROWSE) }
-                    ?.let { desktop ->
-                        desktop.browse(URI(it))
-                    }
-            }
-        )
+        Catalog()
     }
 }

@@ -25,6 +25,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.gabrieldrn.carbon.catalog.BaseDestination.Companion.eq
@@ -36,7 +37,6 @@ import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun Catalog(
-    onOpenLink: (String) -> Unit,
     modifier: Modifier = Modifier,
     layoutType: CatalogLayoutType = CatalogLayoutType.Vertical,
 ) {
@@ -55,9 +55,10 @@ fun Catalog(
             }
         }
 
+        val uriHandler = LocalUriHandler.current
         val navGraph = rememberNavGraph(
             navController = navController,
-            onOpenLink = onOpenLink,
+            onOpenLink = uriHandler::openUri,
         )
 
         CompositionLocalProvider(LocalLayoutType provides layoutType) {

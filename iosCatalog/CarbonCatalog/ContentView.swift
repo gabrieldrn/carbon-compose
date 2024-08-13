@@ -10,10 +10,7 @@ import Catalog
 
 struct ComposeView: UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> UIViewController {
-        return MainViewControllerKt.MainViewController(onOpenLink: { link in
-            guard let url = URL(string: link) else { return }
-            UIApplication.shared.open(url)
-        })
+        return MainViewControllerKt.MainViewController()
     }
 
     func updateUIViewController(_ uiViewController: UIViewController, context: Context) {}

@@ -26,11 +26,11 @@ import com.gabrieldrn.carbon.foundation.color.containerBackground
 import platform.UIKit.UIViewController
 
 @Suppress("FunctionNaming")
-public fun MainViewController(onOpenLink: (String) -> Unit): UIViewController =
+public fun MainViewController(): UIViewController =
     ComposeUIViewController {
         CarbonDesignSystem {
             Box(Modifier.fillMaxSize().containerBackground(), contentAlignment = Alignment.Center) {
-                Catalog(onOpenLink = onOpenLink)
+                Catalog()
             }
         }
     }

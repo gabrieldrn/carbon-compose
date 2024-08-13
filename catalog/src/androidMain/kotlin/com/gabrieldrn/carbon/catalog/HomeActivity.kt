@@ -16,9 +16,7 @@
 
 package com.gabrieldrn.carbon.catalog
 
-import android.content.Intent
 import android.graphics.Color
-import android.net.Uri
 import android.os.Bundle
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
@@ -34,13 +32,7 @@ class HomeActivity : AppCompatActivity() {
         enableEdgeToEdge(statusBarStyle = SystemBarStyle.dark(Color.TRANSPARENT))
 
         setContent {
-            Catalog(
-                onOpenLink = {
-                    startActivity(
-                        Intent(Intent.ACTION_VIEW, Uri.parse(it))
-                    )
-                }
-            )
+            Catalog()
         }
     }
 }
