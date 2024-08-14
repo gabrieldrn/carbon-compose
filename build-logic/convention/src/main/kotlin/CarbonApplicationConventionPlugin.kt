@@ -37,6 +37,11 @@ class CarbonApplicationConventionPlugin : Plugin<Project> {
                     jvmTarget.set(Constants.Versions.JVM)
                 }
             }
+
+            wasmJs {
+                browser()
+                binaries.executable()
+            }
         }
 
         extensions.configure<BaseAppModuleExtension> {

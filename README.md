@@ -15,6 +15,7 @@ A [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/) i
 - Android
 - iOS
 - Desktop
+- Web via Wasm
 
 > [!CAUTION]
 > This library is **still under development** and **unofficial**. Contributions are welcomed.
@@ -41,6 +42,13 @@ To run the iOS catalog app, open the Xcode project located in `<git repo>/iosCat
 You can run the desktop version by executing the `run` Gradle task in a terminal:
 ```
 ./gradlew :catalog:run
+```
+
+## Browser 🌐
+
+You can run the web version by executing the `wasmJsBrowserRun` Gradle task in a terminal:
+```
+./gradlew :catalog:wasmJsBrowserRun
 ```
 
 # ✏️ Usage
