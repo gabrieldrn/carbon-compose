@@ -1,0 +1,21 @@
+site_name: Carbon Compose
+site_description: 'Carbon design system implementation with KMP and Compose Multiplatform.'
+site_author: 'Gabriel Derrien (gabrieldrn)'
+site_url: https://github.com/gabrieldrn/carbon-compose
+
+repo_url: https://github.com/gabrieldrn/carbon-compose
+repo_name: carbon-compose
+
+remote_branch: docs
+
+theme:
+  name: material
+  logo: assets/carbon_docs_icon.png
+  font:
+    text: IBM Plex Sans
+    code: IBM Plex Mono
+  features:
+    - navigation.tabs
+  palette:
+    scheme: slate
+    primary: black
