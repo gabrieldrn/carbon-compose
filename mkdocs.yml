@@ -19,3 +19,16 @@ theme:
   palette:
     scheme: slate
     primary: black
+
+nav:
+  - Overview: index.md
+  - Getting started:
+    - 'Import Carbon': getting-started/import-lib.md
+    - 'Setup a UI': getting-started/ui-setup.md
+  - Components:
+    - components/index.md
+
+markdown_extensions:
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
