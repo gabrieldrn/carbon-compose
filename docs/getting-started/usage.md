@@ -125,3 +125,29 @@ Box(
 
 [`object SpacingScale` :octicons-arrow-up-right-24:](https://github.com/gabrieldrn/carbon-compose/blob/97256c221b2360a0eed118a78379a01e0115edc1/carbon/src/commonMain/kotlin/com/gabrieldrn/carbon/foundation/spacing/SpacingScale.kt#L35)
 
+### Motion
+
+Carbon provides [motion guidelines](https://carbondesignsystem.com/elements/motion/overview) for its components:
+
+> Carbon components have motion built in for microinteractions. However, the motion design of the overarching UI — that 
+> is, how the components interact with each other and enter and exit the page itself — is up to each product team to 
+> implement. (...)
+
+Just like the spacing scale, Carbon Compose provides ready-to-use constants and Bezier curves to implement motion into 
+your UI:
+
+```kotlin
+val specFloat = tween<Float>(
+    durationMillis = Motion.Duration.moderate01,
+    easing = Motion.Standard.productiveEasing
+)
+
+val rotation by transition.animateFloat(
+    transitionSpec = { specFloat },
+    label = "Rotation"
+) {
+    if (it) 180f else 0f
+}
+```
+
+[`object Motion` :octicons-arrow-up-right-24:](https://github.com/gabrieldrn/carbon-compose/blob/97256c221b2360a0eed118a78379a01e0115edc1/carbon/src/commonMain/kotlin/com/gabrieldrn/carbon/foundation/motion/Motion.kt#L45)
