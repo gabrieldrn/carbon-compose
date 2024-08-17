@@ -24,7 +24,7 @@ nav:
   - Overview: index.md
   - Getting started:
     - 'Import Carbon': getting-started/import-lib.md
-    - 'Setting up Carbon': getting-started/setup.md
+    - 'Using Carbon': getting-started/usage.md
   - Components:
     - components/index.md
 
