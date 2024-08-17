@@ -1,4 +1,4 @@
-# Setting up Carbon
+# Using Carbon
 
 ## Theming
 
@@ -12,6 +12,7 @@ setContent {
     }
 }
 ```
+[`fun CarbonDesignSystem()` :octicons-arrow-up-right-24:](https://github.com/gabrieldrn/carbon-compose/blob/97256c221b2360a0eed118a78379a01e0115edc1/carbon/src/commonMain/kotlin/com/gabrieldrn/carbon/Carbon.kt#L53)
 
 This will apply the IBM Plex type family to components and set the `White` and `Grey 100` themes as the default light 
 and dark themes, respectively, depending on the theme setting of the current platform.
@@ -74,6 +75,7 @@ CarbonDesignSystem {
     }
 }
 ```
+[`fun CarbonLayer()` :octicons-arrow-up-right-24:](https://github.com/gabrieldrn/carbon-compose/blob/97256c221b2360a0eed118a78379a01e0115edc1/carbon/src/commonMain/kotlin/com/gabrieldrn/carbon/foundation/color/ThemeStaticComposition.kt#L68)
 
 #### Layer Container Color
 
@@ -91,3 +93,35 @@ Box(
     Button()
 }
 ```
+[`fun Modifier.containerBackground()` :octicons-arrow-up-right-24:](https://github.com/gabrieldrn/carbon-compose/blob/97256c221b2360a0eed118a78379a01e0115edc1/carbon/src/commonMain/kotlin/com/gabrieldrn/carbon/foundation/color/ThemeStaticComposition.kt#L81)
+
+### Typography
+
+Carbon was designed to work seamlessly with the [IBM Plex](https://www.ibm.com/plex/) font family. Carbon Compose 
+includes and provides access to the `TextStyle`s that map to all the 
+[type sets in Carbon](https://carbondesignsystem.com/guidelines/typography/type-sets).
+
+You can use the `Carbon.typography` accessor to apply those styles to your texts:
+
+```kotlin
+BasicText(
+    text = "Lorem ipsum",
+    style = Carbon.typography.bodyCompact01
+)
+```
+
+[`class CarbonTypography` :octicons-arrow-up-right-24:](https://github.com/gabrieldrn/carbon-compose/blob/97256c221b2360a0eed118a78379a01e0115edc1/carbon/src/commonMain/kotlin/com/gabrieldrn/carbon/foundation/text/CarbonTypography.kt#L112)
+
+### Spacing scale
+
+Carbon Compose also provides a [spacing scale](https://carbondesignsystem.com/guidelines/spacing/overview/), as detailed
+by the spacing tokens. This scale is accessible through the `SpacingScale` singleton:
+
+```kotlin
+Box(
+    modifier = Modifier.padding(top = SpacingScale.spacing03)
+)
+```
+
+[`object SpacingScale` :octicons-arrow-up-right-24:](https://github.com/gabrieldrn/carbon-compose/blob/97256c221b2360a0eed118a78379a01e0115edc1/carbon/src/commonMain/kotlin/com/gabrieldrn/carbon/foundation/spacing/SpacingScale.kt#L35)
+
