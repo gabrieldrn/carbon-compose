@@ -1,6 +1,6 @@
 # Import Carbon library
 
-Add the dependency according to your dependencies declaration method:
+To start using Carbon in your Compose app, add the dependency according to your dependencies declaration method:
 
 === "Version catalog"
 
