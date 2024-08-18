@@ -34,8 +34,5 @@ gradlePlugin {
             id = "carbon.detekt"
             implementationClass = "CarbonDetektConventionPlugin"
         }
-
-        // TODO Publication plugin
-        // TODO Dokka plugin
     }
 }

@@ -6,7 +6,7 @@ site_url: https://github.com/gabrieldrn/carbon-compose
 repo_url: https://github.com/gabrieldrn/carbon-compose
 repo_name: carbon-compose
 
-remote_branch: docs
+remote_branch: gh-pages
 
 theme:
   name: material
@@ -27,10 +27,13 @@ nav:
     - 'Using Carbon': getting-started/usage.md
   - Components:
     - components/index.md
+  - Catalog: catalog/index.html
+  - API Reference: dokka/html/index.html
 
 markdown_extensions:
   - admonition
   - attr_list
+  - md_in_html
   - pymdownx.details
   - pymdownx.emoji:
       emoji_index: !!python/name:material.extensions.emoji.twemoji
