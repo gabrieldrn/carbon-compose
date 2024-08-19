@@ -1,5 +1,6 @@
 import com.gabrieldrn.carbon.Configuration
 import org.jetbrains.compose.ExperimentalComposeLibrary
+import org.jetbrains.dokka.gradle.DokkaTask
 
 plugins {
     id("carbon.kmp.library")
@@ -74,6 +75,11 @@ android {
         androidTestImplementation(libs.androidx.test.espresso)
         androidTestImplementation(libs.androidx.compose.ui.test)
     }
+}
+
+tasks.withType<DokkaTask>().configureEach {
+    moduleName.set("Carbon Compose")
+    moduleVersion.set("v${Configuration.versionName}")
 }
 
 mavenPublishing {
