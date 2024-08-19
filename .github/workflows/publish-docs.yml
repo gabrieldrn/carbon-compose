@@ -25,7 +25,8 @@ jobs:
       - name: Build Dokka
         run: |
           ./gradlew :carbon:dokkaHtml
-          cp -r carbon/build/dokka docs/dokka
+          mkdir docs/api
+          cp -r carbon/build/dokka/html/* docs/api
 
       - name: Dist Catalog App
         run: | 

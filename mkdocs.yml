@@ -28,7 +28,7 @@ nav:
   - Components:
     - components/index.md
   - Catalog: catalog/index.html
-  - API Reference: dokka/html/index.html
+  - API Reference: api/index.html
 
 markdown_extensions:
   - admonition
