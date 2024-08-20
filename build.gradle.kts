@@ -16,7 +16,7 @@ plugins {
     alias(libs.plugins.android.application) apply false
     alias(libs.plugins.android.library) apply false
     alias(libs.plugins.detekt) apply false
-    alias(libs.plugins.dokka) apply false //Globally disabled
+    alias(libs.plugins.dokka) apply false
     alias(libs.plugins.binaryCompatibilityValidator)
     alias(libs.plugins.vanniktech.publish.plugin)
 }

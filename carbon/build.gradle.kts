@@ -1,10 +1,19 @@
 import com.gabrieldrn.carbon.Configuration
 import org.jetbrains.compose.ExperimentalComposeLibrary
+import org.jetbrains.dokka.base.DokkaBase
+import org.jetbrains.dokka.base.DokkaBaseConfiguration
 
 plugins {
     id("carbon.kmp.library")
     id("carbon.detekt")
     alias(libs.plugins.vanniktech.publish.plugin)
+    alias(libs.plugins.dokka)
+}
+
+buildscript {
+    dependencies {
+        classpath(libs.dokka.base)
+    }
 }
 
 apply(from = "${rootDir}/scripts/publishing.gradle.kts")
@@ -73,6 +82,18 @@ android {
         androidTestImplementation(libs.androidx.test.espresso)
         androidTestImplementation(libs.androidx.compose.ui.test)
     }
+}
+
+tasks.dokkaHtml {
+    pluginConfiguration<DokkaBase, DokkaBaseConfiguration> {
+        customStyleSheets = listOf(
+            file("../docs/dokka-custom-styles.css"),
+            file("../docs/dokka-custom-logo-styles.css")
+        )
+        customAssets = listOf(file("../docs/assets/carbon_docs_icon.png"))
+    }
+    moduleName.set("Carbon Compose")
+    moduleVersion.set("v${Configuration.versionName}")
 }
 
 mavenPublishing {

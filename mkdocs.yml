@@ -1,0 +1,43 @@
+site_name: Carbon Compose
+site_description: 'Carbon design system implementation with KMP and Compose Multiplatform.'
+site_author: 'Gabriel Derrien (gabrieldrn)'
+site_url: https://github.com/gabrieldrn/carbon-compose
+
+repo_url: https://github.com/gabrieldrn/carbon-compose
+repo_name: carbon-compose
+
+remote_branch: gh-pages
+
+theme:
+  name: material
+  logo: assets/carbon_docs_icon.png
+  font:
+    text: IBM Plex Sans
+    code: IBM Plex Mono
+  features:
+    - navigation.tabs
+  palette:
+    scheme: slate
+    primary: black
+
+nav:
+  - Overview: index.md
+  - Getting started:
+    - 'Import Carbon': getting-started/import-lib.md
+    - 'Using Carbon': getting-started/usage.md
+  - Components:
+    - components/index.md
+  - Catalog: catalog/index.html
+  - API Reference: api/index.html
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
