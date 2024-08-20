@@ -1,4 +1,4 @@
-name: Publish docs, API ref and catalog app
+name: Publish API ref and catalog app
 on:
   push:
     branches:
