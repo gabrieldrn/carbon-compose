@@ -3,8 +3,14 @@ name: CI | compile & tests
 on:
   push:
     branches: [ main ]
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
   pull_request:
     branches: [ '*' ]
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
 
 jobs:
   lib-build:
