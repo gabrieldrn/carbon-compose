@@ -12,7 +12,7 @@ setContent {
     }
 }
 ```
-[`fun CarbonDesignSystem()` :octicons-arrow-up-right-24:](https://github.com/gabrieldrn/carbon-compose/blob/97256c221b2360a0eed118a78379a01e0115edc1/carbon/src/commonMain/kotlin/com/gabrieldrn/carbon/Carbon.kt#L53)
+[`fun CarbonDesignSystem()` :octicons-arrow-up-right-24:](https://gabrieldrn.github.io/carbon-compose/api/-carbon%20-compose/com.gabrieldrn.carbon/-carbon-design-system.html)
 
 This will apply the IBM Plex type family to components and set the `White` and `Grey 100` themes as the default light 
 and dark themes, respectively, depending on the theme setting of the current platform.
@@ -75,7 +75,7 @@ CarbonDesignSystem {
     }
 }
 ```
-[`fun CarbonLayer()` :octicons-arrow-up-right-24:](https://github.com/gabrieldrn/carbon-compose/blob/97256c221b2360a0eed118a78379a01e0115edc1/carbon/src/commonMain/kotlin/com/gabrieldrn/carbon/foundation/color/ThemeStaticComposition.kt#L68)
+[`fun CarbonLayer()` :octicons-arrow-up-right-24:](https://gabrieldrn.github.io/carbon-compose/api/-carbon%20-compose/com.gabrieldrn.carbon.foundation.color/-carbon-layer.html)
 
 #### Layer Container Color
 
@@ -93,7 +93,7 @@ Box(
     Button()
 }
 ```
-[`fun Modifier.containerBackground()` :octicons-arrow-up-right-24:](https://github.com/gabrieldrn/carbon-compose/blob/97256c221b2360a0eed118a78379a01e0115edc1/carbon/src/commonMain/kotlin/com/gabrieldrn/carbon/foundation/color/ThemeStaticComposition.kt#L81)
+[`fun Modifier.containerBackground()` :octicons-arrow-up-right-24:](https://gabrieldrn.github.io/carbon-compose/api/-carbon%20-compose/com.gabrieldrn.carbon.foundation.color/container-background.html)
 
 ### Typography
 
@@ -110,7 +110,7 @@ BasicText(
 )
 ```
 
-[`class CarbonTypography` :octicons-arrow-up-right-24:](https://github.com/gabrieldrn/carbon-compose/blob/97256c221b2360a0eed118a78379a01e0115edc1/carbon/src/commonMain/kotlin/com/gabrieldrn/carbon/foundation/text/CarbonTypography.kt#L112)
+[`class CarbonTypography` :octicons-arrow-up-right-24:](https://gabrieldrn.github.io/carbon-compose/api/-carbon%20-compose/com.gabrieldrn.carbon.foundation.text/-carbon-typography/index.html)
 
 ### Spacing scale
 
@@ -123,7 +123,7 @@ Box(
 )
 ```
 
-[`object SpacingScale` :octicons-arrow-up-right-24:](https://github.com/gabrieldrn/carbon-compose/blob/97256c221b2360a0eed118a78379a01e0115edc1/carbon/src/commonMain/kotlin/com/gabrieldrn/carbon/foundation/spacing/SpacingScale.kt#L35)
+[`object SpacingScale` :octicons-arrow-up-right-24:](https://gabrieldrn.github.io/carbon-compose/api/-carbon%20-compose/com.gabrieldrn.carbon.foundation.spacing/-spacing-scale/index.html)
 
 ### Motion
 
@@ -150,4 +150,4 @@ val rotation by transition.animateFloat(
 }
 ```
 
-[`object Motion` :octicons-arrow-up-right-24:](https://github.com/gabrieldrn/carbon-compose/blob/97256c221b2360a0eed118a78379a01e0115edc1/carbon/src/commonMain/kotlin/com/gabrieldrn/carbon/foundation/motion/Motion.kt#L45)
+[`object Motion` :octicons-arrow-up-right-24:](https://gabrieldrn.github.io/carbon-compose/api/-carbon%20-compose/com.gabrieldrn.carbon.foundation.motion/-motion/index.html)
