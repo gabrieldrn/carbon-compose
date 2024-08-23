@@ -18,7 +18,7 @@ A [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/) i
 - Web via Wasm
 
 > [!CAUTION]
-> This library is **still under development** and **unofficial**. Contributions are welcomed.
+> This library is **still under development** and **unofficial**. Contributions are welcomed!
 
 # 🤳 Catalog App
 
@@ -46,9 +46,9 @@ You can run the desktop version by executing the `run` Gradle task in a terminal
 
 ## Browser 🌐
 
-You can access the web catalog app at https://www.gabrieldrn.github.com/carbon-compose/api/index.html 
+You can access the web catalog app at https://gabrieldrn.github.io/carbon-compose/catalog/index.html. 
 
-You can run the web version by executing the `wasmJsBrowserRun` Gradle task in a terminal:
+Or you can run the web version locally by executing the `wasmJsBrowserRun` Gradle task in a terminal:
 ```
 ./gradlew :catalog:wasmJsBrowserRun
 ```
@@ -57,3 +57,7 @@ You can run the web version by executing the `wasmJsBrowserRun` Gradle task in a
 
 Visit the project's Github Pages https://www.gabrieldrn.github.com/carbon-compose/ to get more information about the
 project, some documentation, its API reference and the catalog app. 
+
+# Contributions
+
+The project is open for contributions, have a look at the contribution guidelines and the issues list!
