@@ -18,7 +18,7 @@ A [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/) i
 - Web via Wasm
 
 > [!CAUTION]
-> This library is **still under development** and **unofficial**. Contributions are welcomed.
+> This library is **still under development** and **unofficial**. Contributions are welcomed!
 
 # 🤳 Catalog App
 
@@ -46,65 +46,18 @@ You can run the desktop version by executing the `run` Gradle task in a terminal
 
 ## Browser 🌐
 
-You can run the web version by executing the `wasmJsBrowserRun` Gradle task in a terminal:
+You can access the web catalog app at https://gabrieldrn.github.io/carbon-compose/catalog/index.html. 
+
+Or you can run the web version locally by executing the `wasmJsBrowserRun` Gradle task in a terminal:
 ```
 ./gradlew :catalog:wasmJsBrowserRun
 ```
 
-# ✏️ Usage
+# Documentation
 
-The Carbon Compose libraries tries to stay simple and respect Carbon guidelines as much as possible. Its usage is similar to the Jepack Compose implementation of [Material Design](https://m3.material.io/develop/android/jetpack-compose).
+Visit the project's Github Pages https://www.gabrieldrn.github.com/carbon-compose/ to get more information about the
+project, some documentation, its API reference and the catalog app. 
 
-> [!NOTE]
-> A dedicated documentation website will be created.
+# Contributions
 
-## Import
-
-Add the dependency to your `build.gradle` file:
-
-```gradle
-dependencies {
-    implementation("io.github.gabrieldrn:carbon:0.1.0")
-}
-```
-
-Whatever you have an Android or a KMP project, this will import the library corresponding to the targeted platform.
-
-## Compose tree root
-
-To provide all resources (colors and typography) necessary to create a UI with Carbon, use the `CarbonDesignSystem` root composable at the top of your Compose tree:
-
-```kotlin
-setContent {
-    CarbonDesignSystem {
-        // Your UI content
-    }
-}
-```
-
-This will apply the IBM Plex type family to components + White and Grey 100 themes as the light and dark themes respectively, according to the current platform theme setting.
-
-## Available UI components and structural elements ("foundation")
-
-> [!WARNING]
-> Only few components with limited implementations are available at the moment. If you seek documentation about a component, please read written KDoc in the source code until the dedicated documentation website is available.
-
-### Foundation
-
-- Themes
-    - White
-    - Grey100
-- Typography (IBM Plex)
-- Layering
-
-### Components
-
-- Button
-- Checkbox
-- Dropdown
-- Loading
-- Multi-select
-- Progress bar
-- Radio button
-- Text input
-- Toggle
+The project is open for contributions, have a look at the contribution guidelines and the issues list!

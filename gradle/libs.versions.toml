@@ -19,7 +19,7 @@ androidxTestCore = "1.6.1"
 androidxTestExtJunit = "1.1.5"
 publish-plugin = "0.28.0"
 detekt = "1.23.3"
-dokka = "1.8.20"
+dokka = "1.9.20"
 junit = "4.13.2"
 timber = "5.0.1"
 kermit = "2.0.4"
@@ -51,6 +51,7 @@ touchlab-kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 detekt-gradlePlugin = { group = "io.gitlab.arturbosch.detekt", name = "io.gitlab.arturbosch.detekt.gradle.plugin", version.ref = "detekt" }
+dokka-base = { group = "org.jetbrains.dokka", name = "dokka-base", version.ref = "dokka" }
 
 [plugins]
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
@@ -65,3 +66,4 @@ android-library = { id = "com.android.library", version.ref = "androidGradlePlug
 vanniktech-publish-plugin = { id = "com.vanniktech.maven.publish", version.ref = "publish-plugin" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
+
