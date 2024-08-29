@@ -24,6 +24,7 @@ import com.gabrieldrn.carbon.dropdown.base.DropdownColors
 import com.gabrieldrn.carbon.dropdown.base.DropdownOption
 import com.gabrieldrn.carbon.dropdown.base.DropdownPopupContent
 import com.gabrieldrn.carbon.dropdown.base.DropdownSize
+import com.gabrieldrn.carbon.dropdown.base.dpSize
 
 @Preview
 @Composable
@@ -49,7 +50,7 @@ private fun DropdownPopupContentPreview(
             options = options,
             selectedOption = 1,
             colors = DropdownColors.colors(),
-            componentHeight = dropdownSize.height,
+            componentHeight = dropdownSize.dpSize(),
             onOptionClicked = {},
         )
     }

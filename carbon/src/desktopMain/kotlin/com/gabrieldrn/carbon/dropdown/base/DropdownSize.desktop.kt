@@ -17,17 +17,12 @@
 package com.gabrieldrn.carbon.dropdown.base
 
 import androidx.compose.runtime.Stable
-import androidx.compose.ui.unit.dp
-
-internal const val DROPDOWN_HEIGHT_SMALL_DP = 32
-internal const val DROPDOWN_HEIGHT_MEDIUM_DP = 40
-internal const val DROPDOWN_HEIGHT_LARGE_DP = 48
 
 /**
  * Input height for dropdowns.
  */
 @Stable
-public expect enum class DropdownSize {
+public actual enum class DropdownSize {
 
     /**
      * Use when space is constricted or when placing a dropdown in a form that is long and complex.
@@ -46,11 +41,3 @@ public expect enum class DropdownSize {
      */
     Large
 }
-
-internal fun DropdownSize.dpSize() =
-    when (this) {
-        DropdownSize.Small -> DROPDOWN_HEIGHT_SMALL_DP
-        DropdownSize.Medium -> DROPDOWN_HEIGHT_MEDIUM_DP
-        else -> DROPDOWN_HEIGHT_LARGE_DP
-    }
-        .dp

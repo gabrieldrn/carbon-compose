@@ -22,6 +22,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import co.touchlab.kermit.Logger
 import com.gabrieldrn.carbon.dropdown.base.BaseDropdown
 import com.gabrieldrn.carbon.dropdown.base.DropdownColors
 import com.gabrieldrn.carbon.dropdown.base.DropdownInteractiveState
@@ -30,7 +31,7 @@ import com.gabrieldrn.carbon.dropdown.base.DropdownPlaceholderText
 import com.gabrieldrn.carbon.dropdown.base.DropdownPopupContent
 import com.gabrieldrn.carbon.dropdown.base.DropdownSize
 import com.gabrieldrn.carbon.dropdown.base.DropdownStateIcon
-import co.touchlab.kermit.Logger
+import com.gabrieldrn.carbon.dropdown.base.dpSize
 
 /**
  * # Dropdown
@@ -123,7 +124,7 @@ public fun <K : Any> Dropdown(
                 selectedOption = selectedOption,
                 options = options,
                 colors = colors,
-                componentHeight = dropdownSize.height,
+                componentHeight = dropdownSize.dpSize(),
                 onOptionClicked = { option ->
                     onOptionSelected(option)
                     onDismissRequest()
