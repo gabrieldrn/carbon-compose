@@ -18,9 +18,6 @@ package com.gabrieldrn.carbon.button
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.ui.unit.dp
-import com.gabrieldrn.carbon.button.ButtonSize.ExtraLarge
-import com.gabrieldrn.carbon.button.ButtonSize.LargeExpressive
-import com.gabrieldrn.carbon.button.ButtonSize.LargeProductive
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 
 /**
@@ -74,8 +71,8 @@ internal actual fun ButtonSize.getContainerPaddings(): PaddingValues = when (thi
         top = 11.dp,
         bottom = 11.dp
     )
-    LargeProductive,
-    LargeExpressive -> PaddingValues(
+    ButtonSize.LargeProductive,
+    ButtonSize.LargeExpressive -> PaddingValues(
         start = SpacingScale.spacing05,
         top = 14.dp,
         bottom = 14.dp
@@ -91,9 +88,9 @@ internal actual fun ButtonSize.heightDp() =
     when (this) {
         ButtonSize.Small -> BUTTON_HEIGHT_SMALL_DP
         ButtonSize.Medium -> BUTTON_HEIGHT_MEDIUM_DP
-        LargeProductive -> BUTTON_HEIGHT_LARGE_PRODUCTIVE_DP
-        LargeExpressive -> BUTTON_HEIGHT_LARGE_EXPRESSIVE_DP
-        ExtraLarge -> BUTTON_HEIGHT_EXTRA_LARGE_DP
+        ButtonSize.LargeProductive -> BUTTON_HEIGHT_LARGE_PRODUCTIVE_DP
+        ButtonSize.LargeExpressive -> BUTTON_HEIGHT_LARGE_EXPRESSIVE_DP
+        ButtonSize.ExtraLarge -> BUTTON_HEIGHT_EXTRA_LARGE_DP
         else -> BUTTON_HEIGHT_TWICE_EXTRA_LARGE_DP
     }
         .dp

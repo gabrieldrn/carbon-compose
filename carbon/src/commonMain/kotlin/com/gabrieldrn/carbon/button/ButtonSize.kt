@@ -18,8 +18,6 @@ package com.gabrieldrn.carbon.button
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.ui.unit.Dp
-import com.gabrieldrn.carbon.button.ButtonSize.ExtraLarge
-import com.gabrieldrn.carbon.button.ButtonSize.TwiceExtraLarge
 
 internal const val BUTTON_HEIGHT_SMALL_DP = 32
 internal const val BUTTON_HEIGHT_MEDIUM_DP = 40
@@ -61,7 +59,9 @@ public expect enum class ButtonSize {
 /**
  * Returns true if the button size is of [ExtraLarge] or [TwiceExtraLarge] size.
  */
-internal val ButtonSize.isExtraLarge get() = this == ExtraLarge || this == TwiceExtraLarge
+internal val ButtonSize.isExtraLarge
+    get() =
+        this == ButtonSize.ExtraLarge || this == ButtonSize.TwiceExtraLarge
 
 /**
  * Returns the padding values to be applied around a button of this size.
