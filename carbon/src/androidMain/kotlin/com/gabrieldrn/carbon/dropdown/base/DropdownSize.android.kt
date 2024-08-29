@@ -49,5 +49,4 @@ public actual enum class DropdownSize {
      * This should be the default size for dropdowns on portable devices for accessibility reasons.
      */
     Large
-
 }

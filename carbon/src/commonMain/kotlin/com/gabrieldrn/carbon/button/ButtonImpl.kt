@@ -47,7 +47,6 @@ import androidx.compose.ui.platform.debugInspectorInfo
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
-import com.gabrieldrn.carbon.button.ButtonSize.Companion.getContainerPaddings
 import com.gabrieldrn.carbon.foundation.motion.Motion
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 
@@ -59,7 +58,7 @@ internal val buttonTransitionSpec: AnimationSpec<Color> = tween(
 private fun Modifier.iconButtonModifier() = this.requiredSize(SpacingScale.spacing09)
 
 private fun Modifier.buttonModifier(buttonSize: ButtonSize) =
-    this.requiredHeight(buttonSize.height)
+    this.requiredHeight(buttonSize.heightDp())
         .padding(buttonSize.getContainerPaddings())
 
 internal data class ButtonScope(

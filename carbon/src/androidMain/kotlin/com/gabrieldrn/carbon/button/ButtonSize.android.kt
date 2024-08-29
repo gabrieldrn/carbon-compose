@@ -17,16 +17,11 @@
 package com.gabrieldrn.carbon.button
 
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.button.ButtonSize.ExtraLarge
-import com.gabrieldrn.carbon.button.ButtonSize.TwiceExtraLarge
-
-internal const val BUTTON_HEIGHT_SMALL_DP = 32
-internal const val BUTTON_HEIGHT_MEDIUM_DP = 40
-internal const val BUTTON_HEIGHT_LARGE_PRODUCTIVE_DP = 48
-internal const val BUTTON_HEIGHT_LARGE_EXPRESSIVE_DP = 48
-internal const val BUTTON_HEIGHT_EXTRA_LARGE_DP = 64
-internal const val BUTTON_HEIGHT_TWICE_EXTRA_LARGE_DP = 80
+import com.gabrieldrn.carbon.button.ButtonSize.LargeExpressive
+import com.gabrieldrn.carbon.button.ButtonSize.LargeProductive
+import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 
 /**
  * Enum class representing different sizes for a button.
@@ -34,7 +29,7 @@ internal const val BUTTON_HEIGHT_TWICE_EXTRA_LARGE_DP = 80
  *
  * (From [Button documentation](https://carbondesignsystem.com/components/button/usage/))
  */
-public expect enum class ButtonSize {
+public actual enum class ButtonSize {
 
     /**
      * This is the most common button size.
@@ -58,17 +53,26 @@ public expect enum class ButtonSize {
     TwiceExtraLarge;
 }
 
-/**
- * Returns true if the button size is of [ExtraLarge] or [TwiceExtraLarge] size.
- */
-internal val ButtonSize.isExtraLarge get() = this == ExtraLarge || this == TwiceExtraLarge
+internal actual fun ButtonSize.getContainerPaddings(): PaddingValues =
+    if (this == LargeProductive || this == LargeExpressive) {
+        PaddingValues(
+            start = SpacingScale.spacing05,
+            top = 14.dp,
+            bottom = 14.dp
+        )
+    } else {
+        PaddingValues(
+            start = SpacingScale.spacing05,
+            top = SpacingScale.spacing05,
+            bottom = SpacingScale.spacing05
+        )
+    }
 
-/**
- * Returns the padding values to be applied around a button of this size.
- */
-internal expect fun ButtonSize.getContainerPaddings(): PaddingValues
-
-/**
- * Returns the required height in dp for a button of this size.
- */
-internal expect fun ButtonSize.heightDp(): Dp
+internal actual fun ButtonSize.heightDp() =
+    when (this) {
+        LargeProductive -> BUTTON_HEIGHT_LARGE_PRODUCTIVE_DP
+        LargeExpressive -> BUTTON_HEIGHT_LARGE_EXPRESSIVE_DP
+        ExtraLarge -> BUTTON_HEIGHT_EXTRA_LARGE_DP
+        else -> BUTTON_HEIGHT_TWICE_EXTRA_LARGE_DP
+    }
+        .dp
