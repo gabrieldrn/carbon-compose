@@ -17,6 +17,7 @@
 package com.gabrieldrn.carbon.dropdown.base
 
 import androidx.compose.runtime.Stable
+import androidx.compose.ui.unit.dp
 
 /**
  * Input height for dropdowns.
@@ -41,3 +42,11 @@ public actual enum class DropdownSize {
      */
     Large
 }
+
+internal actual fun DropdownSize.dpSize() =
+    when (this) {
+        DropdownSize.Small -> DROPDOWN_HEIGHT_SMALL_DP
+        DropdownSize.Medium -> DROPDOWN_HEIGHT_MEDIUM_DP
+        else -> DROPDOWN_HEIGHT_LARGE_DP
+    }
+        .dp

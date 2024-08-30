@@ -17,7 +17,7 @@
 package com.gabrieldrn.carbon.dropdown.base
 
 import androidx.compose.runtime.Stable
-import com.gabrieldrn.carbon.foundation.SMALL_TOUCH_TARGET_SIZE_MESSAGE
+import androidx.compose.ui.unit.dp
 
 /**
  * Input height for dropdowns.
@@ -26,27 +26,11 @@ import com.gabrieldrn.carbon.foundation.SMALL_TOUCH_TARGET_SIZE_MESSAGE
 public actual enum class DropdownSize {
 
     /**
-     * Use when space is constricted or when placing a dropdown in a form that is long and complex.
-     */
-    @Deprecated(
-        SMALL_TOUCH_TARGET_SIZE_MESSAGE,
-        ReplaceWith("Large")
-    )
-    Small,
-
-    /**
-     * This is the default size.
-     */
-    @Deprecated(
-        SMALL_TOUCH_TARGET_SIZE_MESSAGE,
-        ReplaceWith("Large")
-    )
-    Medium,
-
-    /**
      * Choose this size when there is a lot of space to work with. This size is typically used in
      * simple forms or when a dropdown is placed by itself on a page, for example as a filter.
      * This should be the default size for dropdowns on portable devices for accessibility reasons.
      */
     Large
 }
+
+internal actual fun DropdownSize.dpSize() = DROPDOWN_HEIGHT_LARGE_DP.dp
