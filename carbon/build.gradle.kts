@@ -52,6 +52,14 @@ kotlin {
             implementation(compose.desktop.currentOs)
         }
     }
+
+    targets.configureEach {
+        compilations.configureEach {
+            compileTaskProvider.get().compilerOptions {
+                freeCompilerArgs.add("-Xexpect-actual-classes")
+            }
+        }
+    }
 }
 
 compose.resources {
