@@ -17,7 +17,7 @@
 package com.gabrieldrn.carbon.dropdown.base
 
 import androidx.compose.runtime.Stable
-import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 
 internal const val DROPDOWN_HEIGHT_SMALL_DP = 32
 internal const val DROPDOWN_HEIGHT_MEDIUM_DP = 40
@@ -30,6 +30,16 @@ internal const val DROPDOWN_HEIGHT_LARGE_DP = 48
 public expect enum class DropdownSize {
 
     /**
+     * Use when space is constricted or when placing a dropdown in a form that is long and complex.
+     */
+    Small,
+
+    /**
+     * This is the default size.
+     */
+    Medium,
+
+    /**
      * Choose this size when there is a lot of space to work with. This size is typically used in
      * simple forms or when a dropdown is placed by itself on a page, for example as a filter.
      * This should be the default size for dropdowns on portable devices for accessibility reasons.
@@ -37,4 +47,10 @@ public expect enum class DropdownSize {
     Large
 }
 
-internal expect fun DropdownSize.dpSize(): Dp
+internal fun DropdownSize.dpSize() =
+    when (this) {
+        DropdownSize.Small -> DROPDOWN_HEIGHT_SMALL_DP
+        DropdownSize.Medium -> DROPDOWN_HEIGHT_MEDIUM_DP
+        else -> DROPDOWN_HEIGHT_LARGE_DP
+    }
+        .dp
