@@ -108,7 +108,7 @@ internal fun <K : Any> BaseDropdown(
     val expandedStates = remember { MutableTransitionState(false) }
     expandedStates.targetState = expanded
 
-    val componentHeight = dropdownSize.height
+    val componentHeight = dropdownSize.dpSize()
 
     val transition = updateTransition(expandedStates, "Dropdown")
 

@@ -25,6 +25,7 @@ import androidx.compose.ui.Modifier
 import com.gabrieldrn.carbon.dropdown.Dropdown
 import com.gabrieldrn.carbon.dropdown.base.DropdownInteractiveState
 import com.gabrieldrn.carbon.dropdown.base.DropdownOption
+import com.gabrieldrn.carbon.dropdown.base.DropdownSize
 import com.gabrieldrn.carbon.dropdown.multiselect.MultiselectDropdown
 
 private val dropdownOptions: Map<Int, DropdownOption> = (0..9)
@@ -44,6 +45,7 @@ private val dropdownOptions: Map<Int, DropdownOption> = (0..9)
 @Composable
 fun DefaultDemoDropdown(
     state: DropdownInteractiveState,
+    size: DropdownSize,
     modifier: Modifier = Modifier,
 ) {
     var selectedOption by remember { mutableStateOf<Int?>(null) }
@@ -55,6 +57,7 @@ fun DefaultDemoDropdown(
         options = dropdownOptions,
         onOptionSelected = { selectedOption = it },
         state = state,
+        dropdownSize = size,
         modifier = modifier,
     )
 }
@@ -62,6 +65,7 @@ fun DefaultDemoDropdown(
 @Composable
 fun MultiselectDemoDropdown(
     state: DropdownInteractiveState,
+    size: DropdownSize,
     modifier: Modifier = Modifier,
 ) {
     var selectedOptions by remember {
@@ -101,6 +105,7 @@ fun MultiselectDemoDropdown(
         },
         onClearSelection = { selectedOptions = listOf() },
         state = state,
+        dropdownSize = size,
         modifier = modifier,
     )
 }

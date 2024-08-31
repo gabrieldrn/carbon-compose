@@ -101,7 +101,7 @@ class ButtonTest {
             semanticsNodeInteraction
                 .assertExists()
                 .assert(hasText("Label"))
-                .assertHeightIsEqualTo(ButtonSize.LargeProductive.height)
+                .assertHeightIsEqualTo(ButtonSize.LargeProductive.heightDp())
                 .assertWidthIsEqualTo(widths[index])
         }
 
@@ -167,7 +167,7 @@ class ButtonTest {
         rootNodes.forEachIndexed { index, semanticsNodeInteraction ->
             semanticsNodeInteraction
                 .assert(hasText("Basic Icon"))
-                .assertHeightIsEqualTo(ButtonSize.LargeProductive.height)
+                .assertHeightIsEqualTo(ButtonSize.LargeProductive.heightDp())
                 .assertWidthIsEqualTo(widths[index])
         }
     }

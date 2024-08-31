@@ -17,5 +17,7 @@
 package com.gabrieldrn.carbon.foundation
 
 internal const val SMALL_TOUCH_TARGET_SIZE_MESSAGE =
-    "Usage of this API produces a touch target inferior to 48dp whose usage is highly " +
-        "discouraged. Consider using a larger size version of this API if it's provided."
+    "Usage of this API produces a small touch target whose usage is highly discouraged due to" +
+        "accessibility reasons. Consider using a larger size version of this API if it's " +
+        "provided. Read https://gabrieldrn.github.io/carbon-compose/components/ for more " +
+        "information."

@@ -42,10 +42,9 @@ import androidx.compose.ui.test.onAllNodesWithTag
 import androidx.compose.ui.test.onFirst
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.runComposeUiTest
+import com.gabrieldrn.carbon.dropdown.base.*
 import com.gabrieldrn.carbon.dropdown.base.DropdownColors
-import com.gabrieldrn.carbon.dropdown.base.DropdownOption
 import com.gabrieldrn.carbon.dropdown.base.DropdownPopupContent
-import com.gabrieldrn.carbon.dropdown.base.DropdownSize
 import com.gabrieldrn.carbon.dropdown.base.DropdownTestTags
 import com.gabrieldrn.carbon.toList
 import kotlin.test.Test
@@ -79,7 +78,7 @@ class DropdownPopupContentTest {
                     options = options,
                     selectedOption = selectedOptionKey,
                     colors = DropdownColors.colors(),
-                    componentHeight = dropdownSize.height,
+                    componentHeight = dropdownSize.dpSize(),
                     onOptionClicked = { selectedOptionKey = it },
                     modifier = Modifier.weight(1f)
                 )
@@ -99,7 +98,7 @@ class DropdownPopupContentTest {
         onAllNodesWithTag(DropdownTestTags.MENU_OPTION)
             .toList()
             .forEach {
-                it.assertHeightIsEqualTo(dropdownSize.height)
+                it.assertHeightIsEqualTo(dropdownSize.dpSize())
             }
 
         tearDown()

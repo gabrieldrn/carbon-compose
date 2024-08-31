@@ -23,6 +23,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import co.touchlab.kermit.Logger
 import com.gabrieldrn.carbon.dropdown.base.BaseDropdown
 import com.gabrieldrn.carbon.dropdown.base.DropdownColors
 import com.gabrieldrn.carbon.dropdown.base.DropdownInteractiveState
@@ -30,8 +31,8 @@ import com.gabrieldrn.carbon.dropdown.base.DropdownOption
 import com.gabrieldrn.carbon.dropdown.base.DropdownPlaceholderText
 import com.gabrieldrn.carbon.dropdown.base.DropdownSize
 import com.gabrieldrn.carbon.dropdown.base.DropdownStateIcon
+import com.gabrieldrn.carbon.dropdown.base.dpSize
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
-import co.touchlab.kermit.Logger
 
 /**
  * # Multiselect Dropdown
@@ -135,7 +136,7 @@ public fun <K : Any> MultiselectDropdown(
                 options = options,
                 selectedOptions = selectedOptions,
                 colors = colors,
-                componentHeight = dropdownSize.height,
+                componentHeight = dropdownSize.dpSize(),
                 onOptionClicked = onOptionClicked,
                 modifier = Modifier.anchor()
             )

@@ -150,7 +150,7 @@ internal fun DropdownField(
                 enabled = state.isFocusable,
                 interactionSource = interactionSource
             )
-            .height(dropdownSize.height)
+            .height(dropdownSize.dpSize())
             .background(fieldBackgroundColor)
             .then(
                 if (state is DropdownInteractiveState.Error) {

@@ -37,3 +37,23 @@
 - Toggle
     - [Default toggle](https://gabrieldrn.github.io/carbon-compose/api/-carbon%20-compose/com.gabrieldrn.carbon.toggle/-toggle.html)
     - [Small toggle](https://gabrieldrn.github.io/carbon-compose/api/-carbon%20-compose/com.gabrieldrn.carbon.toggle/-small-toggle.html)
+
+### Missing components size options
+
+**Some components miss size options depending on the platform.**
+
+The main reason is due to accessibility. Some platforms recommend a minimum size for touch targets to be easily
+clickable.
+
+In Android and iOS, the recommended minimum touch target size is 48x48dp and 44x44pt respectively. As long as Carbon
+doesn't have an official documentation over the mobile version, the library will follow each platform's guidelines.
+
+[Android touch target size](https://support.google.com/accessibility/android/answer/7101858?hl=en)
+[iOS UI design](https://developer.apple.com/design/tips/)
+
+For instance, you will see that the Button component is missing the `Small` and `Medium` sizes. The dropdown is also
+missing the `Small` and `Medium` sizes.
+
+!!! warning
+    The library still provide sizes for some components that does not comply with accessibility guidelines. They will be 
+    removed until the library reaches the 1.0.0 version. 
