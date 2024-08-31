@@ -17,7 +17,8 @@
 package com.gabrieldrn.carbon.button
 
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
+import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 
 internal const val BUTTON_HEIGHT_SMALL_DP = 32
 internal const val BUTTON_HEIGHT_MEDIUM_DP = 40
@@ -33,6 +34,16 @@ internal const val BUTTON_HEIGHT_TWICE_EXTRA_LARGE_DP = 80
  * (From [Button documentation](https://carbondesignsystem.com/components/button/usage/))
  */
 public expect enum class ButtonSize {
+
+    /**
+     * Use when there is not enough vertical space for the default or field-sized button.
+     */
+    Small,
+
+    /**
+     * Use when buttons are paired with input fields.
+     */
+    Medium,
 
     /**
      * This is the most common button size.
@@ -57,7 +68,8 @@ public expect enum class ButtonSize {
 }
 
 /**
- * Returns true if the button size is of [ExtraLarge] or [TwiceExtraLarge] size.
+ * Returns true if the button size is of [ButtonSize.ExtraLarge] or [ButtonSize.TwiceExtraLarge]
+ * size.
  */
 internal val ButtonSize.isExtraLarge
     get() =
@@ -66,9 +78,41 @@ internal val ButtonSize.isExtraLarge
 /**
  * Returns the padding values to be applied around a button of this size.
  */
-internal expect fun ButtonSize.getContainerPaddings(): PaddingValues
+internal fun ButtonSize.getContainerPaddings() = when (this) {
+    ButtonSize.Small -> PaddingValues(
+        start = SpacingScale.spacing05,
+        top = 7.dp,
+        bottom = 7.dp
+    )
+    ButtonSize.Medium -> PaddingValues(
+        start = SpacingScale.spacing05,
+        top = 11.dp,
+        bottom = 11.dp
+    )
+    ButtonSize.LargeProductive,
+    ButtonSize.LargeExpressive -> PaddingValues(
+        start = SpacingScale.spacing05,
+        top = 14.dp,
+        bottom = 14.dp
+    )
+    else -> PaddingValues(
+        start = SpacingScale.spacing05,
+        top = SpacingScale.spacing05,
+        bottom = SpacingScale.spacing05
+    )
+}
+
 
 /**
  * Returns the required height in dp for a button of this size.
  */
-internal expect fun ButtonSize.heightDp(): Dp
+internal fun ButtonSize.heightDp() =
+    when (this) {
+        ButtonSize.Small -> BUTTON_HEIGHT_SMALL_DP
+        ButtonSize.Medium -> BUTTON_HEIGHT_MEDIUM_DP
+        ButtonSize.LargeProductive -> BUTTON_HEIGHT_LARGE_PRODUCTIVE_DP
+        ButtonSize.LargeExpressive -> BUTTON_HEIGHT_LARGE_EXPRESSIVE_DP
+        ButtonSize.ExtraLarge -> BUTTON_HEIGHT_EXTRA_LARGE_DP
+        else -> BUTTON_HEIGHT_TWICE_EXTRA_LARGE_DP
+    }
+        .dp

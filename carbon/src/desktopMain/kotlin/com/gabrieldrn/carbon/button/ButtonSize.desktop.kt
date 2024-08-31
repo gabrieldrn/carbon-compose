@@ -16,10 +16,6 @@
 
 package com.gabrieldrn.carbon.button
 
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.ui.unit.dp
-import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
-
 /**
  * Enum class representing different sizes for a button.
  * Each size has an associated height in dp.
@@ -59,38 +55,3 @@ public actual enum class ButtonSize {
      */
     TwiceExtraLarge;
 }
-
-internal actual fun ButtonSize.getContainerPaddings(): PaddingValues = when (this) {
-    ButtonSize.Small -> PaddingValues(
-        start = SpacingScale.spacing05,
-        top = 7.dp,
-        bottom = 7.dp
-    )
-    ButtonSize.Medium -> PaddingValues(
-        start = SpacingScale.spacing05,
-        top = 11.dp,
-        bottom = 11.dp
-    )
-    ButtonSize.LargeProductive,
-    ButtonSize.LargeExpressive -> PaddingValues(
-        start = SpacingScale.spacing05,
-        top = 14.dp,
-        bottom = 14.dp
-    )
-    else -> PaddingValues(
-        start = SpacingScale.spacing05,
-        top = SpacingScale.spacing05,
-        bottom = SpacingScale.spacing05
-    )
-}
-
-internal actual fun ButtonSize.heightDp() =
-    when (this) {
-        ButtonSize.Small -> BUTTON_HEIGHT_SMALL_DP
-        ButtonSize.Medium -> BUTTON_HEIGHT_MEDIUM_DP
-        ButtonSize.LargeProductive -> BUTTON_HEIGHT_LARGE_PRODUCTIVE_DP
-        ButtonSize.LargeExpressive -> BUTTON_HEIGHT_LARGE_EXPRESSIVE_DP
-        ButtonSize.ExtraLarge -> BUTTON_HEIGHT_EXTRA_LARGE_DP
-        else -> BUTTON_HEIGHT_TWICE_EXTRA_LARGE_DP
-    }
-        .dp

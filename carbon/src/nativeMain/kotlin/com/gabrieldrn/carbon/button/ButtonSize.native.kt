@@ -16,9 +16,7 @@
 
 package com.gabrieldrn.carbon.button
 
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.ui.unit.dp
-import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
+import com.gabrieldrn.carbon.foundation.SMALL_TOUCH_TARGET_SIZE_MESSAGE
 
 /**
  * Enum class representing different sizes for a button.
@@ -27,6 +25,24 @@ import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
  * (From [Button documentation](https://carbondesignsystem.com/components/button/usage/))
  */
 public actual enum class ButtonSize {
+
+    /**
+     * Use when there is not enough vertical space for the default or field-sized button.
+     */
+    @Deprecated(
+        message = SMALL_TOUCH_TARGET_SIZE_MESSAGE,
+        replaceWith = ReplaceWith("LargeProductive")
+    )
+    Small,
+
+    /**
+     * Use when buttons are paired with input fields.
+     */
+    @Deprecated(
+        message = SMALL_TOUCH_TARGET_SIZE_MESSAGE,
+        replaceWith = ReplaceWith("LargeProductive")
+    )
+    Medium,
 
     /**
      * This is the most common button size.
@@ -49,27 +65,3 @@ public actual enum class ButtonSize {
      */
     TwiceExtraLarge;
 }
-
-internal actual fun ButtonSize.getContainerPaddings(): PaddingValues =
-    if (this == ButtonSize.LargeProductive || this == ButtonSize.LargeExpressive) {
-        PaddingValues(
-            start = SpacingScale.spacing05,
-            top = 14.dp,
-            bottom = 14.dp
-        )
-    } else {
-        PaddingValues(
-            start = SpacingScale.spacing05,
-            top = SpacingScale.spacing05,
-            bottom = SpacingScale.spacing05
-        )
-    }
-
-internal actual fun ButtonSize.heightDp() =
-    when (this) {
-        ButtonSize.LargeProductive -> BUTTON_HEIGHT_LARGE_PRODUCTIVE_DP
-        ButtonSize.LargeExpressive -> BUTTON_HEIGHT_LARGE_EXPRESSIVE_DP
-        ButtonSize.ExtraLarge -> BUTTON_HEIGHT_EXTRA_LARGE_DP
-        else -> BUTTON_HEIGHT_TWICE_EXTRA_LARGE_DP
-    }
-        .dp
