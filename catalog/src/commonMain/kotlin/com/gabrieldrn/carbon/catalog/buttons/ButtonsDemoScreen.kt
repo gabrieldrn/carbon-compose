@@ -45,6 +45,7 @@ import com.gabrieldrn.carbon.button.IconButton
 import com.gabrieldrn.carbon.catalog.Res
 import com.gabrieldrn.carbon.catalog.ic_add
 import com.gabrieldrn.carbon.dropdown.Dropdown
+import com.gabrieldrn.carbon.dropdown.base.DropdownInteractiveState
 import com.gabrieldrn.carbon.dropdown.base.toDropdownOptions
 import com.gabrieldrn.carbon.foundation.color.CarbonLayer
 import com.gabrieldrn.carbon.foundation.color.containerBackground
@@ -59,6 +60,7 @@ private val buttonTypes = ButtonType.entries.toDropdownOptions()
 private val buttonSizes = ButtonSize.entries.toDropdownOptions()
 
 @Composable
+@Suppress("DEPRECATION")
 fun ButtonDemoScreen(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
@@ -130,15 +132,22 @@ fun ButtonDemoScreen(modifier: Modifier = Modifier) {
                     onOptionSelected = { buttonType = it },
                 )
 
-                buttonSizes.takeIf { it.size > 1 }?.let { sizes ->
-                    Dropdown(
-                        label = "Button size",
-                        placeholder = "Choose option",
-                        options = sizes,
-                        selectedOption = buttonSize,
-                        onOptionSelected = { buttonSize = it },
-                    )
-                }
+                Dropdown(
+                    label = "Button size",
+                    placeholder = "Choose option",
+                    options = buttonSizes,
+                    selectedOption = buttonSize,
+                    state = when {
+                        buttonVariant == ButtonVariant.Icon ->
+                            DropdownInteractiveState.Disabled
+                        buttonSize == ButtonSize.Small ||
+                        buttonSize == ButtonSize.Medium ->
+                            DropdownInteractiveState.Warning("Discouraged size usage")
+                        else ->
+                            DropdownInteractiveState.Enabled
+                    },
+                    onOptionSelected = { buttonSize = it },
+                )
 
                 Toggle(
                     label = "Enable button",
