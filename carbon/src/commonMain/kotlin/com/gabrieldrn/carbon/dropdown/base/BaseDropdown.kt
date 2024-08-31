@@ -108,22 +108,6 @@ internal fun <K : Any> BaseDropdown(
     val expandedStates = remember { MutableTransitionState(false) }
     expandedStates.targetState = expanded
 
-    val componentHeight = dropdownSize.dpSize()
-
-    val transition = updateTransition(expandedStates, "Dropdown")
-
-    val height by transition.animateDp(
-        transitionSpec = { dropdownTransitionSpecDp },
-        label = "Popup content height"
-    ) {
-        if (it) {
-            getOptionsPopupHeightRatio(options.size, minVisibleItems)
-                .times(componentHeight)
-        } else {
-            0.dp
-        }
-    }
-
     val labelTextColor by colors.labelTextColor(state)
     val helperTextColor by colors.helperTextColor(state)
 
@@ -139,7 +123,18 @@ internal fun <K : Any> BaseDropdown(
             )
         }
 
-        BoxWithConstraints(
+        FieldAndPopup(
+            options = options,
+            colors = colors,
+            state = state,
+            dropdownSize = dropdownSize,
+            interactionSource = interactionSource,
+            expandedStates = expandedStates,
+            minVisibleItems = minVisibleItems,
+            onDismissRequest = onDismissRequest,
+            onExpandedChange = onExpandedChange,
+            fieldContent = fieldContent,
+            popupContent = popupContent,
             modifier = Modifier.then(
                 InspectableModifier {
                     debugInspectorInfo {
@@ -154,47 +149,7 @@ internal fun <K : Any> BaseDropdown(
                     }
                 }
             )
-        ) {
-            val elevation by transition.animateDp(
-                transitionSpec = { dropdownTransitionSpecDp },
-                label = "Popup content shadow"
-            ) {
-                if (it) 3.dp else 0.dp
-            }
-
-            val popupScope = remember(this, dropdownSize, onDismissRequest) {
-                object : DropdownPopupScope {
-                    override fun Modifier.anchor(): Modifier = this
-                        .width(maxWidth)
-                        .height(height)
-                        // This should be a box shadow (-> 0 2px 6px 0 rgba(0,0,0,.2)). But
-                        // compose doesn't provide the same API as CSS for shadows. A 3dp
-                        // elevation is the best approximation that could be found for now.
-                        .shadow(elevation = elevation)
-                        .onEscape(onDismissRequest)
-                }
-            }
-
-            DropdownField(
-                state = state,
-                dropdownSize = dropdownSize,
-                interactionSource = interactionSource,
-                transition = transition,
-                colors = colors,
-                expandedStates = expandedStates,
-                onExpandedChange = onExpandedChange,
-                fieldContent = fieldContent,
-            )
-
-            if (expandedStates.currentState || expandedStates.targetState) {
-                Popup(
-                    popupPositionProvider = DropdownMenuPositionProvider,
-                    onDismissRequest = onDismissRequest,
-                    properties = PopupProperties(focusable = true),
-                    content = { popupScope.popupContent() }
-                )
-            }
-        }
+        )
 
         state.helperText?.let {
             Text(
@@ -204,6 +159,78 @@ internal fun <K : Any> BaseDropdown(
                 modifier = Modifier
                     .padding(top = SpacingScale.spacing02)
                     .testTag(DropdownTestTags.HELPER_TEXT)
+            )
+        }
+    }
+}
+
+@Composable
+private fun <K : Any> FieldAndPopup(
+    options: Map<K, DropdownOption>,
+    colors: DropdownColors,
+    state: DropdownInteractiveState,
+    dropdownSize: DropdownSize,
+    interactionSource: MutableInteractionSource,
+    expandedStates: MutableTransitionState<Boolean>,
+    minVisibleItems: Int,
+    onDismissRequest: () -> Unit,
+    onExpandedChange: (Boolean) -> Unit,
+    fieldContent: @Composable () -> Unit,
+    popupContent: @Composable (DropdownPopupScope.() -> Unit),
+    modifier: Modifier = Modifier
+) {
+    val transition = updateTransition(expandedStates, "Dropdown")
+
+    val height by transition.animateDp(
+        transitionSpec = { dropdownTransitionSpecDp },
+        label = "Popup content height"
+    ) {
+        if (it) {
+            getOptionsPopupHeightRatio(options.size, minVisibleItems)
+                .times(dropdownSize.dpSize())
+        } else {
+            0.dp
+        }
+    }
+
+    BoxWithConstraints(modifier = modifier) {
+        val elevation by transition.animateDp(
+            transitionSpec = { dropdownTransitionSpecDp },
+            label = "Popup content shadow"
+        ) {
+            if (it) 3.dp else 0.dp
+        }
+
+        val popupScope = remember(this, dropdownSize, onDismissRequest) {
+            object : DropdownPopupScope {
+                override fun Modifier.anchor(): Modifier = this
+                    .width(maxWidth)
+                    .height(height)
+                    // This should be a box shadow (-> 0 2px 6px 0 rgba(0,0,0,.2)). But
+                    // compose doesn't provide the same API as CSS for shadows. A 3dp
+                    // elevation is the best approximation that could be found for now.
+                    .shadow(elevation = elevation)
+                    .onEscape(onDismissRequest)
+            }
+        }
+
+        DropdownField(
+            state = state,
+            dropdownSize = dropdownSize,
+            interactionSource = interactionSource,
+            transition = transition,
+            colors = colors,
+            expandedStates = expandedStates,
+            onExpandedChange = onExpandedChange,
+            fieldContent = fieldContent,
+        )
+
+        if (expandedStates.currentState || expandedStates.targetState) {
+            Popup(
+                popupPositionProvider = DropdownMenuPositionProvider,
+                onDismissRequest = onDismissRequest,
+                properties = PopupProperties(focusable = true),
+                content = { popupScope.popupContent() }
             )
         }
     }
