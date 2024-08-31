@@ -109,7 +109,7 @@ jobs:
         run: ./gradlew :carbon:detekt
 
   lib-api-verification:
-    name: Static code analysis - library
+    name: API signature verification - library
     runs-on: ubuntu-latest
     needs: lib-build
     steps:
@@ -208,7 +208,7 @@ jobs:
           detailed_summary: true
 
   lib-tests-wasmjs:
-    name: Unit + UI tests - library - Desktop
+    name: Unit + UI tests - library - WasmJs
     runs-on: ubuntu-latest
     needs: lib-build
     steps:
