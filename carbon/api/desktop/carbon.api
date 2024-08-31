@@ -16,7 +16,6 @@ public final class com/gabrieldrn/carbon/button/ButtonKt {
 }
 
 public final class com/gabrieldrn/carbon/button/ButtonSize : java/lang/Enum {
-	public static final field Companion Lcom/gabrieldrn/carbon/button/ButtonSize$Companion;
 	public static final field ExtraLarge Lcom/gabrieldrn/carbon/button/ButtonSize;
 	public static final field LargeExpressive Lcom/gabrieldrn/carbon/button/ButtonSize;
 	public static final field LargeProductive Lcom/gabrieldrn/carbon/button/ButtonSize;
@@ -26,9 +25,6 @@ public final class com/gabrieldrn/carbon/button/ButtonSize : java/lang/Enum {
 	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public static fun valueOf (Ljava/lang/String;)Lcom/gabrieldrn/carbon/button/ButtonSize;
 	public static fun values ()[Lcom/gabrieldrn/carbon/button/ButtonSize;
-}
-
-public final class com/gabrieldrn/carbon/button/ButtonSize$Companion {
 }
 
 public final class com/gabrieldrn/carbon/button/ButtonType : java/lang/Enum {
