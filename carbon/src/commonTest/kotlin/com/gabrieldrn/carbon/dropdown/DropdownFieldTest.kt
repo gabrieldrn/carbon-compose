@@ -113,9 +113,6 @@ open class DropdownFieldTest {
         when (state) {
             is DropdownInteractiveState.Enabled,
             is DropdownInteractiveState.ReadOnly -> {
-                onNodeWithTag(DropdownTestTags.FIELD_DIVIDER, useUnmergedTree = true)
-                    .assertIsDisplayed()
-
                 onNodeWithTag(DropdownTestTags.FIELD_WARNING_ICON, useUnmergedTree = true)
                     .assertDoesNotExist()
 
@@ -126,13 +123,10 @@ open class DropdownFieldTest {
                 onNodeWithTag(DropdownTestTags.FIELD_WARNING_ICON, useUnmergedTree = true)
                     .assertIsDisplayed()
 
-            is DropdownInteractiveState.Error -> {
+            is DropdownInteractiveState.Error ->
                 onNodeWithTag(DropdownTestTags.FIELD_ERROR_ICON, useUnmergedTree = true)
                     .assertIsDisplayed()
 
-                onNodeWithTag(DropdownTestTags.FIELD_DIVIDER, useUnmergedTree = true)
-                    .assertDoesNotExist()
-            }
             is DropdownInteractiveState.Disabled ->
                 onNodeWithTag(DropdownTestTags.FIELD)
                     .assertHasNoClickAction()
@@ -154,16 +148,26 @@ open class DropdownFieldTest {
         state: DropdownInteractiveState,
         contentWidths: MutableList<Dp>
     ): Unit = with(testScope) {
-        contentWidths += onNodeWithTag(
-            DropdownTestTags.FIELD_PLACEHOLDER,
-            useUnmergedTree = true
-        ).getUnclippedBoundsInRoot().width
+        contentWidths.add(
+            onNodeWithTag(
+                DropdownTestTags.FIELD_PLACEHOLDER,
+                useUnmergedTree = true
+            ).getUnclippedBoundsInRoot().width
+        )
+
+        contentWidths.add(
+            onNodeWithTag(
+                DropdownTestTags.FIELD_CHEVRON,
+                useUnmergedTree = true
+            ).getUnclippedBoundsInRoot().width
+        )
 
         when (state) {
             is DropdownInteractiveState.Enabled,
             is DropdownInteractiveState.ReadOnly,
-            is DropdownInteractiveState.Disabled -> {
-            }
+            is DropdownInteractiveState.Disabled ->
+                contentWidths.add(SpacingScale.spacing05) // Chevron padding
+
             is DropdownInteractiveState.Warning ->
                 onNodeWithTag(DropdownTestTags.FIELD_WARNING_ICON, useUnmergedTree = true)
                     .assertIsDisplayed()
@@ -192,7 +196,7 @@ open class DropdownFieldTest {
 
             onLayoutValidationGetFieldContentWidths(this, state, contentWidths)
 
-            onNodeWithTag(DropdownTestTags.FIELD_LAYOUT, useUnmergedTree = true)
+            onNodeWithTag(DropdownTestTags.FIELD, useUnmergedTree = true)
                 .assertLeftPositionInRootIsEqualTo(SpacingScale.spacing05)
                 .assertWidthIsEqualTo(contentWidths.reduce(Dp::plus))
 

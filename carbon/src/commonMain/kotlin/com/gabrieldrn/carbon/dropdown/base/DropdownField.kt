@@ -149,8 +149,9 @@ internal fun DropdownField(
                 interactionSource = interactionSource
             )
             .height(dropdownSize.dpSize())
-            .drawBehind {
+            .drawBehind { // Background and bottom border
                 drawRect(fieldBackgroundColor)
+
                 if (state !is DropdownInteractiveState.Error) {
                     drawLine(
                         color = fieldBorderColor,
@@ -253,6 +254,4 @@ internal object DropdownFieldContentId {
     const val PLACEHOLDER = "placeholder"
     const val STATE_ICON = "stateIcon"
     const val MULTISELECT_TAG = "multiselectTag"
-
-    val ids = setOf(PLACEHOLDER, STATE_ICON, MULTISELECT_TAG)
 }
