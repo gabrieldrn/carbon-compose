@@ -49,6 +49,7 @@ import com.gabrieldrn.carbon.foundation.color.CarbonLayer
 import com.gabrieldrn.carbon.foundation.color.Layer
 import com.gabrieldrn.carbon.foundation.color.containerBackground
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
+import com.gabrieldrn.carbon.toggle.Toggle
 
 private val dropdownStates = listOf(
     DropdownInteractiveState.Enabled,
@@ -109,6 +110,10 @@ internal fun DropdownDemoScreen(
             mutableStateOf(DropdownSize.Large)
         }
 
+        var isInlined by rememberSaveable {
+            mutableStateOf(false)
+        }
+
         CarbonLayer(layer = layer) {
             Box(
                 modifier = Modifier
@@ -121,7 +126,8 @@ internal fun DropdownDemoScreen(
                 when (variant) {
                     DropdownVariant.Default -> DefaultDemoDropdown(
                         state = dropdownState,
-                        size = dropdownSize
+                        size = dropdownSize,
+                        isInlined = isInlined
                     )
                     DropdownVariant.Multiselect -> MultiselectDemoDropdown(
                         state = dropdownState,
@@ -161,6 +167,12 @@ internal fun DropdownDemoScreen(
                         onOptionSelected = { dropdownSize = it },
                     )
                 }
+
+                Toggle(
+                    label = "Inlined",
+                    isToggled = isInlined,
+                    onToggleChange = { isInlined = it },
+                )
 
                 LayerSelectionDropdown(
                     layers = layersOptions,

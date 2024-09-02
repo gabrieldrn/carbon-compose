@@ -21,21 +21,26 @@ import androidx.compose.animation.core.animateDp
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.input.key.Key
 import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.onPreviewKeyEvent
+import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.InspectableModifier
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.debugInspectorInfo
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.Dp
@@ -87,12 +92,12 @@ internal fun <K : Any> BaseDropdown(
     colors: DropdownColors,
     onExpandedChange: (Boolean) -> Unit,
     onDismissRequest: () -> Unit,
+    minVisibleItems: Int,
     modifier: Modifier = Modifier,
     label: String? = null,
     state: DropdownInteractiveState = DropdownInteractiveState.Enabled,
     dropdownSize: DropdownSize = DropdownSize.Large,
-    minVisibleItems: Int,
-    fieldContent: @Composable () -> Unit,
+    fieldContent: @Composable RowScope.() -> Unit,
     popupContent: @Composable DropdownPopupScope.() -> Unit,
 ) {
     require(options.isNotEmpty()) {
@@ -175,10 +180,11 @@ private fun <K : Any> FieldAndPopup(
     minVisibleItems: Int,
     onDismissRequest: () -> Unit,
     onExpandedChange: (Boolean) -> Unit,
-    fieldContent: @Composable () -> Unit,
+    fieldContent: @Composable RowScope.() -> Unit,
     popupContent: @Composable (DropdownPopupScope.() -> Unit),
     modifier: Modifier = Modifier
 ) {
+    val density = LocalDensity.current
     val transition = updateTransition(expandedStates, "Dropdown")
 
     val height by transition.animateDp(
@@ -193,7 +199,11 @@ private fun <K : Any> FieldAndPopup(
         }
     }
 
-    BoxWithConstraints(modifier = modifier) {
+    var size by remember { mutableStateOf(IntSize.Zero) }
+
+    Box(
+        modifier = modifier.onSizeChanged { size = it }
+    ) {
         val elevation by transition.animateDp(
             transitionSpec = { dropdownTransitionSpecDp },
             label = "Popup content shadow"
@@ -201,10 +211,12 @@ private fun <K : Any> FieldAndPopup(
             if (it) 3.dp else 0.dp
         }
 
-        val popupScope = remember(this, dropdownSize, onDismissRequest) {
+        val popupScope = remember(this, size, dropdownSize, onDismissRequest) {
             object : DropdownPopupScope {
                 override fun Modifier.anchor(): Modifier = this
-                    .width(maxWidth)
+                    .width(
+                        with(density) { size.width.toDp() }
+                    )
                     .height(height)
                     // This should be a box shadow (-> 0 2px 6px 0 rgba(0,0,0,.2)). But
                     // compose doesn't provide the same API as CSS for shadows. A 3dp

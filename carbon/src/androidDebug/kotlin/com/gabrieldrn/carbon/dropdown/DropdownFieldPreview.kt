@@ -42,7 +42,7 @@ import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 
 private class DropdownLayerPreviewParameterProvider : PreviewParameterProvider<Layer> {
     override val values: Sequence<Layer> = Layer
-        .values()
+        .entries
         .filterNot { it == Layer.Layer03 }
         .asSequence()
 }
