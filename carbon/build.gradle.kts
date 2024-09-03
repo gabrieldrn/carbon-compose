@@ -57,6 +57,7 @@ kotlin {
             }
             implementation(compose.animation)
             implementation(compose.components.resources)
+            implementation(compose.components.uiToolingPreview)
 
             implementation(libs.touchlab.kermit)
         }
@@ -64,7 +65,7 @@ kotlin {
             implementation(libs.kotlin.test)
             implementation(compose.uiTest)
         }
-        desktopTest.dependencies {
+        desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
         }
     }
@@ -88,13 +89,7 @@ android {
     namespace = "com.gabrieldrn.carbon"
 
     dependencies {
-        // Disabled while there's no specific Android implementations.
-//        implementation(libs.androidx.lifecycle.runtime.ktx)
-//        implementation(libs.androidx.lifecycle.viewModel.compose)
-//        implementation(libs.androidx.compose.foundation)
-//        implementation(libs.androidx.compose.ui)
-
-        debugImplementation(libs.androidx.compose.uiTooling)
+        debugImplementation(compose.uiTooling)
         debugImplementation(libs.androidx.compose.ui.test.manifest)
 
         testImplementation(libs.junit)
