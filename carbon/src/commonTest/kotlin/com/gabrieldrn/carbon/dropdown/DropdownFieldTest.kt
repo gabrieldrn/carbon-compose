@@ -82,6 +82,7 @@ open class DropdownFieldTest {
                     expandedStates = expandedStates,
                     colors = colors,
                     onExpandedChange = { expandedStates.targetState = it },
+                    isInlined = false,
                     fieldContent = {
                         DropdownPlaceholderText(
                             placeholderText = placeholder,

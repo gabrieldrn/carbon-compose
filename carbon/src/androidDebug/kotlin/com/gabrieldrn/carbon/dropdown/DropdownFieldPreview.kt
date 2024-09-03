@@ -67,6 +67,7 @@ private fun DropdownFieldPreview(
             transition = transition,
             expandedStates = expandedStates,
             colors = colors,
+            isInlined = false,
             onExpandedChange = { expandedStates.targetState = it },
             fieldContent = {
                 DropdownPlaceholderText(

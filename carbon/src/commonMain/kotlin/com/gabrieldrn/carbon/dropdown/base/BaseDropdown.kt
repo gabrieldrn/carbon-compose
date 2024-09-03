@@ -23,7 +23,6 @@ import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -97,7 +96,8 @@ internal fun <K : Any> BaseDropdown(
     label: String? = null,
     state: DropdownInteractiveState = DropdownInteractiveState.Enabled,
     dropdownSize: DropdownSize = DropdownSize.Large,
-    fieldContent: @Composable RowScope.() -> Unit,
+    isInlined: Boolean = false,
+    fieldContent: @Composable () -> Unit,
     popupContent: @Composable DropdownPopupScope.() -> Unit,
 ) {
     require(options.isNotEmpty()) {
@@ -136,6 +136,7 @@ internal fun <K : Any> BaseDropdown(
             interactionSource = interactionSource,
             expandedStates = expandedStates,
             minVisibleItems = minVisibleItems,
+            isInlined = isInlined,
             onDismissRequest = onDismissRequest,
             onExpandedChange = onExpandedChange,
             fieldContent = fieldContent,
@@ -178,9 +179,10 @@ private fun <K : Any> FieldAndPopup(
     interactionSource: MutableInteractionSource,
     expandedStates: MutableTransitionState<Boolean>,
     minVisibleItems: Int,
+    isInlined: Boolean,
     onDismissRequest: () -> Unit,
     onExpandedChange: (Boolean) -> Unit,
-    fieldContent: @Composable RowScope.() -> Unit,
+    fieldContent: @Composable () -> Unit,
     popupContent: @Composable (DropdownPopupScope.() -> Unit),
     modifier: Modifier = Modifier
 ) {
@@ -232,6 +234,7 @@ private fun <K : Any> FieldAndPopup(
             interactionSource = interactionSource,
             transition = transition,
             colors = colors,
+            isInlined = isInlined,
             expandedStates = expandedStates,
             onExpandedChange = onExpandedChange,
             fieldContent = fieldContent,

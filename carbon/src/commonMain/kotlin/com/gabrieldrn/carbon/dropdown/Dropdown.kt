@@ -112,12 +112,12 @@ public fun <K : Any> Dropdown(
         label = label,
         state = state,
         dropdownSize = dropdownSize,
+        isInlined = isInlined,
         fieldContent = {
             DropdownPlaceholderText(
                 placeholderText = fieldText,
                 colors = colors,
                 state = state,
-                modifier = Modifier.then(if (isInlined) Modifier else Modifier.weight(1f))
             )
 
             DropdownStateIcon(state = state)
