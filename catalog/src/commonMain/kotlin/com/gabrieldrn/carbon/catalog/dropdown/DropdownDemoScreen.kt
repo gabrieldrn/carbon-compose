@@ -17,7 +17,6 @@
 package com.gabrieldrn.carbon.catalog.dropdown
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
@@ -115,13 +114,14 @@ internal fun DropdownDemoScreen(
         }
 
         CarbonLayer(layer = layer) {
-            Box(
+            Column(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(200.dp)
                     .containerBackground()
                     .padding(SpacingScale.spacing05),
-                contentAlignment = Alignment.Center
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
             ) {
                 when (variant) {
                     DropdownVariant.Default -> DefaultDemoDropdown(
@@ -168,11 +168,13 @@ internal fun DropdownDemoScreen(
                     )
                 }
 
-                Toggle(
-                    label = "Inlined",
-                    isToggled = isInlined,
-                    onToggleChange = { isInlined = it },
-                )
+                if (variant == DropdownVariant.Default) {
+                    Toggle(
+                        label = "Inlined",
+                        isToggled = isInlined,
+                        onToggleChange = { isInlined = it },
+                    )
+                }
 
                 LayerSelectionDropdown(
                     layers = layersOptions,

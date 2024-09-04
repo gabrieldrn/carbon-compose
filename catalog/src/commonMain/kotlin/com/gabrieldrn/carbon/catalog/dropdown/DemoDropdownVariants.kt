@@ -16,6 +16,8 @@
 
 package com.gabrieldrn.carbon.catalog.dropdown
 
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -63,7 +65,7 @@ fun DefaultDemoDropdown(
         dropdownSize = size,
         isInlined = isInlined,
         modifier = modifier
-            .widthIn(max = 400.dp),
+            .then(if (isInlined) Modifier.fillMaxWidth() else Modifier.width(400.dp))
     )
 }
 
@@ -71,7 +73,6 @@ fun DefaultDemoDropdown(
 fun MultiselectDemoDropdown(
     state: DropdownInteractiveState,
     size: DropdownSize,
-//    isInlined: Boolean,
     modifier: Modifier = Modifier,
 ) {
     var selectedOptions by remember {
@@ -112,6 +113,6 @@ fun MultiselectDemoDropdown(
         onClearSelection = { selectedOptions = listOf() },
         state = state,
         dropdownSize = size,
-        modifier = modifier,
+        modifier = modifier.widthIn(max = 400.dp),
     )
 }

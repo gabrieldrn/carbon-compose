@@ -38,6 +38,7 @@ import androidx.compose.ui.unit.Constraints
 internal class DropdownFieldContentMeasurePolicy(
     private val isInlined: Boolean
 ) : MeasurePolicy {
+
     override fun MeasureScope.measure(
         measurables: List<Measurable>,
         constraints: Constraints
@@ -49,32 +50,36 @@ internal class DropdownFieldContentMeasurePolicy(
             "A DropdownPlaceholderText must be provided to field content."
         }
 
+        val wrappedConstraints = constraints.copy(
+            maxWidth = if (constraints.hasBoundedWidth) {
+                constraints.maxWidth.coerceAtMost(constraints.maxWidth)
+            } else {
+                0
+            }
+        )
+
         val tag = measurables
             .firstOrNull { it.layoutId == DropdownFieldContentId.MULTISELECT_TAG }
-            ?.measure(constraints)
+            ?.measure(wrappedConstraints)
 
         val stateIcon = measurables
             .firstOrNull { it.layoutId == DropdownFieldContentId.STATE_ICON }
-            ?.measure(constraints)
+            ?.measure(wrappedConstraints)
 
         val chevron = measurables
             .firstOrNull { it.layoutId == DropdownFieldContentId.CHEVRON }
-            ?.measure(constraints)
+            ?.measure(wrappedConstraints)
 
         val widthConsumed = arrayOf(tag, stateIcon, chevron).filterNotNull().sumOf { it.width }
 
-        val remainingWidth = (constraints.maxWidth - widthConsumed).coerceAtLeast(0)
+        val remainingWidth = (wrappedConstraints.maxWidth - widthConsumed).coerceAtLeast(0)
 
         // See class documentation for more information about the constraints.
         val placeholderConstraints = if (isInlined) {
-            constraints.copy(
-                minWidth = (constraints.minWidth - widthConsumed).coerceAtLeast(0),
-                maxWidth = remainingWidth,
-                minHeight = 0
-            )
+            wrappedConstraints.copy(minHeight = 0)
         } else {
-            constraints.copy(
-                minWidth = (constraints.maxWidth - widthConsumed).coerceAtLeast(0),
+            wrappedConstraints.copy(
+                minWidth = remainingWidth,
                 maxWidth = remainingWidth,
                 minHeight = 0
             )
@@ -84,13 +89,22 @@ internal class DropdownFieldContentMeasurePolicy(
             .first { it.layoutId == DropdownFieldContentId.PLACEHOLDER }
             .measure(placeholderConstraints)
 
-        return layout(
-            width = if (isInlined) {
-                widthConsumed + placeholder.width
+        val contentWidth = if (isInlined) {
+            widthConsumed + placeholder.width
+        } else {
+            wrappedConstraints.maxWidth
+        }
+
+        val totalWidth =
+            if (wrappedConstraints.hasBoundedWidth && wrappedConstraints.hasFixedWidth) {
+                wrappedConstraints.maxWidth
             } else {
-                constraints.maxWidth
-            },
-            height = constraints.maxHeight
+                contentWidth.coerceIn(wrappedConstraints.minWidth..wrappedConstraints.maxWidth)
+            }
+
+        return layout(
+            width = totalWidth,
+            height = wrappedConstraints.maxHeight
         ) {
             var xPos = 0
 
@@ -98,7 +112,7 @@ internal class DropdownFieldContentMeasurePolicy(
                 .forEach {
                     it.placeRelative(
                         x = xPos,
-                        y = constraints.maxHeight / 2 - it.height / 2
+                        y = wrappedConstraints.maxHeight / 2 - it.height / 2
                     )
                     xPos += it.width
                 }
