@@ -65,6 +65,8 @@ private val dropdownTransitionSpecDp = tween<Dp>(
     easing = Motion.Standard.productiveEasing
 )
 
+private val inlinedPopupWidth = 288.dp
+
 /**
  * Adds a callback to be invoked when the escape key (hardware) is pressed.
  */
@@ -141,20 +143,19 @@ internal fun <K : Any> BaseDropdown(
             onExpandedChange = onExpandedChange,
             fieldContent = fieldContent,
             popupContent = popupContent,
-            modifier = Modifier.then(
-                InspectableModifier {
-                    debugInspectorInfo {
-                        properties["isExpanded"] = expanded.toString()
-                        properties["interactiveState"] = when (state) {
-                            is DropdownInteractiveState.Disabled -> "Disabled"
-                            is DropdownInteractiveState.Enabled -> "Enabled"
-                            is DropdownInteractiveState.Error -> "Error"
-                            is DropdownInteractiveState.Warning -> "Warning"
-                            is DropdownInteractiveState.ReadOnly -> "Read-only"
-                        }
+            modifier = InspectableModifier {
+                debugInspectorInfo {
+                    properties["isExpanded"] = expanded.toString()
+                    properties["interactiveState"] = when (state) {
+                        is DropdownInteractiveState.Disabled -> "Disabled"
+                        is DropdownInteractiveState.Enabled -> "Enabled"
+                        is DropdownInteractiveState.Error -> "Error"
+                        is DropdownInteractiveState.Warning -> "Warning"
+                        is DropdownInteractiveState.ReadOnly -> "Read-only"
                     }
                 }
-            )
+            }
+
         )
 
         state.helperText?.let {
@@ -216,8 +217,12 @@ private fun <K : Any> FieldAndPopup(
         val popupScope = remember(this, size, dropdownSize, onDismissRequest) {
             object : DropdownPopupScope {
                 override fun Modifier.anchor(): Modifier = this
-                    .width(
-                        with(density) { size.width.toDp() }
+                    .then(
+                        if (isInlined) {
+                            Modifier.width(inlinedPopupWidth)
+                        } else {
+                            Modifier.width(with(density) { size.width.toDp() })
+                        }
                     )
                     .height(height)
                     // This should be a box shadow (-> 0 2px 6px 0 rgba(0,0,0,.2)). But
