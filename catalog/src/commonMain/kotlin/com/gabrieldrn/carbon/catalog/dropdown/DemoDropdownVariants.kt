@@ -16,6 +16,8 @@
 
 package com.gabrieldrn.carbon.catalog.dropdown
 
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
@@ -55,18 +57,22 @@ fun DefaultDemoDropdown(
 ) {
     var selectedOption by remember { mutableStateOf<Int?>(null) }
 
-    Dropdown(
-        label = "Dropdown",
-        placeholder = "Choose option",
-        selectedOption = selectedOption,
-        options = dropdownOptions,
-        onOptionSelected = { selectedOption = it },
-        state = state,
-        dropdownSize = size,
-        isInlined = isInlined,
-        modifier = modifier
-            .then(if (isInlined) Modifier.fillMaxWidth() else Modifier.width(400.dp))
-    )
+    Column(
+        modifier = Modifier.width(IntrinsicSize.Max),
+    ) {
+        Dropdown(
+            label = "Dropdown",
+            placeholder = "Choose option",
+            selectedOption = selectedOption,
+            options = dropdownOptions,
+            onOptionSelected = { selectedOption = it },
+            state = state,
+            dropdownSize = size,
+            isInlined = isInlined,
+            modifier = modifier
+                .then(if (isInlined) Modifier.fillMaxWidth() else Modifier.width(400.dp))
+        )
+    }
 }
 
 @Composable
