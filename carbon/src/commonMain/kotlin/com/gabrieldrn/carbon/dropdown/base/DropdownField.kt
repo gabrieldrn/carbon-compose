@@ -187,7 +187,6 @@ internal fun DropdownField(
                     Modifier
                 }
             )
-            .padding(horizontal = SpacingScale.spacing05)
             .then(
                 when (state) {
                     is DropdownInteractiveState.Disabled -> Modifier.semantics { disabled() }
@@ -202,6 +201,7 @@ internal fun DropdownField(
                     )
                 }
             )
+            .padding(horizontal = SpacingScale.spacing05)
             .semantics(mergeDescendants = true) {
                 role = Role.DropdownList
                 state.helperText?.let { stateDescription = it }
