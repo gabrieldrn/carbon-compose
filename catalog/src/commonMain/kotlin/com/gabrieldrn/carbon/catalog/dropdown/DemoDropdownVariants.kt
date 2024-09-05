@@ -16,23 +16,34 @@
 
 package com.gabrieldrn.carbon.catalog.dropdown
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.dropdown.Dropdown
 import com.gabrieldrn.carbon.dropdown.base.DropdownInteractiveState
 import com.gabrieldrn.carbon.dropdown.base.DropdownOption
 import com.gabrieldrn.carbon.dropdown.base.DropdownSize
 import com.gabrieldrn.carbon.dropdown.multiselect.MultiselectDropdown
+import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
+import com.gabrieldrn.carbon.foundation.text.getIBMPlexMonoFamily
 
 private val dropdownOptions: Map<Int, DropdownOption> = (0..9)
     .associateWith { DropdownOption("Option $it") }
@@ -72,6 +83,44 @@ fun DefaultDemoDropdown(
             modifier = modifier
                 .then(if (isInlined) Modifier.fillMaxWidth() else Modifier.width(400.dp))
         )
+
+        Column(
+            modifier = Modifier.padding(top = SpacingScale.spacing03),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Box(
+                    modifier = Modifier
+                        .background(color = Color.Magenta)
+                        .height(7.dp)
+                        .width(1.dp)
+                )
+                Box(
+                    modifier = Modifier
+                        .background(color = Color.Magenta)
+                        .fillMaxWidth()
+                        .height(1.dp)
+                        .weight(1f)
+                )
+                Box(
+                    modifier = Modifier
+                        .background(color = Color.Magenta)
+                        .height(7.dp)
+                        .width(1.dp)
+                )
+            }
+            BasicText(
+                text = if (isInlined) {
+                    "Wrap"
+                } else {
+                    "Fixed width"
+                },
+                style = Carbon.typography.label01.copy(
+                    color = Color.Magenta,
+                    fontFamily = getIBMPlexMonoFamily()
+                )
+            )
+        }
     }
 }
 
