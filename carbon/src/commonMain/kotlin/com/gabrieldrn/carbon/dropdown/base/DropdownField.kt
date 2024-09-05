@@ -116,7 +116,7 @@ private fun Modifier.dropdownClickable(
 internal fun DropdownField(
     state: DropdownInteractiveState,
     dropdownSize: DropdownSize,
-    transition: Transition<Boolean>,
+    expandTransition: Transition<Boolean>,
     expandedStates: MutableTransitionState<Boolean>,
     colors: DropdownColors,
     isInlined: Boolean,
@@ -125,7 +125,7 @@ internal fun DropdownField(
     modifier: Modifier = Modifier,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
 ) {
-    val chevronRotation by transition.animateFloat(
+    val chevronRotation by expandTransition.animateFloat(
         transitionSpec = { dropdownTransitionSpecFloat },
         label = "Chevron rotation"
     ) {

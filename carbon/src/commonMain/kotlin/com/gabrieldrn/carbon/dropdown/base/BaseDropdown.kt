@@ -17,6 +17,7 @@
 package com.gabrieldrn.carbon.dropdown.base
 
 import androidx.compose.animation.core.MutableTransitionState
+import androidx.compose.animation.core.Transition
 import androidx.compose.animation.core.animateDp
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.core.updateTransition
@@ -115,6 +116,8 @@ internal fun <K : Any> BaseDropdown(
     val expandedStates = remember { MutableTransitionState(false) }
     expandedStates.targetState = expanded
 
+    val expandTransition = updateTransition(expandedStates, "Dropdown")
+
     val labelTextColor by colors.labelTextColor(state)
     val helperTextColor by colors.helperTextColor(state)
 
@@ -130,19 +133,36 @@ internal fun <K : Any> BaseDropdown(
             )
         }
 
-        FieldAndPopup(
+        FieldAndPopupLayout(
             options = options,
-            colors = colors,
-            state = state,
             dropdownSize = dropdownSize,
-            interactionSource = interactionSource,
-            expandedStates = expandedStates,
+            expandTransition = expandTransition,
             minVisibleItems = minVisibleItems,
             isInlined = isInlined,
             onDismissRequest = onDismissRequest,
-            onExpandedChange = onExpandedChange,
-            fieldContent = fieldContent,
-            popupContent = popupContent,
+            field = {
+                DropdownField(
+                    state = state,
+                    dropdownSize = dropdownSize,
+                    interactionSource = interactionSource,
+                    expandTransition = expandTransition,
+                    colors = colors,
+                    isInlined = isInlined,
+                    expandedStates = expandedStates,
+                    onExpandedChange = onExpandedChange,
+                    fieldContent = fieldContent,
+                )
+            },
+            popup = {
+                if (expandedStates.currentState || expandedStates.targetState) {
+                    Popup(
+                        popupPositionProvider = DropdownMenuPositionProvider,
+                        onDismissRequest = onDismissRequest,
+                        properties = PopupProperties(focusable = true),
+                        content = { popupContent() }
+                    )
+                }
+            },
             modifier = InspectableModifier {
                 debugInspectorInfo {
                     properties["isExpanded"] = expanded.toString()
@@ -155,7 +175,6 @@ internal fun <K : Any> BaseDropdown(
                     }
                 }
             }
-
         )
 
         state.helperText?.let {
@@ -172,25 +191,20 @@ internal fun <K : Any> BaseDropdown(
 }
 
 @Composable
-private fun <K : Any> FieldAndPopup(
+private fun <K : Any> FieldAndPopupLayout(
     options: Map<K, DropdownOption>,
-    colors: DropdownColors,
-    state: DropdownInteractiveState,
     dropdownSize: DropdownSize,
-    interactionSource: MutableInteractionSource,
-    expandedStates: MutableTransitionState<Boolean>,
+    expandTransition: Transition<Boolean>,
     minVisibleItems: Int,
     isInlined: Boolean,
     onDismissRequest: () -> Unit,
-    onExpandedChange: (Boolean) -> Unit,
-    fieldContent: @Composable () -> Unit,
-    popupContent: @Composable (DropdownPopupScope.() -> Unit),
+    popup: @Composable DropdownPopupScope.() -> Unit,
+    field: @Composable () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val density = LocalDensity.current
-    val transition = updateTransition(expandedStates, "Dropdown")
 
-    val height by transition.animateDp(
+    val height by expandTransition.animateDp(
         transitionSpec = { dropdownTransitionSpecDp },
         label = "Popup content height"
     ) {
@@ -207,14 +221,14 @@ private fun <K : Any> FieldAndPopup(
     Box(
         modifier = modifier.onSizeChanged { size = it }
     ) {
-        val elevation by transition.animateDp(
+        val elevation by expandTransition.animateDp(
             transitionSpec = { dropdownTransitionSpecDp },
             label = "Popup content shadow"
         ) {
             if (it) 3.dp else 0.dp
         }
 
-        val popupScope = remember(this, size, dropdownSize, onDismissRequest) {
+        val popupScope = remember(this, isInlined, size, dropdownSize, onDismissRequest) {
             object : DropdownPopupScope {
                 override fun Modifier.anchor(): Modifier = this
                     .then(
@@ -233,26 +247,8 @@ private fun <K : Any> FieldAndPopup(
             }
         }
 
-        DropdownField(
-            state = state,
-            dropdownSize = dropdownSize,
-            interactionSource = interactionSource,
-            transition = transition,
-            colors = colors,
-            isInlined = isInlined,
-            expandedStates = expandedStates,
-            onExpandedChange = onExpandedChange,
-            fieldContent = fieldContent,
-        )
-
-        if (expandedStates.currentState || expandedStates.targetState) {
-            Popup(
-                popupPositionProvider = DropdownMenuPositionProvider,
-                onDismissRequest = onDismissRequest,
-                properties = PopupProperties(focusable = true),
-                content = { popupScope.popupContent() }
-            )
-        }
+        field()
+        popup(popupScope)
     }
 }
 
