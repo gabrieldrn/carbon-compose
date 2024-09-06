@@ -22,8 +22,10 @@ import androidx.compose.animation.core.animateDp
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -33,8 +35,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.key.Key
 import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.onPreviewKeyEvent
@@ -121,18 +125,7 @@ internal fun <K : Any> BaseDropdown(
     val labelTextColor by colors.labelTextColor(state)
     val helperTextColor by colors.helperTextColor(state)
 
-    Column(modifier = modifier) {
-        label.takeIf { !it.isNullOrBlank() }?.let {
-            Text(
-                text = it,
-                style = Carbon.typography.label01,
-                color = labelTextColor,
-                modifier = Modifier
-                    .padding(bottom = SpacingScale.spacing03)
-                    .testTag(DropdownTestTags.LABEL_TEXT)
-            )
-        }
-
+    val fieldAndPopup = @Composable {
         FieldAndPopupLayout(
             options = options,
             dropdownSize = dropdownSize,
@@ -176,16 +169,50 @@ internal fun <K : Any> BaseDropdown(
                 }
             }
         )
+    }
 
-        state.helperText?.let {
-            Text(
-                text = it,
-                style = Carbon.typography.helperText01,
-                color = helperTextColor,
-                modifier = Modifier
-                    .padding(top = SpacingScale.spacing02)
-                    .testTag(DropdownTestTags.HELPER_TEXT)
-            )
+    if (isInlined) {
+        Row(
+            modifier = modifier,
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
+        ) {
+            label.takeIf { !it.isNullOrBlank() }?.let {
+                DropdownLabel(
+                    text = it,
+                    color = labelTextColor
+                )
+            }
+
+            Column(modifier = Modifier.padding(start = SpacingScale.spacing06)) {
+                fieldAndPopup()
+
+                state.helperText?.let {
+                    DropdownHelperText(
+                        text = it,
+                        color = helperTextColor
+                    )
+                }
+            }
+        }
+    } else {
+        Column(modifier = modifier) {
+            label.takeIf { !it.isNullOrBlank() }?.let {
+                DropdownLabel(
+                    text = it,
+                    color = labelTextColor,
+                    modifier = Modifier.padding(bottom = SpacingScale.spacing03)
+                )
+            }
+
+            fieldAndPopup()
+
+            state.helperText?.let {
+                DropdownHelperText(
+                    text = it,
+                    color = helperTextColor
+                )
+            }
         }
     }
 }
@@ -250,6 +277,37 @@ private fun <K : Any> FieldAndPopupLayout(
         field()
         popup(popupScope)
     }
+}
+
+@Composable
+private fun DropdownLabel(
+    text: String,
+    color: Color,
+    modifier: Modifier = Modifier
+) {
+    Text(
+        text = text,
+        style = Carbon.typography.label01,
+        color = color,
+        modifier = modifier
+            .testTag(DropdownTestTags.LABEL_TEXT)
+    )
+}
+
+@Composable
+private fun DropdownHelperText(
+    text: String,
+    color: Color,
+    modifier: Modifier = Modifier
+) {
+    Text(
+        text = text,
+        style = Carbon.typography.helperText01,
+        color = color,
+        modifier = modifier
+            .padding(top = SpacingScale.spacing02)
+            .testTag(DropdownTestTags.HELPER_TEXT)
+    )
 }
 
 @Stable

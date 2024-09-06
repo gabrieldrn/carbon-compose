@@ -63,7 +63,9 @@ import com.gabrieldrn.carbon.dropdown.base.dpSize
  * should be used to update a remembered state with the new value.
  * @param onDismissRequest Callback invoked when the dropdown menu should be dismissed.
  * @param modifier The modifier to be applied to the dropdown.
- * @param label The label to be displayed above the dropdown field (optionnal).
+ * @param label The label to be displayed above the dropdown field (optionnal). NOTE: This label is
+ * provided as a convenience because its implementation may be very specific across contexts. You
+ * may need to implement your own label if the provided one does not meet your requirements.
  * @param state The [DropdownInteractiveState] of the dropdown.
  * @param dropdownSize The size of the dropdown, in terms of height. Defaults to
  * [DropdownSize.Large].
