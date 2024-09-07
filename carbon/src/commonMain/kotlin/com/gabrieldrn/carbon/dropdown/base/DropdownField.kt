@@ -177,6 +177,7 @@ internal fun DropdownField(
                     )
                 }
             }
+            .padding(horizontal = SpacingScale.spacing05)
             .then(
                 if (state is DropdownInteractiveState.Error) {
                     Modifier.border(
@@ -201,7 +202,6 @@ internal fun DropdownField(
                     )
                 }
             )
-            .padding(horizontal = SpacingScale.spacing05)
             .semantics(mergeDescendants = true) {
                 role = Role.DropdownList
                 state.helperText?.let { stateDescription = it }

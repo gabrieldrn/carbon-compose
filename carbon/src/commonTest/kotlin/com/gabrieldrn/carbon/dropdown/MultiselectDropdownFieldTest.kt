@@ -54,7 +54,7 @@ class MultiselectDropdownFieldTest : DropdownFieldTest() {
                 DropdownField(
                     state = state,
                     dropdownSize = DropdownSize.Large,
-                    transition = transition,
+                    expandTransition = transition,
                     expandedStates = expandedStates,
                     colors = colors,
                     onExpandedChange = { expandedStates.targetState = it },
