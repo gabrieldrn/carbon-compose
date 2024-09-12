@@ -21,7 +21,6 @@ import androidx.compose.animation.core.Transition
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.gestures.awaitEachGesture
@@ -29,18 +28,14 @@ import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.foundation.gestures.waitForUpOrCancellation
 import androidx.compose.foundation.indication
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.PointerEventPass
@@ -65,8 +60,8 @@ import com.gabrieldrn.carbon.foundation.interaction.FocusIndication
 import com.gabrieldrn.carbon.foundation.motion.Motion
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 import com.gabrieldrn.carbon.foundation.text.Text
-import com.gabrieldrn.carbon.icons.WarningIcon
 import com.gabrieldrn.carbon.icons.WarningAltIcon
+import com.gabrieldrn.carbon.icons.WarningIcon
 import com.gabrieldrn.carbon.semantics.readOnly
 
 private val dropdownTransitionSpecFloat = tween<Float>(
@@ -121,15 +116,16 @@ private fun Modifier.dropdownClickable(
 internal fun DropdownField(
     state: DropdownInteractiveState,
     dropdownSize: DropdownSize,
-    transition: Transition<Boolean>,
+    expandTransition: Transition<Boolean>,
     expandedStates: MutableTransitionState<Boolean>,
     colors: DropdownColors,
+    isInlined: Boolean,
     onExpandedChange: (Boolean) -> Unit,
     fieldContent: @Composable () -> Unit,
     modifier: Modifier = Modifier,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
 ) {
-    val chevronRotation by transition.animateFloat(
+    val chevronRotation by expandTransition.animateFloat(
         transitionSpec = { dropdownTransitionSpecFloat },
         label = "Chevron rotation"
     ) {
@@ -140,7 +136,23 @@ internal fun DropdownField(
     val fieldBorderColor by colors.fieldBorderColor(state)
     val chevronIconColor by colors.chevronIconColor(state)
 
-    Box(
+    Layout(
+        content = {
+            fieldContent()
+
+            Image(
+                imageVector = chevronDownIcon,
+                contentDescription = null,
+                colorFilter = ColorFilter.tint(chevronIconColor),
+                modifier = Modifier
+                    .padding(start = getChevronStartSpacing(state))
+                    .graphicsLayer {
+                        rotationZ = chevronRotation
+                    }
+                    .layoutId(DropdownFieldContentId.CHEVRON)
+                    .testTag(DropdownTestTags.FIELD_CHEVRON)
+            )
+        },
         modifier = modifier
             .indication(
                 interactionSource = interactionSource,
@@ -151,7 +163,21 @@ internal fun DropdownField(
                 interactionSource = interactionSource
             )
             .height(dropdownSize.dpSize())
-            .background(fieldBackgroundColor)
+            .drawBehind { // Background and bottom border
+                if (isInlined) return@drawBehind
+
+                drawRect(fieldBackgroundColor)
+
+                if (state !is DropdownInteractiveState.Error) {
+                    drawLine(
+                        color = fieldBorderColor,
+                        start = Offset(0f, size.height),
+                        end = Offset(size.width, size.height),
+                        strokeWidth = 1.dp.toPx()
+                    )
+                }
+            }
+            .padding(horizontal = SpacingScale.spacing05)
             .then(
                 if (state is DropdownInteractiveState.Error) {
                     Modifier.border(
@@ -180,47 +206,9 @@ internal fun DropdownField(
                 role = Role.DropdownList
                 state.helperText?.let { stateDescription = it }
             }
-            .testTag(DropdownTestTags.FIELD)
-    ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .fillMaxHeight()
-                .padding(horizontal = SpacingScale.spacing05)
-        ) {
-            Layout(
-                content = fieldContent,
-                measurePolicy = DropdownFieldContentMeasurePolicy(),
-                modifier = Modifier
-                    .fillMaxHeight()
-                    .weight(1f)
-                    .testTag(DropdownTestTags.FIELD_LAYOUT),
-            )
-
-            Image(
-                imageVector = chevronDownIcon,
-                contentDescription = null,
-                colorFilter = ColorFilter.tint(chevronIconColor),
-                modifier = Modifier
-                    .padding(start = getChevronStartSpacing(state))
-                    .graphicsLayer {
-                        rotationZ = chevronRotation
-                    }
-                    .testTag(DropdownTestTags.FIELD_CHEVRON)
-            )
-        }
-
-        if (state !is DropdownInteractiveState.Error) {
-            Spacer(
-                modifier = Modifier
-                    .background(color = fieldBorderColor)
-                    .height(1.dp)
-                    .fillMaxWidth()
-                    .align(Alignment.BottomCenter)
-                    .testTag(DropdownTestTags.FIELD_DIVIDER)
-            )
-        }
-    }
+            .testTag(DropdownTestTags.FIELD),
+        measurePolicy = DropdownFieldContentMeasurePolicy(isInlined = isInlined)
+    )
 }
 
 @Composable
@@ -268,6 +256,7 @@ internal object DropdownFieldContentId {
     const val PLACEHOLDER = "placeholder"
     const val STATE_ICON = "stateIcon"
     const val MULTISELECT_TAG = "multiselectTag"
+    const val CHEVRON = "chevron"
 
-    val ids = listOf(PLACEHOLDER, STATE_ICON, MULTISELECT_TAG)
+    val ids = setOf(PLACEHOLDER, STATE_ICON, MULTISELECT_TAG, CHEVRON)
 }

@@ -16,12 +16,18 @@
 
 package com.gabrieldrn.carbon.catalog.dropdown
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.dropdown.Dropdown
 import com.gabrieldrn.carbon.dropdown.base.DropdownInteractiveState
 import com.gabrieldrn.carbon.dropdown.base.DropdownOption
@@ -46,20 +52,25 @@ private val dropdownOptions: Map<Int, DropdownOption> = (0..9)
 fun DefaultDemoDropdown(
     state: DropdownInteractiveState,
     size: DropdownSize,
+    isInlined: Boolean,
     modifier: Modifier = Modifier,
 ) {
     var selectedOption by remember { mutableStateOf<Int?>(null) }
 
-    Dropdown(
-        label = "Dropdown",
-        placeholder = "Choose option",
-        selectedOption = selectedOption,
-        options = dropdownOptions,
-        onOptionSelected = { selectedOption = it },
-        state = state,
-        dropdownSize = size,
-        modifier = modifier,
-    )
+    Box(modifier = Modifier.width(IntrinsicSize.Max)) {
+        Dropdown(
+            label = "Dropdown",
+            placeholder = "Choose option",
+            selectedOption = selectedOption,
+            options = dropdownOptions,
+            onOptionSelected = { selectedOption = it },
+            state = state,
+            dropdownSize = size,
+            isInlined = isInlined,
+            modifier = modifier
+                .then(if (isInlined) Modifier.fillMaxWidth() else Modifier.width(400.dp))
+        )
+    }
 }
 
 @Composable
@@ -106,6 +117,6 @@ fun MultiselectDemoDropdown(
         onClearSelection = { selectedOptions = listOf() },
         state = state,
         dropdownSize = size,
-        modifier = modifier,
+        modifier = modifier.widthIn(max = 400.dp),
     )
 }

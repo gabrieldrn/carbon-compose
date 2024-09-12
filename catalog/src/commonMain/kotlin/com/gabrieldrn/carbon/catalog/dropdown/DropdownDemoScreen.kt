@@ -17,7 +17,6 @@
 package com.gabrieldrn.carbon.catalog.dropdown
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
@@ -49,6 +48,7 @@ import com.gabrieldrn.carbon.foundation.color.CarbonLayer
 import com.gabrieldrn.carbon.foundation.color.Layer
 import com.gabrieldrn.carbon.foundation.color.containerBackground
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
+import com.gabrieldrn.carbon.toggle.Toggle
 
 private val dropdownStates = listOf(
     DropdownInteractiveState.Enabled,
@@ -109,19 +109,25 @@ internal fun DropdownDemoScreen(
             mutableStateOf(DropdownSize.Large)
         }
 
+        var isInlined by rememberSaveable {
+            mutableStateOf(false)
+        }
+
         CarbonLayer(layer = layer) {
-            Box(
+            Column(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(200.dp)
                     .containerBackground()
                     .padding(SpacingScale.spacing05),
-                contentAlignment = Alignment.Center
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
             ) {
                 when (variant) {
                     DropdownVariant.Default -> DefaultDemoDropdown(
                         state = dropdownState,
-                        size = dropdownSize
+                        size = dropdownSize,
+                        isInlined = isInlined
                     )
                     DropdownVariant.Multiselect -> MultiselectDemoDropdown(
                         state = dropdownState,
@@ -159,6 +165,14 @@ internal fun DropdownDemoScreen(
                         options = sizes,
                         selectedOption = dropdownSize,
                         onOptionSelected = { dropdownSize = it },
+                    )
+                }
+
+                if (variant == DropdownVariant.Default) {
+                    Toggle(
+                        label = "Inlined",
+                        isToggled = isInlined,
+                        onToggleChange = { isInlined = it },
                     )
                 }
 
