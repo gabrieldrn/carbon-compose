@@ -23,6 +23,15 @@ New ideas for new features or improvements are welcomed. To suggest an enhanceme
   - How it benefits the project.
   - Any possible implementation ideas (encouraged).
 
+### Git workflow
+
+This project follows the [Trunk-Based Development model](https://trunkbaseddevelopment.com/). The
+`main` branch is the production-ready and PRs should be submitted against the `main` branch.
+In its specificities, the project follows the
+"[release from trunk](https://trunkbaseddevelopment.com/release-from-trunk/)" strategy.
+As feature flags are quite complex to implement in a library because code stays accessible to the
+user, wip features are marked with `@Experimental` annotation.
+
 ### Submitting Pull Requests
 Pull Requests (PRs) are the best way to propose changes to the codebase. Here’s how to get started:
 

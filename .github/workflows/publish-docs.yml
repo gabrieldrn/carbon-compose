@@ -1,8 +1,9 @@
 name: Publish docs, API ref and catalog app
+
 on:
-  push:
-    branches:
-      - main
+  release:
+    types: [ released ]
+  workflow_dispatch:
 
 permissions:
   contents: write

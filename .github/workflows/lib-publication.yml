@@ -1,4 +1,5 @@
 name: CD | Publish library to Maven Central
+
 on:
   release:
     types: [ released ]
