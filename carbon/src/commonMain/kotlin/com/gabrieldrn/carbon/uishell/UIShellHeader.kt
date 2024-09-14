@@ -42,11 +42,13 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.CarbonDesignSystem
+import com.gabrieldrn.carbon.api.ExperimentalCarbonApi
 import com.gabrieldrn.carbon.foundation.color.LocalCarbonInlineTheme
 import com.gabrieldrn.carbon.foundation.color.LocalCarbonTheme
 import com.gabrieldrn.carbon.foundation.color.Theme
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 
+@ExperimentalCarbonApi
 @Composable
 public fun UiShellHeader(
     headerName: String,
