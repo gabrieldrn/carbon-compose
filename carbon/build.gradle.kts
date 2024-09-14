@@ -2,6 +2,7 @@ import com.gabrieldrn.carbon.Configuration
 import org.jetbrains.compose.ExperimentalComposeLibrary
 import org.jetbrains.dokka.base.DokkaBase
 import org.jetbrains.dokka.base.DokkaBaseConfiguration
+import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
 
 plugins {
     id("carbon.kmp.library")
@@ -18,6 +19,7 @@ buildscript {
 
 apply(from = "${rootDir}/scripts/publishing.gradle.kts")
 
+@OptIn(ExperimentalWasmDsl::class)
 kotlin {
     listOf(
         iosX64(),
@@ -28,6 +30,20 @@ kotlin {
             baseName = "Carbon"
             isStatic = true
         }
+    }
+
+    wasmJs {
+        browser {
+            testTask {
+                useKarma {
+                    useChromeHeadless()
+                    useConfigDirectory(
+                        project.projectDir.resolve("karma.config.d").resolve("wasm")
+                    )
+                }
+            }
+        }
+        binaries.executable()
     }
 
     @OptIn(ExperimentalComposeLibrary::class)
@@ -41,6 +57,7 @@ kotlin {
             }
             implementation(compose.animation)
             implementation(compose.components.resources)
+            implementation(compose.components.uiToolingPreview)
 
             implementation(libs.touchlab.kermit)
         }
@@ -48,8 +65,16 @@ kotlin {
             implementation(libs.kotlin.test)
             implementation(compose.uiTest)
         }
-        desktopTest.dependencies {
+        desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
+        }
+    }
+
+    targets.configureEach {
+        compilations.configureEach {
+            compileTaskProvider.get().compilerOptions {
+                freeCompilerArgs.add("-Xexpect-actual-classes")
+            }
         }
     }
 }
@@ -64,13 +89,7 @@ android {
     namespace = "com.gabrieldrn.carbon"
 
     dependencies {
-        // Disabled while there's no specific Android implementations.
-//        implementation(libs.androidx.lifecycle.runtime.ktx)
-//        implementation(libs.androidx.lifecycle.viewModel.compose)
-//        implementation(libs.androidx.compose.foundation)
-//        implementation(libs.androidx.compose.ui)
-
-        debugImplementation(libs.androidx.compose.uiTooling)
+        debugImplementation(compose.uiTooling)
         debugImplementation(libs.androidx.compose.ui.test.manifest)
 
         testImplementation(libs.junit)

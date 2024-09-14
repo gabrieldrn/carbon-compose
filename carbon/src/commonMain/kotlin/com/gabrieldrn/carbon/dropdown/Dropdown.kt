@@ -22,6 +22,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import co.touchlab.kermit.Logger
 import com.gabrieldrn.carbon.dropdown.base.BaseDropdown
 import com.gabrieldrn.carbon.dropdown.base.DropdownColors
 import com.gabrieldrn.carbon.dropdown.base.DropdownInteractiveState
@@ -30,7 +31,7 @@ import com.gabrieldrn.carbon.dropdown.base.DropdownPlaceholderText
 import com.gabrieldrn.carbon.dropdown.base.DropdownPopupContent
 import com.gabrieldrn.carbon.dropdown.base.DropdownSize
 import com.gabrieldrn.carbon.dropdown.base.DropdownStateIcon
-import co.touchlab.kermit.Logger
+import com.gabrieldrn.carbon.dropdown.base.dpSize
 
 /**
  * # Dropdown
@@ -62,10 +63,13 @@ import co.touchlab.kermit.Logger
  * should be used to update a remembered state with the new value.
  * @param onDismissRequest Callback invoked when the dropdown menu should be dismissed.
  * @param modifier The modifier to be applied to the dropdown.
- * @param label The label to be displayed above the dropdown field (optionnal).
+ * @param label The label to be displayed above the dropdown field (optionnal). NOTE: This label is
+ * provided as a convenience because its implementation may be very specific across contexts. You
+ * may need to implement your own label if the provided one does not meet your requirements.
  * @param state The [DropdownInteractiveState] of the dropdown.
  * @param dropdownSize The size of the dropdown, in terms of height. Defaults to
  * [DropdownSize.Large].
+ * @param isInlined Whether the dropdown should have the inline modification or not.
  * @param minVisibleItems The minimum number of items to be visible in the dropdown menu before the
  * user needs to scroll. This value is used to calculate the height of the menu. Defaults to 4.
  * @throws IllegalArgumentException If the options map is empty.
@@ -83,6 +87,7 @@ public fun <K : Any> Dropdown(
     label: String? = null,
     state: DropdownInteractiveState = DropdownInteractiveState.Enabled,
     dropdownSize: DropdownSize = DropdownSize.Large,
+    isInlined: Boolean = false,
     minVisibleItems: Int = 4,
 ) {
     val fieldText = remember(selectedOption) {
@@ -103,12 +108,13 @@ public fun <K : Any> Dropdown(
         options = options,
         onExpandedChange = onExpandedChange,
         onDismissRequest = onDismissRequest,
+        minVisibleItems = actualMinVisibleItems,
         colors = colors,
         modifier = modifier,
         label = label,
         state = state,
         dropdownSize = dropdownSize,
-        minVisibleItems = actualMinVisibleItems,
+        isInlined = isInlined,
         fieldContent = {
             DropdownPlaceholderText(
                 placeholderText = fieldText,
@@ -123,7 +129,7 @@ public fun <K : Any> Dropdown(
                 selectedOption = selectedOption,
                 options = options,
                 colors = colors,
-                componentHeight = dropdownSize.height,
+                componentHeight = dropdownSize.dpSize(),
                 onOptionClicked = { option ->
                     onOptionSelected(option)
                     onDismissRequest()
@@ -166,6 +172,7 @@ public fun <K : Any> Dropdown(
  * @param state The [DropdownInteractiveState] of the dropdown.
  * @param dropdownSize The size of the dropdown, in terms of height. Defaults to
  * [DropdownSize.Large].
+ * @param isInlined Whether the dropdown should have the inline modification or not.
  * @param minVisibleItems The minimum number of items to be visible in the dropdown menu before the
  * user needs to scroll. This value is used to calculate the height of the menu. Defaults to 4.
  * @throws IllegalArgumentException If the options map is empty.
@@ -180,6 +187,7 @@ public fun <K : Any> Dropdown(
     label: String? = null,
     state: DropdownInteractiveState = DropdownInteractiveState.Enabled,
     dropdownSize: DropdownSize = DropdownSize.Large,
+    isInlined: Boolean = false,
     minVisibleItems: Int = 4,
 ) {
     var isExpanded by remember { mutableStateOf(false) }
@@ -199,10 +207,11 @@ public fun <K : Any> Dropdown(
         onOptionSelected = onOptionSelected,
         onExpandedChange = { isExpanded = it },
         onDismissRequest = { isExpanded = false },
+        minVisibleItems = actualMinVisibleItems,
         modifier = modifier,
         label = label,
         state = state,
         dropdownSize = dropdownSize,
-        minVisibleItems = actualMinVisibleItems,
+        isInlined = isInlined
     )
 }

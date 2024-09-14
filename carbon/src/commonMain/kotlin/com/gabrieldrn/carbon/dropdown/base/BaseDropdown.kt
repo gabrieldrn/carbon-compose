@@ -17,25 +17,34 @@
 package com.gabrieldrn.carbon.dropdown.base
 
 import androidx.compose.animation.core.MutableTransitionState
+import androidx.compose.animation.core.Transition
 import androidx.compose.animation.core.animateDp
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.key.Key
 import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.onPreviewKeyEvent
+import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.InspectableModifier
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.debugInspectorInfo
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.Dp
@@ -60,6 +69,8 @@ private val dropdownTransitionSpecDp = tween<Dp>(
     durationMillis = Motion.Duration.moderate01,
     easing = Motion.Standard.productiveEasing
 )
+
+private val inlinedPopupWidth = 288.dp
 
 /**
  * Adds a callback to be invoked when the escape key (hardware) is pressed.
@@ -87,11 +98,12 @@ internal fun <K : Any> BaseDropdown(
     colors: DropdownColors,
     onExpandedChange: (Boolean) -> Unit,
     onDismissRequest: () -> Unit,
+    minVisibleItems: Int,
     modifier: Modifier = Modifier,
     label: String? = null,
     state: DropdownInteractiveState = DropdownInteractiveState.Enabled,
     dropdownSize: DropdownSize = DropdownSize.Large,
-    minVisibleItems: Int,
+    isInlined: Boolean = false,
     fieldContent: @Composable () -> Unit,
     popupContent: @Composable DropdownPopupScope.() -> Unit,
 ) {
@@ -108,105 +120,194 @@ internal fun <K : Any> BaseDropdown(
     val expandedStates = remember { MutableTransitionState(false) }
     expandedStates.targetState = expanded
 
-    val componentHeight = dropdownSize.height
+    val expandTransition = updateTransition(expandedStates, "Dropdown")
 
-    val transition = updateTransition(expandedStates, "Dropdown")
+    val labelTextColor by colors.labelTextColor(state)
+    val helperTextColor by colors.helperTextColor(state)
 
-    val height by transition.animateDp(
+    val fieldAndPopup = @Composable {
+        FieldAndPopupLayout(
+            options = options,
+            dropdownSize = dropdownSize,
+            expandTransition = expandTransition,
+            minVisibleItems = minVisibleItems,
+            isInlined = isInlined,
+            onDismissRequest = onDismissRequest,
+            field = {
+                DropdownField(
+                    state = state,
+                    dropdownSize = dropdownSize,
+                    interactionSource = interactionSource,
+                    expandTransition = expandTransition,
+                    colors = colors,
+                    isInlined = isInlined,
+                    expandedStates = expandedStates,
+                    onExpandedChange = onExpandedChange,
+                    fieldContent = fieldContent,
+                )
+            },
+            popup = {
+                if (expandedStates.currentState || expandedStates.targetState) {
+                    Popup(
+                        popupPositionProvider = DropdownMenuPositionProvider,
+                        onDismissRequest = onDismissRequest,
+                        properties = PopupProperties(focusable = true),
+                        content = { popupContent() }
+                    )
+                }
+            },
+            modifier = InspectableModifier {
+                debugInspectorInfo {
+                    properties["isExpanded"] = expanded.toString()
+                    properties["interactiveState"] = when (state) {
+                        is DropdownInteractiveState.Disabled -> "Disabled"
+                        is DropdownInteractiveState.Enabled -> "Enabled"
+                        is DropdownInteractiveState.Error -> "Error"
+                        is DropdownInteractiveState.Warning -> "Warning"
+                        is DropdownInteractiveState.ReadOnly -> "Read-only"
+                    }
+                }
+            }
+        )
+    }
+
+    if (isInlined) {
+        Row(
+            modifier = modifier,
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
+        ) {
+            label.takeIf { !it.isNullOrBlank() }?.let {
+                DropdownLabel(
+                    text = it,
+                    color = labelTextColor
+                )
+            }
+
+            Column(modifier = Modifier.padding(start = SpacingScale.spacing06)) {
+                fieldAndPopup()
+
+                state.helperText?.let {
+                    DropdownHelperText(
+                        text = it,
+                        color = helperTextColor
+                    )
+                }
+            }
+        }
+    } else {
+        Column(modifier = modifier) {
+            label.takeIf { !it.isNullOrBlank() }?.let {
+                DropdownLabel(
+                    text = it,
+                    color = labelTextColor,
+                    modifier = Modifier.padding(bottom = SpacingScale.spacing03)
+                )
+            }
+
+            fieldAndPopup()
+
+            state.helperText?.let {
+                DropdownHelperText(
+                    text = it,
+                    color = helperTextColor
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun <K : Any> FieldAndPopupLayout(
+    options: Map<K, DropdownOption>,
+    dropdownSize: DropdownSize,
+    expandTransition: Transition<Boolean>,
+    minVisibleItems: Int,
+    isInlined: Boolean,
+    onDismissRequest: () -> Unit,
+    popup: @Composable DropdownPopupScope.() -> Unit,
+    field: @Composable () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    val density = LocalDensity.current
+
+    val height by expandTransition.animateDp(
         transitionSpec = { dropdownTransitionSpecDp },
         label = "Popup content height"
     ) {
         if (it) {
             getOptionsPopupHeightRatio(options.size, minVisibleItems)
-                .times(componentHeight)
+                .times(dropdownSize.dpSize())
         } else {
             0.dp
         }
     }
 
-    val labelTextColor by colors.labelTextColor(state)
-    val helperTextColor by colors.helperTextColor(state)
+    var size by remember { mutableStateOf(IntSize.Zero) }
 
-    Column(modifier = modifier) {
-        label.takeIf { !it.isNullOrBlank() }?.let {
-            Text(
-                text = it,
-                style = Carbon.typography.label01,
-                color = labelTextColor,
-                modifier = Modifier
-                    .padding(bottom = SpacingScale.spacing03)
-                    .testTag(DropdownTestTags.LABEL_TEXT)
-            )
-        }
-
-        BoxWithConstraints(
-            modifier = Modifier.then(
-                InspectableModifier {
-                    debugInspectorInfo {
-                        properties["isExpanded"] = expanded.toString()
-                        properties["interactiveState"] = when (state) {
-                            is DropdownInteractiveState.Disabled -> "Disabled"
-                            is DropdownInteractiveState.Enabled -> "Enabled"
-                            is DropdownInteractiveState.Error -> "Error"
-                            is DropdownInteractiveState.Warning -> "Warning"
-                            is DropdownInteractiveState.ReadOnly -> "Read-only"
-                        }
-                    }
-                }
-            )
+    Box(
+        modifier = modifier.onSizeChanged { size = it }
+    ) {
+        val elevation by expandTransition.animateDp(
+            transitionSpec = { dropdownTransitionSpecDp },
+            label = "Popup content shadow"
         ) {
-            val elevation by transition.animateDp(
-                transitionSpec = { dropdownTransitionSpecDp },
-                label = "Popup content shadow"
-            ) {
-                if (it) 3.dp else 0.dp
-            }
+            if (it) 3.dp else 0.dp
+        }
 
-            val popupScope = remember(this, dropdownSize, onDismissRequest) {
-                object : DropdownPopupScope {
-                    override fun Modifier.anchor(): Modifier = this
-                        .width(maxWidth)
-                        .height(height)
-                        // This should be a box shadow (-> 0 2px 6px 0 rgba(0,0,0,.2)). But
-                        // compose doesn't provide the same API as CSS for shadows. A 3dp
-                        // elevation is the best approximation that could be found for now.
-                        .shadow(elevation = elevation)
-                        .onEscape(onDismissRequest)
-                }
-            }
-
-            DropdownField(
-                state = state,
-                dropdownSize = dropdownSize,
-                interactionSource = interactionSource,
-                transition = transition,
-                colors = colors,
-                expandedStates = expandedStates,
-                onExpandedChange = onExpandedChange,
-                fieldContent = fieldContent,
-            )
-
-            if (expandedStates.currentState || expandedStates.targetState) {
-                Popup(
-                    popupPositionProvider = DropdownMenuPositionProvider,
-                    onDismissRequest = onDismissRequest,
-                    properties = PopupProperties(focusable = true),
-                    content = { popupScope.popupContent() }
-                )
+        val popupScope = remember(this, isInlined, size, dropdownSize, onDismissRequest) {
+            object : DropdownPopupScope {
+                override fun Modifier.anchor(): Modifier = this
+                    .then(
+                        if (isInlined) {
+                            Modifier.width(inlinedPopupWidth)
+                        } else {
+                            Modifier.width(with(density) { size.width.toDp() })
+                        }
+                    )
+                    .height(height)
+                    // This should be a box shadow (-> 0 2px 6px 0 rgba(0,0,0,.2)). But
+                    // compose doesn't provide the same API as CSS for shadows. A 3dp
+                    // elevation is the best approximation that could be found for now.
+                    .shadow(elevation = elevation)
+                    .onEscape(onDismissRequest)
             }
         }
 
-        state.helperText?.let {
-            Text(
-                text = it,
-                style = Carbon.typography.helperText01,
-                color = helperTextColor,
-                modifier = Modifier
-                    .padding(top = SpacingScale.spacing02)
-                    .testTag(DropdownTestTags.HELPER_TEXT)
-            )
-        }
+        field()
+        popup(popupScope)
     }
+}
+
+@Composable
+private fun DropdownLabel(
+    text: String,
+    color: Color,
+    modifier: Modifier = Modifier
+) {
+    Text(
+        text = text,
+        style = Carbon.typography.label01,
+        color = color,
+        modifier = modifier
+            .testTag(DropdownTestTags.LABEL_TEXT)
+    )
+}
+
+@Composable
+private fun DropdownHelperText(
+    text: String,
+    color: Color,
+    modifier: Modifier = Modifier
+) {
+    Text(
+        text = text,
+        style = Carbon.typography.helperText01,
+        color = color,
+        modifier = modifier
+            .padding(top = SpacingScale.spacing02)
+            .testTag(DropdownTestTags.HELPER_TEXT)
+    )
 }
 
 @Stable

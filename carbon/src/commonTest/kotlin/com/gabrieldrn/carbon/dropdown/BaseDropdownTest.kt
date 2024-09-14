@@ -40,6 +40,7 @@ import com.gabrieldrn.carbon.dropdown.base.DropdownOption
 import com.gabrieldrn.carbon.dropdown.base.DropdownPlaceholderText
 import com.gabrieldrn.carbon.dropdown.base.DropdownSize
 import com.gabrieldrn.carbon.dropdown.base.DropdownTestTags
+import com.gabrieldrn.carbon.dropdown.base.dpSize
 import kotlin.test.Test
 import kotlin.test.assertTrue
 
@@ -160,23 +161,22 @@ class BaseDropdownTest {
         tearDown()
     }
 
-    @Suppress("DEPRECATION")
     @Test
     fun baseDropdown_field_validateSize() = runComposeUiTest {
         setup()
 
         onNodeWithTag(DropdownTestTags.FIELD)
-            .assertHeightIsEqualTo(DropdownSize.Large.height)
+            .assertHeightIsEqualTo(DropdownSize.Large.dpSize())
 
         dropdownSize = DropdownSize.Small
 
         onNodeWithTag(DropdownTestTags.FIELD)
-            .assertHeightIsEqualTo(DropdownSize.Small.height)
+            .assertHeightIsEqualTo(DropdownSize.Small.dpSize())
 
         dropdownSize = DropdownSize.Medium
 
         onNodeWithTag(DropdownTestTags.FIELD)
-            .assertHeightIsEqualTo(DropdownSize.Medium.height)
+            .assertHeightIsEqualTo(DropdownSize.Medium.dpSize())
 
         tearDown()
     }

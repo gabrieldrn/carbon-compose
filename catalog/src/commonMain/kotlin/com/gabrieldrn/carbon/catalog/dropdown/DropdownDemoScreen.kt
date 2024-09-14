@@ -17,7 +17,6 @@
 package com.gabrieldrn.carbon.catalog.dropdown
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
@@ -42,16 +41,14 @@ import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.catalog.misc.LayerSelectionDropdown
 import com.gabrieldrn.carbon.dropdown.Dropdown
 import com.gabrieldrn.carbon.dropdown.base.DropdownInteractiveState
-import com.gabrieldrn.carbon.dropdown.base.DropdownInteractiveState.Disabled
-import com.gabrieldrn.carbon.dropdown.base.DropdownInteractiveState.Enabled
-import com.gabrieldrn.carbon.dropdown.base.DropdownInteractiveState.Error
-import com.gabrieldrn.carbon.dropdown.base.DropdownInteractiveState.ReadOnly
-import com.gabrieldrn.carbon.dropdown.base.DropdownInteractiveState.Warning
 import com.gabrieldrn.carbon.dropdown.base.DropdownOption
+import com.gabrieldrn.carbon.dropdown.base.DropdownSize
+import com.gabrieldrn.carbon.dropdown.base.toDropdownOptions
 import com.gabrieldrn.carbon.foundation.color.CarbonLayer
 import com.gabrieldrn.carbon.foundation.color.Layer
 import com.gabrieldrn.carbon.foundation.color.containerBackground
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
+import com.gabrieldrn.carbon.toggle.Toggle
 
 private val dropdownStates = listOf(
     DropdownInteractiveState.Enabled,
@@ -71,6 +68,8 @@ private val dropdownStates = listOf(
     )
 }
 
+private val dropdownSizes = DropdownSize.entries.toDropdownOptions()
+
 private val layersOptions =
     Layer.entries.associateWith { DropdownOption(it.toString(), enabled = it != Layer.Layer03) }
 
@@ -78,11 +77,11 @@ private val stateSaver = Saver<DropdownInteractiveState, String>(
     save = { it::class.simpleName },
     restore = {
         when (it) {
-            "Enabled" -> Enabled
-            "Warning" -> Warning("Warning message goes here")
-            "Error" -> Error("Error message goes here")
-            "Disabled" -> Disabled
-            "ReadOnly" -> ReadOnly
+            "Enabled" -> DropdownInteractiveState.Enabled
+            "Warning" -> DropdownInteractiveState.Warning("Warning message goes here")
+            "Error" -> DropdownInteractiveState.Error("Error message goes here")
+            "Disabled" -> DropdownInteractiveState.Disabled
+            "ReadOnly" -> DropdownInteractiveState.ReadOnly
             else -> throw IllegalArgumentException("Unknown state: $it")
         }
     }
@@ -103,21 +102,37 @@ internal fun DropdownDemoScreen(
             .padding(WindowInsets.navigationBars.asPaddingValues())
     ) {
         var dropdownState by rememberSaveable(Unit, stateSaver = stateSaver) {
-            mutableStateOf<DropdownInteractiveState>(DropdownInteractiveState.Enabled)
+            mutableStateOf(DropdownInteractiveState.Enabled)
+        }
+
+        var dropdownSize by rememberSaveable {
+            mutableStateOf(DropdownSize.Large)
+        }
+
+        var isInlined by rememberSaveable {
+            mutableStateOf(false)
         }
 
         CarbonLayer(layer = layer) {
-            Box(
+            Column(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(200.dp)
                     .containerBackground()
                     .padding(SpacingScale.spacing05),
-                contentAlignment = Alignment.Center
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
             ) {
                 when (variant) {
-                    DropdownVariant.Default -> DefaultDemoDropdown(state = dropdownState)
-                    DropdownVariant.Multiselect -> MultiselectDemoDropdown(state = dropdownState)
+                    DropdownVariant.Default -> DefaultDemoDropdown(
+                        state = dropdownState,
+                        size = dropdownSize,
+                        isInlined = isInlined
+                    )
+                    DropdownVariant.Multiselect -> MultiselectDemoDropdown(
+                        state = dropdownState,
+                        size = dropdownSize
+                    )
                 }
             }
         }
@@ -142,6 +157,24 @@ internal fun DropdownDemoScreen(
                     selectedOption = dropdownState,
                     onOptionSelected = { dropdownState = it },
                 )
+
+                dropdownSizes.takeIf { it.size > 1 }?.let { sizes ->
+                    Dropdown(
+                        placeholder = "Choose option",
+                        label = "Dropdown size",
+                        options = sizes,
+                        selectedOption = dropdownSize,
+                        onOptionSelected = { dropdownSize = it },
+                    )
+                }
+
+                if (variant == DropdownVariant.Default) {
+                    Toggle(
+                        label = "Inlined",
+                        isToggled = isInlined,
+                        onToggleChange = { isInlined = it },
+                    )
+                }
 
                 LayerSelectionDropdown(
                     layers = layersOptions,

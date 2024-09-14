@@ -16,7 +16,6 @@ public final class com/gabrieldrn/carbon/button/ButtonKt {
 }
 
 public final class com/gabrieldrn/carbon/button/ButtonSize : java/lang/Enum {
-	public static final field Companion Lcom/gabrieldrn/carbon/button/ButtonSize$Companion;
 	public static final field ExtraLarge Lcom/gabrieldrn/carbon/button/ButtonSize;
 	public static final field LargeExpressive Lcom/gabrieldrn/carbon/button/ButtonSize;
 	public static final field LargeProductive Lcom/gabrieldrn/carbon/button/ButtonSize;
@@ -26,9 +25,6 @@ public final class com/gabrieldrn/carbon/button/ButtonSize : java/lang/Enum {
 	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public static fun valueOf (Ljava/lang/String;)Lcom/gabrieldrn/carbon/button/ButtonSize;
 	public static fun values ()[Lcom/gabrieldrn/carbon/button/ButtonSize;
-}
-
-public final class com/gabrieldrn/carbon/button/ButtonSize$Companion {
 }
 
 public final class com/gabrieldrn/carbon/button/ButtonType : java/lang/Enum {
@@ -106,8 +102,8 @@ public final class com/gabrieldrn/carbon/common/selectable/SelectableInteractive
 }
 
 public final class com/gabrieldrn/carbon/dropdown/DropdownKt {
-	public static final fun Dropdown (Ljava/lang/String;Ljava/util/Map;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;Landroidx/compose/ui/Modifier;Ljava/lang/String;Lcom/gabrieldrn/carbon/dropdown/base/DropdownInteractiveState;Lcom/gabrieldrn/carbon/dropdown/base/DropdownSize;ILandroidx/compose/runtime/Composer;II)V
-	public static final fun Dropdown (ZLjava/lang/String;Ljava/util/Map;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Ljava/lang/String;Lcom/gabrieldrn/carbon/dropdown/base/DropdownInteractiveState;Lcom/gabrieldrn/carbon/dropdown/base/DropdownSize;ILandroidx/compose/runtime/Composer;III)V
+	public static final fun Dropdown (Ljava/lang/String;Ljava/util/Map;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;Landroidx/compose/ui/Modifier;Ljava/lang/String;Lcom/gabrieldrn/carbon/dropdown/base/DropdownInteractiveState;Lcom/gabrieldrn/carbon/dropdown/base/DropdownSize;ZILandroidx/compose/runtime/Composer;II)V
+	public static final fun Dropdown (ZLjava/lang/String;Ljava/util/Map;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Ljava/lang/String;Lcom/gabrieldrn/carbon/dropdown/base/DropdownInteractiveState;Lcom/gabrieldrn/carbon/dropdown/base/DropdownSize;ZILandroidx/compose/runtime/Composer;III)V
 }
 
 public abstract interface class com/gabrieldrn/carbon/dropdown/base/DropdownInteractiveState {

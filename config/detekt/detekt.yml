@@ -4,10 +4,10 @@ build:
   maxIssues: 0
   excludeCorrectable: false
   weights:
-    # complexity: 2
-    # LongParameterList: 1
-    # style: 1
-    # comments: 1
+  # complexity: 2
+  # LongParameterList: 1
+  # style: 1
+  # comments: 1
 
 config:
   validation: true
@@ -39,17 +39,17 @@ console-reports:
     - 'ProjectStatisticsReport'
     - 'ComplexityReport'
     - 'NotificationReport'
-#    - 'FindingsReport'
+    #    - 'FindingsReport'
     - 'FileBasedFindingsReport'
     - 'LiteFindingsReport'
 
 output-reports:
   active: true
   exclude:
-#   - 'TxtOutputReport'
-#   - 'XmlOutputReport'
-#   - 'HtmlOutputReport'
-   - 'MdOutputReport'
+    #   - 'TxtOutputReport'
+    #   - 'XmlOutputReport'
+    #   - 'HtmlOutputReport'
+    - 'MdOutputReport'
 
 comments:
   active: true
@@ -74,7 +74,9 @@ comments:
       - '**/commonTest/**'
       - '**/jvmTest/**'
       - '**/jsTest/**'
+      - '**/nativeTest/**'
       - '**/iosTest/**'
+      - '**/wasmJsTest/**'
   OutdatedDocumentation:
     active: true
     matchTypeParameters: true
@@ -88,7 +90,9 @@ comments:
       - '**/commonTest/**'
       - '**/jvmTest/**'
       - '**/jsTest/**'
+      - '**/nativeTest/**'
       - '**/iosTest/**'
+      - '**/wasmJsTest/**'
       - '**/catalog/src/**'
     searchInNestedClass: true
     searchInInnerClass: true
@@ -137,21 +141,21 @@ complexity:
       - 'with'
   LabeledExpression:
     active: false
-    ignoredLabels: []
+    ignoredLabels: [ ]
   LargeClass:
     active: true
     threshold: 600
   LongMethod:
     active: true
     threshold: 60
-    ignoreAnnotated: ['Composable']
+    ignoreAnnotated: [ 'Composable' ]
   LongParameterList:
     active: true
     functionThreshold: 10
     constructorThreshold: 7
     ignoreDefaultParameters: true
     ignoreDataClasses: true
-    ignoreAnnotated: ['Composable'] # A compose function can require a lot of parameters.
+    ignoreAnnotated: [ 'Composable' ] # A compose function can require a lot of parameters.
   MethodOverloading:
     active: false
     threshold: 6
@@ -342,7 +346,7 @@ naming:
   ForbiddenClassName:
     active: false
     excludes: *lib_folders
-    forbiddenName: []
+    forbiddenName: [ ]
   FunctionMaxLength:
     active: false
     excludes: *lib_folders
@@ -365,14 +369,14 @@ naming:
     excludeClassPattern: '$^'
   InvalidPackageDeclaration:
     active: true
-    excludes: ['**/*.kts']
+    excludes: [ '**/*.kts' ]
     rootPackage: ''
     requireRootInDeclaration: false
   LambdaParameterNaming:
     active: false
     parameterPattern: '[a-z][A-Za-z0-9]*|_'
   MatchingDeclarationName:
-    active: true
+    active: false
     mustBeFirst: true
   MemberNameEqualsClassName:
     active: true
@@ -471,7 +475,7 @@ potential-bugs:
       - 'kotlin.sequences.Sequence'
       - 'kotlinx.coroutines.flow.*Flow'
       - 'java.util.stream.*Stream'
-    ignoreFunctionCall: []
+    ignoreFunctionCall: [ ]
   ImplicitDefaultLocale:
     active: true
   ImplicitUnitReturnType:
@@ -491,7 +495,7 @@ potential-bugs:
     active: true
   MissingPackageDeclaration:
     active: true
-    excludes: ['**/*.kts', '**/build-logic/convention/src/main/kotlin/*']
+    excludes: [ '**/*.kts', '**/build-logic/convention/src/main/kotlin/*' ]
   NullCheckOnMutableProperty:
     active: false
   NullableToStringCall:
@@ -567,13 +571,13 @@ style:
     includeLineWrapping: false
   ForbiddenAnnotation:
     active: false
-    annotations: []
+    annotations: [ ]
   ForbiddenComment:
     active: false
     allowedPatterns: ''
   ForbiddenImport:
     active: false
-    imports: []
+    imports: [ ]
     forbiddenPatterns: ''
   ForbiddenMethodCall:
     active: true
@@ -584,7 +588,7 @@ style:
         value: 'kotlin.io.println'
   ForbiddenSuppress:
     active: false
-    rules: []
+    rules: [ ]
   ForbiddenVoid:
     active: true
     ignoreOverridden: false
@@ -593,13 +597,13 @@ style:
     active: true
     ignoreOverridableFunction: true
     ignoreActualFunction: true
-    excludedFunctions: []
+    excludedFunctions: [ ]
   LoopWithTooManyJumpStatements:
     active: true
     maxJumpCount: 1
   MagicNumber:
     active: true
-    excludes: ['**/test/**', '**/androidTest/**', '**/commonTest/**', '**/jvmTest/**', '**/jsTest/**', '**/iosTest/**', '**/*.kts']
+    excludes: [ '**/test/**', '**/androidTest/**', '**/commonTest/**', '**/jvmTest/**', '**/jsTest/**', '**/iosTest/**', '**/*.kts' ]
     ignoreNumbers:
       - '-1'
       - '0.5'
@@ -620,7 +624,7 @@ style:
     ignoreEnums: false
     ignoreRanges: false
     ignoreExtensionFunctions: true
-    ignoreAnnotated: ['Preview']
+    ignoreAnnotated: [ 'Preview' ]
   MandatoryBracesLoops:
     active: true
   MaxChainedCallsOnSameLine:

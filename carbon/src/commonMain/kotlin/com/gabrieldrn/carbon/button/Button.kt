@@ -29,7 +29,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
-import com.gabrieldrn.carbon.button.ButtonSize.Companion.isExtraLarge
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 
 /**
