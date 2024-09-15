@@ -11,6 +11,9 @@ public final class com/gabrieldrn/carbon/CarbonKt {
 	public static final fun CarbonDesignSystem (Lcom/gabrieldrn/carbon/foundation/color/Theme;Lcom/gabrieldrn/carbon/foundation/color/Theme;Lcom/gabrieldrn/carbon/foundation/color/Layer;Lkotlin/jvm/functions/Function2;Landroidx/compose/runtime/Composer;II)V
 }
 
+public abstract interface annotation class com/gabrieldrn/carbon/api/ExperimentalCarbonApi : java/lang/annotation/Annotation {
+}
+
 public final class com/gabrieldrn/carbon/button/ButtonKt {
 	public static final fun Button (Ljava/lang/String;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Landroidx/compose/ui/graphics/painter/Painter;ZLcom/gabrieldrn/carbon/button/ButtonType;Lcom/gabrieldrn/carbon/button/ButtonSize;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;II)V
 }

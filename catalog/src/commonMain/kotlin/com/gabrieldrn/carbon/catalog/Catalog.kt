@@ -28,6 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
+import com.gabrieldrn.carbon.api.ExperimentalCarbonApi
 import com.gabrieldrn.carbon.catalog.BaseDestination.Companion.eq
 import com.gabrieldrn.carbon.catalog.dropdown.DropdownNavDestination
 import com.gabrieldrn.carbon.catalog.theme.CarbonCatalogTheme
@@ -35,6 +36,7 @@ import com.gabrieldrn.carbon.foundation.color.containerBackground
 import com.gabrieldrn.carbon.uishell.UiShellHeader
 import org.jetbrains.compose.resources.painterResource
 
+@OptIn(ExperimentalCarbonApi::class)
 @Composable
 fun Catalog(
     modifier: Modifier = Modifier,
