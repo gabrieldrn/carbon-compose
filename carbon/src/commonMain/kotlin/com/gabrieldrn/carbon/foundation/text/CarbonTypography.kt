@@ -112,7 +112,6 @@ public fun getIBMPlexMonoFamily(): FontFamily = FontFamily(
  * @param ibmPlexSerifFamily The IBM Plex **serif** font family.
  * @param ibmPlexMonoFamily The IBM Plex **monospace** font family.
  */
-@Suppress("UndocumentedPublicProperty")
 public data class CarbonTypography(
     public val ibmPlexSansFamily: FontFamily,
     public val ibmPlexSerifFamily: FontFamily,
@@ -120,42 +119,71 @@ public data class CarbonTypography(
 ) {
     // region Utility
 
+    /**
+     * This is for inline code snippets and smaller code elements.
+     */
     public val code01: TextStyle = TextStyle(
         fontFamily = ibmPlexMonoFamily,
         fontSize = 12.sp,
         lineHeight = 16.sp,
         letterSpacing = .32f.sp,
     )
+
+    /**
+     * This is for large code snippets and larger code elements.
+     */
     public val code02: TextStyle = TextStyle(
         fontFamily = ibmPlexMonoFamily,
         fontSize = 14.sp,
         lineHeight = 20.sp,
         letterSpacing = .32f.sp,
     )
+
+    /**
+     * This is a multipurpose type style that can be used for field labels in components, error
+     * messages, and captions. It should not be used for body copy.
+     */
     public val label01: TextStyle = TextStyle(
         fontFamily = ibmPlexSansFamily,
         fontSize = 12.sp,
         lineHeight = 16.sp,
         letterSpacing = .32f.sp,
     )
+
+    /**
+     * This is a multipurpose type style that can be used for field labels in components, error
+     * messages, and captions. It should not be used for body copy.
+     */
     public val label02: TextStyle = TextStyle(
         fontFamily = ibmPlexSansFamily,
         fontSize = 14.sp,
         lineHeight = 18.sp,
         letterSpacing = .16f.sp,
     )
+
+    /**
+     * This is for explanatory helper text that appears below a field title within a component.
+     */
     public val helperText01: TextStyle = TextStyle(
         fontFamily = ibmPlexSansFamily,
         fontSize = 12.sp,
         lineHeight = 16.sp,
         letterSpacing = .32f.sp,
     )
+
+    /**
+     * This is for explanatory helper text that appears below a field title within a component.
+     */
     public val helperText02: TextStyle = TextStyle(
         fontFamily = ibmPlexSansFamily,
         fontSize = 14.sp,
         lineHeight = 18.sp,
         letterSpacing = .16f.sp,
     )
+
+    /**
+     * This is for legal copy appearing in product pages.
+     */
     public val legal01: TextStyle = TextStyle(
         fontFamily = ibmPlexSansFamily,
         fontSize = 12.sp,
@@ -163,6 +191,10 @@ public data class CarbonTypography(
         fontWeight = FontWeight.Normal,
         letterSpacing = .32f.sp,
     )
+
+    /**
+     * This is for legal copy appearing in web pages.
+     */
     public val legal02: TextStyle = TextStyle(
         fontFamily = ibmPlexSansFamily,
         fontSize = 14.sp,
@@ -174,6 +206,9 @@ public data class CarbonTypography(
 
     // region Body
 
+    /**
+     * This is for short paragraphs with no more than four lines and is commonly used in components.
+     */
     public val bodyCompact01: TextStyle = TextStyle(
         fontFamily = ibmPlexSansFamily,
         fontSize = 14.sp,
@@ -181,17 +216,33 @@ public data class CarbonTypography(
         letterSpacing = .16f.sp,
         baselineShift = BaselineShift(.16f),
     )
+
+    /**
+     * This is for short paragraphs with no more than four lines. Use in expressive components, such
+     * as button and link.
+     */
     public val bodyCompact02: TextStyle = TextStyle(
         fontFamily = ibmPlexSansFamily,
         fontSize = 16.sp,
         lineHeight = 22.sp,
     )
+
+    /**
+     * With a slightly taller line height than [bodyCompact01], this body style is used in
+     * productive layouts for long paragraphs with more than four lines. Use also for longer body
+     * copy in components such as accordion or structured list. It is always left-aligned.
+     */
     public val body01: TextStyle = TextStyle(
         fontFamily = ibmPlexSansFamily,
         fontSize = 14.sp,
         lineHeight = 20.sp,
         letterSpacing = .16f.sp,
     )
+
+    /**
+     * With a slightly taller line height than [bodyCompact02], this style is commonly used in
+     * expressive layouts for long paragraphs with four lines or more. It is always left-aligned.
+     */
     public val body02: TextStyle = TextStyle(
         fontFamily = ibmPlexSansFamily,
         fontSize = 16.sp,
@@ -202,6 +253,9 @@ public data class CarbonTypography(
 
     // region Heading
 
+    /**
+     * This is for component and layout headings. It pairs with [bodyCompact01].
+     */
     public val headingCompact01: TextStyle = TextStyle(
         fontFamily = ibmPlexSansFamily,
         fontSize = 14.sp,
@@ -209,12 +263,20 @@ public data class CarbonTypography(
         fontWeight = FontWeight.SemiBold,
         letterSpacing = .16f.sp,
     )
+
+    /**
+     * This is for smaller layout headings. It pairs with [bodyCompact02].
+     */
     public val headingCompact02: TextStyle = TextStyle(
         fontFamily = ibmPlexSansFamily,
         fontSize = 16.sp,
         lineHeight = 22.sp,
         fontWeight = FontWeight.SemiBold,
     )
+
+    /**
+     * This is for component and layout headings. It pairs with [body01].
+     */
     public val heading01: TextStyle = TextStyle(
         fontFamily = ibmPlexSansFamily,
         fontSize = 14.sp,
@@ -222,34 +284,58 @@ public data class CarbonTypography(
         fontWeight = FontWeight.SemiBold,
         letterSpacing = .16f.sp,
     )
+
+    /**
+     * This is for smaller layout headings. It pairs with [body02].
+     */
     public val heading02: TextStyle = TextStyle(
         fontFamily = ibmPlexSansFamily,
         fontSize = 16.sp,
         lineHeight = 24.sp,
         fontWeight = FontWeight.SemiBold,
     )
+
+    /**
+     * This is for component and layout headings.
+     */
     public val heading03: TextStyle = TextStyle(
         fontFamily = ibmPlexSansFamily,
         fontSize = 20.sp,
         lineHeight = 28.sp,
         fontWeight = FontWeight.SemiBold,
     )
+
+    /**
+     * This is for layout headings.
+     */
     public val heading04: TextStyle = TextStyle(
         fontFamily = ibmPlexSansFamily,
         fontSize = 28.sp,
         lineHeight = 36.sp,
     )
+
+    /**
+     * This is for layout headings.
+     */
     public val heading05: TextStyle = TextStyle(
         fontFamily = ibmPlexSansFamily,
         fontSize = 32.sp,
         lineHeight = 40.sp,
     )
+
+    /**
+     * This is for layout headings.
+     */
     public val heading06: TextStyle = TextStyle(
         fontFamily = ibmPlexSansFamily,
         fontSize = 42.sp,
         lineHeight = 50.sp,
         fontWeight = FontWeight.Light,
     )
+
+    /**
+     * This is for layout headings.
+     */
     public val heading07: TextStyle = TextStyle(
         fontFamily = ibmPlexSansFamily,
         fontSize = 54.sp,
@@ -260,31 +346,50 @@ public data class CarbonTypography(
     // endregion
 
     // region Display
-    // Adapted from Fluid Display styles, fixed to Sm breakpoint.
+    // Adapted from Fluid Display styles, fixed to Sm breakpoint.\
 
+    /**
+     * This is for larger paragraphs of type that are usually three or more lines in length.
+     */
     public val paragraph01: TextStyle = TextStyle(
         fontFamily = ibmPlexSansFamily,
         fontSize = 24.sp,
         lineHeight = 30.sp,
         fontWeight = FontWeight.Light,
     )
+
+    /**
+     * No description provided.
+     */
     public val quotation01: TextStyle = TextStyle(
         fontFamily = ibmPlexSerifFamily,
         fontSize = 20.sp,
         lineHeight = 26.sp,
     )
+
+    /**
+     * No description provided.
+     */
     public val quotation02: TextStyle = TextStyle(
         fontFamily = ibmPlexSerifFamily,
         fontSize = 32.sp,
         lineHeight = 40.sp,
         fontWeight = FontWeight.Light,
     )
+
+    /**
+     * No description provided.
+     */
     public val display01: TextStyle = TextStyle(
         fontFamily = ibmPlexSerifFamily,
         fontSize = 42.sp,
         lineHeight = 50.sp,
         fontWeight = FontWeight.Light,
     )
+
+    /**
+     * No description provided.
+     */
     public val display02: TextStyle = TextStyle(
         fontFamily = ibmPlexSerifFamily,
         fontSize = 42.sp,
