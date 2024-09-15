@@ -25,6 +25,7 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.BaselineShift
 import androidx.compose.ui.unit.sp
+import co.touchlab.kermit.Logger
 import com.gabrieldrn.carbon.Res
 import com.gabrieldrn.carbon.ibmplexmono_italic
 import com.gabrieldrn.carbon.ibmplexmono_light
@@ -44,7 +45,6 @@ import com.gabrieldrn.carbon.ibmplexserif_lightitalic
 import com.gabrieldrn.carbon.ibmplexserif_regular
 import com.gabrieldrn.carbon.ibmplexserif_semibold
 import com.gabrieldrn.carbon.ibmplexserif_semibolditalic
-import co.touchlab.kermit.Logger
 import org.jetbrains.compose.resources.Font
 
 /**
@@ -107,12 +107,16 @@ public fun getIBMPlexMonoFamily(): FontFamily = FontFamily(
  *
  * See [Typography type sets](https://carbondesignsystem.com/guidelines/typography/type-sets) for
  * more information.
+ *
+ * @param ibmPlexSansFamily The IBM Plex **sans serif** font family.
+ * @param ibmPlexSerifFamily The IBM Plex **serif** font family.
+ * @param ibmPlexMonoFamily The IBM Plex **monospace** font family.
  */
 @Suppress("UndocumentedPublicProperty")
-public class CarbonTypography(
-    ibmPlexSansFamily: FontFamily,
-    ibmPlexSerifFamily: FontFamily,
-    ibmPlexMonoFamily: FontFamily,
+public data class CarbonTypography(
+    public val ibmPlexSansFamily: FontFamily,
+    public val ibmPlexSerifFamily: FontFamily,
+    public val ibmPlexMonoFamily: FontFamily,
 ) {
     // region Utility
 
