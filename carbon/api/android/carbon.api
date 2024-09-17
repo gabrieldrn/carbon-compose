@@ -624,6 +624,12 @@ public final class com/gabrieldrn/carbon/foundation/spacing/SpacingScale {
 public final class com/gabrieldrn/carbon/foundation/text/CarbonTypography {
 	public static final field $stable I
 	public fun <init> (Landroidx/compose/ui/text/font/FontFamily;Landroidx/compose/ui/text/font/FontFamily;Landroidx/compose/ui/text/font/FontFamily;)V
+	public final fun component1 ()Landroidx/compose/ui/text/font/FontFamily;
+	public final fun component2 ()Landroidx/compose/ui/text/font/FontFamily;
+	public final fun component3 ()Landroidx/compose/ui/text/font/FontFamily;
+	public final fun copy (Landroidx/compose/ui/text/font/FontFamily;Landroidx/compose/ui/text/font/FontFamily;Landroidx/compose/ui/text/font/FontFamily;)Lcom/gabrieldrn/carbon/foundation/text/CarbonTypography;
+	public static synthetic fun copy$default (Lcom/gabrieldrn/carbon/foundation/text/CarbonTypography;Landroidx/compose/ui/text/font/FontFamily;Landroidx/compose/ui/text/font/FontFamily;Landroidx/compose/ui/text/font/FontFamily;ILjava/lang/Object;)Lcom/gabrieldrn/carbon/foundation/text/CarbonTypography;
+	public fun equals (Ljava/lang/Object;)Z
 	public final fun getBody01 ()Landroidx/compose/ui/text/TextStyle;
 	public final fun getBody02 ()Landroidx/compose/ui/text/TextStyle;
 	public final fun getBodyCompact01 ()Landroidx/compose/ui/text/TextStyle;
@@ -643,6 +649,9 @@ public final class com/gabrieldrn/carbon/foundation/text/CarbonTypography {
 	public final fun getHeadingCompact02 ()Landroidx/compose/ui/text/TextStyle;
 	public final fun getHelperText01 ()Landroidx/compose/ui/text/TextStyle;
 	public final fun getHelperText02 ()Landroidx/compose/ui/text/TextStyle;
+	public final fun getIbmPlexMonoFamily ()Landroidx/compose/ui/text/font/FontFamily;
+	public final fun getIbmPlexSansFamily ()Landroidx/compose/ui/text/font/FontFamily;
+	public final fun getIbmPlexSerifFamily ()Landroidx/compose/ui/text/font/FontFamily;
 	public final fun getLabel01 ()Landroidx/compose/ui/text/TextStyle;
 	public final fun getLabel02 ()Landroidx/compose/ui/text/TextStyle;
 	public final fun getLegal01 ()Landroidx/compose/ui/text/TextStyle;
@@ -650,6 +659,8 @@ public final class com/gabrieldrn/carbon/foundation/text/CarbonTypography {
 	public final fun getParagraph01 ()Landroidx/compose/ui/text/TextStyle;
 	public final fun getQuotation01 ()Landroidx/compose/ui/text/TextStyle;
 	public final fun getQuotation02 ()Landroidx/compose/ui/text/TextStyle;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/gabrieldrn/carbon/foundation/text/CarbonTypographyKt {
