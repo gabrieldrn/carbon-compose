@@ -31,6 +31,24 @@ import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 import com.gabrieldrn.carbon.foundation.text.Text
 
+/**
+ * # Tag - Read-only
+ *
+ * Tags are components that are often used to label different items, create categorization, filter
+ * data, select or deselect options, and include functionality to disclose several related tags in
+ * another view
+ *
+ * Read-only tags have no interactive functionality and are commonly used for categorizing and
+ * labeling.
+ *
+ * (From [Tag documentation](https://carbondesignsystem.com/components/tag/usage/))`
+ *
+ * @param text The text to be displayed in the tag.
+ * @param modifier The modifier to be applied to the tag.
+ * @param type The type of the tag. The tag type can be referred to the tag color. Defaults to
+ * [TagType.Gray].
+ * @param size The size of the tag. Defaults to [TagSize.Small].
+ */
 @Composable
 public fun ReadOnlyTag(
     text: String,
