@@ -18,6 +18,7 @@ package com.gabrieldrn.carbon.foundation.color
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
+import com.gabrieldrn.carbon.tag.colors.TagColors
 
 /**
  * Themes are used to modify existing components to fit a specific visual style. By using Carbon’s
@@ -32,6 +33,10 @@ import androidx.compose.ui.graphics.Color
  */
 @Immutable
 public abstract class Theme {
+
+    // ---
+    // Core tokens
+    // ---
 
     // region Background
 
@@ -666,6 +671,19 @@ public abstract class Theme {
 
     // endregion
 
+    // ---
+    // Component tokens
+    // ---
+
+    /**
+     * Tag component colors.
+     */
+    public abstract val tagColors: TagColors
+
+    // ---
+    // Utility functions
+    // ---
+
     /**
      * Returns the container color based on a provided [layer].
      * @param layer Associated layer. Defaults to layer 00.
@@ -787,7 +805,8 @@ public abstract class Theme {
         toggleOff: Color = this.toggleOff,
         overlay: Color = this.overlay,
         skeletonElement: Color = this.skeletonElement,
-        skeletonBackground: Color = this.skeletonBackground
+        skeletonBackground: Color = this.skeletonBackground,
+        tagColors: TagColors = this.tagColors,
     ): Theme {
         return object : Theme() {
             override val background: Color = background
@@ -899,6 +918,7 @@ public abstract class Theme {
             override val overlay: Color = overlay
             override val skeletonElement: Color = skeletonElement
             override val skeletonBackground: Color = skeletonBackground
+            override val tagColors: TagColors = tagColors
         }
     }
 
@@ -1016,6 +1036,7 @@ public abstract class Theme {
         if (overlay != other.overlay) return false
         if (skeletonElement != other.skeletonElement) return false
         if (skeletonBackground != other.skeletonBackground) return false
+        if (tagColors != other.tagColors) return false
 
         return true
     }
@@ -1131,6 +1152,7 @@ public abstract class Theme {
         result = 31 * result + overlay.hashCode()
         result = 31 * result + skeletonElement.hashCode()
         result = 31 * result + skeletonBackground.hashCode()
+        result = 31 * result + tagColors.hashCode()
         return result
     }
 }

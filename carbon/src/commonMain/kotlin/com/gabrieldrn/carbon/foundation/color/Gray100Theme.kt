@@ -18,6 +18,8 @@ package com.gabrieldrn.carbon.foundation.color
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
+import com.gabrieldrn.carbon.tag.colors.Gray100TagColors
+import com.gabrieldrn.carbon.tag.colors.TagColors
 
 /**
  * One of the default _dark_ themes available in Carbon. This theme uses Grey 100 as the global
@@ -145,4 +147,6 @@ public object Gray100Theme : Theme() {
     override val overlay: Color = Color(0xB3161616)
     override val skeletonElement: Color = Color(0xFF525252)
     override val skeletonBackground: Color = Color(0xFF353535)
+
+    override val tagColors: TagColors = Gray100TagColors
 }
