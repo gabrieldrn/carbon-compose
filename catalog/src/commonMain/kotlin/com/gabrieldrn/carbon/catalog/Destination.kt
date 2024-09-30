@@ -106,7 +106,7 @@ enum class Destination(
     Tabs("Tabs"),
     Tag(
         title = "Tag",
-        illustration = null,
+        illustration = Res.drawable.tile_tag,
         route = "tag",
         content = { TagDemoScreen() }
     ),
