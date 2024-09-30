@@ -24,6 +24,7 @@ import com.gabrieldrn.carbon.catalog.dropdown.DropdownVariant
 import com.gabrieldrn.carbon.catalog.progressbar.ProgressBarDemoScreen
 import com.gabrieldrn.carbon.catalog.radiobutton.LoadingDemoScreen
 import com.gabrieldrn.carbon.catalog.radiobutton.RadioButtonDemoScreen
+import com.gabrieldrn.carbon.catalog.tag.TagDemoScreen
 import com.gabrieldrn.carbon.catalog.textinput.TextInputDemoScreen
 import com.gabrieldrn.carbon.catalog.toggle.ToggleDemoScreen
 import org.jetbrains.compose.resources.DrawableResource
@@ -103,7 +104,12 @@ enum class Destination(
     Slider("Slider"),
     StructuredList("Structured list"),
     Tabs("Tabs"),
-    Tag("Tag"),
+    Tag(
+        title = "Tag",
+        illustration = null,
+        route = "tag",
+        content = { TagDemoScreen() }
+    ),
     TextInput(
         title = "Text input",
         illustration = Res.drawable.tile_text_input,
