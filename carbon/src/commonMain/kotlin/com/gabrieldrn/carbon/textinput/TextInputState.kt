@@ -56,6 +56,7 @@ public enum class TextInputState {
      */
     ReadOnly;
 
+    @Suppress("UndocumentedPublicClass")
     public companion object {
 
         internal val TextInputState.isFocusable: Boolean

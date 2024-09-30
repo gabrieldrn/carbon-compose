@@ -52,6 +52,7 @@ public sealed interface DropdownInteractiveState {
      */
     public data object ReadOnly : DropdownInteractiveState
 
+    @Suppress("UndocumentedPublicClass")
     public companion object {
 
         /**

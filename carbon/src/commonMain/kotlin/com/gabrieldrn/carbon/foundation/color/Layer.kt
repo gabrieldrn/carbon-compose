@@ -35,6 +35,7 @@ import co.touchlab.kermit.Logger
  *
  * (From [Layering tokens documentation](https://carbondesignsystem.com/elements/color/usage/))
  */
+@Suppress("UndocumentedPublicProperty")
 public enum class Layer {
     Layer00,
     Layer01,

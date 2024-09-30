@@ -27,6 +27,7 @@ import androidx.compose.runtime.Immutable
  * (From [Progress bar documentation](https://carbondesignsystem.com/components/progress-bar/usage))
  */
 @Immutable
+@Suppress("UndocumentedPublicProperty")
 public enum class ProgressBarState {
     Active,
     Success,

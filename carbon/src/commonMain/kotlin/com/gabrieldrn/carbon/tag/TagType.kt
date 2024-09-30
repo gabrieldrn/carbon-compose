@@ -16,11 +16,14 @@
 
 package com.gabrieldrn.carbon.tag
 
+import androidx.compose.runtime.Immutable
 import com.gabrieldrn.carbon.foundation.color.Theme
 
 /**
  * Colors that can be applied to tags.
  */
+@Immutable
+@Suppress("UndocumentedPublicProperty")
 public enum class TagType {
 
     Gray,

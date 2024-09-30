@@ -16,6 +16,7 @@
 
 package com.gabrieldrn.carbon.tag
 
+import androidx.compose.runtime.Immutable
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
@@ -25,6 +26,8 @@ import androidx.compose.ui.unit.dp
  * when they are used as a primary task of the page or focal point, when you have more screen real
  * estate at your disposal, or if the tag lives near other components that are also 32px in height.
  */
+@Immutable
+@Suppress("UndocumentedPublicProperty")
 public enum class TagSize(
     internal val height: Dp
 ) {

@@ -300,6 +300,7 @@ public final class com/gabrieldrn/carbon/foundation/color/Gray100Theme : com/gab
 	public fun getSupportSuccessInverse-0d7_KjU ()J
 	public fun getSupportWarning-0d7_KjU ()J
 	public fun getSupportWarningInverse-0d7_KjU ()J
+	public fun getTagColors ()Lcom/gabrieldrn/carbon/tag/colors/TagColors;
 	public fun getTextDisabled-0d7_KjU ()J
 	public fun getTextError-0d7_KjU ()J
 	public fun getTextHelper-0d7_KjU ()J
@@ -329,7 +330,7 @@ public abstract class com/gabrieldrn/carbon/foundation/color/Theme {
 	public fun <init> ()V
 	public final fun containerColor-vNxB06k (Lcom/gabrieldrn/carbon/foundation/color/Layer;)J
 	public static synthetic fun containerColor-vNxB06k$default (Lcom/gabrieldrn/carbon/foundation/color/Theme;Lcom/gabrieldrn/carbon/foundation/color/Layer;ILjava/lang/Object;)J
-	public static synthetic fun copy-HhgsYS8$carbon_release$default (Lcom/gabrieldrn/carbon/foundation/color/Theme;JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJIIIILjava/lang/Object;)Lcom/gabrieldrn/carbon/foundation/color/Theme;
+	public static synthetic fun copy-q8H4jHE$carbon_release$default (Lcom/gabrieldrn/carbon/foundation/color/Theme;JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJLcom/gabrieldrn/carbon/tag/colors/TagColors;IIIILjava/lang/Object;)Lcom/gabrieldrn/carbon/foundation/color/Theme;
 	public fun equals (Ljava/lang/Object;)Z
 	public abstract fun getBackground-0d7_KjU ()J
 	public abstract fun getBackgroundActive-0d7_KjU ()J
@@ -430,6 +431,7 @@ public abstract class com/gabrieldrn/carbon/foundation/color/Theme {
 	public abstract fun getSupportSuccessInverse-0d7_KjU ()J
 	public abstract fun getSupportWarning-0d7_KjU ()J
 	public abstract fun getSupportWarningInverse-0d7_KjU ()J
+	public abstract fun getTagColors ()Lcom/gabrieldrn/carbon/tag/colors/TagColors;
 	public abstract fun getTextDisabled-0d7_KjU ()J
 	public abstract fun getTextError-0d7_KjU ()J
 	public abstract fun getTextHelper-0d7_KjU ()J
@@ -554,6 +556,7 @@ public final class com/gabrieldrn/carbon/foundation/color/WhiteTheme : com/gabri
 	public fun getSupportSuccessInverse-0d7_KjU ()J
 	public fun getSupportWarning-0d7_KjU ()J
 	public fun getSupportWarningInverse-0d7_KjU ()J
+	public fun getTagColors ()Lcom/gabrieldrn/carbon/tag/colors/TagColors;
 	public fun getTextDisabled-0d7_KjU ()J
 	public fun getTextError-0d7_KjU ()J
 	public fun getTextHelper-0d7_KjU ()J
@@ -722,6 +725,170 @@ public final class com/gabrieldrn/carbon/semantics/SemanticsExtKt {
 	public static final fun assertIsReadOnly (Landroidx/compose/ui/test/SemanticsNodeInteraction;Lkotlin/jvm/functions/Function0;)Landroidx/compose/ui/test/SemanticsNodeInteraction;
 	public static synthetic fun assertIsReadOnly$default (Landroidx/compose/ui/test/SemanticsNodeInteraction;Lkotlin/jvm/functions/Function0;ILjava/lang/Object;)Landroidx/compose/ui/test/SemanticsNodeInteraction;
 	public static final fun isReadOnly ()Landroidx/compose/ui/test/SemanticsMatcher;
+}
+
+public final class com/gabrieldrn/carbon/tag/ReadOnlyTagKt {
+	public static final fun ReadOnlyTag (Ljava/lang/String;Landroidx/compose/ui/Modifier;Lcom/gabrieldrn/carbon/tag/TagType;Lcom/gabrieldrn/carbon/tag/TagSize;Landroidx/compose/runtime/Composer;II)V
+}
+
+public final class com/gabrieldrn/carbon/tag/TagSize : java/lang/Enum {
+	public static final field Large Lcom/gabrieldrn/carbon/tag/TagSize;
+	public static final field Medium Lcom/gabrieldrn/carbon/tag/TagSize;
+	public static final field Small Lcom/gabrieldrn/carbon/tag/TagSize;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/gabrieldrn/carbon/tag/TagSize;
+	public static fun values ()[Lcom/gabrieldrn/carbon/tag/TagSize;
+}
+
+public final class com/gabrieldrn/carbon/tag/TagType : java/lang/Enum {
+	public static final field Blue Lcom/gabrieldrn/carbon/tag/TagType;
+	public static final field CoolGray Lcom/gabrieldrn/carbon/tag/TagType;
+	public static final field Cyan Lcom/gabrieldrn/carbon/tag/TagType;
+	public static final field Gray Lcom/gabrieldrn/carbon/tag/TagType;
+	public static final field Green Lcom/gabrieldrn/carbon/tag/TagType;
+	public static final field HighContrast Lcom/gabrieldrn/carbon/tag/TagType;
+	public static final field Magenta Lcom/gabrieldrn/carbon/tag/TagType;
+	public static final field Outline Lcom/gabrieldrn/carbon/tag/TagType;
+	public static final field Purple Lcom/gabrieldrn/carbon/tag/TagType;
+	public static final field Red Lcom/gabrieldrn/carbon/tag/TagType;
+	public static final field Teal Lcom/gabrieldrn/carbon/tag/TagType;
+	public static final field WarmGray Lcom/gabrieldrn/carbon/tag/TagType;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/gabrieldrn/carbon/tag/TagType;
+	public static fun values ()[Lcom/gabrieldrn/carbon/tag/TagType;
+}
+
+public final class com/gabrieldrn/carbon/tag/colors/Gray100TagColors : com/gabrieldrn/carbon/tag/colors/TagColors {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/gabrieldrn/carbon/tag/colors/Gray100TagColors;
+	public fun getBackgroundBlue-0d7_KjU ()J
+	public fun getBackgroundCoolGray-0d7_KjU ()J
+	public fun getBackgroundCyan-0d7_KjU ()J
+	public fun getBackgroundGray-0d7_KjU ()J
+	public fun getBackgroundGreen-0d7_KjU ()J
+	public fun getBackgroundMagenta-0d7_KjU ()J
+	public fun getBackgroundPurple-0d7_KjU ()J
+	public fun getBackgroundRed-0d7_KjU ()J
+	public fun getBackgroundTeal-0d7_KjU ()J
+	public fun getBackgroundWarmGray-0d7_KjU ()J
+	public fun getBorderBlue-0d7_KjU ()J
+	public fun getBorderCoolGray-0d7_KjU ()J
+	public fun getBorderCyan-0d7_KjU ()J
+	public fun getBorderGray-0d7_KjU ()J
+	public fun getBorderGreen-0d7_KjU ()J
+	public fun getBorderMagenta-0d7_KjU ()J
+	public fun getBorderPurple-0d7_KjU ()J
+	public fun getBorderRed-0d7_KjU ()J
+	public fun getBorderTeal-0d7_KjU ()J
+	public fun getBorderWarmGray-0d7_KjU ()J
+	public fun getColorBlue-0d7_KjU ()J
+	public fun getColorCoolGray-0d7_KjU ()J
+	public fun getColorCyan-0d7_KjU ()J
+	public fun getColorGray-0d7_KjU ()J
+	public fun getColorGreen-0d7_KjU ()J
+	public fun getColorMagenta-0d7_KjU ()J
+	public fun getColorPurple-0d7_KjU ()J
+	public fun getColorRed-0d7_KjU ()J
+	public fun getColorTeal-0d7_KjU ()J
+	public fun getColorWarmGray-0d7_KjU ()J
+	public fun getHoverBlue-0d7_KjU ()J
+	public fun getHoverCoolGray-0d7_KjU ()J
+	public fun getHoverCyan-0d7_KjU ()J
+	public fun getHoverGray-0d7_KjU ()J
+	public fun getHoverGreen-0d7_KjU ()J
+	public fun getHoverMagenta-0d7_KjU ()J
+	public fun getHoverPurple-0d7_KjU ()J
+	public fun getHoverRed-0d7_KjU ()J
+	public fun getHoverTeal-0d7_KjU ()J
+	public fun getHoverWarmGray-0d7_KjU ()J
+}
+
+public abstract interface class com/gabrieldrn/carbon/tag/colors/TagColors {
+	public abstract fun getBackgroundBlue-0d7_KjU ()J
+	public abstract fun getBackgroundCoolGray-0d7_KjU ()J
+	public abstract fun getBackgroundCyan-0d7_KjU ()J
+	public abstract fun getBackgroundGray-0d7_KjU ()J
+	public abstract fun getBackgroundGreen-0d7_KjU ()J
+	public abstract fun getBackgroundMagenta-0d7_KjU ()J
+	public abstract fun getBackgroundPurple-0d7_KjU ()J
+	public abstract fun getBackgroundRed-0d7_KjU ()J
+	public abstract fun getBackgroundTeal-0d7_KjU ()J
+	public abstract fun getBackgroundWarmGray-0d7_KjU ()J
+	public abstract fun getBorderBlue-0d7_KjU ()J
+	public abstract fun getBorderCoolGray-0d7_KjU ()J
+	public abstract fun getBorderCyan-0d7_KjU ()J
+	public abstract fun getBorderGray-0d7_KjU ()J
+	public abstract fun getBorderGreen-0d7_KjU ()J
+	public abstract fun getBorderMagenta-0d7_KjU ()J
+	public abstract fun getBorderPurple-0d7_KjU ()J
+	public abstract fun getBorderRed-0d7_KjU ()J
+	public abstract fun getBorderTeal-0d7_KjU ()J
+	public abstract fun getBorderWarmGray-0d7_KjU ()J
+	public abstract fun getColorBlue-0d7_KjU ()J
+	public abstract fun getColorCoolGray-0d7_KjU ()J
+	public abstract fun getColorCyan-0d7_KjU ()J
+	public abstract fun getColorGray-0d7_KjU ()J
+	public abstract fun getColorGreen-0d7_KjU ()J
+	public abstract fun getColorMagenta-0d7_KjU ()J
+	public abstract fun getColorPurple-0d7_KjU ()J
+	public abstract fun getColorRed-0d7_KjU ()J
+	public abstract fun getColorTeal-0d7_KjU ()J
+	public abstract fun getColorWarmGray-0d7_KjU ()J
+	public abstract fun getHoverBlue-0d7_KjU ()J
+	public abstract fun getHoverCoolGray-0d7_KjU ()J
+	public abstract fun getHoverCyan-0d7_KjU ()J
+	public abstract fun getHoverGray-0d7_KjU ()J
+	public abstract fun getHoverGreen-0d7_KjU ()J
+	public abstract fun getHoverMagenta-0d7_KjU ()J
+	public abstract fun getHoverPurple-0d7_KjU ()J
+	public abstract fun getHoverRed-0d7_KjU ()J
+	public abstract fun getHoverTeal-0d7_KjU ()J
+	public abstract fun getHoverWarmGray-0d7_KjU ()J
+}
+
+public final class com/gabrieldrn/carbon/tag/colors/WhiteTagColors : com/gabrieldrn/carbon/tag/colors/TagColors {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/gabrieldrn/carbon/tag/colors/WhiteTagColors;
+	public fun getBackgroundBlue-0d7_KjU ()J
+	public fun getBackgroundCoolGray-0d7_KjU ()J
+	public fun getBackgroundCyan-0d7_KjU ()J
+	public fun getBackgroundGray-0d7_KjU ()J
+	public fun getBackgroundGreen-0d7_KjU ()J
+	public fun getBackgroundMagenta-0d7_KjU ()J
+	public fun getBackgroundPurple-0d7_KjU ()J
+	public fun getBackgroundRed-0d7_KjU ()J
+	public fun getBackgroundTeal-0d7_KjU ()J
+	public fun getBackgroundWarmGray-0d7_KjU ()J
+	public fun getBorderBlue-0d7_KjU ()J
+	public fun getBorderCoolGray-0d7_KjU ()J
+	public fun getBorderCyan-0d7_KjU ()J
+	public fun getBorderGray-0d7_KjU ()J
+	public fun getBorderGreen-0d7_KjU ()J
+	public fun getBorderMagenta-0d7_KjU ()J
+	public fun getBorderPurple-0d7_KjU ()J
+	public fun getBorderRed-0d7_KjU ()J
+	public fun getBorderTeal-0d7_KjU ()J
+	public fun getBorderWarmGray-0d7_KjU ()J
+	public fun getColorBlue-0d7_KjU ()J
+	public fun getColorCoolGray-0d7_KjU ()J
+	public fun getColorCyan-0d7_KjU ()J
+	public fun getColorGray-0d7_KjU ()J
+	public fun getColorGreen-0d7_KjU ()J
+	public fun getColorMagenta-0d7_KjU ()J
+	public fun getColorPurple-0d7_KjU ()J
+	public fun getColorRed-0d7_KjU ()J
+	public fun getColorTeal-0d7_KjU ()J
+	public fun getColorWarmGray-0d7_KjU ()J
+	public fun getHoverBlue-0d7_KjU ()J
+	public fun getHoverCoolGray-0d7_KjU ()J
+	public fun getHoverCyan-0d7_KjU ()J
+	public fun getHoverGray-0d7_KjU ()J
+	public fun getHoverGreen-0d7_KjU ()J
+	public fun getHoverMagenta-0d7_KjU ()J
+	public fun getHoverPurple-0d7_KjU ()J
+	public fun getHoverRed-0d7_KjU ()J
+	public fun getHoverTeal-0d7_KjU ()J
+	public fun getHoverWarmGray-0d7_KjU ()J
 }
 
 public final class com/gabrieldrn/carbon/textinput/PasswordInputKt {
