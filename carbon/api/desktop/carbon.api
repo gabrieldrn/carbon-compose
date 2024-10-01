@@ -728,7 +728,7 @@ public final class com/gabrieldrn/carbon/semantics/SemanticsExtKt {
 }
 
 public final class com/gabrieldrn/carbon/tag/ReadOnlyTagKt {
-	public static final fun ReadOnlyTag (Ljava/lang/String;Landroidx/compose/ui/Modifier;Lcom/gabrieldrn/carbon/tag/TagType;Lcom/gabrieldrn/carbon/tag/TagSize;Landroidx/compose/runtime/Composer;II)V
+	public static final fun ReadOnlyTag (Ljava/lang/String;Landroidx/compose/ui/Modifier;Lkotlin/jvm/functions/Function2;Lcom/gabrieldrn/carbon/tag/TagType;Lcom/gabrieldrn/carbon/tag/TagSize;Landroidx/compose/runtime/Composer;II)V
 }
 
 public final class com/gabrieldrn/carbon/tag/TagSize : java/lang/Enum {
