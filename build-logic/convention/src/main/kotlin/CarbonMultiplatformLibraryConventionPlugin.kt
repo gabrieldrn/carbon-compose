@@ -1,13 +1,13 @@
+import com.android.build.gradle.LibraryExtension
 import com.gabrieldrn.carbon.buildlogic.Constants
 import com.gabrieldrn.carbon.buildlogic.applyTestOptions
 import com.gabrieldrn.carbon.buildlogic.configureKotlinAndroidCommon
 import com.gabrieldrn.carbon.buildlogic.getPlugin
 import com.gabrieldrn.carbon.buildlogic.libs
-import com.gabrieldrn.carbon.buildlogic.setupComposeCompilerOptions
-import com.android.build.gradle.LibraryExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
+import org.jetbrains.kotlin.compose.compiler.gradle.ComposeCompilerGradlePluginExtension
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
@@ -38,14 +38,6 @@ class CarbonMultiplatformLibraryConventionPlugin : Plugin<Project> {
                 compilerOptions {
                     jvmTarget.set(Constants.Versions.JVM)
                 }
-
-                compilations.all {
-                    compileTaskProvider.configure {
-                        compilerOptions {
-                            setupComposeCompilerOptions(this@with)
-                        }
-                    }
-                }
             }
 
             jvm("desktop") {
@@ -73,6 +65,12 @@ class CarbonMultiplatformLibraryConventionPlugin : Plugin<Project> {
             configureKotlinAndroidCommon()
 
             applyTestOptions()
+        }
+
+        extensions.configure<ComposeCompilerGradlePluginExtension> {
+            reportsDestination.set(layout.buildDirectory.dir("compose_compiler"))
+            metricsDestination.set(layout.buildDirectory.dir("compose_compiler"))
+            stabilityConfigurationFile.set(file("${projectDir.absolutePath}/compose_compiler_config.conf"))
         }
     }
 }
