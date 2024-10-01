@@ -38,6 +38,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
+import com.gabrieldrn.carbon.catalog.Res
+import com.gabrieldrn.carbon.catalog.ic_carbon
 import com.gabrieldrn.carbon.dropdown.Dropdown
 import com.gabrieldrn.carbon.dropdown.base.toDropdownOptions
 import com.gabrieldrn.carbon.foundation.color.CarbonLayer
@@ -46,6 +48,8 @@ import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 import com.gabrieldrn.carbon.tag.ReadOnlyTag
 import com.gabrieldrn.carbon.tag.TagSize
 import com.gabrieldrn.carbon.tag.TagType
+import com.gabrieldrn.carbon.toggle.Toggle
+import org.jetbrains.compose.resources.painterResource
 
 private val tagSizes = TagSize.entries.toDropdownOptions()
 
@@ -60,7 +64,8 @@ fun TagDemoScreen(modifier: Modifier = Modifier) {
             .padding(WindowInsets.navigationBars.asPaddingValues()),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        var tagSize by rememberSaveable { mutableStateOf(TagSize.Small) }
+        var tagSize by rememberSaveable { mutableStateOf(TagSize.Medium) }
+        var displayIcon by rememberSaveable { mutableStateOf(false) }
 
         FlowColumn(
             maxItemsInEachColumn = 3,
@@ -79,6 +84,11 @@ fun TagDemoScreen(modifier: Modifier = Modifier) {
             TagType.entries.forEach { color ->
                 ReadOnlyTag(
                     text = "Tag",
+                    icon = if (displayIcon) {
+                        { painterResource(resource = Res.drawable.ic_carbon) }
+                    } else {
+                        null
+                    },
                     type = color,
                     size = tagSize
                 )
@@ -104,6 +114,17 @@ fun TagDemoScreen(modifier: Modifier = Modifier) {
                     options = tagSizes,
                     selectedOption = tagSize,
                     onOptionSelected = { tagSize = it },
+                )
+
+                Toggle(
+                    isToggled = displayIcon,
+                    onToggleChange = { displayIcon = it },
+                    label = "Tag icon",
+                    actionText = if (displayIcon) {
+                        "Displayed"
+                    } else {
+                        "Hidden"
+                    },
                 )
             }
         }

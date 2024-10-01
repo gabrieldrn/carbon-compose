@@ -16,35 +16,48 @@
 
 package com.gabrieldrn.carbon.tag
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 import com.gabrieldrn.carbon.foundation.text.Text
 
+private val tagShape = RoundedCornerShape(100)
+private val tagIconSize = 16.dp
+
 /**
  * # Tag - Read-only
  *
  * Tags are components that are often used to label different items, create categorization, filter
  * data, select or deselect options, and include functionality to disclose several related tags in
- * another view
+ * another view.
  *
  * Read-only tags have no interactive functionality and are commonly used for categorizing and
  * labeling.
+ *
+ * Accessibility note: Read-only tags are not interactive and do not receive focus.
  *
  * (From [Tag documentation](https://carbondesignsystem.com/components/tag/usage/))`
  *
  * @param text The text to be displayed in the tag.
  * @param modifier The modifier to be applied to the tag.
+ * @param icon The icon to be displayed in the tag. Defaults to null. The lambda signature ensures
+ * stability across recompositions.
  * @param type The type of the tag. The tag type can be referred to the tag color. Defaults to
  * [TagType.Gray].
  * @param size The size of the tag. Defaults to [TagSize.Small].
@@ -53,16 +66,17 @@ import com.gabrieldrn.carbon.foundation.text.Text
 public fun ReadOnlyTag(
     text: String,
     modifier: Modifier = Modifier,
+    icon: @Composable (() -> Painter)? = null,
     type: TagType = TagType.Gray,
-    size: TagSize = TagSize.Small
+    size: TagSize = TagSize.Medium
 ) {
     val theme = Carbon.theme
 
-    Box(
+    Row(
         modifier = modifier
             .height(size.height)
             .background(
-                shape = RoundedCornerShape(100),
+                shape = tagShape,
                 color = type.backgroundColor(theme)
             )
             .then(
@@ -70,27 +84,68 @@ public fun ReadOnlyTag(
                     Modifier.border(
                         width = 1.dp,
                         color = type.borderColor(theme),
-                        shape = RoundedCornerShape(100)
+                        shape = tagShape
                     )
                 } else {
                     Modifier
                 }
             ),
-        contentAlignment = Alignment.Center
+        verticalAlignment = Alignment.CenterVertically
     ) {
+        val contentColor = remember(type, theme) { type.contentColor(theme) }
+
+        TagIcon(
+            icon = icon,
+            color = contentColor,
+            modifier = Modifier.padding(
+                horizontal = when (size) {
+                    TagSize.Small -> SpacingScale.spacing02
+                    TagSize.Medium -> SpacingScale.spacing02
+                    TagSize.Large -> SpacingScale.spacing03
+                }
+            )
+        )
+
         Text(
             text = text,
             style = Carbon.typography.label01,
-            color = type.contentColor(theme),
+            color = contentColor,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
-            modifier = Modifier.padding(
-                horizontal = when (size) {
-                    TagSize.Small -> SpacingScale.spacing03
-                    TagSize.Medium -> SpacingScale.spacing03
-                    TagSize.Large -> SpacingScale.spacing04
-                }
-            )
+            modifier = if (icon == null) {
+                Modifier.padding(
+                    horizontal = when (size) {
+                        TagSize.Small -> SpacingScale.spacing03
+                        TagSize.Medium -> SpacingScale.spacing03
+                        TagSize.Large -> SpacingScale.spacing04
+                    }
+                )
+            } else {
+                Modifier.padding(
+                    end = when (size) {
+                        TagSize.Small -> SpacingScale.spacing03
+                        TagSize.Medium -> SpacingScale.spacing03
+                        TagSize.Large -> SpacingScale.spacing04
+                    }
+                )
+            }
+        )
+    }
+}
+
+@Composable
+private fun TagIcon(
+    color: Color,
+    icon: @Composable (() -> Painter)?,
+    modifier: Modifier = Modifier
+) {
+    icon?.let {
+        val painter = it()
+        Image(
+            painter = painter,
+            contentDescription = null,
+            colorFilter = ColorFilter.tint(color),
+            modifier = modifier.requiredSize(tagIconSize)
         )
     }
 }
