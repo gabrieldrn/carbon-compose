@@ -18,6 +18,8 @@ package com.gabrieldrn.carbon.foundation.color
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
+import com.gabrieldrn.carbon.tag.colors.TagColors
+import com.gabrieldrn.carbon.tag.colors.WhiteTagColors
 
 /**
  * One of the default _light_ themes available in Carbon. This theme uses white as the global
@@ -145,4 +147,6 @@ public object WhiteTheme : Theme() {
     override val overlay: Color = Color(0x80161616)
     override val skeletonElement: Color = Color(0xFFC6C6C6)
     override val skeletonBackground: Color = Color(0xFFE5E5E5)
+
+    override val tagColors: TagColors = WhiteTagColors
 }

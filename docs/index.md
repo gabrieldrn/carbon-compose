@@ -14,7 +14,7 @@ This versatile framework is available for the following platforms:
 - Android
 - iOS
 - Desktop (Windows, Linux, macOS)
-- Web (Wasm)
+- Web (Wasm) (Coming soon)
 
 ## Motivations
 

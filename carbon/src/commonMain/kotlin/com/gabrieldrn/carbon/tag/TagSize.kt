@@ -14,20 +14,24 @@
  * limitations under the License.
  */
 
-package com.gabrieldrn.carbon.progressbar
+package com.gabrieldrn.carbon.tag
 
 import androidx.compose.runtime.Immutable
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 
 /**
- * The [ProgressBar] is offered in two different sizes—big (8px) and small (4px). The big progress
- * bar height is typically used when there is large amounts of space on a page. The small progress
- * bar height is commonly used when space is restricted and can be placed within cards, data tables,
- * or side panels.
- *
- * (From [Progress bar documentation](https://carbondesignsystem.com/components/progress-bar/usage))
+ * There are three different tag sizes — small, medium, and large. Use small tags in condensed or
+ * inline spaces. The medium tag size is the default size and is most commonly used. Use large tags
+ * when they are used as a primary task of the page or focal point, when you have more screen real
+ * estate at your disposal, or if the tag lives near other components that are also 32px in height.
  */
 @Immutable
 @Suppress("UndocumentedPublicProperty")
-public enum class ProgressBarSize {
-    Big, Small
+public enum class TagSize(
+    internal val height: Dp
+) {
+    Small(18.dp),
+    Medium(24.dp),
+    Large(32.dp)
 }
