@@ -61,3 +61,11 @@ project, some documentation, its API reference and the catalog app.
 # Contributions
 
 The project is open for contributions, have a look at the contribution guidelines and the issues list!
+
+# Support the project 🫶 
+
+Maintaining a free and open-source project takes time! If you like it and would like to encourage me, you can:
+- Star and share the project,
+- Offer me a latte ☕ (my daily fuel) with the GitHub sponsoring button on this repository main page.
+  
+Thank you very much for your support!
