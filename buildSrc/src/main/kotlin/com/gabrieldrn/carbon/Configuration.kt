@@ -18,7 +18,7 @@ package com.gabrieldrn.carbon
 
 object Configuration {
     const val majorVersion = 0
-    const val minorVersion = 1
+    const val minorVersion = 2
     const val patchVersion = 0
     const val versionName = "$majorVersion.$minorVersion.$patchVersion"
     const val versionCode = 1
