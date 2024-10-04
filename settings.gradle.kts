@@ -19,5 +19,6 @@ rootProject.name = "Carbon"
 
 include(
     ":catalog",
-    ":carbon"
+    ":carbon",
+    ":documentation-parser"
 )
