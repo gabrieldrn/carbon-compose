@@ -20,9 +20,12 @@ import it.skrape.core.htmlDocument
 import it.skrape.fetcher.HttpFetcher
 import it.skrape.fetcher.response
 import it.skrape.fetcher.skrape
+import it.skrape.selects.html5.body
 
-private val host = "https://carbondesignsystem.com"
-private val colorTokensPath = "/elements/color/tokens/"
+private const val host = "https://carbondesignsystem.com"
+private const val colorTokensPath = "/elements/color/tokens/"
+
+private const val colorTokenScriptName = "component---src-pages-elements-color-tokens-mdx"
 
 fun main() {
     val webpackRuntimeScriptPath = skrape(HttpFetcher) {
@@ -47,18 +50,34 @@ fun main() {
         }
     }
 
-    skrape(HttpFetcher) {
+    // The color token script path has a suffix identified by and id in the webpack runtime script
+    val colorTokenScriptPath = skrape(HttpFetcher) {
         request {
             url = host + webpackRuntimeScriptPath
         }
         response {
             htmlDocument {
-                println(html)
-
-                // component---src-pages-elements-color-tokens-mdx
-
-                html.substringBefore("\":component---src-pages-elements-color-tokens-mdx")
+                val fileId = html
+                    .substringBefore(":\"$colorTokenScriptName")
                     .substringAfterLast(',')
+
+                val fileNameSuffix = html
+                    .substringAfterLast("$fileId:\"")
+                    .substringBefore('"')
+
+                "/$colorTokenScriptName-$fileNameSuffix.js"
+                    .also(::println)
+            }
+        }
+    }
+
+    skrape(HttpFetcher) {
+        request {
+            url = host + colorTokenScriptPath
+        }
+        response {
+            htmlDocument {
+                println(allElements.joinToString { "$it\n".trim() })
             }
         }
     }
