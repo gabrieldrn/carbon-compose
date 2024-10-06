@@ -20,7 +20,6 @@ import it.skrape.core.htmlDocument
 import it.skrape.fetcher.HttpFetcher
 import it.skrape.fetcher.response
 import it.skrape.fetcher.skrape
-import it.skrape.selects.html5.body
 
 private const val host = "https://carbondesignsystem.com"
 private const val colorTokensPath = "/elements/color/tokens/"
