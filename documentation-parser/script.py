@@ -23,7 +23,7 @@ def parse_js_to_json(content):
     # Using json5 lib to parse the JS object to JSON, as some of the values are not valid JSON
     f_object = json5.loads(raw_object)
     print(f_object)
-    with open('color-tokens.json', 'w') as f:
+    with open('src/main/resources/color-tokens.json', 'w') as f:
         json.dump(f_object, f, indent=2)
     print(f'Saved JSON to color-tokens.json')
 
