@@ -25,6 +25,8 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
 import kotlin.reflect.full.memberProperties
 
+data class TokenProperty(val name: String, val desc: String, val color: Color)
+
 @OptIn(ExperimentalSerializationApi::class)
 fun main() {
     val tokens = object {}::class.java.getResourceAsStream("/color-tokens.json")
@@ -34,7 +36,7 @@ fun main() {
     // Associate each token to its theme
 
     val themes = ColorToken::class.memberProperties.map { it.name }
-    val themesTokens = themes.associateWith { mutableMapOf<String, Color>() }
+    val themesTokens = themes.associateWith { mutableListOf<TokenProperty>() }
 
     ColorTokens::class
         .memberProperties
@@ -46,7 +48,7 @@ fun main() {
                     .call(colorDefinitionCollection) as ColorDefinition
 
                 colorDefinitionValue.value::class.memberProperties.forEach { colorToken ->
-                    val name = colorToken.name
+                    val themeName = colorToken.name
                     val color = (
                         colorToken
                             .getter
@@ -54,13 +56,19 @@ fun main() {
                         )
                         .color
 
-                    themesTokens[name]!![colorDefinition.name] = color
+                    themesTokens[themeName]!!.add(
+                        TokenProperty(
+                            colorDefinition.name,
+                            colorDefinitionValue.role.joinToString("\n"),
+                            color
+                        )
+                    )
                 }
             }
         }
 
     println("Association of tokens to themes result:")
     themesTokens
-        .map { it.key + "\n" + it.value.entries.joinToString("\n") { e -> "\t$e" } }
+        .map { it.key + "\n" + it.value.joinToString("\n") { e -> "\t${e.name} -> ${e.color}" } }
         .forEach(::println)
 }
