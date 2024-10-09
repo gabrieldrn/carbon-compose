@@ -16,10 +16,14 @@
 
 package com.gabrieldrn.docparser
 
+import androidx.compose.ui.graphics.Color
+import com.gabrieldrn.docparser.model.colortokens.ColorDefinition
+import com.gabrieldrn.docparser.model.colortokens.ColorToken
 import com.gabrieldrn.docparser.model.colortokens.ColorTokens
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
+import kotlin.reflect.full.memberProperties
 
 @OptIn(ExperimentalSerializationApi::class)
 fun main() {
@@ -27,5 +31,36 @@ fun main() {
         ?.use { stream -> Json.decodeFromStream<ColorTokens>(stream) }
         ?: error("Could not load color-tokens.json")
 
-    println(tokens)
+    // Associate each token to its theme
+
+    val themes = ColorToken::class.memberProperties.map { it.name }
+    val themesTokens = themes.associateWith { mutableMapOf<String, Color>() }
+
+    ColorTokens::class
+        .memberProperties
+        .forEach { prop ->
+            val colorDefinitionCollection = prop.getter.call(tokens)!!
+            colorDefinitionCollection::class.memberProperties.forEach { colorDefinition ->
+                val colorDefinitionValue = colorDefinition
+                    .getter
+                    .call(colorDefinitionCollection) as ColorDefinition
+
+                colorDefinitionValue.value::class.memberProperties.forEach { colorToken ->
+                    val name = colorToken.name
+                    val color = (
+                        colorToken
+                            .getter
+                            .call(colorDefinitionValue.value) as ColorToken.TokenValue
+                        )
+                        .color
+
+                    themesTokens[name]!![colorDefinition.name] = color
+                }
+            }
+        }
+
+    println("Association of tokens to themes result:")
+    themesTokens
+        .map { it.key + "\n" + it.value.entries.joinToString("\n") { e -> "\t$e" } }
+        .forEach(::println)
 }

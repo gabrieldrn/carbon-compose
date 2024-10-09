@@ -12,6 +12,7 @@ dependencies {
     implementation(compose.runtime)
     implementation("org.jetbrains.compose.ui:ui-graphics:${libs.versions.compose.get()}")
     implementation(libs.kotlinx.serialization.json)
+    implementation(kotlin("reflect"))
 
     testImplementation(kotlin("test"))
 }
