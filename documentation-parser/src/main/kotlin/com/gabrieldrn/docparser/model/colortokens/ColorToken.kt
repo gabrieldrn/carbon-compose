@@ -14,18 +14,27 @@
  * limitations under the License.
  */
 
-package com.gabrieldrn.docparser
+package com.gabrieldrn.docparser.model.colortokens
 
-import com.gabrieldrn.docparser.model.colortokens.ColorTokens
+import androidx.compose.ui.graphics.Color
+import com.gabrieldrn.docparser.serializers.ComposeColorSerializer
 import kotlinx.serialization.ExperimentalSerializationApi
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.decodeFromStream
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.JsonNames
 
-@OptIn(ExperimentalSerializationApi::class)
-fun main() {
-    val tokens = object {}::class.java.getResourceAsStream("/color-tokens.json")
-        ?.use { stream -> Json.decodeFromStream<ColorTokens>(stream) }
-        ?: error("Could not load color-tokens.json")
-
-    println(tokens)
+@Serializable
+data class ColorToken(
+    val white: TokenValue,
+    val g10: TokenValue,
+    val g90: TokenValue,
+    val g100: TokenValue
+) {
+    @Serializable
+    @OptIn(ExperimentalSerializationApi::class)
+    data class TokenValue(
+        val name: String,
+        @Serializable(with = ComposeColorSerializer::class)
+        @JsonNames("hex")
+        val color: Color
+    )
 }

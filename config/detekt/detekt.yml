@@ -94,6 +94,7 @@ comments:
       - '**/iosTest/**'
       - '**/wasmJsTest/**'
       - '**/catalog/src/**'
+      - '**/documentation-parser/**'
     searchInNestedClass: true
     searchInInnerClass: true
     searchInInnerObject: true

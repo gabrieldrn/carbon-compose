@@ -14,18 +14,19 @@
  * limitations under the License.
  */
 
-package com.gabrieldrn.docparser
+package com.gabrieldrn.docparser.model.colortokens
 
-import com.gabrieldrn.docparser.model.colortokens.ColorTokens
-import kotlinx.serialization.ExperimentalSerializationApi
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.decodeFromStream
+import kotlinx.serialization.Serializable
 
-@OptIn(ExperimentalSerializationApi::class)
-fun main() {
-    val tokens = object {}::class.java.getResourceAsStream("/color-tokens.json")
-        ?.use { stream -> Json.decodeFromStream<ColorTokens>(stream) }
-        ?: error("Could not load color-tokens.json")
-
-    println(tokens)
-}
+@Serializable
+data class LayerAccentTokens(
+    val layerAccent01: ColorDefinition,
+    val layerAccent02: ColorDefinition,
+    val layerAccent03: ColorDefinition,
+    val layerAccentActive01: ColorDefinition,
+    val layerAccentActive02: ColorDefinition,
+    val layerAccentActive03: ColorDefinition,
+    val layerAccentHover01: ColorDefinition,
+    val layerAccentHover02: ColorDefinition,
+    val layerAccentHover03: ColorDefinition
+)
