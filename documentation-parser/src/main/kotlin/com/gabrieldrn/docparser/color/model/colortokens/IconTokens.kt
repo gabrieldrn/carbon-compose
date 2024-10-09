@@ -14,16 +14,17 @@
  * limitations under the License.
  */
 
-package com.gabrieldrn.docparser.model.colortokens
+package com.gabrieldrn.docparser.color.model.colortokens
 
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class FieldTokens(
-    val field01: ColorDefinition,
-    val field02: ColorDefinition,
-    val field03: ColorDefinition,
-    val fieldHover01: ColorDefinition,
-    val fieldHover02: ColorDefinition,
-    val fieldHover03: ColorDefinition
+data class IconTokens(
+    val iconDisabled: ColorDefinition,
+    val iconInteractive: ColorDefinition,
+    val iconInverse: ColorDefinition,
+    val iconOnColor: ColorDefinition,
+    val iconOnColorDisabled: ColorDefinition,
+    val iconPrimary: ColorDefinition,
+    val iconSecondary: ColorDefinition
 )

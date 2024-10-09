@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.gabrieldrn.docparser.model.colortokens
+package com.gabrieldrn.docparser.color.model.colortokens
 
 import kotlinx.serialization.Serializable
 

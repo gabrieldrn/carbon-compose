@@ -14,19 +14,13 @@
  * limitations under the License.
  */
 
-package com.gabrieldrn.docparser.model.colortokens
+package com.gabrieldrn.docparser.color.model.colortokens
 
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class TextTokens(
-    val textDisabled: ColorDefinition,
-    val textError: ColorDefinition,
-    val textHelper: ColorDefinition,
-    val textInverse: ColorDefinition,
-    val textOnColor: ColorDefinition,
-    val textOnColorDisabled: ColorDefinition,
-    val textPlaceholder: ColorDefinition,
-    val textPrimary: ColorDefinition,
-    val textSecondary: ColorDefinition
+data class FocusTokens(
+    val focus: ColorDefinition,
+    val focusInset: ColorDefinition,
+    val focusInverse: ColorDefinition
 )

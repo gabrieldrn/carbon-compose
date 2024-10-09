@@ -14,21 +14,16 @@
  * limitations under the License.
  */
 
-package com.gabrieldrn.docparser.model.colortokens
+package com.gabrieldrn.docparser.color.model.colortokens
 
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class SupportTokens(
-    val supportCautionMajor: ColorDefinition,
-    val supportCautionMinor: ColorDefinition,
-    val supportCautionUndefined: ColorDefinition,
-    val supportError: ColorDefinition,
-    val supportErrorInverse: ColorDefinition,
-    val supportInfo: ColorDefinition,
-    val supportInfoInverse: ColorDefinition,
-    val supportSuccess: ColorDefinition,
-    val supportSuccessInverse: ColorDefinition,
-    val supportWarning: ColorDefinition,
-    val supportWarningInverse: ColorDefinition
+data class FieldTokens(
+    val field01: ColorDefinition,
+    val field02: ColorDefinition,
+    val field03: ColorDefinition,
+    val fieldHover01: ColorDefinition,
+    val fieldHover02: ColorDefinition,
+    val fieldHover03: ColorDefinition
 )

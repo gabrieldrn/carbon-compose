@@ -14,18 +14,12 @@
  * limitations under the License.
  */
 
-package com.gabrieldrn.docparser.model.colortokens
+package com.gabrieldrn.docparser.color.model.colortokens
 
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class BackgroundTokens(
-    val background: ColorDefinition,
-    val backgroundActive: ColorDefinition,
-    val backgroundBrand: ColorDefinition,
-    val backgroundHover: ColorDefinition,
-    val backgroundInverse: ColorDefinition,
-    val backgroundInverseHover: ColorDefinition,
-    val backgroundSelected: ColorDefinition,
-    val backgroundSelectedHover: ColorDefinition
+data class ColorDefinition(
+    val role: List<String>,
+    val value: ColorToken
 )

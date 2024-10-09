@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.gabrieldrn.docparser.serializers
+package com.gabrieldrn.docparser.color.serializers
 
 import androidx.compose.ui.graphics.Color
 import kotlinx.serialization.KSerializer

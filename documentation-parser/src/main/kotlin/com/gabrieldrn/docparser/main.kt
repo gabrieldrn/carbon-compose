@@ -18,76 +18,38 @@ package com.gabrieldrn.docparser
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
-import com.gabrieldrn.docparser.model.colortokens.ColorDefinition
-import com.gabrieldrn.docparser.model.colortokens.ColorToken
-import com.gabrieldrn.docparser.model.colortokens.ColorTokens
+import com.gabrieldrn.docparser.color.TokenProperty
+import com.gabrieldrn.docparser.color.abstractThemeDoc
+import com.gabrieldrn.docparser.color.associateColorTokensWithThemes
+import com.gabrieldrn.docparser.color.deserializeColorTokens
+import com.gabrieldrn.docparser.color.model.colortokens.ColorTokens
 import com.squareup.kotlinpoet.FileSpec
 import com.squareup.kotlinpoet.KModifier
 import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeSpec
-import kotlinx.serialization.ExperimentalSerializationApi
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.decodeFromStream
-import kotlin.reflect.full.memberProperties
+import java.nio.file.Paths
 
-data class TokenProperty(val name: String, val desc: String, val color: Color)
-
-@OptIn(ExperimentalSerializationApi::class)
 fun main() {
-    val tokens = object {}::class.java.getResourceAsStream("/color-tokens.json")
-        ?.use { stream -> Json.decodeFromStream<ColorTokens>(stream) }
-        ?: error("Could not load color-tokens.json")
+    // Load color tokens
+    val tokens: ColorTokens = deserializeColorTokens()
 
     // Associate each token to its theme
-
-    val themes = ColorToken::class.memberProperties.map { it.name }
-    val themesTokens = themes.associateWith { mutableListOf<TokenProperty>() }
-
-    ColorTokens::class
-        .memberProperties
-        .forEach { prop ->
-            val colorDefinitionCollection = prop.getter.call(tokens)!!
-            colorDefinitionCollection::class.memberProperties.forEach { colorDefinition ->
-                val colorDefinitionValue = colorDefinition
-                    .getter
-                    .call(colorDefinitionCollection) as ColorDefinition
-
-                colorDefinitionValue.value::class.memberProperties.forEach { colorToken ->
-                    val themeName = colorToken.name
-                    val color = (
-                        colorToken
-                            .getter
-                            .call(colorDefinitionValue.value) as ColorToken.TokenValue
-                        )
-                        .color
-
-                    themesTokens[themeName]!!.add(
-                        TokenProperty(
-                            colorDefinition.name,
-                            colorDefinitionValue.role.joinToString("\n"),
-                            color
-                        )
-                    )
-                }
-            }
-        }
-
-    println("Association of tokens to themes result:")
-    themesTokens
-        .map { it.key + "\n" + it.value.joinToString("\n") { e -> "\t${e.name} -> ${e.color}" } }
-        .forEach(::println)
+    val themesTokens: Map<String, MutableList<TokenProperty>> =
+        associateColorTokensWithThemes(tokens)
 
     // Generate theme classes
 
-    val themeAbstraction = TypeSpec.classBuilder("Theme")
+    val packageStructure = "com.gabrieldrn.carbon.foundation.color"
+    val themeAbstractionName = "Theme"
+    val themeAbstraction = TypeSpec.classBuilder(themeAbstractionName)
+        .addKdoc(abstractThemeDoc)
         .addModifiers(KModifier.ABSTRACT)
         .addAnnotation(Immutable::class)
         .apply {
             // tokens
             themesTokens.entries.first().value
                 .map { token ->
-                    PropertySpec
-                        .builder(token.name, Color::class)
+                    PropertySpec.builder(token.name, Color::class)
                         .addKdoc(token.desc)
                         .addModifiers(KModifier.ABSTRACT)
                         .build()
@@ -96,8 +58,8 @@ fun main() {
         }
         .build()
 
-    FileSpec.builder("com.gabrieldrn.carbon.foundation.color", "Theme")
+    FileSpec.builder(packageStructure, themeAbstractionName)
         .addType(themeAbstraction)
         .build()
-        .writeTo(System.out)
+        .writeTo(Paths.get("carbon/src/commonMain/kotlin"))
 }

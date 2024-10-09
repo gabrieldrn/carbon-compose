@@ -14,19 +14,18 @@
  * limitations under the License.
  */
 
-package com.gabrieldrn.docparser.model.colortokens
+package com.gabrieldrn.docparser.color.model.colortokens
 
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class LayerAccentTokens(
-    val layerAccent01: ColorDefinition,
-    val layerAccent02: ColorDefinition,
-    val layerAccent03: ColorDefinition,
-    val layerAccentActive01: ColorDefinition,
-    val layerAccentActive02: ColorDefinition,
-    val layerAccentActive03: ColorDefinition,
-    val layerAccentHover01: ColorDefinition,
-    val layerAccentHover02: ColorDefinition,
-    val layerAccentHover03: ColorDefinition
+data class BackgroundTokens(
+    val background: ColorDefinition,
+    val backgroundActive: ColorDefinition,
+    val backgroundBrand: ColorDefinition,
+    val backgroundHover: ColorDefinition,
+    val backgroundInverse: ColorDefinition,
+    val backgroundInverseHover: ColorDefinition,
+    val backgroundSelected: ColorDefinition,
+    val backgroundSelectedHover: ColorDefinition
 )

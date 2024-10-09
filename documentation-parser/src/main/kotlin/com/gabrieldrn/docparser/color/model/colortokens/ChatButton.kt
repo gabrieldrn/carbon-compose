@@ -14,18 +14,16 @@
  * limitations under the License.
  */
 
-package com.gabrieldrn.docparser.model.colortokens
+package com.gabrieldrn.docparser.color.model.colortokens
 
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class LinkTokens(
-    val linkInverse: ColorDefinition,
-    val linkInverseActive: ColorDefinition,
-    val linkInverseHover: ColorDefinition,
-    val linkInverseVisited: ColorDefinition,
-    val linkPrimary: ColorDefinition,
-    val linkPrimaryHover: ColorDefinition,
-    val linkSecondary: ColorDefinition,
-    val linkVisited: ColorDefinition
+data class ChatButton(
+    val chatButton: ColorDefinition,
+    val chatButtonActive: ColorDefinition,
+    val chatButtonHover: ColorDefinition,
+    val chatButtonSelected: ColorDefinition,
+    val chatButtonTextHover: ColorDefinition,
+    val chatButtonTextSelected: ColorDefinition
 )

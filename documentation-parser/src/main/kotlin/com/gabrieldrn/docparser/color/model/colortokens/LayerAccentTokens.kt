@@ -14,27 +14,19 @@
  * limitations under the License.
  */
 
-package com.gabrieldrn.docparser.model.colortokens
+package com.gabrieldrn.docparser.color.model.colortokens
 
-import androidx.compose.ui.graphics.Color
-import com.gabrieldrn.docparser.serializers.ComposeColorSerializer
-import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.json.JsonNames
 
 @Serializable
-data class ColorToken(
-    val white: TokenValue,
-    val g10: TokenValue,
-    val g90: TokenValue,
-    val g100: TokenValue
-) {
-    @Serializable
-    @OptIn(ExperimentalSerializationApi::class)
-    data class TokenValue(
-        val name: String,
-        @Serializable(with = ComposeColorSerializer::class)
-        @JsonNames("hex")
-        val color: Color
-    )
-}
+data class LayerAccentTokens(
+    val layerAccent01: ColorDefinition,
+    val layerAccent02: ColorDefinition,
+    val layerAccent03: ColorDefinition,
+    val layerAccentActive01: ColorDefinition,
+    val layerAccentActive02: ColorDefinition,
+    val layerAccentActive03: ColorDefinition,
+    val layerAccentHover01: ColorDefinition,
+    val layerAccentHover02: ColorDefinition,
+    val layerAccentHover03: ColorDefinition
+)

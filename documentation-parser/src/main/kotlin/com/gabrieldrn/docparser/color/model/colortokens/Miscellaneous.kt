@@ -14,21 +14,16 @@
  * limitations under the License.
  */
 
-package com.gabrieldrn.docparser.model.colortokens
+package com.gabrieldrn.docparser.color.model.colortokens
 
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Chat(
-    val chatAvatarAgent: ColorDefinition,
-    val chatAvatarBot: ColorDefinition,
-    val chatAvatarUser: ColorDefinition,
-    val chatBubbleAgent: ColorDefinition,
-    val chatBubbleBorder: ColorDefinition,
-    val chatBubbleUser: ColorDefinition,
-    val chatHeaderBackground: ColorDefinition,
-    val chatPromptBackground: ColorDefinition,
-    val chatPromptBorderEnd: ColorDefinition,
-    val chatPromptBorderStart: ColorDefinition,
-    val chatShellBackground: ColorDefinition
+data class Miscellaneous(
+    val highlight: ColorDefinition,
+    val interactive: ColorDefinition,
+    val overlay: ColorDefinition,
+    val skeletonBackground: ColorDefinition,
+    val skeletonElement: ColorDefinition,
+    val toggleOff: ColorDefinition
 )
