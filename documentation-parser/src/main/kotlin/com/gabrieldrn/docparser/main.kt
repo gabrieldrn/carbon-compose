@@ -16,10 +16,15 @@
 
 package com.gabrieldrn.docparser
 
+import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
 import com.gabrieldrn.docparser.model.colortokens.ColorDefinition
 import com.gabrieldrn.docparser.model.colortokens.ColorToken
 import com.gabrieldrn.docparser.model.colortokens.ColorTokens
+import com.squareup.kotlinpoet.FileSpec
+import com.squareup.kotlinpoet.KModifier
+import com.squareup.kotlinpoet.PropertySpec
+import com.squareup.kotlinpoet.TypeSpec
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
@@ -71,4 +76,28 @@ fun main() {
     themesTokens
         .map { it.key + "\n" + it.value.joinToString("\n") { e -> "\t${e.name} -> ${e.color}" } }
         .forEach(::println)
+
+    // Generate theme classes
+
+    val themeAbstraction = TypeSpec.classBuilder("Theme")
+        .addModifiers(KModifier.ABSTRACT)
+        .addAnnotation(Immutable::class)
+        .apply {
+            // tokens
+            themesTokens.entries.first().value
+                .map { token ->
+                    PropertySpec
+                        .builder(token.name, Color::class)
+                        .addKdoc(token.desc)
+                        .addModifiers(KModifier.ABSTRACT)
+                        .build()
+                }
+                .let(::addProperties)
+        }
+        .build()
+
+    FileSpec.builder("com.gabrieldrn.carbon.foundation.color", "Theme")
+        .addType(themeAbstraction)
+        .build()
+        .writeTo(System.out)
 }

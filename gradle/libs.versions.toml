@@ -15,6 +15,7 @@ androidxEspresso = "3.6.1"
 androidxNavigation = "2.7.0-alpha07"
 androidxTestExtJunit = "1.1.5"
 kotlinxSerializationJson = "1.7.3"
+kotlinPoet = "1.18.0"
 publish-plugin = "0.28.0"
 detekt = "1.23.7"
 dokka = "1.9.20"
@@ -35,6 +36,7 @@ junit = { module = "junit:junit", version.ref = "junit" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
+kotlinPoet = { module = "com.squareup:kotlinpoet", version.ref = "kotlinPoet" }
 timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
 touchlab-kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
 
