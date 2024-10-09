@@ -1,6 +1,6 @@
 {
-  "background-tokens": {
-    "$background": {
+  "backgroundTokens": {
+    "background": {
       "role": [
         "Default page background",
         "UI Shell base color"
@@ -24,7 +24,7 @@
         }
       }
     },
-    "$background-hover": {
+    "backgroundHover": {
       "role": [
         "Hover color for $background",
         "Hover color for transparent backgrounds"
@@ -48,7 +48,7 @@
         }
       }
     },
-    "$background-active": {
+    "backgroundActive": {
       "role": [
         "Active color for $background"
       ],
@@ -71,7 +71,7 @@
         }
       }
     },
-    "$background-selected": {
+    "backgroundSelected": {
       "role": [
         "Selected color for $background"
       ],
@@ -94,7 +94,7 @@
         }
       }
     },
-    "$background-selected-hover": {
+    "backgroundSelectedHover": {
       "role": [
         "Hover color for $background-selected"
       ],
@@ -117,7 +117,7 @@
         }
       }
     },
-    "$background-inverse": {
+    "backgroundInverse": {
       "role": [
         "High contrast backgrounds",
         "High contrast elements"
@@ -141,7 +141,7 @@
         }
       }
     },
-    "$background-inverse-hover": {
+    "backgroundInverseHover": {
       "role": [
         "Hover color for $background-inverse"
       ],
@@ -164,7 +164,7 @@
         }
       }
     },
-    "$background-brand": {
+    "backgroundBrand": {
       "role": [
         "Feature background color"
       ],
@@ -188,8 +188,8 @@
       }
     }
   },
-  "layer-tokens": {
-    "$layer-01": {
+  "layerTokens": {
+    "layer01": {
       "role": [
         "Container color on $background",
         "Secondary page background"
@@ -213,7 +213,7 @@
         }
       }
     },
-    "$layer-02": {
+    "layer02": {
       "role": [
         "Container color on $layer-01"
       ],
@@ -236,7 +236,7 @@
         }
       }
     },
-    "$layer-03": {
+    "layer03": {
       "role": [
         "Container color on $layer-02"
       ],
@@ -259,7 +259,7 @@
         }
       }
     },
-    "$layer-hover-01": {
+    "layerHover01": {
       "role": [
         "Hover color for $layer-01"
       ],
@@ -282,7 +282,7 @@
         }
       }
     },
-    "$layer-hover-02": {
+    "layerHover02": {
       "role": [
         "Hover color for $layer-02"
       ],
@@ -305,7 +305,7 @@
         }
       }
     },
-    "$layer-hover-03": {
+    "layerHover03": {
       "role": [
         "Hover color for $layer-03"
       ],
@@ -328,7 +328,7 @@
         }
       }
     },
-    "$layer-active-01": {
+    "layerActive01": {
       "role": [
         "Active color for $layer-01"
       ],
@@ -351,7 +351,7 @@
         }
       }
     },
-    "$layer-active-02": {
+    "layerActive02": {
       "role": [
         "Active color for $layer-02"
       ],
@@ -374,7 +374,7 @@
         }
       }
     },
-    "$layer-active-03": {
+    "layerActive03": {
       "role": [
         "Active color for $layer-03"
       ],
@@ -397,7 +397,7 @@
         }
       }
     },
-    "$layer-selected-01": {
+    "layerSelected01": {
       "role": [
         "Selected color for $layer-01"
       ],
@@ -420,7 +420,7 @@
         }
       }
     },
-    "$layer-selected-02": {
+    "layerSelected02": {
       "role": [
         "Selected color for $layer-02"
       ],
@@ -443,7 +443,7 @@
         }
       }
     },
-    "$layer-selected-03": {
+    "layerSelected03": {
       "role": [
         "Selected color for $layer-03"
       ],
@@ -466,7 +466,7 @@
         }
       }
     },
-    "$layer-selected-hover-01": {
+    "layerSelectedHover01": {
       "role": [
         "Hover color for $layer-selected-01"
       ],
@@ -489,7 +489,7 @@
         }
       }
     },
-    "$layer-selected-hover-02": {
+    "layerSelectedHover02": {
       "role": [
         "Hover color for $layer-selected-02"
       ],
@@ -512,7 +512,7 @@
         }
       }
     },
-    "$layer-selected-hover-03": {
+    "layerSelectedHover03": {
       "role": [
         "Hover color for $layer-selected-03"
       ],
@@ -535,7 +535,7 @@
         }
       }
     },
-    "$layer-selected-inverse": {
+    "layerSelectedInverse": {
       "role": [
         "High contrast elements",
         "4.5:1 AA element contrast"
@@ -559,7 +559,7 @@
         }
       }
     },
-    "$layer-selected-disabled": {
+    "layerSelectedDisabled": {
       "role": [
         "Disabled color for selected layers"
       ],
@@ -583,8 +583,8 @@
       }
     }
   },
-  "layer-accent-tokens": {
-    "$layer-accent-01": {
+  "layerAccentTokens": {
+    "layerAccent01": {
       "role": [
         "Tertiary background paired with $layer-01"
       ],
@@ -607,7 +607,7 @@
         }
       }
     },
-    "$layer-accent-02": {
+    "layerAccent02": {
       "role": [
         "Tertiary background paired with $layer-02"
       ],
@@ -630,7 +630,7 @@
         }
       }
     },
-    "$layer-accent-03": {
+    "layerAccent03": {
       "role": [
         "Tertiary background paired with $layer-03"
       ],
@@ -653,7 +653,7 @@
         }
       }
     },
-    "$layer-accent-hover-01": {
+    "layerAccentHover01": {
       "role": [
         "Hover color for $layer-accent-01"
       ],
@@ -676,7 +676,7 @@
         }
       }
     },
-    "$layer-accent-hover-02": {
+    "layerAccentHover02": {
       "role": [
         "Hover color for $layer-accent-02"
       ],
@@ -699,7 +699,7 @@
         }
       }
     },
-    "$layer-accent-hover-03": {
+    "layerAccentHover03": {
       "role": [
         "Hover color for $layer-accent-03"
       ],
@@ -722,7 +722,7 @@
         }
       }
     },
-    "$layer-accent-active-01": {
+    "layerAccentActive01": {
       "role": [
         "Active color for $layer-accent-01"
       ],
@@ -745,7 +745,7 @@
         }
       }
     },
-    "$layer-accent-active-02": {
+    "layerAccentActive02": {
       "role": [
         "Active color for $layer-accent-02"
       ],
@@ -768,7 +768,7 @@
         }
       }
     },
-    "$layer-accent-active-03": {
+    "layerAccentActive03": {
       "role": [
         "Active color for $layer-accent-03"
       ],
@@ -792,8 +792,8 @@
       }
     }
   },
-  "field-tokens": {
-    "$field-01": {
+  "fieldTokens": {
+    "field01": {
       "role": [
         "Default input fields",
         "Fields on $background"
@@ -817,7 +817,7 @@
         }
       }
     },
-    "$field-02": {
+    "field02": {
       "role": [
         "Secondary input fields",
         "Fields on $layer-01"
@@ -841,7 +841,7 @@
         }
       }
     },
-    "$field-03": {
+    "field03": {
       "role": [
         "Tertiary input fields",
         "Fields on $layer-02"
@@ -865,7 +865,7 @@
         }
       }
     },
-    "$field-hover-01": {
+    "fieldHover01": {
       "role": [
         "Hover color for $field-01"
       ],
@@ -888,7 +888,7 @@
         }
       }
     },
-    "$field-hover-02": {
+    "fieldHover02": {
       "role": [
         "Hover color for $field-02"
       ],
@@ -911,7 +911,7 @@
         }
       }
     },
-    "$field-hover-03": {
+    "fieldHover03": {
       "role": [
         "Hover color for $field-03"
       ],
@@ -935,8 +935,8 @@
       }
     }
   },
-  "border-tokens": {
-    "$border-interactive": {
+  "borderTokens": {
+    "borderInteractive": {
       "role": [
         "3:1 AA contrast",
         "Selected borders",
@@ -961,7 +961,7 @@
         }
       }
     },
-    "$border-subtle-00": {
+    "borderSubtle00": {
       "role": [
         "Subtle borders paired with $background"
       ],
@@ -984,7 +984,7 @@
         }
       }
     },
-    "$border-subtle-01": {
+    "borderSubtle01": {
       "role": [
         "Subtle borders paired with $layer-01"
       ],
@@ -1007,7 +1007,7 @@
         }
       }
     },
-    "$border-subtle-02": {
+    "borderSubtle02": {
       "role": [
         "Subtle borders paired with $layer-02"
       ],
@@ -1030,7 +1030,7 @@
         }
       }
     },
-    "$border-subtle-03": {
+    "borderSubtle03": {
       "role": [
         "Subtle borders paired with $layer-03"
       ],
@@ -1053,7 +1053,7 @@
         }
       }
     },
-    "$border-subtle-selected-01": {
+    "borderSubtleSelected01": {
       "role": [
         "Selected color for $border-subtle-01"
       ],
@@ -1076,7 +1076,7 @@
         }
       }
     },
-    "$border-subtle-selected-02": {
+    "borderSubtleSelected02": {
       "role": [
         "Selected color for $border-subtle-02"
       ],
@@ -1099,7 +1099,7 @@
         }
       }
     },
-    "$border-subtle-selected-03": {
+    "borderSubtleSelected03": {
       "role": [
         "Selected color for $border-subtle-03"
       ],
@@ -1122,7 +1122,7 @@
         }
       }
     },
-    "$border-strong-01": {
+    "borderStrong01": {
       "role": [
         "Medium contrast border",
         "Border-bottom paired with $field-01",
@@ -1147,7 +1147,7 @@
         }
       }
     },
-    "$border-strong-02": {
+    "borderStrong02": {
       "role": [
         "Medium contrast border",
         "Border-bottom paired with $field-02",
@@ -1172,7 +1172,7 @@
         }
       }
     },
-    "$border-strong-03": {
+    "borderStrong03": {
       "role": [
         "Medium contrast border",
         "Border-bottom paired with $field-03",
@@ -1197,7 +1197,7 @@
         }
       }
     },
-    "$border-tile-01": {
+    "borderTile01": {
       "role": [
         "Operable tile indicator paired with $layer-01"
       ],
@@ -1220,7 +1220,7 @@
         }
       }
     },
-    "$border-tile-02": {
+    "borderTile02": {
       "role": [
         "Operable tile indicator paired with $layer-02"
       ],
@@ -1243,7 +1243,7 @@
         }
       }
     },
-    "$border-tile-03": {
+    "borderTile03": {
       "role": [
         "Operable tile indicator paired with $layer-03"
       ],
@@ -1266,7 +1266,7 @@
         }
       }
     },
-    "$border-inverse": {
+    "borderInverse": {
       "role": [
         "High contrast border",
         "4.5:1 AA non-text contrast"
@@ -1290,7 +1290,7 @@
         }
       }
     },
-    "$border-disabled": {
+    "borderDisabled": {
       "role": [
         "Disabled border color (excluding border-subtles)"
       ],
@@ -1314,8 +1314,8 @@
       }
     }
   },
-  "text-tokens": {
-    "$text-primary": {
+  "textTokens": {
+    "textPrimary": {
       "role": [
         "Primary text",
         "Body copy",
@@ -1341,7 +1341,7 @@
         }
       }
     },
-    "$text-secondary": {
+    "textSecondary": {
       "role": [
         "Secondary text",
         "Input labels"
@@ -1365,7 +1365,7 @@
         }
       }
     },
-    "$text-placeholder": {
+    "textPlaceholder": {
       "role": [
         "Placeholder text"
       ],
@@ -1388,7 +1388,7 @@
         }
       }
     },
-    "$text-on-color": {
+    "textOnColor": {
       "role": [
         "Text on interactive colors",
         "Text on button colors"
@@ -1412,7 +1412,7 @@
         }
       }
     },
-    "$text-on-color-disabled": {
+    "textOnColorDisabled": {
       "role": [
         "Disabled color for $text-on-color"
       ],
@@ -1435,7 +1435,7 @@
         }
       }
     },
-    "$text-helper": {
+    "textHelper": {
       "role": [
         "Tertiary text",
         "Help text"
@@ -1459,7 +1459,7 @@
         }
       }
     },
-    "$text-error": {
+    "textError": {
       "role": [
         "Error message text"
       ],
@@ -1482,7 +1482,7 @@
         }
       }
     },
-    "$text-inverse": {
+    "textInverse": {
       "role": [
         "Inverse text color"
       ],
@@ -1505,7 +1505,7 @@
         }
       }
     },
-    "$text-disabled": {
+    "textDisabled": {
       "role": [
         "Disabled text color"
       ],
@@ -1529,8 +1529,8 @@
       }
     }
   },
-  "link-tokens": {
-    "$link-primary": {
+  "linkTokens": {
+    "linkPrimary": {
       "role": [
         "Primary links"
       ],
@@ -1553,7 +1553,7 @@
         }
       }
     },
-    "$link-primary-hover": {
+    "linkPrimaryHover": {
       "role": [
         "Hover color for $link-primary"
       ],
@@ -1576,7 +1576,7 @@
         }
       }
     },
-    "$link-secondary": {
+    "linkSecondary": {
       "role": [
         "Secondary link color for lower contrast backgrounds"
       ],
@@ -1599,7 +1599,7 @@
         }
       }
     },
-    "$link-inverse": {
+    "linkInverse": {
       "role": [
         "Links on $background-inverse backgrounds"
       ],
@@ -1622,7 +1622,7 @@
         }
       }
     },
-    "$link-inverse-hover": {
+    "linkInverseHover": {
       "role": [
         "Hover color for links on $background-inverse backgrounds"
       ],
@@ -1645,7 +1645,7 @@
         }
       }
     },
-    "$link-inverse-active": {
+    "linkInverseActive": {
       "role": [
         "Active color for links on $background-inverse backgrounds"
       ],
@@ -1668,7 +1668,7 @@
         }
       }
     },
-    "$link-inverse-visited": {
+    "linkInverseVisited": {
       "role": [
         "Color for visited links on $background-inverse backgrounds"
       ],
@@ -1691,7 +1691,7 @@
         }
       }
     },
-    "$link-visited": {
+    "linkVisited": {
       "role": [
         "Color for visited links"
       ],
@@ -1715,8 +1715,8 @@
       }
     }
   },
-  "icon-tokens": {
-    "$icon-primary": {
+  "iconTokens": {
+    "iconPrimary": {
       "role": [
         "Primary icons"
       ],
@@ -1739,7 +1739,7 @@
         }
       }
     },
-    "$icon-secondary": {
+    "iconSecondary": {
       "role": [
         "Secondary icons"
       ],
@@ -1762,7 +1762,7 @@
         }
       }
     },
-    "$icon-on-color": {
+    "iconOnColor": {
       "role": [
         "Icons on interactive colors",
         "Icons on non-layer colors"
@@ -1786,7 +1786,7 @@
         }
       }
     },
-    "$icon-on-color-disabled": {
+    "iconOnColorDisabled": {
       "role": [
         "Disabled color for $icon-on-color"
       ],
@@ -1809,7 +1809,7 @@
         }
       }
     },
-    "$icon-interactive": {
+    "iconInteractive": {
       "role": [
         "Icons that indicate operability"
       ],
@@ -1832,7 +1832,7 @@
         }
       }
     },
-    "$icon-inverse": {
+    "iconInverse": {
       "role": [
         "Inverse icon color"
       ],
@@ -1855,7 +1855,7 @@
         }
       }
     },
-    "$icon-disabled": {
+    "iconDisabled": {
       "role": [
         "Disabled icon color"
       ],
@@ -1879,8 +1879,8 @@
       }
     }
   },
-  "button-tokens": {
-    "$button-primary": {
+  "buttonTokens": {
+    "buttonPrimary": {
       "role": [
         "Primary button color"
       ],
@@ -1903,7 +1903,7 @@
         }
       }
     },
-    "$button-primary-hover": {
+    "buttonPrimaryHover": {
       "role": [
         "Hover color for $button-primary"
       ],
@@ -1926,7 +1926,7 @@
         }
       }
     },
-    "$button-primary-active": {
+    "buttonPrimaryActive": {
       "role": [
         "Active color for $button-primary"
       ],
@@ -1949,7 +1949,7 @@
         }
       }
     },
-    "$button-secondary": {
+    "buttonSecondary": {
       "role": [
         "Secondary button color"
       ],
@@ -1972,7 +1972,7 @@
         }
       }
     },
-    "$button-secondary-hover": {
+    "buttonSecondaryHover": {
       "role": [
         "Hover color for $button-secondary"
       ],
@@ -1995,7 +1995,7 @@
         }
       }
     },
-    "$button-secondary-active": {
+    "buttonSecondaryActive": {
       "role": [
         "Active color for $button-secondary"
       ],
@@ -2018,7 +2018,7 @@
         }
       }
     },
-    "$button-tertiary": {
+    "buttonTertiary": {
       "role": [
         "Tertiary button color",
         "4.5:1 AA text contrast"
@@ -2042,7 +2042,7 @@
         }
       }
     },
-    "$button-tertiary-hover": {
+    "buttonTertiaryHover": {
       "role": [
         "Hover color for $button-tertiary"
       ],
@@ -2065,7 +2065,7 @@
         }
       }
     },
-    "$button-tertiary-active": {
+    "buttonTertiaryActive": {
       "role": [
         "Active color for $button-tertiary"
       ],
@@ -2088,7 +2088,7 @@
         }
       }
     },
-    "$button-danger-primary": {
+    "buttonDangerPrimary": {
       "role": [
         "Primary danger button color",
         "3:1 AA non-text contrast"
@@ -2112,7 +2112,7 @@
         }
       }
     },
-    "$button-danger-secondary": {
+    "buttonDangerSecondary": {
       "role": [
         "Tertiary danger button color",
         "Ghost danger button color",
@@ -2137,7 +2137,7 @@
         }
       }
     },
-    "$button-danger-hover": {
+    "buttonDangerHover": {
       "role": [
         "Hover color for $danger-primary",
         "Hover color for $danger-secondary"
@@ -2161,7 +2161,7 @@
         }
       }
     },
-    "$button-danger-active": {
+    "buttonDangerActive": {
       "role": [
         "Active color for $danger-primary",
         "Active color for $danger-secondary"
@@ -2185,7 +2185,7 @@
         }
       }
     },
-    "$button-separator": {
+    "buttonSeparator": {
       "role": [
         "Fluid button separator",
         "3:1 AA non-text contrast"
@@ -2209,7 +2209,7 @@
         }
       }
     },
-    "$button-disabled": {
+    "buttonDisabled": {
       "role": [
         "Disabled color for button elements"
       ],
@@ -2233,8 +2233,8 @@
       }
     }
   },
-  "support-tokens": {
-    "$support-error": {
+  "supportTokens": {
+    "supportError": {
       "role": [
         "Error",
         "Invalid state"
@@ -2258,7 +2258,7 @@
         }
       }
     },
-    "$support-success": {
+    "supportSuccess": {
       "role": [
         "Success",
         "On"
@@ -2282,7 +2282,7 @@
         }
       }
     },
-    "$support-warning": {
+    "supportWarning": {
       "role": [
         "Warning"
       ],
@@ -2305,7 +2305,7 @@
         }
       }
     },
-    "$support-info": {
+    "supportInfo": {
       "role": [
         "Information"
       ],
@@ -2328,7 +2328,7 @@
         }
       }
     },
-    "$support-error-inverse": {
+    "supportErrorInverse": {
       "role": [
         "Error in high contrast moments"
       ],
@@ -2351,7 +2351,7 @@
         }
       }
     },
-    "$support-success-inverse": {
+    "supportSuccessInverse": {
       "role": [
         "Success in high contrast moments"
       ],
@@ -2374,7 +2374,7 @@
         }
       }
     },
-    "$support-warning-inverse": {
+    "supportWarningInverse": {
       "role": [
         "Warning in high contrast moments"
       ],
@@ -2397,7 +2397,7 @@
         }
       }
     },
-    "$support-info-inverse": {
+    "supportInfoInverse": {
       "role": [
         "Information in high contrast moments"
       ],
@@ -2420,7 +2420,7 @@
         }
       }
     },
-    "$support-caution-minor": {
+    "supportCautionMinor": {
       "role": [
         "Minor caution status"
       ],
@@ -2443,7 +2443,7 @@
         }
       }
     },
-    "$support-caution-major": {
+    "supportCautionMajor": {
       "role": [
         "Major caution status"
       ],
@@ -2466,7 +2466,7 @@
         }
       }
     },
-    "$support-caution-undefined": {
+    "supportCautionUndefined": {
       "role": [
         "Undefined status"
       ],
@@ -2490,8 +2490,8 @@
       }
     }
   },
-  "focus-tokens": {
-    "$focus": {
+  "focusTokens": {
+    "focus": {
       "role": [
         "Focus border",
         "Focus underline"
@@ -2515,7 +2515,7 @@
         }
       }
     },
-    "$focus-inset": {
+    "focusInset": {
       "role": [
         "Contrast border paired with $focus"
       ],
@@ -2538,7 +2538,7 @@
         }
       }
     },
-    "$focus-inverse": {
+    "focusInverse": {
       "role": [
         "Focus on high contrast moments"
       ],
@@ -2563,7 +2563,7 @@
     }
   },
   "miscellaneous": {
-    "$interactive": {
+    "interactive": {
       "role": [
         "3:1 AA contrast",
         "Selected elements",
@@ -2589,7 +2589,7 @@
         }
       }
     },
-    "$highlight": {
+    "highlight": {
       "role": [
         "Highlight color"
       ],
@@ -2612,7 +2612,7 @@
         }
       }
     },
-    "$toggle-off": {
+    "toggleOff": {
       "role": [
         "Off background",
         "3:1 AA contrast"
@@ -2636,7 +2636,7 @@
         }
       }
     },
-    "$overlay": {
+    "overlay": {
       "role": [
         "Background overlay"
       ],
@@ -2659,7 +2659,7 @@
         }
       }
     },
-    "$skeleton-element": {
+    "skeletonElement": {
       "role": [
         "Skeleton color for text and UI elements"
       ],
@@ -2682,7 +2682,7 @@
         }
       }
     },
-    "$skeleton-background": {
+    "skeletonBackground": {
       "role": [
         "Skeleton color for containers"
       ],
@@ -2707,7 +2707,7 @@
     }
   },
   "tag": {
-    "$tag-background-gray": {
+    "tagBackgroundGray": {
       "role": [
         "Gray tag background"
       ],
@@ -2730,7 +2730,7 @@
         }
       }
     },
-    "$tag-color-gray": {
+    "tagColorGray": {
       "role": [
         "Gray tag text",
         "Gray tag icon"
@@ -2754,7 +2754,7 @@
         }
       }
     },
-    "$tag-hover-gray": {
+    "tagHoverGray": {
       "role": [
         "Gray tag hover for $tag-background-gray"
       ],
@@ -2777,7 +2777,7 @@
         }
       }
     },
-    "$tag-border-gray": {
+    "tagBorderGray": {
       "role": [
         "Gray tag border for operational tag"
       ],
@@ -2800,7 +2800,7 @@
         }
       }
     },
-    "$tag-background-cool-gray": {
+    "tagBackgroundCoolGray": {
       "role": [
         "Cool gray tag background"
       ],
@@ -2823,7 +2823,7 @@
         }
       }
     },
-    "$tag-color-cool-gray": {
+    "tagColorCoolGray": {
       "role": [
         "Cool gray tag text",
         "Cool gray tag icon"
@@ -2847,7 +2847,7 @@
         }
       }
     },
-    "$tag-hover-cool-gray": {
+    "tagHoverCoolGray": {
       "role": [
         "Cool gray tag hover for $tag-background-cool-gray"
       ],
@@ -2870,7 +2870,7 @@
         }
       }
     },
-    "$tag-border-cool-gray": {
+    "tagBorderCoolGray": {
       "role": [
         "Cool gray tag border for operational tag"
       ],
@@ -2893,7 +2893,7 @@
         }
       }
     },
-    "$tag-background-warm-gray": {
+    "tagBackgroundWarmGray": {
       "role": [
         "Warm gray tag background"
       ],
@@ -2916,7 +2916,7 @@
         }
       }
     },
-    "$tag-color-warm-gray": {
+    "tagColorWarmGray": {
       "role": [
         "Warm gray tag text",
         "Warm gray tag icon"
@@ -2940,7 +2940,7 @@
         }
       }
     },
-    "$tag-hover-warm-gray": {
+    "tagHoverWarmGray": {
       "role": [
         "Warm gray tag hover for $tag-background-warm-gray"
       ],
@@ -2963,7 +2963,7 @@
         }
       }
     },
-    "$tag-border-warm-gray": {
+    "tagBorderWarmGray": {
       "role": [
         "Warm gray tag border for operational tag"
       ],
@@ -2986,7 +2986,7 @@
         }
       }
     },
-    "$tag-background-red": {
+    "tagBackgroundRed": {
       "role": [
         "Red tag background"
       ],
@@ -3009,7 +3009,7 @@
         }
       }
     },
-    "$tag-color-red": {
+    "tagColorRed": {
       "role": [
         "Red tag text",
         "Red tag icon"
@@ -3033,7 +3033,7 @@
         }
       }
     },
-    "$tag-hover-red": {
+    "tagHoverRed": {
       "role": [
         "Red tag hover for $tag-background-red"
       ],
@@ -3056,7 +3056,7 @@
         }
       }
     },
-    "$tag-border-red": {
+    "tagBorderRed": {
       "role": [
         "Red tag border for operational tag"
       ],
@@ -3079,7 +3079,7 @@
         }
       }
     },
-    "$tag-background-magenta": {
+    "tagBackgroundMagenta": {
       "role": [
         "Magenta tag background"
       ],
@@ -3102,7 +3102,7 @@
         }
       }
     },
-    "$tag-color-magenta": {
+    "tagColorMagenta": {
       "role": [
         "Magenta tag text",
         "Magenta tag icon"
@@ -3126,7 +3126,7 @@
         }
       }
     },
-    "$tag-hover-magenta": {
+    "tagHoverMagenta": {
       "role": [
         "Magenta tag hover for $tag-background-magenta"
       ],
@@ -3149,7 +3149,7 @@
         }
       }
     },
-    "$tag-border-magenta": {
+    "tagBorderMagenta": {
       "role": [
         "Magenta tag border for operational tag"
       ],
@@ -3172,7 +3172,7 @@
         }
       }
     },
-    "$tag-background-purple": {
+    "tagBackgroundPurple": {
       "role": [
         "Purple tag background"
       ],
@@ -3195,7 +3195,7 @@
         }
       }
     },
-    "$tag-color-purple": {
+    "tagColorPurple": {
       "role": [
         "Purple tag text",
         "Purple tag icon"
@@ -3219,7 +3219,7 @@
         }
       }
     },
-    "$tag-hover-purple": {
+    "tagHoverPurple": {
       "role": [
         "Purple tag hover for $tag-background-purple"
       ],
@@ -3242,7 +3242,7 @@
         }
       }
     },
-    "$tag-border-purple": {
+    "tagBorderPurple": {
       "role": [
         "Purple tag border for operational tag"
       ],
@@ -3265,7 +3265,7 @@
         }
       }
     },
-    "$tag-background-blue": {
+    "tagBackgroundBlue": {
       "role": [
         "Blue tag background"
       ],
@@ -3288,7 +3288,7 @@
         }
       }
     },
-    "$tag-color-blue": {
+    "tagColorBlue": {
       "role": [
         "Blue tag text",
         "Blue tag icon"
@@ -3312,7 +3312,7 @@
         }
       }
     },
-    "$tag-hover-blue": {
+    "tagHoverBlue": {
       "role": [
         "Blue tag hover for $tag-background-blue"
       ],
@@ -3335,7 +3335,7 @@
         }
       }
     },
-    "$tag-border-blue": {
+    "tagBorderBlue": {
       "role": [
         "Blue tag border for operational tag"
       ],
@@ -3358,7 +3358,7 @@
         }
       }
     },
-    "$tag-background-cyan": {
+    "tagBackgroundCyan": {
       "role": [
         "Cyan tag background"
       ],
@@ -3381,7 +3381,7 @@
         }
       }
     },
-    "$tag-color-cyan": {
+    "tagColorCyan": {
       "role": [
         "Cyan tag text",
         "Cyan tag icon"
@@ -3405,7 +3405,7 @@
         }
       }
     },
-    "$tag-hover-cyan": {
+    "tagHoverCyan": {
       "role": [
         "Cyan tag hover for $tag-background-cyan"
       ],
@@ -3428,7 +3428,7 @@
         }
       }
     },
-    "$tag-border-cyan": {
+    "tagBorderCyan": {
       "role": [
         "Cyan tag border for operational tag"
       ],
@@ -3451,7 +3451,7 @@
         }
       }
     },
-    "$tag-background-teal": {
+    "tagBackgroundTeal": {
       "role": [
         "Teal tag background"
       ],
@@ -3474,7 +3474,7 @@
         }
       }
     },
-    "$tag-color-teal": {
+    "tagColorTeal": {
       "role": [
         "Teal tag text",
         "Teal tag icon"
@@ -3498,7 +3498,7 @@
         }
       }
     },
-    "$tag-hover-teal": {
+    "tagHoverTeal": {
       "role": [
         "Teal tag hover for $tag-background-teal"
       ],
@@ -3521,7 +3521,7 @@
         }
       }
     },
-    "$tag-border-teal": {
+    "tagBorderTeal": {
       "role": [
         "Teal tag border for operational tag"
       ],
@@ -3544,7 +3544,7 @@
         }
       }
     },
-    "$tag-background-green": {
+    "tagBackgroundGreen": {
       "role": [
         "Green tag background"
       ],
@@ -3567,7 +3567,7 @@
         }
       }
     },
-    "$tag-color-green": {
+    "tagColorGreen": {
       "role": [
         "Green tag text",
         "Green tag icon"
@@ -3591,7 +3591,7 @@
         }
       }
     },
-    "$tag-hover-green": {
+    "tagHoverGreen": {
       "role": [
         "Green tag hover for $tag-background-green"
       ],
@@ -3614,7 +3614,7 @@
         }
       }
     },
-    "$tag-border-green": {
+    "tagBorderGreen": {
       "role": [
         "Green tag border for operational tag"
       ],
@@ -3639,7 +3639,7 @@
     }
   },
   "ai": {
-    "$ai-aura-start": {
+    "aiAuraStart": {
       "role": [
         "Linear gradient start value for large AI layers"
       ],
@@ -3662,7 +3662,7 @@
         }
       }
     },
-    "$ai-aura-start-sm": {
+    "aiAuraStartSm": {
       "role": [
         "Linear gradient start value for small AI layers"
       ],
@@ -3685,7 +3685,7 @@
         }
       }
     },
-    "$ai-aura-end": {
+    "aiAuraEnd": {
       "role": [
         "Linear gradient start value for all AI layers"
       ],
@@ -3708,7 +3708,7 @@
         }
       }
     },
-    "$ai-aura-hover-start": {
+    "aiAuraHoverStart": {
       "role": [
         "Linear gradient start value for the AI aura hover"
       ],
@@ -3731,7 +3731,7 @@
         }
       }
     },
-    "$ai-aura-hover-end": {
+    "aiAuraHoverEnd": {
       "role": [
         "Linear gradient end value for the AI aura hover"
       ],
@@ -3754,7 +3754,7 @@
         }
       }
     },
-    "$ai-aura-hover-background": {
+    "aiAuraHoverBackground": {
       "role": [
         "Hover background color for AI layers"
       ],
@@ -3777,7 +3777,7 @@
         }
       }
     },
-    "$ai-border-start": {
+    "aiBorderStart": {
       "role": [
         "Linear gradient start value for AI borders"
       ],
@@ -3800,7 +3800,7 @@
         }
       }
     },
-    "$ai-border-end": {
+    "aiBorderEnd": {
       "role": [
         "Linear gradient end value for AI borders"
       ],
@@ -3823,7 +3823,7 @@
         }
       }
     },
-    "$ai-border-strong": {
+    "aiBorderStrong": {
       "role": [
         "Medium contrast border for AI elements",
         "Border-bottom paired with AI fields",
@@ -3848,7 +3848,7 @@
         }
       }
     },
-    "$ai-drop-shadow": {
+    "aiDropShadow": {
       "role": [
         "Drop shadow for the AI layer"
       ],
@@ -3871,7 +3871,7 @@
         }
       }
     },
-    "$ai-inner-shadow": {
+    "aiInnerShadow": {
       "role": [
         "Inner shadow for the AI layer"
       ],
@@ -3894,7 +3894,7 @@
         }
       }
     },
-    "$ai-popover-background": {
+    "aiPopoverBackground": {
       "role": [
         "Background color for the AI explainability popover"
       ],
@@ -3917,7 +3917,7 @@
         }
       }
     },
-    "$ai-popover-shadow-outer-01": {
+    "aiPopoverShadowOuter01": {
       "role": [
         "1 of 2 shadow colors for the AI explainability popover"
       ],
@@ -3940,7 +3940,7 @@
         }
       }
     },
-    "$ai-popover-shadow-outer-02": {
+    "aiPopoverShadowOuter02": {
       "role": [
         "2 of 2 shadow colors for the AI explainability popover"
       ],
@@ -3963,7 +3963,7 @@
         }
       }
     },
-    "$ai-skeleton-element": {
+    "aiSkeletonElement": {
       "role": [
         "Skeleton color for AI text and UI elements"
       ],
@@ -3986,7 +3986,7 @@
         }
       }
     },
-    "$ai-skeleton-background": {
+    "aiSkeletonBackground": {
       "role": [
         "Skeleton color for AI containers"
       ],
@@ -4009,7 +4009,7 @@
         }
       }
     },
-    "$ai-overlay": {
+    "aiOverlay": {
       "role": [
         "Background overlay for AI components"
       ],
@@ -4034,7 +4034,7 @@
     }
   },
   "chat": {
-    "$chat-avatar-bot": {
+    "chatAvatarBot": {
       "role": [
         "Chat avatar background color for bots"
       ],
@@ -4057,7 +4057,7 @@
         }
       }
     },
-    "$chat-avatar-agent": {
+    "chatAvatarAgent": {
       "role": [
         "Chat avatar background color for agents"
       ],
@@ -4080,7 +4080,7 @@
         }
       }
     },
-    "$chat-avatar-user": {
+    "chatAvatarUser": {
       "role": [
         "Chat avatar background color for users"
       ],
@@ -4103,7 +4103,7 @@
         }
       }
     },
-    "$chat-bubble-user": {
+    "chatBubbleUser": {
       "role": [
         "Chat bubble background color for users"
       ],
@@ -4126,7 +4126,7 @@
         }
       }
     },
-    "$chat-bubble-agent": {
+    "chatBubbleAgent": {
       "role": [
         "Chat bubble background color for agents"
       ],
@@ -4149,7 +4149,7 @@
         }
       }
     },
-    "$chat-bubble-border": {
+    "chatBubbleBorder": {
       "role": [
         "Chat bubble border color for agents"
       ],
@@ -4172,7 +4172,7 @@
         }
       }
     },
-    "$chat-prompt-background": {
+    "chatPromptBackground": {
       "role": [
         "Background color for chat prompt input"
       ],
@@ -4195,7 +4195,7 @@
         }
       }
     },
-    "$chat-prompt-border-start": {
+    "chatPromptBorderStart": {
       "role": [
         "Linear gradient start value for chat prompts border"
       ],
@@ -4218,7 +4218,7 @@
         }
       }
     },
-    "$chat-prompt-border-end": {
+    "chatPromptBorderEnd": {
       "role": [
         "Linear gradient end value for chat prompts border"
       ],
@@ -4241,7 +4241,7 @@
         }
       }
     },
-    "$chat-shell-background": {
+    "chatShellBackground": {
       "role": [
         "Chat shell background color"
       ],
@@ -4264,7 +4264,7 @@
         }
       }
     },
-    "$chat-header-background": {
+    "chatHeaderBackground": {
       "role": [
         "Chat header background color"
       ],
@@ -4288,8 +4288,8 @@
       }
     }
   },
-  "chat-button": {
-    "$chat-button": {
+  "chatButton": {
+    "chatButton": {
       "role": [
         "Chat quick action button color"
       ],
@@ -4312,7 +4312,7 @@
         }
       }
     },
-    "$chat-button-hover": {
+    "chatButtonHover": {
       "role": [
         "Hover color for $chat-button"
       ],
@@ -4335,7 +4335,7 @@
         }
       }
     },
-    "$chat-button-text-hover": {
+    "chatButtonTextHover": {
       "role": [
         "Text color for hovered chat button"
       ],
@@ -4358,7 +4358,7 @@
         }
       }
     },
-    "$chat-button-active": {
+    "chatButtonActive": {
       "role": [
         "Active color for $chat-button"
       ],
@@ -4381,7 +4381,7 @@
         }
       }
     },
-    "$chat-button-selected": {
+    "chatButtonSelected": {
       "role": [
         "Selected color for $chat-button"
       ],
@@ -4404,7 +4404,7 @@
         }
       }
     },
-    "$chat-button-text-selected": {
+    "chatButtonTextSelected": {
       "role": [
         "Text color for selected chat-button"
       ],
@@ -4429,7 +4429,7 @@
     }
   },
   "notification": {
-    "$notification-background-error": {
+    "notificationBackgroundError": {
       "role": [
         "Error low contrast notification background"
       ],
@@ -4452,7 +4452,7 @@
         }
       }
     },
-    "$notification-background-success": {
+    "notificationBackgroundSuccess": {
       "role": [
         "Success low contrast notification background"
       ],
@@ -4475,7 +4475,7 @@
         }
       }
     },
-    "$notification-background-info": {
+    "notificationBackgroundInfo": {
       "role": [
         "Informational low contrast notification background"
       ],
@@ -4498,7 +4498,7 @@
         }
       }
     },
-    "$notification-background-warning": {
+    "notificationBackgroundWarning": {
       "role": [
         "Warning low contrast notification background"
       ],
@@ -4521,7 +4521,7 @@
         }
       }
     },
-    "$notification-action-hover": {
+    "notificationActionHover": {
       "role": [
         "Hover for notification ghost button"
       ],
@@ -4544,7 +4544,7 @@
         }
       }
     },
-    "$notification-action-tertiary-inverse": {
+    "notificationActionTertiaryInverse": {
       "role": [
         "Tertiary button color for notification"
       ],
@@ -4567,7 +4567,7 @@
         }
       }
     },
-    "$notification-action-tertiary-inverse-active": {
+    "notificationActionTertiaryInverseActive": {
       "role": [
         "Active color for tertiary button in notification"
       ],
@@ -4590,7 +4590,7 @@
         }
       }
     },
-    "$notification-action-tertiary-inverse-hover": {
+    "notificationActionTertiaryInverseHover": {
       "role": [
         "Hover color for tertiary button in notification"
       ],
@@ -4613,7 +4613,7 @@
         }
       }
     },
-    "$notification-action-tertiary-inverse-text": {
+    "notificationActionTertiaryInverseText": {
       "role": [
         "Text color for tertiary button in notification"
       ],
@@ -4636,7 +4636,7 @@
         }
       }
     },
-    "$notification-action-tertiary-inverse-text-on-color-disabled": {
+    "notificationActionTertiaryInverseTextOnColorDisabled": {
       "role": [
         "Disabled color for tertiary button in notification"
       ],

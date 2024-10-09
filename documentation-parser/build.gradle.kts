@@ -1,17 +1,17 @@
 plugins {
     alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.jetbrains.compose)
+    alias(libs.plugins.compose.compiler)
+    kotlin("plugin.serialization")
 }
 
 group = "com.gabrieldrn.docparser"
 version = "unspecified"
 
-repositories {
-    mavenCentral()
-}
-
 dependencies {
-    implementation("it.skrape:skrapeit:1.1.5")
-    implementation("it.skrape:skrapeit-browser-fetcher:1.1.5")
+    implementation(compose.runtime)
+    implementation("org.jetbrains.compose.ui:ui-graphics:${libs.versions.compose.get()}")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
 
     testImplementation(kotlin("test"))
 }
