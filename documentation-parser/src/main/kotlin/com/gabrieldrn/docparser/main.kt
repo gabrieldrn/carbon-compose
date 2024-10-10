@@ -51,68 +51,68 @@ fun main() {
     val tokensProperties = themesTokens.entries.first().value
 
     val themeAbstractionName = ClassName(packageStructure, "Theme2")
+
+    val tokenPropertiesSpecs = tokensProperties
+        .map { token ->
+            PropertySpec.builder(token.name, Color::class)
+                .addKdoc(token.desc)
+                .addModifiers(KModifier.ABSTRACT)
+                .build()
+        }
+
+    val containerColorFuncSpec = FunSpec.builder("containerColor")
+        .addKdoc(containerColorMemberDoc)
+        .returns(Color::class)
+        .addParameter(
+            ParameterSpec.builder("layer", layerClass)
+                .defaultValue("Layer.Layer00")
+                .build()
+        )
+        .addStatement(
+            """
+                return when (layer) {
+                  Layer.Layer00 -> background
+                  Layer.Layer01 -> layer01
+                  Layer.Layer02 -> layer02
+                  Layer.Layer03 -> layer03
+                }
+            """.trimIndent()
+        )
+        .build()
+
+    val copyThemeFuncSpec = FunSpec.builder("copy")
+        .returns(themeAbstractionName)
+        .addModifiers(KModifier.INTERNAL)
+        .addAnnotation(
+            AnnotationSpec.builder(Suppress::class)
+                .addMember("%S", "LongMethod")
+                .build()
+        )
+        .apply {
+            tokensProperties.forEach { token ->
+                addParameter(
+                    ParameterSpec.builder(token.name, Color::class)
+                        .defaultValue("this.${token.name}")
+                        .build()
+                )
+            }
+        }
+        .addStatement(
+            "return object : Theme2() {\n" +
+                tokensProperties.joinToString("\n") { token ->
+                    "  override val ${token.name}: Color = ${token.name}"
+                }
+                + "\n}"
+        )
+        .build()
+
     val themeAbstraction = TypeSpec.classBuilder(themeAbstractionName)
         .addKdoc(abstractThemeDoc)
         .addModifiers(KModifier.ABSTRACT)
         .addAnnotation(Immutable::class)
-        .apply {
-            // tokens
-            tokensProperties
-                .map { token ->
-                    PropertySpec.builder(token.name, Color::class)
-                        .addKdoc(token.desc)
-                        .addModifiers(KModifier.ABSTRACT)
-                        .build()
-                }
-                .let(::addProperties)
-        }
-        .addFunction(
-            FunSpec.builder("containerColor")
-                .addKdoc(containerColorMemberDoc)
-                .returns(Color::class)
-                .addParameter(
-                    ParameterSpec.builder("layer", layerClass)
-                        .defaultValue("Layer.Layer00")
-                        .build()
-                )
-                .addStatement(
-                    """
-                        return when (layer) {
-                          Layer.Layer00 -> background
-                          Layer.Layer01 -> layer01
-                          Layer.Layer02 -> layer02
-                          Layer.Layer03 -> layer03
-                        }
-                    """.trimIndent()
-                )
-                .build()
-        )
-        .addFunction(
-            FunSpec.builder("copy")
-                .returns(themeAbstractionName)
-                .addModifiers(KModifier.INTERNAL)
-                .addAnnotation(
-                    AnnotationSpec.builder(Suppress::class)
-                        .addMember("%S", "LongMethod")
-                        .build()
-                )
-                .apply {
-                    tokensProperties.forEach { token ->
-                        addParameter(
-                            ParameterSpec.builder(token.name, Color::class)
-                                .defaultValue("this.${token.name}")
-                                .build()
-                        )
-                    }
-                }
-                .addStatement(
-                    "return object : Theme2() {\n" +
-                        tokensProperties.joinToString("\n") { token ->
-                            "  override val ${token.name}: Color = ${token.name}"
-                        }
-                        + "\n}"
-                )
-                .build()
+        .addProperties(tokenPropertiesSpecs)
+        .addFunctions(
+            listOf(containerColorFuncSpec, copyThemeFuncSpec)
         )
         .build()
 
