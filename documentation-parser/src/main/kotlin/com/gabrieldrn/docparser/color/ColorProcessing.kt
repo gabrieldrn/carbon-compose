@@ -23,6 +23,7 @@ import com.gabrieldrn.docparser.color.model.colortokens.ColorTokens
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
+import java.util.Locale
 import kotlin.reflect.full.memberProperties
 
 private const val COLOR_TOKENS_PATH = "/color-tokens.json"
@@ -30,7 +31,7 @@ private const val COLOR_TOKENS_PATH = "/color-tokens.json"
 data class TokenProperty(val name: String, val desc: String, val color: Color)
 
 @OptIn(ExperimentalSerializationApi::class)
-fun deserializeColorTokens() : ColorTokens =
+fun deserializeColorTokens(): ColorTokens =
     object {}::class.java.getResourceAsStream(COLOR_TOKENS_PATH)
         ?.use { stream -> Json.decodeFromStream<ColorTokens>(stream) }
         ?: error("Could not load color-tokens.json")
@@ -66,7 +67,10 @@ fun associateColorTokensWithThemes(tokens: ColorTokens): Map<String, MutableList
                     themesTokens[themeName]!!.add(
                         TokenProperty(
                             colorDefinition.name,
-                            colorDefinitionValue.role.joinToString("\n") { "$it." },
+                            colorDefinitionValue
+                                .role
+                                .joinToString("\n") { "$it." }
+                                .formatCodeReferences(),
                             color
                         )
                     )
@@ -81,3 +85,22 @@ fun associateColorTokensWithThemes(tokens: ColorTokens): Map<String, MutableList
 
     return themesTokens
 }
+
+private fun String.formatCodeReferences() =
+    replace(Regex("\\\$([A-Z]|[a-z]|[0-9]|-)*")) { result ->
+        result.value
+            .removePrefix("$")
+            // transform string from kebab-case to camelCase
+            .split("-")
+            .let {
+                println(it)
+                it.first().plus(
+                    it
+                        .drop(1)
+                        .joinToString(separator = "") { part ->
+                            part.replaceFirstChar { c -> c.titlecase(Locale.getDefault()) }
+                        }
+                )
+            }
+            .let { "[$it]" }
+    }
