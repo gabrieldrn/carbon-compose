@@ -3,6 +3,7 @@ package com.gabrieldrn.carbon.foundation.color
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
+import com.gabrieldrn.carbon.foundation.color.tag.TagColors
 import kotlin.Suppress
 
 /**
@@ -803,216 +804,6 @@ public abstract class Theme {
   public abstract val supportWarningInverse: Color
 
   /**
-   * Blue tag background.
-   */
-  public abstract val tagBackgroundBlue: Color
-
-  /**
-   * Cool gray tag background.
-   */
-  public abstract val tagBackgroundCoolGray: Color
-
-  /**
-   * Cyan tag background.
-   */
-  public abstract val tagBackgroundCyan: Color
-
-  /**
-   * Gray tag background.
-   */
-  public abstract val tagBackgroundGray: Color
-
-  /**
-   * Green tag background.
-   */
-  public abstract val tagBackgroundGreen: Color
-
-  /**
-   * Magenta tag background.
-   */
-  public abstract val tagBackgroundMagenta: Color
-
-  /**
-   * Purple tag background.
-   */
-  public abstract val tagBackgroundPurple: Color
-
-  /**
-   * Red tag background.
-   */
-  public abstract val tagBackgroundRed: Color
-
-  /**
-   * Teal tag background.
-   */
-  public abstract val tagBackgroundTeal: Color
-
-  /**
-   * Warm gray tag background.
-   */
-  public abstract val tagBackgroundWarmGray: Color
-
-  /**
-   * Blue tag border for operational tag.
-   */
-  public abstract val tagBorderBlue: Color
-
-  /**
-   * Cool gray tag border for operational tag.
-   */
-  public abstract val tagBorderCoolGray: Color
-
-  /**
-   * Cyan tag border for operational tag.
-   */
-  public abstract val tagBorderCyan: Color
-
-  /**
-   * Gray tag border for operational tag.
-   */
-  public abstract val tagBorderGray: Color
-
-  /**
-   * Green tag border for operational tag.
-   */
-  public abstract val tagBorderGreen: Color
-
-  /**
-   * Magenta tag border for operational tag.
-   */
-  public abstract val tagBorderMagenta: Color
-
-  /**
-   * Purple tag border for operational tag.
-   */
-  public abstract val tagBorderPurple: Color
-
-  /**
-   * Red tag border for operational tag.
-   */
-  public abstract val tagBorderRed: Color
-
-  /**
-   * Teal tag border for operational tag.
-   */
-  public abstract val tagBorderTeal: Color
-
-  /**
-   * Warm gray tag border for operational tag.
-   */
-  public abstract val tagBorderWarmGray: Color
-
-  /**
-   * Blue tag text.
-   * Blue tag icon.
-   */
-  public abstract val tagColorBlue: Color
-
-  /**
-   * Cool gray tag text.
-   * Cool gray tag icon.
-   */
-  public abstract val tagColorCoolGray: Color
-
-  /**
-   * Cyan tag text.
-   * Cyan tag icon.
-   */
-  public abstract val tagColorCyan: Color
-
-  /**
-   * Gray tag text.
-   * Gray tag icon.
-   */
-  public abstract val tagColorGray: Color
-
-  /**
-   * Green tag text.
-   * Green tag icon.
-   */
-  public abstract val tagColorGreen: Color
-
-  /**
-   * Magenta tag text.
-   * Magenta tag icon.
-   */
-  public abstract val tagColorMagenta: Color
-
-  /**
-   * Purple tag text.
-   * Purple tag icon.
-   */
-  public abstract val tagColorPurple: Color
-
-  /**
-   * Red tag text.
-   * Red tag icon.
-   */
-  public abstract val tagColorRed: Color
-
-  /**
-   * Teal tag text.
-   * Teal tag icon.
-   */
-  public abstract val tagColorTeal: Color
-
-  /**
-   * Warm gray tag text.
-   * Warm gray tag icon.
-   */
-  public abstract val tagColorWarmGray: Color
-
-  /**
-   * Blue tag hover for [tagBackgroundBlue].
-   */
-  public abstract val tagHoverBlue: Color
-
-  /**
-   * Cool gray tag hover for [tagBackgroundCoolGray].
-   */
-  public abstract val tagHoverCoolGray: Color
-
-  /**
-   * Cyan tag hover for [tagBackgroundCyan].
-   */
-  public abstract val tagHoverCyan: Color
-
-  /**
-   * Gray tag hover for [tagBackgroundGray].
-   */
-  public abstract val tagHoverGray: Color
-
-  /**
-   * Green tag hover for [tagBackgroundGreen].
-   */
-  public abstract val tagHoverGreen: Color
-
-  /**
-   * Magenta tag hover for [tagBackgroundMagenta].
-   */
-  public abstract val tagHoverMagenta: Color
-
-  /**
-   * Purple tag hover for [tagBackgroundPurple].
-   */
-  public abstract val tagHoverPurple: Color
-
-  /**
-   * Red tag hover for [tagBackgroundRed].
-   */
-  public abstract val tagHoverRed: Color
-
-  /**
-   * Teal tag hover for [tagBackgroundTeal].
-   */
-  public abstract val tagHoverTeal: Color
-
-  /**
-   * Warm gray tag hover for [tagBackgroundWarmGray].
-   */
-  public abstract val tagHoverWarmGray: Color
-
-  /**
    * Disabled text color.
    */
   public abstract val textDisabled: Color
@@ -1062,6 +853,8 @@ public abstract class Theme {
    * Input labels.
    */
   public abstract val textSecondary: Color
+
+  public abstract val tagColors: TagColors
 
   /**
    * Returns the container color based on a provided [layer].
@@ -1228,46 +1021,6 @@ public abstract class Theme {
     supportSuccessInverse: Color = this.supportSuccessInverse,
     supportWarning: Color = this.supportWarning,
     supportWarningInverse: Color = this.supportWarningInverse,
-    tagBackgroundBlue: Color = this.tagBackgroundBlue,
-    tagBackgroundCoolGray: Color = this.tagBackgroundCoolGray,
-    tagBackgroundCyan: Color = this.tagBackgroundCyan,
-    tagBackgroundGray: Color = this.tagBackgroundGray,
-    tagBackgroundGreen: Color = this.tagBackgroundGreen,
-    tagBackgroundMagenta: Color = this.tagBackgroundMagenta,
-    tagBackgroundPurple: Color = this.tagBackgroundPurple,
-    tagBackgroundRed: Color = this.tagBackgroundRed,
-    tagBackgroundTeal: Color = this.tagBackgroundTeal,
-    tagBackgroundWarmGray: Color = this.tagBackgroundWarmGray,
-    tagBorderBlue: Color = this.tagBorderBlue,
-    tagBorderCoolGray: Color = this.tagBorderCoolGray,
-    tagBorderCyan: Color = this.tagBorderCyan,
-    tagBorderGray: Color = this.tagBorderGray,
-    tagBorderGreen: Color = this.tagBorderGreen,
-    tagBorderMagenta: Color = this.tagBorderMagenta,
-    tagBorderPurple: Color = this.tagBorderPurple,
-    tagBorderRed: Color = this.tagBorderRed,
-    tagBorderTeal: Color = this.tagBorderTeal,
-    tagBorderWarmGray: Color = this.tagBorderWarmGray,
-    tagColorBlue: Color = this.tagColorBlue,
-    tagColorCoolGray: Color = this.tagColorCoolGray,
-    tagColorCyan: Color = this.tagColorCyan,
-    tagColorGray: Color = this.tagColorGray,
-    tagColorGreen: Color = this.tagColorGreen,
-    tagColorMagenta: Color = this.tagColorMagenta,
-    tagColorPurple: Color = this.tagColorPurple,
-    tagColorRed: Color = this.tagColorRed,
-    tagColorTeal: Color = this.tagColorTeal,
-    tagColorWarmGray: Color = this.tagColorWarmGray,
-    tagHoverBlue: Color = this.tagHoverBlue,
-    tagHoverCoolGray: Color = this.tagHoverCoolGray,
-    tagHoverCyan: Color = this.tagHoverCyan,
-    tagHoverGray: Color = this.tagHoverGray,
-    tagHoverGreen: Color = this.tagHoverGreen,
-    tagHoverMagenta: Color = this.tagHoverMagenta,
-    tagHoverPurple: Color = this.tagHoverPurple,
-    tagHoverRed: Color = this.tagHoverRed,
-    tagHoverTeal: Color = this.tagHoverTeal,
-    tagHoverWarmGray: Color = this.tagHoverWarmGray,
     textDisabled: Color = this.textDisabled,
     textError: Color = this.textError,
     textHelper: Color = this.textHelper,
@@ -1277,6 +1030,7 @@ public abstract class Theme {
     textPlaceholder: Color = this.textPlaceholder,
     textPrimary: Color = this.textPrimary,
     textSecondary: Color = this.textSecondary,
+    tagColors: TagColors = this.tagColors,
   ): Theme = object : Theme() {
     override val aiAuraEnd: Color = aiAuraEnd
     override val aiAuraHoverBackground: Color = aiAuraHoverBackground
@@ -1432,46 +1186,6 @@ public abstract class Theme {
     override val supportSuccessInverse: Color = supportSuccessInverse
     override val supportWarning: Color = supportWarning
     override val supportWarningInverse: Color = supportWarningInverse
-    override val tagBackgroundBlue: Color = tagBackgroundBlue
-    override val tagBackgroundCoolGray: Color = tagBackgroundCoolGray
-    override val tagBackgroundCyan: Color = tagBackgroundCyan
-    override val tagBackgroundGray: Color = tagBackgroundGray
-    override val tagBackgroundGreen: Color = tagBackgroundGreen
-    override val tagBackgroundMagenta: Color = tagBackgroundMagenta
-    override val tagBackgroundPurple: Color = tagBackgroundPurple
-    override val tagBackgroundRed: Color = tagBackgroundRed
-    override val tagBackgroundTeal: Color = tagBackgroundTeal
-    override val tagBackgroundWarmGray: Color = tagBackgroundWarmGray
-    override val tagBorderBlue: Color = tagBorderBlue
-    override val tagBorderCoolGray: Color = tagBorderCoolGray
-    override val tagBorderCyan: Color = tagBorderCyan
-    override val tagBorderGray: Color = tagBorderGray
-    override val tagBorderGreen: Color = tagBorderGreen
-    override val tagBorderMagenta: Color = tagBorderMagenta
-    override val tagBorderPurple: Color = tagBorderPurple
-    override val tagBorderRed: Color = tagBorderRed
-    override val tagBorderTeal: Color = tagBorderTeal
-    override val tagBorderWarmGray: Color = tagBorderWarmGray
-    override val tagColorBlue: Color = tagColorBlue
-    override val tagColorCoolGray: Color = tagColorCoolGray
-    override val tagColorCyan: Color = tagColorCyan
-    override val tagColorGray: Color = tagColorGray
-    override val tagColorGreen: Color = tagColorGreen
-    override val tagColorMagenta: Color = tagColorMagenta
-    override val tagColorPurple: Color = tagColorPurple
-    override val tagColorRed: Color = tagColorRed
-    override val tagColorTeal: Color = tagColorTeal
-    override val tagColorWarmGray: Color = tagColorWarmGray
-    override val tagHoverBlue: Color = tagHoverBlue
-    override val tagHoverCoolGray: Color = tagHoverCoolGray
-    override val tagHoverCyan: Color = tagHoverCyan
-    override val tagHoverGray: Color = tagHoverGray
-    override val tagHoverGreen: Color = tagHoverGreen
-    override val tagHoverMagenta: Color = tagHoverMagenta
-    override val tagHoverPurple: Color = tagHoverPurple
-    override val tagHoverRed: Color = tagHoverRed
-    override val tagHoverTeal: Color = tagHoverTeal
-    override val tagHoverWarmGray: Color = tagHoverWarmGray
     override val textDisabled: Color = textDisabled
     override val textError: Color = textError
     override val textHelper: Color = textHelper
@@ -1481,5 +1195,6 @@ public abstract class Theme {
     override val textPlaceholder: Color = textPlaceholder
     override val textPrimary: Color = textPrimary
     override val textSecondary: Color = textSecondary
+    override val tagColors: TagColors = tagColors
   }
 }

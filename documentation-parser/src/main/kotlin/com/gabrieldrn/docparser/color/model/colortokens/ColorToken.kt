@@ -23,10 +23,10 @@ import kotlinx.serialization.json.JsonNames
 
 @Serializable
 data class ColorToken(
-    val white: ColorToken.TokenValue,
-    val g10: ColorToken.TokenValue,
-    val g90: ColorToken.TokenValue,
-    val g100: ColorToken.TokenValue
+    val white: TokenValue,
+    val g10: TokenValue,
+    val g90: TokenValue,
+    val g100: TokenValue
 ) {
     @Serializable
     @OptIn(ExperimentalSerializationApi::class)

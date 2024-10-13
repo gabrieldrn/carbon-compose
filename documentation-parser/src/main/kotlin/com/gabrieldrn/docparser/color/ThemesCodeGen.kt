@@ -29,15 +29,22 @@ import com.squareup.kotlinpoet.TypeSpec
 import java.nio.file.Paths
 import java.util.Locale
 
-private const val PACKAGE_STRUCTURE = "com.gabrieldrn.carbon.foundation.color"
+private const val PACKAGE_ROOT = "com.gabrieldrn.carbon.foundation.color"
+private const val PACKAGE_COMPONENT_TAG = "com.gabrieldrn.carbon.foundation.color.tag"
+
 private val sourcePath = Paths.get("carbon/src/commonMain/kotlin")
-private val layerClass = ClassName(PACKAGE_STRUCTURE, "Layer")
-private val themeAbstractionName = ClassName(PACKAGE_STRUCTURE, "Theme")
+private val layerClass = ClassName(PACKAGE_ROOT, "Layer")
+private val tagColorsAbstractionName = ClassName(PACKAGE_COMPONENT_TAG, "TagColors")
+private val themeAbstractionName = ClassName(PACKAGE_ROOT, "Theme")
 
 fun generateThemeImplementations(themesTokens: Map<String, MutableList<TokenProperty>>) {
 
-    val tokenProperties = themesTokens.entries.first().value
+    val (tagsProperties, tokenProperties) = themesTokens.entries.first().value
+        .partition { it.name.startsWith("tag") }
 
+    generateTagColorsAbstraction(
+        tagsProperties = tagsProperties,
+    )
 
     generateThemeAbstraction(
         tokenProperties = tokenProperties,
@@ -45,12 +52,41 @@ fun generateThemeImplementations(themesTokens: Map<String, MutableList<TokenProp
 
     generateImplementations(
         themesTokens = themesTokens,
-        tokenProperties = tokenProperties,
     )
 }
 
+private fun generateTagColorsAbstraction(
+    tagsProperties: List<TokenProperty>
+) {
+    val tagsPropertiesSpecs = tagsProperties
+        .map { token ->
+            val name = token.name
+                .removePrefix("tag")
+                .replaceFirstChar { it.lowercase(Locale.getDefault()) }
+            PropertySpec.builder(name, Color::class)
+                .addKdoc(token.desc)
+                .build()
+        }
+
+    val tagColorsAbstraction = TypeSpec.interfaceBuilder(tagColorsAbstractionName)
+        .addKdoc("Tag colors for the Carbon Design System.")
+        .addProperties(tagsPropertiesSpecs)
+        .build()
+
+    FileSpec.builder(PACKAGE_COMPONENT_TAG, "TagColors")
+        .addFileComment("Generated code. Do not modify.")
+        .addType(tagColorsAbstraction)
+        .build()
+        .writeTo(sourcePath)
+
+    println("TagColors interface generated.")
+}
+
+/**
+ * Generates the base theme abstract class.
+ */
 private fun generateThemeAbstraction(
-    tokenProperties: MutableList<TokenProperty>,
+    tokenProperties: List<TokenProperty>,
 ) {
     val tokenPropertiesSpecs = tokenProperties
         .map { token ->
@@ -59,6 +95,10 @@ private fun generateThemeAbstraction(
                 .addModifiers(KModifier.ABSTRACT)
                 .build()
         }
+
+    val tagColorsPropertySpec = PropertySpec.builder("tagColors", tagColorsAbstractionName)
+        .addModifiers(KModifier.ABSTRACT)
+        .build()
 
     val containerColorFuncSpec = FunSpec.builder("containerColor")
         .addKdoc(containerColorMemberDoc)
@@ -97,12 +137,19 @@ private fun generateThemeAbstraction(
                 )
             }
         }
+        .addParameter(
+            ParameterSpec.builder("tagColors", tagColorsAbstractionName)
+                .defaultValue("this.tagColors")
+                .build()
+        )
         .addStatement(
             buildString {
                 appendLine("return object : ${themeAbstractionName.simpleName}() {")
                 tokenProperties.forEach { token ->
                     appendLine("  override val ${token.name}: Color = ${token.name}")
                 }
+                append("  override val tagColors: ${tagColorsAbstractionName.simpleName} = ")
+                appendLine(tagColorsPropertySpec.name)
                 append("}")
             }
         )
@@ -113,32 +160,77 @@ private fun generateThemeAbstraction(
         .addModifiers(KModifier.ABSTRACT)
         .addAnnotation(Immutable::class)
         .addProperties(tokenPropertiesSpecs)
+        .addProperty(tagColorsPropertySpec)
         .addFunctions(
             listOf(containerColorFuncSpec, copyThemeFuncSpec)
         )
         .build()
 
-    FileSpec.builder(PACKAGE_STRUCTURE, themeAbstractionName.simpleName)
+    FileSpec.builder(PACKAGE_ROOT, themeAbstractionName.simpleName)
         .addFileComment("Generated code. Do not modify.")
         .addType(themeAbstraction)
         .build()
         .writeTo(sourcePath)
+
+    println("Theme interface generated.")
 }
 
+private fun generateTagColorsImplementation(
+    theme: String,
+    tagsProperties: List<TokenProperty>
+): ClassName {
+    val tagColorsImplementationName = ClassName(
+        PACKAGE_COMPONENT_TAG,
+        "${theme}TagColors"
+    )
+
+    val classSpec = TypeSpec.objectBuilder(tagColorsImplementationName)
+        .addSuperinterface(tagColorsAbstractionName)
+        .addKdoc("Color tokens for the tag component in the $theme theme.")
+        .addAnnotation(Immutable::class)
+        .apply {
+            tagsProperties
+                .map { prop ->
+                    val propName = prop.name
+                        .removePrefix("tag")
+                        .replaceFirstChar { it.lowercase(Locale.getDefault()) }
+
+                    PropertySpec.builder(propName, Color::class)
+                        .addModifiers(KModifier.OVERRIDE)
+                        .initializer(
+                            prop.color
+                                .replace("#", "0x")
+                                .let { "Color($it)" }
+                        )
+                        .build()
+                }
+                .let(::addProperties)
+        }
+        .build()
+
+    FileSpec.builder(PACKAGE_COMPONENT_TAG, tagColorsImplementationName.simpleName)
+        .addFileComment("Generated code. Do not modify.")
+        .addType(classSpec)
+        .build()
+        .writeTo(sourcePath)
+
+    println("${tagColorsImplementationName.simpleName} generated.")
+
+    return tagColorsImplementationName
+}
+
+/**
+ * Generates all themes implementations.
+ */
 private fun generateImplementations(
-    themesTokens: Map<String, MutableList<TokenProperty>>,
-    tokenProperties: MutableList<TokenProperty>
+    themesTokens: Map<String, List<TokenProperty>>
 ) {
     themesTokens.keys.forEach { theme ->
-        val themeName = theme
-            .let {
-                if (it.startsWith("g")) it.replaceFirst("g", "gray")
-                else it
-            }
-            .replaceFirstChar { it.titlecase(Locale.getDefault()) }
+        val themeBaseName = getThemeName(theme)
+        val themeName = themeBaseName
             .plus(themeAbstractionName.simpleName)
 
-        val themeClassName = ClassName(PACKAGE_STRUCTURE, themeName)
+        val themeClassName = ClassName(PACKAGE_ROOT, themeName)
 
         val kdoc = when (theme) {
             "g10" -> g10ThemeDoc
@@ -147,12 +239,19 @@ private fun generateImplementations(
             else -> whiteThemeDoc
         }
 
+        val tagColorsClass = generateTagColorsImplementation(
+            theme = themeBaseName,
+            tagsProperties = themesTokens[theme]!!
+                .filter { it.name.startsWith("tag") }
+        )
+
         val classSpec = TypeSpec.objectBuilder(themeClassName)
             .superclass(themeAbstractionName)
             .addAnnotation(Immutable::class)
             .addKdoc(kdoc)
             .apply {
-                tokenProperties
+                themesTokens[theme]!!
+                    .filterNot { it.name.startsWith("tag") }
                     .map { prop ->
                         PropertySpec.builder(prop.name, Color::class)
                             .addModifiers(KModifier.OVERRIDE)
@@ -165,9 +264,15 @@ private fun generateImplementations(
                     }
                     .let(::addProperties)
             }
+            .addProperty(
+                PropertySpec.builder("tagColors", tagColorsAbstractionName)
+                    .addModifiers(KModifier.OVERRIDE)
+                    .initializer("%T", tagColorsClass)
+                    .build()
+            )
             .build()
 
-        FileSpec.builder(PACKAGE_STRUCTURE, themeName)
+        FileSpec.builder(PACKAGE_ROOT, themeName)
             .addFileComment("Generated code. Do not modify.")
             .addType(classSpec)
             .build()
@@ -176,3 +281,10 @@ private fun generateImplementations(
         println("$themeName generated.")
     }
 }
+
+private fun getThemeName(theme: String) = theme
+    .let {
+        if (it.startsWith("g")) it.replaceFirst("g", "gray")
+        else it
+    }
+    .replaceFirstChar { it.titlecase(Locale.getDefault()) }
