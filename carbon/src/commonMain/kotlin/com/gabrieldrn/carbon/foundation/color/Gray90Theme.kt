@@ -7,13 +7,13 @@ import androidx.compose.ui.graphics.Color
 /**
  * One of the default _dark_ themes available in Carbon.
  *
- * This theme uses Gray 100 as the global background color and is layered first with components
- * using Gray 90 backgrounds.
+ * This theme uses Gray 90 as the global background color and is layered first with components using
+ * Gray 80 backgrounds.
  *
- * The second layer uses Gray 80 and the third layer used Gray 70.
+ * The second layer uses Gray 70 and the third layer used Gray 60.
  */
 @Immutable
-public object Gray100Theme : Theme() {
+public object Gray90Theme : Theme() {
   override val aiAuraEnd: Color = Color(0x00FFFFFF)
 
   override val aiAuraHoverBackground: Color = Color(0xFFEDF5FF)

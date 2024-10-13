@@ -16,7 +16,6 @@
 
 package com.gabrieldrn.docparser.color.model.colortokens
 
-import androidx.compose.ui.graphics.Color
 import com.gabrieldrn.docparser.color.serializers.ComposeColorSerializer
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.Serializable
@@ -35,6 +34,6 @@ data class ColorToken(
         val name: String,
         @Serializable(with = ComposeColorSerializer::class)
         @JsonNames("hex")
-        val color: Color
+        val color: String
     )
 }

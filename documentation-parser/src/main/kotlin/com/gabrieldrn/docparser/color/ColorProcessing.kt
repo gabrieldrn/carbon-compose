@@ -16,7 +16,6 @@
 
 package com.gabrieldrn.docparser.color
 
-import androidx.compose.ui.graphics.Color
 import com.gabrieldrn.docparser.color.model.colortokens.ColorDefinition
 import com.gabrieldrn.docparser.color.model.colortokens.ColorToken
 import com.gabrieldrn.docparser.color.model.colortokens.ColorTokens
@@ -28,7 +27,7 @@ import kotlin.reflect.full.memberProperties
 
 private const val COLOR_TOKENS_PATH = "/color-tokens.json"
 
-data class TokenProperty(val name: String, val desc: String, val color: Color)
+data class TokenProperty(val name: String, val desc: String, val color: String)
 
 @OptIn(ExperimentalSerializationApi::class)
 fun deserializeColorTokens(): ColorTokens =
@@ -78,10 +77,8 @@ fun associateColorTokensWithThemes(tokens: ColorTokens): Map<String, MutableList
             }
         }
 
-    println("Association of tokens to themes result:")
     themesTokens
         .map { it.key + "\n" + it.value.joinToString("\n") { e -> "\t${e.name} -> ${e.color}" } }
-        .forEach(::println)
 
     return themesTokens
 }
@@ -93,7 +90,6 @@ private fun String.formatCodeReferences() =
             // transform string from kebab-case to camelCase
             .split("-")
             .let {
-                println(it)
                 it.first().plus(
                     it
                         .drop(1)
