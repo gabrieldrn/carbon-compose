@@ -1,11 +1,13 @@
-// Generated code. Do not modify.
+// ----------------------------------
+// /!\ Generated code. Do not modify.
+// ----------------------------------
 package com.gabrieldrn.carbon.foundation.color.tag
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
 
 /**
- * Color tokens for the tag component in the Gray90 theme.
+ * Color tokens for the Tag component in the Gray90 theme.
  */
 @Immutable
 public object Gray90TagColors : TagColors {

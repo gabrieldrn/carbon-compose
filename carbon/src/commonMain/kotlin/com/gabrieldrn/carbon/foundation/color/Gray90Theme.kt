@@ -1,8 +1,16 @@
-// Generated code. Do not modify.
+// ----------------------------------
+// /!\ Generated code. Do not modify.
+// ----------------------------------
 package com.gabrieldrn.carbon.foundation.color
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
+import com.gabrieldrn.carbon.foundation.color.ai.AiColors
+import com.gabrieldrn.carbon.foundation.color.ai.Gray90AiColors
+import com.gabrieldrn.carbon.foundation.color.chat.ChatColors
+import com.gabrieldrn.carbon.foundation.color.chat.Gray90ChatColors
+import com.gabrieldrn.carbon.foundation.color.notification.Gray90NotificationColors
+import com.gabrieldrn.carbon.foundation.color.notification.NotificationColors
 import com.gabrieldrn.carbon.foundation.color.tag.Gray90TagColors
 import com.gabrieldrn.carbon.foundation.color.tag.TagColors
 
@@ -16,40 +24,6 @@ import com.gabrieldrn.carbon.foundation.color.tag.TagColors
  */
 @Immutable
 public object Gray90Theme : Theme() {
-  override val aiAuraEnd: Color = Color(0x00000000)
-
-  override val aiAuraHoverBackground: Color = Color(0xFFE8E8E8)
-
-  override val aiAuraHoverEnd: Color = Color(0x00000000)
-
-  override val aiAuraHoverStart: Color = Color(0x664589FF)
-
-  override val aiAuraStart: Color = Color(0x194589FF)
-
-  override val aiAuraStartSm: Color = Color(0x284589FF)
-
-  override val aiBorderEnd: Color = Color(0xFF4589FF)
-
-  override val aiBorderStart: Color = Color(0x5BA6C8FF)
-
-  override val aiBorderStrong: Color = Color(0xFF78A9FF)
-
-  override val aiDropShadow: Color = Color(0x47000000)
-
-  override val aiInnerShadow: Color = Color(0x284589FF)
-
-  override val aiOverlay: Color = Color(0x7F000000)
-
-  override val aiPopoverBackground: Color = Color(0xFF161616)
-
-  override val aiPopoverShadowOuter01: Color = Color(0x1E000000)
-
-  override val aiPopoverShadowOuter02: Color = Color(0x14000000)
-
-  override val aiSkeletonBackground: Color = Color(0x7F78A9FF)
-
-  override val aiSkeletonElement: Color = Color(0x4C78A9FF)
-
   override val background: Color = Color(0xFF262626)
 
   override val backgroundActive: Color = Color(0x668D8D8D)
@@ -127,40 +101,6 @@ public object Gray90Theme : Theme() {
   override val buttonTertiaryActive: Color = Color(0xFFC6C6C6)
 
   override val buttonTertiaryHover: Color = Color(0xFFF4F4F4)
-
-  override val chatAvatarAgent: Color = Color(0xFFC6C6C6)
-
-  override val chatAvatarBot: Color = Color(0xFF8D8D8D)
-
-  override val chatAvatarUser: Color = Color(0xFF4589FF)
-
-  override val chatBubbleAgent: Color = Color(0xFF262626)
-
-  override val chatBubbleBorder: Color = Color(0xFF525252)
-
-  override val chatBubbleUser: Color = Color(0xFF393939)
-
-  override val chatHeaderBackground: Color = Color(0xFF262626)
-
-  override val chatPromptBackground: Color = Color(0xFF161616)
-
-  override val chatPromptBorderEnd: Color = Color(0x00262626)
-
-  override val chatPromptBorderStart: Color = Color(0xFF262626)
-
-  override val chatShellBackground: Color = Color(0xFF262626)
-
-  override val chatButton: Color = Color(0xFF78A9FF)
-
-  override val chatButtonActive: Color = Color(0x668D8D8D)
-
-  override val chatButtonHover: Color = Color(0x288D8D8D)
-
-  override val chatButtonSelected: Color = Color(0x3D8D8D8D)
-
-  override val chatButtonTextHover: Color = Color(0xFFA6C8FF)
-
-  override val chatButtonTextSelected: Color = Color(0xFFC6C6C6)
 
   override val field01: Color = Color(0xFF393939)
 
@@ -274,26 +214,6 @@ public object Gray90Theme : Theme() {
 
   override val toggleOff: Color = Color(0xFF8D8D8D)
 
-  override val notificationActionHover: Color = Color(0xFF474747)
-
-  override val notificationActionTertiaryInverse: Color = Color(0xFF0F62FE)
-
-  override val notificationActionTertiaryInverseActive: Color = Color(0xFF161616)
-
-  override val notificationActionTertiaryInverseHover: Color = Color(0xFF002D9C)
-
-  override val notificationActionTertiaryInverseText: Color = Color(0xFFFFFFFF)
-
-  override val notificationActionTertiaryInverseTextOnColorDisabled: Color = Color(0xFFFFFFFF)
-
-  override val notificationBackgroundError: Color = Color(0xFF393939)
-
-  override val notificationBackgroundInfo: Color = Color(0xFF393939)
-
-  override val notificationBackgroundSuccess: Color = Color(0xFF393939)
-
-  override val notificationBackgroundWarning: Color = Color(0xFF393939)
-
   override val supportCautionMajor: Color = Color(0xFFFF832B)
 
   override val supportCautionMinor: Color = Color(0xFFF1C21B)
@@ -334,5 +254,11 @@ public object Gray90Theme : Theme() {
 
   override val textSecondary: Color = Color(0xFFC6C6C6)
 
+  override val aiColors: AiColors = Gray90AiColors
+
   override val tagColors: TagColors = Gray90TagColors
+
+  override val chatColors: ChatColors = Gray90ChatColors
+
+  override val notificationColors: NotificationColors = Gray90NotificationColors
 }

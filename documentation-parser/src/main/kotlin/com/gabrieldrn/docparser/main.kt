@@ -22,7 +22,6 @@ import com.gabrieldrn.docparser.color.deserializeColorTokens
 import com.gabrieldrn.docparser.color.generateThemeImplementations
 import com.gabrieldrn.docparser.color.model.colortokens.ColorTokens
 
-@OptIn(ExperimentalStdlibApi::class)
 fun main() {
     // Load color tokens
     val tokens: ColorTokens = deserializeColorTokens()

@@ -1,11 +1,15 @@
-// Generated code. Do not modify.
+// ----------------------------------
+// /!\ Generated code. Do not modify.
+// ----------------------------------
 package com.gabrieldrn.carbon.foundation.color.tag
 
+import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
 
 /**
- * Tag colors for the Carbon Design System.
+ * Color tokens for the Tag component.
  */
+@Immutable
 public interface TagColors {
   /**
    * Blue tag background.

@@ -1,8 +1,13 @@
-// Generated code. Do not modify.
+// ----------------------------------
+// /!\ Generated code. Do not modify.
+// ----------------------------------
 package com.gabrieldrn.carbon.foundation.color
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
+import com.gabrieldrn.carbon.foundation.color.ai.AiColors
+import com.gabrieldrn.carbon.foundation.color.chat.ChatColors
+import com.gabrieldrn.carbon.foundation.color.notification.NotificationColors
 import com.gabrieldrn.carbon.foundation.color.tag.TagColors
 import kotlin.Suppress
 
@@ -19,93 +24,6 @@ import kotlin.Suppress
  */
 @Immutable
 public abstract class Theme {
-  /**
-   * Linear gradient start value for all AI layers.
-   */
-  public abstract val aiAuraEnd: Color
-
-  /**
-   * Hover background color for AI layers.
-   */
-  public abstract val aiAuraHoverBackground: Color
-
-  /**
-   * Linear gradient end value for the AI aura hover.
-   */
-  public abstract val aiAuraHoverEnd: Color
-
-  /**
-   * Linear gradient start value for the AI aura hover.
-   */
-  public abstract val aiAuraHoverStart: Color
-
-  /**
-   * Linear gradient start value for large AI layers.
-   */
-  public abstract val aiAuraStart: Color
-
-  /**
-   * Linear gradient start value for small AI layers.
-   */
-  public abstract val aiAuraStartSm: Color
-
-  /**
-   * Linear gradient end value for AI borders.
-   */
-  public abstract val aiBorderEnd: Color
-
-  /**
-   * Linear gradient start value for AI borders.
-   */
-  public abstract val aiBorderStart: Color
-
-  /**
-   * Medium contrast border for AI elements.
-   * Border-bottom paired with AI fields.
-   * 3:1 AA non-text contrast.
-   */
-  public abstract val aiBorderStrong: Color
-
-  /**
-   * Drop shadow for the AI layer.
-   */
-  public abstract val aiDropShadow: Color
-
-  /**
-   * Inner shadow for the AI layer.
-   */
-  public abstract val aiInnerShadow: Color
-
-  /**
-   * Background overlay for AI components.
-   */
-  public abstract val aiOverlay: Color
-
-  /**
-   * Background color for the AI explainability popover.
-   */
-  public abstract val aiPopoverBackground: Color
-
-  /**
-   * 1 of 2 shadow colors for the AI explainability popover.
-   */
-  public abstract val aiPopoverShadowOuter01: Color
-
-  /**
-   * 2 of 2 shadow colors for the AI explainability popover.
-   */
-  public abstract val aiPopoverShadowOuter02: Color
-
-  /**
-   * Skeleton color for AI containers.
-   */
-  public abstract val aiSkeletonBackground: Color
-
-  /**
-   * Skeleton color for AI text and UI elements.
-   */
-  public abstract val aiSkeletonElement: Color
-
   /**
    * Default page background.
    * UI Shell base color.
@@ -319,91 +237,6 @@ public abstract class Theme {
    * Hover color for [buttonTertiary].
    */
   public abstract val buttonTertiaryHover: Color
-
-  /**
-   * Chat avatar background color for agents.
-   */
-  public abstract val chatAvatarAgent: Color
-
-  /**
-   * Chat avatar background color for bots.
-   */
-  public abstract val chatAvatarBot: Color
-
-  /**
-   * Chat avatar background color for users.
-   */
-  public abstract val chatAvatarUser: Color
-
-  /**
-   * Chat bubble background color for agents.
-   */
-  public abstract val chatBubbleAgent: Color
-
-  /**
-   * Chat bubble border color for agents.
-   */
-  public abstract val chatBubbleBorder: Color
-
-  /**
-   * Chat bubble background color for users.
-   */
-  public abstract val chatBubbleUser: Color
-
-  /**
-   * Chat header background color.
-   */
-  public abstract val chatHeaderBackground: Color
-
-  /**
-   * Background color for chat prompt input.
-   */
-  public abstract val chatPromptBackground: Color
-
-  /**
-   * Linear gradient end value for chat prompts border.
-   */
-  public abstract val chatPromptBorderEnd: Color
-
-  /**
-   * Linear gradient start value for chat prompts border.
-   */
-  public abstract val chatPromptBorderStart: Color
-
-  /**
-   * Chat shell background color.
-   */
-  public abstract val chatShellBackground: Color
-
-  /**
-   * Chat quick action button color.
-   */
-  public abstract val chatButton: Color
-
-  /**
-   * Active color for [chatButton].
-   */
-  public abstract val chatButtonActive: Color
-
-  /**
-   * Hover color for [chatButton].
-   */
-  public abstract val chatButtonHover: Color
-
-  /**
-   * Selected color for [chatButton].
-   */
-  public abstract val chatButtonSelected: Color
-
-  /**
-   * Text color for hovered chat button.
-   */
-  public abstract val chatButtonTextHover: Color
-
-  /**
-   * Text color for selected chat-button.
-   */
-  public abstract val chatButtonTextSelected: Color
 
   /**
    * Default input fields.
@@ -697,56 +530,6 @@ public abstract class Theme {
   public abstract val toggleOff: Color
 
   /**
-   * Hover for notification ghost button.
-   */
-  public abstract val notificationActionHover: Color
-
-  /**
-   * Tertiary button color for notification.
-   */
-  public abstract val notificationActionTertiaryInverse: Color
-
-  /**
-   * Active color for tertiary button in notification.
-   */
-  public abstract val notificationActionTertiaryInverseActive: Color
-
-  /**
-   * Hover color for tertiary button in notification.
-   */
-  public abstract val notificationActionTertiaryInverseHover: Color
-
-  /**
-   * Text color for tertiary button in notification.
-   */
-  public abstract val notificationActionTertiaryInverseText: Color
-
-  /**
-   * Disabled color for tertiary button in notification.
-   */
-  public abstract val notificationActionTertiaryInverseTextOnColorDisabled: Color
-
-  /**
-   * Error low contrast notification background.
-   */
-  public abstract val notificationBackgroundError: Color
-
-  /**
-   * Informational low contrast notification background.
-   */
-  public abstract val notificationBackgroundInfo: Color
-
-  /**
-   * Success low contrast notification background.
-   */
-  public abstract val notificationBackgroundSuccess: Color
-
-  /**
-   * Warning low contrast notification background.
-   */
-  public abstract val notificationBackgroundWarning: Color
-
-  /**
    * Major caution status.
    */
   public abstract val supportCautionMajor: Color
@@ -854,7 +637,25 @@ public abstract class Theme {
    */
   public abstract val textSecondary: Color
 
+  /**
+   * Color tokens for the Ai component.
+   */
+  public abstract val aiColors: AiColors
+
+  /**
+   * Color tokens for the Tag component.
+   */
   public abstract val tagColors: TagColors
+
+  /**
+   * Color tokens for the Chat component.
+   */
+  public abstract val chatColors: ChatColors
+
+  /**
+   * Color tokens for the Notification component.
+   */
+  public abstract val notificationColors: NotificationColors
 
   /**
    * Returns the container color based on a provided [layer].
@@ -870,23 +671,6 @@ public abstract class Theme {
 
   @Suppress("LongMethod")
   internal fun copy(
-    aiAuraEnd: Color = this.aiAuraEnd,
-    aiAuraHoverBackground: Color = this.aiAuraHoverBackground,
-    aiAuraHoverEnd: Color = this.aiAuraHoverEnd,
-    aiAuraHoverStart: Color = this.aiAuraHoverStart,
-    aiAuraStart: Color = this.aiAuraStart,
-    aiAuraStartSm: Color = this.aiAuraStartSm,
-    aiBorderEnd: Color = this.aiBorderEnd,
-    aiBorderStart: Color = this.aiBorderStart,
-    aiBorderStrong: Color = this.aiBorderStrong,
-    aiDropShadow: Color = this.aiDropShadow,
-    aiInnerShadow: Color = this.aiInnerShadow,
-    aiOverlay: Color = this.aiOverlay,
-    aiPopoverBackground: Color = this.aiPopoverBackground,
-    aiPopoverShadowOuter01: Color = this.aiPopoverShadowOuter01,
-    aiPopoverShadowOuter02: Color = this.aiPopoverShadowOuter02,
-    aiSkeletonBackground: Color = this.aiSkeletonBackground,
-    aiSkeletonElement: Color = this.aiSkeletonElement,
     background: Color = this.background,
     backgroundActive: Color = this.backgroundActive,
     backgroundBrand: Color = this.backgroundBrand,
@@ -926,23 +710,6 @@ public abstract class Theme {
     buttonTertiary: Color = this.buttonTertiary,
     buttonTertiaryActive: Color = this.buttonTertiaryActive,
     buttonTertiaryHover: Color = this.buttonTertiaryHover,
-    chatAvatarAgent: Color = this.chatAvatarAgent,
-    chatAvatarBot: Color = this.chatAvatarBot,
-    chatAvatarUser: Color = this.chatAvatarUser,
-    chatBubbleAgent: Color = this.chatBubbleAgent,
-    chatBubbleBorder: Color = this.chatBubbleBorder,
-    chatBubbleUser: Color = this.chatBubbleUser,
-    chatHeaderBackground: Color = this.chatHeaderBackground,
-    chatPromptBackground: Color = this.chatPromptBackground,
-    chatPromptBorderEnd: Color = this.chatPromptBorderEnd,
-    chatPromptBorderStart: Color = this.chatPromptBorderStart,
-    chatShellBackground: Color = this.chatShellBackground,
-    chatButton: Color = this.chatButton,
-    chatButtonActive: Color = this.chatButtonActive,
-    chatButtonHover: Color = this.chatButtonHover,
-    chatButtonSelected: Color = this.chatButtonSelected,
-    chatButtonTextHover: Color = this.chatButtonTextHover,
-    chatButtonTextSelected: Color = this.chatButtonTextSelected,
     field01: Color = this.field01,
     field02: Color = this.field02,
     field03: Color = this.field03,
@@ -999,17 +766,6 @@ public abstract class Theme {
     skeletonBackground: Color = this.skeletonBackground,
     skeletonElement: Color = this.skeletonElement,
     toggleOff: Color = this.toggleOff,
-    notificationActionHover: Color = this.notificationActionHover,
-    notificationActionTertiaryInverse: Color = this.notificationActionTertiaryInverse,
-    notificationActionTertiaryInverseActive: Color = this.notificationActionTertiaryInverseActive,
-    notificationActionTertiaryInverseHover: Color = this.notificationActionTertiaryInverseHover,
-    notificationActionTertiaryInverseText: Color = this.notificationActionTertiaryInverseText,
-    notificationActionTertiaryInverseTextOnColorDisabled: Color =
-        this.notificationActionTertiaryInverseTextOnColorDisabled,
-    notificationBackgroundError: Color = this.notificationBackgroundError,
-    notificationBackgroundInfo: Color = this.notificationBackgroundInfo,
-    notificationBackgroundSuccess: Color = this.notificationBackgroundSuccess,
-    notificationBackgroundWarning: Color = this.notificationBackgroundWarning,
     supportCautionMajor: Color = this.supportCautionMajor,
     supportCautionMinor: Color = this.supportCautionMinor,
     supportCautionUndefined: Color = this.supportCautionUndefined,
@@ -1030,25 +786,11 @@ public abstract class Theme {
     textPlaceholder: Color = this.textPlaceholder,
     textPrimary: Color = this.textPrimary,
     textSecondary: Color = this.textSecondary,
+    aiColors: AiColors = this.aiColors,
     tagColors: TagColors = this.tagColors,
+    chatColors: ChatColors = this.chatColors,
+    notificationColors: NotificationColors = this.notificationColors,
   ): Theme = object : Theme() {
-    override val aiAuraEnd: Color = aiAuraEnd
-    override val aiAuraHoverBackground: Color = aiAuraHoverBackground
-    override val aiAuraHoverEnd: Color = aiAuraHoverEnd
-    override val aiAuraHoverStart: Color = aiAuraHoverStart
-    override val aiAuraStart: Color = aiAuraStart
-    override val aiAuraStartSm: Color = aiAuraStartSm
-    override val aiBorderEnd: Color = aiBorderEnd
-    override val aiBorderStart: Color = aiBorderStart
-    override val aiBorderStrong: Color = aiBorderStrong
-    override val aiDropShadow: Color = aiDropShadow
-    override val aiInnerShadow: Color = aiInnerShadow
-    override val aiOverlay: Color = aiOverlay
-    override val aiPopoverBackground: Color = aiPopoverBackground
-    override val aiPopoverShadowOuter01: Color = aiPopoverShadowOuter01
-    override val aiPopoverShadowOuter02: Color = aiPopoverShadowOuter02
-    override val aiSkeletonBackground: Color = aiSkeletonBackground
-    override val aiSkeletonElement: Color = aiSkeletonElement
     override val background: Color = background
     override val backgroundActive: Color = backgroundActive
     override val backgroundBrand: Color = backgroundBrand
@@ -1088,23 +830,6 @@ public abstract class Theme {
     override val buttonTertiary: Color = buttonTertiary
     override val buttonTertiaryActive: Color = buttonTertiaryActive
     override val buttonTertiaryHover: Color = buttonTertiaryHover
-    override val chatAvatarAgent: Color = chatAvatarAgent
-    override val chatAvatarBot: Color = chatAvatarBot
-    override val chatAvatarUser: Color = chatAvatarUser
-    override val chatBubbleAgent: Color = chatBubbleAgent
-    override val chatBubbleBorder: Color = chatBubbleBorder
-    override val chatBubbleUser: Color = chatBubbleUser
-    override val chatHeaderBackground: Color = chatHeaderBackground
-    override val chatPromptBackground: Color = chatPromptBackground
-    override val chatPromptBorderEnd: Color = chatPromptBorderEnd
-    override val chatPromptBorderStart: Color = chatPromptBorderStart
-    override val chatShellBackground: Color = chatShellBackground
-    override val chatButton: Color = chatButton
-    override val chatButtonActive: Color = chatButtonActive
-    override val chatButtonHover: Color = chatButtonHover
-    override val chatButtonSelected: Color = chatButtonSelected
-    override val chatButtonTextHover: Color = chatButtonTextHover
-    override val chatButtonTextSelected: Color = chatButtonTextSelected
     override val field01: Color = field01
     override val field02: Color = field02
     override val field03: Color = field03
@@ -1161,20 +886,6 @@ public abstract class Theme {
     override val skeletonBackground: Color = skeletonBackground
     override val skeletonElement: Color = skeletonElement
     override val toggleOff: Color = toggleOff
-    override val notificationActionHover: Color = notificationActionHover
-    override val notificationActionTertiaryInverse: Color = notificationActionTertiaryInverse
-    override val notificationActionTertiaryInverseActive: Color =
-      notificationActionTertiaryInverseActive
-    override val notificationActionTertiaryInverseHover: Color =
-      notificationActionTertiaryInverseHover
-    override val notificationActionTertiaryInverseText: Color =
-      notificationActionTertiaryInverseText
-    override val notificationActionTertiaryInverseTextOnColorDisabled: Color =
-      notificationActionTertiaryInverseTextOnColorDisabled
-    override val notificationBackgroundError: Color = notificationBackgroundError
-    override val notificationBackgroundInfo: Color = notificationBackgroundInfo
-    override val notificationBackgroundSuccess: Color = notificationBackgroundSuccess
-    override val notificationBackgroundWarning: Color = notificationBackgroundWarning
     override val supportCautionMajor: Color = supportCautionMajor
     override val supportCautionMinor: Color = supportCautionMinor
     override val supportCautionUndefined: Color = supportCautionUndefined
@@ -1195,6 +906,9 @@ public abstract class Theme {
     override val textPlaceholder: Color = textPlaceholder
     override val textPrimary: Color = textPrimary
     override val textSecondary: Color = textSecondary
+    override val aiColors: AiColors = aiColors
     override val tagColors: TagColors = tagColors
+    override val chatColors: ChatColors = chatColors
+    override val notificationColors: NotificationColors = notificationColors
   }
 }
