@@ -26,7 +26,7 @@ apiValidation {
     /**
      * Sub-projects that are excluded from API validation
      */
-    ignoredProjects.addAll(listOf("catalog"))
+    ignoredProjects.addAll(listOf("catalog", "doc-parser"))
 }
 
 //tasks.register("clean", Delete::class) {
