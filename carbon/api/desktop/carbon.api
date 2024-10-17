@@ -588,6 +588,7 @@ public abstract class com/gabrieldrn/carbon/foundation/color/Theme {
 	public final fun containerColor-vNxB06k (Lcom/gabrieldrn/carbon/foundation/color/Layer;)J
 	public static synthetic fun containerColor-vNxB06k$default (Lcom/gabrieldrn/carbon/foundation/color/Theme;Lcom/gabrieldrn/carbon/foundation/color/Layer;ILjava/lang/Object;)J
 	public static synthetic fun copy-QW2GrVE$carbon$default (Lcom/gabrieldrn/carbon/foundation/color/Theme;JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJLcom/gabrieldrn/carbon/foundation/color/ai/AiColors;Lcom/gabrieldrn/carbon/foundation/color/tag/TagColors;Lcom/gabrieldrn/carbon/foundation/color/chat/ChatColors;Lcom/gabrieldrn/carbon/foundation/color/notification/NotificationColors;IIIILjava/lang/Object;)Lcom/gabrieldrn/carbon/foundation/color/Theme;
+	public fun equals (Ljava/lang/Object;)Z
 	public abstract fun getAiColors ()Lcom/gabrieldrn/carbon/foundation/color/ai/AiColors;
 	public abstract fun getBackground-0d7_KjU ()J
 	public abstract fun getBackgroundActive-0d7_KjU ()J
@@ -707,6 +708,7 @@ public abstract class com/gabrieldrn/carbon/foundation/color/Theme {
 	public abstract fun getTextPrimary-0d7_KjU ()J
 	public abstract fun getTextSecondary-0d7_KjU ()J
 	public abstract fun getToggleOff-0d7_KjU ()J
+	public fun hashCode ()I
 }
 
 public final class com/gabrieldrn/carbon/foundation/color/ThemeStaticCompositionKt {
