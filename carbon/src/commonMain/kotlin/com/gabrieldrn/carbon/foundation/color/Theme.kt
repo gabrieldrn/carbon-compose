@@ -9,6 +9,9 @@ import com.gabrieldrn.carbon.foundation.color.ai.AiColors
 import com.gabrieldrn.carbon.foundation.color.chat.ChatColors
 import com.gabrieldrn.carbon.foundation.color.notification.NotificationColors
 import com.gabrieldrn.carbon.foundation.color.tag.TagColors
+import kotlin.Any
+import kotlin.Boolean
+import kotlin.Int
 import kotlin.Suppress
 
 /**
@@ -910,5 +913,259 @@ public abstract class Theme {
     override val tagColors: TagColors = tagColors
     override val chatColors: ChatColors = chatColors
     override val notificationColors: NotificationColors = notificationColors
+  }
+
+  @Suppress(
+    "CognitiveComplexMethod",
+    "CyclomaticComplexMethod",
+    "LongMethod",
+  )
+  override fun equals(other: Any?): Boolean {
+    if (this === other) return true
+    if (other !is Theme) return false
+    if (background != other.background) return false
+    if (backgroundActive != other.backgroundActive) return false
+    if (backgroundBrand != other.backgroundBrand) return false
+    if (backgroundHover != other.backgroundHover) return false
+    if (backgroundInverse != other.backgroundInverse) return false
+    if (backgroundInverseHover != other.backgroundInverseHover) return false
+    if (backgroundSelected != other.backgroundSelected) return false
+    if (backgroundSelectedHover != other.backgroundSelectedHover) return false
+    if (borderDisabled != other.borderDisabled) return false
+    if (borderInteractive != other.borderInteractive) return false
+    if (borderInverse != other.borderInverse) return false
+    if (borderStrong01 != other.borderStrong01) return false
+    if (borderStrong02 != other.borderStrong02) return false
+    if (borderStrong03 != other.borderStrong03) return false
+    if (borderSubtle00 != other.borderSubtle00) return false
+    if (borderSubtle01 != other.borderSubtle01) return false
+    if (borderSubtle02 != other.borderSubtle02) return false
+    if (borderSubtle03 != other.borderSubtle03) return false
+    if (borderSubtleSelected01 != other.borderSubtleSelected01) return false
+    if (borderSubtleSelected02 != other.borderSubtleSelected02) return false
+    if (borderSubtleSelected03 != other.borderSubtleSelected03) return false
+    if (borderTile01 != other.borderTile01) return false
+    if (borderTile02 != other.borderTile02) return false
+    if (borderTile03 != other.borderTile03) return false
+    if (buttonDangerActive != other.buttonDangerActive) return false
+    if (buttonDangerHover != other.buttonDangerHover) return false
+    if (buttonDangerPrimary != other.buttonDangerPrimary) return false
+    if (buttonDangerSecondary != other.buttonDangerSecondary) return false
+    if (buttonDisabled != other.buttonDisabled) return false
+    if (buttonPrimary != other.buttonPrimary) return false
+    if (buttonPrimaryActive != other.buttonPrimaryActive) return false
+    if (buttonPrimaryHover != other.buttonPrimaryHover) return false
+    if (buttonSecondary != other.buttonSecondary) return false
+    if (buttonSecondaryActive != other.buttonSecondaryActive) return false
+    if (buttonSecondaryHover != other.buttonSecondaryHover) return false
+    if (buttonSeparator != other.buttonSeparator) return false
+    if (buttonTertiary != other.buttonTertiary) return false
+    if (buttonTertiaryActive != other.buttonTertiaryActive) return false
+    if (buttonTertiaryHover != other.buttonTertiaryHover) return false
+    if (field01 != other.field01) return false
+    if (field02 != other.field02) return false
+    if (field03 != other.field03) return false
+    if (fieldHover01 != other.fieldHover01) return false
+    if (fieldHover02 != other.fieldHover02) return false
+    if (fieldHover03 != other.fieldHover03) return false
+    if (focus != other.focus) return false
+    if (focusInset != other.focusInset) return false
+    if (focusInverse != other.focusInverse) return false
+    if (iconDisabled != other.iconDisabled) return false
+    if (iconInteractive != other.iconInteractive) return false
+    if (iconInverse != other.iconInverse) return false
+    if (iconOnColor != other.iconOnColor) return false
+    if (iconOnColorDisabled != other.iconOnColorDisabled) return false
+    if (iconPrimary != other.iconPrimary) return false
+    if (iconSecondary != other.iconSecondary) return false
+    if (layerAccent01 != other.layerAccent01) return false
+    if (layerAccent02 != other.layerAccent02) return false
+    if (layerAccent03 != other.layerAccent03) return false
+    if (layerAccentActive01 != other.layerAccentActive01) return false
+    if (layerAccentActive02 != other.layerAccentActive02) return false
+    if (layerAccentActive03 != other.layerAccentActive03) return false
+    if (layerAccentHover01 != other.layerAccentHover01) return false
+    if (layerAccentHover02 != other.layerAccentHover02) return false
+    if (layerAccentHover03 != other.layerAccentHover03) return false
+    if (layer01 != other.layer01) return false
+    if (layer02 != other.layer02) return false
+    if (layer03 != other.layer03) return false
+    if (layerActive01 != other.layerActive01) return false
+    if (layerActive02 != other.layerActive02) return false
+    if (layerActive03 != other.layerActive03) return false
+    if (layerHover01 != other.layerHover01) return false
+    if (layerHover02 != other.layerHover02) return false
+    if (layerHover03 != other.layerHover03) return false
+    if (layerSelected01 != other.layerSelected01) return false
+    if (layerSelected02 != other.layerSelected02) return false
+    if (layerSelected03 != other.layerSelected03) return false
+    if (layerSelectedDisabled != other.layerSelectedDisabled) return false
+    if (layerSelectedHover01 != other.layerSelectedHover01) return false
+    if (layerSelectedHover02 != other.layerSelectedHover02) return false
+    if (layerSelectedHover03 != other.layerSelectedHover03) return false
+    if (layerSelectedInverse != other.layerSelectedInverse) return false
+    if (linkInverse != other.linkInverse) return false
+    if (linkInverseActive != other.linkInverseActive) return false
+    if (linkInverseHover != other.linkInverseHover) return false
+    if (linkInverseVisited != other.linkInverseVisited) return false
+    if (linkPrimary != other.linkPrimary) return false
+    if (linkPrimaryHover != other.linkPrimaryHover) return false
+    if (linkSecondary != other.linkSecondary) return false
+    if (linkVisited != other.linkVisited) return false
+    if (highlight != other.highlight) return false
+    if (interactive != other.interactive) return false
+    if (overlay != other.overlay) return false
+    if (skeletonBackground != other.skeletonBackground) return false
+    if (skeletonElement != other.skeletonElement) return false
+    if (toggleOff != other.toggleOff) return false
+    if (supportCautionMajor != other.supportCautionMajor) return false
+    if (supportCautionMinor != other.supportCautionMinor) return false
+    if (supportCautionUndefined != other.supportCautionUndefined) return false
+    if (supportError != other.supportError) return false
+    if (supportErrorInverse != other.supportErrorInverse) return false
+    if (supportInfo != other.supportInfo) return false
+    if (supportInfoInverse != other.supportInfoInverse) return false
+    if (supportSuccess != other.supportSuccess) return false
+    if (supportSuccessInverse != other.supportSuccessInverse) return false
+    if (supportWarning != other.supportWarning) return false
+    if (supportWarningInverse != other.supportWarningInverse) return false
+    if (textDisabled != other.textDisabled) return false
+    if (textError != other.textError) return false
+    if (textHelper != other.textHelper) return false
+    if (textInverse != other.textInverse) return false
+    if (textOnColor != other.textOnColor) return false
+    if (textOnColorDisabled != other.textOnColorDisabled) return false
+    if (textPlaceholder != other.textPlaceholder) return false
+    if (textPrimary != other.textPrimary) return false
+    if (textSecondary != other.textSecondary) return false
+    if (aiColors != other.aiColors) return false
+    if (tagColors != other.tagColors) return false
+    if (chatColors != other.chatColors) return false
+    if (notificationColors != other.notificationColors) return false
+    return true
+  }
+
+  @Suppress("LongMethod")
+  override fun hashCode(): Int {
+    var result = background.hashCode()
+    result = 31 * result + backgroundActive.hashCode()
+    result = 31 * result + backgroundBrand.hashCode()
+    result = 31 * result + backgroundHover.hashCode()
+    result = 31 * result + backgroundInverse.hashCode()
+    result = 31 * result + backgroundInverseHover.hashCode()
+    result = 31 * result + backgroundSelected.hashCode()
+    result = 31 * result + backgroundSelectedHover.hashCode()
+    result = 31 * result + borderDisabled.hashCode()
+    result = 31 * result + borderInteractive.hashCode()
+    result = 31 * result + borderInverse.hashCode()
+    result = 31 * result + borderStrong01.hashCode()
+    result = 31 * result + borderStrong02.hashCode()
+    result = 31 * result + borderStrong03.hashCode()
+    result = 31 * result + borderSubtle00.hashCode()
+    result = 31 * result + borderSubtle01.hashCode()
+    result = 31 * result + borderSubtle02.hashCode()
+    result = 31 * result + borderSubtle03.hashCode()
+    result = 31 * result + borderSubtleSelected01.hashCode()
+    result = 31 * result + borderSubtleSelected02.hashCode()
+    result = 31 * result + borderSubtleSelected03.hashCode()
+    result = 31 * result + borderTile01.hashCode()
+    result = 31 * result + borderTile02.hashCode()
+    result = 31 * result + borderTile03.hashCode()
+    result = 31 * result + buttonDangerActive.hashCode()
+    result = 31 * result + buttonDangerHover.hashCode()
+    result = 31 * result + buttonDangerPrimary.hashCode()
+    result = 31 * result + buttonDangerSecondary.hashCode()
+    result = 31 * result + buttonDisabled.hashCode()
+    result = 31 * result + buttonPrimary.hashCode()
+    result = 31 * result + buttonPrimaryActive.hashCode()
+    result = 31 * result + buttonPrimaryHover.hashCode()
+    result = 31 * result + buttonSecondary.hashCode()
+    result = 31 * result + buttonSecondaryActive.hashCode()
+    result = 31 * result + buttonSecondaryHover.hashCode()
+    result = 31 * result + buttonSeparator.hashCode()
+    result = 31 * result + buttonTertiary.hashCode()
+    result = 31 * result + buttonTertiaryActive.hashCode()
+    result = 31 * result + buttonTertiaryHover.hashCode()
+    result = 31 * result + field01.hashCode()
+    result = 31 * result + field02.hashCode()
+    result = 31 * result + field03.hashCode()
+    result = 31 * result + fieldHover01.hashCode()
+    result = 31 * result + fieldHover02.hashCode()
+    result = 31 * result + fieldHover03.hashCode()
+    result = 31 * result + focus.hashCode()
+    result = 31 * result + focusInset.hashCode()
+    result = 31 * result + focusInverse.hashCode()
+    result = 31 * result + iconDisabled.hashCode()
+    result = 31 * result + iconInteractive.hashCode()
+    result = 31 * result + iconInverse.hashCode()
+    result = 31 * result + iconOnColor.hashCode()
+    result = 31 * result + iconOnColorDisabled.hashCode()
+    result = 31 * result + iconPrimary.hashCode()
+    result = 31 * result + iconSecondary.hashCode()
+    result = 31 * result + layerAccent01.hashCode()
+    result = 31 * result + layerAccent02.hashCode()
+    result = 31 * result + layerAccent03.hashCode()
+    result = 31 * result + layerAccentActive01.hashCode()
+    result = 31 * result + layerAccentActive02.hashCode()
+    result = 31 * result + layerAccentActive03.hashCode()
+    result = 31 * result + layerAccentHover01.hashCode()
+    result = 31 * result + layerAccentHover02.hashCode()
+    result = 31 * result + layerAccentHover03.hashCode()
+    result = 31 * result + layer01.hashCode()
+    result = 31 * result + layer02.hashCode()
+    result = 31 * result + layer03.hashCode()
+    result = 31 * result + layerActive01.hashCode()
+    result = 31 * result + layerActive02.hashCode()
+    result = 31 * result + layerActive03.hashCode()
+    result = 31 * result + layerHover01.hashCode()
+    result = 31 * result + layerHover02.hashCode()
+    result = 31 * result + layerHover03.hashCode()
+    result = 31 * result + layerSelected01.hashCode()
+    result = 31 * result + layerSelected02.hashCode()
+    result = 31 * result + layerSelected03.hashCode()
+    result = 31 * result + layerSelectedDisabled.hashCode()
+    result = 31 * result + layerSelectedHover01.hashCode()
+    result = 31 * result + layerSelectedHover02.hashCode()
+    result = 31 * result + layerSelectedHover03.hashCode()
+    result = 31 * result + layerSelectedInverse.hashCode()
+    result = 31 * result + linkInverse.hashCode()
+    result = 31 * result + linkInverseActive.hashCode()
+    result = 31 * result + linkInverseHover.hashCode()
+    result = 31 * result + linkInverseVisited.hashCode()
+    result = 31 * result + linkPrimary.hashCode()
+    result = 31 * result + linkPrimaryHover.hashCode()
+    result = 31 * result + linkSecondary.hashCode()
+    result = 31 * result + linkVisited.hashCode()
+    result = 31 * result + highlight.hashCode()
+    result = 31 * result + interactive.hashCode()
+    result = 31 * result + overlay.hashCode()
+    result = 31 * result + skeletonBackground.hashCode()
+    result = 31 * result + skeletonElement.hashCode()
+    result = 31 * result + toggleOff.hashCode()
+    result = 31 * result + supportCautionMajor.hashCode()
+    result = 31 * result + supportCautionMinor.hashCode()
+    result = 31 * result + supportCautionUndefined.hashCode()
+    result = 31 * result + supportError.hashCode()
+    result = 31 * result + supportErrorInverse.hashCode()
+    result = 31 * result + supportInfo.hashCode()
+    result = 31 * result + supportInfoInverse.hashCode()
+    result = 31 * result + supportSuccess.hashCode()
+    result = 31 * result + supportSuccessInverse.hashCode()
+    result = 31 * result + supportWarning.hashCode()
+    result = 31 * result + supportWarningInverse.hashCode()
+    result = 31 * result + textDisabled.hashCode()
+    result = 31 * result + textError.hashCode()
+    result = 31 * result + textHelper.hashCode()
+    result = 31 * result + textInverse.hashCode()
+    result = 31 * result + textOnColor.hashCode()
+    result = 31 * result + textOnColorDisabled.hashCode()
+    result = 31 * result + textPlaceholder.hashCode()
+    result = 31 * result + textPrimary.hashCode()
+    result = 31 * result + textSecondary.hashCode()
+    result = 31 * result + aiColors.hashCode()
+    result = 31 * result + tagColors.hashCode()
+    result = 31 * result + chatColors.hashCode()
+    result = 31 * result + notificationColors.hashCode()
+    return result
   }
 }

@@ -26,12 +26,15 @@ import com.squareup.kotlinpoet.KModifier
 import com.squareup.kotlinpoet.ParameterSpec
 import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeSpec
+import com.squareup.kotlinpoet.asTypeName
 import java.nio.file.Paths
 import java.util.Locale
 
 private const val PACKAGE_ROOT = "com.gabrieldrn.carbon.foundation.color"
 
 private val sourcePath = Paths.get("carbon/src/commonMain/kotlin")
+
+//private val sourcePath = Paths.get("build/generated/kotlin")
 private val layerClass = ClassName(PACKAGE_ROOT, "Layer")
 private val themeAbstractionName = ClassName(PACKAGE_ROOT, "Theme")
 private val generatedCodeMessage =
@@ -306,6 +309,55 @@ private fun generateThemeAbstraction(
         .addCode("}")
         .build()
 
+    val equalsFunSpec = FunSpec.builder("equals")
+        .addModifiers(KModifier.OVERRIDE)
+        .addParameter("other", Any::class.asTypeName().copy(nullable = true))
+        .returns(Boolean::class)
+        .addAnnotation(
+            AnnotationSpec.builder(Suppress::class)
+                .addMember("%S", "CognitiveComplexMethod")
+                .addMember("%S", "CyclomaticComplexMethod")
+                .addMember("%S", "LongMethod")
+                .build()
+        )
+        .addStatement("if (this === other) return true")
+        .addStatement("if (other !is %T) return false", themeAbstractionName)
+        .apply {
+            (tokenProperties + componentsPropertySpecs).forEachIndexed { index, spec ->
+                val name = (spec as? PropertySpec)?.name
+                    ?: (spec as? TokenProperty)?.name
+                    ?: error("Type ${spec::class.simpleName} at index $index unrecognized.")
+
+                addStatement("if (%N != other.%N) return false", name, name)
+            }
+        }
+        .addStatement("return true")
+        .build()
+
+    val hashCodeFunSpec = FunSpec.builder("hashCode")
+        .addModifiers(KModifier.OVERRIDE)
+        .returns(Int::class)
+        .addAnnotation(
+            AnnotationSpec.builder(Suppress::class)
+                .addMember("%S", "LongMethod")
+                .build()
+        )
+        .apply {
+            (tokenProperties + componentsPropertySpecs).forEachIndexed { index, spec ->
+                val name = (spec as? PropertySpec)?.name
+                    ?: (spec as? TokenProperty)?.name
+                    ?: error("Type ${spec::class.simpleName} at index $index unrecognized.")
+
+                if (index == 0) {
+                    addStatement("var result = %N.hashCode()", name)
+                } else {
+                    addStatement("result = 31 * result + %N.hashCode()", name)
+                }
+            }
+        }
+        .addStatement("return result")
+        .build()
+
     val themeAbstraction = TypeSpec.classBuilder(themeAbstractionName)
         .addKdoc(abstractThemeDoc)
         .addModifiers(KModifier.ABSTRACT)
@@ -313,7 +365,7 @@ private fun generateThemeAbstraction(
         .addProperties(tokenPropertiesSpecs)
         .addProperties(componentsPropertySpecs)
         .addFunctions(
-            listOf(containerColorFuncSpec, copyThemeFuncSpec)
+            listOf(containerColorFuncSpec, copyThemeFuncSpec, equalsFunSpec, hashCodeFunSpec)
         )
         .build()
 
