@@ -1,0 +1,4663 @@
+{
+  "backgroundTokens": {
+    "background": {
+      "role": [
+        "Default page background",
+        "UI Shell base color"
+      ],
+      "value": {
+        "white": {
+          "name": "White",
+          "hex": "#ffffff"
+        },
+        "g10": {
+          "name": "Gray 10",
+          "hex": "#f4f4f4"
+        },
+        "g90": {
+          "name": "Gray 90",
+          "hex": "#262626"
+        },
+        "g100": {
+          "name": "Gray 100",
+          "hex": "#161616"
+        }
+      }
+    },
+    "backgroundHover": {
+      "role": [
+        "Hover color for $background",
+        "Hover color for transparent backgrounds"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 50, 12%",
+          "hex": "#8d8d8d @ 12%"
+        },
+        "g10": {
+          "name": "Gray 50, 12%",
+          "hex": "#8d8d8d @ 12%"
+        },
+        "g90": {
+          "name": "Gray 50, 16%",
+          "hex": "#8d8d8d @ 16%"
+        },
+        "g100": {
+          "name": "Gray 50, 16%",
+          "hex": "#8d8d8d @ 16%"
+        }
+      }
+    },
+    "backgroundActive": {
+      "role": [
+        "Active color for $background"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 50, 50%",
+          "hex": "#8d8d8d @ 50%"
+        },
+        "g10": {
+          "name": "Gray 50, 50%",
+          "hex": "#8d8d8d @ 50%"
+        },
+        "g90": {
+          "name": "Gray 50, 40%",
+          "hex": "#8d8d8d @ 40%"
+        },
+        "g100": {
+          "name": "Gray 50, 40%",
+          "hex": "#8d8d8d @ 40%"
+        }
+      }
+    },
+    "backgroundSelected": {
+      "role": [
+        "Selected color for $background"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 50, 20%",
+          "hex": "#8d8d8d @ 20%"
+        },
+        "g10": {
+          "name": "Gray 50, 20%",
+          "hex": "#8d8d8d @ 20%"
+        },
+        "g90": {
+          "name": "Gray 50, 24%",
+          "hex": "#8d8d8d @ 24%"
+        },
+        "g100": {
+          "name": "Gray 50, 24%",
+          "hex": "#8d8d8d @ 24%"
+        }
+      }
+    },
+    "backgroundSelectedHover": {
+      "role": [
+        "Hover color for $background-selected"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 50, 32%",
+          "hex": "#8d8d8d @ 32%"
+        },
+        "g10": {
+          "name": "Gray 50, 32%",
+          "hex": "#8d8d8d @ 32%"
+        },
+        "g90": {
+          "name": "Gray 50, 32%",
+          "hex": "#8d8d8d @ 32%"
+        },
+        "g100": {
+          "name": "Gray 50, 32%",
+          "hex": "#8d8d8d @ 32%"
+        }
+      }
+    },
+    "backgroundInverse": {
+      "role": [
+        "High contrast backgrounds",
+        "High contrast elements"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 80",
+          "hex": "#393939"
+        },
+        "g10": {
+          "name": "Gray 80",
+          "hex": "#393939"
+        },
+        "g90": {
+          "name": "Gray 10",
+          "hex": "#f4f4f4"
+        },
+        "g100": {
+          "name": "Gray 10",
+          "hex": "#f4f4f4"
+        }
+      }
+    },
+    "backgroundInverseHover": {
+      "role": [
+        "Hover color for $background-inverse"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 80 hover",
+          "hex": "#4c4c4c"
+        },
+        "g10": {
+          "name": "Gray 80 hover",
+          "hex": "#4c4c4c"
+        },
+        "g90": {
+          "name": "Gray 10 hover",
+          "hex": "#e5e5e5"
+        },
+        "g100": {
+          "name": "Gray 10 hover",
+          "hex": "#e5e5e5"
+        }
+      }
+    },
+    "backgroundBrand": {
+      "role": [
+        "Feature background color"
+      ],
+      "value": {
+        "white": {
+          "name": "Blue 60",
+          "hex": "#0f62fe"
+        },
+        "g10": {
+          "name": "Blue 60",
+          "hex": "#0f62fe"
+        },
+        "g90": {
+          "name": "Blue 60",
+          "hex": "#0f62fe"
+        },
+        "g100": {
+          "name": "Blue 60",
+          "hex": "#0f62fe"
+        }
+      }
+    }
+  },
+  "layerTokens": {
+    "layer01": {
+      "role": [
+        "Container color on $background",
+        "Secondary page background"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 10",
+          "hex": "#f4f4f4"
+        },
+        "g10": {
+          "name": "White",
+          "hex": "#ffffff"
+        },
+        "g90": {
+          "name": "Gray 80",
+          "hex": "#393939"
+        },
+        "g100": {
+          "name": "Gray 90",
+          "hex": "#262626"
+        }
+      }
+    },
+    "layer02": {
+      "role": [
+        "Container color on $layer-01"
+      ],
+      "value": {
+        "white": {
+          "name": "White",
+          "hex": "#ffffff"
+        },
+        "g10": {
+          "name": "Gray 10",
+          "hex": "#f4f4f4"
+        },
+        "g90": {
+          "name": "Gray 70",
+          "hex": "#525252"
+        },
+        "g100": {
+          "name": "Gray 80",
+          "hex": "#393939"
+        }
+      }
+    },
+    "layer03": {
+      "role": [
+        "Container color on $layer-02"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 10",
+          "hex": "#f4f4f4"
+        },
+        "g10": {
+          "name": "White",
+          "hex": "#ffffff"
+        },
+        "g90": {
+          "name": "Gray 60",
+          "hex": "#6f6f6f"
+        },
+        "g100": {
+          "name": "Gray 70",
+          "hex": "#525252"
+        }
+      }
+    },
+    "layerHover01": {
+      "role": [
+        "Hover color for $layer-01"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 10 hover",
+          "hex": "#e8e8e8"
+        },
+        "g10": {
+          "name": "Gray 10 hover",
+          "hex": "#e8e8e8"
+        },
+        "g90": {
+          "name": "Gray 80 hover",
+          "hex": "#474747"
+        },
+        "g100": {
+          "name": "Gray 90 hover",
+          "hex": "#333333"
+        }
+      }
+    },
+    "layerHover02": {
+      "role": [
+        "Hover color for $layer-02"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 10 hover",
+          "hex": "#e8e8e8"
+        },
+        "g10": {
+          "name": "Gray 10 hover",
+          "hex": "#e8e8e8"
+        },
+        "g90": {
+          "name": "Gray 70 hover",
+          "hex": "#636363"
+        },
+        "g100": {
+          "name": "Gray 80 hover",
+          "hex": "#474747"
+        }
+      }
+    },
+    "layerHover03": {
+      "role": [
+        "Hover color for $layer-03"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 10 hover",
+          "hex": "#e8e8e8"
+        },
+        "g10": {
+          "name": "Gray 10 hover",
+          "hex": "#e8e8e8"
+        },
+        "g90": {
+          "name": "Gray 60 hover",
+          "hex": "#5e5e5e"
+        },
+        "g100": {
+          "name": "Gray 70 hover",
+          "hex": "#636363"
+        }
+      }
+    },
+    "layerActive01": {
+      "role": [
+        "Active color for $layer-01"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 30",
+          "hex": "#c6c6c6"
+        },
+        "g10": {
+          "name": "Gray 30",
+          "hex": "#c6c6c6"
+        },
+        "g90": {
+          "name": "Gray 60",
+          "hex": "#6f6f6f"
+        },
+        "g100": {
+          "name": "Gray 70",
+          "hex": "#525252"
+        }
+      }
+    },
+    "layerActive02": {
+      "role": [
+        "Active color for $layer-02"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 30",
+          "hex": "#c6c6c6"
+        },
+        "g10": {
+          "name": "Gray 30",
+          "hex": "#c6c6c6"
+        },
+        "g90": {
+          "name": "Gray 50",
+          "hex": "#8d8d8d"
+        },
+        "g100": {
+          "name": "Gray 60",
+          "hex": "#6f6f6f"
+        }
+      }
+    },
+    "layerActive03": {
+      "role": [
+        "Active color for $layer-03"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 30",
+          "hex": "#c6c6c6"
+        },
+        "g10": {
+          "name": "Gray 30",
+          "hex": "#c6c6c6"
+        },
+        "g90": {
+          "name": "Gray 80",
+          "hex": "#393939"
+        },
+        "g100": {
+          "name": "Gray 50",
+          "hex": "#8d8d8d"
+        }
+      }
+    },
+    "layerSelected01": {
+      "role": [
+        "Selected color for $layer-01"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 20",
+          "hex": "#e0e0e0"
+        },
+        "g10": {
+          "name": "Gray 20",
+          "hex": "#e0e0e0"
+        },
+        "g90": {
+          "name": "Gray 70",
+          "hex": "#525252"
+        },
+        "g100": {
+          "name": "Gray 80",
+          "hex": "#393939"
+        }
+      }
+    },
+    "layerSelected02": {
+      "role": [
+        "Selected color for $layer-02"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 20",
+          "hex": "#e0e0e0"
+        },
+        "g10": {
+          "name": "Gray 20",
+          "hex": "#e0e0e0"
+        },
+        "g90": {
+          "name": "Gray 60",
+          "hex": "#6f6f6f"
+        },
+        "g100": {
+          "name": "Gray 70",
+          "hex": "#525252"
+        }
+      }
+    },
+    "layerSelected03": {
+      "role": [
+        "Selected color for $layer-03"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 20",
+          "hex": "#e0e0e0"
+        },
+        "g10": {
+          "name": "Gray 20",
+          "hex": "#e0e0e0"
+        },
+        "g90": {
+          "name": "Gray 70",
+          "hex": "#525252"
+        },
+        "g100": {
+          "name": "Gray 60",
+          "hex": "#6f6f6f"
+        }
+      }
+    },
+    "layerSelectedHover01": {
+      "role": [
+        "Hover color for $layer-selected-01"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 20 hover",
+          "hex": "#cacaca"
+        },
+        "g10": {
+          "name": "Gray 20 hover",
+          "hex": "#cacaca"
+        },
+        "g90": {
+          "name": "Gray 70 hover",
+          "hex": "#656565"
+        },
+        "g100": {
+          "name": "Gray 80 hover",
+          "hex": "#4c4c4c"
+        }
+      }
+    },
+    "layerSelectedHover02": {
+      "role": [
+        "Hover color for $layer-selected-02"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 20 hover",
+          "hex": "#cacaca"
+        },
+        "g10": {
+          "name": "Gray 20 hover",
+          "hex": "#cacaca"
+        },
+        "g90": {
+          "name": "Gray 60 hover",
+          "hex": "#5e5e5e"
+        },
+        "g100": {
+          "name": "Gray 70 hover",
+          "hex": "#656565"
+        }
+      }
+    },
+    "layerSelectedHover03": {
+      "role": [
+        "Hover color for $layer-selected-03"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 20 hover",
+          "hex": "#cacaca"
+        },
+        "g10": {
+          "name": "Gray 20 hover",
+          "hex": "#cacaca"
+        },
+        "g90": {
+          "name": "Gray 70 hover",
+          "hex": "#656565"
+        },
+        "g100": {
+          "name": "Gray 60 hover",
+          "hex": "#5e5e5e"
+        }
+      }
+    },
+    "layerSelectedInverse": {
+      "role": [
+        "High contrast elements",
+        "4.5:1 AA element contrast"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 100",
+          "hex": "#161616"
+        },
+        "g10": {
+          "name": "Gray 100",
+          "hex": "#161616"
+        },
+        "g90": {
+          "name": "Gray 10",
+          "hex": "#f4f4f4"
+        },
+        "g100": {
+          "name": "Gray 10",
+          "hex": "#f4f4f4"
+        }
+      }
+    },
+    "layerSelectedDisabled": {
+      "role": [
+        "Disabled color for selected layers"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 50",
+          "hex": "#8d8d8d"
+        },
+        "g10": {
+          "name": "Gray 50",
+          "hex": "#8d8d8d"
+        },
+        "g90": {
+          "name": "Gray 50",
+          "hex": "#8d8d8d"
+        },
+        "g100": {
+          "name": "Gray 60",
+          "hex": "#6f6f6f"
+        }
+      }
+    }
+  },
+  "layerAccentTokens": {
+    "layerAccent01": {
+      "role": [
+        "Tertiary background paired with $layer-01"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 20",
+          "hex": "#e0e0e0"
+        },
+        "g10": {
+          "name": "Gray 20",
+          "hex": "#e0e0e0"
+        },
+        "g90": {
+          "name": "Gray 70",
+          "hex": "#525252"
+        },
+        "g100": {
+          "name": "Gray 80",
+          "hex": "#393939"
+        }
+      }
+    },
+    "layerAccent02": {
+      "role": [
+        "Tertiary background paired with $layer-02"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 20",
+          "hex": "#e0e0e0"
+        },
+        "g10": {
+          "name": "Gray 20",
+          "hex": "#e0e0e0"
+        },
+        "g90": {
+          "name": "Gray 60",
+          "hex": "#6f6f6f"
+        },
+        "g100": {
+          "name": "Gray 70",
+          "hex": "#525252"
+        }
+      }
+    },
+    "layerAccent03": {
+      "role": [
+        "Tertiary background paired with $layer-03"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 20",
+          "hex": "#e0e0e0"
+        },
+        "g10": {
+          "name": "Gray 20",
+          "hex": "#e0e0e0"
+        },
+        "g90": {
+          "name": "Gray 50",
+          "hex": "#8d8d8d"
+        },
+        "g100": {
+          "name": "Gray 60",
+          "hex": "#6f6f6f"
+        }
+      }
+    },
+    "layerAccentHover01": {
+      "role": [
+        "Hover color for $layer-accent-01"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 20 hover",
+          "hex": "#cacaca"
+        },
+        "g10": {
+          "name": "Gray 20 hover",
+          "hex": "#cacaca"
+        },
+        "g90": {
+          "name": "Gray 70 hover",
+          "hex": "#656565"
+        },
+        "g100": {
+          "name": "Gray 80 hover",
+          "hex": "#4c4c4c"
+        }
+      }
+    },
+    "layerAccentHover02": {
+      "role": [
+        "Hover color for $layer-accent-02"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 20 hover",
+          "hex": "#cacaca"
+        },
+        "g10": {
+          "name": "Gray 20 hover",
+          "hex": "#cacaca"
+        },
+        "g90": {
+          "name": "Gray 60 hover",
+          "hex": "#5e5e5e"
+        },
+        "g100": {
+          "name": "Gray 70 hover",
+          "hex": "#656565"
+        }
+      }
+    },
+    "layerAccentHover03": {
+      "role": [
+        "Hover color for $layer-accent-03"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 20 hover",
+          "hex": "#cacaca"
+        },
+        "g10": {
+          "name": "Gray 20 hover",
+          "hex": "#cacaca"
+        },
+        "g90": {
+          "name": "Gray 50 hover",
+          "hex": "#7a7a7a"
+        },
+        "g100": {
+          "name": "Gray 60 hover",
+          "hex": "#5e5e5e"
+        }
+      }
+    },
+    "layerAccentActive01": {
+      "role": [
+        "Active color for $layer-accent-01"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 40",
+          "hex": "#a8a8a8"
+        },
+        "g10": {
+          "name": "Gray 40",
+          "hex": "#a8a8a8"
+        },
+        "g90": {
+          "name": "Gray 60",
+          "hex": "#6f6f6f"
+        },
+        "g100": {
+          "name": "Gray 70",
+          "hex": "#525252"
+        }
+      }
+    },
+    "layerAccentActive02": {
+      "role": [
+        "Active color for $layer-accent-02"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 40",
+          "hex": "#a8a8a8"
+        },
+        "g10": {
+          "name": "Gray 40",
+          "hex": "#a8a8a8"
+        },
+        "g90": {
+          "name": "Gray 80",
+          "hex": "#393939"
+        },
+        "g100": {
+          "name": "Gray 50",
+          "hex": "#8d8d8d"
+        }
+      }
+    },
+    "layerAccentActive03": {
+      "role": [
+        "Active color for $layer-accent-03"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 40",
+          "hex": "#a8a8a8"
+        },
+        "g10": {
+          "name": "Gray 40",
+          "hex": "#a8a8a8"
+        },
+        "g90": {
+          "name": "Gray 70",
+          "hex": "#525252"
+        },
+        "g100": {
+          "name": "Gray 80",
+          "hex": "#393939"
+        }
+      }
+    }
+  },
+  "fieldTokens": {
+    "field01": {
+      "role": [
+        "Default input fields",
+        "Fields on $background"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 10",
+          "hex": "#f4f4f4"
+        },
+        "g10": {
+          "name": "White",
+          "hex": "#ffffff"
+        },
+        "g90": {
+          "name": "Gray 80",
+          "hex": "#393939"
+        },
+        "g100": {
+          "name": "Gray 90",
+          "hex": "#262626"
+        }
+      }
+    },
+    "field02": {
+      "role": [
+        "Secondary input fields",
+        "Fields on $layer-01"
+      ],
+      "value": {
+        "white": {
+          "name": "White",
+          "hex": "#ffffff"
+        },
+        "g10": {
+          "name": "Gray 10",
+          "hex": "#f4f4f4"
+        },
+        "g90": {
+          "name": "Gray 70",
+          "hex": "#525252"
+        },
+        "g100": {
+          "name": "Gray 80",
+          "hex": "#393939"
+        }
+      }
+    },
+    "field03": {
+      "role": [
+        "Tertiary input fields",
+        "Fields on $layer-02"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 10",
+          "hex": "#f4f4f4"
+        },
+        "g10": {
+          "name": "White",
+          "hex": "#ffffff"
+        },
+        "g90": {
+          "name": "Gray 60",
+          "hex": "#6f6f6f"
+        },
+        "g100": {
+          "name": "Gray 70",
+          "hex": "#525252"
+        }
+      }
+    },
+    "fieldHover01": {
+      "role": [
+        "Hover color for $field-01"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 10 hover",
+          "hex": "#e8e8e8"
+        },
+        "g10": {
+          "name": "Gray 10 hover",
+          "hex": "#e8e8e8"
+        },
+        "g90": {
+          "name": "Gray 80 hover",
+          "hex": "#474747"
+        },
+        "g100": {
+          "name": "Gray 90 hover",
+          "hex": "#333333"
+        }
+      }
+    },
+    "fieldHover02": {
+      "role": [
+        "Hover color for $field-02"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 10 hover",
+          "hex": "#e8e8e8"
+        },
+        "g10": {
+          "name": "Gray 10 hover",
+          "hex": "#e8e8e8"
+        },
+        "g90": {
+          "name": "Gray 70 hover",
+          "hex": "#636363"
+        },
+        "g100": {
+          "name": "Gray 80 hover",
+          "hex": "#474747"
+        }
+      }
+    },
+    "fieldHover03": {
+      "role": [
+        "Hover color for $field-03"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 10 hover",
+          "hex": "#e8e8e8"
+        },
+        "g10": {
+          "name": "Gray 10 hover",
+          "hex": "#e8e8e8"
+        },
+        "g90": {
+          "name": "Gray 60 hover",
+          "hex": "#5e5e5e"
+        },
+        "g100": {
+          "name": "Gray 70 hover",
+          "hex": "#636363"
+        }
+      }
+    }
+  },
+  "borderTokens": {
+    "borderInteractive": {
+      "role": [
+        "3:1 AA contrast",
+        "Selected borders",
+        "Active borders"
+      ],
+      "value": {
+        "white": {
+          "name": "Blue 60",
+          "hex": "#0f62fe"
+        },
+        "g10": {
+          "name": "Blue 60",
+          "hex": "#0f62fe"
+        },
+        "g90": {
+          "name": "Blue 50",
+          "hex": "#4589ff"
+        },
+        "g100": {
+          "name": "Blue 50",
+          "hex": "#4589ff"
+        }
+      }
+    },
+    "borderSubtle00": {
+      "role": [
+        "Subtle borders paired with $background"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 20",
+          "hex": "#e0e0e0"
+        },
+        "g10": {
+          "name": "Gray 30",
+          "hex": "#c6c6c6"
+        },
+        "g90": {
+          "name": "Gray 70",
+          "hex": "#525252"
+        },
+        "g100": {
+          "name": "Gray 80",
+          "hex": "#393939"
+        }
+      }
+    },
+    "borderSubtle01": {
+      "role": [
+        "Subtle borders paired with $layer-01"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 30",
+          "hex": "#c6c6c6"
+        },
+        "g10": {
+          "name": "Gray 20",
+          "hex": "#e0e0e0"
+        },
+        "g90": {
+          "name": "Gray 70",
+          "hex": "#525252"
+        },
+        "g100": {
+          "name": "Gray 80",
+          "hex": "#393939"
+        }
+      }
+    },
+    "borderSubtle02": {
+      "role": [
+        "Subtle borders paired with $layer-02"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 20",
+          "hex": "#e0e0e0"
+        },
+        "g10": {
+          "name": "Gray 30",
+          "hex": "#c6c6c6"
+        },
+        "g90": {
+          "name": "Gray 60",
+          "hex": "#6f6f6f"
+        },
+        "g100": {
+          "name": "Gray 70",
+          "hex": "#525252"
+        }
+      }
+    },
+    "borderSubtle03": {
+      "role": [
+        "Subtle borders paired with $layer-03"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 30",
+          "hex": "#c6c6c6"
+        },
+        "g10": {
+          "name": "Gray 20",
+          "hex": "#e0e0e0"
+        },
+        "g90": {
+          "name": "Gray 50",
+          "hex": "#8d8d8d"
+        },
+        "g100": {
+          "name": "Gray 60",
+          "hex": "#6f6f6f"
+        }
+      }
+    },
+    "borderSubtleSelected01": {
+      "role": [
+        "Selected color for $border-subtle-01"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 30",
+          "hex": "#c6c6c6"
+        },
+        "g10": {
+          "name": "Gray 30",
+          "hex": "#c6c6c6"
+        },
+        "g90": {
+          "name": "Gray 60",
+          "hex": "#6f6f6f"
+        },
+        "g100": {
+          "name": "Gray 70",
+          "hex": "#525252"
+        }
+      }
+    },
+    "borderSubtleSelected02": {
+      "role": [
+        "Selected color for $border-subtle-02"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 30",
+          "hex": "#c6c6c6"
+        },
+        "g10": {
+          "name": "Gray 30",
+          "hex": "#c6c6c6"
+        },
+        "g90": {
+          "name": "Gray 50",
+          "hex": "#8d8d8d"
+        },
+        "g100": {
+          "name": "Gray 60",
+          "hex": "#6f6f6f"
+        }
+      }
+    },
+    "borderSubtleSelected03": {
+      "role": [
+        "Selected color for $border-subtle-03"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 30",
+          "hex": "#c6c6c6"
+        },
+        "g10": {
+          "name": "Gray 30",
+          "hex": "#c6c6c6"
+        },
+        "g90": {
+          "name": "Gray 40",
+          "hex": "#a8a8a8"
+        },
+        "g100": {
+          "name": "Gray 50",
+          "hex": "#8d8d8d"
+        }
+      }
+    },
+    "borderStrong01": {
+      "role": [
+        "Medium contrast border",
+        "Border-bottom paired with $field-01",
+        "3:1 AA non-text contrast"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 50",
+          "hex": "#8d8d8d"
+        },
+        "g10": {
+          "name": "Gray 50",
+          "hex": "#8d8d8d"
+        },
+        "g90": {
+          "name": "Gray 50",
+          "hex": "#8d8d8d"
+        },
+        "g100": {
+          "name": "Gray 60",
+          "hex": "#6f6f6f"
+        }
+      }
+    },
+    "borderStrong02": {
+      "role": [
+        "Medium contrast border",
+        "Border-bottom paired with $field-02",
+        "3:1 AA non-text contrast"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 50",
+          "hex": "#8d8d8d"
+        },
+        "g10": {
+          "name": "Gray 50",
+          "hex": "#8d8d8d"
+        },
+        "g90": {
+          "name": "Gray 40",
+          "hex": "#a8a8a8"
+        },
+        "g100": {
+          "name": "Gray 50",
+          "hex": "#8d8d8d"
+        }
+      }
+    },
+    "borderStrong03": {
+      "role": [
+        "Medium contrast border",
+        "Border-bottom paired with $field-03",
+        "3:1 AA non-text contrast"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 50",
+          "hex": "#8d8d8d"
+        },
+        "g10": {
+          "name": "Gray 50",
+          "hex": "#8d8d8d"
+        },
+        "g90": {
+          "name": "Gray 30",
+          "hex": "#c6c6c6"
+        },
+        "g100": {
+          "name": "Gray 40",
+          "hex": "#a8a8a8"
+        }
+      }
+    },
+    "borderTile01": {
+      "role": [
+        "Operable tile indicator paired with $layer-01"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 30",
+          "hex": "#c6c6c6"
+        },
+        "g10": {
+          "name": "Gray 40",
+          "hex": "#a8a8a8"
+        },
+        "g90": {
+          "name": "Gray 60",
+          "hex": "#6f6f6f"
+        },
+        "g100": {
+          "name": "Gray 70",
+          "hex": "#525252"
+        }
+      }
+    },
+    "borderTile02": {
+      "role": [
+        "Operable tile indicator paired with $layer-02"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 40",
+          "hex": "#a8a8a8"
+        },
+        "g10": {
+          "name": "Gray 30",
+          "hex": "#c6c6c6"
+        },
+        "g90": {
+          "name": "Gray 50",
+          "hex": "#8d8d8d"
+        },
+        "g100": {
+          "name": "Gray 60",
+          "hex": "#6f6f6f"
+        }
+      }
+    },
+    "borderTile03": {
+      "role": [
+        "Operable tile indicator paired with $layer-03"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 30",
+          "hex": "#c6c6c6"
+        },
+        "g10": {
+          "name": "Gray 40",
+          "hex": "#a8a8a8"
+        },
+        "g90": {
+          "name": "Gray 40",
+          "hex": "#a8a8a8"
+        },
+        "g100": {
+          "name": "Gray 50",
+          "hex": "#8d8d8d"
+        }
+      }
+    },
+    "borderInverse": {
+      "role": [
+        "High contrast border",
+        "4.5:1 AA non-text contrast"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 100",
+          "hex": "#161616"
+        },
+        "g10": {
+          "name": "Gray 100",
+          "hex": "#161616"
+        },
+        "g90": {
+          "name": "Gray 10",
+          "hex": "#f4f4f4"
+        },
+        "g100": {
+          "name": "Gray 10",
+          "hex": "#f4f4f4"
+        }
+      }
+    },
+    "borderDisabled": {
+      "role": [
+        "Disabled border color (excluding border-subtles)"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 30",
+          "hex": "#c6c6c6"
+        },
+        "g10": {
+          "name": "Gray 30",
+          "hex": "#c6c6c6"
+        },
+        "g90": {
+          "name": "Gray 50, 50%",
+          "hex": "#8d8d8d @ 50%"
+        },
+        "g100": {
+          "name": "Gray 50, 50%",
+          "hex": "#8d8d8d @ 50%"
+        }
+      }
+    }
+  },
+  "textTokens": {
+    "textPrimary": {
+      "role": [
+        "Primary text",
+        "Body copy",
+        "Headers",
+        "Hover text color for $text-secondary"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 100",
+          "hex": "#161616"
+        },
+        "g10": {
+          "name": "Gray 100",
+          "hex": "#161616"
+        },
+        "g90": {
+          "name": "Gray 10",
+          "hex": "#f4f4f4"
+        },
+        "g100": {
+          "name": "Gray 10",
+          "hex": "#f4f4f4"
+        }
+      }
+    },
+    "textSecondary": {
+      "role": [
+        "Secondary text",
+        "Input labels"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 70",
+          "hex": "#525252"
+        },
+        "g10": {
+          "name": "Gray 70",
+          "hex": "#525252"
+        },
+        "g90": {
+          "name": "Gray 30",
+          "hex": "#c6c6c6"
+        },
+        "g100": {
+          "name": "Gray 30",
+          "hex": "#c6c6c6"
+        }
+      }
+    },
+    "textPlaceholder": {
+      "role": [
+        "Placeholder text"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 40",
+          "hex": "#a8a8a8"
+        },
+        "g10": {
+          "name": "Gray 40",
+          "hex": "#a8a8a8"
+        },
+        "g90": {
+          "name": "Gray 60",
+          "hex": "#6f6f6f"
+        },
+        "g100": {
+          "name": "Gray 60",
+          "hex": "#6f6f6f"
+        }
+      }
+    },
+    "textOnColor": {
+      "role": [
+        "Text on interactive colors",
+        "Text on button colors"
+      ],
+      "value": {
+        "white": {
+          "name": "White",
+          "hex": "#ffffff"
+        },
+        "g10": {
+          "name": "White",
+          "hex": "#ffffff"
+        },
+        "g90": {
+          "name": "White",
+          "hex": "#ffffff"
+        },
+        "g100": {
+          "name": "White",
+          "hex": "#ffffff"
+        }
+      }
+    },
+    "textOnColorDisabled": {
+      "role": [
+        "Disabled color for $text-on-color"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 50",
+          "hex": "#8d8d8d"
+        },
+        "g10": {
+          "name": "Gray 50",
+          "hex": "#8d8d8d"
+        },
+        "g90": {
+          "name": "White \u2013 25%",
+          "hex": "#ffffff \u2013 25%"
+        },
+        "g100": {
+          "name": "White \u2013 25%",
+          "hex": "#ffffff \u2013 25%"
+        }
+      }
+    },
+    "textHelper": {
+      "role": [
+        "Tertiary text",
+        "Help text"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 60",
+          "hex": "#6f6f6f"
+        },
+        "g10": {
+          "name": "Gray 60",
+          "hex": "#6f6f6f"
+        },
+        "g90": {
+          "name": "Gray 50",
+          "hex": "#8d8d8d"
+        },
+        "g100": {
+          "name": "Gray 50",
+          "hex": "#8d8d8d"
+        }
+      }
+    },
+    "textError": {
+      "role": [
+        "Error message text"
+      ],
+      "value": {
+        "white": {
+          "name": "Red 60",
+          "hex": "#da1e28"
+        },
+        "g10": {
+          "name": "Red 60",
+          "hex": "#da1e28"
+        },
+        "g90": {
+          "name": "Red 30",
+          "hex": "#ffb3b8"
+        },
+        "g100": {
+          "name": "Red 40",
+          "hex": "#ff8389"
+        }
+      }
+    },
+    "textInverse": {
+      "role": [
+        "Inverse text color"
+      ],
+      "value": {
+        "white": {
+          "name": "White",
+          "hex": "#ffffff"
+        },
+        "g10": {
+          "name": "White",
+          "hex": "#ffffff"
+        },
+        "g90": {
+          "name": "Gray 100",
+          "hex": "#161616"
+        },
+        "g100": {
+          "name": "Gray 100",
+          "hex": "#161616"
+        }
+      }
+    },
+    "textDisabled": {
+      "role": [
+        "Disabled text color"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 100 \u2013 25%",
+          "hex": "#161616 \u2013 25%"
+        },
+        "g10": {
+          "name": "Gray 100 \u2013 25%",
+          "hex": "#161616 \u2013 25%"
+        },
+        "g90": {
+          "name": "Gray 10 \u2013 25%",
+          "hex": "#f4f4f4 \u2013 25%"
+        },
+        "g100": {
+          "name": "Gray 10 \u2013 25%",
+          "hex": "#f4f4f4 \u2013 25%"
+        }
+      }
+    }
+  },
+  "linkTokens": {
+    "linkPrimary": {
+      "role": [
+        "Primary links"
+      ],
+      "value": {
+        "white": {
+          "name": "Blue 60",
+          "hex": "#0f62fe"
+        },
+        "g10": {
+          "name": "Blue 60",
+          "hex": "#0f62fe"
+        },
+        "g90": {
+          "name": "Blue 40",
+          "hex": "#78a9ff"
+        },
+        "g100": {
+          "name": "Blue 40",
+          "hex": "#78a9ff"
+        }
+      }
+    },
+    "linkPrimaryHover": {
+      "role": [
+        "Hover color for $link-primary"
+      ],
+      "value": {
+        "white": {
+          "name": "Blue 70",
+          "hex": "#0043ce"
+        },
+        "g10": {
+          "name": "Blue 70",
+          "hex": "#0043ce"
+        },
+        "g90": {
+          "name": "Blue 30",
+          "hex": "#a6c8ff"
+        },
+        "g100": {
+          "name": "Blue 30",
+          "hex": "#a6c8ff"
+        }
+      }
+    },
+    "linkSecondary": {
+      "role": [
+        "Secondary link color for lower contrast backgrounds"
+      ],
+      "value": {
+        "white": {
+          "name": "Blue 70",
+          "hex": "#0043ce"
+        },
+        "g10": {
+          "name": "Blue 70",
+          "hex": "#0043ce"
+        },
+        "g90": {
+          "name": "Blue 30",
+          "hex": "#a6c8ff"
+        },
+        "g100": {
+          "name": "Blue 30",
+          "hex": "#a6c8ff"
+        }
+      }
+    },
+    "linkInverse": {
+      "role": [
+        "Links on $background-inverse backgrounds"
+      ],
+      "value": {
+        "white": {
+          "name": "Blue 40",
+          "hex": "#78a9ff"
+        },
+        "g10": {
+          "name": "Blue 40",
+          "hex": "#78a9ff"
+        },
+        "g90": {
+          "name": "Blue 60",
+          "hex": "#0f62fe"
+        },
+        "g100": {
+          "name": "Blue 60",
+          "hex": "#0f62fe"
+        }
+      }
+    },
+    "linkInverseHover": {
+      "role": [
+        "Hover color for links on $background-inverse backgrounds"
+      ],
+      "value": {
+        "white": {
+          "name": "Blue 30",
+          "hex": "#a6c8ff"
+        },
+        "g10": {
+          "name": "Blue 30",
+          "hex": "#a6c8ff"
+        },
+        "g90": {
+          "name": "Blue 70",
+          "hex": "#0043ce"
+        },
+        "g100": {
+          "name": "Blue 70",
+          "hex": "#0043ce"
+        }
+      }
+    },
+    "linkInverseActive": {
+      "role": [
+        "Active color for links on $background-inverse backgrounds"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 10",
+          "hex": "#f4f4f4"
+        },
+        "g10": {
+          "name": "Gray 10",
+          "hex": "#f4f4f4"
+        },
+        "g90": {
+          "name": "Gray 100",
+          "hex": "#161616"
+        },
+        "g100": {
+          "name": "Gray 100",
+          "hex": "#161616"
+        }
+      }
+    },
+    "linkInverseVisited": {
+      "role": [
+        "Color for visited links on $background-inverse backgrounds"
+      ],
+      "value": {
+        "white": {
+          "name": "Purple 40",
+          "hex": "#be95ff"
+        },
+        "g10": {
+          "name": "Purple 40",
+          "hex": "#be95ff"
+        },
+        "g90": {
+          "name": "Purple 60",
+          "hex": "#8a3ffc"
+        },
+        "g100": {
+          "name": "Purple 60",
+          "hex": "#8a3ffc"
+        }
+      }
+    },
+    "linkVisited": {
+      "role": [
+        "Color for visited links"
+      ],
+      "value": {
+        "white": {
+          "name": "Purple 60",
+          "hex": "#8a3ffc"
+        },
+        "g10": {
+          "name": "Purple 60",
+          "hex": "#8a3ffc"
+        },
+        "g90": {
+          "name": "Purple 40",
+          "hex": "#be95ff"
+        },
+        "g100": {
+          "name": "Purple 40",
+          "hex": "#be95ff"
+        }
+      }
+    }
+  },
+  "iconTokens": {
+    "iconPrimary": {
+      "role": [
+        "Primary icons"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 100",
+          "hex": "#161616"
+        },
+        "g10": {
+          "name": "Gray 100",
+          "hex": "#161616"
+        },
+        "g90": {
+          "name": "Gray 10",
+          "hex": "#f4f4f4"
+        },
+        "g100": {
+          "name": "Gray 10",
+          "hex": "#f4f4f4"
+        }
+      }
+    },
+    "iconSecondary": {
+      "role": [
+        "Secondary icons"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 70",
+          "hex": "#525252"
+        },
+        "g10": {
+          "name": "Gray 70",
+          "hex": "#525252"
+        },
+        "g90": {
+          "name": "Gray 30",
+          "hex": "#c6c6c6"
+        },
+        "g100": {
+          "name": "Gray 30",
+          "hex": "#c6c6c6"
+        }
+      }
+    },
+    "iconOnColor": {
+      "role": [
+        "Icons on interactive colors",
+        "Icons on non-layer colors"
+      ],
+      "value": {
+        "white": {
+          "name": "White",
+          "hex": "#ffffff"
+        },
+        "g10": {
+          "name": "White",
+          "hex": "#ffffff"
+        },
+        "g90": {
+          "name": "White",
+          "hex": "#ffffff"
+        },
+        "g100": {
+          "name": "White",
+          "hex": "#ffffff"
+        }
+      }
+    },
+    "iconOnColorDisabled": {
+      "role": [
+        "Disabled color for $icon-on-color"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 50",
+          "hex": "#8d8d8d"
+        },
+        "g10": {
+          "name": "Gray 50",
+          "hex": "#8d8d8d"
+        },
+        "g90": {
+          "name": "White \u2013 25%",
+          "hex": "#ffffff \u2013 25%"
+        },
+        "g100": {
+          "name": "White \u2013 25%",
+          "hex": "#ffffff \u2013 25%"
+        }
+      }
+    },
+    "iconInteractive": {
+      "role": [
+        "Icons that indicate operability"
+      ],
+      "value": {
+        "white": {
+          "name": "Blue 60",
+          "hex": "#0f62fe"
+        },
+        "g10": {
+          "name": "Blue 60",
+          "hex": "#0f62fe"
+        },
+        "g90": {
+          "name": "White",
+          "hex": "#ffffff"
+        },
+        "g100": {
+          "name": "White",
+          "hex": "#ffffff"
+        }
+      }
+    },
+    "iconInverse": {
+      "role": [
+        "Inverse icon color"
+      ],
+      "value": {
+        "white": {
+          "name": "White",
+          "hex": "#ffffff"
+        },
+        "g10": {
+          "name": "White",
+          "hex": "#ffffff"
+        },
+        "g90": {
+          "name": "Gray 100",
+          "hex": "#161616"
+        },
+        "g100": {
+          "name": "Gray 100",
+          "hex": "#161616"
+        }
+      }
+    },
+    "iconDisabled": {
+      "role": [
+        "Disabled icon color"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 100 \u2013 25%",
+          "hex": "#161616 \u2013 25%"
+        },
+        "g10": {
+          "name": "Gray 100 \u2013 25%",
+          "hex": "#161616 \u2013 25%"
+        },
+        "g90": {
+          "name": "Gray 10 \u2013 25%",
+          "hex": "#f4f4f4 \u2013 25%"
+        },
+        "g100": {
+          "name": "Gray 10 \u2013 25%",
+          "hex": "#f4f4f4 \u2013 25%"
+        }
+      }
+    }
+  },
+  "buttonTokens": {
+    "buttonPrimary": {
+      "role": [
+        "Primary button color"
+      ],
+      "value": {
+        "white": {
+          "name": "Blue 60",
+          "hex": "#0f62fe"
+        },
+        "g10": {
+          "name": "Blue 60",
+          "hex": "#0f62fe"
+        },
+        "g90": {
+          "name": "Blue 60",
+          "hex": "#0f62fe"
+        },
+        "g100": {
+          "name": "Blue 60",
+          "hex": "#0f62fe"
+        }
+      }
+    },
+    "buttonPrimaryHover": {
+      "role": [
+        "Hover color for $button-primary"
+      ],
+      "value": {
+        "white": {
+          "name": "Blue 60 hover",
+          "hex": "#0353e9"
+        },
+        "g10": {
+          "name": "Blue 60 hover",
+          "hex": "#0353e9"
+        },
+        "g90": {
+          "name": "Blue 60 hover",
+          "hex": "#0353e9"
+        },
+        "g100": {
+          "name": "Blue 60 hover",
+          "hex": "#0353e9"
+        }
+      }
+    },
+    "buttonPrimaryActive": {
+      "role": [
+        "Active color for $button-primary"
+      ],
+      "value": {
+        "white": {
+          "name": "Blue 80",
+          "hex": "#002d9c"
+        },
+        "g10": {
+          "name": "Blue 80",
+          "hex": "#002d9c"
+        },
+        "g90": {
+          "name": "Blue 80",
+          "hex": "#002d9c"
+        },
+        "g100": {
+          "name": "Blue 80",
+          "hex": "#002d9c"
+        }
+      }
+    },
+    "buttonSecondary": {
+      "role": [
+        "Secondary button color"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 80",
+          "hex": "#393939"
+        },
+        "g10": {
+          "name": "Gray 80",
+          "hex": "#393939"
+        },
+        "g90": {
+          "name": "Gray 60",
+          "hex": "#6f6f6f"
+        },
+        "g100": {
+          "name": "Gray 60",
+          "hex": "#6f6f6f"
+        }
+      }
+    },
+    "buttonSecondaryHover": {
+      "role": [
+        "Hover color for $button-secondary"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 80 hover",
+          "hex": "#4c4c4c"
+        },
+        "g10": {
+          "name": "Gray 80 hover",
+          "hex": "#4c4c4c"
+        },
+        "g90": {
+          "name": "Gray 60 hover",
+          "hex": "#606060"
+        },
+        "g100": {
+          "name": "Gray 60 hover",
+          "hex": "#606060"
+        }
+      }
+    },
+    "buttonSecondaryActive": {
+      "role": [
+        "Active color for $button-secondary"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 60",
+          "hex": "#6f6f6f"
+        },
+        "g10": {
+          "name": "Gray 60",
+          "hex": "#6f6f6f"
+        },
+        "g90": {
+          "name": "Gray 80",
+          "hex": "#393939"
+        },
+        "g100": {
+          "name": "Gray 80",
+          "hex": "#393939"
+        }
+      }
+    },
+    "buttonTertiary": {
+      "role": [
+        "Tertiary button color",
+        "4.5:1 AA text contrast"
+      ],
+      "value": {
+        "white": {
+          "name": "Blue 60",
+          "hex": "#0f62fe"
+        },
+        "g10": {
+          "name": "Blue 60",
+          "hex": "#0f62fe"
+        },
+        "g90": {
+          "name": "White",
+          "hex": "#ffffff"
+        },
+        "g100": {
+          "name": "White",
+          "hex": "#ffffff"
+        }
+      }
+    },
+    "buttonTertiaryHover": {
+      "role": [
+        "Hover color for $button-tertiary"
+      ],
+      "value": {
+        "white": {
+          "name": "Blue 60 hover",
+          "hex": "#0353e9"
+        },
+        "g10": {
+          "name": "Blue 60 hover",
+          "hex": "#0353e9"
+        },
+        "g90": {
+          "name": "Gray 10",
+          "hex": "#f4f4f4"
+        },
+        "g100": {
+          "name": "Gray 10",
+          "hex": "#f4f4f4"
+        }
+      }
+    },
+    "buttonTertiaryActive": {
+      "role": [
+        "Active color for $button-tertiary"
+      ],
+      "value": {
+        "white": {
+          "name": "Blue 80",
+          "hex": "#002d9c"
+        },
+        "g10": {
+          "name": "Blue 80",
+          "hex": "#002d9c"
+        },
+        "g90": {
+          "name": "Gray 30",
+          "hex": "#c6c6c6"
+        },
+        "g100": {
+          "name": "Gray 30",
+          "hex": "#c6c6c6"
+        }
+      }
+    },
+    "buttonDangerPrimary": {
+      "role": [
+        "Primary danger button color",
+        "3:1 AA non-text contrast"
+      ],
+      "value": {
+        "white": {
+          "name": "Red 60",
+          "hex": "#da1e28"
+        },
+        "g10": {
+          "name": "Red 60",
+          "hex": "#da1e28"
+        },
+        "g90": {
+          "name": "Red 60",
+          "hex": "#da1e28"
+        },
+        "g100": {
+          "name": "Red 60",
+          "hex": "#da1e28"
+        }
+      }
+    },
+    "buttonDangerSecondary": {
+      "role": [
+        "Tertiary danger button color",
+        "Ghost danger button color",
+        "4.5:1 AA text contrast"
+      ],
+      "value": {
+        "white": {
+          "name": "Red 60",
+          "hex": "#da1e28"
+        },
+        "g10": {
+          "name": "Red 60",
+          "hex": "#da1e28"
+        },
+        "g90": {
+          "name": "Red 40",
+          "hex": "#ff8389"
+        },
+        "g100": {
+          "name": "Red 50",
+          "hex": "#fa4d56"
+        }
+      }
+    },
+    "buttonDangerHover": {
+      "role": [
+        "Hover color for $danger-primary",
+        "Hover color for $danger-secondary"
+      ],
+      "value": {
+        "white": {
+          "name": "Red 60 hover",
+          "hex": "#ba1b23"
+        },
+        "g10": {
+          "name": "Red 60 hover",
+          "hex": "#ba1b23"
+        },
+        "g90": {
+          "name": "Red 60 hover",
+          "hex": "#ba1b23"
+        },
+        "g100": {
+          "name": "Red 60 hover",
+          "hex": "#ba1b23"
+        }
+      }
+    },
+    "buttonDangerActive": {
+      "role": [
+        "Active color for $danger-primary",
+        "Active color for $danger-secondary"
+      ],
+      "value": {
+        "white": {
+          "name": "Red 80",
+          "hex": "#750e13"
+        },
+        "g10": {
+          "name": "Red 80",
+          "hex": "#750e13"
+        },
+        "g90": {
+          "name": "Red 80",
+          "hex": "#750e13"
+        },
+        "g100": {
+          "name": "Red 80",
+          "hex": "#750e13"
+        }
+      }
+    },
+    "buttonSeparator": {
+      "role": [
+        "Fluid button separator",
+        "3:1 AA non-text contrast"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 20",
+          "hex": "#e0e0e0"
+        },
+        "g10": {
+          "name": "Gray 20",
+          "hex": "#e0e0e0"
+        },
+        "g90": {
+          "name": "Gray 100",
+          "hex": "#161616"
+        },
+        "g100": {
+          "name": "Gray 100",
+          "hex": "#161616"
+        }
+      }
+    },
+    "buttonDisabled": {
+      "role": [
+        "Disabled color for button elements"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 30",
+          "hex": "#c6c6c6"
+        },
+        "g10": {
+          "name": "Gray 30",
+          "hex": "#c6c6c6"
+        },
+        "g90": {
+          "name": "Gray 60",
+          "hex": "#6f6f6f"
+        },
+        "g100": {
+          "name": "Gray 70",
+          "hex": "#525252"
+        }
+      }
+    }
+  },
+  "supportTokens": {
+    "supportError": {
+      "role": [
+        "Error",
+        "Invalid state"
+      ],
+      "value": {
+        "white": {
+          "name": "Red 60",
+          "hex": "#da1e28"
+        },
+        "g10": {
+          "name": "Red 60",
+          "hex": "#da1e28"
+        },
+        "g90": {
+          "name": "Red 40",
+          "hex": "#ff8389"
+        },
+        "g100": {
+          "name": "Red 50",
+          "hex": "#fa4d56"
+        }
+      }
+    },
+    "supportSuccess": {
+      "role": [
+        "Success",
+        "On"
+      ],
+      "value": {
+        "white": {
+          "name": "Green 50",
+          "hex": "#24a148"
+        },
+        "g10": {
+          "name": "Green 50",
+          "hex": "#24a148"
+        },
+        "g90": {
+          "name": "Green 40",
+          "hex": "#42be65"
+        },
+        "g100": {
+          "name": "Green 40",
+          "hex": "#42be65"
+        }
+      }
+    },
+    "supportWarning": {
+      "role": [
+        "Warning"
+      ],
+      "value": {
+        "white": {
+          "name": "Yellow 30",
+          "hex": "#f1c21b"
+        },
+        "g10": {
+          "name": "Yellow 30",
+          "hex": "#f1c21b"
+        },
+        "g90": {
+          "name": "Yellow 30",
+          "hex": "#f1c21b"
+        },
+        "g100": {
+          "name": "Yellow 30",
+          "hex": "#f1c21b"
+        }
+      }
+    },
+    "supportInfo": {
+      "role": [
+        "Information"
+      ],
+      "value": {
+        "white": {
+          "name": "Blue 70",
+          "hex": "#0043ce"
+        },
+        "g10": {
+          "name": "Blue 70",
+          "hex": "#0043ce"
+        },
+        "g90": {
+          "name": "Blue 50",
+          "hex": "#4589ff"
+        },
+        "g100": {
+          "name": "Blue 50",
+          "hex": "#4589ff"
+        }
+      }
+    },
+    "supportErrorInverse": {
+      "role": [
+        "Error in high contrast moments"
+      ],
+      "value": {
+        "white": {
+          "name": "Red 50",
+          "hex": "#fa4d56"
+        },
+        "g10": {
+          "name": "Red 50",
+          "hex": "#fa4d56"
+        },
+        "g90": {
+          "name": "Red 60",
+          "hex": "#da1e28"
+        },
+        "g100": {
+          "name": "Red 60",
+          "hex": "#da1e28"
+        }
+      }
+    },
+    "supportSuccessInverse": {
+      "role": [
+        "Success in high contrast moments"
+      ],
+      "value": {
+        "white": {
+          "name": "Green 40",
+          "hex": "#42be65"
+        },
+        "g10": {
+          "name": "Green 40",
+          "hex": "#42be65"
+        },
+        "g90": {
+          "name": "Green 50",
+          "hex": "#24a148"
+        },
+        "g100": {
+          "name": "Green 50",
+          "hex": "#24a148"
+        }
+      }
+    },
+    "supportWarningInverse": {
+      "role": [
+        "Warning in high contrast moments"
+      ],
+      "value": {
+        "white": {
+          "name": "Yellow 30",
+          "hex": "#f1c21b"
+        },
+        "g10": {
+          "name": "Yellow 30",
+          "hex": "#f1c21b"
+        },
+        "g90": {
+          "name": "Yellow 30",
+          "hex": "#f1c21b"
+        },
+        "g100": {
+          "name": "Yellow 30",
+          "hex": "#f1c21b"
+        }
+      }
+    },
+    "supportInfoInverse": {
+      "role": [
+        "Information in high contrast moments"
+      ],
+      "value": {
+        "white": {
+          "name": "Blue 50",
+          "hex": "#4589ff"
+        },
+        "g10": {
+          "name": "Blue 50",
+          "hex": "#4589ff"
+        },
+        "g90": {
+          "name": "Blue 70",
+          "hex": "#0043ce"
+        },
+        "g100": {
+          "name": "Blue 70",
+          "hex": "#0043ce"
+        }
+      }
+    },
+    "supportCautionMinor": {
+      "role": [
+        "Minor caution status"
+      ],
+      "value": {
+        "white": {
+          "name": "Yellow 30",
+          "hex": "#f1c21b"
+        },
+        "g10": {
+          "name": "Yellow 30",
+          "hex": "#f1c21b"
+        },
+        "g90": {
+          "name": "Yellow 30",
+          "hex": "#f1c21b"
+        },
+        "g100": {
+          "name": "Yellow 30",
+          "hex": "#f1c21b"
+        }
+      }
+    },
+    "supportCautionMajor": {
+      "role": [
+        "Major caution status"
+      ],
+      "value": {
+        "white": {
+          "name": "Orange 40",
+          "hex": "#ff832b"
+        },
+        "g10": {
+          "name": "Orange 40",
+          "hex": "#ff832b"
+        },
+        "g90": {
+          "name": "Orange 40",
+          "hex": "#ff832b"
+        },
+        "g100": {
+          "name": "Orange 40",
+          "hex": "#ff832b"
+        }
+      }
+    },
+    "supportCautionUndefined": {
+      "role": [
+        "Undefined status"
+      ],
+      "value": {
+        "white": {
+          "name": "Purple 60",
+          "hex": "#8a3ffc"
+        },
+        "g10": {
+          "name": "Purple 60",
+          "hex": "#8a3ffc"
+        },
+        "g90": {
+          "name": "Purple 50",
+          "hex": "#a56eff"
+        },
+        "g100": {
+          "name": "Purple 50",
+          "hex": "#a56eff"
+        }
+      }
+    }
+  },
+  "focusTokens": {
+    "focus": {
+      "role": [
+        "Focus border",
+        "Focus underline"
+      ],
+      "value": {
+        "white": {
+          "name": "Blue 60",
+          "hex": "#0f62fe"
+        },
+        "g10": {
+          "name": "Blue 60",
+          "hex": "#0f62fe"
+        },
+        "g90": {
+          "name": "White",
+          "hex": "#ffffff"
+        },
+        "g100": {
+          "name": "White",
+          "hex": "#ffffff"
+        }
+      }
+    },
+    "focusInset": {
+      "role": [
+        "Contrast border paired with $focus"
+      ],
+      "value": {
+        "white": {
+          "name": "White",
+          "hex": "#ffffff"
+        },
+        "g10": {
+          "name": "White",
+          "hex": "#ffffff"
+        },
+        "g90": {
+          "name": "Gray 100",
+          "hex": "#161616"
+        },
+        "g100": {
+          "name": "Gray 100",
+          "hex": "#161616"
+        }
+      }
+    },
+    "focusInverse": {
+      "role": [
+        "Focus on high contrast moments"
+      ],
+      "value": {
+        "white": {
+          "name": "White",
+          "hex": "#ffffff"
+        },
+        "g10": {
+          "name": "White",
+          "hex": "#ffffff"
+        },
+        "g90": {
+          "name": "Blue 60",
+          "hex": "#0f62fe"
+        },
+        "g100": {
+          "name": "Blue 60",
+          "hex": "#0f62fe"
+        }
+      }
+    }
+  },
+  "miscellaneous": {
+    "interactive": {
+      "role": [
+        "3:1 AA contrast",
+        "Selected elements",
+        "Active elements",
+        "Accent icons"
+      ],
+      "value": {
+        "white": {
+          "name": "Blue 60",
+          "hex": "#0f62fe"
+        },
+        "g10": {
+          "name": "Blue 60",
+          "hex": "#0f62fe"
+        },
+        "g90": {
+          "name": "Blue 50",
+          "hex": "#4589ff"
+        },
+        "g100": {
+          "name": "Blue 50",
+          "hex": "#4589ff"
+        }
+      }
+    },
+    "highlight": {
+      "role": [
+        "Highlight color"
+      ],
+      "value": {
+        "white": {
+          "name": "Blue 20",
+          "hex": "#d0e2ff"
+        },
+        "g10": {
+          "name": "Blue 20",
+          "hex": "#d0e2ff"
+        },
+        "g90": {
+          "name": "Blue 80",
+          "hex": "#002d9c"
+        },
+        "g100": {
+          "name": "Blue 90",
+          "hex": "#001d6c"
+        }
+      }
+    },
+    "toggleOff": {
+      "role": [
+        "Off background",
+        "3:1 AA contrast"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 50",
+          "hex": "#8d8d8d"
+        },
+        "g10": {
+          "name": "Gray 50",
+          "hex": "#8d8d8d"
+        },
+        "g90": {
+          "name": "Gray 50",
+          "hex": "#8d8d8d"
+        },
+        "g100": {
+          "name": "Gray 60",
+          "hex": "#6f6f6f"
+        }
+      }
+    },
+    "overlay": {
+      "role": [
+        "Background overlay"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 100, 50%",
+          "hex": "#161616 @ 50%"
+        },
+        "g10": {
+          "name": "Gray 100, 50%",
+          "hex": "#161616 @ 50%"
+        },
+        "g90": {
+          "name": "Gray 100, 70%",
+          "hex": "#161616 @70%"
+        },
+        "g100": {
+          "name": "Gray 100, 70%",
+          "hex": "#161616 @ 70%"
+        }
+      }
+    },
+    "skeletonElement": {
+      "role": [
+        "Skeleton color for text and UI elements"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 30",
+          "hex": "#c6c6c6"
+        },
+        "g10": {
+          "name": "Gray 30",
+          "hex": "#c6c6c6"
+        },
+        "g90": {
+          "name": "Gray 70",
+          "hex": "#525252"
+        },
+        "g100": {
+          "name": "Gray 70",
+          "hex": "#525252"
+        }
+      }
+    },
+    "skeletonBackground": {
+      "role": [
+        "Skeleton color for containers"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 10 hover",
+          "hex": "#e5e5e5"
+        },
+        "g10": {
+          "name": "Gray 10 hover",
+          "hex": "#e5e5e5"
+        },
+        "g90": {
+          "name": "Gray 80 hover",
+          "hex": "#353535"
+        },
+        "g100": {
+          "name": "Gray 80 hover",
+          "hex": "#353535"
+        }
+      }
+    }
+  },
+  "tag": {
+    "tagBackgroundGray": {
+      "role": [
+        "Gray tag background"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 20",
+          "hex": "#e0e0e0"
+        },
+        "g10": {
+          "name": "Gray 20",
+          "hex": "#e0e0e0"
+        },
+        "g90": {
+          "name": "Gray 70",
+          "hex": "#525252"
+        },
+        "g100": {
+          "name": "Gray 70",
+          "hex": "#525252"
+        }
+      }
+    },
+    "tagColorGray": {
+      "role": [
+        "Gray tag text",
+        "Gray tag icon"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 100",
+          "hex": "#161616"
+        },
+        "g10": {
+          "name": "Gray 100",
+          "hex": "#161616"
+        },
+        "g90": {
+          "name": "Gray 20",
+          "hex": "#e0e0e0"
+        },
+        "g100": {
+          "name": "Gray 20",
+          "hex": "#e0e0e0"
+        }
+      }
+    },
+    "tagHoverGray": {
+      "role": [
+        "Gray tag hover for $tag-background-gray"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 20 hover",
+          "hex": "#d1d1d1"
+        },
+        "g10": {
+          "name": "Gray 20 hover",
+          "hex": "#d1d1d1"
+        },
+        "g90": {
+          "name": "Gray 70 hover",
+          "hex": "#636363"
+        },
+        "g100": {
+          "name": "Gray 70 hover",
+          "hex": "#636363"
+        }
+      }
+    },
+    "tagBorderGray": {
+      "role": [
+        "Gray tag border for operational tag"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 40",
+          "hex": "#a8a8a8"
+        },
+        "g10": {
+          "name": "Gray 40",
+          "hex": "#a8a8a8"
+        },
+        "g90": {
+          "name": "Gray 50",
+          "hex": "#8d8d8d"
+        },
+        "g100": {
+          "name": "Gray 50",
+          "hex": "#8d8d8d"
+        }
+      }
+    },
+    "tagBackgroundCoolGray": {
+      "role": [
+        "Cool gray tag background"
+      ],
+      "value": {
+        "white": {
+          "name": "Cool gray 20",
+          "hex": "#dde1e6"
+        },
+        "g10": {
+          "name": "Cool gray 20",
+          "hex": "#dde1e6"
+        },
+        "g90": {
+          "name": "Cool gray 70",
+          "hex": "#4d5358"
+        },
+        "g100": {
+          "name": "Cool gray 70",
+          "hex": "#4d5358"
+        }
+      }
+    },
+    "tagColorCoolGray": {
+      "role": [
+        "Cool gray tag text",
+        "Cool gray tag icon"
+      ],
+      "value": {
+        "white": {
+          "name": "Cool gray 100",
+          "hex": "#121619"
+        },
+        "g10": {
+          "name": "Cool gray 100",
+          "hex": "#121619"
+        },
+        "g90": {
+          "name": "Cool gray 20",
+          "hex": "#dde1e6"
+        },
+        "g100": {
+          "name": "Cool gray 20",
+          "hex": "#dde1e6"
+        }
+      }
+    },
+    "tagHoverCoolGray": {
+      "role": [
+        "Cool gray tag hover for $tag-background-cool-gray"
+      ],
+      "value": {
+        "white": {
+          "name": "Cool gray 20 hover",
+          "hex": "#cdd3da"
+        },
+        "g10": {
+          "name": "Cool gray 20 hover",
+          "hex": "#cdd3da"
+        },
+        "g90": {
+          "name": "Cool gray 70 hover",
+          "hex": "#5d646a"
+        },
+        "g100": {
+          "name": "Cool gray 70 hover",
+          "hex": "#5d646a"
+        }
+      }
+    },
+    "tagBorderCoolGray": {
+      "role": [
+        "Cool gray tag border for operational tag"
+      ],
+      "value": {
+        "white": {
+          "name": "Cool gray 40",
+          "hex": "#a2a9b0"
+        },
+        "g10": {
+          "name": "Cool gray 40",
+          "hex": "#a2a9b0"
+        },
+        "g90": {
+          "name": "Cool gray 50",
+          "hex": "#878d96"
+        },
+        "g100": {
+          "name": "Cool gray 50",
+          "hex": "#878d96"
+        }
+      }
+    },
+    "tagBackgroundWarmGray": {
+      "role": [
+        "Warm gray tag background"
+      ],
+      "value": {
+        "white": {
+          "name": "Warm gray 20",
+          "hex": "#e5e0df"
+        },
+        "g10": {
+          "name": "Warm gray 20",
+          "hex": "#e5e0df"
+        },
+        "g90": {
+          "name": "Warm gray 70",
+          "hex": "#565151"
+        },
+        "g100": {
+          "name": "Warm gray 70",
+          "hex": "#565151"
+        }
+      }
+    },
+    "tagColorWarmGray": {
+      "role": [
+        "Warm gray tag text",
+        "Warm gray tag icon"
+      ],
+      "value": {
+        "white": {
+          "name": "Warm gray 100",
+          "hex": "#171414"
+        },
+        "g10": {
+          "name": "Warm gray 100",
+          "hex": "#171414"
+        },
+        "g90": {
+          "name": "Warm gray 20",
+          "hex": "#e5e0df"
+        },
+        "g100": {
+          "name": "Warm gray 20",
+          "hex": "#e5e0df"
+        }
+      }
+    },
+    "tagHoverWarmGray": {
+      "role": [
+        "Warm gray tag hover for $tag-background-warm-gray"
+      ],
+      "value": {
+        "white": {
+          "name": "Warm gray 20 hover",
+          "hex": "#d8d0cf"
+        },
+        "g10": {
+          "name": "Warm gray 20 hover",
+          "hex": "#d8d0cf"
+        },
+        "g90": {
+          "name": "Warm gray 70 hover",
+          "hex": "#696363"
+        },
+        "g100": {
+          "name": "Warm gray 70 hover",
+          "hex": "#696363"
+        }
+      }
+    },
+    "tagBorderWarmGray": {
+      "role": [
+        "Warm gray tag border for operational tag"
+      ],
+      "value": {
+        "white": {
+          "name": "Warm gray 40",
+          "hex": "#ada8a8"
+        },
+        "g10": {
+          "name": "Warm gray 40",
+          "hex": "#ada8a8"
+        },
+        "g90": {
+          "name": "Warm gray 50",
+          "hex": "#8f8b8b"
+        },
+        "g100": {
+          "name": "Warm gray 50",
+          "hex": "#8f8b8b"
+        }
+      }
+    },
+    "tagBackgroundRed": {
+      "role": [
+        "Red tag background"
+      ],
+      "value": {
+        "white": {
+          "name": "Red 20",
+          "hex": "#ffd7d9"
+        },
+        "g10": {
+          "name": "Red 20",
+          "hex": "#ffd7d9"
+        },
+        "g90": {
+          "name": "Red 70",
+          "hex": "#a2191f"
+        },
+        "g100": {
+          "name": "Red 70",
+          "hex": "#a2191f"
+        }
+      }
+    },
+    "tagColorRed": {
+      "role": [
+        "Red tag text",
+        "Red tag icon"
+      ],
+      "value": {
+        "white": {
+          "name": "Red 70",
+          "hex": "#a2191f"
+        },
+        "g10": {
+          "name": "Red 70",
+          "hex": "#a2191f"
+        },
+        "g90": {
+          "name": "Red 20",
+          "hex": "#ffd7d9"
+        },
+        "g100": {
+          "name": "Red 20",
+          "hex": "#ffd7d9"
+        }
+      }
+    },
+    "tagHoverRed": {
+      "role": [
+        "Red tag hover for $tag-background-red"
+      ],
+      "value": {
+        "white": {
+          "name": "Red 20 hover",
+          "hex": "#ffc2c5"
+        },
+        "g10": {
+          "name": "Red 20 hover",
+          "hex": "#ffc2c5"
+        },
+        "g90": {
+          "name": "Red 70 hover",
+          "hex": "#c21e25"
+        },
+        "g100": {
+          "name": "Red 70 hover",
+          "hex": "#c21e25"
+        }
+      }
+    },
+    "tagBorderRed": {
+      "role": [
+        "Red tag border for operational tag"
+      ],
+      "value": {
+        "white": {
+          "name": "Red 40",
+          "hex": "#ff8389"
+        },
+        "g10": {
+          "name": "Red 40",
+          "hex": "#ff8389"
+        },
+        "g90": {
+          "name": "Red 50",
+          "hex": "#fa4d56"
+        },
+        "g100": {
+          "name": "Red 50",
+          "hex": "#fa4d56"
+        }
+      }
+    },
+    "tagBackgroundMagenta": {
+      "role": [
+        "Magenta tag background"
+      ],
+      "value": {
+        "white": {
+          "name": "Magenta 20",
+          "hex": "#ffd6e8"
+        },
+        "g10": {
+          "name": "Magenta 20",
+          "hex": "#ffd6e8"
+        },
+        "g90": {
+          "name": "Magenta 70",
+          "hex": "#9f1853"
+        },
+        "g100": {
+          "name": "Magenta 70",
+          "hex": "#9f1853"
+        }
+      }
+    },
+    "tagColorMagenta": {
+      "role": [
+        "Magenta tag text",
+        "Magenta tag icon"
+      ],
+      "value": {
+        "white": {
+          "name": "Magenta 70",
+          "hex": "#9f1853"
+        },
+        "g10": {
+          "name": "Magenta 70",
+          "hex": "#9f1853"
+        },
+        "g90": {
+          "name": "Magenta 20",
+          "hex": "#ffd6e8"
+        },
+        "g100": {
+          "name": "Magenta 20",
+          "hex": "#ffd6e8"
+        }
+      }
+    },
+    "tagHoverMagenta": {
+      "role": [
+        "Magenta tag hover for $tag-background-magenta"
+      ],
+      "value": {
+        "white": {
+          "name": "Magenta 20 hover",
+          "hex": "#ffbdda"
+        },
+        "g10": {
+          "name": "Magenta 20 hover",
+          "hex": "#ffbdda"
+        },
+        "g90": {
+          "name": "Magenta 70 hover",
+          "hex": "#bf1d63"
+        },
+        "g100": {
+          "name": "Magenta 70 hover",
+          "hex": "#bf1d63"
+        }
+      }
+    },
+    "tagBorderMagenta": {
+      "role": [
+        "Magenta tag border for operational tag"
+      ],
+      "value": {
+        "white": {
+          "name": "Magenta 40",
+          "hex": "#ff7eb6"
+        },
+        "g10": {
+          "name": "Magenta 40",
+          "hex": "#ff7eb6"
+        },
+        "g90": {
+          "name": "Magenta 50",
+          "hex": "#ee5396"
+        },
+        "g100": {
+          "name": "Magenta 50",
+          "hex": "#ee5396"
+        }
+      }
+    },
+    "tagBackgroundPurple": {
+      "role": [
+        "Purple tag background"
+      ],
+      "value": {
+        "white": {
+          "name": "Purple 20",
+          "hex": "#e8daff"
+        },
+        "g10": {
+          "name": "Purple 20",
+          "hex": "#e8daff"
+        },
+        "g90": {
+          "name": "Purple 70",
+          "hex": "#6929c4"
+        },
+        "g100": {
+          "name": "Purple 70",
+          "hex": "#6929c4"
+        }
+      }
+    },
+    "tagColorPurple": {
+      "role": [
+        "Purple tag text",
+        "Purple tag icon"
+      ],
+      "value": {
+        "white": {
+          "name": "Purple 70",
+          "hex": "#6929c4"
+        },
+        "g10": {
+          "name": "Purple 70",
+          "hex": "#6929c4"
+        },
+        "g90": {
+          "name": "Purple 20",
+          "hex": "#e8daff"
+        },
+        "g100": {
+          "name": "Purple 20",
+          "hex": "#e8daff"
+        }
+      }
+    },
+    "tagHoverPurple": {
+      "role": [
+        "Purple tag hover for $tag-background-purple"
+      ],
+      "value": {
+        "white": {
+          "name": "Purple 20 hover",
+          "hex": "#dcc7ff"
+        },
+        "g10": {
+          "name": "Purple 20 hover",
+          "hex": "#dcc7ff"
+        },
+        "g90": {
+          "name": "Purple 70 hover",
+          "hex": "#7c3dd6"
+        },
+        "g100": {
+          "name": "Purple 70 hover",
+          "hex": "#7c3dd6"
+        }
+      }
+    },
+    "tagBorderPurple": {
+      "role": [
+        "Purple tag border for operational tag"
+      ],
+      "value": {
+        "white": {
+          "name": "Purple 40",
+          "hex": "#be95ff"
+        },
+        "g10": {
+          "name": "Purple 40",
+          "hex": "#be95ff"
+        },
+        "g90": {
+          "name": "Purple 50",
+          "hex": "#a56eff"
+        },
+        "g100": {
+          "name": "Purple 50",
+          "hex": "#a56eff"
+        }
+      }
+    },
+    "tagBackgroundBlue": {
+      "role": [
+        "Blue tag background"
+      ],
+      "value": {
+        "white": {
+          "name": "Blue 20",
+          "hex": "#d0e2ff"
+        },
+        "g10": {
+          "name": "Blue 20",
+          "hex": "#d0e2ff"
+        },
+        "g90": {
+          "name": "Blue 70",
+          "hex": "#0043ce"
+        },
+        "g100": {
+          "name": "Blue 70",
+          "hex": "#0043ce"
+        }
+      }
+    },
+    "tagColorBlue": {
+      "role": [
+        "Blue tag text",
+        "Blue tag icon"
+      ],
+      "value": {
+        "white": {
+          "name": "Blue 70",
+          "hex": "#0043ce"
+        },
+        "g10": {
+          "name": "Blue 70",
+          "hex": "#0043ce"
+        },
+        "g90": {
+          "name": "Blue 20",
+          "hex": "#d0e2ff"
+        },
+        "g100": {
+          "name": "Blue 20",
+          "hex": "#d0e2ff"
+        }
+      }
+    },
+    "tagHoverBlue": {
+      "role": [
+        "Blue tag hover for $tag-background-blue"
+      ],
+      "value": {
+        "white": {
+          "name": "Blue 20 hover",
+          "hex": "#b8d3ff"
+        },
+        "g10": {
+          "name": "Blue 20 hover",
+          "hex": "#b8d3ff"
+        },
+        "g90": {
+          "name": "Blue 70 hover",
+          "hex": "#0053ff"
+        },
+        "g100": {
+          "name": "Blue 70 hover",
+          "hex": "#0053ff"
+        }
+      }
+    },
+    "tagBorderBlue": {
+      "role": [
+        "Blue tag border for operational tag"
+      ],
+      "value": {
+        "white": {
+          "name": "Blue 40",
+          "hex": "#78a9ff"
+        },
+        "g10": {
+          "name": "Blue 40",
+          "hex": "#78a9ff"
+        },
+        "g90": {
+          "name": "Blue 50",
+          "hex": "#4589ff"
+        },
+        "g100": {
+          "name": "Blue 50",
+          "hex": "#4589ff"
+        }
+      }
+    },
+    "tagBackgroundCyan": {
+      "role": [
+        "Cyan tag background"
+      ],
+      "value": {
+        "white": {
+          "name": "Cyan 20",
+          "hex": "#bae6ff"
+        },
+        "g10": {
+          "name": "Cyan 20",
+          "hex": "#bae6ff"
+        },
+        "g90": {
+          "name": "Cyan 70",
+          "hex": "#00539a"
+        },
+        "g100": {
+          "name": "Cyan 70",
+          "hex": "#00539a"
+        }
+      }
+    },
+    "tagColorCyan": {
+      "role": [
+        "Cyan tag text",
+        "Cyan tag icon"
+      ],
+      "value": {
+        "white": {
+          "name": "Cyan 70",
+          "hex": "#00539a"
+        },
+        "g10": {
+          "name": "Cyan 70",
+          "hex": "#00539a"
+        },
+        "g90": {
+          "name": "Cyan 20",
+          "hex": "#bae6ff"
+        },
+        "g100": {
+          "name": "Cyan 20",
+          "hex": "#bae6ff"
+        }
+      }
+    },
+    "tagHoverCyan": {
+      "role": [
+        "Cyan tag hover for $tag-background-cyan"
+      ],
+      "value": {
+        "white": {
+          "name": "Cyan 20 hover",
+          "hex": "#99daff"
+        },
+        "g10": {
+          "name": "Cyan 20 hover",
+          "hex": "#99daff"
+        },
+        "g90": {
+          "name": "Cyan 70 hover",
+          "hex": "#0066bd"
+        },
+        "g100": {
+          "name": "Cyan 70 hover",
+          "hex": "#0066bd"
+        }
+      }
+    },
+    "tagBorderCyan": {
+      "role": [
+        "Cyan tag border for operational tag"
+      ],
+      "value": {
+        "white": {
+          "name": "Cyan 40",
+          "hex": "#33b1ff"
+        },
+        "g10": {
+          "name": "Cyan 40",
+          "hex": "#33b1ff"
+        },
+        "g90": {
+          "name": "Cyan 50",
+          "hex": "#1192e8"
+        },
+        "g100": {
+          "name": "Cyan 50",
+          "hex": "#1192e8"
+        }
+      }
+    },
+    "tagBackgroundTeal": {
+      "role": [
+        "Teal tag background"
+      ],
+      "value": {
+        "white": {
+          "name": "Teal 20",
+          "hex": "#9ef0f0"
+        },
+        "g10": {
+          "name": "Teal 20",
+          "hex": "#9ef0f0"
+        },
+        "g90": {
+          "name": "Teal 70",
+          "hex": "#005D5D"
+        },
+        "g100": {
+          "name": "Teal 70",
+          "hex": "#005D5D"
+        }
+      }
+    },
+    "tagColorTeal": {
+      "role": [
+        "Teal tag text",
+        "Teal tag icon"
+      ],
+      "value": {
+        "white": {
+          "name": "Teal 70",
+          "hex": "#005d5d"
+        },
+        "g10": {
+          "name": "Teal 70",
+          "hex": "#005d5d"
+        },
+        "g90": {
+          "name": "Teal 20",
+          "hex": "#9ef0f0"
+        },
+        "g100": {
+          "name": "Teal 20",
+          "hex": "#9ef0f0"
+        }
+      }
+    },
+    "tagHoverTeal": {
+      "role": [
+        "Teal tag hover for $tag-background-teal"
+      ],
+      "value": {
+        "white": {
+          "name": "Teal 20 hover",
+          "hex": "#57e5e5"
+        },
+        "g10": {
+          "name": "Teal 20 hover",
+          "hex": "#57e5e5"
+        },
+        "g90": {
+          "name": "Teal 70 hover",
+          "hex": "#007070"
+        },
+        "g100": {
+          "name": "Teal 70 hover",
+          "hex": "#007070"
+        }
+      }
+    },
+    "tagBorderTeal": {
+      "role": [
+        "Teal tag border for operational tag"
+      ],
+      "value": {
+        "white": {
+          "name": "Teal 40",
+          "hex": "#08bdba"
+        },
+        "g10": {
+          "name": "Teal 40",
+          "hex": "#08bdba"
+        },
+        "g90": {
+          "name": "Teal 50",
+          "hex": "#009d9a"
+        },
+        "g100": {
+          "name": "Teal 50",
+          "hex": "#009d9a"
+        }
+      }
+    },
+    "tagBackgroundGreen": {
+      "role": [
+        "Green tag background"
+      ],
+      "value": {
+        "white": {
+          "name": "Green 20",
+          "hex": "#a7f0ba"
+        },
+        "g10": {
+          "name": "Green 20",
+          "hex": "#a7f0ba"
+        },
+        "g90": {
+          "name": "Green 70",
+          "hex": "#0e6027"
+        },
+        "g100": {
+          "name": "Green 70",
+          "hex": "#0e6027"
+        }
+      }
+    },
+    "tagColorGreen": {
+      "role": [
+        "Green tag text",
+        "Green tag icon"
+      ],
+      "value": {
+        "white": {
+          "name": "Green 70",
+          "hex": "#0e6027"
+        },
+        "g10": {
+          "name": "Green 70",
+          "hex": "#0e6027"
+        },
+        "g90": {
+          "name": "Green 20",
+          "hex": "#a7f0ba"
+        },
+        "g100": {
+          "name": "Green 20",
+          "hex": "#a7f0ba"
+        }
+      }
+    },
+    "tagHoverGreen": {
+      "role": [
+        "Green tag hover for $tag-background-green"
+      ],
+      "value": {
+        "white": {
+          "name": "Green 20 hover",
+          "hex": "#74e792"
+        },
+        "g10": {
+          "name": "Green 20 hover",
+          "hex": "#74e792"
+        },
+        "g90": {
+          "name": "Green 70 hover",
+          "hex": "#11742f"
+        },
+        "g100": {
+          "name": "Green 70 hover",
+          "hex": "#11742f"
+        }
+      }
+    },
+    "tagBorderGreen": {
+      "role": [
+        "Green tag border for operational tag"
+      ],
+      "value": {
+        "white": {
+          "name": "Green 40",
+          "hex": "#42be65"
+        },
+        "g10": {
+          "name": "Green 40",
+          "hex": "#42be65"
+        },
+        "g90": {
+          "name": "Green 50",
+          "hex": "#24a148"
+        },
+        "g100": {
+          "name": "Green 50",
+          "hex": "#24a148"
+        }
+      }
+    }
+  },
+  "ai": {
+    "aiAuraStart": {
+      "role": [
+        "Linear gradient start value for large AI layers"
+      ],
+      "value": {
+        "white": {
+          "name": "Blue 50, 10%",
+          "hex": "#4589ff @ 10%"
+        },
+        "g10": {
+          "name": "Blue 50, 10%",
+          "hex": "#4589ff @ 10%"
+        },
+        "g90": {
+          "name": "Blue 50, 10%",
+          "hex": "#4589ff @ 10%"
+        },
+        "g100": {
+          "name": "Blue 50, 10%",
+          "hex": "#4589ff @ 10%"
+        }
+      }
+    },
+    "aiAuraStartSm": {
+      "role": [
+        "Linear gradient start value for small AI layers"
+      ],
+      "value": {
+        "white": {
+          "name": "Blue 50, 16%",
+          "hex": "#4589ff @ 16%"
+        },
+        "g10": {
+          "name": "Blue 50, 16%",
+          "hex": "#4589ff @ 16%"
+        },
+        "g90": {
+          "name": "Blue 50, 16%",
+          "hex": "#4589ff @ 16%"
+        },
+        "g100": {
+          "name": "Blue 50, 16%",
+          "hex": "#4589ff @ 16%"
+        }
+      }
+    },
+    "aiAuraEnd": {
+      "role": [
+        "Linear gradient start value for all AI layers"
+      ],
+      "value": {
+        "white": {
+          "name": "White, 0%",
+          "hex": "#ffffff @ 0%"
+        },
+        "g10": {
+          "name": "White, 0%",
+          "hex": "#ffffff @ 0%"
+        },
+        "g90": {
+          "name": "Black, 0%",
+          "hex": "#000000 @ 0%"
+        },
+        "g100": {
+          "name": "Black, 0%",
+          "hex": "#000000 @ 0%"
+        }
+      }
+    },
+    "aiAuraHoverStart": {
+      "role": [
+        "Linear gradient start value for the AI aura hover"
+      ],
+      "value": {
+        "white": {
+          "name": "Blue 50, 32%",
+          "hex": "#4589ff"
+        },
+        "g10": {
+          "name": "Blue 50, 32%",
+          "hex": "#4589ff"
+        },
+        "g90": {
+          "name": "Blue 50, 40%",
+          "hex": "#4589ff @ 40%"
+        },
+        "g100": {
+          "name": "Blue 50, 40%",
+          "hex": "#4589ff @ 40%"
+        }
+      }
+    },
+    "aiAuraHoverEnd": {
+      "role": [
+        "Linear gradient end value for the AI aura hover"
+      ],
+      "value": {
+        "white": {
+          "name": "White, 0%",
+          "hex": "#ffffff @ 0%"
+        },
+        "g10": {
+          "name": "White, 0%",
+          "hex": "#ffffff @ 0%"
+        },
+        "g90": {
+          "name": "Black, 0%",
+          "hex": "#000000 @ 0%"
+        },
+        "g100": {
+          "name": "Black, 0%",
+          "hex": "#000000 @ 0%"
+        }
+      }
+    },
+    "aiAuraHoverBackground": {
+      "role": [
+        "Hover background color for AI layers"
+      ],
+      "value": {
+        "white": {
+          "name": "Blue 10",
+          "hex": "#edf5ff"
+        },
+        "g10": {
+          "name": "Blue 10",
+          "hex": "#edf5ff"
+        },
+        "g90": {
+          "name": "$layer-hover",
+          "hex": "#e8e8e8"
+        },
+        "g100": {
+          "name": "$layer-hover",
+          "hex": "#e8e8e8"
+        }
+      }
+    },
+    "aiBorderStart": {
+      "role": [
+        "Linear gradient start value for AI borders"
+      ],
+      "value": {
+        "white": {
+          "name": "Blue 30, 64%",
+          "hex": "#a6c8ff @ 64%"
+        },
+        "g10": {
+          "name": "Blue 30, 64%",
+          "hex": "#a6c8ff @ 64%"
+        },
+        "g90": {
+          "name": "Blue 30, 36%",
+          "hex": "#a6c8ff @ 36%"
+        },
+        "g100": {
+          "name": "Blue 30, 36%",
+          "hex": "#a6c8ff @ 36%"
+        }
+      }
+    },
+    "aiBorderEnd": {
+      "role": [
+        "Linear gradient end value for AI borders"
+      ],
+      "value": {
+        "white": {
+          "name": "Blue 40",
+          "hex": "#78a9ff"
+        },
+        "g10": {
+          "name": "Blue 40",
+          "hex": "#78a9ff"
+        },
+        "g90": {
+          "name": "Red 50",
+          "hex": "#4589ff"
+        },
+        "g100": {
+          "name": "Red 50",
+          "hex": "#4589ff"
+        }
+      }
+    },
+    "aiBorderStrong": {
+      "role": [
+        "Medium contrast border for AI elements",
+        "Border-bottom paired with AI fields",
+        "3:1 AA non-text contrast"
+      ],
+      "value": {
+        "white": {
+          "name": "Blue 50",
+          "hex": "#4589ff"
+        },
+        "g10": {
+          "name": "Blue 50",
+          "hex": "#4589ff"
+        },
+        "g90": {
+          "name": "Blue 40",
+          "hex": "#78a9ff"
+        },
+        "g100": {
+          "name": "Blue 40",
+          "hex": "#78a9ff"
+        }
+      }
+    },
+    "aiDropShadow": {
+      "role": [
+        "Drop shadow for the AI layer"
+      ],
+      "value": {
+        "white": {
+          "name": "Blue 60, 10%",
+          "hex": "#0f62fe @ 10%"
+        },
+        "g10": {
+          "name": "Blue 60, 10%",
+          "hex": "#0f62fe @ 10%"
+        },
+        "g90": {
+          "name": "Black, 28%",
+          "hex": "#000000 @ 28%"
+        },
+        "g100": {
+          "name": "Black, 28%",
+          "hex": "#000000 @ 28%"
+        }
+      }
+    },
+    "aiInnerShadow": {
+      "role": [
+        "Inner shadow for the AI layer"
+      ],
+      "value": {
+        "white": {
+          "name": "Blue 50, 10%",
+          "hex": "#4589ff @ 10%"
+        },
+        "g10": {
+          "name": "Blue 50, 10%",
+          "hex": "#4589ff @ 10%"
+        },
+        "g90": {
+          "name": "Blue 50, 16%",
+          "hex": "#4589ff @ 16%"
+        },
+        "g100": {
+          "name": "Blue 50, 16%",
+          "hex": "#4589ff @ 16%"
+        }
+      }
+    },
+    "aiPopoverBackground": {
+      "role": [
+        "Background color for the AI explainability popover"
+      ],
+      "value": {
+        "white": {
+          "name": "White",
+          "hex": "#ffffff"
+        },
+        "g10": {
+          "name": "White",
+          "hex": "#ffffff"
+        },
+        "g90": {
+          "name": "Gray 100",
+          "hex": "#161616"
+        },
+        "g100": {
+          "name": "Gray 100",
+          "hex": "#161616"
+        }
+      }
+    },
+    "aiPopoverShadowOuter01": {
+      "role": [
+        "1 of 2 shadow colors for the AI explainability popover"
+      ],
+      "value": {
+        "white": {
+          "name": "Blue 70, 6%",
+          "hex": "#0043ce @ 6%"
+        },
+        "g10": {
+          "name": "Blue 70, 6%",
+          "hex": "#0043ce @ 6%"
+        },
+        "g90": {
+          "name": "Black, 12%",
+          "hex": "#000000 @ 12%"
+        },
+        "g100": {
+          "name": "Black, 12%",
+          "hex": "#000000 @ 12%"
+        }
+      }
+    },
+    "aiPopoverShadowOuter02": {
+      "role": [
+        "2 of 2 shadow colors for the AI explainability popover"
+      ],
+      "value": {
+        "white": {
+          "name": "Black, 4%",
+          "hex": "#000000 @ 4%"
+        },
+        "g10": {
+          "name": "Black, 4%",
+          "hex": "#000000 @ 4%"
+        },
+        "g90": {
+          "name": "Black, 8%",
+          "hex": "#000000 @ 8%"
+        },
+        "g100": {
+          "name": "Black, 8%",
+          "hex": "#000000 @ 8%"
+        }
+      }
+    },
+    "aiSkeletonElement": {
+      "role": [
+        "Skeleton color for AI text and UI elements"
+      ],
+      "value": {
+        "white": {
+          "name": "Blue 50",
+          "hex": "#4589ff"
+        },
+        "g10": {
+          "name": "Blue 50",
+          "hex": "#4589ff"
+        },
+        "g90": {
+          "name": "Blue 40, 30%",
+          "hex": "#78a9ff @ 30%"
+        },
+        "g100": {
+          "name": "Blue 40, 30%",
+          "hex": "#78a9ff @ 30%"
+        }
+      }
+    },
+    "aiSkeletonBackground": {
+      "role": [
+        "Skeleton color for AI containers"
+      ],
+      "value": {
+        "white": {
+          "name": "Blue 20",
+          "hex": "#d0e2ff"
+        },
+        "g10": {
+          "name": "Blue 20",
+          "hex": "#d0e2ff"
+        },
+        "g90": {
+          "name": "Blue 40, 50%",
+          "hex": "#78a9ff @ 50%"
+        },
+        "g100": {
+          "name": "Blue 40, 50%",
+          "hex": "#78a9ff @ 50%"
+        }
+      }
+    },
+    "aiOverlay": {
+      "role": [
+        "Background overlay for AI components"
+      ],
+      "value": {
+        "white": {
+          "name": "Blue 100, 50%",
+          "hex": "#001141 @ 50%"
+        },
+        "g10": {
+          "name": "Blue 100, 50%",
+          "hex": "#001141 @ 50%"
+        },
+        "g90": {
+          "name": "Black, 50%",
+          "hex": "#000000 @ 50%"
+        },
+        "g100": {
+          "name": "Black, 50%",
+          "hex": "#000000 @ 50%"
+        }
+      }
+    }
+  },
+  "chat": {
+    "chatAvatarBot": {
+      "role": [
+        "Chat avatar background color for bots"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 60",
+          "hex": "#6f6f6f"
+        },
+        "g10": {
+          "name": "Gray 60",
+          "hex": "#6f6f6f"
+        },
+        "g90": {
+          "name": "Gray 50",
+          "hex": "#8d8d8d"
+        },
+        "g100": {
+          "name": "Gray 50",
+          "hex": "#8d8d8d"
+        }
+      }
+    },
+    "chatAvatarAgent": {
+      "role": [
+        "Chat avatar background color for agents"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 80",
+          "hex": "#393939"
+        },
+        "g10": {
+          "name": "Gray 80",
+          "hex": "#393939"
+        },
+        "g90": {
+          "name": "Gray 30",
+          "hex": "#c6c6c6"
+        },
+        "g100": {
+          "name": "Gray 30",
+          "hex": "#c6c6c6"
+        }
+      }
+    },
+    "chatAvatarUser": {
+      "role": [
+        "Chat avatar background color for users"
+      ],
+      "value": {
+        "white": {
+          "name": "Blue 60",
+          "hex": "#0f62fe"
+        },
+        "g10": {
+          "name": "Blue 60",
+          "hex": "#0f62fe"
+        },
+        "g90": {
+          "name": "Blue 50",
+          "hex": "#4589ff"
+        },
+        "g100": {
+          "name": "Blue 50",
+          "hex": "#4589ff"
+        }
+      }
+    },
+    "chatBubbleUser": {
+      "role": [
+        "Chat bubble background color for users"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 20",
+          "hex": "#e0e0e0"
+        },
+        "g10": {
+          "name": "Gray 20",
+          "hex": "#e0e0e0"
+        },
+        "g90": {
+          "name": "Gray 80",
+          "hex": "#393939"
+        },
+        "g100": {
+          "name": "Gray 80",
+          "hex": "#393939"
+        }
+      }
+    },
+    "chatBubbleAgent": {
+      "role": [
+        "Chat bubble background color for agents"
+      ],
+      "value": {
+        "white": {
+          "name": "White",
+          "hex": "#ffffff"
+        },
+        "g10": {
+          "name": "White",
+          "hex": "#ffffff"
+        },
+        "g90": {
+          "name": "Gray 90",
+          "hex": "#262626"
+        },
+        "g100": {
+          "name": "Gray 90",
+          "hex": "#262626"
+        }
+      }
+    },
+    "chatBubbleBorder": {
+      "role": [
+        "Chat bubble border color for agents"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 20",
+          "hex": "#e0e0e0"
+        },
+        "g10": {
+          "name": "Gray 20",
+          "hex": "#e0e0e0"
+        },
+        "g90": {
+          "name": "Gray 70",
+          "hex": "#525252"
+        },
+        "g100": {
+          "name": "Gray 70",
+          "hex": "#525252"
+        }
+      }
+    },
+    "chatPromptBackground": {
+      "role": [
+        "Background color for chat prompt input"
+      ],
+      "value": {
+        "white": {
+          "name": "White",
+          "hex": "#ffffff"
+        },
+        "g10": {
+          "name": "White",
+          "hex": "#ffffff"
+        },
+        "g90": {
+          "name": "Gray 100",
+          "hex": "#161616"
+        },
+        "g100": {
+          "name": "Gray 100",
+          "hex": "#161616"
+        }
+      }
+    },
+    "chatPromptBorderStart": {
+      "role": [
+        "Linear gradient start value for chat prompts border"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 10",
+          "hex": "#f4f4f4"
+        },
+        "g10": {
+          "name": "Gray 10",
+          "hex": "#f4f4f4"
+        },
+        "g90": {
+          "name": "Gray 90",
+          "hex": "#262626"
+        },
+        "g100": {
+          "name": "Gray 90",
+          "hex": "#262626"
+        }
+      }
+    },
+    "chatPromptBorderEnd": {
+      "role": [
+        "Linear gradient end value for chat prompts border"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 10, 0%",
+          "hex": "#f4f4f4 @ 0%"
+        },
+        "g10": {
+          "name": "Gray 10, 0%",
+          "hex": "#f4f4f4 @ 0%"
+        },
+        "g90": {
+          "name": "Gray 90, 0%",
+          "hex": "#262626 @ 0%"
+        },
+        "g100": {
+          "name": "Gray 90, 0%",
+          "hex": "#262626 @ 0%"
+        }
+      }
+    },
+    "chatShellBackground": {
+      "role": [
+        "Chat shell background color"
+      ],
+      "value": {
+        "white": {
+          "name": "White",
+          "hex": "#ffffff"
+        },
+        "g10": {
+          "name": "White",
+          "hex": "#ffffff"
+        },
+        "g90": {
+          "name": "Gray 90",
+          "hex": "#262626"
+        },
+        "g100": {
+          "name": "Gray 90",
+          "hex": "#262626"
+        }
+      }
+    },
+    "chatHeaderBackground": {
+      "role": [
+        "Chat header background color"
+      ],
+      "value": {
+        "white": {
+          "name": "White",
+          "hex": "#ffffff"
+        },
+        "g10": {
+          "name": "White",
+          "hex": "#ffffff"
+        },
+        "g90": {
+          "name": "Gray 90",
+          "hex": "#262626"
+        },
+        "g100": {
+          "name": "Gray 90",
+          "hex": "#262626"
+        }
+      }
+    }
+  },
+  "chatButton": {
+    "chatButton": {
+      "role": [
+        "Chat quick action button color"
+      ],
+      "value": {
+        "white": {
+          "name": "$link-primary",
+          "hex": "#0f62fe"
+        },
+        "g10": {
+          "name": "$link-primary",
+          "hex": "#0f62fe"
+        },
+        "g90": {
+          "name": "$link-primary",
+          "hex": "#78a9ff"
+        },
+        "g100": {
+          "name": "$link-primary",
+          "hex": "#78a9ff"
+        }
+      }
+    },
+    "chatButtonHover": {
+      "role": [
+        "Hover color for $chat-button"
+      ],
+      "value": {
+        "white": {
+          "name": "$background-hover",
+          "hex": "#8d8d8d @ 12%"
+        },
+        "g10": {
+          "name": "$background-hover",
+          "hex": "#8d8d8d @ 12%"
+        },
+        "g90": {
+          "name": "$background-hover",
+          "hex": "#8d8d8d @ 16%"
+        },
+        "g100": {
+          "name": "$background-hover",
+          "hex": "#8d8d8d @ 16%"
+        }
+      }
+    },
+    "chatButtonTextHover": {
+      "role": [
+        "Text color for hovered chat button"
+      ],
+      "value": {
+        "white": {
+          "name": "$link-primary-hover",
+          "hex": "#0043ce"
+        },
+        "g10": {
+          "name": "$link-primary-hover",
+          "hex": "#0043ce"
+        },
+        "g90": {
+          "name": "$link-primary-hover",
+          "hex": "#a6c8ff"
+        },
+        "g100": {
+          "name": "$link-primary-hover",
+          "hex": "#a6c8ff"
+        }
+      }
+    },
+    "chatButtonActive": {
+      "role": [
+        "Active color for $chat-button"
+      ],
+      "value": {
+        "white": {
+          "name": "$background-active",
+          "hex": "#8d8d8d @ 50%"
+        },
+        "g10": {
+          "name": "$background-active",
+          "hex": "#8d8d8d @ 50%"
+        },
+        "g90": {
+          "name": "$background-active",
+          "hex": "#8d8d8d @ 40%"
+        },
+        "g100": {
+          "name": "$background-active",
+          "hex": "#8d8d8d @ 40%"
+        }
+      }
+    },
+    "chatButtonSelected": {
+      "role": [
+        "Selected color for $chat-button"
+      ],
+      "value": {
+        "white": {
+          "name": "$background-selected",
+          "hex": "#8d8d8d @ 20%"
+        },
+        "g10": {
+          "name": "$background-selected",
+          "hex": "#8d8d8d @ 20%"
+        },
+        "g90": {
+          "name": "$background-selected",
+          "hex": "#8d8d8d @ 24%"
+        },
+        "g100": {
+          "name": "$background-selected",
+          "hex": "#8d8d8d @ 24%"
+        }
+      }
+    },
+    "chatButtonTextSelected": {
+      "role": [
+        "Text color for selected chat-button"
+      ],
+      "value": {
+        "white": {
+          "name": "$text-secondary",
+          "hex": "#525252"
+        },
+        "g10": {
+          "name": "$text-secondary",
+          "hex": "#525252"
+        },
+        "g90": {
+          "name": "$text-secondary",
+          "hex": "#c6c6c6"
+        },
+        "g100": {
+          "name": "$text-secondary",
+          "hex": "#c6c6c6"
+        }
+      }
+    }
+  },
+  "notification": {
+    "notificationBackgroundError": {
+      "role": [
+        "Error low contrast notification background"
+      ],
+      "value": {
+        "white": {
+          "name": "Red 10",
+          "hex": "#fff1f1"
+        },
+        "g10": {
+          "name": "Red 10",
+          "hex": "#fff1f1"
+        },
+        "g90": {
+          "name": "Gray 80",
+          "hex": "#393939"
+        },
+        "g100": {
+          "name": "Gray 90",
+          "hex": "#262626"
+        }
+      }
+    },
+    "notificationBackgroundSuccess": {
+      "role": [
+        "Success low contrast notification background"
+      ],
+      "value": {
+        "white": {
+          "name": "Green 10",
+          "hex": "#defbe6"
+        },
+        "g10": {
+          "name": "Green 10",
+          "hex": "#defbe6"
+        },
+        "g90": {
+          "name": "Gray 80",
+          "hex": "#393939"
+        },
+        "g100": {
+          "name": "Gray 90",
+          "hex": "#262626"
+        }
+      }
+    },
+    "notificationBackgroundInfo": {
+      "role": [
+        "Informational low contrast notification background"
+      ],
+      "value": {
+        "white": {
+          "name": "Blue 10",
+          "hex": "#edf5ff"
+        },
+        "g10": {
+          "name": "Blue 10",
+          "hex": "#edf5ff"
+        },
+        "g90": {
+          "name": "Gray 80",
+          "hex": "#393939"
+        },
+        "g100": {
+          "name": "Gray 90",
+          "hex": "#262626"
+        }
+      }
+    },
+    "notificationBackgroundWarning": {
+      "role": [
+        "Warning low contrast notification background"
+      ],
+      "value": {
+        "white": {
+          "name": "Yellow 10",
+          "hex": "#fcf4d6"
+        },
+        "g10": {
+          "name": "Yellow 10",
+          "hex": "#fcf4d6"
+        },
+        "g90": {
+          "name": "Gray 80",
+          "hex": "#393939"
+        },
+        "g100": {
+          "name": "Gray 90",
+          "hex": "#262626"
+        }
+      }
+    },
+    "notificationActionHover": {
+      "role": [
+        "Hover for notification ghost button"
+      ],
+      "value": {
+        "white": {
+          "name": "White",
+          "hex": "#ffffff"
+        },
+        "g10": {
+          "name": "White",
+          "hex": "#ffffff"
+        },
+        "g90": {
+          "name": "Gray 80 hover",
+          "hex": "#474747"
+        },
+        "g100": {
+          "name": "Gray 90 hover",
+          "hex": "#333333"
+        }
+      }
+    },
+    "notificationActionTertiaryInverse": {
+      "role": [
+        "Tertiary button color for notification"
+      ],
+      "value": {
+        "white": {
+          "name": "White",
+          "hex": "#ffffff"
+        },
+        "g10": {
+          "name": "White",
+          "hex": "#ffffff"
+        },
+        "g90": {
+          "name": "Blue 60",
+          "hex": "#0f62fe"
+        },
+        "g100": {
+          "name": "Blue 60",
+          "hex": "#0f62fe"
+        }
+      }
+    },
+    "notificationActionTertiaryInverseActive": {
+      "role": [
+        "Active color for tertiary button in notification"
+      ],
+      "value": {
+        "white": {
+          "name": "White",
+          "hex": "#ffffff"
+        },
+        "g10": {
+          "name": "White",
+          "hex": "#ffffff"
+        },
+        "g90": {
+          "name": "Gray 100",
+          "hex": "#161616"
+        },
+        "g100": {
+          "name": "Gray 100",
+          "hex": "#161616"
+        }
+      }
+    },
+    "notificationActionTertiaryInverseHover": {
+      "role": [
+        "Hover color for tertiary button in notification"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 30",
+          "hex": "#c6c6c6"
+        },
+        "g10": {
+          "name": "Gray 30",
+          "hex": "#c6c6c6"
+        },
+        "g90": {
+          "name": "Blue 80",
+          "hex": "#002d9c"
+        },
+        "g100": {
+          "name": "Blue 80",
+          "hex": "#002d9c"
+        }
+      }
+    },
+    "notificationActionTertiaryInverseText": {
+      "role": [
+        "Text color for tertiary button in notification"
+      ],
+      "value": {
+        "white": {
+          "name": "Gray 100",
+          "hex": "#161616"
+        },
+        "g10": {
+          "name": "Gray 100",
+          "hex": "#161616"
+        },
+        "g90": {
+          "name": "White",
+          "hex": "#ffffff"
+        },
+        "g100": {
+          "name": "White",
+          "hex": "#ffffff"
+        }
+      }
+    },
+    "notificationActionTertiaryInverseTextOnColorDisabled": {
+      "role": [
+        "Disabled color for tertiary button in notification"
+      ],
+      "value": {
+        "white": {
+          "name": "White",
+          "hex": "#ffffff"
+        },
+        "g10": {
+          "name": "White",
+          "hex": "#ffffff"
+        },
+        "g90": {
+          "name": "White",
+          "hex": "#ffffff"
+        },
+        "g100": {
+          "name": "White",
+          "hex": "#ffffff"
+        }
+      }
+    }
+  }
+}

@@ -6,25 +6,25 @@ package com.gabrieldrn.carbon.foundation.color
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
 import com.gabrieldrn.carbon.foundation.color.ai.AiColors
-import com.gabrieldrn.carbon.foundation.color.ai.WhiteAiColors
+import com.gabrieldrn.carbon.foundation.color.ai.Gray10AiColors
 import com.gabrieldrn.carbon.foundation.color.chat.ChatColors
-import com.gabrieldrn.carbon.foundation.color.chat.WhiteChatColors
+import com.gabrieldrn.carbon.foundation.color.chat.Gray10ChatColors
+import com.gabrieldrn.carbon.foundation.color.notification.Gray10NotificationColors
 import com.gabrieldrn.carbon.foundation.color.notification.NotificationColors
-import com.gabrieldrn.carbon.foundation.color.notification.WhiteNotificationColors
+import com.gabrieldrn.carbon.foundation.color.tag.Gray10TagColors
 import com.gabrieldrn.carbon.foundation.color.tag.TagColors
-import com.gabrieldrn.carbon.foundation.color.tag.WhiteTagColors
 
 /**
  * One of the default _light_ themes available in Carbon.
  *
- * This theme uses White as the global background color and is layered first with components using
- * Gray 10 backgrounds.
+ * This theme uses Gray 10 as the global background color and is layered first with components using
+ * White backgrounds.
  *
- * The second layer uses White and the third layer used Gray 10.
+ * The second layer uses Gray 10 and the third layer used White.
  */
 @Immutable
-public object WhiteTheme : Theme() {
-  override val background: Color = Color(0xFFFFFFFF)
+public object Gray10Theme : Theme() {
+  override val background: Color = Color(0xFFF4F4F4)
 
   override val backgroundActive: Color = Color(0x7F8D8D8D)
 
@@ -52,13 +52,13 @@ public object WhiteTheme : Theme() {
 
   override val borderStrong03: Color = Color(0xFF8D8D8D)
 
-  override val borderSubtle00: Color = Color(0xFFE0E0E0)
+  override val borderSubtle00: Color = Color(0xFFC6C6C6)
 
-  override val borderSubtle01: Color = Color(0xFFC6C6C6)
+  override val borderSubtle01: Color = Color(0xFFE0E0E0)
 
-  override val borderSubtle02: Color = Color(0xFFE0E0E0)
+  override val borderSubtle02: Color = Color(0xFFC6C6C6)
 
-  override val borderSubtle03: Color = Color(0xFFC6C6C6)
+  override val borderSubtle03: Color = Color(0xFFE0E0E0)
 
   override val borderSubtleSelected01: Color = Color(0xFFC6C6C6)
 
@@ -66,11 +66,11 @@ public object WhiteTheme : Theme() {
 
   override val borderSubtleSelected03: Color = Color(0xFFC6C6C6)
 
-  override val borderTile01: Color = Color(0xFFC6C6C6)
+  override val borderTile01: Color = Color(0xFFA8A8A8)
 
-  override val borderTile02: Color = Color(0xFFA8A8A8)
+  override val borderTile02: Color = Color(0xFFC6C6C6)
 
-  override val borderTile03: Color = Color(0xFFC6C6C6)
+  override val borderTile03: Color = Color(0xFFA8A8A8)
 
   override val buttonDangerActive: Color = Color(0xFF750E13)
 
@@ -102,11 +102,11 @@ public object WhiteTheme : Theme() {
 
   override val buttonTertiaryHover: Color = Color(0xFF0353E9)
 
-  override val field01: Color = Color(0xFFF4F4F4)
+  override val field01: Color = Color(0xFFFFFFFF)
 
-  override val field02: Color = Color(0xFFFFFFFF)
+  override val field02: Color = Color(0xFFF4F4F4)
 
-  override val field03: Color = Color(0xFFF4F4F4)
+  override val field03: Color = Color(0xFFFFFFFF)
 
   override val fieldHover01: Color = Color(0xFFE8E8E8)
 
@@ -152,11 +152,11 @@ public object WhiteTheme : Theme() {
 
   override val layerAccentHover03: Color = Color(0xFFCACACA)
 
-  override val layer01: Color = Color(0xFFF4F4F4)
+  override val layer01: Color = Color(0xFFFFFFFF)
 
-  override val layer02: Color = Color(0xFFFFFFFF)
+  override val layer02: Color = Color(0xFFF4F4F4)
 
-  override val layer03: Color = Color(0xFFF4F4F4)
+  override val layer03: Color = Color(0xFFFFFFFF)
 
   override val layerActive01: Color = Color(0xFFC6C6C6)
 
@@ -254,11 +254,11 @@ public object WhiteTheme : Theme() {
 
   override val textSecondary: Color = Color(0xFF525252)
 
-  override val aiColors: AiColors = WhiteAiColors
+  override val aiColors: AiColors = Gray10AiColors
 
-  override val tagColors: TagColors = WhiteTagColors
+  override val tagColors: TagColors = Gray10TagColors
 
-  override val chatColors: ChatColors = WhiteChatColors
+  override val chatColors: ChatColors = Gray10ChatColors
 
-  override val notificationColors: NotificationColors = WhiteNotificationColors
+  override val notificationColors: NotificationColors = Gray10NotificationColors
 }
