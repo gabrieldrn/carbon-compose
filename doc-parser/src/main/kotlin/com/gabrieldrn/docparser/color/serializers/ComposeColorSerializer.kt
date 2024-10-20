@@ -22,25 +22,32 @@ import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
+import kotlin.math.roundToInt
 
 object ComposeColorSerializer : KSerializer<String> {
+
+    private val alphaDelimiters = listOf("@", "–")
 
     override val descriptor: SerialDescriptor =
         PrimitiveSerialDescriptor("Color", PrimitiveKind.STRING)
 
     override fun serialize(encoder: Encoder, value: String) {
         val alpha = value.substring(1..2).toInt(16)
-        val hex = "#${value.substring(3)}"
+        val rgb = "#${value.substring(3)}"
         val alphaPercent = (alpha / 255f * 100).toInt()
-        encoder.encodeString("$hex @ $alphaPercent%")
+        encoder.encodeString("$rgb ${alphaDelimiters.first()} $alphaPercent%")
     }
 
     override fun deserialize(decoder: Decoder): String {
         val string = decoder.decodeString()
-        val hex = string.substringBefore(" @")
-        val alphaPercent = string.substringAfter("@ ", missingDelimiterValue = "100%")
+        val alphaDelimiter = alphaDelimiters.firstOrNull { it in string }
+        val hex = string.substringBefore(delimiter = " $alphaDelimiter")
+        val alphaPercent = string.substringAfter(
+            delimiter = "$alphaDelimiter ",
+            missingDelimiterValue = "100%"
+        )
         val alpha = (alphaPercent.removeSuffix("%").toInt() / 100f * 255)
-            .toInt()
+            .roundToInt()
             .let { "%02x".format(it) }
         val red = hex.substring(1, 3)
         val green = hex.substring(3, 5)

@@ -19,9 +19,9 @@ public object Gray10AiColors : AiColors {
 
     override val auraHoverStart: Color = Color(0xFF4589FF)
 
-    override val auraStart: Color = Color(0x194589FF)
+    override val auraStart: Color = Color(0x1A4589FF)
 
-    override val auraStartSm: Color = Color(0x284589FF)
+    override val auraStartSm: Color = Color(0x294589FF)
 
     override val borderEnd: Color = Color(0xFF78A9FF)
 
@@ -29,11 +29,11 @@ public object Gray10AiColors : AiColors {
 
     override val borderStrong: Color = Color(0xFF4589FF)
 
-    override val dropShadow: Color = Color(0x190F62FE)
+    override val dropShadow: Color = Color(0x1A0F62FE)
 
-    override val innerShadow: Color = Color(0x194589FF)
+    override val innerShadow: Color = Color(0x1A4589FF)
 
-    override val overlay: Color = Color(0x7F001141)
+    override val overlay: Color = Color(0x80001141)
 
     override val popoverBackground: Color = Color(0xFFFFFFFF)
 

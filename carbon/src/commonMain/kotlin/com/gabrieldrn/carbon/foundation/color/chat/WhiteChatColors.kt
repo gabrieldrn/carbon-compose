@@ -35,9 +35,9 @@ public object WhiteChatColors : ChatColors {
 
     override val button: Color = Color(0xFF0F62FE)
 
-    override val buttonActive: Color = Color(0x7F8D8D8D)
+    override val buttonActive: Color = Color(0x808D8D8D)
 
-    override val buttonHover: Color = Color(0x1E8D8D8D)
+    override val buttonHover: Color = Color(0x1F8D8D8D)
 
     override val buttonSelected: Color = Color(0x338D8D8D)
 

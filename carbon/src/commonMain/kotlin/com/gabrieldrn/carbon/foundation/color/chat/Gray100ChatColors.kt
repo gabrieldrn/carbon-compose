@@ -37,7 +37,7 @@ public object Gray100ChatColors : ChatColors {
 
     override val buttonActive: Color = Color(0x668D8D8D)
 
-    override val buttonHover: Color = Color(0x288D8D8D)
+    override val buttonHover: Color = Color(0x298D8D8D)
 
     override val buttonSelected: Color = Color(0x3D8D8D8D)
 

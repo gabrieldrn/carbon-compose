@@ -26,11 +26,11 @@ import com.gabrieldrn.carbon.foundation.color.tag.TagColors
 public object Gray10Theme : Theme() {
     override val background: Color = Color(0xFFF4F4F4)
 
-    override val backgroundActive: Color = Color(0x7F8D8D8D)
+    override val backgroundActive: Color = Color(0x808D8D8D)
 
     override val backgroundBrand: Color = Color(0xFF0F62FE)
 
-    override val backgroundHover: Color = Color(0x1E8D8D8D)
+    override val backgroundHover: Color = Color(0x1F8D8D8D)
 
     override val backgroundInverse: Color = Color(0xFF393939)
 
@@ -38,7 +38,7 @@ public object Gray10Theme : Theme() {
 
     override val backgroundSelected: Color = Color(0x338D8D8D)
 
-    override val backgroundSelectedHover: Color = Color(0x518D8D8D)
+    override val backgroundSelectedHover: Color = Color(0x528D8D8D)
 
     override val borderDisabled: Color = Color(0xFFC6C6C6)
 
@@ -120,7 +120,7 @@ public object Gray10Theme : Theme() {
 
     override val focusInverse: Color = Color(0xFFFFFFFF)
 
-    override val iconDisabled: Color = Color(0xFF161616)
+    override val iconDisabled: Color = Color(0x40161616)
 
     override val iconInteractive: Color = Color(0xFF0F62FE)
 
@@ -206,7 +206,7 @@ public object Gray10Theme : Theme() {
 
     override val interactive: Color = Color(0xFF0F62FE)
 
-    override val overlay: Color = Color(0x7F161616)
+    override val overlay: Color = Color(0x80161616)
 
     override val skeletonBackground: Color = Color(0xFFE5E5E5)
 
@@ -236,7 +236,7 @@ public object Gray10Theme : Theme() {
 
     override val supportWarningInverse: Color = Color(0xFFF1C21B)
 
-    override val textDisabled: Color = Color(0xFF161616)
+    override val textDisabled: Color = Color(0x40161616)
 
     override val textError: Color = Color(0xFFDA1E28)
 

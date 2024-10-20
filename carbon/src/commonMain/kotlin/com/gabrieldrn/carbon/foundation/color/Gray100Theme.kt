@@ -30,7 +30,7 @@ public object Gray100Theme : Theme() {
 
     override val backgroundBrand: Color = Color(0xFF0F62FE)
 
-    override val backgroundHover: Color = Color(0x288D8D8D)
+    override val backgroundHover: Color = Color(0x298D8D8D)
 
     override val backgroundInverse: Color = Color(0xFFF4F4F4)
 
@@ -38,9 +38,9 @@ public object Gray100Theme : Theme() {
 
     override val backgroundSelected: Color = Color(0x3D8D8D8D)
 
-    override val backgroundSelectedHover: Color = Color(0x518D8D8D)
+    override val backgroundSelectedHover: Color = Color(0x528D8D8D)
 
-    override val borderDisabled: Color = Color(0x7F8D8D8D)
+    override val borderDisabled: Color = Color(0x808D8D8D)
 
     override val borderInteractive: Color = Color(0xFF4589FF)
 
@@ -120,7 +120,7 @@ public object Gray100Theme : Theme() {
 
     override val focusInverse: Color = Color(0xFF0F62FE)
 
-    override val iconDisabled: Color = Color(0xFFF4F4F4)
+    override val iconDisabled: Color = Color(0x40F4F4F4)
 
     override val iconInteractive: Color = Color(0xFFFFFFFF)
 
@@ -128,7 +128,7 @@ public object Gray100Theme : Theme() {
 
     override val iconOnColor: Color = Color(0xFFFFFFFF)
 
-    override val iconOnColorDisabled: Color = Color(0xFFFFFFFF)
+    override val iconOnColorDisabled: Color = Color(0x40FFFFFF)
 
     override val iconPrimary: Color = Color(0xFFF4F4F4)
 
@@ -206,7 +206,7 @@ public object Gray100Theme : Theme() {
 
     override val interactive: Color = Color(0xFF4589FF)
 
-    override val overlay: Color = Color(0xB2161616)
+    override val overlay: Color = Color(0xB3161616)
 
     override val skeletonBackground: Color = Color(0xFF353535)
 
@@ -236,7 +236,7 @@ public object Gray100Theme : Theme() {
 
     override val supportWarningInverse: Color = Color(0xFFF1C21B)
 
-    override val textDisabled: Color = Color(0xFFF4F4F4)
+    override val textDisabled: Color = Color(0x40F4F4F4)
 
     override val textError: Color = Color(0xFFFF8389)
 
@@ -246,7 +246,7 @@ public object Gray100Theme : Theme() {
 
     override val textOnColor: Color = Color(0xFFFFFFFF)
 
-    override val textOnColorDisabled: Color = Color(0xFFFFFFFF)
+    override val textOnColorDisabled: Color = Color(0x40FFFFFF)
 
     override val textPlaceholder: Color = Color(0xFF6F6F6F)
 
