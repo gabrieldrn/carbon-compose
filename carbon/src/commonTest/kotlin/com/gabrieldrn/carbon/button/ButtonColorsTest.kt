@@ -27,8 +27,11 @@ class ButtonColorsTest : BaseColorsTest() {
     @Suppress("CognitiveComplexMethod", "CyclomaticComplexMethod", "LongMethod")
     @Test
     fun buttonColors_static_colorsAreCorrect() = runComposeUiTest {
-        forAllLayersAndStates(ButtonType.entries) { buttonType, _ ->
-            val colors = ButtonColors.colors(buttonType = buttonType)
+        forAllLayersAndStates(
+            ButtonType.entries,
+            listOf(true, false)
+        ) { buttonType, isIconButton, _ ->
+            val colors = ButtonColors.colors(buttonType = buttonType, isIconButton = isIconButton)
 
             assertEquals(
                 expected = when (buttonType) {
@@ -145,31 +148,43 @@ class ButtonColorsTest : BaseColorsTest() {
             )
 
             assertEquals(
-                expected = when (buttonType) {
-                    ButtonType.Tertiary -> theme.buttonTertiary
-                    ButtonType.Ghost -> theme.linkPrimary
-                    ButtonType.PrimaryDanger -> theme.iconOnColor
-                    ButtonType.TertiaryDanger,
-                    ButtonType.GhostDanger -> theme.buttonDangerSecondary
-                    else -> theme.iconOnColor
+                expected = if (isIconButton) {
+                    theme.iconPrimary
+                } else {
+                    when (buttonType) {
+                        ButtonType.Tertiary -> theme.buttonTertiary
+                        ButtonType.Ghost -> theme.linkPrimary
+                        ButtonType.PrimaryDanger -> theme.iconOnColor
+                        ButtonType.TertiaryDanger,
+                        ButtonType.GhostDanger -> theme.buttonDangerSecondary
+                        else -> theme.iconOnColor
+                    }
                 },
                 actual = colors.iconColor
             )
 
             assertEquals(
-                expected = when (buttonType) {
-                    ButtonType.Tertiary -> theme.iconInverse
-                    ButtonType.Ghost -> theme.linkPrimary
-                    else -> theme.iconOnColor
+                expected = if (isIconButton) {
+                    theme.iconPrimary
+                } else {
+                    when (buttonType) {
+                        ButtonType.Tertiary -> theme.iconInverse
+                        ButtonType.Ghost -> theme.linkPrimary
+                        else -> theme.iconOnColor
+                    }
                 },
                 actual = colors.iconActiveColor
             )
 
             assertEquals(
-                expected = when (buttonType) {
-                    ButtonType.Tertiary -> theme.iconInverse
-                    ButtonType.Ghost -> theme.linkPrimaryHover
-                    else -> theme.iconOnColor
+                expected = if (isIconButton) {
+                    theme.iconPrimary
+                } else {
+                    when (buttonType) {
+                        ButtonType.Tertiary -> theme.iconInverse
+                        ButtonType.Ghost -> theme.linkPrimaryHover
+                        else -> theme.iconOnColor
+                    }
                 },
                 actual = colors.iconHoverColor
             )
