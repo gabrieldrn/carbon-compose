@@ -18,13 +18,8 @@ package com.gabrieldrn.carbon.foundation.interaction
 
 import androidx.compose.animation.core.FiniteAnimationSpec
 import androidx.compose.animation.core.snap
-import androidx.compose.foundation.Indication
-import androidx.compose.foundation.IndicationInstance
-import androidx.compose.foundation.interaction.FocusInteraction
+import androidx.compose.foundation.IndicationNodeFactory
 import androidx.compose.foundation.interaction.InteractionSource
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.remember
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.SolidColor
@@ -32,19 +27,23 @@ import androidx.compose.ui.graphics.drawscope.ContentDrawScope
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.clipRect
-import com.gabrieldrn.carbon.foundation.color.LocalCarbonTheme
+import androidx.compose.ui.node.DelegatableNode
 import com.gabrieldrn.carbon.foundation.color.Theme
-import kotlinx.coroutines.flow.filterIsInstance
 
-internal open class FocusIndication : Indication {
+/**
+ * Implements the basic focus indication from Carbon, consisting of a border (of the theme's focus
+ * color) with sharp corners and an inset that animates in and out when focus is gained or lost.
+ */
+internal open class FocusIndication(private val theme: Theme) : IndicationNodeFactory {
 
     internal open class DefaultFocusIndicationInstance(
+        interactionSource: InteractionSource,
         theme: Theme,
-    ) : FocusIndicationInstance(theme) {
+    ) : FocusIndicationInstance(interactionSource, theme) {
 
         override val focusAnimationSpec: FiniteAnimationSpec<Float> = snap()
 
-        override fun ContentDrawScope.drawIndication() {
+        override fun ContentDrawScope.draw() {
             drawContent()
             clipRect { drawFocus() }
         }
@@ -84,24 +83,17 @@ internal open class FocusIndication : Indication {
         }
     }
 
-    @Composable
-    override fun rememberUpdatedInstance(
-        interactionSource: InteractionSource
-    ): IndicationInstance {
-        val theme = LocalCarbonTheme.current
+    override fun create(interactionSource: InteractionSource): DelegatableNode =
+        DefaultFocusIndicationInstance(interactionSource, theme)
 
-        val instance = remember(theme) {
-            DefaultFocusIndicationInstance(theme = theme)
-        }
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is FocusIndication) return false
 
-        LaunchedEffect(interactionSource) {
-            interactionSource.interactions
-                .filterIsInstance<FocusInteraction>()
-                .collect { interaction ->
-                    instance.animateFocus(this, interaction)
-                }
-        }
+        if (theme != other.theme) return false
 
-        return instance
+        return true
     }
+
+    override fun hashCode(): Int = theme.hashCode()
 }

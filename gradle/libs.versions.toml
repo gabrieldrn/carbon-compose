@@ -5,12 +5,12 @@ kotlin = "2.0.20"
 binaryCompatibilityValidator = "0.16.2"
 # endregion
 # region Libraries
-compose = "1.6.11"
+compose = "1.7.0"
 androidxActivity = "1.9.3"
 androidxAppcompat = "1.7.0"
 #https://developer.android.com/jetpack/androidx/releases/compose-compiler#declaring_dependencies
 #https://developer.android.com/jetpack/androidx/releases/compose-kotlin
-androidxCompose = "1.6.8"
+androidxCompose = "1.7.4"
 androidxEspresso = "3.6.1"
 androidxNavigation = "2.7.0-alpha07"
 androidxTestExtJunit = "1.1.5"

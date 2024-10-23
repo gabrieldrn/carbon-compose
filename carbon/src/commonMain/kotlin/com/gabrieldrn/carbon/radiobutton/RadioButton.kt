@@ -33,10 +33,10 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
-import com.gabrieldrn.carbon.foundation.interaction.ToggleableFocusIndication
 import com.gabrieldrn.carbon.common.selectable.ErrorContent
 import com.gabrieldrn.carbon.common.selectable.SelectableInteractiveState
 import com.gabrieldrn.carbon.common.selectable.WarningContent
+import com.gabrieldrn.carbon.foundation.interaction.ToggleableFocusIndication
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 import com.gabrieldrn.carbon.foundation.text.Text
 import com.gabrieldrn.carbon.semantics.readOnly
@@ -102,7 +102,10 @@ public fun RadioButton(
                 selected = selected,
                 modifier = Modifier.indication(
                     interactionSource = interactionSource,
-                    indication = ToggleableFocusIndication(RadioButtonSize)
+                    indication = ToggleableFocusIndication(
+                        theme = Carbon.theme,
+                        indicationCornerRadius = RadioButtonSize
+                    )
                 )
             )
             Text(

@@ -222,7 +222,7 @@ internal fun TextInputField(
         modifier = modifier
             .indication(
                 interactionSource = interactionSource,
-                indication = FocusIndication()
+                indication = FocusIndication(Carbon.theme)
             )
             .focusable(
                 enabled = state.isFocusable,

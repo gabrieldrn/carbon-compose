@@ -150,7 +150,7 @@ private fun MultiselectDropdownMenuOption(
             .selectable(
                 selected = isSelected,
                 interactionSource = interactionSource,
-                indication = FocusIndication(),
+                indication = FocusIndication(Carbon.theme),
                 enabled = option.enabled,
                 onClick = onOptionClicked
             )

@@ -16,8 +16,7 @@
 
 package com.gabrieldrn.carbon.dropdown.multiselect
 
-import androidx.compose.foundation.Indication
-import androidx.compose.foundation.IndicationInstance
+import androidx.compose.foundation.IndicationNodeFactory
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -35,7 +34,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -46,8 +44,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.ContentDrawScope
 import androidx.compose.ui.graphics.drawscope.inset
 import androidx.compose.ui.layout.layoutId
+import androidx.compose.ui.node.DelegatableNode
+import androidx.compose.ui.node.DrawModifierNode
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
+import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.dropdown.base.DropdownFieldContentId
 import com.gabrieldrn.carbon.dropdown.base.DropdownInteractiveState
 import com.gabrieldrn.carbon.dropdown.base.DropdownTestTags
@@ -56,6 +57,7 @@ import com.gabrieldrn.carbon.foundation.color.Theme
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 import com.gabrieldrn.carbon.foundation.text.Text
 import com.gabrieldrn.carbon.icons.CloseIcon
+import kotlinx.coroutines.launch
 
 private val tagShape = RoundedCornerShape(100f)
 
@@ -119,7 +121,7 @@ internal fun DropdownMultiselectTag(
             modifier = Modifier
                 .size(SpacingScale.spacing06)
                 .indication(
-                    indication = MultiselectTagIndication(),
+                    indication = MultiselectTagIndication(Carbon.theme),
                     interactionSource = interactionSource
                 )
         ) {
@@ -135,13 +137,18 @@ internal fun DropdownMultiselectTag(
     }
 }
 
-private class MultiselectTagIndication : Indication {
+private class MultiselectTagIndication(
+    private val theme: Theme
+) : IndicationNodeFactory {
 
-    class MultiselectTagIndicationInstance(private val theme: Theme) : IndicationInstance {
+    class MultiselectTagIndicationInstance(
+        private val interactionSource: InteractionSource,
+        private val theme: Theme
+    ) : Modifier.Node(), DrawModifierNode {
 
         var displayIndication: Boolean by mutableStateOf(false)
 
-        override fun ContentDrawScope.drawIndication() {
+        override fun ContentDrawScope.draw() {
             if (displayIndication) {
                 inset(2f.dp.toPx()) {
                     drawCircle(theme.backgroundHover)
@@ -150,31 +157,34 @@ private class MultiselectTagIndication : Indication {
 
             drawContent()
         }
-    }
 
-    @Composable
-    override fun rememberUpdatedInstance(
-        interactionSource: InteractionSource
-    ): IndicationInstance {
-        val theme = LocalCarbonTheme.current
-
-        val instance = remember(theme) {
-            MultiselectTagIndicationInstance(theme)
-        }
-
-        LaunchedEffect(interactionSource) {
-            interactionSource.interactions.collect { interaction ->
-                when (interaction) {
-                    is HoverInteraction.Enter,
-                    is PressInteraction.Press -> instance.displayIndication = true
-                    is HoverInteraction.Exit,
-                    is PressInteraction.Release,
-                    is PressInteraction.Cancel -> instance.displayIndication = false
-                    else -> {}
+        override fun onAttach() {
+            coroutineScope.launch {
+                interactionSource.interactions.collect { interaction ->
+                    when (interaction) {
+                        is HoverInteraction.Enter,
+                        is PressInteraction.Press -> displayIndication = true
+                        is HoverInteraction.Exit,
+                        is PressInteraction.Release,
+                        is PressInteraction.Cancel -> displayIndication = false
+                        else -> {}
+                    }
                 }
             }
         }
-
-        return instance
     }
+
+    override fun create(interactionSource: InteractionSource): DelegatableNode =
+        MultiselectTagIndicationInstance(interactionSource, theme)
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is MultiselectTagIndication) return false
+
+        if (theme != other.theme) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int = theme.hashCode()
 }

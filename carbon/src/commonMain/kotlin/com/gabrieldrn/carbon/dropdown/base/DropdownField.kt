@@ -156,7 +156,7 @@ internal fun DropdownField(
         modifier = modifier
             .indication(
                 interactionSource = interactionSource,
-                indication = FocusIndication()
+                indication = FocusIndication(Carbon.theme)
             )
             .focusable(
                 enabled = state.isFocusable,

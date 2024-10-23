@@ -256,9 +256,13 @@ private fun ToggleCanvas(
     interactionSource: MutableInteractionSource,
 ) {
     val density = LocalDensity.current
+    val theme = Carbon.theme
 
     val indication = remember {
-        ToggleableFocusIndication(toggleType.height)
+        ToggleableFocusIndication(
+            theme = theme,
+            indicationCornerRadius = toggleType.height
+        )
     }
 
     val toggleDrawValues = remember(toggleType) {
