@@ -29,6 +29,7 @@ import com.gabrieldrn.carbon.foundation.color.Theme
  * Colors to be used by a [Toggle] based on its state.
  */
 @Immutable
+@ConsistentCopyVisibility
 internal data class ToggleColors private constructor(
     val theme: Theme,
     val layer: Layer

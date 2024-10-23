@@ -2,7 +2,7 @@ import com.gabrieldrn.carbon.Configuration
 import org.jetbrains.compose.ExperimentalComposeLibrary
 import org.jetbrains.dokka.base.DokkaBase
 import org.jetbrains.dokka.base.DokkaBaseConfiguration
-import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 
 plugins {
     id("carbon.kmp.library")
@@ -19,7 +19,6 @@ buildscript {
 
 apply(from = "${rootDir}/scripts/publishing.gradle.kts")
 
-@OptIn(ExperimentalWasmDsl::class)
 kotlin {
     listOf(
         iosX64(),
@@ -32,6 +31,7 @@ kotlin {
         }
     }
 
+    @OptIn(ExperimentalWasmDsl::class)
     wasmJs {
         browser {
             testTask {

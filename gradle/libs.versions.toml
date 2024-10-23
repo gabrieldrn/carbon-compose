@@ -1,12 +1,12 @@
 [versions]
 # region Build + build-logic
-androidGradlePlugin = "8.3.1"
-kotlin = "2.0.0"
+androidGradlePlugin = "8.5.2"
+kotlin = "2.0.20"
 binaryCompatibilityValidator = "0.16.2"
 # endregion
 # region Libraries
 compose = "1.6.11"
-androidxActivity = "1.9.0"
+androidxActivity = "1.9.3"
 androidxAppcompat = "1.7.0"
 #https://developer.android.com/jetpack/androidx/releases/compose-compiler#declaring_dependencies
 #https://developer.android.com/jetpack/androidx/releases/compose-kotlin
