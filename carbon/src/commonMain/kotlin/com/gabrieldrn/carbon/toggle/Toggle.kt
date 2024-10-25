@@ -46,8 +46,6 @@ import androidx.compose.ui.graphics.drawscope.translate
 import androidx.compose.ui.graphics.vector.VectorPainter
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.platform.debugInspectorInfo
-import androidx.compose.ui.platform.inspectable
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.unit.dp
@@ -186,35 +184,27 @@ private fun ToggleImpl(
     isReadOnly: Boolean = false,
     colors: ToggleColors = ToggleColors.colors()
 ) {
-    val toggleModifier = when {
-        isReadOnly -> Modifier.readOnly(
-            role = Role.Switch,
-            interactionSource = interactionSource,
-            state = ToggleableState(isToggled),
-            mergeDescendants = true
-        )
-        onToggleChange != null -> Modifier.toggleable(
-            value = isToggled,
-            onValueChange = { onToggleChange(!isToggled) },
-            enabled = isEnabled,
-            interactionSource = interactionSource,
-            indication = null,
-            role = Role.Switch
-        )
-        else -> Modifier
-    }
+    val toggleModifier = Modifier.then(
+        when {
+            isReadOnly -> Modifier.readOnly(
+                role = Role.Switch,
+                interactionSource = interactionSource,
+                state = ToggleableState(isToggled),
+                mergeDescendants = true
+            )
+            onToggleChange != null -> Modifier.toggleable(
+                value = isToggled,
+                onValueChange = { onToggleChange(!isToggled) },
+                enabled = isEnabled,
+                interactionSource = interactionSource,
+                indication = null,
+                role = Role.Switch
+            )
+            else -> Modifier
+        }
+    )
 
-    Column(
-        modifier = Modifier
-            .inspectable(
-                debugInspectorInfo {
-                    properties["toggleType"] = when (toggleType) {
-                        ToggleType.Default -> "Default"
-                        ToggleType.Small -> "Small"
-                    }
-                }
-            ) { modifier.then(toggleModifier) }
-    ) {
+    Column(modifier = modifier.then(toggleModifier)) {
         if (label.isNotEmpty()) {
             Text(
                 text = label,
