@@ -26,7 +26,7 @@ import com.gabrieldrn.carbon.foundation.color.containerBackground
 import platform.UIKit.UIViewController
 
 @Suppress("FunctionNaming")
-public fun MainViewController(): UIViewController =
+fun MainViewController(): UIViewController =
     ComposeUIViewController {
         CarbonDesignSystem {
             Box(Modifier.fillMaxSize().containerBackground(), contentAlignment = Alignment.Center) {

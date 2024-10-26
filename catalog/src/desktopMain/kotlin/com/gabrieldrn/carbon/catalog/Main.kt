@@ -18,8 +18,14 @@ package com.gabrieldrn.carbon.catalog
 
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
+import com.gabrieldrn.carbon.catalog.di.appModule
+import org.koin.core.context.startKoin
 
 fun main() = application {
+    startKoin {
+        modules(appModule())
+    }
+
     Window(
         onCloseRequest = ::exitApplication,
         title = "Carbon catalog",

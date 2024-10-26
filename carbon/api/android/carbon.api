@@ -1578,7 +1578,14 @@ public final class com/gabrieldrn/carbon/toggle/ToggleKt {
 	public static final fun Toggle (ZLkotlin/jvm/functions/Function1;Landroidx/compose/ui/Modifier;Ljava/lang/String;Ljava/lang/String;ZZLandroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;II)V
 }
 
+public final class com/gabrieldrn/carbon/uishell/ComposableSingletons$UIShellHeaderKt {
+	public static final field INSTANCE Lcom/gabrieldrn/carbon/uishell/ComposableSingletons$UIShellHeaderKt;
+	public static field lambda-1 Lkotlin/jvm/functions/Function3;
+	public fun <init> ()V
+	public final fun getLambda-1$carbon_release ()Lkotlin/jvm/functions/Function3;
+}
+
 public final class com/gabrieldrn/carbon/uishell/UIShellHeaderKt {
-	public static final fun UiShellHeader (Ljava/lang/String;Landroidx/compose/ui/Modifier;Landroidx/compose/ui/graphics/painter/Painter;Lkotlin/jvm/functions/Function0;Landroidx/compose/foundation/layout/WindowInsets;Lcom/gabrieldrn/carbon/foundation/color/Theme;Landroidx/compose/runtime/Composer;II)V
+	public static final fun UiShellHeader (Ljava/lang/String;Landroidx/compose/ui/Modifier;Landroidx/compose/ui/graphics/painter/Painter;Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function0;Landroidx/compose/foundation/layout/WindowInsets;Lcom/gabrieldrn/carbon/foundation/color/Theme;Landroidx/compose/runtime/Composer;II)V
 }
 

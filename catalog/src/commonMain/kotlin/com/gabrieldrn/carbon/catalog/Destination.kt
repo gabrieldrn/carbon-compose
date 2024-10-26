@@ -17,10 +17,6 @@
 package com.gabrieldrn.carbon.catalog
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import com.gabrieldrn.carbon.catalog.buttons.ButtonDemoScreen
 import com.gabrieldrn.carbon.catalog.checkbox.CheckboxDemoScreen
 import com.gabrieldrn.carbon.catalog.dropdown.DropdownDemoScreen
@@ -31,7 +27,6 @@ import com.gabrieldrn.carbon.catalog.radiobutton.RadioButtonDemoScreen
 import com.gabrieldrn.carbon.catalog.settings.SettingsScreen
 import com.gabrieldrn.carbon.catalog.tag.TagDemoScreen
 import com.gabrieldrn.carbon.catalog.textinput.TextInputDemoScreen
-import com.gabrieldrn.carbon.catalog.theme.CarbonTheme
 import com.gabrieldrn.carbon.catalog.toggle.ToggleDemoScreen
 import org.jetbrains.compose.resources.DrawableResource
 
@@ -51,21 +46,7 @@ enum class Destination(
         title = "Settings",
         illustration = null,
         route = "settings",
-        content = {
-            var selectedLightTheme by remember {
-                mutableStateOf<CarbonTheme.LightTheme>(CarbonTheme.LightTheme.W)
-            }
-            var selectedDarkTheme by remember {
-                mutableStateOf<CarbonTheme.DarkTheme>(CarbonTheme.DarkTheme.G100)
-            }
-
-            SettingsScreen(
-                selectedLightTheme = selectedLightTheme,
-                selectedDarkTheme = selectedDarkTheme,
-                onLightThemeSelected = { selectedLightTheme = it },
-                onDarkThemeSelected = { selectedDarkTheme = it }
-            )
-        }
+        content = { SettingsScreen() }
     ),
     Accordion("Accordion"),
     Breadcrumb("Breadcrumb"),

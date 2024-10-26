@@ -53,36 +53,36 @@ fun rememberNavGraph(
     navController: NavHostController,
     onOpenLink: (String) -> Unit
 ) = remember(navController) {
-        navController.createGraph(startDestination = Destination.Home.route) {
-            Destination
-                .entries
-                .filterNot { it.route.isEmpty() }
-                .forEach { dest ->
-                    when (dest) {
-                        Destination.Home -> composable(
-                            route = Destination.Home.route,
-                            enterTransition = { navigationEnterScaleInTransition },
-                            exitTransition = { navigationExitScaleOutTransition },
-                        ) {
-                            HomeScreen(
-                                onTileClicked = { destination ->
-                                    destination.route
-                                        .takeIf { it.isNotEmpty() }
-                                        ?.let(navController::navigate)
-                                },
-                                onOpenLink = onOpenLink
-                            )
-                        }
-
-                        Destination.Dropdown -> dropdownNavigation(navController)
-
-                        else -> composable(
-                            route = dest.route,
-                            enterTransition = { navigationEnterSlideInTransition },
-                            exitTransition = { navigationExitSlideOutTransition },
-                            content = { dest.content() }
+    navController.createGraph(startDestination = Destination.Home.route) {
+        Destination
+            .entries
+            .filterNot { it.route.isEmpty() }
+            .forEach { dest ->
+                when (dest) {
+                    Destination.Home -> composable(
+                        route = Destination.Home.route,
+                        enterTransition = { navigationEnterScaleInTransition },
+                        exitTransition = { navigationExitScaleOutTransition },
+                    ) {
+                        HomeScreen(
+                            onTileClicked = { destination ->
+                                destination.route
+                                    .takeIf { it.isNotEmpty() }
+                                    ?.let(navController::navigate)
+                            },
+                            onOpenLink = onOpenLink
                         )
                     }
+
+                    Destination.Dropdown -> dropdownNavigation(navController)
+
+                    else -> composable(
+                        route = dest.route,
+                        enterTransition = { navigationEnterSlideInTransition },
+                        exitTransition = { navigationExitSlideOutTransition },
+                        content = { dest.content() }
+                    )
                 }
-        }
+            }
     }
+}

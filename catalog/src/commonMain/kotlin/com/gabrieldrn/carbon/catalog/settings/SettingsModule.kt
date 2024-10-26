@@ -14,22 +14,14 @@
  * limitations under the License.
  */
 
-package com.gabrieldrn.carbon.catalog
+package com.gabrieldrn.carbon.catalog.settings
 
-import android.app.Application
-import com.gabrieldrn.carbon.catalog.di.appModule
-import org.koin.core.context.startKoin
-import timber.log.Timber
+import com.gabrieldrn.carbon.catalog.settings.data.SettingsRepository
+import org.koin.core.module.dsl.singleOf
+import org.koin.dsl.module
 
-@Suppress("UndocumentedPublicClass")
-class CatalogApplication : Application() {
+val settingsModule = module {
+    singleOf(::SettingsRepository)
 
-    override fun onCreate() {
-        super.onCreate()
-        Timber.plant(Timber.DebugTree())
-
-        startKoin {
-            modules(appModule())
-        }
-    }
+    singleOf(::SettingsViewModel)
 }

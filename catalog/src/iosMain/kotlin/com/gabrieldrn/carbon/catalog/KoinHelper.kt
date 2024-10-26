@@ -16,20 +16,11 @@
 
 package com.gabrieldrn.carbon.catalog
 
-import android.app.Application
 import com.gabrieldrn.carbon.catalog.di.appModule
 import org.koin.core.context.startKoin
-import timber.log.Timber
 
-@Suppress("UndocumentedPublicClass")
-class CatalogApplication : Application() {
-
-    override fun onCreate() {
-        super.onCreate()
-        Timber.plant(Timber.DebugTree())
-
-        startKoin {
-            modules(appModule())
-        }
+fun initKoin() {
+    startKoin {
+        modules(appModule())
     }
 }

@@ -31,6 +31,9 @@ sealed class CarbonTheme(val displayName: String, val theme: Theme) {
             val entries by lazy {
                 listOf(W, G10)
             }
+
+            fun fromDisplayName(displayName: String): LightTheme =
+                entries.first { it.displayName == displayName }
         }
     }
 
@@ -42,6 +45,9 @@ sealed class CarbonTheme(val displayName: String, val theme: Theme) {
             val entries by lazy {
                 listOf(G90, G100)
             }
+
+            fun fromDisplayName(displayName: String): DarkTheme =
+                entries.first { it.displayName == displayName }
         }
     }
 
