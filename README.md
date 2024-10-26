@@ -55,7 +55,7 @@ Or you can run the web version locally by executing the `wasmJsBrowserRun` Gradl
 
 # Documentation
 
-Visit the project's Github Pages https://www.gabrieldrn.github.com/carbon-compose/ to get more information about the
+Visit the project's Github Pages https://gabrieldrn.github.io/carbon-compose/ to get more information about the
 project, some documentation, its API reference and the catalog app. 
 
 # Contributions
