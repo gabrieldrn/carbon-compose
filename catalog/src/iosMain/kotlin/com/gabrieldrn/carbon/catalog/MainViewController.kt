@@ -25,7 +25,7 @@ import com.gabrieldrn.carbon.CarbonDesignSystem
 import com.gabrieldrn.carbon.foundation.color.containerBackground
 import platform.UIKit.UIViewController
 
-@Suppress("FunctionNaming")
+@Suppress("FunctionNaming", "unused", "FunctionName")
 fun MainViewController(): UIViewController =
     ComposeUIViewController {
         CarbonDesignSystem {

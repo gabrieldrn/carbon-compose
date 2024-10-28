@@ -16,6 +16,7 @@
 
 package com.gabrieldrn.carbon.catalog
 
+import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
@@ -24,9 +25,11 @@ import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.createGraph
+import com.gabrieldrn.carbon.catalog.BaseDestination.Companion.eq
 import com.gabrieldrn.carbon.catalog.dropdown.dropdownNavigation
 import com.gabrieldrn.carbon.catalog.home.HomeScreen
 
@@ -47,6 +50,23 @@ val navigationExitSlideOutTransition =
 
 val navigationExitSlideOutInverseTransition =
     slideOutHorizontally(targetOffsetX = { -it }) + fadeOut() // right to left
+
+val deadEndEnterTransition = navigationEnterSlideInTransition
+val deadEndExitTransition = navigationExitSlideOutTransition
+
+fun AnimatedContentTransitionScope<NavBackStackEntry>.getEnterTransition() =
+    if (initialState.destination eq Destination.Home) {
+        navigationEnterSlideInTransition
+    } else {
+        navigationEnterSlideInInverseTransition
+    }
+
+fun AnimatedContentTransitionScope<NavBackStackEntry>.getExitTransition() =
+    if (targetState.destination eq Destination.Home) {
+        navigationExitSlideOutTransition
+    } else {
+        navigationExitSlideOutInverseTransition
+    }
 
 @Composable
 fun rememberNavGraph(
@@ -76,10 +96,17 @@ fun rememberNavGraph(
 
                     Destination.Dropdown -> dropdownNavigation(navController)
 
+                    Destination.Settings -> composable(
+                        route = Destination.Settings.route,
+                        enterTransition = { deadEndEnterTransition },
+                        exitTransition = { deadEndExitTransition },
+                        content = { dest.content() }
+                    )
+
                     else -> composable(
                         route = dest.route,
-                        enterTransition = { navigationEnterSlideInTransition },
-                        exitTransition = { navigationExitSlideOutTransition },
+                        enterTransition = { getEnterTransition() },
+                        exitTransition = { getExitTransition() },
                         content = { dest.content() }
                     )
                 }

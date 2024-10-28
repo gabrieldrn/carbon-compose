@@ -19,6 +19,7 @@ package com.gabrieldrn.carbon.catalog
 import com.gabrieldrn.carbon.catalog.di.appModule
 import org.koin.core.context.startKoin
 
+@Suppress("unused")
 fun initKoin() {
     startKoin {
         modules(appModule())

@@ -16,16 +16,34 @@
 
 package com.gabrieldrn.carbon.catalog.dropdown
 
+import androidx.compose.animation.AnimatedContentTransitionScope
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.gabrieldrn.carbon.catalog.BaseDestination.Companion.eq
 import com.gabrieldrn.carbon.catalog.Destination
+import com.gabrieldrn.carbon.catalog.getEnterTransition
+import com.gabrieldrn.carbon.catalog.getExitTransition
 import com.gabrieldrn.carbon.catalog.navigationEnterSlideInInverseTransition
 import com.gabrieldrn.carbon.catalog.navigationEnterSlideInTransition
 import com.gabrieldrn.carbon.catalog.navigationExitSlideOutInverseTransition
 import com.gabrieldrn.carbon.catalog.navigationExitSlideOutTransition
+
+fun AnimatedContentTransitionScope<NavBackStackEntry>.getDropdownScreenEnterTransition() =
+    if (initialState.destination eq Destination.Settings) {
+        navigationEnterSlideInInverseTransition
+    } else {
+        navigationEnterSlideInTransition
+    }
+
+fun AnimatedContentTransitionScope<NavBackStackEntry>.getDropdownScreenExitTransition() =
+    if (targetState.destination eq Destination.Settings) {
+        navigationExitSlideOutInverseTransition
+    } else {
+        navigationExitSlideOutTransition
+    }
 
 fun NavGraphBuilder.dropdownNavigation(
     navController: NavController
@@ -35,40 +53,24 @@ fun NavGraphBuilder.dropdownNavigation(
 ) {
     composable(
         route = DropdownNavDestination.Home.route,
-        enterTransition = {
-            if (targetState.destination eq DropdownNavDestination.Home) {
-                if (initialState.destination eq Destination.Home) {
-                    navigationEnterSlideInTransition
-                } else {
-                    navigationEnterSlideInInverseTransition
-                }
-            } else {
-                navigationEnterSlideInInverseTransition
-            }
-        },
-        exitTransition = {
-            if (targetState.destination eq Destination.Home) {
-                navigationExitSlideOutTransition
-            } else {
-                navigationExitSlideOutInverseTransition
-            }
-        },
+        enterTransition = { getEnterTransition() },
+        exitTransition = { getExitTransition() },
     ) {
         DropdownDemoMenu(onNavigate = navController::navigate)
     }
 
     composable(
         route = DropdownNavDestination.Default.route,
-        enterTransition = { navigationEnterSlideInTransition },
-        exitTransition = { navigationExitSlideOutTransition },
+        enterTransition = { getDropdownScreenEnterTransition() },
+        exitTransition = { getDropdownScreenExitTransition() },
     ) {
         DropdownDemoScreen(DropdownVariant.Default)
     }
 
     composable(
         route = DropdownNavDestination.MultiSelect.route,
-        enterTransition = { navigationEnterSlideInTransition },
-        exitTransition = { navigationExitSlideOutTransition },
+        enterTransition = { getDropdownScreenEnterTransition() },
+        exitTransition = { getDropdownScreenExitTransition() },
     ) {
         DropdownDemoScreen(DropdownVariant.Multiselect)
     }
