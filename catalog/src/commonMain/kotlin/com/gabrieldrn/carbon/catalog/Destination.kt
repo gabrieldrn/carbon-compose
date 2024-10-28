@@ -69,7 +69,8 @@ enum class Destination(
     Dropdown(
         title = "Dropdown",
         illustration = Res.drawable.tile_dropdown,
-        route = "dropdown"
+        route = "dropdown",
+        content = { DropdownDemoScreen(DropdownVariant.Default) }
     ),
     FileUploader("File uploader"),
     Form("Form"),

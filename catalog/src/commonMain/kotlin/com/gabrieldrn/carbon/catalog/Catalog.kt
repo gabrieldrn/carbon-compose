@@ -32,7 +32,6 @@ import com.gabrieldrn.carbon.api.ExperimentalCarbonApi
 import com.gabrieldrn.carbon.button.ButtonType
 import com.gabrieldrn.carbon.button.IconButton
 import com.gabrieldrn.carbon.catalog.BaseDestination.Companion.eq
-import com.gabrieldrn.carbon.catalog.dropdown.DropdownNavDestination
 import com.gabrieldrn.carbon.catalog.theme.CarbonCatalogTheme
 import com.gabrieldrn.carbon.foundation.color.containerBackground
 import com.gabrieldrn.carbon.uishell.UiShellHeader
@@ -45,9 +44,7 @@ fun Catalog(
     layoutType: CatalogLayoutType = CatalogLayoutType.Vertical,
 ) {
     CarbonCatalogTheme {
-        val allDestinations = remember {
-            Destination.entries + DropdownNavDestination.entries
-        }
+        val allDestinations = remember { Destination.entries }
 
         var currentScreen: BaseDestination by remember {
             mutableStateOf(Destination.Home)

@@ -30,7 +30,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.createGraph
 import com.gabrieldrn.carbon.catalog.BaseDestination.Companion.eq
-import com.gabrieldrn.carbon.catalog.dropdown.dropdownNavigation
 import com.gabrieldrn.carbon.catalog.home.HomeScreen
 
 val navigationEnterScaleInTransition =
@@ -93,8 +92,6 @@ fun rememberNavGraph(
                             onOpenLink = onOpenLink
                         )
                     }
-
-                    Destination.Dropdown -> dropdownNavigation(navController)
 
                     Destination.Settings -> composable(
                         route = Destination.Settings.route,
