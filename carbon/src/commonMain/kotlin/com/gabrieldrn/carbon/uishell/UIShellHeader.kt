@@ -21,6 +21,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
@@ -43,6 +44,8 @@ import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.CarbonDesignSystem
 import com.gabrieldrn.carbon.api.ExperimentalCarbonApi
+import com.gabrieldrn.carbon.button.ButtonType
+import com.gabrieldrn.carbon.button.IconButton
 import com.gabrieldrn.carbon.foundation.color.LocalCarbonInlineTheme
 import com.gabrieldrn.carbon.foundation.color.LocalCarbonTheme
 import com.gabrieldrn.carbon.foundation.color.Theme
@@ -54,6 +57,7 @@ public fun UiShellHeader(
     headerName: String,
     modifier: Modifier = Modifier,
     menuIconPainter: Painter? = null,
+    actions: @Composable RowScope.() -> Unit = {},
     onMenuIconPressed: () -> Unit = {},
     windowInsets: WindowInsets = WindowInsets.statusBars.only(WindowInsetsSides.Top),
     inlineTheme: Theme = LocalCarbonInlineTheme.current,
@@ -75,9 +79,10 @@ public fun UiShellHeader(
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 if (menuIconPainter != null) {
-                    MenuButton(
-                        onMenuIconPressed = onMenuIconPressed,
-                        menuIconPainter = menuIconPainter
+                    IconButton(
+                        onClick = onMenuIconPressed,
+                        iconPainter = menuIconPainter,
+                        buttonType = ButtonType.Ghost,
                     )
                     Spacer(modifier = Modifier.width(SpacingScale.spacing03))
                 } else {
@@ -87,9 +92,13 @@ public fun UiShellHeader(
                 BasicText(
                     text = headerName,
                     style = Carbon.typography.headingCompact02.copy(
-                        color = LocalCarbonTheme.current.textPrimary
+                        color = Carbon.theme.textPrimary
                     ),
-                    modifier = Modifier
+                    modifier = Modifier.weight(1f)
+                )
+
+                Row(
+                    content = actions,
                 )
             }
             Box(

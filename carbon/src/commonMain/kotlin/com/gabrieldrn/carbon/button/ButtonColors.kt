@@ -25,7 +25,8 @@ import com.gabrieldrn.carbon.foundation.color.Theme
 @Immutable
 internal class ButtonColors private constructor(
     private val theme: Theme,
-    private val buttonType: ButtonType
+    private val buttonType: ButtonType,
+    private val isIconButton: Boolean,
 ) {
 
     val containerColor: Color = when (buttonType) {
@@ -112,32 +113,44 @@ internal class ButtonColors private constructor(
         else -> theme.textOnColorDisabled
     }
 
-    val iconColor: Color = when (buttonType) {
-        ButtonType.Tertiary -> theme.buttonTertiary
-        ButtonType.Ghost -> theme.linkPrimary
-        ButtonType.PrimaryDanger -> theme.iconOnColor
-        ButtonType.TertiaryDanger,
-        ButtonType.GhostDanger -> theme.buttonDangerSecondary
-        else -> theme.iconOnColor
+    val iconColor: Color = if (isIconButton) {
+        theme.iconPrimary
+    } else {
+        when (buttonType) {
+            ButtonType.Tertiary -> theme.buttonTertiary
+            ButtonType.Ghost -> theme.linkPrimary
+            ButtonType.PrimaryDanger -> theme.iconOnColor
+            ButtonType.TertiaryDanger,
+            ButtonType.GhostDanger -> theme.buttonDangerSecondary
+            else -> theme.iconOnColor
+        }
     }
 
-    val iconActiveColor: Color = when (buttonType) {
-        ButtonType.Tertiary -> theme.iconInverse
-        ButtonType.Ghost -> theme.linkPrimary // ø
-        else -> theme.iconOnColor
+    val iconActiveColor: Color = if (isIconButton) {
+        theme.iconPrimary
+    } else {
+        when (buttonType) {
+            ButtonType.Tertiary -> theme.iconInverse
+            ButtonType.Ghost -> theme.linkPrimary // ø
+            else -> theme.iconOnColor
+        }
     }
 
-    val iconHoverColor: Color = when (buttonType) {
-        ButtonType.Tertiary -> theme.iconInverse
-        ButtonType.Ghost -> theme.linkPrimaryHover
-        else -> theme.iconOnColor
+    val iconHoverColor: Color = if (isIconButton) {
+        theme.iconPrimary
+    } else {
+        when (buttonType) {
+            ButtonType.Tertiary -> theme.iconInverse
+            ButtonType.Ghost -> theme.linkPrimaryHover
+            else -> theme.iconOnColor
+        }
     }
 
     val iconDisabledColor: Color = when (buttonType) {
         ButtonType.Primary,
         ButtonType.Secondary,
         ButtonType.PrimaryDanger -> theme.iconOnColorDisabled
-        else -> theme.iconDisabled // Issue in documentation for Ghost
+        else -> theme.iconDisabled // Issue in documentation for Ghost?
     }
 
     override fun equals(other: Any?): Boolean {
@@ -146,6 +159,7 @@ internal class ButtonColors private constructor(
 
         if (theme != other.theme) return false
         if (buttonType != other.buttonType) return false
+        if (isIconButton != other.isIconButton) return false
 
         return true
     }
@@ -153,6 +167,7 @@ internal class ButtonColors private constructor(
     override fun hashCode(): Int {
         var result = theme.hashCode()
         result = 31 * result + buttonType.hashCode()
+        result = 31 * result + isIconButton.hashCode()
         return result
     }
 
@@ -161,6 +176,7 @@ internal class ButtonColors private constructor(
         @Composable
         fun colors(
             buttonType: ButtonType,
-        ): ButtonColors = ButtonColors(Carbon.theme, buttonType)
+            isIconButton: Boolean,
+        ): ButtonColors = ButtonColors(Carbon.theme, buttonType, isIconButton)
     }
 }

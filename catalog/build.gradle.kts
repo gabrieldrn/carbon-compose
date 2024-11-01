@@ -32,6 +32,12 @@ kotlin {
             implementation(compose.components.resources)
 
             implementation(libs.androidx.navigation.compose)
+            implementation(libs.koin)
+            implementation(libs.koin.compose)
+            implementation(libs.settings)
+            implementation(libs.settings.noArg)
+            implementation(libs.settings.coroutines)
+            implementation(libs.settings.makeObservable)
         }
 
         androidMain.dependencies {
@@ -42,6 +48,8 @@ kotlin {
 
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
+
+            implementation(libs.kotlinx.coroutines.swing)
         }
     }
 }

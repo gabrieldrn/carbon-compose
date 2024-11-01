@@ -11,23 +11,23 @@ import androidx.compose.ui.graphics.Color
  */
 @Immutable
 public object Gray10NotificationColors : NotificationColors {
-  override val actionHover: Color = Color(0xFFFFFFFF)
+    override val actionHover: Color = Color(0xFFFFFFFF)
 
-  override val actionTertiaryInverse: Color = Color(0xFFFFFFFF)
+    override val actionTertiaryInverse: Color = Color(0xFFFFFFFF)
 
-  override val actionTertiaryInverseActive: Color = Color(0xFFFFFFFF)
+    override val actionTertiaryInverseActive: Color = Color(0xFFFFFFFF)
 
-  override val actionTertiaryInverseHover: Color = Color(0xFFC6C6C6)
+    override val actionTertiaryInverseHover: Color = Color(0xFFC6C6C6)
 
-  override val actionTertiaryInverseText: Color = Color(0xFF161616)
+    override val actionTertiaryInverseText: Color = Color(0xFF161616)
 
-  override val actionTertiaryInverseTextOnColorDisabled: Color = Color(0xFFFFFFFF)
+    override val actionTertiaryInverseTextOnColorDisabled: Color = Color(0xFFFFFFFF)
 
-  override val backgroundError: Color = Color(0xFFFFF1F1)
+    override val backgroundError: Color = Color(0xFFFFF1F1)
 
-  override val backgroundInfo: Color = Color(0xFFEDF5FF)
+    override val backgroundInfo: Color = Color(0xFFEDF5FF)
 
-  override val backgroundSuccess: Color = Color(0xFFDEFBE6)
+    override val backgroundSuccess: Color = Color(0xFFDEFBE6)
 
-  override val backgroundWarning: Color = Color(0xFFFCF4D6)
+    override val backgroundWarning: Color = Color(0xFFFCF4D6)
 }

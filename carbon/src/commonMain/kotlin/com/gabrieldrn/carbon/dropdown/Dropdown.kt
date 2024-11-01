@@ -119,7 +119,7 @@ public fun <K : Any> Dropdown(
             DropdownPlaceholderText(
                 placeholderText = fieldText,
                 colors = colors,
-                state = state,
+                state = state
             )
 
             DropdownStateIcon(state = state)

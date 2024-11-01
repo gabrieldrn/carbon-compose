@@ -51,7 +51,7 @@ import com.gabrieldrn.carbon.semantics.imageVectorName
  * [KeyboardType.Password].
  */
 public val PasswordKeyboardOptions: KeyboardOptions = KeyboardOptions.Default.copy(
-    autoCorrect = false,
+    autoCorrectEnabled = false,
     keyboardType = KeyboardType.Password
 )
 

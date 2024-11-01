@@ -156,7 +156,7 @@ internal fun DropdownField(
         modifier = modifier
             .indication(
                 interactionSource = interactionSource,
-                indication = FocusIndication()
+                indication = FocusIndication(Carbon.theme)
             )
             .focusable(
                 enabled = state.isFocusable,
@@ -177,17 +177,6 @@ internal fun DropdownField(
                     )
                 }
             }
-            .padding(horizontal = SpacingScale.spacing05)
-            .then(
-                if (state is DropdownInteractiveState.Error) {
-                    Modifier.border(
-                        width = SpacingScale.spacing01,
-                        color = colors.fieldBorderErrorColor
-                    )
-                } else {
-                    Modifier
-                }
-            )
             .then(
                 when (state) {
                     is DropdownInteractiveState.Disabled -> Modifier.semantics { disabled() }
@@ -202,6 +191,17 @@ internal fun DropdownField(
                     )
                 }
             )
+            .then(
+                if (state is DropdownInteractiveState.Error) {
+                    Modifier.border(
+                        width = SpacingScale.spacing01,
+                        color = colors.fieldBorderErrorColor
+                    )
+                } else {
+                    Modifier
+                }
+            )
+            .padding(horizontal = SpacingScale.spacing05)
             .semantics(mergeDescendants = true) {
                 role = Role.DropdownList
                 state.helperText?.let { stateDescription = it }

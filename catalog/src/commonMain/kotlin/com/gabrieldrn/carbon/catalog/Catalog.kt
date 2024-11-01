@@ -29,8 +29,9 @@ import androidx.compose.ui.platform.LocalUriHandler
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.gabrieldrn.carbon.api.ExperimentalCarbonApi
+import com.gabrieldrn.carbon.button.ButtonType
+import com.gabrieldrn.carbon.button.IconButton
 import com.gabrieldrn.carbon.catalog.BaseDestination.Companion.eq
-import com.gabrieldrn.carbon.catalog.dropdown.DropdownNavDestination
 import com.gabrieldrn.carbon.catalog.theme.CarbonCatalogTheme
 import com.gabrieldrn.carbon.foundation.color.containerBackground
 import com.gabrieldrn.carbon.uishell.UiShellHeader
@@ -43,9 +44,7 @@ fun Catalog(
     layoutType: CatalogLayoutType = CatalogLayoutType.Vertical,
 ) {
     CarbonCatalogTheme {
-        val allDestinations = remember {
-            Destination.entries + DropdownNavDestination.entries
-        }
+        val allDestinations = remember { Destination.entries }
 
         var currentScreen: BaseDestination by remember {
             mutableStateOf(Destination.Home)
@@ -75,6 +74,15 @@ fun Catalog(
                         painterResource(Res.drawable.ic_arrow_left)
                     } else {
                         null
+                    },
+                    actions = {
+                        if (currentScreen != Destination.Settings) {
+                            IconButton(
+                                onClick = { navController.navigate(Destination.Settings.route) },
+                                iconPainter = painterResource(Res.drawable.ic_settings),
+                                buttonType = ButtonType.Ghost,
+                            )
+                        }
                     },
                     onMenuIconPressed = { navController.navigateUp() },
                 )

@@ -154,7 +154,10 @@ public fun Checkbox(
                 state = state,
                 modifier = Modifier.indication(
                     interactionSource = interactionSource,
-                    indication = ToggleableFocusIndication(4.dp)
+                    indication = ToggleableFocusIndication(
+                        theme = Carbon.theme,
+                        indicationCornerRadius = 4.dp
+                    )
                 )
             )
             Text(

@@ -24,6 +24,7 @@ import com.gabrieldrn.carbon.catalog.dropdown.DropdownVariant
 import com.gabrieldrn.carbon.catalog.progressbar.ProgressBarDemoScreen
 import com.gabrieldrn.carbon.catalog.radiobutton.LoadingDemoScreen
 import com.gabrieldrn.carbon.catalog.radiobutton.RadioButtonDemoScreen
+import com.gabrieldrn.carbon.catalog.settings.SettingsScreen
 import com.gabrieldrn.carbon.catalog.tag.TagDemoScreen
 import com.gabrieldrn.carbon.catalog.textinput.TextInputDemoScreen
 import com.gabrieldrn.carbon.catalog.toggle.ToggleDemoScreen
@@ -40,6 +41,12 @@ enum class Destination(
         title = "Carbon Design System",
         illustration = null,
         route = "home"
+    ),
+    Settings(
+        title = "Settings",
+        illustration = null,
+        route = "settings",
+        content = { SettingsScreen() }
     ),
     Accordion("Accordion"),
     Breadcrumb("Breadcrumb"),
@@ -62,7 +69,8 @@ enum class Destination(
     Dropdown(
         title = "Dropdown",
         illustration = Res.drawable.tile_dropdown,
-        route = "dropdown"
+        route = "dropdown",
+        content = { DropdownDemoScreen(DropdownVariant.Default) }
     ),
     FileUploader("File uploader"),
     Form("Form"),
@@ -127,8 +135,10 @@ enum class Destination(
     UIShell("UI shell");
 
     companion object {
+        private val nonComponentDestinations = setOf(Home, Settings)
+
         val homeTilesDestinations = entries
-            .filterNot { it == Home }
+            .filterNot { it in nonComponentDestinations }
             // Show first the components that have a demo activity
             .sortedByDescending { it.route.isNotEmpty() }
     }

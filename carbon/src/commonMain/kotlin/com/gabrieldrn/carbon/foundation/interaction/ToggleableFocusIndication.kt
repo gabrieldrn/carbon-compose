@@ -17,36 +17,34 @@
 package com.gabrieldrn.carbon.foundation.interaction
 
 import androidx.compose.animation.core.snap
-import androidx.compose.foundation.Indication
-import androidx.compose.foundation.IndicationInstance
-import androidx.compose.foundation.interaction.FocusInteraction
+import androidx.compose.foundation.IndicationNodeFactory
 import androidx.compose.foundation.interaction.InteractionSource
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.remember
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.drawscope.ContentDrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.inset
+import androidx.compose.ui.node.DelegatableNode
 import androidx.compose.ui.unit.Dp
-import com.gabrieldrn.carbon.foundation.color.LocalCarbonTheme
 import com.gabrieldrn.carbon.foundation.color.Theme
-import kotlinx.coroutines.flow.filterIsInstance
 
-internal class ToggleableFocusIndication(val indicationCorderRadius: Dp) : Indication {
+internal class ToggleableFocusIndication(
+    private val theme: Theme,
+    val indicationCornerRadius: Dp
+) : IndicationNodeFactory {
 
     private inner class ToggleableIndicationInstance(
+        interactionSource: InteractionSource,
         theme: Theme
-    ) : FocusIndicationInstance(theme) {
+    ) : FocusIndicationInstance(interactionSource, theme) {
 
         // From React implementation, focus animation is immediate on toggleable components.
         // e.g. https://react.carbondesignsystem.com/?path=/docs/components-toggle--overview
         // This also applies to checkboxes and radio buttons.
         override val focusAnimationSpec = snap<Float>()
 
-        override fun ContentDrawScope.drawIndication() {
+        override fun ContentDrawScope.draw() {
             val borderStrokeWidthPx = borderFocusWidth.toPx()
             val insetWidthPx = insetFocusWidth.toPx()
 
@@ -60,7 +58,7 @@ internal class ToggleableFocusIndication(val indicationCorderRadius: Dp) : Indic
             inset(-borderStrokeWidthPx * .5f - insetWidthPx) {
                 drawRoundRect(
                     brush = SolidColor(borderFocusColorState.value),
-                    cornerRadius = CornerRadius(indicationCorderRadius.toPx()),
+                    cornerRadius = CornerRadius(indicationCornerRadius.toPx()),
                     size = borderSize,
                     style = Stroke(borderStrokeWidthPx)
                 )
@@ -68,24 +66,22 @@ internal class ToggleableFocusIndication(val indicationCorderRadius: Dp) : Indic
         }
     }
 
-    @Composable
-    override fun rememberUpdatedInstance(
-        interactionSource: InteractionSource
-    ): IndicationInstance {
-        val theme = LocalCarbonTheme.current
+    override fun create(interactionSource: InteractionSource): DelegatableNode =
+        ToggleableIndicationInstance(interactionSource, theme)
 
-        val instance = remember(theme) {
-            ToggleableIndicationInstance(theme = theme)
-        }
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is ToggleableFocusIndication) return false
 
-        LaunchedEffect(interactionSource) {
-            interactionSource.interactions
-                .filterIsInstance<FocusInteraction>()
-                .collect { interaction ->
-                    instance.animateFocus(this, interaction)
-                }
-        }
+        if (theme != other.theme) return false
+        if (indicationCornerRadius != other.indicationCornerRadius) return false
 
-        return instance
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = theme.hashCode()
+        result = 31 * result + indicationCornerRadius.hashCode()
+        return result
     }
 }

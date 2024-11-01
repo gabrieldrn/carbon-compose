@@ -18,19 +18,24 @@ package com.gabrieldrn.carbon.foundation.interaction
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.FiniteAnimationSpec
-import androidx.compose.foundation.IndicationInstance
 import androidx.compose.foundation.interaction.FocusInteraction
+import androidx.compose.foundation.interaction.InteractionSource
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.referentialEqualityPolicy
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.node.DrawModifierNode
 import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.foundation.color.Theme
-import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.launch
 
 @Stable
-internal abstract class FocusIndicationInstance(theme: Theme) : IndicationInstance {
+internal abstract class FocusIndicationInstance(
+    protected val interactionSource: InteractionSource,
+    theme: Theme
+) : Modifier.Node(), DrawModifierNode {
 
     protected val borderFocusWidth = 2f.dp
     protected val insetFocusWidth = 1f.dp
@@ -61,12 +66,19 @@ internal abstract class FocusIndicationInstance(theme: Theme) : IndicationInstan
         }
     }
 
-    fun animateFocus(scope: CoroutineScope, interaction: FocusInteraction) {
-        scope.launch {
-            focusAnimation.animateTo(
-                targetValue = if (interaction is FocusInteraction.Focus) 1f else 0f,
-                animationSpec = focusAnimationSpec
-            )
+    private suspend fun animateFocus(interaction: FocusInteraction) {
+        focusAnimation.animateTo(
+            targetValue = if (interaction is FocusInteraction.Focus) 1f else 0f,
+            animationSpec = focusAnimationSpec
+        )
+    }
+
+    override fun onAttach() {
+        coroutineScope.launch {
+            interactionSource.interactions.filterIsInstance<FocusInteraction>()
+                .collect { interaction ->
+                    animateFocus(interaction)
+                }
         }
     }
 }

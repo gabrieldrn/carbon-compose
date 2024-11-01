@@ -1,12 +1,13 @@
+import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
 import com.gabrieldrn.carbon.buildlogic.Constants
 import com.gabrieldrn.carbon.buildlogic.configureKotlinAndroidCommon
 import com.gabrieldrn.carbon.buildlogic.getPlugin
 import com.gabrieldrn.carbon.buildlogic.libs
-import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 
 /**
@@ -14,7 +15,7 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
  */
 class CarbonApplicationConventionPlugin : Plugin<Project> {
 
-    @OptIn(ExperimentalKotlinGradlePluginApi::class)
+    @OptIn(ExperimentalKotlinGradlePluginApi::class, ExperimentalWasmDsl::class)
     override fun apply(target: Project) = with(target) {
         val libs = libs
 

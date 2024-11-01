@@ -37,12 +37,14 @@ private val sourcePath = Paths.get("carbon/src/commonMain/kotlin")
 //private val sourcePath = Paths.get("build/generated/kotlin")
 private val layerClass = ClassName(PACKAGE_ROOT, "Layer")
 private val themeAbstractionName = ClassName(PACKAGE_ROOT, "Theme")
+private val codeIndent = "    "
 private val generatedCodeMessage =
     """
         ----------------------------------
         /!\ Generated code. Do not modify.
         ----------------------------------
     """.trimIndent()
+
 
 enum class Component {
     AI,
@@ -156,6 +158,7 @@ private fun generateComponentAbstraction(
         .build()
 
     FileSpec.builder(interfaceName)
+        .indent(codeIndent)
         .addFileComment(generatedCodeMessage)
         .addType(interfaceSpec)
         .build()
@@ -210,6 +213,7 @@ private fun generateComponentImplementation(
         .build()
 
     FileSpec.builder(implementationName.packageName, implementationName.simpleName)
+        .indent(codeIndent)
         .addFileComment(generatedCodeMessage)
         .addType(classSpec)
         .build()
@@ -268,6 +272,28 @@ private fun generateThemeAbstraction(
         )
         .build()
 
+    val copyAnonymousClass = TypeSpec.anonymousClassBuilder()
+        .superclass(themeAbstractionName)
+        .apply {
+            tokenProperties.forEach { token ->
+                addProperty(
+                    PropertySpec.builder(token.name, Color::class)
+                        .initializer(token.name)
+                        .addModifiers(KModifier.OVERRIDE)
+                        .build()
+                )
+            }
+            componentsPropertySpecs.forEach { component ->
+                addProperty(
+                    PropertySpec.builder(component.name, component.type)
+                        .initializer(component.name)
+                        .addModifiers(KModifier.OVERRIDE)
+                        .build()
+                )
+            }
+        }
+        .build()
+
     val copyThemeFuncSpec = FunSpec.builder("copy")
         .returns(themeAbstractionName)
         .addModifiers(KModifier.INTERNAL)
@@ -276,37 +302,22 @@ private fun generateThemeAbstraction(
                 .addMember("%S", "LongMethod")
                 .build()
         )
-        .apply {
-            tokenProperties.forEach { token ->
-                addParameter(
-                    ParameterSpec.builder(token.name, Color::class)
-                        .defaultValue("this.${token.name}")
+        .addParameters(
+            (tokenProperties + componentsPropertySpecs).mapIndexed { index, spec ->
+                if (spec is TokenProperty) {
+                    ParameterSpec.builder(spec.name, Color::class)
+                        .defaultValue("this.${spec.name}")
                         .build()
-                )
-            }
-            componentsPropertySpecs.forEach { component ->
-                addParameter(
-                    ParameterSpec.builder(component.name, component.type)
-                        .defaultValue("this.${component.name}")
+                } else if (spec is PropertySpec) {
+                    ParameterSpec.builder(spec.name, spec.type)
+                        .defaultValue("this.${spec.name}")
                         .build()
-                )
+                } else {
+                    error("Type ${spec::class.simpleName} at index $index unrecognized.")
+                }
             }
-        }
-        .addCode("return object : ${themeAbstractionName.simpleName}() {\n")
-        .apply {
-            tokenProperties.forEach { token ->
-                addCode("  override val ${token.name}: Color = ${token.name}\n")
-            }
-            componentsPropertySpecs.forEach { component ->
-                addCode(
-                    "  override val %N: %T = %N\n",
-                    component.name,
-                    component.type,
-                    component.name
-                )
-            }
-        }
-        .addCode("}")
+        )
+        .addStatement("return %L", copyAnonymousClass)
         .build()
 
     val equalsFunSpec = FunSpec.builder("equals")
@@ -370,6 +381,7 @@ private fun generateThemeAbstraction(
         .build()
 
     FileSpec.builder(PACKAGE_ROOT, themeAbstractionName.simpleName)
+        .indent(codeIndent)
         .addFileComment(generatedCodeMessage)
         .addType(themeAbstraction)
         .build()
@@ -431,6 +443,7 @@ private fun generateThemeImplementation(
         .build()
 
     FileSpec.builder(PACKAGE_ROOT, themeName)
+        .indent(codeIndent)
         .addFileComment(generatedCodeMessage)
         .addType(classSpec)
         .build()

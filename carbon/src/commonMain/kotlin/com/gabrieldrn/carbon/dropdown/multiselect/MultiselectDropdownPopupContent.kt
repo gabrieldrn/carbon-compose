@@ -30,7 +30,9 @@ import androidx.compose.foundation.selection.selectable
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
@@ -40,12 +42,12 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.checkbox.Checkbox
+import com.gabrieldrn.carbon.common.selectable.SelectableInteractiveState
 import com.gabrieldrn.carbon.dropdown.base.DropdownColors
 import com.gabrieldrn.carbon.dropdown.base.DropdownMenuOptionDivider
 import com.gabrieldrn.carbon.dropdown.base.DropdownOption
 import com.gabrieldrn.carbon.dropdown.base.DropdownTestTags
 import com.gabrieldrn.carbon.foundation.interaction.FocusIndication
-import com.gabrieldrn.carbon.common.selectable.SelectableInteractiveState
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 import com.gabrieldrn.carbon.foundation.text.Text
 
@@ -85,6 +87,10 @@ internal fun <K : Any> MultiselectDropdownPopupContent(
         optionEntries.indexOfFirst { it.key == selectedOptions.firstOrNull() }
     }
 
+    var focusFirstOptionFlag by remember {
+        mutableStateOf(true)
+    }
+
     LazyColumn(
         modifier = modifier
             .background(color = colors.menuOptionBackgroundColor)
@@ -92,10 +98,12 @@ internal fun <K : Any> MultiselectDropdownPopupContent(
     ) {
         itemsIndexed(optionEntries) { index, optionEntry ->
             SideEffect {
-                if (index == 0) {
+                if (index == 0 && focusFirstOptionFlag) {
+                    focusFirstOptionFlag = false
                     focusRequester.requestFocus()
                 }
             }
+
             MultiselectDropdownMenuOption(
                 option = optionEntry.value,
                 isSelected = optionEntry.key in selectedOptions,
@@ -142,7 +150,7 @@ private fun MultiselectDropdownMenuOption(
             .selectable(
                 selected = isSelected,
                 interactionSource = interactionSource,
-                indication = FocusIndication(),
+                indication = FocusIndication(Carbon.theme),
                 enabled = option.enabled,
                 onClick = onOptionClicked
             )
@@ -172,7 +180,7 @@ private fun MultiselectDropdownMenuOption(
                     SelectableInteractiveState.Disabled
                 },
                 label = "",
-                onClick = onOptionClicked,
+                onClick = null,
                 modifier = Modifier.testTag(DropdownTestTags.MENU_OPTION_CHECKBOX)
             )
             Text(

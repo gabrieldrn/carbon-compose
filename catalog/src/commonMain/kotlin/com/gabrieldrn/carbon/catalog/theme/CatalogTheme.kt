@@ -16,8 +16,13 @@
 
 package com.gabrieldrn.carbon.catalog.theme
 
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import com.gabrieldrn.carbon.CarbonDesignSystem
+import com.gabrieldrn.carbon.catalog.di.injectViewModel
+import com.gabrieldrn.carbon.catalog.settings.SettingsViewModel
 import com.gabrieldrn.carbon.foundation.color.Gray100Theme
 
 @Composable
@@ -25,7 +30,15 @@ import com.gabrieldrn.carbon.foundation.color.Gray100Theme
 fun CarbonCatalogTheme(
     content: @Composable () -> Unit
 ) {
+    val settingsViewModel = injectViewModel<SettingsViewModel>()
+    val uiState by settingsViewModel.uiState.collectAsState()
+
     CarbonDesignSystem(
+        theme = if (isSystemInDarkTheme()) {
+            uiState.darkTheme.theme
+        } else {
+            uiState.lightTheme.theme
+        },
         uiShellInlineTheme = Gray100Theme,
         content = content
     )
