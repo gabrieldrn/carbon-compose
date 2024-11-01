@@ -17,7 +17,7 @@
 package com.gabrieldrn.carbon.dropdown
 
 import androidx.compose.animation.core.MutableTransitionState
-import androidx.compose.animation.core.updateTransition
+import androidx.compose.animation.core.rememberTransition
 import androidx.compose.runtime.remember
 import androidx.compose.ui.test.ComposeUiTest
 import androidx.compose.ui.test.assertHasClickAction
@@ -46,7 +46,7 @@ class MultiselectDropdownFieldTest : DropdownFieldTest() {
     override fun ComposeUiTest.setup() {
         setContent {
             val expandedStates = remember { MutableTransitionState(false) }
-            val transition = updateTransition(expandedStates, "Dropdown")
+            val transition = rememberTransition(expandedStates, "Dropdown")
 
             CarbonDesignSystem(WhiteTheme) {
                 val colors = DropdownColors.colors()
@@ -92,15 +92,14 @@ class MultiselectDropdownFieldTest : DropdownFieldTest() {
     override fun onLayoutValidationGetFieldContentWidths(
         testScope: ComposeUiTest,
         state: DropdownInteractiveState,
-        contentWidths: MutableList<Dp>
+        contentWidths: MutableMap<String, Dp>
     ) {
         super.onLayoutValidationGetFieldContentWidths(testScope, state, contentWidths)
 
-        contentWidths.add(
+        contentWidths[DropdownTestTags.FIELD_MULTISELECT_TAG] =
             testScope.onNodeWithTag(DropdownTestTags.FIELD_MULTISELECT_TAG, useUnmergedTree = true)
                 .getUnclippedBoundsInRoot()
                 .width
-        )
     }
 
     @Test
