@@ -33,9 +33,6 @@ CarbonDesignSystem(
 }
 ```
 
-!!! info
-    Only `White` and `Grey 100` are currently available.
-
 - The `theme` argument specifies the main Carbon theme to use in regular screens. By default, the composable sets either
   the `White` or `Grey 100` theme depending on the system's dark mode setting.
 - The `uiShellInlineTheme` argument defines the 
