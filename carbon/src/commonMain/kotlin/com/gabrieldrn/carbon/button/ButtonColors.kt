@@ -113,17 +113,13 @@ internal class ButtonColors private constructor(
         else -> theme.textOnColorDisabled
     }
 
-    val iconColor: Color = if (isIconButton) {
-        theme.iconPrimary
-    } else {
-        when (buttonType) {
-            ButtonType.Tertiary -> theme.buttonTertiary
-            ButtonType.Ghost -> theme.linkPrimary
-            ButtonType.PrimaryDanger -> theme.iconOnColor
-            ButtonType.TertiaryDanger,
-            ButtonType.GhostDanger -> theme.buttonDangerSecondary
-            else -> theme.iconOnColor
-        }
+    val iconColor: Color = when (buttonType) {
+        ButtonType.Tertiary -> theme.buttonTertiary
+        ButtonType.Ghost -> if (isIconButton) theme.iconPrimary else theme.linkPrimary
+        ButtonType.PrimaryDanger -> theme.iconOnColor
+        ButtonType.TertiaryDanger,
+        ButtonType.GhostDanger -> theme.buttonDangerSecondary
+        else -> theme.iconOnColor
     }
 
     val iconActiveColor: Color = if (isIconButton) {
@@ -150,7 +146,7 @@ internal class ButtonColors private constructor(
         ButtonType.Primary,
         ButtonType.Secondary,
         ButtonType.PrimaryDanger -> theme.iconOnColorDisabled
-        else -> theme.iconDisabled // Issue in documentation for Ghost?
+        else -> theme.iconDisabled
     }
 
     override fun equals(other: Any?): Boolean {
