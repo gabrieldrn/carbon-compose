@@ -127,7 +127,7 @@ internal class ButtonColors private constructor(
     } else {
         when (buttonType) {
             ButtonType.Tertiary -> theme.iconInverse
-            ButtonType.Ghost -> theme.linkPrimary // ø
+            ButtonType.Ghost -> if (isIconButton) theme.iconPrimary else theme.linkPrimary
             else -> theme.iconOnColor
         }
     }
@@ -137,7 +137,7 @@ internal class ButtonColors private constructor(
     } else {
         when (buttonType) {
             ButtonType.Tertiary -> theme.iconInverse
-            ButtonType.Ghost -> theme.linkPrimaryHover
+            ButtonType.Ghost -> if (isIconButton) theme.iconPrimary else theme.linkPrimaryHover
             else -> theme.iconOnColor
         }
     }

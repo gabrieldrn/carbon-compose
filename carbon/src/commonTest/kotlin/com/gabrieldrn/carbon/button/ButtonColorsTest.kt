@@ -160,27 +160,20 @@ class ButtonColorsTest : BaseColorsTest() {
             )
 
             assertEquals(
-                expected = if (isIconButton) {
-                    theme.iconPrimary
-                } else {
-                    when (buttonType) {
-                        ButtonType.Tertiary -> theme.iconInverse
-                        ButtonType.Ghost -> theme.linkPrimary
-                        else -> theme.iconOnColor
-                    }
+                expected = when (buttonType) {
+                    ButtonType.Tertiary -> theme.iconInverse
+                    ButtonType.Ghost -> if (isIconButton) theme.iconPrimary else theme.linkPrimary
+                    else -> theme.iconOnColor
                 },
                 actual = colors.iconActiveColor
             )
 
             assertEquals(
-                expected = if (isIconButton) {
-                    theme.iconPrimary
-                } else {
-                    when (buttonType) {
-                        ButtonType.Tertiary -> theme.iconInverse
-                        ButtonType.Ghost -> theme.linkPrimaryHover
-                        else -> theme.iconOnColor
-                    }
+                expected = when (buttonType) {
+                    ButtonType.Tertiary -> theme.iconInverse
+                    ButtonType.Ghost ->
+                        if (isIconButton) theme.iconPrimary else theme.linkPrimaryHover
+                    else -> theme.iconOnColor
                 },
                 actual = colors.iconHoverColor
             )
