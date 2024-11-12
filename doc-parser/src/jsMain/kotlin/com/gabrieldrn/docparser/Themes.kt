@@ -32,9 +32,28 @@ val missingTokens = mapOf(
 
 fun entries(obj: dynamic) = js("Object.entries(obj)") as Array<dynamic>
 
+fun String.formatColor(): String {
+    fun formatHex(hex: String) = js("hex.toString(16).padStart(2, '0')") as String
+    return when {
+        startsWith("#") -> replace("#", "#FF")
+        startsWith("rgba") -> removePrefix("rgba(")
+            .removeSuffix(")")
+            .split(", ")
+            .let { (r, g, b, a) ->
+                "#" +
+                    formatHex((a.toFloat() * 255).toInt().toString(16)) +
+                    formatHex(r.toInt().toString(16)) +
+                    formatHex(g.toInt().toString(16)) +
+                    formatHex(b.toInt().toString(16))
+            }
+        else -> error("Unexpected color format")
+    }
+        .uppercase()
+}
+
 fun Map<String, String>.filterAndFormatTokens() =
     filter { (_, v) -> v.startsWith("#") || v.startsWith("rgba") }
-        .mapValues { (_, v) -> if (v.startsWith('#')) v.uppercase() else v }
+        .mapValues { (_, v) -> v.formatColor() }
 
 @Suppress("UNCHECKED_CAST")
 fun Map<String, Any>.formatToString(): String {
@@ -52,6 +71,7 @@ fun Map<String, Any>.formatToString(): String {
 }
 
 fun main() {
+    // Get color tokens for each theme and component and extract them as JSON.
     themes.forEach { themeName ->
         val themeObject = carbonThemes[themeName]
         val themeTokens = entries(themeObject)
