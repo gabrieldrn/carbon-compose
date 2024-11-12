@@ -20,6 +20,10 @@ package com.gabrieldrn.docparser
 @JsNonModule
 external val carbonThemes: dynamic
 
+@JsModule("fs")
+@JsNonModule
+external val fs: dynamic
+
 val themes = listOf("g10", "g90", "g100", "white")
 val components = listOf("buttonTokens", "tagTokens", "notificationTokens")
 
@@ -36,8 +40,7 @@ fun String.formatColor(): String {
     fun formatHex(hex: String) = js("hex.toString(16).padStart(2, '0')") as String
     return when {
         startsWith("#") -> replace("#", "#FF")
-        startsWith("rgba") -> removePrefix("rgba(")
-            .removeSuffix(")")
+        startsWith("rgba") -> removeSurrounding("rgba(", ")")
             .split(", ")
             .let { (r, g, b, a) ->
                 "#" +
@@ -65,13 +68,18 @@ fun Map<String, Any>.formatToString(): String {
             else -> error("Unexpected value type")
         }
 
-        "\"${it.key}\": $value"
+        "\"${it.key}\":$value"
     }
-        .joinToString(separator = ", ", prefix = "{ ", postfix = " }")
+        .joinToString(separator = ",", prefix = "{", postfix = "}")
 }
 
+/**
+ * Regroups every color token for each theme and component and extract them as JSON files.
+ *
+ * The JSON are written to the resources folder of the code-gen module to generate the theme classes
+ * implementations.
+ */
 fun main() {
-    // Get color tokens for each theme and component and extract them as JSON.
     themes.forEach { themeName ->
         val themeObject = carbonThemes[themeName]
         val themeTokens = entries(themeObject)
@@ -103,6 +111,13 @@ fun main() {
             .apply { putAll(components) }
             .formatToString()
 
-        println("Theme $themeName: $asJson")
+        fs.writeFile(
+            "../../../../code-gen/src/main/resources/$themeName.json",
+            asJson
+        ) { err: dynamic ->
+            if (err != null) console.error("Error writing file: $err")
+        }
+
+        console.log("Theme $themeName processed")
     }
 }
