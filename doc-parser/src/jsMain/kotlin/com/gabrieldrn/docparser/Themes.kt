@@ -31,7 +31,11 @@ val missingTokens = mapOf(
     "notificationActionHover" to mapOf(
         "g90" to "#474747",
         "g100" to "#333333",
-    )
+    ),
+//    "buttonDisabled" to mapOf(
+//        "g90" to "rgba(141, 141, 141, 0.30)",
+//        "g100" to "rgba(141, 141, 141, 0.30)"
+//    )
 )
 
 fun entries(obj: dynamic) = js("Object.entries(obj)") as Array<dynamic>
@@ -40,22 +44,40 @@ fun String.formatColor(): String {
     fun formatHex(hex: String) = js("hex.toString(16).padStart(2, '0')") as String
     return when {
         startsWith("#") -> replace("#", "#FF")
-        startsWith("rgba") -> removeSurrounding("rgba(", ")")
-            .split(", ")
-            .let { (r, g, b, a) ->
-                "#" +
-                    formatHex((a.toFloat() * 255).toInt().toString(16)) +
-                    formatHex(r.toInt().toString(16)) +
-                    formatHex(g.toInt().toString(16)) +
-                    formatHex(b.toInt().toString(16))
+        // rgb(141 141 141 / 30%)
+        startsWith("rgb(") -> removeSurrounding("rgb(", ")")
+            .split(" ")
+            .filterNot { it == "/" }
+            .map {
+                if (it.endsWith("%")) {
+                    (it.removeSuffix("%").toFloat() / 100 * 255).toInt()
+                } else {
+                    it.toInt()
+                }
+                    .toString(16)
+                    .let(::formatHex)
             }
+            .let { (r, g, b, a) -> "#$a$r$g$b" }
+
+        startsWith("rgba(") -> removeSurrounding("rgba(", ")")
+            .split(", ")
+            .map {
+                if (it.contains(".")) {
+                    (it.toFloat() * 255).toInt()
+                } else {
+                    it.toInt()
+                }
+                    .toString(16)
+                    .let(::formatHex)
+            }
+            .let { (r, g, b, a) -> "#$a$r$g$b" }
         else -> error("Unexpected color format")
     }
         .uppercase()
 }
 
 fun Map<String, String>.filterAndFormatTokens() =
-    filter { (_, v) -> v.startsWith("#") || v.startsWith("rgba") }
+    filter { (_, v) -> v.startsWith("#") || v.startsWith("rgba(") || v.startsWith("rgb(") }
         .mapValues { (_, v) -> v.formatColor() }
 
 @Suppress("UNCHECKED_CAST")
@@ -80,6 +102,9 @@ fun Map<String, Any>.formatToString(): String {
  * implementations.
  */
 fun main() {
+    println((carbonThemes.buttonTokens.buttonTokens.buttonDisabled.g90 as String).formatColor())
+
+
     themes.forEach { themeName ->
         val themeObject = carbonThemes[themeName]
         val themeTokens = entries(themeObject)
