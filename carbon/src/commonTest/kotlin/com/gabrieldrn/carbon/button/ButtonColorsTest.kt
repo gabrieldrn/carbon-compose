@@ -33,6 +33,9 @@ class ButtonColorsTest : BaseColorsTest() {
         ) { buttonType, isIconButton, _ ->
             val colors = ButtonColors.colors(buttonType = buttonType, isIconButton = isIconButton)
 
+//            val t = colors::containerColor
+//            assertColorForElement(colors::containerColor)
+
             assertEquals(
                 expected = when (buttonType) {
                     ButtonType.Primary -> theme.buttonPrimary
@@ -189,4 +192,10 @@ class ButtonColorsTest : BaseColorsTest() {
             )
         }
     }
+
+//    companion object {
+//        private val expectedResults = mapOf(
+//
+//        )
+//    }
 }
