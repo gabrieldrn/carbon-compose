@@ -25,7 +25,8 @@ external val carbonThemes: dynamic
 external val fs: dynamic
 
 val themes = listOf("g10", "g90", "g100", "white")
-val components = listOf("buttonTokens", "tagTokens", "notificationTokens")
+val componentsDeclarations = listOf("buttonTokens", "tagTokens", "notificationTokens")
+val aiComponents = listOf("ai", "chat")
 
 val missingTokens = mapOf(
     "notificationActionHover" to mapOf(
@@ -33,6 +34,11 @@ val missingTokens = mapOf(
         "g100" to "#333333",
     )
 )
+
+fun String.hasCamelCasePrefix(prefix: String) =
+    equals(prefix, ignoreCase = false) ||
+        substring(0, prefix.length) == prefix &&
+        get(prefix.length).isUpperCase()
 
 fun entries(obj: dynamic) = js("Object.entries(obj)") as Array<dynamic>
 
@@ -101,15 +107,36 @@ fun Map<String, Any>.formatToString(): String {
 fun main() {
     themes.forEach { themeName ->
         val themeObject = carbonThemes[themeName]
-        val themeTokens = entries(themeObject)
+        var themeTokens = entries(themeObject)
             .associate { it[0] as String to it[1] }
             .filter { (_, v) -> v is String }
             .filterAndFormatTokens()
 
+        // region Move AI tokens to sub-objects
+
+        val aiTokens = themeTokens.filterKeys {
+            aiComponents.any { component -> it.hasCamelCasePrefix(component) }
+        }
+
+        val aiComponents = aiComponents
+            .associateWith { component ->
+                aiTokens.filterKeys { it.hasCamelCasePrefix(component) }
+            }
+            .mapKeys { (k, _) -> k + "Colors" }
+
+        // Remove AI tokens from the core tokens
+        themeTokens = themeTokens.filter {
+            !aiTokens.keys.contains(it.key)
+        }
+
+        // endregion
+
+        // region Get regular components tokens
+
         // color reference in component for the white theme are mapped to "whiteTheme".
         val themeNameForComponents = if (themeName == "white") "whiteTheme" else themeName
 
-        val components = components
+        val components = componentsDeclarations
             .associateWith { component ->
                 entries(carbonThemes[component][component])
                     .associate { it[0] as String to it[1] }
@@ -127,9 +154,14 @@ fun main() {
             }
             .mapKeys { (k, _) -> k.replace("Tokens", "Colors") }
 
+        // endregion
+
         val asJson = themeTokens
             .toMutableMap<String, Any>()
-            .apply { putAll(components) }
+            .apply {
+                putAll(components)
+                putAll(aiComponents)
+            }
             .formatToString()
 
         fs.writeFile(
