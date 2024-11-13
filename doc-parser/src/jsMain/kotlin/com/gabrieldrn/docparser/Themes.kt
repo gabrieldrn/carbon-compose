@@ -31,11 +31,7 @@ val missingTokens = mapOf(
     "notificationActionHover" to mapOf(
         "g90" to "#474747",
         "g100" to "#333333",
-    ),
-//    "buttonDisabled" to mapOf(
-//        "g90" to "rgba(141, 141, 141, 0.30)",
-//        "g100" to "rgba(141, 141, 141, 0.30)"
-//    )
+    )
 )
 
 fun entries(obj: dynamic) = js("Object.entries(obj)") as Array<dynamic>
@@ -44,7 +40,7 @@ fun String.formatColor(): String {
     fun formatHex(hex: String) = js("hex.toString(16).padStart(2, '0')") as String
     return when {
         startsWith("#") -> replace("#", "#FF")
-        // rgb(141 141 141 / 30%)
+
         startsWith("rgb(") -> removeSurrounding("rgb(", ")")
             .split(" ")
             .filterNot { it == "/" }
@@ -71,6 +67,7 @@ fun String.formatColor(): String {
                     .let(::formatHex)
             }
             .let { (r, g, b, a) -> "#$a$r$g$b" }
+
         else -> error("Unexpected color format")
     }
         .uppercase()
@@ -102,9 +99,6 @@ fun Map<String, Any>.formatToString(): String {
  * implementations.
  */
 fun main() {
-    println((carbonThemes.buttonTokens.buttonTokens.buttonDisabled.g90 as String).formatColor())
-
-
     themes.forEach { themeName ->
         val themeObject = carbonThemes[themeName]
         val themeTokens = entries(themeObject)
@@ -115,21 +109,23 @@ fun main() {
         // color reference in component for the white theme are mapped to "whiteTheme".
         val themeNameForComponents = if (themeName == "white") "whiteTheme" else themeName
 
-        val components = components.associateWith { component ->
-            entries(carbonThemes[component][component])
-                .associate { it[0] as String to it[1] }
-                .mapValues { (k, v) ->
-                    val value = v[themeNameForComponents]
+        val components = components
+            .associateWith { component ->
+                entries(carbonThemes[component][component])
+                    .associate { it[0] as String to it[1] }
+                    .mapValues { (k, v) ->
+                        val value = v[themeNameForComponents]
 
-                    if (js("value === undefined") as Boolean) {
-                        missingTokens[k]?.get(themeName)
-                            ?: error("Missing token for $k in $themeName")
-                    } else {
-                        value as String
+                        if (js("value === undefined") as Boolean) {
+                            missingTokens[k]?.get(themeName)
+                                ?: error("Missing token for $k in $themeName")
+                        } else {
+                            value as String
+                        }
                     }
-                }
-                .filterAndFormatTokens()
-        }
+                    .filterAndFormatTokens()
+            }
+            .mapKeys { (k, _) -> k.replace("Tokens", "Colors") }
 
         val asJson = themeTokens
             .toMutableMap<String, Any>()
