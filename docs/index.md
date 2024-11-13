@@ -38,3 +38,50 @@ continues and new versions are released. The project is currently in its major v
 many components as those documented on the official Carbon Design System website, version `1.0.0` will be released. As the
 Carbon Design System continues to evolve under the guidance of IBM's design teams, this Compose Multiplatform adaptation
 will be updated accordingly over time.
+
+## Component Availability Matrix
+
+List of the currently supported components:
+
+| Components         | Android  🤖 | iOS   | Desktop  🖥️ | wasmJs 🌐 |
+|--------------------|:-----------:|:------:|:------------:|:---------:|
+| Accordion          |             |        |              |           |
+| AI label           |             |        |              |           |
+| Breadcrumb         |             |        |              |           |
+| Button             |      ✅      |   ✅    |      ✅       |     ✅     |
+| Checkbox           |      ✅      |   ✅    |      ✅       |     ✅     |
+| Code snippet       |             |        |              |           |
+| Contained list     |             |        |              |           |
+| Content switcher   |             |        |              |           |
+| Data table         |             |        |              |           |
+| Date picker        |             |        |              |           |
+| Dropdown           |      ✅      |   ✅    |      ✅       |     ✅     |
+| File uploader      |             |        |              |           |
+| Form               |             |        |              |           |
+| Inline loading     |             |        |              |           |
+| Link               |             |        |              |           |
+| List               |             |        |              |           |
+| Loading            |      ✅      |   ✅    |      ✅       |     ✅     |
+| Menu               |             |        |              |           |
+| Menu buttons       |             |        |              |           |
+| Modal              |             |        |              |           |
+| Multi-Select       |      ✅      |   ✅    |      ✅       |     ✅     |
+| Notification       |             |        |              |           |
+| Number input       |             |        |              |           |
+| Pagination         |             |        |              |           |
+| Popover            |             |        |              |           |
+| Progress bar       |      ✅      |   ✅    |      ✅       |     ✅     |
+| Progress indicator |             |        |              |           |
+| Radio button       |      ✅      |   ✅    |      ✅       |     ✅     |
+| Search             |             |        |              |           |
+| Select             |             |        |              |           |
+| Slider             |             |        |              |           |
+| Structured list    |             |        |              |           |
+| Tabs               |             |        |              |           |
+| Tags               |      ✅      |   ✅    |      ✅       |     ✅     |
+| Text input         |      ✅      |   ✅    |      ✅       |     ✅     |
+| Tile               |             |        |              |           |
+| Toggle             |      ✅      |   ✅    |      ✅       |     ✅     |
+| Toggletip          |             |        |              |           |
+| Treeview           |             |        |              |           |
+| UI shell           |             |        |              |           |
