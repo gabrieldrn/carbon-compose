@@ -19,21 +19,36 @@ package com.gabrieldrn.codegen.color
 import com.gabrieldrn.codegen.color.model.colortokens.ColorDefinition
 import com.gabrieldrn.codegen.color.model.colortokens.ColorToken
 import com.gabrieldrn.codegen.color.model.colortokens.ColorTokens
+import com.gabrieldrn.codegen.color.model.colortokens2.Theme
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
 import java.util.Locale
 import kotlin.reflect.full.memberProperties
 
-private const val COLOR_TOKENS_PATH = "/color-tokens.json"
+const val file_path_format = "/%s.json"
+
+private val themes = listOf(
+    "white",
+    "g10",
+    "g90",
+    "g100",
+)
 
 data class TokenProperty(val name: String, val desc: String, val color: String)
 
 @OptIn(ExperimentalSerializationApi::class)
-fun deserializeColorTokens(): ColorTokens =
-    object {}::class.java.getResourceAsStream(COLOR_TOKENS_PATH)
-        ?.use { stream -> Json.decodeFromStream<ColorTokens>(stream) }
-        ?: error("Could not load color-tokens.json")
+fun deserializeColorTokens(): Map<String, Theme> = themes.associateWith { theme ->
+    object {}::class.java
+        .getResourceAsStream(file_path_format.format(theme))
+        .use { stream ->
+            try {
+                Json.decodeFromStream<Theme>(stream)
+            } catch (e: Exception) {
+                error("Could not load theme $theme." + e.message)
+            }
+        }
+}
 
 /**
  * Transforms the color tokens into a map associating them to their respective themes.
