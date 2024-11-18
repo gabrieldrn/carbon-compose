@@ -54,6 +54,7 @@ private val generatedCodeMessage =
     """.trimIndent()
 
 private const val componentInterfaceKdoc = "Color tokens for the %s component."
+private const val componentImplementationKdoc = "Color tokens for the %s component in the %s theme."
 
 private val undocumentedPublicPropertyAnnotation =
     AnnotationSpec.builder(Suppress::class)
@@ -66,40 +67,50 @@ private fun String.capitalize() = replaceFirstChar {
 
 fun main() {
     // Load color tokens
-    val tokens: Map<String, Theme> = deserializeColorTokens()
+    val themes: Map<String, Theme> = deserializeColorTokens()
+        .mapKeys { (name, _) ->
+            if (name.startsWith('g')) name.replaceFirstChar { "gray" } else name
+        }
 
-    val componentsAbstractions = generateComponentsAbstractions()
+    val componentsNames = Theme::class.memberProperties
+        .filterNot { it.returnType.jvmErasure == String::class }
+        .map { it.name }
 
-    generateThemeAbstraction(componentsAbstractions)
+    val componentsAbstractions = generateComponentsAbstractions(componentsNames)
+
+    generateThemeAbstraction(componentsAbstractions.values.toList())
+
+    themes.forEach { (name, theme) ->
+        generateComponentsImplementations(name.capitalize(), theme, componentsAbstractions)
+    }
 }
 
-private fun generateComponentsAbstractions(): List<ClassName> {
+private fun generateComponentsAbstractions(components: List<String>): Map<String, ClassName> {
 
-    val componentsClassNames = mutableListOf<ClassName>()
+    val themeMembers = Theme::class.memberProperties.map { it.returnType.jvmErasure }
 
-    Theme::class.memberProperties
-        .filterNot { it.returnType.jvmErasure == String::class }
-        .map { it.returnType.jvmErasure }
-        .forEach { componentType ->
-            val componentName = componentType.simpleName!!
+    return components.associateWith { component ->
+        val componentType = themeMembers
+            .first { it.simpleName.equals(component, ignoreCase = true) }
 
-            val componentInterfaceName = ClassName(
-                "$PACKAGE_ROOT." +
-                    componentName
-                        .substringBefore("Colors")
-                        .replaceFirstChar { it.lowercase() },
+        val componentName = componentType.simpleName!!
+
+        val componentProperties = componentType.declaredMemberProperties
+            .filter { it.returnType.jvmErasure == String::class }
+            .map { token ->
+                PropertySpec.builder(token.name, Color::class)
+                    .addModifiers(KModifier.ABSTRACT)
+                    .build()
+            }
+
+        ClassName(
+            "$PACKAGE_ROOT." +
                 componentName
-            )
-
-            val componentProperties = componentType.declaredMemberProperties
-                .filter { it.returnType.jvmErasure == String::class }
-                .map { token ->
-                    PropertySpec.builder(token.name, Color::class)
-                        .addModifiers(KModifier.ABSTRACT)
-                        .build()
-                }
-
-            val componentInterfaceSpec = TypeSpec.interfaceBuilder(componentInterfaceName)
+                    .substringBefore("Colors")
+                    .replaceFirstChar { it.lowercase() },
+            componentName
+        ).apply {
+            val componentInterfaceSpec = TypeSpec.interfaceBuilder(this)
                 .addKdoc(
                     componentInterfaceKdoc.format(
                         componentName.substringBefore("Colors")
@@ -110,19 +121,16 @@ private fun generateComponentsAbstractions(): List<ClassName> {
                 .addProperties(componentProperties)
                 .build()
 
-            FileSpec.builder(componentInterfaceName)
+            FileSpec.builder(this)
                 .indent(codeIndent)
                 .addFileComment(generatedCodeMessage)
                 .addType(componentInterfaceSpec)
                 .build()
                 .writeTo(sourcePath)
 
-            componentsClassNames.add(componentInterfaceName)
-
-            println("${componentInterfaceName.simpleName} interface generated.")
+            println("$simpleName interface generated.")
         }
-
-    return componentsClassNames
+    }
 }
 
 private fun generateThemeAbstraction(componentsAbstractions: List<ClassName>) {
@@ -279,4 +287,72 @@ private fun generateThemeAbstraction(componentsAbstractions: List<ClassName>) {
         .writeTo(sourcePath)
 
     println("Theme interface generated.")
+}
+
+private fun generateComponentsImplementations(
+    themeName: String,
+    theme: Theme,
+    componentsAbstractions: Map<String, ClassName>
+): Map<String, ClassName> {
+
+    val implementations = mutableMapOf<String, ClassName>()
+
+    val componentsNames = componentsAbstractions.keys
+
+    Theme::class.memberProperties
+        .filter { it.name in componentsNames }
+        .forEach { component ->
+            val componentName = component.name
+            val componentType = component.returnType.jvmErasure
+            val componentTokensInstance = component.getter.call(theme)
+
+            val componentInterfaceName = ClassName(
+                "$PACKAGE_ROOT." +
+                    componentName
+                        .substringBefore("Colors")
+                        .replaceFirstChar { it.lowercase() },
+                themeName + componentName.capitalize()
+            )
+
+            val componentProperties = componentType.declaredMemberProperties
+                .filter { it.returnType.jvmErasure == String::class }
+                .map { token ->
+                    val color = token.getter.call(componentTokensInstance) as String
+                    PropertySpec.builder(token.name, Color::class)
+                        .addModifiers(KModifier.OVERRIDE)
+                        .initializer("Color(0x%s)".format(color.removePrefix("#")))
+                        .build()
+                }
+
+            val componentSpec = TypeSpec.classBuilder(componentInterfaceName)
+                .addKdoc(
+                    componentImplementationKdoc.format(
+                        componentName.removeSuffix("Colors").capitalize(),
+                        themeName
+                    )
+                )
+                .addSuperinterface(
+                    componentsAbstractions[componentName] ?: error("Component not found.")
+                )
+                .addModifiers(KModifier.PUBLIC)
+                .addAnnotation(Immutable::class)
+                .addAnnotation(undocumentedPublicPropertyAnnotation)
+                .addProperties(componentProperties)
+                .build()
+
+            println(componentSpec)
+
+            FileSpec.builder(componentInterfaceName.packageName, componentInterfaceName.simpleName)
+                .indent(codeIndent)
+                .addFileComment(generatedCodeMessage)
+                .addType(componentSpec)
+                .build()
+                .writeTo(sourcePath)
+
+            println("${componentInterfaceName.simpleName} implementation generated.")
+
+            implementations[componentName] = componentInterfaceName
+        }
+
+    return implementations
 }
