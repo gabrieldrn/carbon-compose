@@ -35,6 +35,35 @@ val missingTokens = mapOf(
     )
 )
 
+val adjustedTokens = mapOf(
+    "buttonPrimaryHover" to mapOf(
+        "white" to "#0353E9",
+        "g10" to "#0353E9",
+        "g90" to "#0353E9",
+        "g100" to "#0353E9"
+    ),
+    "buttonSecondaryHover" to mapOf(
+        "white" to "#4C4C4C",
+        "g10" to "#4C4C4C",
+        "g90" to "#606060",
+        "g100" to "#606060"
+    ),
+    "buttonTertiaryHover" to mapOf(
+        "white" to "#0353E9",
+        "g10" to "#0353E9"
+    ),
+    "buttonDangerHover" to mapOf(
+        "white" to "#BA1B23",
+        "g10" to "#BA1B23",
+        "g90" to "#BA1B23",
+        "g100" to "#BA1B23"
+    ),
+    "buttonDisabled" to mapOf(
+        "g90" to "#6F6F6F",
+        "g100" to "#525252"
+    )
+)
+
 fun String.hasCamelCasePrefix(prefix: String) =
     equals(prefix, ignoreCase = false) ||
         substring(0, prefix.length) == prefix &&
@@ -141,7 +170,7 @@ fun main() {
                 entries(carbonThemes[component][component])
                     .associate { it[0] as String to it[1] }
                     .mapValues { (k, v) ->
-                        val value = v[themeNameForComponents]
+                        val value = adjustedTokens[k]?.get(themeName) ?: v[themeNameForComponents]
 
                         if (js("value === undefined") as Boolean) {
                             missingTokens[k]?.get(themeName)
