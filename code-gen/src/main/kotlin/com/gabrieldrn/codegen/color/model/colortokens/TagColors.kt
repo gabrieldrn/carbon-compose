@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.gabrieldrn.codegen.color.model.colortokens2
+package com.gabrieldrn.codegen.color.model.colortokens
 
 import kotlinx.serialization.Serializable
 

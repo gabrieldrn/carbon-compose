@@ -24,7 +24,7 @@ import com.gabrieldrn.codegen.color.deserializeColorTokens
 import com.gabrieldrn.codegen.color.g100ThemeDoc
 import com.gabrieldrn.codegen.color.g10ThemeDoc
 import com.gabrieldrn.codegen.color.g90ThemeDoc
-import com.gabrieldrn.codegen.color.model.colortokens2.Theme
+import com.gabrieldrn.codegen.color.model.colortokens.Theme
 import com.gabrieldrn.codegen.color.whiteThemeDoc
 import com.squareup.kotlinpoet.AnnotationSpec
 import com.squareup.kotlinpoet.ClassName

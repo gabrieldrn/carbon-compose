@@ -19,13 +19,22 @@ package com.gabrieldrn.codegen.color.model.colortokens
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class BackgroundTokens(
-    val background: ColorDefinition,
-    val backgroundActive: ColorDefinition,
-    val backgroundBrand: ColorDefinition,
-    val backgroundHover: ColorDefinition,
-    val backgroundInverse: ColorDefinition,
-    val backgroundInverseHover: ColorDefinition,
-    val backgroundSelected: ColorDefinition,
-    val backgroundSelectedHover: ColorDefinition
+data class ChatColors(
+    val chatAvatarAgent: String,
+    val chatAvatarBot: String,
+    val chatAvatarUser: String,
+    val chatBubbleAgent: String,
+    val chatBubbleBorder: String,
+    val chatBubbleUser: String,
+    val chatButton: String,
+    val chatButtonActive: String,
+    val chatButtonHover: String,
+    val chatButtonSelected: String,
+    val chatButtonTextHover: String,
+    val chatButtonTextSelected: String,
+    val chatHeaderBackground: String,
+    val chatPromptBackground: String,
+    val chatPromptBorderEnd: String,
+    val chatPromptBorderStart: String,
+    val chatShellBackground: String
 )

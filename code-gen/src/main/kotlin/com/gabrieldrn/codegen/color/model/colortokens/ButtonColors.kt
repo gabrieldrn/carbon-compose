@@ -19,14 +19,20 @@ package com.gabrieldrn.codegen.color.model.colortokens
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class LayerAccentTokens(
-    val layerAccent01: ColorDefinition,
-    val layerAccent02: ColorDefinition,
-    val layerAccent03: ColorDefinition,
-    val layerAccentActive01: ColorDefinition,
-    val layerAccentActive02: ColorDefinition,
-    val layerAccentActive03: ColorDefinition,
-    val layerAccentHover01: ColorDefinition,
-    val layerAccentHover02: ColorDefinition,
-    val layerAccentHover03: ColorDefinition
+data class ButtonColors(
+    val buttonDangerActive: String,
+    val buttonDangerHover: String,
+    val buttonDangerPrimary: String,
+    val buttonDangerSecondary: String,
+    val buttonDisabled: String,
+    val buttonPrimary: String,
+    val buttonPrimaryActive: String,
+    val buttonPrimaryHover: String,
+    val buttonSecondary: String,
+    val buttonSecondaryActive: String,
+    val buttonSecondaryHover: String,
+    val buttonSeparator: String,
+    val buttonTertiary: String,
+    val buttonTertiaryActive: String,
+    val buttonTertiaryHover: String
 )

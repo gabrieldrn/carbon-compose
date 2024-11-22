@@ -16,7 +16,7 @@
 
 package com.gabrieldrn.codegen.color
 
-import com.gabrieldrn.codegen.color.model.colortokens2.Theme
+import com.gabrieldrn.codegen.color.model.colortokens.Theme
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
