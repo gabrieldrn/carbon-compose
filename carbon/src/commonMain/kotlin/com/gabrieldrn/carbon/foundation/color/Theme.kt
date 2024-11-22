@@ -6,6 +6,7 @@ package com.gabrieldrn.carbon.foundation.color
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
 import com.gabrieldrn.carbon.foundation.color.ai.AiColors
+import com.gabrieldrn.carbon.foundation.color.button.ButtonColors
 import com.gabrieldrn.carbon.foundation.color.chat.ChatColors
 import com.gabrieldrn.carbon.foundation.color.notification.NotificationColors
 import com.gabrieldrn.carbon.foundation.color.tag.TagColors
@@ -26,639 +27,219 @@ import kotlin.Suppress
  * information.
  */
 @Immutable
+@Suppress("UndocumentedPublicProperty")
 public abstract class Theme {
-    /**
-     * Default page background.
-     * UI Shell base color.
-     */
     public abstract val background: Color
 
-    /**
-     * Active color for [background].
-     */
     public abstract val backgroundActive: Color
 
-    /**
-     * Feature background color.
-     */
     public abstract val backgroundBrand: Color
 
-    /**
-     * Hover color for [background].
-     * Hover color for transparent backgrounds.
-     */
     public abstract val backgroundHover: Color
 
-    /**
-     * High contrast backgrounds.
-     * High contrast elements.
-     */
     public abstract val backgroundInverse: Color
 
-    /**
-     * Hover color for [backgroundInverse].
-     */
     public abstract val backgroundInverseHover: Color
 
-    /**
-     * Selected color for [background].
-     */
     public abstract val backgroundSelected: Color
 
-    /**
-     * Hover color for [backgroundSelected].
-     */
     public abstract val backgroundSelectedHover: Color
 
-    /**
-     * Disabled border color (excluding border-subtles).
-     */
     public abstract val borderDisabled: Color
 
-    /**
-     * 3:1 AA contrast.
-     * Selected borders.
-     * Active borders.
-     */
     public abstract val borderInteractive: Color
 
-    /**
-     * High contrast border.
-     * 4.5:1 AA non-text contrast.
-     */
     public abstract val borderInverse: Color
 
-    /**
-     * Medium contrast border.
-     * Border-bottom paired with [field01].
-     * 3:1 AA non-text contrast.
-     */
     public abstract val borderStrong01: Color
 
-    /**
-     * Medium contrast border.
-     * Border-bottom paired with [field02].
-     * 3:1 AA non-text contrast.
-     */
     public abstract val borderStrong02: Color
 
-    /**
-     * Medium contrast border.
-     * Border-bottom paired with [field03].
-     * 3:1 AA non-text contrast.
-     */
     public abstract val borderStrong03: Color
 
-    /**
-     * Subtle borders paired with [background].
-     */
     public abstract val borderSubtle00: Color
 
-    /**
-     * Subtle borders paired with [layer01].
-     */
     public abstract val borderSubtle01: Color
 
-    /**
-     * Subtle borders paired with [layer02].
-     */
     public abstract val borderSubtle02: Color
 
-    /**
-     * Subtle borders paired with [layer03].
-     */
     public abstract val borderSubtle03: Color
 
-    /**
-     * Selected color for [borderSubtle01].
-     */
     public abstract val borderSubtleSelected01: Color
 
-    /**
-     * Selected color for [borderSubtle02].
-     */
     public abstract val borderSubtleSelected02: Color
 
-    /**
-     * Selected color for [borderSubtle03].
-     */
     public abstract val borderSubtleSelected03: Color
 
-    /**
-     * Operable tile indicator paired with [layer01].
-     */
     public abstract val borderTile01: Color
 
-    /**
-     * Operable tile indicator paired with [layer02].
-     */
     public abstract val borderTile02: Color
 
-    /**
-     * Operable tile indicator paired with [layer03].
-     */
     public abstract val borderTile03: Color
 
-    /**
-     * Active color for [dangerPrimary].
-     * Active color for [dangerSecondary].
-     */
-    public abstract val buttonDangerActive: Color
-
-    /**
-     * Hover color for [dangerPrimary].
-     * Hover color for [dangerSecondary].
-     */
-    public abstract val buttonDangerHover: Color
-
-    /**
-     * Primary danger button color.
-     * 3:1 AA non-text contrast.
-     */
-    public abstract val buttonDangerPrimary: Color
-
-    /**
-     * Tertiary danger button color.
-     * Ghost danger button color.
-     * 4.5:1 AA text contrast.
-     */
-    public abstract val buttonDangerSecondary: Color
-
-    /**
-     * Disabled color for button elements.
-     */
-    public abstract val buttonDisabled: Color
-
-    /**
-     * Primary button color.
-     */
-    public abstract val buttonPrimary: Color
-
-    /**
-     * Active color for [buttonPrimary].
-     */
-    public abstract val buttonPrimaryActive: Color
-
-    /**
-     * Hover color for [buttonPrimary].
-     */
-    public abstract val buttonPrimaryHover: Color
-
-    /**
-     * Secondary button color.
-     */
-    public abstract val buttonSecondary: Color
-
-    /**
-     * Active color for [buttonSecondary].
-     */
-    public abstract val buttonSecondaryActive: Color
-
-    /**
-     * Hover color for [buttonSecondary].
-     */
-    public abstract val buttonSecondaryHover: Color
-
-    /**
-     * Fluid button separator.
-     * 3:1 AA non-text contrast.
-     */
-    public abstract val buttonSeparator: Color
-
-    /**
-     * Tertiary button color.
-     * 4.5:1 AA text contrast.
-     */
-    public abstract val buttonTertiary: Color
-
-    /**
-     * Active color for [buttonTertiary].
-     */
-    public abstract val buttonTertiaryActive: Color
-
-    /**
-     * Hover color for [buttonTertiary].
-     */
-    public abstract val buttonTertiaryHover: Color
-
-    /**
-     * Default input fields.
-     * Fields on [background].
-     */
     public abstract val field01: Color
 
-    /**
-     * Secondary input fields.
-     * Fields on [layer01].
-     */
     public abstract val field02: Color
 
-    /**
-     * Tertiary input fields.
-     * Fields on [layer02].
-     */
     public abstract val field03: Color
 
-    /**
-     * Hover color for [field01].
-     */
     public abstract val fieldHover01: Color
 
-    /**
-     * Hover color for [field02].
-     */
     public abstract val fieldHover02: Color
 
-    /**
-     * Hover color for [field03].
-     */
     public abstract val fieldHover03: Color
 
-    /**
-     * Focus border.
-     * Focus underline.
-     */
     public abstract val focus: Color
 
-    /**
-     * Contrast border paired with [focus].
-     */
     public abstract val focusInset: Color
 
-    /**
-     * Focus on high contrast moments.
-     */
     public abstract val focusInverse: Color
 
-    /**
-     * Disabled icon color.
-     */
-    public abstract val iconDisabled: Color
-
-    /**
-     * Icons that indicate operability.
-     */
-    public abstract val iconInteractive: Color
-
-    /**
-     * Inverse icon color.
-     */
-    public abstract val iconInverse: Color
-
-    /**
-     * Icons on interactive colors.
-     * Icons on non-layer colors.
-     */
-    public abstract val iconOnColor: Color
-
-    /**
-     * Disabled color for [iconOnColor].
-     */
-    public abstract val iconOnColorDisabled: Color
-
-    /**
-     * Primary icons.
-     */
-    public abstract val iconPrimary: Color
-
-    /**
-     * Secondary icons.
-     */
-    public abstract val iconSecondary: Color
-
-    /**
-     * Tertiary background paired with [layer01].
-     */
-    public abstract val layerAccent01: Color
-
-    /**
-     * Tertiary background paired with [layer02].
-     */
-    public abstract val layerAccent02: Color
-
-    /**
-     * Tertiary background paired with [layer03].
-     */
-    public abstract val layerAccent03: Color
-
-    /**
-     * Active color for [layerAccent01].
-     */
-    public abstract val layerAccentActive01: Color
-
-    /**
-     * Active color for [layerAccent02].
-     */
-    public abstract val layerAccentActive02: Color
-
-    /**
-     * Active color for [layerAccent03].
-     */
-    public abstract val layerAccentActive03: Color
-
-    /**
-     * Hover color for [layerAccent01].
-     */
-    public abstract val layerAccentHover01: Color
-
-    /**
-     * Hover color for [layerAccent02].
-     */
-    public abstract val layerAccentHover02: Color
-
-    /**
-     * Hover color for [layerAccent03].
-     */
-    public abstract val layerAccentHover03: Color
-
-    /**
-     * Container color on [background].
-     * Secondary page background.
-     */
-    public abstract val layer01: Color
-
-    /**
-     * Container color on [layer01].
-     */
-    public abstract val layer02: Color
-
-    /**
-     * Container color on [layer02].
-     */
-    public abstract val layer03: Color
-
-    /**
-     * Active color for [layer01].
-     */
-    public abstract val layerActive01: Color
-
-    /**
-     * Active color for [layer02].
-     */
-    public abstract val layerActive02: Color
-
-    /**
-     * Active color for [layer03].
-     */
-    public abstract val layerActive03: Color
-
-    /**
-     * Hover color for [layer01].
-     */
-    public abstract val layerHover01: Color
-
-    /**
-     * Hover color for [layer02].
-     */
-    public abstract val layerHover02: Color
-
-    /**
-     * Hover color for [layer03].
-     */
-    public abstract val layerHover03: Color
-
-    /**
-     * Selected color for [layer01].
-     */
-    public abstract val layerSelected01: Color
-
-    /**
-     * Selected color for [layer02].
-     */
-    public abstract val layerSelected02: Color
-
-    /**
-     * Selected color for [layer03].
-     */
-    public abstract val layerSelected03: Color
-
-    /**
-     * Disabled color for selected layers.
-     */
-    public abstract val layerSelectedDisabled: Color
-
-    /**
-     * Hover color for [layerSelected01].
-     */
-    public abstract val layerSelectedHover01: Color
-
-    /**
-     * Hover color for [layerSelected02].
-     */
-    public abstract val layerSelectedHover02: Color
-
-    /**
-     * Hover color for [layerSelected03].
-     */
-    public abstract val layerSelectedHover03: Color
-
-    /**
-     * High contrast elements.
-     * 4.5:1 AA element contrast.
-     */
-    public abstract val layerSelectedInverse: Color
-
-    /**
-     * Links on [backgroundInverse] backgrounds.
-     */
-    public abstract val linkInverse: Color
-
-    /**
-     * Active color for links on [backgroundInverse] backgrounds.
-     */
-    public abstract val linkInverseActive: Color
-
-    /**
-     * Hover color for links on [backgroundInverse] backgrounds.
-     */
-    public abstract val linkInverseHover: Color
-
-    /**
-     * Color for visited links on [backgroundInverse] backgrounds.
-     */
-    public abstract val linkInverseVisited: Color
-
-    /**
-     * Primary links.
-     */
-    public abstract val linkPrimary: Color
-
-    /**
-     * Hover color for [linkPrimary].
-     */
-    public abstract val linkPrimaryHover: Color
-
-    /**
-     * Secondary link color for lower contrast backgrounds.
-     */
-    public abstract val linkSecondary: Color
-
-    /**
-     * Color for visited links.
-     */
-    public abstract val linkVisited: Color
-
-    /**
-     * Highlight color.
-     */
     public abstract val highlight: Color
 
-    /**
-     * 3:1 AA contrast.
-     * Selected elements.
-     * Active elements.
-     * Accent icons.
-     */
+    public abstract val iconDisabled: Color
+
+    public abstract val iconInteractive: Color
+
+    public abstract val iconInverse: Color
+
+    public abstract val iconOnColor: Color
+
+    public abstract val iconOnColorDisabled: Color
+
+    public abstract val iconPrimary: Color
+
+    public abstract val iconSecondary: Color
+
     public abstract val interactive: Color
 
-    /**
-     * Background overlay.
-     */
+    public abstract val layer01: Color
+
+    public abstract val layer02: Color
+
+    public abstract val layer03: Color
+
+    public abstract val layerAccent01: Color
+
+    public abstract val layerAccent02: Color
+
+    public abstract val layerAccent03: Color
+
+    public abstract val layerAccentActive01: Color
+
+    public abstract val layerAccentActive02: Color
+
+    public abstract val layerAccentActive03: Color
+
+    public abstract val layerAccentHover01: Color
+
+    public abstract val layerAccentHover02: Color
+
+    public abstract val layerAccentHover03: Color
+
+    public abstract val layerActive01: Color
+
+    public abstract val layerActive02: Color
+
+    public abstract val layerActive03: Color
+
+    public abstract val layerHover01: Color
+
+    public abstract val layerHover02: Color
+
+    public abstract val layerHover03: Color
+
+    public abstract val layerSelected01: Color
+
+    public abstract val layerSelected02: Color
+
+    public abstract val layerSelected03: Color
+
+    public abstract val layerSelectedDisabled: Color
+
+    public abstract val layerSelectedHover01: Color
+
+    public abstract val layerSelectedHover02: Color
+
+    public abstract val layerSelectedHover03: Color
+
+    public abstract val layerSelectedInverse: Color
+
+    public abstract val linkInverse: Color
+
+    public abstract val linkInverseActive: Color
+
+    public abstract val linkInverseHover: Color
+
+    public abstract val linkInverseVisited: Color
+
+    public abstract val linkPrimary: Color
+
+    public abstract val linkPrimaryHover: Color
+
+    public abstract val linkSecondary: Color
+
+    public abstract val linkVisited: Color
+
     public abstract val overlay: Color
 
-    /**
-     * Skeleton color for containers.
-     */
+    public abstract val shadow: Color
+
     public abstract val skeletonBackground: Color
 
-    /**
-     * Skeleton color for text and UI elements.
-     */
     public abstract val skeletonElement: Color
 
-    /**
-     * Off background.
-     * 3:1 AA contrast.
-     */
-    public abstract val toggleOff: Color
-
-    /**
-     * Major caution status.
-     */
     public abstract val supportCautionMajor: Color
 
-    /**
-     * Minor caution status.
-     */
     public abstract val supportCautionMinor: Color
 
-    /**
-     * Undefined status.
-     */
     public abstract val supportCautionUndefined: Color
 
-    /**
-     * Error.
-     * Invalid state.
-     */
     public abstract val supportError: Color
 
-    /**
-     * Error in high contrast moments.
-     */
     public abstract val supportErrorInverse: Color
 
-    /**
-     * Information.
-     */
     public abstract val supportInfo: Color
 
-    /**
-     * Information in high contrast moments.
-     */
     public abstract val supportInfoInverse: Color
 
-    /**
-     * Success.
-     * On.
-     */
     public abstract val supportSuccess: Color
 
-    /**
-     * Success in high contrast moments.
-     */
     public abstract val supportSuccessInverse: Color
 
-    /**
-     * Warning.
-     */
     public abstract val supportWarning: Color
 
-    /**
-     * Warning in high contrast moments.
-     */
     public abstract val supportWarningInverse: Color
 
-    /**
-     * Disabled text color.
-     */
     public abstract val textDisabled: Color
 
-    /**
-     * Error message text.
-     */
     public abstract val textError: Color
 
-    /**
-     * Tertiary text.
-     * Help text.
-     */
     public abstract val textHelper: Color
 
-    /**
-     * Inverse text color.
-     */
     public abstract val textInverse: Color
 
-    /**
-     * Text on interactive colors.
-     * Text on button colors.
-     */
     public abstract val textOnColor: Color
 
-    /**
-     * Disabled color for [textOnColor].
-     */
     public abstract val textOnColorDisabled: Color
 
-    /**
-     * Placeholder text.
-     */
     public abstract val textPlaceholder: Color
 
-    /**
-     * Primary text.
-     * Body copy.
-     * Headers.
-     * Hover text color for [textSecondary].
-     */
     public abstract val textPrimary: Color
 
-    /**
-     * Secondary text.
-     * Input labels.
-     */
     public abstract val textSecondary: Color
 
-    /**
-     * Color tokens for the Ai component.
-     */
+    public abstract val toggleOff: Color
+
     public abstract val aiColors: AiColors
 
-    /**
-     * Color tokens for the Tag component.
-     */
-    public abstract val tagColors: TagColors
+    public abstract val buttonColors: ButtonColors
 
-    /**
-     * Color tokens for the Chat component.
-     */
     public abstract val chatColors: ChatColors
 
-    /**
-     * Color tokens for the Notification component.
-     */
     public abstract val notificationColors: NotificationColors
+
+    public abstract val tagColors: TagColors
 
     /**
      * Returns the container color based on a provided [layer].
@@ -698,21 +279,6 @@ public abstract class Theme {
         borderTile01: Color = this.borderTile01,
         borderTile02: Color = this.borderTile02,
         borderTile03: Color = this.borderTile03,
-        buttonDangerActive: Color = this.buttonDangerActive,
-        buttonDangerHover: Color = this.buttonDangerHover,
-        buttonDangerPrimary: Color = this.buttonDangerPrimary,
-        buttonDangerSecondary: Color = this.buttonDangerSecondary,
-        buttonDisabled: Color = this.buttonDisabled,
-        buttonPrimary: Color = this.buttonPrimary,
-        buttonPrimaryActive: Color = this.buttonPrimaryActive,
-        buttonPrimaryHover: Color = this.buttonPrimaryHover,
-        buttonSecondary: Color = this.buttonSecondary,
-        buttonSecondaryActive: Color = this.buttonSecondaryActive,
-        buttonSecondaryHover: Color = this.buttonSecondaryHover,
-        buttonSeparator: Color = this.buttonSeparator,
-        buttonTertiary: Color = this.buttonTertiary,
-        buttonTertiaryActive: Color = this.buttonTertiaryActive,
-        buttonTertiaryHover: Color = this.buttonTertiaryHover,
         field01: Color = this.field01,
         field02: Color = this.field02,
         field03: Color = this.field03,
@@ -722,6 +288,7 @@ public abstract class Theme {
         focus: Color = this.focus,
         focusInset: Color = this.focusInset,
         focusInverse: Color = this.focusInverse,
+        highlight: Color = this.highlight,
         iconDisabled: Color = this.iconDisabled,
         iconInteractive: Color = this.iconInteractive,
         iconInverse: Color = this.iconInverse,
@@ -729,6 +296,10 @@ public abstract class Theme {
         iconOnColorDisabled: Color = this.iconOnColorDisabled,
         iconPrimary: Color = this.iconPrimary,
         iconSecondary: Color = this.iconSecondary,
+        interactive: Color = this.interactive,
+        layer01: Color = this.layer01,
+        layer02: Color = this.layer02,
+        layer03: Color = this.layer03,
         layerAccent01: Color = this.layerAccent01,
         layerAccent02: Color = this.layerAccent02,
         layerAccent03: Color = this.layerAccent03,
@@ -738,9 +309,6 @@ public abstract class Theme {
         layerAccentHover01: Color = this.layerAccentHover01,
         layerAccentHover02: Color = this.layerAccentHover02,
         layerAccentHover03: Color = this.layerAccentHover03,
-        layer01: Color = this.layer01,
-        layer02: Color = this.layer02,
-        layer03: Color = this.layer03,
         layerActive01: Color = this.layerActive01,
         layerActive02: Color = this.layerActive02,
         layerActive03: Color = this.layerActive03,
@@ -763,12 +331,10 @@ public abstract class Theme {
         linkPrimaryHover: Color = this.linkPrimaryHover,
         linkSecondary: Color = this.linkSecondary,
         linkVisited: Color = this.linkVisited,
-        highlight: Color = this.highlight,
-        interactive: Color = this.interactive,
         overlay: Color = this.overlay,
+        shadow: Color = this.shadow,
         skeletonBackground: Color = this.skeletonBackground,
         skeletonElement: Color = this.skeletonElement,
-        toggleOff: Color = this.toggleOff,
         supportCautionMajor: Color = this.supportCautionMajor,
         supportCautionMinor: Color = this.supportCautionMinor,
         supportCautionUndefined: Color = this.supportCautionUndefined,
@@ -789,10 +355,12 @@ public abstract class Theme {
         textPlaceholder: Color = this.textPlaceholder,
         textPrimary: Color = this.textPrimary,
         textSecondary: Color = this.textSecondary,
+        toggleOff: Color = this.toggleOff,
         aiColors: AiColors = this.aiColors,
-        tagColors: TagColors = this.tagColors,
+        buttonColors: ButtonColors = this.buttonColors,
         chatColors: ChatColors = this.chatColors,
         notificationColors: NotificationColors = this.notificationColors,
+        tagColors: TagColors = this.tagColors,
     ): Theme = object : Theme() {
         override val background: Color = background
 
@@ -842,36 +410,6 @@ public abstract class Theme {
 
         override val borderTile03: Color = borderTile03
 
-        override val buttonDangerActive: Color = buttonDangerActive
-
-        override val buttonDangerHover: Color = buttonDangerHover
-
-        override val buttonDangerPrimary: Color = buttonDangerPrimary
-
-        override val buttonDangerSecondary: Color = buttonDangerSecondary
-
-        override val buttonDisabled: Color = buttonDisabled
-
-        override val buttonPrimary: Color = buttonPrimary
-
-        override val buttonPrimaryActive: Color = buttonPrimaryActive
-
-        override val buttonPrimaryHover: Color = buttonPrimaryHover
-
-        override val buttonSecondary: Color = buttonSecondary
-
-        override val buttonSecondaryActive: Color = buttonSecondaryActive
-
-        override val buttonSecondaryHover: Color = buttonSecondaryHover
-
-        override val buttonSeparator: Color = buttonSeparator
-
-        override val buttonTertiary: Color = buttonTertiary
-
-        override val buttonTertiaryActive: Color = buttonTertiaryActive
-
-        override val buttonTertiaryHover: Color = buttonTertiaryHover
-
         override val field01: Color = field01
 
         override val field02: Color = field02
@@ -890,6 +428,8 @@ public abstract class Theme {
 
         override val focusInverse: Color = focusInverse
 
+        override val highlight: Color = highlight
+
         override val iconDisabled: Color = iconDisabled
 
         override val iconInteractive: Color = iconInteractive
@@ -903,6 +443,14 @@ public abstract class Theme {
         override val iconPrimary: Color = iconPrimary
 
         override val iconSecondary: Color = iconSecondary
+
+        override val interactive: Color = interactive
+
+        override val layer01: Color = layer01
+
+        override val layer02: Color = layer02
+
+        override val layer03: Color = layer03
 
         override val layerAccent01: Color = layerAccent01
 
@@ -921,12 +469,6 @@ public abstract class Theme {
         override val layerAccentHover02: Color = layerAccentHover02
 
         override val layerAccentHover03: Color = layerAccentHover03
-
-        override val layer01: Color = layer01
-
-        override val layer02: Color = layer02
-
-        override val layer03: Color = layer03
 
         override val layerActive01: Color = layerActive01
 
@@ -972,17 +514,13 @@ public abstract class Theme {
 
         override val linkVisited: Color = linkVisited
 
-        override val highlight: Color = highlight
-
-        override val interactive: Color = interactive
-
         override val overlay: Color = overlay
+
+        override val shadow: Color = shadow
 
         override val skeletonBackground: Color = skeletonBackground
 
         override val skeletonElement: Color = skeletonElement
-
-        override val toggleOff: Color = toggleOff
 
         override val supportCautionMajor: Color = supportCautionMajor
 
@@ -1024,13 +562,17 @@ public abstract class Theme {
 
         override val textSecondary: Color = textSecondary
 
+        override val toggleOff: Color = toggleOff
+
         override val aiColors: AiColors = aiColors
 
-        override val tagColors: TagColors = tagColors
+        override val buttonColors: ButtonColors = buttonColors
 
         override val chatColors: ChatColors = chatColors
 
         override val notificationColors: NotificationColors = notificationColors
+
+        override val tagColors: TagColors = tagColors
     }
 
     @Suppress(
@@ -1065,21 +607,6 @@ public abstract class Theme {
         if (borderTile01 != other.borderTile01) return false
         if (borderTile02 != other.borderTile02) return false
         if (borderTile03 != other.borderTile03) return false
-        if (buttonDangerActive != other.buttonDangerActive) return false
-        if (buttonDangerHover != other.buttonDangerHover) return false
-        if (buttonDangerPrimary != other.buttonDangerPrimary) return false
-        if (buttonDangerSecondary != other.buttonDangerSecondary) return false
-        if (buttonDisabled != other.buttonDisabled) return false
-        if (buttonPrimary != other.buttonPrimary) return false
-        if (buttonPrimaryActive != other.buttonPrimaryActive) return false
-        if (buttonPrimaryHover != other.buttonPrimaryHover) return false
-        if (buttonSecondary != other.buttonSecondary) return false
-        if (buttonSecondaryActive != other.buttonSecondaryActive) return false
-        if (buttonSecondaryHover != other.buttonSecondaryHover) return false
-        if (buttonSeparator != other.buttonSeparator) return false
-        if (buttonTertiary != other.buttonTertiary) return false
-        if (buttonTertiaryActive != other.buttonTertiaryActive) return false
-        if (buttonTertiaryHover != other.buttonTertiaryHover) return false
         if (field01 != other.field01) return false
         if (field02 != other.field02) return false
         if (field03 != other.field03) return false
@@ -1089,6 +616,7 @@ public abstract class Theme {
         if (focus != other.focus) return false
         if (focusInset != other.focusInset) return false
         if (focusInverse != other.focusInverse) return false
+        if (highlight != other.highlight) return false
         if (iconDisabled != other.iconDisabled) return false
         if (iconInteractive != other.iconInteractive) return false
         if (iconInverse != other.iconInverse) return false
@@ -1096,6 +624,10 @@ public abstract class Theme {
         if (iconOnColorDisabled != other.iconOnColorDisabled) return false
         if (iconPrimary != other.iconPrimary) return false
         if (iconSecondary != other.iconSecondary) return false
+        if (interactive != other.interactive) return false
+        if (layer01 != other.layer01) return false
+        if (layer02 != other.layer02) return false
+        if (layer03 != other.layer03) return false
         if (layerAccent01 != other.layerAccent01) return false
         if (layerAccent02 != other.layerAccent02) return false
         if (layerAccent03 != other.layerAccent03) return false
@@ -1105,9 +637,6 @@ public abstract class Theme {
         if (layerAccentHover01 != other.layerAccentHover01) return false
         if (layerAccentHover02 != other.layerAccentHover02) return false
         if (layerAccentHover03 != other.layerAccentHover03) return false
-        if (layer01 != other.layer01) return false
-        if (layer02 != other.layer02) return false
-        if (layer03 != other.layer03) return false
         if (layerActive01 != other.layerActive01) return false
         if (layerActive02 != other.layerActive02) return false
         if (layerActive03 != other.layerActive03) return false
@@ -1130,12 +659,10 @@ public abstract class Theme {
         if (linkPrimaryHover != other.linkPrimaryHover) return false
         if (linkSecondary != other.linkSecondary) return false
         if (linkVisited != other.linkVisited) return false
-        if (highlight != other.highlight) return false
-        if (interactive != other.interactive) return false
         if (overlay != other.overlay) return false
+        if (shadow != other.shadow) return false
         if (skeletonBackground != other.skeletonBackground) return false
         if (skeletonElement != other.skeletonElement) return false
-        if (toggleOff != other.toggleOff) return false
         if (supportCautionMajor != other.supportCautionMajor) return false
         if (supportCautionMinor != other.supportCautionMinor) return false
         if (supportCautionUndefined != other.supportCautionUndefined) return false
@@ -1156,10 +683,12 @@ public abstract class Theme {
         if (textPlaceholder != other.textPlaceholder) return false
         if (textPrimary != other.textPrimary) return false
         if (textSecondary != other.textSecondary) return false
+        if (toggleOff != other.toggleOff) return false
         if (aiColors != other.aiColors) return false
-        if (tagColors != other.tagColors) return false
+        if (buttonColors != other.buttonColors) return false
         if (chatColors != other.chatColors) return false
         if (notificationColors != other.notificationColors) return false
+        if (tagColors != other.tagColors) return false
         return true
     }
 
@@ -1189,21 +718,6 @@ public abstract class Theme {
         result = 31 * result + borderTile01.hashCode()
         result = 31 * result + borderTile02.hashCode()
         result = 31 * result + borderTile03.hashCode()
-        result = 31 * result + buttonDangerActive.hashCode()
-        result = 31 * result + buttonDangerHover.hashCode()
-        result = 31 * result + buttonDangerPrimary.hashCode()
-        result = 31 * result + buttonDangerSecondary.hashCode()
-        result = 31 * result + buttonDisabled.hashCode()
-        result = 31 * result + buttonPrimary.hashCode()
-        result = 31 * result + buttonPrimaryActive.hashCode()
-        result = 31 * result + buttonPrimaryHover.hashCode()
-        result = 31 * result + buttonSecondary.hashCode()
-        result = 31 * result + buttonSecondaryActive.hashCode()
-        result = 31 * result + buttonSecondaryHover.hashCode()
-        result = 31 * result + buttonSeparator.hashCode()
-        result = 31 * result + buttonTertiary.hashCode()
-        result = 31 * result + buttonTertiaryActive.hashCode()
-        result = 31 * result + buttonTertiaryHover.hashCode()
         result = 31 * result + field01.hashCode()
         result = 31 * result + field02.hashCode()
         result = 31 * result + field03.hashCode()
@@ -1213,6 +727,7 @@ public abstract class Theme {
         result = 31 * result + focus.hashCode()
         result = 31 * result + focusInset.hashCode()
         result = 31 * result + focusInverse.hashCode()
+        result = 31 * result + highlight.hashCode()
         result = 31 * result + iconDisabled.hashCode()
         result = 31 * result + iconInteractive.hashCode()
         result = 31 * result + iconInverse.hashCode()
@@ -1220,6 +735,10 @@ public abstract class Theme {
         result = 31 * result + iconOnColorDisabled.hashCode()
         result = 31 * result + iconPrimary.hashCode()
         result = 31 * result + iconSecondary.hashCode()
+        result = 31 * result + interactive.hashCode()
+        result = 31 * result + layer01.hashCode()
+        result = 31 * result + layer02.hashCode()
+        result = 31 * result + layer03.hashCode()
         result = 31 * result + layerAccent01.hashCode()
         result = 31 * result + layerAccent02.hashCode()
         result = 31 * result + layerAccent03.hashCode()
@@ -1229,9 +748,6 @@ public abstract class Theme {
         result = 31 * result + layerAccentHover01.hashCode()
         result = 31 * result + layerAccentHover02.hashCode()
         result = 31 * result + layerAccentHover03.hashCode()
-        result = 31 * result + layer01.hashCode()
-        result = 31 * result + layer02.hashCode()
-        result = 31 * result + layer03.hashCode()
         result = 31 * result + layerActive01.hashCode()
         result = 31 * result + layerActive02.hashCode()
         result = 31 * result + layerActive03.hashCode()
@@ -1254,12 +770,10 @@ public abstract class Theme {
         result = 31 * result + linkPrimaryHover.hashCode()
         result = 31 * result + linkSecondary.hashCode()
         result = 31 * result + linkVisited.hashCode()
-        result = 31 * result + highlight.hashCode()
-        result = 31 * result + interactive.hashCode()
         result = 31 * result + overlay.hashCode()
+        result = 31 * result + shadow.hashCode()
         result = 31 * result + skeletonBackground.hashCode()
         result = 31 * result + skeletonElement.hashCode()
-        result = 31 * result + toggleOff.hashCode()
         result = 31 * result + supportCautionMajor.hashCode()
         result = 31 * result + supportCautionMinor.hashCode()
         result = 31 * result + supportCautionUndefined.hashCode()
@@ -1280,10 +794,12 @@ public abstract class Theme {
         result = 31 * result + textPlaceholder.hashCode()
         result = 31 * result + textPrimary.hashCode()
         result = 31 * result + textSecondary.hashCode()
+        result = 31 * result + toggleOff.hashCode()
         result = 31 * result + aiColors.hashCode()
-        result = 31 * result + tagColors.hashCode()
+        result = 31 * result + buttonColors.hashCode()
         result = 31 * result + chatColors.hashCode()
         result = 31 * result + notificationColors.hashCode()
+        result = 31 * result + tagColors.hashCode()
         return result
     }
 }

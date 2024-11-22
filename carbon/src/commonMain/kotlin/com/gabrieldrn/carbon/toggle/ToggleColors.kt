@@ -43,7 +43,7 @@ internal data class ToggleColors private constructor(
     ): State<Color> =
         rememberUpdatedState(
             newValue = when {
-                !isEnabled -> theme.buttonDisabled
+                !isEnabled -> theme.buttonColors.buttonDisabled
                 isReadOnly -> Color.Transparent
                 isToggled -> theme.supportSuccess
                 else -> theme.toggleOff
@@ -89,7 +89,7 @@ internal data class ToggleColors private constructor(
         rememberUpdatedState(
             newValue = when {
                 !isToggled || isReadOnly -> Color.Transparent
-                !isEnabled -> theme.buttonDisabled
+                !isEnabled -> theme.buttonColors.buttonDisabled
                 else -> theme.supportSuccess
             }
         )
