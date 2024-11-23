@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package com.gabrieldrn.codegen.color.model.colortokens
+package com.gabrieldrn.themesmodel.model
 
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class AiColors(
+public data class AiColors(
     val aiAuraEnd: String,
     val aiAuraHoverBackground: String,
     val aiAuraHoverEnd: String,

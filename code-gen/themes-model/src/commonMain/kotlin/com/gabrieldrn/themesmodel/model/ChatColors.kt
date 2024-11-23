@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package com.gabrieldrn.codegen.color.model.colortokens
+package com.gabrieldrn.themesmodel.model
 
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ChatColors(
+public data class ChatColors(
     val chatAvatarAgent: String,
     val chatAvatarBot: String,
     val chatAvatarUser: String,

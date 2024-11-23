@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package com.gabrieldrn.codegen.color.model.colortokens
+package com.gabrieldrn.themesmodel.model
 
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Theme(
+public data class Theme(
     val aiColors: AiColors,
     val background: String,
     val backgroundActive: String,

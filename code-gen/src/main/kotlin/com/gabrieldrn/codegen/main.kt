@@ -18,14 +18,14 @@ package com.gabrieldrn.codegen
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
-import com.gabrieldrn.codegen.color.abstractThemeDoc
-import com.gabrieldrn.codegen.color.containerColorMemberDoc
-import com.gabrieldrn.codegen.color.deserializeColorTokens
-import com.gabrieldrn.codegen.color.g100ThemeDoc
-import com.gabrieldrn.codegen.color.g10ThemeDoc
-import com.gabrieldrn.codegen.color.g90ThemeDoc
-import com.gabrieldrn.codegen.color.model.colortokens.Theme
-import com.gabrieldrn.codegen.color.whiteThemeDoc
+import com.gabrieldrn.themesmodel.abstractThemeDoc
+import com.gabrieldrn.themesmodel.containerColorMemberDoc
+import com.gabrieldrn.themesmodel.g100ThemeDoc
+import com.gabrieldrn.themesmodel.g10ThemeDoc
+import com.gabrieldrn.themesmodel.g90ThemeDoc
+import com.gabrieldrn.themesmodel.whiteThemeDoc
+import com.gabrieldrn.themesmodel.deserializeColorTokens
+import com.gabrieldrn.themesmodel.model.Theme
 import com.squareup.kotlinpoet.AnnotationSpec
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.FileSpec

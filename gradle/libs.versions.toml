@@ -18,6 +18,7 @@ kotlinxSerializationJson = "1.7.3"
 
 # Community libraries
 kotlinPoet = "1.18.0"
+okio = "3.9.1"
 publish-plugin = "0.28.0"
 detekt = "1.23.7"
 dokka = "1.9.20"
@@ -43,6 +44,7 @@ kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version
 kotlinx-coroutines-swing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "kotlinxSerializationJson" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 kotlinPoet = { module = "com.squareup:kotlinpoet", version.ref = "kotlinPoet" }
+okio = { module = "com.squareup.okio:okio", version.ref = "okio" }
 timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
 touchlab-kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
 koin = { module = "io.insert-koin:koin-core", version.ref = "koin" }

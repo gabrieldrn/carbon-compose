@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package com.gabrieldrn.codegen.color
+package com.gabrieldrn.themesmodel
 
-import com.gabrieldrn.codegen.color.model.colortokens.Theme
-import kotlinx.serialization.ExperimentalSerializationApi
+import com.gabrieldrn.themesmodel.model.Theme
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.decodeFromStream
+import okio.FileSystem
+import okio.Path.Companion.toPath
 
-const val file_path_format = "/%s.json"
+private const val file_path_format = "code-gen/themes-model/src/commonMain/resources/%s.json"
 
 private val themes = listOf(
     "white",
@@ -30,15 +30,13 @@ private val themes = listOf(
     "g100",
 )
 
-@OptIn(ExperimentalSerializationApi::class)
-fun deserializeColorTokens(): Map<String, Theme> = themes.associateWith { theme ->
-    object {}::class.java
-        .getResourceAsStream(file_path_format.format(theme))
-        .use { stream ->
-            try {
-                Json.decodeFromStream<Theme>(stream)
-            } catch (e: Exception) {
-                error("Could not load theme $theme." + e.message)
-            }
-        }
+internal expect val fileSystem: FileSystem
+
+public fun deserializeColorTokens(): Map<String, Theme> = themes.associateWith { theme ->
+    Json.decodeFromString<Theme>(
+        fileSystem.read(
+            file_path_format.replace("%s", theme).toPath()
+                .also { println(it) }
+        ) { readUtf8() }
+    )
 }

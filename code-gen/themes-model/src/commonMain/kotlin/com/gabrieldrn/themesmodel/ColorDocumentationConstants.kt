@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package com.gabrieldrn.codegen.color
+package com.gabrieldrn.themesmodel
 
 // From https://carbondesignsystem.com/elements/color/overview/#light-themes
-val whiteThemeDoc =
+public val whiteThemeDoc: String =
     """
         One of the default _light_ themes available in Carbon.
         
@@ -27,7 +27,7 @@ val whiteThemeDoc =
     """.trimIndent()
 
 // From https://carbondesignsystem.com/elements/color/overview/#light-themes
-val g10ThemeDoc =
+public val g10ThemeDoc: String =
     """
         One of the default _light_ themes available in Carbon.
         
@@ -37,7 +37,7 @@ val g10ThemeDoc =
     """.trimIndent()
 
 // From https://carbondesignsystem.com/elements/color/overview/#dark-themes
-val g90ThemeDoc =
+public val g90ThemeDoc: String =
     """
         One of the default _dark_ themes available in Carbon.
         
@@ -47,7 +47,7 @@ val g90ThemeDoc =
     """.trimIndent()
 
 // From https://carbondesignsystem.com/elements/color/overview/#dark-themes
-val g100ThemeDoc =
+public val g100ThemeDoc: String =
     """
         One of the default _dark_ themes available in Carbon.
         
@@ -56,7 +56,7 @@ val g100ThemeDoc =
         The second layer uses Gray 80 and the third layer used Gray 70.
     """.trimIndent()
 
-val abstractThemeDoc =
+public val abstractThemeDoc: String =
     """
         Themes are used to modify existing components to fit a specific visual style. By using Carbon’s tokens, developers can easily customize all of their components by changing a set of universal variables, eliminating the need to modify individual components.
 
@@ -65,7 +65,7 @@ val abstractThemeDoc =
         See [Themes guidelines](https://carbondesignsystem.com/guidelines/themes/overview/) for more information.
     """.trimIndent()
 
-val containerColorMemberDoc =
+public val containerColorMemberDoc: String =
     """
         Returns the container color based on a provided [layer].
         

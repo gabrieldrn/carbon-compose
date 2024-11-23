@@ -14,20 +14,25 @@
  * limitations under the License.
  */
 
-package com.gabrieldrn.codegen.color.model.colortokens
+package com.gabrieldrn.themesmodel.model
 
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class NotificationColors(
-    val notificationActionHover: String,
-    val notificationActionTertiaryInverse: String,
-    val notificationActionTertiaryInverseActive: String,
-    val notificationActionTertiaryInverseHover: String,
-    val notificationActionTertiaryInverseText: String,
-    val notificationActionTertiaryInverseTextOnColorDisabled: String,
-    val notificationBackgroundError: String,
-    val notificationBackgroundInfo: String,
-    val notificationBackgroundSuccess: String,
-    val notificationBackgroundWarning: String
+public data class ButtonColors(
+    val buttonDangerActive: String,
+    val buttonDangerHover: String,
+    val buttonDangerPrimary: String,
+    val buttonDangerSecondary: String,
+    val buttonDisabled: String,
+    val buttonPrimary: String,
+    val buttonPrimaryActive: String,
+    val buttonPrimaryHover: String,
+    val buttonSecondary: String,
+    val buttonSecondaryActive: String,
+    val buttonSecondaryHover: String,
+    val buttonSeparator: String,
+    val buttonTertiary: String,
+    val buttonTertiaryActive: String,
+    val buttonTertiaryHover: String
 )
