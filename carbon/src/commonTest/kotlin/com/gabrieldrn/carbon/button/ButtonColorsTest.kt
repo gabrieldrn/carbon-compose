@@ -16,176 +16,175 @@
 
 package com.gabrieldrn.carbon.button
 
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.test.runComposeUiTest
 import com.gabrieldrn.carbon.BaseColorsTest
+import com.gabrieldrn.themesmodel.deserializeColorTokens
 import kotlin.test.Test
-import kotlin.test.assertEquals
 
 class ButtonColorsTest : BaseColorsTest() {
 
     @Suppress("CognitiveComplexMethod", "CyclomaticComplexMethod", "LongMethod")
     @Test
     fun buttonColors_static_colorsAreCorrect() = runComposeUiTest {
+
+        val expectedColors = deserializeColorTokens()[themeName]!!
+
         forAllLayersAndStates(
             ButtonType.entries,
             listOf(true, false)
         ) { buttonType, isIconButton, _ ->
             val colors = ButtonColors.colors(buttonType = buttonType, isIconButton = isIconButton)
 
-            assertEquals(
-                expected = when (buttonType) {
-                    ButtonType.Primary -> theme.buttonColors.buttonPrimary
-                    ButtonType.Secondary -> theme.buttonColors.buttonSecondary
-                    ButtonType.PrimaryDanger -> theme.buttonColors.buttonDangerPrimary
+            colors.containerColor.assertTokenColorValue(
+                expectedToken = when (buttonType) {
+                    ButtonType.Primary -> expectedColors.buttonColors.buttonPrimary
+                    ButtonType.Secondary -> expectedColors.buttonColors.buttonSecondary
+                    ButtonType.PrimaryDanger -> expectedColors.buttonColors.buttonDangerPrimary
                     ButtonType.Tertiary,
                     ButtonType.TertiaryDanger,
                     ButtonType.Ghost,
-                    ButtonType.GhostDanger -> Color.Transparent
-                },
-                actual = colors.containerColor
+                    ButtonType.GhostDanger -> COLOR_TRANSPARENT
+                }
             )
 
-            assertEquals(
-                expected = when (buttonType) {
-                    ButtonType.Tertiary -> theme.buttonColors.buttonTertiary
-                    ButtonType.TertiaryDanger -> theme.buttonColors.buttonDangerSecondary
-                    else -> Color.Transparent
-                },
-                actual = colors.containerBorderColor
+            colors.containerBorderColor.assertTokenColorValue(
+                expectedToken = when (buttonType) {
+                    ButtonType.Tertiary -> expectedColors.buttonColors.buttonTertiary
+                    ButtonType.TertiaryDanger -> expectedColors.buttonColors.buttonDangerSecondary
+                    else -> COLOR_TRANSPARENT
+                }
             )
 
-            assertEquals(
-                expected = when (buttonType) {
+            colors.containerBorderDisabledColor.assertTokenColorValue(
+                expectedToken = when (buttonType) {
                     ButtonType.Tertiary,
-                    ButtonType.TertiaryDanger -> theme.buttonColors.buttonDisabled
-                    else -> Color.Transparent
-                },
-                actual = colors.containerBorderDisabledColor
+                    ButtonType.TertiaryDanger -> expectedColors.buttonColors.buttonDisabled
+                    else -> COLOR_TRANSPARENT
+                }
             )
 
-            assertEquals(
-                expected = when (buttonType) {
-                    ButtonType.Primary -> theme.buttonColors.buttonPrimaryActive
-                    ButtonType.Secondary -> theme.buttonColors.buttonSecondaryActive
-                    ButtonType.Tertiary -> theme.buttonColors.buttonTertiaryActive
-                    ButtonType.Ghost -> theme.backgroundActive
+            colors.containerActiveColor.assertTokenColorValue(
+                expectedToken = when (buttonType) {
+                    ButtonType.Primary -> expectedColors.buttonColors.buttonPrimaryActive
+                    ButtonType.Secondary -> expectedColors.buttonColors.buttonSecondaryActive
+                    ButtonType.Tertiary -> expectedColors.buttonColors.buttonTertiaryActive
+                    ButtonType.Ghost -> expectedColors.backgroundActive
                     ButtonType.PrimaryDanger,
                     ButtonType.TertiaryDanger,
-                    ButtonType.GhostDanger -> theme.buttonColors.buttonDangerActive
-                },
-                actual = colors.containerActiveColor
+                    ButtonType.GhostDanger -> expectedColors.buttonColors.buttonDangerActive
+                }
             )
 
-            assertEquals(
-                expected = when (buttonType) {
-                    ButtonType.Primary -> theme.buttonColors.buttonPrimaryHover
-                    ButtonType.Secondary -> theme.buttonColors.buttonSecondaryHover
-                    ButtonType.Tertiary -> theme.buttonColors.buttonTertiaryHover
-                    ButtonType.Ghost -> theme.backgroundHover
+            colors.containerActiveColor.assertTokenColorValue(
+                expectedToken = when (buttonType) {
+                    ButtonType.Primary -> expectedColors.buttonColors.buttonPrimaryActive
+                    ButtonType.Secondary -> expectedColors.buttonColors.buttonSecondaryActive
+                    ButtonType.Tertiary -> expectedColors.buttonColors.buttonTertiaryActive
+                    ButtonType.Ghost -> expectedColors.backgroundActive
                     ButtonType.PrimaryDanger,
                     ButtonType.TertiaryDanger,
-                    ButtonType.GhostDanger -> theme.buttonColors.buttonDangerHover
-                },
-                actual = colors.containerHoverColor
+                    ButtonType.GhostDanger -> expectedColors.buttonColors.buttonDangerActive
+                }
             )
 
-            assertEquals(
-                expected = when (buttonType) {
+            colors.containerHoverColor.assertTokenColorValue(
+                expectedToken = when (buttonType) {
+                    ButtonType.Primary -> expectedColors.buttonColors.buttonPrimaryHover
+                    ButtonType.Secondary -> expectedColors.buttonColors.buttonSecondaryHover
+                    ButtonType.Tertiary -> expectedColors.buttonColors.buttonTertiaryHover
+                    ButtonType.Ghost -> expectedColors.backgroundHover
+                    ButtonType.PrimaryDanger,
+                    ButtonType.TertiaryDanger,
+                    ButtonType.GhostDanger -> expectedColors.buttonColors.buttonDangerHover
+                }
+            )
+
+            colors.containerDisabledColor.assertTokenColorValue(
+                expectedToken = when (buttonType) {
                     ButtonType.Primary,
                     ButtonType.Secondary,
                     ButtonType.PrimaryDanger,
                     ButtonType.TertiaryDanger,
-                    ButtonType.GhostDanger -> theme.buttonColors.buttonDisabled
+                    ButtonType.GhostDanger -> expectedColors.buttonColors.buttonDisabled
                     ButtonType.Tertiary,
-                    ButtonType.Ghost -> Color.Transparent
-                },
-                actual = colors.containerDisabledColor
+                    ButtonType.Ghost -> COLOR_TRANSPARENT
+                }
             )
 
-            assertEquals(
-                expected = when (buttonType) {
-                    ButtonType.Tertiary -> theme.buttonColors.buttonTertiary
-                    ButtonType.Ghost -> theme.linkPrimary
+            colors.labelColor.assertTokenColorValue(
+                expectedToken = when (buttonType) {
+                    ButtonType.Tertiary -> expectedColors.buttonColors.buttonTertiary
+                    ButtonType.Ghost -> expectedColors.linkPrimary
                     ButtonType.TertiaryDanger,
-                    ButtonType.GhostDanger -> theme.buttonColors.buttonDangerSecondary
-                    else -> theme.textOnColor
-                },
-                actual = colors.labelColor
+                    ButtonType.GhostDanger -> expectedColors.buttonColors.buttonDangerSecondary
+                    else -> expectedColors.textOnColor
+                }
             )
 
-            assertEquals(
-                expected = when (buttonType) {
-                    ButtonType.Tertiary -> theme.textInverse
-                    ButtonType.Ghost -> theme.linkPrimary
+            colors.labelActiveColor.assertTokenColorValue(
+                expectedToken = when (buttonType) {
+                    ButtonType.Tertiary -> expectedColors.textInverse
+                    ButtonType.Ghost -> expectedColors.linkPrimary
                     ButtonType.TertiaryDanger,
-                    ButtonType.GhostDanger -> theme.textOnColor
-                    else -> theme.textOnColor
-                },
-                actual = colors.labelActiveColor
+                    ButtonType.GhostDanger -> expectedColors.textOnColor
+                    else -> expectedColors.textOnColor
+                }
             )
 
-            assertEquals(
-                expected = when (buttonType) {
-                    ButtonType.Tertiary -> theme.textInverse
+            colors.labelHoverColor.assertTokenColorValue(
+                expectedToken = when (buttonType) {
+                    ButtonType.Tertiary -> expectedColors.textInverse
                     ButtonType.TertiaryDanger,
-                    ButtonType.GhostDanger -> theme.textOnColor
-                    ButtonType.Ghost -> theme.linkPrimaryHover
-                    else -> theme.textOnColor
-                },
-                actual = colors.labelHoverColor
+                    ButtonType.GhostDanger -> expectedColors.textOnColor
+                    ButtonType.Ghost -> expectedColors.linkPrimaryHover
+                    else -> expectedColors.textOnColor
+                }
             )
 
-            assertEquals(
-                expected = when (buttonType) {
+            colors.labelDisabledColor.assertTokenColorValue(
+                expectedToken = when (buttonType) {
                     ButtonType.Tertiary,
                     ButtonType.Ghost,
                     ButtonType.TertiaryDanger,
-                    ButtonType.GhostDanger -> theme.textDisabled
-                    else -> theme.textOnColorDisabled
-                },
-                actual = colors.labelDisabledColor
+                    ButtonType.GhostDanger -> expectedColors.textDisabled
+                    else -> expectedColors.textOnColorDisabled
+                }
             )
 
-            assertEquals(
-                expected = when (buttonType) {
-                    ButtonType.Tertiary -> theme.buttonColors.buttonTertiary
-                    ButtonType.Ghost -> if (isIconButton) theme.iconPrimary else theme.linkPrimary
-                    ButtonType.PrimaryDanger -> theme.iconOnColor
+            colors.iconColor.assertTokenColorValue(
+                expectedToken = when (buttonType) {
+                    ButtonType.Tertiary -> expectedColors.buttonColors.buttonTertiary
+                    ButtonType.Ghost -> if (isIconButton) expectedColors.iconPrimary else expectedColors.linkPrimary
+                    ButtonType.PrimaryDanger -> expectedColors.iconOnColor
                     ButtonType.TertiaryDanger,
-                    ButtonType.GhostDanger -> theme.buttonColors.buttonDangerSecondary
-                    else -> theme.iconOnColor
-                },
-                actual = colors.iconColor
+                    ButtonType.GhostDanger -> expectedColors.buttonColors.buttonDangerSecondary
+                    else -> expectedColors.iconOnColor
+                }
             )
 
-            assertEquals(
-                expected = when (buttonType) {
-                    ButtonType.Tertiary -> theme.iconInverse
-                    ButtonType.Ghost -> if (isIconButton) theme.iconPrimary else theme.linkPrimary
-                    else -> theme.iconOnColor
-                },
-                actual = colors.iconActiveColor
+            colors.iconActiveColor.assertTokenColorValue(
+                expectedToken = when (buttonType) {
+                    ButtonType.Tertiary -> expectedColors.iconInverse
+                    ButtonType.Ghost -> if (isIconButton) expectedColors.iconPrimary else expectedColors.linkPrimary
+                    else -> expectedColors.iconOnColor
+                }
             )
 
-            assertEquals(
-                expected = when (buttonType) {
-                    ButtonType.Tertiary -> theme.iconInverse
-                    ButtonType.Ghost ->
-                        if (isIconButton) theme.iconPrimary else theme.linkPrimaryHover
-                    else -> theme.iconOnColor
-                },
-                actual = colors.iconHoverColor
+            colors.iconHoverColor.assertTokenColorValue(
+                expectedToken = when (buttonType) {
+                    ButtonType.Tertiary -> expectedColors.iconInverse
+                    ButtonType.Ghost -> if (isIconButton) expectedColors.iconPrimary else expectedColors.linkPrimaryHover
+                    else -> expectedColors.iconOnColor
+                }
             )
 
-            assertEquals(
-                expected = when (buttonType) {
+            colors.iconDisabledColor.assertTokenColorValue(
+                expectedToken = when (buttonType) {
                     ButtonType.Primary,
                     ButtonType.Secondary,
-                    ButtonType.PrimaryDanger -> theme.iconOnColorDisabled
-                    else -> theme.iconDisabled
-                },
-                actual = colors.iconDisabledColor
+                    ButtonType.PrimaryDanger -> expectedColors.iconOnColorDisabled
+                    else -> expectedColors.iconDisabled
+                }
             )
         }
     }

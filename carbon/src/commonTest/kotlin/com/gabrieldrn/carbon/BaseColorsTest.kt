@@ -17,13 +17,20 @@
 package com.gabrieldrn.carbon
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.test.ComposeUiTest
 import com.gabrieldrn.carbon.foundation.color.Layer
 import com.gabrieldrn.carbon.foundation.color.WhiteTheme
+import kotlin.test.assertEquals
 
 abstract class BaseColorsTest {
 
     open val theme = WhiteTheme
+    open val themeName = "white"
+
+    @OptIn(ExperimentalStdlibApi::class)
+    private fun Color.toHexString(): String = toArgb().toHexString(tokenHexFormat).uppercase()
 
     protected fun ComposeUiTest.forAllLayers(block: @Composable (layer: Layer) -> Unit) {
         setContent {
@@ -66,5 +73,21 @@ abstract class BaseColorsTest {
                 }
             }
         }
+    }
+
+    @OptIn(ExperimentalStdlibApi::class)
+    protected fun Color.assertTokenColorValue(expectedToken: String) {
+        assertEquals(
+            expected = Color(expectedToken.hexToInt(tokenHexFormat)),
+            actual = this,
+            message = "Expected: $expectedToken, actual: ${toHexString()}"
+        )
+    }
+
+    companion object {
+        const val COLOR_TRANSPARENT = "#00000000"
+
+        @OptIn(ExperimentalStdlibApi::class)
+        private val tokenHexFormat = HexFormat { number.prefix = "#" }
     }
 }

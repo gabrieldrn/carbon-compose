@@ -62,6 +62,7 @@ kotlin {
             implementation(libs.touchlab.kermit)
         }
         commonTest.dependencies {
+            implementation(project(":code-gen:themes-model"))
             implementation(libs.kotlin.test)
             implementation(compose.uiTest)
         }

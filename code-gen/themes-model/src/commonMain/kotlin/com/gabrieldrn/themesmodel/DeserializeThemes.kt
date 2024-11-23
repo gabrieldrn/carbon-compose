@@ -21,7 +21,7 @@ import kotlinx.serialization.json.Json
 import okio.FileSystem
 import okio.Path.Companion.toPath
 
-private const val file_path_format = "code-gen/themes-model/src/commonMain/resources/%s.json"
+private const val file_path_format = "../code-gen/themes-model/src/commonMain/resources/%s.json"
 
 private val themes = listOf(
     "white",
@@ -34,9 +34,6 @@ internal expect val fileSystem: FileSystem
 
 public fun deserializeColorTokens(): Map<String, Theme> = themes.associateWith { theme ->
     Json.decodeFromString<Theme>(
-        fileSystem.read(
-            file_path_format.replace("%s", theme).toPath()
-                .also { println(it) }
-        ) { readUtf8() }
+        fileSystem.read(file_path_format.replace("%s", theme).toPath()) { readUtf8() }
     )
 }
