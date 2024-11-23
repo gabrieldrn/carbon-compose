@@ -17,6 +17,7 @@
 package com.gabrieldrn.carbon.dropdown
 
 import androidx.compose.animation.core.MutableTransitionState
+import androidx.compose.animation.core.rememberTransition
 import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.padding
@@ -57,7 +58,7 @@ private fun DropdownFieldPreview(
         mutableStateOf<DropdownInteractiveState>(DropdownInteractiveState.Enabled)
     }
     val expandedStates = remember { MutableTransitionState(false) }
-    val expandTransition = updateTransition(expandedStates, "Dropdown")
+    val expandTransition = rememberTransition(expandedStates, "Dropdown")
 
     CarbonLayer(layer = layer) {
         val colors = DropdownColors.colors()
