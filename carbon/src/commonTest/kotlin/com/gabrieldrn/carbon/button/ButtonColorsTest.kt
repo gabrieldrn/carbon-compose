@@ -33,14 +33,11 @@ class ButtonColorsTest : BaseColorsTest() {
         ) { buttonType, isIconButton, _ ->
             val colors = ButtonColors.colors(buttonType = buttonType, isIconButton = isIconButton)
 
-//            val t = colors::containerColor
-//            assertColorForElement(colors::containerColor)
-
             assertEquals(
                 expected = when (buttonType) {
-                    ButtonType.Primary -> theme.buttonPrimary
-                    ButtonType.Secondary -> theme.buttonSecondary
-                    ButtonType.PrimaryDanger -> theme.buttonDangerPrimary
+                    ButtonType.Primary -> theme.buttonColors.buttonPrimary
+                    ButtonType.Secondary -> theme.buttonColors.buttonSecondary
+                    ButtonType.PrimaryDanger -> theme.buttonColors.buttonDangerPrimary
                     ButtonType.Tertiary,
                     ButtonType.TertiaryDanger,
                     ButtonType.Ghost,
@@ -51,8 +48,8 @@ class ButtonColorsTest : BaseColorsTest() {
 
             assertEquals(
                 expected = when (buttonType) {
-                    ButtonType.Tertiary -> theme.buttonTertiary
-                    ButtonType.TertiaryDanger -> theme.buttonDangerSecondary
+                    ButtonType.Tertiary -> theme.buttonColors.buttonTertiary
+                    ButtonType.TertiaryDanger -> theme.buttonColors.buttonDangerSecondary
                     else -> Color.Transparent
                 },
                 actual = colors.containerBorderColor
@@ -61,7 +58,7 @@ class ButtonColorsTest : BaseColorsTest() {
             assertEquals(
                 expected = when (buttonType) {
                     ButtonType.Tertiary,
-                    ButtonType.TertiaryDanger -> theme.buttonDisabled
+                    ButtonType.TertiaryDanger -> theme.buttonColors.buttonDisabled
                     else -> Color.Transparent
                 },
                 actual = colors.containerBorderDisabledColor
@@ -69,26 +66,26 @@ class ButtonColorsTest : BaseColorsTest() {
 
             assertEquals(
                 expected = when (buttonType) {
-                    ButtonType.Primary -> theme.buttonPrimaryActive
-                    ButtonType.Secondary -> theme.buttonSecondaryActive
-                    ButtonType.Tertiary -> theme.buttonTertiaryActive
+                    ButtonType.Primary -> theme.buttonColors.buttonPrimaryActive
+                    ButtonType.Secondary -> theme.buttonColors.buttonSecondaryActive
+                    ButtonType.Tertiary -> theme.buttonColors.buttonTertiaryActive
                     ButtonType.Ghost -> theme.backgroundActive
                     ButtonType.PrimaryDanger,
                     ButtonType.TertiaryDanger,
-                    ButtonType.GhostDanger -> theme.buttonDangerActive
+                    ButtonType.GhostDanger -> theme.buttonColors.buttonDangerActive
                 },
                 actual = colors.containerActiveColor
             )
 
             assertEquals(
                 expected = when (buttonType) {
-                    ButtonType.Primary -> theme.buttonPrimaryHover
-                    ButtonType.Secondary -> theme.buttonSecondaryHover
-                    ButtonType.Tertiary -> theme.buttonTertiaryHover
+                    ButtonType.Primary -> theme.buttonColors.buttonPrimaryHover
+                    ButtonType.Secondary -> theme.buttonColors.buttonSecondaryHover
+                    ButtonType.Tertiary -> theme.buttonColors.buttonTertiaryHover
                     ButtonType.Ghost -> theme.backgroundHover
                     ButtonType.PrimaryDanger,
                     ButtonType.TertiaryDanger,
-                    ButtonType.GhostDanger -> theme.buttonDangerHover
+                    ButtonType.GhostDanger -> theme.buttonColors.buttonDangerHover
                 },
                 actual = colors.containerHoverColor
             )
@@ -99,7 +96,7 @@ class ButtonColorsTest : BaseColorsTest() {
                     ButtonType.Secondary,
                     ButtonType.PrimaryDanger,
                     ButtonType.TertiaryDanger,
-                    ButtonType.GhostDanger -> theme.buttonDisabled
+                    ButtonType.GhostDanger -> theme.buttonColors.buttonDisabled
                     ButtonType.Tertiary,
                     ButtonType.Ghost -> Color.Transparent
                 },
@@ -108,10 +105,10 @@ class ButtonColorsTest : BaseColorsTest() {
 
             assertEquals(
                 expected = when (buttonType) {
-                    ButtonType.Tertiary -> theme.buttonTertiary
+                    ButtonType.Tertiary -> theme.buttonColors.buttonTertiary
                     ButtonType.Ghost -> theme.linkPrimary
                     ButtonType.TertiaryDanger,
-                    ButtonType.GhostDanger -> theme.buttonDangerSecondary
+                    ButtonType.GhostDanger -> theme.buttonColors.buttonDangerSecondary
                     else -> theme.textOnColor
                 },
                 actual = colors.labelColor
@@ -152,11 +149,11 @@ class ButtonColorsTest : BaseColorsTest() {
 
             assertEquals(
                 expected = when (buttonType) {
-                    ButtonType.Tertiary -> theme.buttonTertiary
+                    ButtonType.Tertiary -> theme.buttonColors.buttonTertiary
                     ButtonType.Ghost -> if (isIconButton) theme.iconPrimary else theme.linkPrimary
                     ButtonType.PrimaryDanger -> theme.iconOnColor
                     ButtonType.TertiaryDanger,
-                    ButtonType.GhostDanger -> theme.buttonDangerSecondary
+                    ButtonType.GhostDanger -> theme.buttonColors.buttonDangerSecondary
                     else -> theme.iconOnColor
                 },
                 actual = colors.iconColor
@@ -192,10 +189,4 @@ class ButtonColorsTest : BaseColorsTest() {
             )
         }
     }
-
-//    companion object {
-//        private val expectedResults = mapOf(
-//
-//        )
-//    }
 }
