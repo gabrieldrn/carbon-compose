@@ -22,7 +22,7 @@ import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 
 /**
- * Configure Android extension with common settings.
+ * Configure Kotlin for Android projects.
  */
 internal fun CommonExtension<*, *, *, *, *, *>.configureKotlinAndroidCommon() {
 
@@ -41,10 +41,6 @@ internal fun CommonExtension<*, *, *, *, *, *>.configureKotlinAndroidCommon() {
         compilerOptions {
             jvmTarget.set(Constants.Versions.JVM)
         }
-    }
-
-    buildFeatures {
-        compose = true
     }
 }
 

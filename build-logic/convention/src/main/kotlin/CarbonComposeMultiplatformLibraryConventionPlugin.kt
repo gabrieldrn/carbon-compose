@@ -7,6 +7,7 @@ import com.gabrieldrn.carbon.buildlogic.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
+import org.jetbrains.kotlin.compose.compiler.gradle.ComposeCompilerGradlePluginExtension
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
@@ -16,7 +17,7 @@ import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
  * A plugin used by kmp libraries modules from Carbon to configure themselves. It
  * provides a convention to keep consistency across those modules.
  */
-class CarbonMultiplatformLibraryConventionPlugin : Plugin<Project> {
+class CarbonComposeMultiplatformLibraryConventionPlugin : Plugin<Project> {
 
     @OptIn(ExperimentalKotlinGradlePluginApi::class, ExperimentalWasmDsl::class)
     override fun apply(target: Project) = with(target) {
@@ -25,6 +26,8 @@ class CarbonMultiplatformLibraryConventionPlugin : Plugin<Project> {
         with(pluginManager) {
             apply(libs.getPlugin("android-library"))
             apply(libs.getPlugin("kotlin-multiplatform"))
+            apply(libs.getPlugin("jetbrains-compose"))
+            apply(libs.getPlugin("compose-compiler"))
         }
 
         extensions.configure<KotlinMultiplatformExtension> {
@@ -61,7 +64,19 @@ class CarbonMultiplatformLibraryConventionPlugin : Plugin<Project> {
 
             configureKotlinAndroidCommon()
 
+            buildFeatures {
+                compose = true
+            }
+
             applyTestOptions()
+        }
+
+        extensions.configure<ComposeCompilerGradlePluginExtension> {
+            reportsDestination.set(layout.buildDirectory.dir("compose_compiler"))
+            metricsDestination.set(layout.buildDirectory.dir("compose_compiler"))
+            stabilityConfigurationFile.set(
+                file("${projectDir.absolutePath}/compose_compiler_config.conf")
+            )
         }
     }
 }

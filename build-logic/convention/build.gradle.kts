@@ -26,6 +26,11 @@ gradlePlugin {
             implementationClass = "CarbonMultiplatformLibraryConventionPlugin"
         }
 
+        register("composeMultiplatformLibrary") {
+            id = "carbon.composeMultiplatform.library"
+            implementationClass = "CarbonComposeMultiplatformLibraryConventionPlugin"
+        }
+
         register("application") {
             id = "carbon.android.application"
             implementationClass = "CarbonApplicationConventionPlugin"
