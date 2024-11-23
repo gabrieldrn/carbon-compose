@@ -226,21 +226,7 @@ public final class com/gabrieldrn/carbon/foundation/color/Gray100Theme : com/gab
 	public fun getBorderTile01-0d7_KjU ()J
 	public fun getBorderTile02-0d7_KjU ()J
 	public fun getBorderTile03-0d7_KjU ()J
-	public fun getButtonDangerActive-0d7_KjU ()J
-	public fun getButtonDangerHover-0d7_KjU ()J
-	public fun getButtonDangerPrimary-0d7_KjU ()J
-	public fun getButtonDangerSecondary-0d7_KjU ()J
-	public fun getButtonDisabled-0d7_KjU ()J
-	public fun getButtonPrimary-0d7_KjU ()J
-	public fun getButtonPrimaryActive-0d7_KjU ()J
-	public fun getButtonPrimaryHover-0d7_KjU ()J
-	public fun getButtonSecondary-0d7_KjU ()J
-	public fun getButtonSecondaryActive-0d7_KjU ()J
-	public fun getButtonSecondaryHover-0d7_KjU ()J
-	public fun getButtonSeparator-0d7_KjU ()J
-	public fun getButtonTertiary-0d7_KjU ()J
-	public fun getButtonTertiaryActive-0d7_KjU ()J
-	public fun getButtonTertiaryHover-0d7_KjU ()J
+	public fun getButtonColors ()Lcom/gabrieldrn/carbon/foundation/color/button/ButtonColors;
 	public fun getChatColors ()Lcom/gabrieldrn/carbon/foundation/color/chat/ChatColors;
 	public fun getField01-0d7_KjU ()J
 	public fun getField02-0d7_KjU ()J
@@ -296,6 +282,7 @@ public final class com/gabrieldrn/carbon/foundation/color/Gray100Theme : com/gab
 	public fun getLinkVisited-0d7_KjU ()J
 	public fun getNotificationColors ()Lcom/gabrieldrn/carbon/foundation/color/notification/NotificationColors;
 	public fun getOverlay-0d7_KjU ()J
+	public fun getShadow-0d7_KjU ()J
 	public fun getSkeletonBackground-0d7_KjU ()J
 	public fun getSkeletonElement-0d7_KjU ()J
 	public fun getSupportCautionMajor-0d7_KjU ()J
@@ -350,21 +337,7 @@ public final class com/gabrieldrn/carbon/foundation/color/Gray10Theme : com/gabr
 	public fun getBorderTile01-0d7_KjU ()J
 	public fun getBorderTile02-0d7_KjU ()J
 	public fun getBorderTile03-0d7_KjU ()J
-	public fun getButtonDangerActive-0d7_KjU ()J
-	public fun getButtonDangerHover-0d7_KjU ()J
-	public fun getButtonDangerPrimary-0d7_KjU ()J
-	public fun getButtonDangerSecondary-0d7_KjU ()J
-	public fun getButtonDisabled-0d7_KjU ()J
-	public fun getButtonPrimary-0d7_KjU ()J
-	public fun getButtonPrimaryActive-0d7_KjU ()J
-	public fun getButtonPrimaryHover-0d7_KjU ()J
-	public fun getButtonSecondary-0d7_KjU ()J
-	public fun getButtonSecondaryActive-0d7_KjU ()J
-	public fun getButtonSecondaryHover-0d7_KjU ()J
-	public fun getButtonSeparator-0d7_KjU ()J
-	public fun getButtonTertiary-0d7_KjU ()J
-	public fun getButtonTertiaryActive-0d7_KjU ()J
-	public fun getButtonTertiaryHover-0d7_KjU ()J
+	public fun getButtonColors ()Lcom/gabrieldrn/carbon/foundation/color/button/ButtonColors;
 	public fun getChatColors ()Lcom/gabrieldrn/carbon/foundation/color/chat/ChatColors;
 	public fun getField01-0d7_KjU ()J
 	public fun getField02-0d7_KjU ()J
@@ -420,6 +393,7 @@ public final class com/gabrieldrn/carbon/foundation/color/Gray10Theme : com/gabr
 	public fun getLinkVisited-0d7_KjU ()J
 	public fun getNotificationColors ()Lcom/gabrieldrn/carbon/foundation/color/notification/NotificationColors;
 	public fun getOverlay-0d7_KjU ()J
+	public fun getShadow-0d7_KjU ()J
 	public fun getSkeletonBackground-0d7_KjU ()J
 	public fun getSkeletonElement-0d7_KjU ()J
 	public fun getSupportCautionMajor-0d7_KjU ()J
@@ -474,21 +448,7 @@ public final class com/gabrieldrn/carbon/foundation/color/Gray90Theme : com/gabr
 	public fun getBorderTile01-0d7_KjU ()J
 	public fun getBorderTile02-0d7_KjU ()J
 	public fun getBorderTile03-0d7_KjU ()J
-	public fun getButtonDangerActive-0d7_KjU ()J
-	public fun getButtonDangerHover-0d7_KjU ()J
-	public fun getButtonDangerPrimary-0d7_KjU ()J
-	public fun getButtonDangerSecondary-0d7_KjU ()J
-	public fun getButtonDisabled-0d7_KjU ()J
-	public fun getButtonPrimary-0d7_KjU ()J
-	public fun getButtonPrimaryActive-0d7_KjU ()J
-	public fun getButtonPrimaryHover-0d7_KjU ()J
-	public fun getButtonSecondary-0d7_KjU ()J
-	public fun getButtonSecondaryActive-0d7_KjU ()J
-	public fun getButtonSecondaryHover-0d7_KjU ()J
-	public fun getButtonSeparator-0d7_KjU ()J
-	public fun getButtonTertiary-0d7_KjU ()J
-	public fun getButtonTertiaryActive-0d7_KjU ()J
-	public fun getButtonTertiaryHover-0d7_KjU ()J
+	public fun getButtonColors ()Lcom/gabrieldrn/carbon/foundation/color/button/ButtonColors;
 	public fun getChatColors ()Lcom/gabrieldrn/carbon/foundation/color/chat/ChatColors;
 	public fun getField01-0d7_KjU ()J
 	public fun getField02-0d7_KjU ()J
@@ -544,6 +504,7 @@ public final class com/gabrieldrn/carbon/foundation/color/Gray90Theme : com/gabr
 	public fun getLinkVisited-0d7_KjU ()J
 	public fun getNotificationColors ()Lcom/gabrieldrn/carbon/foundation/color/notification/NotificationColors;
 	public fun getOverlay-0d7_KjU ()J
+	public fun getShadow-0d7_KjU ()J
 	public fun getSkeletonBackground-0d7_KjU ()J
 	public fun getSkeletonElement-0d7_KjU ()J
 	public fun getSupportCautionMajor-0d7_KjU ()J
@@ -587,7 +548,7 @@ public abstract class com/gabrieldrn/carbon/foundation/color/Theme {
 	public fun <init> ()V
 	public final fun containerColor-vNxB06k (Lcom/gabrieldrn/carbon/foundation/color/Layer;)J
 	public static synthetic fun containerColor-vNxB06k$default (Lcom/gabrieldrn/carbon/foundation/color/Theme;Lcom/gabrieldrn/carbon/foundation/color/Layer;ILjava/lang/Object;)J
-	public static synthetic fun copy-QW2GrVE$carbon$default (Lcom/gabrieldrn/carbon/foundation/color/Theme;JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJLcom/gabrieldrn/carbon/foundation/color/ai/AiColors;Lcom/gabrieldrn/carbon/foundation/color/tag/TagColors;Lcom/gabrieldrn/carbon/foundation/color/chat/ChatColors;Lcom/gabrieldrn/carbon/foundation/color/notification/NotificationColors;IIIILjava/lang/Object;)Lcom/gabrieldrn/carbon/foundation/color/Theme;
+	public static synthetic fun copy-2-eky90$carbon$default (Lcom/gabrieldrn/carbon/foundation/color/Theme;JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJLcom/gabrieldrn/carbon/foundation/color/ai/AiColors;Lcom/gabrieldrn/carbon/foundation/color/button/ButtonColors;Lcom/gabrieldrn/carbon/foundation/color/chat/ChatColors;Lcom/gabrieldrn/carbon/foundation/color/notification/NotificationColors;Lcom/gabrieldrn/carbon/foundation/color/tag/TagColors;IIIILjava/lang/Object;)Lcom/gabrieldrn/carbon/foundation/color/Theme;
 	public fun equals (Ljava/lang/Object;)Z
 	public abstract fun getAiColors ()Lcom/gabrieldrn/carbon/foundation/color/ai/AiColors;
 	public abstract fun getBackground-0d7_KjU ()J
@@ -614,21 +575,7 @@ public abstract class com/gabrieldrn/carbon/foundation/color/Theme {
 	public abstract fun getBorderTile01-0d7_KjU ()J
 	public abstract fun getBorderTile02-0d7_KjU ()J
 	public abstract fun getBorderTile03-0d7_KjU ()J
-	public abstract fun getButtonDangerActive-0d7_KjU ()J
-	public abstract fun getButtonDangerHover-0d7_KjU ()J
-	public abstract fun getButtonDangerPrimary-0d7_KjU ()J
-	public abstract fun getButtonDangerSecondary-0d7_KjU ()J
-	public abstract fun getButtonDisabled-0d7_KjU ()J
-	public abstract fun getButtonPrimary-0d7_KjU ()J
-	public abstract fun getButtonPrimaryActive-0d7_KjU ()J
-	public abstract fun getButtonPrimaryHover-0d7_KjU ()J
-	public abstract fun getButtonSecondary-0d7_KjU ()J
-	public abstract fun getButtonSecondaryActive-0d7_KjU ()J
-	public abstract fun getButtonSecondaryHover-0d7_KjU ()J
-	public abstract fun getButtonSeparator-0d7_KjU ()J
-	public abstract fun getButtonTertiary-0d7_KjU ()J
-	public abstract fun getButtonTertiaryActive-0d7_KjU ()J
-	public abstract fun getButtonTertiaryHover-0d7_KjU ()J
+	public abstract fun getButtonColors ()Lcom/gabrieldrn/carbon/foundation/color/button/ButtonColors;
 	public abstract fun getChatColors ()Lcom/gabrieldrn/carbon/foundation/color/chat/ChatColors;
 	public abstract fun getField01-0d7_KjU ()J
 	public abstract fun getField02-0d7_KjU ()J
@@ -684,6 +631,7 @@ public abstract class com/gabrieldrn/carbon/foundation/color/Theme {
 	public abstract fun getLinkVisited-0d7_KjU ()J
 	public abstract fun getNotificationColors ()Lcom/gabrieldrn/carbon/foundation/color/notification/NotificationColors;
 	public abstract fun getOverlay-0d7_KjU ()J
+	public abstract fun getShadow-0d7_KjU ()J
 	public abstract fun getSkeletonBackground-0d7_KjU ()J
 	public abstract fun getSkeletonElement-0d7_KjU ()J
 	public abstract fun getSupportCautionMajor-0d7_KjU ()J
@@ -748,21 +696,7 @@ public final class com/gabrieldrn/carbon/foundation/color/WhiteTheme : com/gabri
 	public fun getBorderTile01-0d7_KjU ()J
 	public fun getBorderTile02-0d7_KjU ()J
 	public fun getBorderTile03-0d7_KjU ()J
-	public fun getButtonDangerActive-0d7_KjU ()J
-	public fun getButtonDangerHover-0d7_KjU ()J
-	public fun getButtonDangerPrimary-0d7_KjU ()J
-	public fun getButtonDangerSecondary-0d7_KjU ()J
-	public fun getButtonDisabled-0d7_KjU ()J
-	public fun getButtonPrimary-0d7_KjU ()J
-	public fun getButtonPrimaryActive-0d7_KjU ()J
-	public fun getButtonPrimaryHover-0d7_KjU ()J
-	public fun getButtonSecondary-0d7_KjU ()J
-	public fun getButtonSecondaryActive-0d7_KjU ()J
-	public fun getButtonSecondaryHover-0d7_KjU ()J
-	public fun getButtonSeparator-0d7_KjU ()J
-	public fun getButtonTertiary-0d7_KjU ()J
-	public fun getButtonTertiaryActive-0d7_KjU ()J
-	public fun getButtonTertiaryHover-0d7_KjU ()J
+	public fun getButtonColors ()Lcom/gabrieldrn/carbon/foundation/color/button/ButtonColors;
 	public fun getChatColors ()Lcom/gabrieldrn/carbon/foundation/color/chat/ChatColors;
 	public fun getField01-0d7_KjU ()J
 	public fun getField02-0d7_KjU ()J
@@ -818,6 +752,7 @@ public final class com/gabrieldrn/carbon/foundation/color/WhiteTheme : com/gabri
 	public fun getLinkVisited-0d7_KjU ()J
 	public fun getNotificationColors ()Lcom/gabrieldrn/carbon/foundation/color/notification/NotificationColors;
 	public fun getOverlay-0d7_KjU ()J
+	public fun getShadow-0d7_KjU ()J
 	public fun getSkeletonBackground-0d7_KjU ()J
 	public fun getSkeletonElement-0d7_KjU ()J
 	public fun getSupportCautionMajor-0d7_KjU ()J
@@ -845,515 +780,633 @@ public final class com/gabrieldrn/carbon/foundation/color/WhiteTheme : com/gabri
 }
 
 public abstract interface class com/gabrieldrn/carbon/foundation/color/ai/AiColors {
-	public abstract fun getAuraEnd-0d7_KjU ()J
-	public abstract fun getAuraHoverBackground-0d7_KjU ()J
-	public abstract fun getAuraHoverEnd-0d7_KjU ()J
-	public abstract fun getAuraHoverStart-0d7_KjU ()J
-	public abstract fun getAuraStart-0d7_KjU ()J
-	public abstract fun getAuraStartSm-0d7_KjU ()J
-	public abstract fun getBorderEnd-0d7_KjU ()J
-	public abstract fun getBorderStart-0d7_KjU ()J
-	public abstract fun getBorderStrong-0d7_KjU ()J
-	public abstract fun getDropShadow-0d7_KjU ()J
-	public abstract fun getInnerShadow-0d7_KjU ()J
-	public abstract fun getOverlay-0d7_KjU ()J
-	public abstract fun getPopoverBackground-0d7_KjU ()J
-	public abstract fun getPopoverShadowOuter01-0d7_KjU ()J
-	public abstract fun getPopoverShadowOuter02-0d7_KjU ()J
-	public abstract fun getSkeletonBackground-0d7_KjU ()J
-	public abstract fun getSkeletonElement-0d7_KjU ()J
+	public abstract fun getAiAuraEnd-0d7_KjU ()J
+	public abstract fun getAiAuraHoverBackground-0d7_KjU ()J
+	public abstract fun getAiAuraHoverEnd-0d7_KjU ()J
+	public abstract fun getAiAuraHoverStart-0d7_KjU ()J
+	public abstract fun getAiAuraStart-0d7_KjU ()J
+	public abstract fun getAiAuraStartSm-0d7_KjU ()J
+	public abstract fun getAiBorderEnd-0d7_KjU ()J
+	public abstract fun getAiBorderStart-0d7_KjU ()J
+	public abstract fun getAiBorderStrong-0d7_KjU ()J
+	public abstract fun getAiDropShadow-0d7_KjU ()J
+	public abstract fun getAiInnerShadow-0d7_KjU ()J
+	public abstract fun getAiOverlay-0d7_KjU ()J
+	public abstract fun getAiPopoverBackground-0d7_KjU ()J
+	public abstract fun getAiPopoverCaretBottom-0d7_KjU ()J
+	public abstract fun getAiPopoverCaretBottomBackground-0d7_KjU ()J
+	public abstract fun getAiPopoverCaretBottomBackgroundActions-0d7_KjU ()J
+	public abstract fun getAiPopoverCaretCenter-0d7_KjU ()J
+	public abstract fun getAiPopoverShadowOuter01-0d7_KjU ()J
+	public abstract fun getAiPopoverShadowOuter02-0d7_KjU ()J
+	public abstract fun getAiSkeletonBackground-0d7_KjU ()J
+	public abstract fun getAiSkeletonElementBackground-0d7_KjU ()J
 }
 
 public final class com/gabrieldrn/carbon/foundation/color/ai/Gray100AiColors : com/gabrieldrn/carbon/foundation/color/ai/AiColors {
 	public static final field $stable I
 	public static final field INSTANCE Lcom/gabrieldrn/carbon/foundation/color/ai/Gray100AiColors;
-	public fun getAuraEnd-0d7_KjU ()J
-	public fun getAuraHoverBackground-0d7_KjU ()J
-	public fun getAuraHoverEnd-0d7_KjU ()J
-	public fun getAuraHoverStart-0d7_KjU ()J
-	public fun getAuraStart-0d7_KjU ()J
-	public fun getAuraStartSm-0d7_KjU ()J
-	public fun getBorderEnd-0d7_KjU ()J
-	public fun getBorderStart-0d7_KjU ()J
-	public fun getBorderStrong-0d7_KjU ()J
-	public fun getDropShadow-0d7_KjU ()J
-	public fun getInnerShadow-0d7_KjU ()J
-	public fun getOverlay-0d7_KjU ()J
-	public fun getPopoverBackground-0d7_KjU ()J
-	public fun getPopoverShadowOuter01-0d7_KjU ()J
-	public fun getPopoverShadowOuter02-0d7_KjU ()J
-	public fun getSkeletonBackground-0d7_KjU ()J
-	public fun getSkeletonElement-0d7_KjU ()J
+	public fun getAiAuraEnd-0d7_KjU ()J
+	public fun getAiAuraHoverBackground-0d7_KjU ()J
+	public fun getAiAuraHoverEnd-0d7_KjU ()J
+	public fun getAiAuraHoverStart-0d7_KjU ()J
+	public fun getAiAuraStart-0d7_KjU ()J
+	public fun getAiAuraStartSm-0d7_KjU ()J
+	public fun getAiBorderEnd-0d7_KjU ()J
+	public fun getAiBorderStart-0d7_KjU ()J
+	public fun getAiBorderStrong-0d7_KjU ()J
+	public fun getAiDropShadow-0d7_KjU ()J
+	public fun getAiInnerShadow-0d7_KjU ()J
+	public fun getAiOverlay-0d7_KjU ()J
+	public fun getAiPopoverBackground-0d7_KjU ()J
+	public fun getAiPopoverCaretBottom-0d7_KjU ()J
+	public fun getAiPopoverCaretBottomBackground-0d7_KjU ()J
+	public fun getAiPopoverCaretBottomBackgroundActions-0d7_KjU ()J
+	public fun getAiPopoverCaretCenter-0d7_KjU ()J
+	public fun getAiPopoverShadowOuter01-0d7_KjU ()J
+	public fun getAiPopoverShadowOuter02-0d7_KjU ()J
+	public fun getAiSkeletonBackground-0d7_KjU ()J
+	public fun getAiSkeletonElementBackground-0d7_KjU ()J
 }
 
 public final class com/gabrieldrn/carbon/foundation/color/ai/Gray10AiColors : com/gabrieldrn/carbon/foundation/color/ai/AiColors {
 	public static final field $stable I
 	public static final field INSTANCE Lcom/gabrieldrn/carbon/foundation/color/ai/Gray10AiColors;
-	public fun getAuraEnd-0d7_KjU ()J
-	public fun getAuraHoverBackground-0d7_KjU ()J
-	public fun getAuraHoverEnd-0d7_KjU ()J
-	public fun getAuraHoverStart-0d7_KjU ()J
-	public fun getAuraStart-0d7_KjU ()J
-	public fun getAuraStartSm-0d7_KjU ()J
-	public fun getBorderEnd-0d7_KjU ()J
-	public fun getBorderStart-0d7_KjU ()J
-	public fun getBorderStrong-0d7_KjU ()J
-	public fun getDropShadow-0d7_KjU ()J
-	public fun getInnerShadow-0d7_KjU ()J
-	public fun getOverlay-0d7_KjU ()J
-	public fun getPopoverBackground-0d7_KjU ()J
-	public fun getPopoverShadowOuter01-0d7_KjU ()J
-	public fun getPopoverShadowOuter02-0d7_KjU ()J
-	public fun getSkeletonBackground-0d7_KjU ()J
-	public fun getSkeletonElement-0d7_KjU ()J
+	public fun getAiAuraEnd-0d7_KjU ()J
+	public fun getAiAuraHoverBackground-0d7_KjU ()J
+	public fun getAiAuraHoverEnd-0d7_KjU ()J
+	public fun getAiAuraHoverStart-0d7_KjU ()J
+	public fun getAiAuraStart-0d7_KjU ()J
+	public fun getAiAuraStartSm-0d7_KjU ()J
+	public fun getAiBorderEnd-0d7_KjU ()J
+	public fun getAiBorderStart-0d7_KjU ()J
+	public fun getAiBorderStrong-0d7_KjU ()J
+	public fun getAiDropShadow-0d7_KjU ()J
+	public fun getAiInnerShadow-0d7_KjU ()J
+	public fun getAiOverlay-0d7_KjU ()J
+	public fun getAiPopoverBackground-0d7_KjU ()J
+	public fun getAiPopoverCaretBottom-0d7_KjU ()J
+	public fun getAiPopoverCaretBottomBackground-0d7_KjU ()J
+	public fun getAiPopoverCaretBottomBackgroundActions-0d7_KjU ()J
+	public fun getAiPopoverCaretCenter-0d7_KjU ()J
+	public fun getAiPopoverShadowOuter01-0d7_KjU ()J
+	public fun getAiPopoverShadowOuter02-0d7_KjU ()J
+	public fun getAiSkeletonBackground-0d7_KjU ()J
+	public fun getAiSkeletonElementBackground-0d7_KjU ()J
 }
 
 public final class com/gabrieldrn/carbon/foundation/color/ai/Gray90AiColors : com/gabrieldrn/carbon/foundation/color/ai/AiColors {
 	public static final field $stable I
 	public static final field INSTANCE Lcom/gabrieldrn/carbon/foundation/color/ai/Gray90AiColors;
-	public fun getAuraEnd-0d7_KjU ()J
-	public fun getAuraHoverBackground-0d7_KjU ()J
-	public fun getAuraHoverEnd-0d7_KjU ()J
-	public fun getAuraHoverStart-0d7_KjU ()J
-	public fun getAuraStart-0d7_KjU ()J
-	public fun getAuraStartSm-0d7_KjU ()J
-	public fun getBorderEnd-0d7_KjU ()J
-	public fun getBorderStart-0d7_KjU ()J
-	public fun getBorderStrong-0d7_KjU ()J
-	public fun getDropShadow-0d7_KjU ()J
-	public fun getInnerShadow-0d7_KjU ()J
-	public fun getOverlay-0d7_KjU ()J
-	public fun getPopoverBackground-0d7_KjU ()J
-	public fun getPopoverShadowOuter01-0d7_KjU ()J
-	public fun getPopoverShadowOuter02-0d7_KjU ()J
-	public fun getSkeletonBackground-0d7_KjU ()J
-	public fun getSkeletonElement-0d7_KjU ()J
+	public fun getAiAuraEnd-0d7_KjU ()J
+	public fun getAiAuraHoverBackground-0d7_KjU ()J
+	public fun getAiAuraHoverEnd-0d7_KjU ()J
+	public fun getAiAuraHoverStart-0d7_KjU ()J
+	public fun getAiAuraStart-0d7_KjU ()J
+	public fun getAiAuraStartSm-0d7_KjU ()J
+	public fun getAiBorderEnd-0d7_KjU ()J
+	public fun getAiBorderStart-0d7_KjU ()J
+	public fun getAiBorderStrong-0d7_KjU ()J
+	public fun getAiDropShadow-0d7_KjU ()J
+	public fun getAiInnerShadow-0d7_KjU ()J
+	public fun getAiOverlay-0d7_KjU ()J
+	public fun getAiPopoverBackground-0d7_KjU ()J
+	public fun getAiPopoverCaretBottom-0d7_KjU ()J
+	public fun getAiPopoverCaretBottomBackground-0d7_KjU ()J
+	public fun getAiPopoverCaretBottomBackgroundActions-0d7_KjU ()J
+	public fun getAiPopoverCaretCenter-0d7_KjU ()J
+	public fun getAiPopoverShadowOuter01-0d7_KjU ()J
+	public fun getAiPopoverShadowOuter02-0d7_KjU ()J
+	public fun getAiSkeletonBackground-0d7_KjU ()J
+	public fun getAiSkeletonElementBackground-0d7_KjU ()J
 }
 
 public final class com/gabrieldrn/carbon/foundation/color/ai/WhiteAiColors : com/gabrieldrn/carbon/foundation/color/ai/AiColors {
 	public static final field $stable I
 	public static final field INSTANCE Lcom/gabrieldrn/carbon/foundation/color/ai/WhiteAiColors;
-	public fun getAuraEnd-0d7_KjU ()J
-	public fun getAuraHoverBackground-0d7_KjU ()J
-	public fun getAuraHoverEnd-0d7_KjU ()J
-	public fun getAuraHoverStart-0d7_KjU ()J
-	public fun getAuraStart-0d7_KjU ()J
-	public fun getAuraStartSm-0d7_KjU ()J
-	public fun getBorderEnd-0d7_KjU ()J
-	public fun getBorderStart-0d7_KjU ()J
-	public fun getBorderStrong-0d7_KjU ()J
-	public fun getDropShadow-0d7_KjU ()J
-	public fun getInnerShadow-0d7_KjU ()J
-	public fun getOverlay-0d7_KjU ()J
-	public fun getPopoverBackground-0d7_KjU ()J
-	public fun getPopoverShadowOuter01-0d7_KjU ()J
-	public fun getPopoverShadowOuter02-0d7_KjU ()J
-	public fun getSkeletonBackground-0d7_KjU ()J
-	public fun getSkeletonElement-0d7_KjU ()J
+	public fun getAiAuraEnd-0d7_KjU ()J
+	public fun getAiAuraHoverBackground-0d7_KjU ()J
+	public fun getAiAuraHoverEnd-0d7_KjU ()J
+	public fun getAiAuraHoverStart-0d7_KjU ()J
+	public fun getAiAuraStart-0d7_KjU ()J
+	public fun getAiAuraStartSm-0d7_KjU ()J
+	public fun getAiBorderEnd-0d7_KjU ()J
+	public fun getAiBorderStart-0d7_KjU ()J
+	public fun getAiBorderStrong-0d7_KjU ()J
+	public fun getAiDropShadow-0d7_KjU ()J
+	public fun getAiInnerShadow-0d7_KjU ()J
+	public fun getAiOverlay-0d7_KjU ()J
+	public fun getAiPopoverBackground-0d7_KjU ()J
+	public fun getAiPopoverCaretBottom-0d7_KjU ()J
+	public fun getAiPopoverCaretBottomBackground-0d7_KjU ()J
+	public fun getAiPopoverCaretBottomBackgroundActions-0d7_KjU ()J
+	public fun getAiPopoverCaretCenter-0d7_KjU ()J
+	public fun getAiPopoverShadowOuter01-0d7_KjU ()J
+	public fun getAiPopoverShadowOuter02-0d7_KjU ()J
+	public fun getAiSkeletonBackground-0d7_KjU ()J
+	public fun getAiSkeletonElementBackground-0d7_KjU ()J
+}
+
+public abstract interface class com/gabrieldrn/carbon/foundation/color/button/ButtonColors {
+	public abstract fun getButtonDangerActive-0d7_KjU ()J
+	public abstract fun getButtonDangerHover-0d7_KjU ()J
+	public abstract fun getButtonDangerPrimary-0d7_KjU ()J
+	public abstract fun getButtonDangerSecondary-0d7_KjU ()J
+	public abstract fun getButtonDisabled-0d7_KjU ()J
+	public abstract fun getButtonPrimary-0d7_KjU ()J
+	public abstract fun getButtonPrimaryActive-0d7_KjU ()J
+	public abstract fun getButtonPrimaryHover-0d7_KjU ()J
+	public abstract fun getButtonSecondary-0d7_KjU ()J
+	public abstract fun getButtonSecondaryActive-0d7_KjU ()J
+	public abstract fun getButtonSecondaryHover-0d7_KjU ()J
+	public abstract fun getButtonSeparator-0d7_KjU ()J
+	public abstract fun getButtonTertiary-0d7_KjU ()J
+	public abstract fun getButtonTertiaryActive-0d7_KjU ()J
+	public abstract fun getButtonTertiaryHover-0d7_KjU ()J
+}
+
+public final class com/gabrieldrn/carbon/foundation/color/button/Gray100ButtonColors : com/gabrieldrn/carbon/foundation/color/button/ButtonColors {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/gabrieldrn/carbon/foundation/color/button/Gray100ButtonColors;
+	public fun getButtonDangerActive-0d7_KjU ()J
+	public fun getButtonDangerHover-0d7_KjU ()J
+	public fun getButtonDangerPrimary-0d7_KjU ()J
+	public fun getButtonDangerSecondary-0d7_KjU ()J
+	public fun getButtonDisabled-0d7_KjU ()J
+	public fun getButtonPrimary-0d7_KjU ()J
+	public fun getButtonPrimaryActive-0d7_KjU ()J
+	public fun getButtonPrimaryHover-0d7_KjU ()J
+	public fun getButtonSecondary-0d7_KjU ()J
+	public fun getButtonSecondaryActive-0d7_KjU ()J
+	public fun getButtonSecondaryHover-0d7_KjU ()J
+	public fun getButtonSeparator-0d7_KjU ()J
+	public fun getButtonTertiary-0d7_KjU ()J
+	public fun getButtonTertiaryActive-0d7_KjU ()J
+	public fun getButtonTertiaryHover-0d7_KjU ()J
+}
+
+public final class com/gabrieldrn/carbon/foundation/color/button/Gray10ButtonColors : com/gabrieldrn/carbon/foundation/color/button/ButtonColors {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/gabrieldrn/carbon/foundation/color/button/Gray10ButtonColors;
+	public fun getButtonDangerActive-0d7_KjU ()J
+	public fun getButtonDangerHover-0d7_KjU ()J
+	public fun getButtonDangerPrimary-0d7_KjU ()J
+	public fun getButtonDangerSecondary-0d7_KjU ()J
+	public fun getButtonDisabled-0d7_KjU ()J
+	public fun getButtonPrimary-0d7_KjU ()J
+	public fun getButtonPrimaryActive-0d7_KjU ()J
+	public fun getButtonPrimaryHover-0d7_KjU ()J
+	public fun getButtonSecondary-0d7_KjU ()J
+	public fun getButtonSecondaryActive-0d7_KjU ()J
+	public fun getButtonSecondaryHover-0d7_KjU ()J
+	public fun getButtonSeparator-0d7_KjU ()J
+	public fun getButtonTertiary-0d7_KjU ()J
+	public fun getButtonTertiaryActive-0d7_KjU ()J
+	public fun getButtonTertiaryHover-0d7_KjU ()J
+}
+
+public final class com/gabrieldrn/carbon/foundation/color/button/Gray90ButtonColors : com/gabrieldrn/carbon/foundation/color/button/ButtonColors {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/gabrieldrn/carbon/foundation/color/button/Gray90ButtonColors;
+	public fun getButtonDangerActive-0d7_KjU ()J
+	public fun getButtonDangerHover-0d7_KjU ()J
+	public fun getButtonDangerPrimary-0d7_KjU ()J
+	public fun getButtonDangerSecondary-0d7_KjU ()J
+	public fun getButtonDisabled-0d7_KjU ()J
+	public fun getButtonPrimary-0d7_KjU ()J
+	public fun getButtonPrimaryActive-0d7_KjU ()J
+	public fun getButtonPrimaryHover-0d7_KjU ()J
+	public fun getButtonSecondary-0d7_KjU ()J
+	public fun getButtonSecondaryActive-0d7_KjU ()J
+	public fun getButtonSecondaryHover-0d7_KjU ()J
+	public fun getButtonSeparator-0d7_KjU ()J
+	public fun getButtonTertiary-0d7_KjU ()J
+	public fun getButtonTertiaryActive-0d7_KjU ()J
+	public fun getButtonTertiaryHover-0d7_KjU ()J
+}
+
+public final class com/gabrieldrn/carbon/foundation/color/button/WhiteButtonColors : com/gabrieldrn/carbon/foundation/color/button/ButtonColors {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/gabrieldrn/carbon/foundation/color/button/WhiteButtonColors;
+	public fun getButtonDangerActive-0d7_KjU ()J
+	public fun getButtonDangerHover-0d7_KjU ()J
+	public fun getButtonDangerPrimary-0d7_KjU ()J
+	public fun getButtonDangerSecondary-0d7_KjU ()J
+	public fun getButtonDisabled-0d7_KjU ()J
+	public fun getButtonPrimary-0d7_KjU ()J
+	public fun getButtonPrimaryActive-0d7_KjU ()J
+	public fun getButtonPrimaryHover-0d7_KjU ()J
+	public fun getButtonSecondary-0d7_KjU ()J
+	public fun getButtonSecondaryActive-0d7_KjU ()J
+	public fun getButtonSecondaryHover-0d7_KjU ()J
+	public fun getButtonSeparator-0d7_KjU ()J
+	public fun getButtonTertiary-0d7_KjU ()J
+	public fun getButtonTertiaryActive-0d7_KjU ()J
+	public fun getButtonTertiaryHover-0d7_KjU ()J
 }
 
 public abstract interface class com/gabrieldrn/carbon/foundation/color/chat/ChatColors {
-	public abstract fun getAvatarAgent-0d7_KjU ()J
-	public abstract fun getAvatarBot-0d7_KjU ()J
-	public abstract fun getAvatarUser-0d7_KjU ()J
-	public abstract fun getBubbleAgent-0d7_KjU ()J
-	public abstract fun getBubbleBorder-0d7_KjU ()J
-	public abstract fun getBubbleUser-0d7_KjU ()J
-	public abstract fun getButton-0d7_KjU ()J
-	public abstract fun getButtonActive-0d7_KjU ()J
-	public abstract fun getButtonHover-0d7_KjU ()J
-	public abstract fun getButtonSelected-0d7_KjU ()J
-	public abstract fun getButtonTextHover-0d7_KjU ()J
-	public abstract fun getButtonTextSelected-0d7_KjU ()J
-	public abstract fun getHeaderBackground-0d7_KjU ()J
-	public abstract fun getPromptBackground-0d7_KjU ()J
-	public abstract fun getPromptBorderEnd-0d7_KjU ()J
-	public abstract fun getPromptBorderStart-0d7_KjU ()J
-	public abstract fun getShellBackground-0d7_KjU ()J
+	public abstract fun getChatAvatarAgent-0d7_KjU ()J
+	public abstract fun getChatAvatarBot-0d7_KjU ()J
+	public abstract fun getChatAvatarUser-0d7_KjU ()J
+	public abstract fun getChatBubbleAgent-0d7_KjU ()J
+	public abstract fun getChatBubbleBorder-0d7_KjU ()J
+	public abstract fun getChatBubbleUser-0d7_KjU ()J
+	public abstract fun getChatButton-0d7_KjU ()J
+	public abstract fun getChatButtonActive-0d7_KjU ()J
+	public abstract fun getChatButtonHover-0d7_KjU ()J
+	public abstract fun getChatButtonSelected-0d7_KjU ()J
+	public abstract fun getChatButtonTextHover-0d7_KjU ()J
+	public abstract fun getChatButtonTextSelected-0d7_KjU ()J
+	public abstract fun getChatHeaderBackground-0d7_KjU ()J
+	public abstract fun getChatPromptBackground-0d7_KjU ()J
+	public abstract fun getChatPromptBorderEnd-0d7_KjU ()J
+	public abstract fun getChatPromptBorderStart-0d7_KjU ()J
+	public abstract fun getChatShellBackground-0d7_KjU ()J
 }
 
 public final class com/gabrieldrn/carbon/foundation/color/chat/Gray100ChatColors : com/gabrieldrn/carbon/foundation/color/chat/ChatColors {
 	public static final field $stable I
 	public static final field INSTANCE Lcom/gabrieldrn/carbon/foundation/color/chat/Gray100ChatColors;
-	public fun getAvatarAgent-0d7_KjU ()J
-	public fun getAvatarBot-0d7_KjU ()J
-	public fun getAvatarUser-0d7_KjU ()J
-	public fun getBubbleAgent-0d7_KjU ()J
-	public fun getBubbleBorder-0d7_KjU ()J
-	public fun getBubbleUser-0d7_KjU ()J
-	public fun getButton-0d7_KjU ()J
-	public fun getButtonActive-0d7_KjU ()J
-	public fun getButtonHover-0d7_KjU ()J
-	public fun getButtonSelected-0d7_KjU ()J
-	public fun getButtonTextHover-0d7_KjU ()J
-	public fun getButtonTextSelected-0d7_KjU ()J
-	public fun getHeaderBackground-0d7_KjU ()J
-	public fun getPromptBackground-0d7_KjU ()J
-	public fun getPromptBorderEnd-0d7_KjU ()J
-	public fun getPromptBorderStart-0d7_KjU ()J
-	public fun getShellBackground-0d7_KjU ()J
+	public fun getChatAvatarAgent-0d7_KjU ()J
+	public fun getChatAvatarBot-0d7_KjU ()J
+	public fun getChatAvatarUser-0d7_KjU ()J
+	public fun getChatBubbleAgent-0d7_KjU ()J
+	public fun getChatBubbleBorder-0d7_KjU ()J
+	public fun getChatBubbleUser-0d7_KjU ()J
+	public fun getChatButton-0d7_KjU ()J
+	public fun getChatButtonActive-0d7_KjU ()J
+	public fun getChatButtonHover-0d7_KjU ()J
+	public fun getChatButtonSelected-0d7_KjU ()J
+	public fun getChatButtonTextHover-0d7_KjU ()J
+	public fun getChatButtonTextSelected-0d7_KjU ()J
+	public fun getChatHeaderBackground-0d7_KjU ()J
+	public fun getChatPromptBackground-0d7_KjU ()J
+	public fun getChatPromptBorderEnd-0d7_KjU ()J
+	public fun getChatPromptBorderStart-0d7_KjU ()J
+	public fun getChatShellBackground-0d7_KjU ()J
 }
 
 public final class com/gabrieldrn/carbon/foundation/color/chat/Gray10ChatColors : com/gabrieldrn/carbon/foundation/color/chat/ChatColors {
 	public static final field $stable I
 	public static final field INSTANCE Lcom/gabrieldrn/carbon/foundation/color/chat/Gray10ChatColors;
-	public fun getAvatarAgent-0d7_KjU ()J
-	public fun getAvatarBot-0d7_KjU ()J
-	public fun getAvatarUser-0d7_KjU ()J
-	public fun getBubbleAgent-0d7_KjU ()J
-	public fun getBubbleBorder-0d7_KjU ()J
-	public fun getBubbleUser-0d7_KjU ()J
-	public fun getButton-0d7_KjU ()J
-	public fun getButtonActive-0d7_KjU ()J
-	public fun getButtonHover-0d7_KjU ()J
-	public fun getButtonSelected-0d7_KjU ()J
-	public fun getButtonTextHover-0d7_KjU ()J
-	public fun getButtonTextSelected-0d7_KjU ()J
-	public fun getHeaderBackground-0d7_KjU ()J
-	public fun getPromptBackground-0d7_KjU ()J
-	public fun getPromptBorderEnd-0d7_KjU ()J
-	public fun getPromptBorderStart-0d7_KjU ()J
-	public fun getShellBackground-0d7_KjU ()J
+	public fun getChatAvatarAgent-0d7_KjU ()J
+	public fun getChatAvatarBot-0d7_KjU ()J
+	public fun getChatAvatarUser-0d7_KjU ()J
+	public fun getChatBubbleAgent-0d7_KjU ()J
+	public fun getChatBubbleBorder-0d7_KjU ()J
+	public fun getChatBubbleUser-0d7_KjU ()J
+	public fun getChatButton-0d7_KjU ()J
+	public fun getChatButtonActive-0d7_KjU ()J
+	public fun getChatButtonHover-0d7_KjU ()J
+	public fun getChatButtonSelected-0d7_KjU ()J
+	public fun getChatButtonTextHover-0d7_KjU ()J
+	public fun getChatButtonTextSelected-0d7_KjU ()J
+	public fun getChatHeaderBackground-0d7_KjU ()J
+	public fun getChatPromptBackground-0d7_KjU ()J
+	public fun getChatPromptBorderEnd-0d7_KjU ()J
+	public fun getChatPromptBorderStart-0d7_KjU ()J
+	public fun getChatShellBackground-0d7_KjU ()J
 }
 
 public final class com/gabrieldrn/carbon/foundation/color/chat/Gray90ChatColors : com/gabrieldrn/carbon/foundation/color/chat/ChatColors {
 	public static final field $stable I
 	public static final field INSTANCE Lcom/gabrieldrn/carbon/foundation/color/chat/Gray90ChatColors;
-	public fun getAvatarAgent-0d7_KjU ()J
-	public fun getAvatarBot-0d7_KjU ()J
-	public fun getAvatarUser-0d7_KjU ()J
-	public fun getBubbleAgent-0d7_KjU ()J
-	public fun getBubbleBorder-0d7_KjU ()J
-	public fun getBubbleUser-0d7_KjU ()J
-	public fun getButton-0d7_KjU ()J
-	public fun getButtonActive-0d7_KjU ()J
-	public fun getButtonHover-0d7_KjU ()J
-	public fun getButtonSelected-0d7_KjU ()J
-	public fun getButtonTextHover-0d7_KjU ()J
-	public fun getButtonTextSelected-0d7_KjU ()J
-	public fun getHeaderBackground-0d7_KjU ()J
-	public fun getPromptBackground-0d7_KjU ()J
-	public fun getPromptBorderEnd-0d7_KjU ()J
-	public fun getPromptBorderStart-0d7_KjU ()J
-	public fun getShellBackground-0d7_KjU ()J
+	public fun getChatAvatarAgent-0d7_KjU ()J
+	public fun getChatAvatarBot-0d7_KjU ()J
+	public fun getChatAvatarUser-0d7_KjU ()J
+	public fun getChatBubbleAgent-0d7_KjU ()J
+	public fun getChatBubbleBorder-0d7_KjU ()J
+	public fun getChatBubbleUser-0d7_KjU ()J
+	public fun getChatButton-0d7_KjU ()J
+	public fun getChatButtonActive-0d7_KjU ()J
+	public fun getChatButtonHover-0d7_KjU ()J
+	public fun getChatButtonSelected-0d7_KjU ()J
+	public fun getChatButtonTextHover-0d7_KjU ()J
+	public fun getChatButtonTextSelected-0d7_KjU ()J
+	public fun getChatHeaderBackground-0d7_KjU ()J
+	public fun getChatPromptBackground-0d7_KjU ()J
+	public fun getChatPromptBorderEnd-0d7_KjU ()J
+	public fun getChatPromptBorderStart-0d7_KjU ()J
+	public fun getChatShellBackground-0d7_KjU ()J
 }
 
 public final class com/gabrieldrn/carbon/foundation/color/chat/WhiteChatColors : com/gabrieldrn/carbon/foundation/color/chat/ChatColors {
 	public static final field $stable I
 	public static final field INSTANCE Lcom/gabrieldrn/carbon/foundation/color/chat/WhiteChatColors;
-	public fun getAvatarAgent-0d7_KjU ()J
-	public fun getAvatarBot-0d7_KjU ()J
-	public fun getAvatarUser-0d7_KjU ()J
-	public fun getBubbleAgent-0d7_KjU ()J
-	public fun getBubbleBorder-0d7_KjU ()J
-	public fun getBubbleUser-0d7_KjU ()J
-	public fun getButton-0d7_KjU ()J
-	public fun getButtonActive-0d7_KjU ()J
-	public fun getButtonHover-0d7_KjU ()J
-	public fun getButtonSelected-0d7_KjU ()J
-	public fun getButtonTextHover-0d7_KjU ()J
-	public fun getButtonTextSelected-0d7_KjU ()J
-	public fun getHeaderBackground-0d7_KjU ()J
-	public fun getPromptBackground-0d7_KjU ()J
-	public fun getPromptBorderEnd-0d7_KjU ()J
-	public fun getPromptBorderStart-0d7_KjU ()J
-	public fun getShellBackground-0d7_KjU ()J
+	public fun getChatAvatarAgent-0d7_KjU ()J
+	public fun getChatAvatarBot-0d7_KjU ()J
+	public fun getChatAvatarUser-0d7_KjU ()J
+	public fun getChatBubbleAgent-0d7_KjU ()J
+	public fun getChatBubbleBorder-0d7_KjU ()J
+	public fun getChatBubbleUser-0d7_KjU ()J
+	public fun getChatButton-0d7_KjU ()J
+	public fun getChatButtonActive-0d7_KjU ()J
+	public fun getChatButtonHover-0d7_KjU ()J
+	public fun getChatButtonSelected-0d7_KjU ()J
+	public fun getChatButtonTextHover-0d7_KjU ()J
+	public fun getChatButtonTextSelected-0d7_KjU ()J
+	public fun getChatHeaderBackground-0d7_KjU ()J
+	public fun getChatPromptBackground-0d7_KjU ()J
+	public fun getChatPromptBorderEnd-0d7_KjU ()J
+	public fun getChatPromptBorderStart-0d7_KjU ()J
+	public fun getChatShellBackground-0d7_KjU ()J
 }
 
 public final class com/gabrieldrn/carbon/foundation/color/notification/Gray100NotificationColors : com/gabrieldrn/carbon/foundation/color/notification/NotificationColors {
 	public static final field $stable I
 	public static final field INSTANCE Lcom/gabrieldrn/carbon/foundation/color/notification/Gray100NotificationColors;
-	public fun getActionHover-0d7_KjU ()J
-	public fun getActionTertiaryInverse-0d7_KjU ()J
-	public fun getActionTertiaryInverseActive-0d7_KjU ()J
-	public fun getActionTertiaryInverseHover-0d7_KjU ()J
-	public fun getActionTertiaryInverseText-0d7_KjU ()J
-	public fun getActionTertiaryInverseTextOnColorDisabled-0d7_KjU ()J
-	public fun getBackgroundError-0d7_KjU ()J
-	public fun getBackgroundInfo-0d7_KjU ()J
-	public fun getBackgroundSuccess-0d7_KjU ()J
-	public fun getBackgroundWarning-0d7_KjU ()J
+	public fun getNotificationActionHover-0d7_KjU ()J
+	public fun getNotificationActionTertiaryInverse-0d7_KjU ()J
+	public fun getNotificationActionTertiaryInverseActive-0d7_KjU ()J
+	public fun getNotificationActionTertiaryInverseHover-0d7_KjU ()J
+	public fun getNotificationActionTertiaryInverseText-0d7_KjU ()J
+	public fun getNotificationActionTertiaryInverseTextOnColorDisabled-0d7_KjU ()J
+	public fun getNotificationBackgroundError-0d7_KjU ()J
+	public fun getNotificationBackgroundInfo-0d7_KjU ()J
+	public fun getNotificationBackgroundSuccess-0d7_KjU ()J
+	public fun getNotificationBackgroundWarning-0d7_KjU ()J
 }
 
 public final class com/gabrieldrn/carbon/foundation/color/notification/Gray10NotificationColors : com/gabrieldrn/carbon/foundation/color/notification/NotificationColors {
 	public static final field $stable I
 	public static final field INSTANCE Lcom/gabrieldrn/carbon/foundation/color/notification/Gray10NotificationColors;
-	public fun getActionHover-0d7_KjU ()J
-	public fun getActionTertiaryInverse-0d7_KjU ()J
-	public fun getActionTertiaryInverseActive-0d7_KjU ()J
-	public fun getActionTertiaryInverseHover-0d7_KjU ()J
-	public fun getActionTertiaryInverseText-0d7_KjU ()J
-	public fun getActionTertiaryInverseTextOnColorDisabled-0d7_KjU ()J
-	public fun getBackgroundError-0d7_KjU ()J
-	public fun getBackgroundInfo-0d7_KjU ()J
-	public fun getBackgroundSuccess-0d7_KjU ()J
-	public fun getBackgroundWarning-0d7_KjU ()J
+	public fun getNotificationActionHover-0d7_KjU ()J
+	public fun getNotificationActionTertiaryInverse-0d7_KjU ()J
+	public fun getNotificationActionTertiaryInverseActive-0d7_KjU ()J
+	public fun getNotificationActionTertiaryInverseHover-0d7_KjU ()J
+	public fun getNotificationActionTertiaryInverseText-0d7_KjU ()J
+	public fun getNotificationActionTertiaryInverseTextOnColorDisabled-0d7_KjU ()J
+	public fun getNotificationBackgroundError-0d7_KjU ()J
+	public fun getNotificationBackgroundInfo-0d7_KjU ()J
+	public fun getNotificationBackgroundSuccess-0d7_KjU ()J
+	public fun getNotificationBackgroundWarning-0d7_KjU ()J
 }
 
 public final class com/gabrieldrn/carbon/foundation/color/notification/Gray90NotificationColors : com/gabrieldrn/carbon/foundation/color/notification/NotificationColors {
 	public static final field $stable I
 	public static final field INSTANCE Lcom/gabrieldrn/carbon/foundation/color/notification/Gray90NotificationColors;
-	public fun getActionHover-0d7_KjU ()J
-	public fun getActionTertiaryInverse-0d7_KjU ()J
-	public fun getActionTertiaryInverseActive-0d7_KjU ()J
-	public fun getActionTertiaryInverseHover-0d7_KjU ()J
-	public fun getActionTertiaryInverseText-0d7_KjU ()J
-	public fun getActionTertiaryInverseTextOnColorDisabled-0d7_KjU ()J
-	public fun getBackgroundError-0d7_KjU ()J
-	public fun getBackgroundInfo-0d7_KjU ()J
-	public fun getBackgroundSuccess-0d7_KjU ()J
-	public fun getBackgroundWarning-0d7_KjU ()J
+	public fun getNotificationActionHover-0d7_KjU ()J
+	public fun getNotificationActionTertiaryInverse-0d7_KjU ()J
+	public fun getNotificationActionTertiaryInverseActive-0d7_KjU ()J
+	public fun getNotificationActionTertiaryInverseHover-0d7_KjU ()J
+	public fun getNotificationActionTertiaryInverseText-0d7_KjU ()J
+	public fun getNotificationActionTertiaryInverseTextOnColorDisabled-0d7_KjU ()J
+	public fun getNotificationBackgroundError-0d7_KjU ()J
+	public fun getNotificationBackgroundInfo-0d7_KjU ()J
+	public fun getNotificationBackgroundSuccess-0d7_KjU ()J
+	public fun getNotificationBackgroundWarning-0d7_KjU ()J
 }
 
 public abstract interface class com/gabrieldrn/carbon/foundation/color/notification/NotificationColors {
-	public abstract fun getActionHover-0d7_KjU ()J
-	public abstract fun getActionTertiaryInverse-0d7_KjU ()J
-	public abstract fun getActionTertiaryInverseActive-0d7_KjU ()J
-	public abstract fun getActionTertiaryInverseHover-0d7_KjU ()J
-	public abstract fun getActionTertiaryInverseText-0d7_KjU ()J
-	public abstract fun getActionTertiaryInverseTextOnColorDisabled-0d7_KjU ()J
-	public abstract fun getBackgroundError-0d7_KjU ()J
-	public abstract fun getBackgroundInfo-0d7_KjU ()J
-	public abstract fun getBackgroundSuccess-0d7_KjU ()J
-	public abstract fun getBackgroundWarning-0d7_KjU ()J
+	public abstract fun getNotificationActionHover-0d7_KjU ()J
+	public abstract fun getNotificationActionTertiaryInverse-0d7_KjU ()J
+	public abstract fun getNotificationActionTertiaryInverseActive-0d7_KjU ()J
+	public abstract fun getNotificationActionTertiaryInverseHover-0d7_KjU ()J
+	public abstract fun getNotificationActionTertiaryInverseText-0d7_KjU ()J
+	public abstract fun getNotificationActionTertiaryInverseTextOnColorDisabled-0d7_KjU ()J
+	public abstract fun getNotificationBackgroundError-0d7_KjU ()J
+	public abstract fun getNotificationBackgroundInfo-0d7_KjU ()J
+	public abstract fun getNotificationBackgroundSuccess-0d7_KjU ()J
+	public abstract fun getNotificationBackgroundWarning-0d7_KjU ()J
 }
 
 public final class com/gabrieldrn/carbon/foundation/color/notification/WhiteNotificationColors : com/gabrieldrn/carbon/foundation/color/notification/NotificationColors {
 	public static final field $stable I
 	public static final field INSTANCE Lcom/gabrieldrn/carbon/foundation/color/notification/WhiteNotificationColors;
-	public fun getActionHover-0d7_KjU ()J
-	public fun getActionTertiaryInverse-0d7_KjU ()J
-	public fun getActionTertiaryInverseActive-0d7_KjU ()J
-	public fun getActionTertiaryInverseHover-0d7_KjU ()J
-	public fun getActionTertiaryInverseText-0d7_KjU ()J
-	public fun getActionTertiaryInverseTextOnColorDisabled-0d7_KjU ()J
-	public fun getBackgroundError-0d7_KjU ()J
-	public fun getBackgroundInfo-0d7_KjU ()J
-	public fun getBackgroundSuccess-0d7_KjU ()J
-	public fun getBackgroundWarning-0d7_KjU ()J
+	public fun getNotificationActionHover-0d7_KjU ()J
+	public fun getNotificationActionTertiaryInverse-0d7_KjU ()J
+	public fun getNotificationActionTertiaryInverseActive-0d7_KjU ()J
+	public fun getNotificationActionTertiaryInverseHover-0d7_KjU ()J
+	public fun getNotificationActionTertiaryInverseText-0d7_KjU ()J
+	public fun getNotificationActionTertiaryInverseTextOnColorDisabled-0d7_KjU ()J
+	public fun getNotificationBackgroundError-0d7_KjU ()J
+	public fun getNotificationBackgroundInfo-0d7_KjU ()J
+	public fun getNotificationBackgroundSuccess-0d7_KjU ()J
+	public fun getNotificationBackgroundWarning-0d7_KjU ()J
 }
 
 public final class com/gabrieldrn/carbon/foundation/color/tag/Gray100TagColors : com/gabrieldrn/carbon/foundation/color/tag/TagColors {
 	public static final field $stable I
 	public static final field INSTANCE Lcom/gabrieldrn/carbon/foundation/color/tag/Gray100TagColors;
-	public fun getBackgroundBlue-0d7_KjU ()J
-	public fun getBackgroundCoolGray-0d7_KjU ()J
-	public fun getBackgroundCyan-0d7_KjU ()J
-	public fun getBackgroundGray-0d7_KjU ()J
-	public fun getBackgroundGreen-0d7_KjU ()J
-	public fun getBackgroundMagenta-0d7_KjU ()J
-	public fun getBackgroundPurple-0d7_KjU ()J
-	public fun getBackgroundRed-0d7_KjU ()J
-	public fun getBackgroundTeal-0d7_KjU ()J
-	public fun getBackgroundWarmGray-0d7_KjU ()J
-	public fun getBorderBlue-0d7_KjU ()J
-	public fun getBorderCoolGray-0d7_KjU ()J
-	public fun getBorderCyan-0d7_KjU ()J
-	public fun getBorderGray-0d7_KjU ()J
-	public fun getBorderGreen-0d7_KjU ()J
-	public fun getBorderMagenta-0d7_KjU ()J
-	public fun getBorderPurple-0d7_KjU ()J
-	public fun getBorderRed-0d7_KjU ()J
-	public fun getBorderTeal-0d7_KjU ()J
-	public fun getBorderWarmGray-0d7_KjU ()J
-	public fun getColorBlue-0d7_KjU ()J
-	public fun getColorCoolGray-0d7_KjU ()J
-	public fun getColorCyan-0d7_KjU ()J
-	public fun getColorGray-0d7_KjU ()J
-	public fun getColorGreen-0d7_KjU ()J
-	public fun getColorMagenta-0d7_KjU ()J
-	public fun getColorPurple-0d7_KjU ()J
-	public fun getColorRed-0d7_KjU ()J
-	public fun getColorTeal-0d7_KjU ()J
-	public fun getColorWarmGray-0d7_KjU ()J
-	public fun getHoverBlue-0d7_KjU ()J
-	public fun getHoverCoolGray-0d7_KjU ()J
-	public fun getHoverCyan-0d7_KjU ()J
-	public fun getHoverGray-0d7_KjU ()J
-	public fun getHoverGreen-0d7_KjU ()J
-	public fun getHoverMagenta-0d7_KjU ()J
-	public fun getHoverPurple-0d7_KjU ()J
-	public fun getHoverRed-0d7_KjU ()J
-	public fun getHoverTeal-0d7_KjU ()J
-	public fun getHoverWarmGray-0d7_KjU ()J
+	public fun getTagBackgroundBlue-0d7_KjU ()J
+	public fun getTagBackgroundCoolGray-0d7_KjU ()J
+	public fun getTagBackgroundCyan-0d7_KjU ()J
+	public fun getTagBackgroundGray-0d7_KjU ()J
+	public fun getTagBackgroundGreen-0d7_KjU ()J
+	public fun getTagBackgroundMagenta-0d7_KjU ()J
+	public fun getTagBackgroundPurple-0d7_KjU ()J
+	public fun getTagBackgroundRed-0d7_KjU ()J
+	public fun getTagBackgroundTeal-0d7_KjU ()J
+	public fun getTagBackgroundWarmGray-0d7_KjU ()J
+	public fun getTagBorderBlue-0d7_KjU ()J
+	public fun getTagBorderCoolGray-0d7_KjU ()J
+	public fun getTagBorderCyan-0d7_KjU ()J
+	public fun getTagBorderGray-0d7_KjU ()J
+	public fun getTagBorderGreen-0d7_KjU ()J
+	public fun getTagBorderMagenta-0d7_KjU ()J
+	public fun getTagBorderPurple-0d7_KjU ()J
+	public fun getTagBorderRed-0d7_KjU ()J
+	public fun getTagBorderTeal-0d7_KjU ()J
+	public fun getTagBorderWarmGray-0d7_KjU ()J
+	public fun getTagColorBlue-0d7_KjU ()J
+	public fun getTagColorCoolGray-0d7_KjU ()J
+	public fun getTagColorCyan-0d7_KjU ()J
+	public fun getTagColorGray-0d7_KjU ()J
+	public fun getTagColorGreen-0d7_KjU ()J
+	public fun getTagColorMagenta-0d7_KjU ()J
+	public fun getTagColorPurple-0d7_KjU ()J
+	public fun getTagColorRed-0d7_KjU ()J
+	public fun getTagColorTeal-0d7_KjU ()J
+	public fun getTagColorWarmGray-0d7_KjU ()J
+	public fun getTagHoverBlue-0d7_KjU ()J
+	public fun getTagHoverCoolGray-0d7_KjU ()J
+	public fun getTagHoverCyan-0d7_KjU ()J
+	public fun getTagHoverGray-0d7_KjU ()J
+	public fun getTagHoverGreen-0d7_KjU ()J
+	public fun getTagHoverMagenta-0d7_KjU ()J
+	public fun getTagHoverPurple-0d7_KjU ()J
+	public fun getTagHoverRed-0d7_KjU ()J
+	public fun getTagHoverTeal-0d7_KjU ()J
+	public fun getTagHoverWarmGray-0d7_KjU ()J
 }
 
 public final class com/gabrieldrn/carbon/foundation/color/tag/Gray10TagColors : com/gabrieldrn/carbon/foundation/color/tag/TagColors {
 	public static final field $stable I
 	public static final field INSTANCE Lcom/gabrieldrn/carbon/foundation/color/tag/Gray10TagColors;
-	public fun getBackgroundBlue-0d7_KjU ()J
-	public fun getBackgroundCoolGray-0d7_KjU ()J
-	public fun getBackgroundCyan-0d7_KjU ()J
-	public fun getBackgroundGray-0d7_KjU ()J
-	public fun getBackgroundGreen-0d7_KjU ()J
-	public fun getBackgroundMagenta-0d7_KjU ()J
-	public fun getBackgroundPurple-0d7_KjU ()J
-	public fun getBackgroundRed-0d7_KjU ()J
-	public fun getBackgroundTeal-0d7_KjU ()J
-	public fun getBackgroundWarmGray-0d7_KjU ()J
-	public fun getBorderBlue-0d7_KjU ()J
-	public fun getBorderCoolGray-0d7_KjU ()J
-	public fun getBorderCyan-0d7_KjU ()J
-	public fun getBorderGray-0d7_KjU ()J
-	public fun getBorderGreen-0d7_KjU ()J
-	public fun getBorderMagenta-0d7_KjU ()J
-	public fun getBorderPurple-0d7_KjU ()J
-	public fun getBorderRed-0d7_KjU ()J
-	public fun getBorderTeal-0d7_KjU ()J
-	public fun getBorderWarmGray-0d7_KjU ()J
-	public fun getColorBlue-0d7_KjU ()J
-	public fun getColorCoolGray-0d7_KjU ()J
-	public fun getColorCyan-0d7_KjU ()J
-	public fun getColorGray-0d7_KjU ()J
-	public fun getColorGreen-0d7_KjU ()J
-	public fun getColorMagenta-0d7_KjU ()J
-	public fun getColorPurple-0d7_KjU ()J
-	public fun getColorRed-0d7_KjU ()J
-	public fun getColorTeal-0d7_KjU ()J
-	public fun getColorWarmGray-0d7_KjU ()J
-	public fun getHoverBlue-0d7_KjU ()J
-	public fun getHoverCoolGray-0d7_KjU ()J
-	public fun getHoverCyan-0d7_KjU ()J
-	public fun getHoverGray-0d7_KjU ()J
-	public fun getHoverGreen-0d7_KjU ()J
-	public fun getHoverMagenta-0d7_KjU ()J
-	public fun getHoverPurple-0d7_KjU ()J
-	public fun getHoverRed-0d7_KjU ()J
-	public fun getHoverTeal-0d7_KjU ()J
-	public fun getHoverWarmGray-0d7_KjU ()J
+	public fun getTagBackgroundBlue-0d7_KjU ()J
+	public fun getTagBackgroundCoolGray-0d7_KjU ()J
+	public fun getTagBackgroundCyan-0d7_KjU ()J
+	public fun getTagBackgroundGray-0d7_KjU ()J
+	public fun getTagBackgroundGreen-0d7_KjU ()J
+	public fun getTagBackgroundMagenta-0d7_KjU ()J
+	public fun getTagBackgroundPurple-0d7_KjU ()J
+	public fun getTagBackgroundRed-0d7_KjU ()J
+	public fun getTagBackgroundTeal-0d7_KjU ()J
+	public fun getTagBackgroundWarmGray-0d7_KjU ()J
+	public fun getTagBorderBlue-0d7_KjU ()J
+	public fun getTagBorderCoolGray-0d7_KjU ()J
+	public fun getTagBorderCyan-0d7_KjU ()J
+	public fun getTagBorderGray-0d7_KjU ()J
+	public fun getTagBorderGreen-0d7_KjU ()J
+	public fun getTagBorderMagenta-0d7_KjU ()J
+	public fun getTagBorderPurple-0d7_KjU ()J
+	public fun getTagBorderRed-0d7_KjU ()J
+	public fun getTagBorderTeal-0d7_KjU ()J
+	public fun getTagBorderWarmGray-0d7_KjU ()J
+	public fun getTagColorBlue-0d7_KjU ()J
+	public fun getTagColorCoolGray-0d7_KjU ()J
+	public fun getTagColorCyan-0d7_KjU ()J
+	public fun getTagColorGray-0d7_KjU ()J
+	public fun getTagColorGreen-0d7_KjU ()J
+	public fun getTagColorMagenta-0d7_KjU ()J
+	public fun getTagColorPurple-0d7_KjU ()J
+	public fun getTagColorRed-0d7_KjU ()J
+	public fun getTagColorTeal-0d7_KjU ()J
+	public fun getTagColorWarmGray-0d7_KjU ()J
+	public fun getTagHoverBlue-0d7_KjU ()J
+	public fun getTagHoverCoolGray-0d7_KjU ()J
+	public fun getTagHoverCyan-0d7_KjU ()J
+	public fun getTagHoverGray-0d7_KjU ()J
+	public fun getTagHoverGreen-0d7_KjU ()J
+	public fun getTagHoverMagenta-0d7_KjU ()J
+	public fun getTagHoverPurple-0d7_KjU ()J
+	public fun getTagHoverRed-0d7_KjU ()J
+	public fun getTagHoverTeal-0d7_KjU ()J
+	public fun getTagHoverWarmGray-0d7_KjU ()J
 }
 
 public final class com/gabrieldrn/carbon/foundation/color/tag/Gray90TagColors : com/gabrieldrn/carbon/foundation/color/tag/TagColors {
 	public static final field $stable I
 	public static final field INSTANCE Lcom/gabrieldrn/carbon/foundation/color/tag/Gray90TagColors;
-	public fun getBackgroundBlue-0d7_KjU ()J
-	public fun getBackgroundCoolGray-0d7_KjU ()J
-	public fun getBackgroundCyan-0d7_KjU ()J
-	public fun getBackgroundGray-0d7_KjU ()J
-	public fun getBackgroundGreen-0d7_KjU ()J
-	public fun getBackgroundMagenta-0d7_KjU ()J
-	public fun getBackgroundPurple-0d7_KjU ()J
-	public fun getBackgroundRed-0d7_KjU ()J
-	public fun getBackgroundTeal-0d7_KjU ()J
-	public fun getBackgroundWarmGray-0d7_KjU ()J
-	public fun getBorderBlue-0d7_KjU ()J
-	public fun getBorderCoolGray-0d7_KjU ()J
-	public fun getBorderCyan-0d7_KjU ()J
-	public fun getBorderGray-0d7_KjU ()J
-	public fun getBorderGreen-0d7_KjU ()J
-	public fun getBorderMagenta-0d7_KjU ()J
-	public fun getBorderPurple-0d7_KjU ()J
-	public fun getBorderRed-0d7_KjU ()J
-	public fun getBorderTeal-0d7_KjU ()J
-	public fun getBorderWarmGray-0d7_KjU ()J
-	public fun getColorBlue-0d7_KjU ()J
-	public fun getColorCoolGray-0d7_KjU ()J
-	public fun getColorCyan-0d7_KjU ()J
-	public fun getColorGray-0d7_KjU ()J
-	public fun getColorGreen-0d7_KjU ()J
-	public fun getColorMagenta-0d7_KjU ()J
-	public fun getColorPurple-0d7_KjU ()J
-	public fun getColorRed-0d7_KjU ()J
-	public fun getColorTeal-0d7_KjU ()J
-	public fun getColorWarmGray-0d7_KjU ()J
-	public fun getHoverBlue-0d7_KjU ()J
-	public fun getHoverCoolGray-0d7_KjU ()J
-	public fun getHoverCyan-0d7_KjU ()J
-	public fun getHoverGray-0d7_KjU ()J
-	public fun getHoverGreen-0d7_KjU ()J
-	public fun getHoverMagenta-0d7_KjU ()J
-	public fun getHoverPurple-0d7_KjU ()J
-	public fun getHoverRed-0d7_KjU ()J
-	public fun getHoverTeal-0d7_KjU ()J
-	public fun getHoverWarmGray-0d7_KjU ()J
+	public fun getTagBackgroundBlue-0d7_KjU ()J
+	public fun getTagBackgroundCoolGray-0d7_KjU ()J
+	public fun getTagBackgroundCyan-0d7_KjU ()J
+	public fun getTagBackgroundGray-0d7_KjU ()J
+	public fun getTagBackgroundGreen-0d7_KjU ()J
+	public fun getTagBackgroundMagenta-0d7_KjU ()J
+	public fun getTagBackgroundPurple-0d7_KjU ()J
+	public fun getTagBackgroundRed-0d7_KjU ()J
+	public fun getTagBackgroundTeal-0d7_KjU ()J
+	public fun getTagBackgroundWarmGray-0d7_KjU ()J
+	public fun getTagBorderBlue-0d7_KjU ()J
+	public fun getTagBorderCoolGray-0d7_KjU ()J
+	public fun getTagBorderCyan-0d7_KjU ()J
+	public fun getTagBorderGray-0d7_KjU ()J
+	public fun getTagBorderGreen-0d7_KjU ()J
+	public fun getTagBorderMagenta-0d7_KjU ()J
+	public fun getTagBorderPurple-0d7_KjU ()J
+	public fun getTagBorderRed-0d7_KjU ()J
+	public fun getTagBorderTeal-0d7_KjU ()J
+	public fun getTagBorderWarmGray-0d7_KjU ()J
+	public fun getTagColorBlue-0d7_KjU ()J
+	public fun getTagColorCoolGray-0d7_KjU ()J
+	public fun getTagColorCyan-0d7_KjU ()J
+	public fun getTagColorGray-0d7_KjU ()J
+	public fun getTagColorGreen-0d7_KjU ()J
+	public fun getTagColorMagenta-0d7_KjU ()J
+	public fun getTagColorPurple-0d7_KjU ()J
+	public fun getTagColorRed-0d7_KjU ()J
+	public fun getTagColorTeal-0d7_KjU ()J
+	public fun getTagColorWarmGray-0d7_KjU ()J
+	public fun getTagHoverBlue-0d7_KjU ()J
+	public fun getTagHoverCoolGray-0d7_KjU ()J
+	public fun getTagHoverCyan-0d7_KjU ()J
+	public fun getTagHoverGray-0d7_KjU ()J
+	public fun getTagHoverGreen-0d7_KjU ()J
+	public fun getTagHoverMagenta-0d7_KjU ()J
+	public fun getTagHoverPurple-0d7_KjU ()J
+	public fun getTagHoverRed-0d7_KjU ()J
+	public fun getTagHoverTeal-0d7_KjU ()J
+	public fun getTagHoverWarmGray-0d7_KjU ()J
 }
 
 public abstract interface class com/gabrieldrn/carbon/foundation/color/tag/TagColors {
-	public abstract fun getBackgroundBlue-0d7_KjU ()J
-	public abstract fun getBackgroundCoolGray-0d7_KjU ()J
-	public abstract fun getBackgroundCyan-0d7_KjU ()J
-	public abstract fun getBackgroundGray-0d7_KjU ()J
-	public abstract fun getBackgroundGreen-0d7_KjU ()J
-	public abstract fun getBackgroundMagenta-0d7_KjU ()J
-	public abstract fun getBackgroundPurple-0d7_KjU ()J
-	public abstract fun getBackgroundRed-0d7_KjU ()J
-	public abstract fun getBackgroundTeal-0d7_KjU ()J
-	public abstract fun getBackgroundWarmGray-0d7_KjU ()J
-	public abstract fun getBorderBlue-0d7_KjU ()J
-	public abstract fun getBorderCoolGray-0d7_KjU ()J
-	public abstract fun getBorderCyan-0d7_KjU ()J
-	public abstract fun getBorderGray-0d7_KjU ()J
-	public abstract fun getBorderGreen-0d7_KjU ()J
-	public abstract fun getBorderMagenta-0d7_KjU ()J
-	public abstract fun getBorderPurple-0d7_KjU ()J
-	public abstract fun getBorderRed-0d7_KjU ()J
-	public abstract fun getBorderTeal-0d7_KjU ()J
-	public abstract fun getBorderWarmGray-0d7_KjU ()J
-	public abstract fun getColorBlue-0d7_KjU ()J
-	public abstract fun getColorCoolGray-0d7_KjU ()J
-	public abstract fun getColorCyan-0d7_KjU ()J
-	public abstract fun getColorGray-0d7_KjU ()J
-	public abstract fun getColorGreen-0d7_KjU ()J
-	public abstract fun getColorMagenta-0d7_KjU ()J
-	public abstract fun getColorPurple-0d7_KjU ()J
-	public abstract fun getColorRed-0d7_KjU ()J
-	public abstract fun getColorTeal-0d7_KjU ()J
-	public abstract fun getColorWarmGray-0d7_KjU ()J
-	public abstract fun getHoverBlue-0d7_KjU ()J
-	public abstract fun getHoverCoolGray-0d7_KjU ()J
-	public abstract fun getHoverCyan-0d7_KjU ()J
-	public abstract fun getHoverGray-0d7_KjU ()J
-	public abstract fun getHoverGreen-0d7_KjU ()J
-	public abstract fun getHoverMagenta-0d7_KjU ()J
-	public abstract fun getHoverPurple-0d7_KjU ()J
-	public abstract fun getHoverRed-0d7_KjU ()J
-	public abstract fun getHoverTeal-0d7_KjU ()J
-	public abstract fun getHoverWarmGray-0d7_KjU ()J
+	public abstract fun getTagBackgroundBlue-0d7_KjU ()J
+	public abstract fun getTagBackgroundCoolGray-0d7_KjU ()J
+	public abstract fun getTagBackgroundCyan-0d7_KjU ()J
+	public abstract fun getTagBackgroundGray-0d7_KjU ()J
+	public abstract fun getTagBackgroundGreen-0d7_KjU ()J
+	public abstract fun getTagBackgroundMagenta-0d7_KjU ()J
+	public abstract fun getTagBackgroundPurple-0d7_KjU ()J
+	public abstract fun getTagBackgroundRed-0d7_KjU ()J
+	public abstract fun getTagBackgroundTeal-0d7_KjU ()J
+	public abstract fun getTagBackgroundWarmGray-0d7_KjU ()J
+	public abstract fun getTagBorderBlue-0d7_KjU ()J
+	public abstract fun getTagBorderCoolGray-0d7_KjU ()J
+	public abstract fun getTagBorderCyan-0d7_KjU ()J
+	public abstract fun getTagBorderGray-0d7_KjU ()J
+	public abstract fun getTagBorderGreen-0d7_KjU ()J
+	public abstract fun getTagBorderMagenta-0d7_KjU ()J
+	public abstract fun getTagBorderPurple-0d7_KjU ()J
+	public abstract fun getTagBorderRed-0d7_KjU ()J
+	public abstract fun getTagBorderTeal-0d7_KjU ()J
+	public abstract fun getTagBorderWarmGray-0d7_KjU ()J
+	public abstract fun getTagColorBlue-0d7_KjU ()J
+	public abstract fun getTagColorCoolGray-0d7_KjU ()J
+	public abstract fun getTagColorCyan-0d7_KjU ()J
+	public abstract fun getTagColorGray-0d7_KjU ()J
+	public abstract fun getTagColorGreen-0d7_KjU ()J
+	public abstract fun getTagColorMagenta-0d7_KjU ()J
+	public abstract fun getTagColorPurple-0d7_KjU ()J
+	public abstract fun getTagColorRed-0d7_KjU ()J
+	public abstract fun getTagColorTeal-0d7_KjU ()J
+	public abstract fun getTagColorWarmGray-0d7_KjU ()J
+	public abstract fun getTagHoverBlue-0d7_KjU ()J
+	public abstract fun getTagHoverCoolGray-0d7_KjU ()J
+	public abstract fun getTagHoverCyan-0d7_KjU ()J
+	public abstract fun getTagHoverGray-0d7_KjU ()J
+	public abstract fun getTagHoverGreen-0d7_KjU ()J
+	public abstract fun getTagHoverMagenta-0d7_KjU ()J
+	public abstract fun getTagHoverPurple-0d7_KjU ()J
+	public abstract fun getTagHoverRed-0d7_KjU ()J
+	public abstract fun getTagHoverTeal-0d7_KjU ()J
+	public abstract fun getTagHoverWarmGray-0d7_KjU ()J
 }
 
 public final class com/gabrieldrn/carbon/foundation/color/tag/WhiteTagColors : com/gabrieldrn/carbon/foundation/color/tag/TagColors {
 	public static final field $stable I
 	public static final field INSTANCE Lcom/gabrieldrn/carbon/foundation/color/tag/WhiteTagColors;
-	public fun getBackgroundBlue-0d7_KjU ()J
-	public fun getBackgroundCoolGray-0d7_KjU ()J
-	public fun getBackgroundCyan-0d7_KjU ()J
-	public fun getBackgroundGray-0d7_KjU ()J
-	public fun getBackgroundGreen-0d7_KjU ()J
-	public fun getBackgroundMagenta-0d7_KjU ()J
-	public fun getBackgroundPurple-0d7_KjU ()J
-	public fun getBackgroundRed-0d7_KjU ()J
-	public fun getBackgroundTeal-0d7_KjU ()J
-	public fun getBackgroundWarmGray-0d7_KjU ()J
-	public fun getBorderBlue-0d7_KjU ()J
-	public fun getBorderCoolGray-0d7_KjU ()J
-	public fun getBorderCyan-0d7_KjU ()J
-	public fun getBorderGray-0d7_KjU ()J
-	public fun getBorderGreen-0d7_KjU ()J
-	public fun getBorderMagenta-0d7_KjU ()J
-	public fun getBorderPurple-0d7_KjU ()J
-	public fun getBorderRed-0d7_KjU ()J
-	public fun getBorderTeal-0d7_KjU ()J
-	public fun getBorderWarmGray-0d7_KjU ()J
-	public fun getColorBlue-0d7_KjU ()J
-	public fun getColorCoolGray-0d7_KjU ()J
-	public fun getColorCyan-0d7_KjU ()J
-	public fun getColorGray-0d7_KjU ()J
-	public fun getColorGreen-0d7_KjU ()J
-	public fun getColorMagenta-0d7_KjU ()J
-	public fun getColorPurple-0d7_KjU ()J
-	public fun getColorRed-0d7_KjU ()J
-	public fun getColorTeal-0d7_KjU ()J
-	public fun getColorWarmGray-0d7_KjU ()J
-	public fun getHoverBlue-0d7_KjU ()J
-	public fun getHoverCoolGray-0d7_KjU ()J
-	public fun getHoverCyan-0d7_KjU ()J
-	public fun getHoverGray-0d7_KjU ()J
-	public fun getHoverGreen-0d7_KjU ()J
-	public fun getHoverMagenta-0d7_KjU ()J
-	public fun getHoverPurple-0d7_KjU ()J
-	public fun getHoverRed-0d7_KjU ()J
-	public fun getHoverTeal-0d7_KjU ()J
-	public fun getHoverWarmGray-0d7_KjU ()J
+	public fun getTagBackgroundBlue-0d7_KjU ()J
+	public fun getTagBackgroundCoolGray-0d7_KjU ()J
+	public fun getTagBackgroundCyan-0d7_KjU ()J
+	public fun getTagBackgroundGray-0d7_KjU ()J
+	public fun getTagBackgroundGreen-0d7_KjU ()J
+	public fun getTagBackgroundMagenta-0d7_KjU ()J
+	public fun getTagBackgroundPurple-0d7_KjU ()J
+	public fun getTagBackgroundRed-0d7_KjU ()J
+	public fun getTagBackgroundTeal-0d7_KjU ()J
+	public fun getTagBackgroundWarmGray-0d7_KjU ()J
+	public fun getTagBorderBlue-0d7_KjU ()J
+	public fun getTagBorderCoolGray-0d7_KjU ()J
+	public fun getTagBorderCyan-0d7_KjU ()J
+	public fun getTagBorderGray-0d7_KjU ()J
+	public fun getTagBorderGreen-0d7_KjU ()J
+	public fun getTagBorderMagenta-0d7_KjU ()J
+	public fun getTagBorderPurple-0d7_KjU ()J
+	public fun getTagBorderRed-0d7_KjU ()J
+	public fun getTagBorderTeal-0d7_KjU ()J
+	public fun getTagBorderWarmGray-0d7_KjU ()J
+	public fun getTagColorBlue-0d7_KjU ()J
+	public fun getTagColorCoolGray-0d7_KjU ()J
+	public fun getTagColorCyan-0d7_KjU ()J
+	public fun getTagColorGray-0d7_KjU ()J
+	public fun getTagColorGreen-0d7_KjU ()J
+	public fun getTagColorMagenta-0d7_KjU ()J
+	public fun getTagColorPurple-0d7_KjU ()J
+	public fun getTagColorRed-0d7_KjU ()J
+	public fun getTagColorTeal-0d7_KjU ()J
+	public fun getTagColorWarmGray-0d7_KjU ()J
+	public fun getTagHoverBlue-0d7_KjU ()J
+	public fun getTagHoverCoolGray-0d7_KjU ()J
+	public fun getTagHoverCyan-0d7_KjU ()J
+	public fun getTagHoverGray-0d7_KjU ()J
+	public fun getTagHoverGreen-0d7_KjU ()J
+	public fun getTagHoverMagenta-0d7_KjU ()J
+	public fun getTagHoverPurple-0d7_KjU ()J
+	public fun getTagHoverRed-0d7_KjU ()J
+	public fun getTagHoverTeal-0d7_KjU ()J
+	public fun getTagHoverWarmGray-0d7_KjU ()J
 }
 
 public final class com/gabrieldrn/carbon/foundation/motion/Motion {
