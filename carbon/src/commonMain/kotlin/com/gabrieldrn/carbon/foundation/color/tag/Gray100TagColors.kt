@@ -5,89 +5,91 @@ package com.gabrieldrn.carbon.foundation.color.tag
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
+import kotlin.Suppress
 
 /**
  * Color tokens for the Tag component in the Gray100 theme.
  */
 @Immutable
+@Suppress("UndocumentedPublicProperty")
 public object Gray100TagColors : TagColors {
-    override val backgroundBlue: Color = Color(0xFF0043CE)
+    override val tagBackgroundBlue: Color = Color(0xFF0043CE)
 
-    override val backgroundCoolGray: Color = Color(0xFF4D5358)
+    override val tagBackgroundCoolGray: Color = Color(0xFF4D5358)
 
-    override val backgroundCyan: Color = Color(0xFF00539A)
+    override val tagBackgroundCyan: Color = Color(0xFF00539A)
 
-    override val backgroundGray: Color = Color(0xFF525252)
+    override val tagBackgroundGray: Color = Color(0xFF525252)
 
-    override val backgroundGreen: Color = Color(0xFF0E6027)
+    override val tagBackgroundGreen: Color = Color(0xFF0E6027)
 
-    override val backgroundMagenta: Color = Color(0xFF9F1853)
+    override val tagBackgroundMagenta: Color = Color(0xFF9F1853)
 
-    override val backgroundPurple: Color = Color(0xFF6929C4)
+    override val tagBackgroundPurple: Color = Color(0xFF6929C4)
 
-    override val backgroundRed: Color = Color(0xFFA2191F)
+    override val tagBackgroundRed: Color = Color(0xFFA2191F)
 
-    override val backgroundTeal: Color = Color(0xFF005D5D)
+    override val tagBackgroundTeal: Color = Color(0xFF005D5D)
 
-    override val backgroundWarmGray: Color = Color(0xFF565151)
+    override val tagBackgroundWarmGray: Color = Color(0xFF565151)
 
-    override val borderBlue: Color = Color(0xFF4589FF)
+    override val tagBorderBlue: Color = Color(0xFF4589FF)
 
-    override val borderCoolGray: Color = Color(0xFF878D96)
+    override val tagBorderCoolGray: Color = Color(0xFF878D96)
 
-    override val borderCyan: Color = Color(0xFF1192E8)
+    override val tagBorderCyan: Color = Color(0xFF1192E8)
 
-    override val borderGray: Color = Color(0xFF8D8D8D)
+    override val tagBorderGray: Color = Color(0xFF8D8D8D)
 
-    override val borderGreen: Color = Color(0xFF24A148)
+    override val tagBorderGreen: Color = Color(0xFF24A148)
 
-    override val borderMagenta: Color = Color(0xFFEE5396)
+    override val tagBorderMagenta: Color = Color(0xFFEE5396)
 
-    override val borderPurple: Color = Color(0xFFA56EFF)
+    override val tagBorderPurple: Color = Color(0xFFA56EFF)
 
-    override val borderRed: Color = Color(0xFFFA4D56)
+    override val tagBorderRed: Color = Color(0xFFFA4D56)
 
-    override val borderTeal: Color = Color(0xFF009D9A)
+    override val tagBorderTeal: Color = Color(0xFF009D9A)
 
-    override val borderWarmGray: Color = Color(0xFF8F8B8B)
+    override val tagBorderWarmGray: Color = Color(0xFF8F8B8B)
 
-    override val colorBlue: Color = Color(0xFFD0E2FF)
+    override val tagColorBlue: Color = Color(0xFFD0E2FF)
 
-    override val colorCoolGray: Color = Color(0xFFDDE1E6)
+    override val tagColorCoolGray: Color = Color(0xFFF2F4F8)
 
-    override val colorCyan: Color = Color(0xFFBAE6FF)
+    override val tagColorCyan: Color = Color(0xFFBAE6FF)
 
-    override val colorGray: Color = Color(0xFFE0E0E0)
+    override val tagColorGray: Color = Color(0xFFF4F4F4)
 
-    override val colorGreen: Color = Color(0xFFA7F0BA)
+    override val tagColorGreen: Color = Color(0xFFA7F0BA)
 
-    override val colorMagenta: Color = Color(0xFFFFD6E8)
+    override val tagColorMagenta: Color = Color(0xFFFFD6E8)
 
-    override val colorPurple: Color = Color(0xFFE8DAFF)
+    override val tagColorPurple: Color = Color(0xFFE8DAFF)
 
-    override val colorRed: Color = Color(0xFFFFD7D9)
+    override val tagColorRed: Color = Color(0xFFFFD7D9)
 
-    override val colorTeal: Color = Color(0xFF9EF0F0)
+    override val tagColorTeal: Color = Color(0xFF9EF0F0)
 
-    override val colorWarmGray: Color = Color(0xFFE5E0DF)
+    override val tagColorWarmGray: Color = Color(0xFFF7F3F2)
 
-    override val hoverBlue: Color = Color(0xFF0053FF)
+    override val tagHoverBlue: Color = Color(0xFF0053FF)
 
-    override val hoverCoolGray: Color = Color(0xFF5D646A)
+    override val tagHoverCoolGray: Color = Color(0xFF5D646A)
 
-    override val hoverCyan: Color = Color(0xFF0066BD)
+    override val tagHoverCyan: Color = Color(0xFF0066BD)
 
-    override val hoverGray: Color = Color(0xFF636363)
+    override val tagHoverGray: Color = Color(0xFF636363)
 
-    override val hoverGreen: Color = Color(0xFF11742F)
+    override val tagHoverGreen: Color = Color(0xFF11742F)
 
-    override val hoverMagenta: Color = Color(0xFFBF1D63)
+    override val tagHoverMagenta: Color = Color(0xFFBF1D63)
 
-    override val hoverPurple: Color = Color(0xFF7C3DD6)
+    override val tagHoverPurple: Color = Color(0xFF7C3DD6)
 
-    override val hoverRed: Color = Color(0xFFC21E25)
+    override val tagHoverRed: Color = Color(0xFFC21E25)
 
-    override val hoverTeal: Color = Color(0xFF007070)
+    override val tagHoverTeal: Color = Color(0xFF007070)
 
-    override val hoverWarmGray: Color = Color(0xFF696363)
+    override val tagHoverWarmGray: Color = Color(0xFF696363)
 }

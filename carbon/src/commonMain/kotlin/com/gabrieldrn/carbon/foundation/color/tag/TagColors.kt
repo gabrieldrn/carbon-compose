@@ -5,219 +5,91 @@ package com.gabrieldrn.carbon.foundation.color.tag
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
+import kotlin.Suppress
 
 /**
  * Color tokens for the Tag component.
  */
 @Immutable
+@Suppress("UndocumentedPublicProperty")
 public interface TagColors {
-    /**
-     * Blue tag background.
-     */
-    public val backgroundBlue: Color
+    public val tagBackgroundBlue: Color
 
-    /**
-     * Cool gray tag background.
-     */
-    public val backgroundCoolGray: Color
+    public val tagBackgroundCoolGray: Color
 
-    /**
-     * Cyan tag background.
-     */
-    public val backgroundCyan: Color
+    public val tagBackgroundCyan: Color
 
-    /**
-     * Gray tag background.
-     */
-    public val backgroundGray: Color
+    public val tagBackgroundGray: Color
 
-    /**
-     * Green tag background.
-     */
-    public val backgroundGreen: Color
+    public val tagBackgroundGreen: Color
 
-    /**
-     * Magenta tag background.
-     */
-    public val backgroundMagenta: Color
+    public val tagBackgroundMagenta: Color
 
-    /**
-     * Purple tag background.
-     */
-    public val backgroundPurple: Color
+    public val tagBackgroundPurple: Color
 
-    /**
-     * Red tag background.
-     */
-    public val backgroundRed: Color
+    public val tagBackgroundRed: Color
 
-    /**
-     * Teal tag background.
-     */
-    public val backgroundTeal: Color
+    public val tagBackgroundTeal: Color
 
-    /**
-     * Warm gray tag background.
-     */
-    public val backgroundWarmGray: Color
+    public val tagBackgroundWarmGray: Color
 
-    /**
-     * Blue tag border for operational tag.
-     */
-    public val borderBlue: Color
+    public val tagBorderBlue: Color
 
-    /**
-     * Cool gray tag border for operational tag.
-     */
-    public val borderCoolGray: Color
+    public val tagBorderCoolGray: Color
 
-    /**
-     * Cyan tag border for operational tag.
-     */
-    public val borderCyan: Color
+    public val tagBorderCyan: Color
 
-    /**
-     * Gray tag border for operational tag.
-     */
-    public val borderGray: Color
+    public val tagBorderGray: Color
 
-    /**
-     * Green tag border for operational tag.
-     */
-    public val borderGreen: Color
+    public val tagBorderGreen: Color
 
-    /**
-     * Magenta tag border for operational tag.
-     */
-    public val borderMagenta: Color
+    public val tagBorderMagenta: Color
 
-    /**
-     * Purple tag border for operational tag.
-     */
-    public val borderPurple: Color
+    public val tagBorderPurple: Color
 
-    /**
-     * Red tag border for operational tag.
-     */
-    public val borderRed: Color
+    public val tagBorderRed: Color
 
-    /**
-     * Teal tag border for operational tag.
-     */
-    public val borderTeal: Color
+    public val tagBorderTeal: Color
 
-    /**
-     * Warm gray tag border for operational tag.
-     */
-    public val borderWarmGray: Color
+    public val tagBorderWarmGray: Color
 
-    /**
-     * Blue tag text.
-     * Blue tag icon.
-     */
-    public val colorBlue: Color
+    public val tagColorBlue: Color
 
-    /**
-     * Cool gray tag text.
-     * Cool gray tag icon.
-     */
-    public val colorCoolGray: Color
+    public val tagColorCoolGray: Color
 
-    /**
-     * Cyan tag text.
-     * Cyan tag icon.
-     */
-    public val colorCyan: Color
+    public val tagColorCyan: Color
 
-    /**
-     * Gray tag text.
-     * Gray tag icon.
-     */
-    public val colorGray: Color
+    public val tagColorGray: Color
 
-    /**
-     * Green tag text.
-     * Green tag icon.
-     */
-    public val colorGreen: Color
+    public val tagColorGreen: Color
 
-    /**
-     * Magenta tag text.
-     * Magenta tag icon.
-     */
-    public val colorMagenta: Color
+    public val tagColorMagenta: Color
 
-    /**
-     * Purple tag text.
-     * Purple tag icon.
-     */
-    public val colorPurple: Color
+    public val tagColorPurple: Color
 
-    /**
-     * Red tag text.
-     * Red tag icon.
-     */
-    public val colorRed: Color
+    public val tagColorRed: Color
 
-    /**
-     * Teal tag text.
-     * Teal tag icon.
-     */
-    public val colorTeal: Color
+    public val tagColorTeal: Color
 
-    /**
-     * Warm gray tag text.
-     * Warm gray tag icon.
-     */
-    public val colorWarmGray: Color
+    public val tagColorWarmGray: Color
 
-    /**
-     * Blue tag hover for [tagBackgroundBlue].
-     */
-    public val hoverBlue: Color
+    public val tagHoverBlue: Color
 
-    /**
-     * Cool gray tag hover for [tagBackgroundCoolGray].
-     */
-    public val hoverCoolGray: Color
+    public val tagHoverCoolGray: Color
 
-    /**
-     * Cyan tag hover for [tagBackgroundCyan].
-     */
-    public val hoverCyan: Color
+    public val tagHoverCyan: Color
 
-    /**
-     * Gray tag hover for [tagBackgroundGray].
-     */
-    public val hoverGray: Color
+    public val tagHoverGray: Color
 
-    /**
-     * Green tag hover for [tagBackgroundGreen].
-     */
-    public val hoverGreen: Color
+    public val tagHoverGreen: Color
 
-    /**
-     * Magenta tag hover for [tagBackgroundMagenta].
-     */
-    public val hoverMagenta: Color
+    public val tagHoverMagenta: Color
 
-    /**
-     * Purple tag hover for [tagBackgroundPurple].
-     */
-    public val hoverPurple: Color
+    public val tagHoverPurple: Color
 
-    /**
-     * Red tag hover for [tagBackgroundRed].
-     */
-    public val hoverRed: Color
+    public val tagHoverRed: Color
 
-    /**
-     * Teal tag hover for [tagBackgroundTeal].
-     */
-    public val hoverTeal: Color
+    public val tagHoverTeal: Color
 
-    /**
-     * Warm gray tag hover for [tagBackgroundWarmGray].
-     */
-    public val hoverWarmGray: Color
+    public val tagHoverWarmGray: Color
 }

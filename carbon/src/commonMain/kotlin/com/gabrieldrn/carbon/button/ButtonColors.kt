@@ -29,10 +29,12 @@ internal class ButtonColors private constructor(
     private val isIconButton: Boolean,
 ) {
 
+    private val componentColors = theme.buttonColors
+
     val containerColor: Color = when (buttonType) {
-        ButtonType.Primary -> theme.buttonPrimary
-        ButtonType.Secondary -> theme.buttonSecondary
-        ButtonType.PrimaryDanger -> theme.buttonDangerPrimary
+        ButtonType.Primary -> componentColors.buttonPrimary
+        ButtonType.Secondary -> componentColors.buttonSecondary
+        ButtonType.PrimaryDanger -> componentColors.buttonDangerPrimary
         ButtonType.Tertiary,
         ButtonType.TertiaryDanger,
         ButtonType.Ghost,
@@ -40,35 +42,35 @@ internal class ButtonColors private constructor(
     }
 
     val containerBorderColor: Color = when (buttonType) {
-        ButtonType.Tertiary -> theme.buttonTertiary
-        ButtonType.TertiaryDanger -> theme.buttonDangerSecondary
+        ButtonType.Tertiary -> componentColors.buttonTertiary
+        ButtonType.TertiaryDanger -> componentColors.buttonDangerSecondary
         else -> Color.Transparent
     }
 
     val containerBorderDisabledColor: Color = when (buttonType) {
         ButtonType.Tertiary,
-        ButtonType.TertiaryDanger -> theme.buttonDisabled
+        ButtonType.TertiaryDanger -> componentColors.buttonDisabled
         else -> Color.Transparent
     }
 
     val containerActiveColor: Color = when (buttonType) {
-        ButtonType.Primary -> theme.buttonPrimaryActive
-        ButtonType.Secondary -> theme.buttonSecondaryActive
-        ButtonType.Tertiary -> theme.buttonTertiaryActive
+        ButtonType.Primary -> componentColors.buttonPrimaryActive
+        ButtonType.Secondary -> componentColors.buttonSecondaryActive
+        ButtonType.Tertiary -> componentColors.buttonTertiaryActive
         ButtonType.Ghost -> theme.backgroundActive
         ButtonType.PrimaryDanger,
         ButtonType.TertiaryDanger,
-        ButtonType.GhostDanger -> theme.buttonDangerActive
+        ButtonType.GhostDanger -> componentColors.buttonDangerActive
     }
 
     val containerHoverColor: Color = when (buttonType) {
-        ButtonType.Primary -> theme.buttonPrimaryHover
-        ButtonType.Secondary -> theme.buttonSecondaryHover
-        ButtonType.Tertiary -> theme.buttonTertiaryHover
+        ButtonType.Primary -> componentColors.buttonPrimaryHover
+        ButtonType.Secondary -> componentColors.buttonSecondaryHover
+        ButtonType.Tertiary -> componentColors.buttonTertiaryHover
         ButtonType.Ghost -> theme.backgroundHover
         ButtonType.PrimaryDanger,
         ButtonType.TertiaryDanger,
-        ButtonType.GhostDanger -> theme.buttonDangerHover
+        ButtonType.GhostDanger -> componentColors.buttonDangerHover
     }
 
     val containerDisabledColor: Color = when (buttonType) {
@@ -76,16 +78,16 @@ internal class ButtonColors private constructor(
         ButtonType.Secondary,
         ButtonType.PrimaryDanger,
         ButtonType.TertiaryDanger,
-        ButtonType.GhostDanger -> theme.buttonDisabled
+        ButtonType.GhostDanger -> componentColors.buttonDisabled
         ButtonType.Tertiary,
         ButtonType.Ghost -> Color.Transparent
     }
 
     val labelColor: Color = when (buttonType) {
-        ButtonType.Tertiary -> theme.buttonTertiary
+        ButtonType.Tertiary -> componentColors.buttonTertiary
         ButtonType.Ghost -> theme.linkPrimary
         ButtonType.TertiaryDanger,
-        ButtonType.GhostDanger -> theme.buttonDangerSecondary
+        ButtonType.GhostDanger -> componentColors.buttonDangerSecondary
         else -> theme.textOnColor
     }
 
@@ -98,7 +100,7 @@ internal class ButtonColors private constructor(
     }
 
     val labelHoverColor: Color = when (buttonType) {
-        ButtonType.Tertiary,
+        ButtonType.Tertiary -> theme.textInverse
         ButtonType.TertiaryDanger,
         ButtonType.GhostDanger -> theme.textOnColor
         ButtonType.Ghost -> theme.linkPrimaryHover
@@ -114,32 +116,24 @@ internal class ButtonColors private constructor(
     }
 
     val iconColor: Color = when (buttonType) {
-        ButtonType.Tertiary -> theme.buttonTertiary
+        ButtonType.Tertiary -> componentColors.buttonTertiary
         ButtonType.Ghost -> if (isIconButton) theme.iconPrimary else theme.linkPrimary
         ButtonType.PrimaryDanger -> theme.iconOnColor
         ButtonType.TertiaryDanger,
-        ButtonType.GhostDanger -> theme.buttonDangerSecondary
+        ButtonType.GhostDanger -> componentColors.buttonDangerSecondary
         else -> theme.iconOnColor
     }
 
-    val iconActiveColor: Color = if (isIconButton) {
-        theme.iconPrimary
-    } else {
-        when (buttonType) {
-            ButtonType.Tertiary -> theme.iconInverse
-            ButtonType.Ghost -> theme.linkPrimary // ø
-            else -> theme.iconOnColor
-        }
+    val iconActiveColor: Color = when (buttonType) {
+        ButtonType.Tertiary -> theme.iconInverse
+        ButtonType.Ghost -> if (isIconButton) theme.iconPrimary else theme.linkPrimary
+        else -> theme.iconOnColor
     }
 
-    val iconHoverColor: Color = if (isIconButton) {
-        theme.iconPrimary
-    } else {
-        when (buttonType) {
-            ButtonType.Tertiary -> theme.iconInverse
-            ButtonType.Ghost -> theme.linkPrimaryHover
-            else -> theme.iconOnColor
-        }
+    val iconHoverColor: Color = when (buttonType) {
+        ButtonType.Tertiary -> theme.iconInverse
+        ButtonType.Ghost -> if (isIconButton) theme.iconPrimary else theme.linkPrimaryHover
+        else -> theme.iconOnColor
     }
 
     val iconDisabledColor: Color = when (buttonType) {

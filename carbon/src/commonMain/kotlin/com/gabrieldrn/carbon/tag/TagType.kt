@@ -40,61 +40,61 @@ public enum class TagType {
     Outline;
 
     internal fun backgroundColor(theme: Theme) = when (this) {
-        Gray -> theme.tagColors.backgroundGray
-        CoolGray -> theme.tagColors.backgroundCoolGray
-        WarmGray -> theme.tagColors.backgroundWarmGray
-        Red -> theme.tagColors.backgroundRed
-        Magenta -> theme.tagColors.backgroundMagenta
-        Purple -> theme.tagColors.backgroundPurple
-        Blue -> theme.tagColors.backgroundBlue
-        Cyan -> theme.tagColors.backgroundCyan
-        Teal -> theme.tagColors.backgroundTeal
-        Green -> theme.tagColors.backgroundGreen
+        Gray -> theme.tagColors.tagBackgroundGray
+        CoolGray -> theme.tagColors.tagBackgroundCoolGray
+        WarmGray -> theme.tagColors.tagBackgroundWarmGray
+        Red -> theme.tagColors.tagBackgroundRed
+        Magenta -> theme.tagColors.tagBackgroundMagenta
+        Purple -> theme.tagColors.tagBackgroundPurple
+        Blue -> theme.tagColors.tagBackgroundBlue
+        Cyan -> theme.tagColors.tagBackgroundCyan
+        Teal -> theme.tagColors.tagBackgroundTeal
+        Green -> theme.tagColors.tagBackgroundGreen
         HighContrast -> theme.backgroundInverse
         Outline -> theme.background
     }
 
     internal fun contentColor(theme: Theme) = when (this) {
-        Gray -> theme.tagColors.colorGray
-        CoolGray -> theme.tagColors.colorCoolGray
-        WarmGray -> theme.tagColors.colorWarmGray
-        Red -> theme.tagColors.colorRed
-        Magenta -> theme.tagColors.colorMagenta
-        Purple -> theme.tagColors.colorPurple
-        Blue -> theme.tagColors.colorBlue
-        Cyan -> theme.tagColors.colorCyan
-        Teal -> theme.tagColors.colorTeal
-        Green -> theme.tagColors.colorGreen
+        Gray -> theme.tagColors.tagColorGray
+        CoolGray -> theme.tagColors.tagColorCoolGray
+        WarmGray -> theme.tagColors.tagColorWarmGray
+        Red -> theme.tagColors.tagColorRed
+        Magenta -> theme.tagColors.tagColorMagenta
+        Purple -> theme.tagColors.tagColorPurple
+        Blue -> theme.tagColors.tagColorBlue
+        Cyan -> theme.tagColors.tagColorCyan
+        Teal -> theme.tagColors.tagColorTeal
+        Green -> theme.tagColors.tagColorGreen
         HighContrast -> theme.textInverse
         Outline -> theme.textPrimary
     }
 
     internal fun hoverColor(theme: Theme) = when (this) {
-        Gray -> theme.tagColors.hoverGray
-        CoolGray -> theme.tagColors.hoverCoolGray
-        WarmGray -> theme.tagColors.hoverWarmGray
-        Red -> theme.tagColors.hoverRed
-        Magenta -> theme.tagColors.hoverMagenta
-        Purple -> theme.tagColors.hoverPurple
-        Blue -> theme.tagColors.hoverBlue
-        Cyan -> theme.tagColors.hoverCyan
-        Teal -> theme.tagColors.hoverTeal
-        Green -> theme.tagColors.hoverGreen
+        Gray -> theme.tagColors.tagHoverGray
+        CoolGray -> theme.tagColors.tagHoverCoolGray
+        WarmGray -> theme.tagColors.tagHoverWarmGray
+        Red -> theme.tagColors.tagHoverRed
+        Magenta -> theme.tagColors.tagHoverMagenta
+        Purple -> theme.tagColors.tagHoverPurple
+        Blue -> theme.tagColors.tagHoverBlue
+        Cyan -> theme.tagColors.tagHoverCyan
+        Teal -> theme.tagColors.tagHoverTeal
+        Green -> theme.tagColors.tagHoverGreen
         HighContrast -> theme.backgroundHover
         Outline -> theme.backgroundHover
     }
 
     internal fun borderColor(theme: Theme) = when (this) {
-        Gray -> theme.tagColors.borderGray
-        CoolGray -> theme.tagColors.borderCoolGray
-        WarmGray -> theme.tagColors.borderWarmGray
-        Red -> theme.tagColors.borderRed
-        Magenta -> theme.tagColors.borderMagenta
-        Purple -> theme.tagColors.borderPurple
-        Blue -> theme.tagColors.borderBlue
-        Cyan -> theme.tagColors.borderCyan
-        Teal -> theme.tagColors.borderTeal
-        Green -> theme.tagColors.borderGreen
+        Gray -> theme.tagColors.tagBorderGray
+        CoolGray -> theme.tagColors.tagBorderCoolGray
+        WarmGray -> theme.tagColors.tagBorderWarmGray
+        Red -> theme.tagColors.tagBorderRed
+        Magenta -> theme.tagColors.tagBorderMagenta
+        Purple -> theme.tagColors.tagBorderPurple
+        Blue -> theme.tagColors.tagBorderBlue
+        Cyan -> theme.tagColors.tagBorderCyan
+        Teal -> theme.tagColors.tagBorderTeal
+        Green -> theme.tagColors.tagBorderGreen
         HighContrast -> theme.borderInverse
         Outline -> theme.borderInverse
     }

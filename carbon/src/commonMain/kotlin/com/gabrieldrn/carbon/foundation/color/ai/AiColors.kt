@@ -5,96 +5,53 @@ package com.gabrieldrn.carbon.foundation.color.ai
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
+import kotlin.Suppress
 
 /**
  * Color tokens for the Ai component.
  */
 @Immutable
+@Suppress("UndocumentedPublicProperty")
 public interface AiColors {
-    /**
-     * Linear gradient start value for all AI layers.
-     */
-    public val auraEnd: Color
+    public val aiAuraEnd: Color
 
-    /**
-     * Hover background color for AI layers.
-     */
-    public val auraHoverBackground: Color
+    public val aiAuraHoverBackground: Color
 
-    /**
-     * Linear gradient end value for the AI aura hover.
-     */
-    public val auraHoverEnd: Color
+    public val aiAuraHoverEnd: Color
 
-    /**
-     * Linear gradient start value for the AI aura hover.
-     */
-    public val auraHoverStart: Color
+    public val aiAuraHoverStart: Color
 
-    /**
-     * Linear gradient start value for large AI layers.
-     */
-    public val auraStart: Color
+    public val aiAuraStart: Color
 
-    /**
-     * Linear gradient start value for small AI layers.
-     */
-    public val auraStartSm: Color
+    public val aiAuraStartSm: Color
 
-    /**
-     * Linear gradient end value for AI borders.
-     */
-    public val borderEnd: Color
+    public val aiBorderEnd: Color
 
-    /**
-     * Linear gradient start value for AI borders.
-     */
-    public val borderStart: Color
+    public val aiBorderStart: Color
 
-    /**
-     * Medium contrast border for AI elements.
-     * Border-bottom paired with AI fields.
-     * 3:1 AA non-text contrast.
-     */
-    public val borderStrong: Color
+    public val aiBorderStrong: Color
 
-    /**
-     * Drop shadow for the AI layer.
-     */
-    public val dropShadow: Color
+    public val aiDropShadow: Color
 
-    /**
-     * Inner shadow for the AI layer.
-     */
-    public val innerShadow: Color
+    public val aiInnerShadow: Color
 
-    /**
-     * Background overlay for AI components.
-     */
-    public val overlay: Color
+    public val aiOverlay: Color
 
-    /**
-     * Background color for the AI explainability popover.
-     */
-    public val popoverBackground: Color
+    public val aiPopoverBackground: Color
 
-    /**
-     * 1 of 2 shadow colors for the AI explainability popover.
-     */
-    public val popoverShadowOuter01: Color
+    public val aiPopoverCaretBottom: Color
 
-    /**
-     * 2 of 2 shadow colors for the AI explainability popover.
-     */
-    public val popoverShadowOuter02: Color
+    public val aiPopoverCaretBottomBackground: Color
 
-    /**
-     * Skeleton color for AI containers.
-     */
-    public val skeletonBackground: Color
+    public val aiPopoverCaretBottomBackgroundActions: Color
 
-    /**
-     * Skeleton color for AI text and UI elements.
-     */
-    public val skeletonElement: Color
+    public val aiPopoverCaretCenter: Color
+
+    public val aiPopoverShadowOuter01: Color
+
+    public val aiPopoverShadowOuter02: Color
+
+    public val aiSkeletonBackground: Color
+
+    public val aiSkeletonElementBackground: Color
 }

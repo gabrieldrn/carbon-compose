@@ -19,8 +19,8 @@ package com.gabrieldrn.carbon.dropdown.base
 import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.animation.core.Transition
 import androidx.compose.animation.core.animateDp
+import androidx.compose.animation.core.rememberTransition
 import androidx.compose.animation.core.tween
-import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -120,7 +120,7 @@ internal fun <K : Any> BaseDropdown(
     val expandedStates = remember { MutableTransitionState(false) }
     expandedStates.targetState = expanded
 
-    val expandTransition = updateTransition(expandedStates, "Dropdown")
+    val expandTransition = rememberTransition(expandedStates, "Dropdown")
 
     val labelTextColor by colors.labelTextColor(state)
     val helperTextColor by colors.helperTextColor(state)

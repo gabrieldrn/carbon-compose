@@ -5,59 +5,31 @@ package com.gabrieldrn.carbon.foundation.color.notification
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
+import kotlin.Suppress
 
 /**
  * Color tokens for the Notification component.
  */
 @Immutable
+@Suppress("UndocumentedPublicProperty")
 public interface NotificationColors {
-    /**
-     * Hover for notification ghost button.
-     */
-    public val actionHover: Color
+    public val notificationActionHover: Color
 
-    /**
-     * Tertiary button color for notification.
-     */
-    public val actionTertiaryInverse: Color
+    public val notificationActionTertiaryInverse: Color
 
-    /**
-     * Active color for tertiary button in notification.
-     */
-    public val actionTertiaryInverseActive: Color
+    public val notificationActionTertiaryInverseActive: Color
 
-    /**
-     * Hover color for tertiary button in notification.
-     */
-    public val actionTertiaryInverseHover: Color
+    public val notificationActionTertiaryInverseHover: Color
 
-    /**
-     * Text color for tertiary button in notification.
-     */
-    public val actionTertiaryInverseText: Color
+    public val notificationActionTertiaryInverseText: Color
 
-    /**
-     * Disabled color for tertiary button in notification.
-     */
-    public val actionTertiaryInverseTextOnColorDisabled: Color
+    public val notificationActionTertiaryInverseTextOnColorDisabled: Color
 
-    /**
-     * Error low contrast notification background.
-     */
-    public val backgroundError: Color
+    public val notificationBackgroundError: Color
 
-    /**
-     * Informational low contrast notification background.
-     */
-    public val backgroundInfo: Color
+    public val notificationBackgroundInfo: Color
 
-    /**
-     * Success low contrast notification background.
-     */
-    public val backgroundSuccess: Color
+    public val notificationBackgroundSuccess: Color
 
-    /**
-     * Warning low contrast notification background.
-     */
-    public val backgroundWarning: Color
+    public val notificationBackgroundWarning: Color
 }

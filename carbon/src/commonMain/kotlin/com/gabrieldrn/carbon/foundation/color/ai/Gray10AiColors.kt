@@ -5,43 +5,53 @@ package com.gabrieldrn.carbon.foundation.color.ai
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
+import kotlin.Suppress
 
 /**
  * Color tokens for the Ai component in the Gray10 theme.
  */
 @Immutable
+@Suppress("UndocumentedPublicProperty")
 public object Gray10AiColors : AiColors {
-    override val auraEnd: Color = Color(0x00FFFFFF)
+    override val aiAuraEnd: Color = Color(0x00FFFFFF)
 
-    override val auraHoverBackground: Color = Color(0xFFEDF5FF)
+    override val aiAuraHoverBackground: Color = Color(0xFFEDF5FF)
 
-    override val auraHoverEnd: Color = Color(0x00FFFFFF)
+    override val aiAuraHoverEnd: Color = Color(0x00FFFFFF)
 
-    override val auraHoverStart: Color = Color(0xFF4589FF)
+    override val aiAuraHoverStart: Color = Color(0x514589FF)
 
-    override val auraStart: Color = Color(0x1A4589FF)
+    override val aiAuraStart: Color = Color(0x194589FF)
 
-    override val auraStartSm: Color = Color(0x294589FF)
+    override val aiAuraStartSm: Color = Color(0x284589FF)
 
-    override val borderEnd: Color = Color(0xFF78A9FF)
+    override val aiBorderEnd: Color = Color(0xFF78A9FF)
 
-    override val borderStart: Color = Color(0xA3A6C8FF)
+    override val aiBorderStart: Color = Color(0xA3A6C8FF)
 
-    override val borderStrong: Color = Color(0xFF4589FF)
+    override val aiBorderStrong: Color = Color(0xFF4589FF)
 
-    override val dropShadow: Color = Color(0x1A0F62FE)
+    override val aiDropShadow: Color = Color(0x190F62FE)
 
-    override val innerShadow: Color = Color(0x1A4589FF)
+    override val aiInnerShadow: Color = Color(0x194589FF)
 
-    override val overlay: Color = Color(0x80001141)
+    override val aiOverlay: Color = Color(0x7F001141)
 
-    override val popoverBackground: Color = Color(0xFFFFFFFF)
+    override val aiPopoverBackground: Color = Color(0xFFFFFFFF)
 
-    override val popoverShadowOuter01: Color = Color(0x0F0043CE)
+    override val aiPopoverCaretBottom: Color = Color(0xFF78A9FF)
 
-    override val popoverShadowOuter02: Color = Color(0x0A000000)
+    override val aiPopoverCaretBottomBackground: Color = Color(0xFFEAF1FF)
 
-    override val skeletonBackground: Color = Color(0xFFD0E2FF)
+    override val aiPopoverCaretBottomBackgroundActions: Color = Color(0xFFE9EFFA)
 
-    override val skeletonElement: Color = Color(0xFF4589FF)
+    override val aiPopoverCaretCenter: Color = Color(0xFFA0C3FF)
+
+    override val aiPopoverShadowOuter01: Color = Color(0x0F0043CE)
+
+    override val aiPopoverShadowOuter02: Color = Color(0x0A000000)
+
+    override val aiSkeletonBackground: Color = Color(0xFFD0E2FF)
+
+    override val aiSkeletonElementBackground: Color = Color(0xFF4589FF)
 }

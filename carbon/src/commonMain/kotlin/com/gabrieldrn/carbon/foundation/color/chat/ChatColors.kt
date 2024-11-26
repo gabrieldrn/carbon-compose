@@ -5,94 +5,45 @@ package com.gabrieldrn.carbon.foundation.color.chat
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
+import kotlin.Suppress
 
 /**
  * Color tokens for the Chat component.
  */
 @Immutable
+@Suppress("UndocumentedPublicProperty")
 public interface ChatColors {
-    /**
-     * Chat avatar background color for agents.
-     */
-    public val avatarAgent: Color
+    public val chatAvatarAgent: Color
 
-    /**
-     * Chat avatar background color for bots.
-     */
-    public val avatarBot: Color
+    public val chatAvatarBot: Color
 
-    /**
-     * Chat avatar background color for users.
-     */
-    public val avatarUser: Color
+    public val chatAvatarUser: Color
 
-    /**
-     * Chat bubble background color for agents.
-     */
-    public val bubbleAgent: Color
+    public val chatBubbleAgent: Color
 
-    /**
-     * Chat bubble border color for agents.
-     */
-    public val bubbleBorder: Color
+    public val chatBubbleBorder: Color
 
-    /**
-     * Chat bubble background color for users.
-     */
-    public val bubbleUser: Color
+    public val chatBubbleUser: Color
 
-    /**
-     * Chat header background color.
-     */
-    public val headerBackground: Color
+    public val chatButton: Color
 
-    /**
-     * Background color for chat prompt input.
-     */
-    public val promptBackground: Color
+    public val chatButtonActive: Color
 
-    /**
-     * Linear gradient end value for chat prompts border.
-     */
-    public val promptBorderEnd: Color
+    public val chatButtonHover: Color
 
-    /**
-     * Linear gradient start value for chat prompts border.
-     */
-    public val promptBorderStart: Color
+    public val chatButtonSelected: Color
 
-    /**
-     * Chat shell background color.
-     */
-    public val shellBackground: Color
+    public val chatButtonTextHover: Color
 
-    /**
-     * Chat quick action button color.
-     */
-    public val button: Color
+    public val chatButtonTextSelected: Color
 
-    /**
-     * Active color for [chatButton].
-     */
-    public val buttonActive: Color
+    public val chatHeaderBackground: Color
 
-    /**
-     * Hover color for [chatButton].
-     */
-    public val buttonHover: Color
+    public val chatPromptBackground: Color
 
-    /**
-     * Selected color for [chatButton].
-     */
-    public val buttonSelected: Color
+    public val chatPromptBorderEnd: Color
 
-    /**
-     * Text color for hovered chat button.
-     */
-    public val buttonTextHover: Color
+    public val chatPromptBorderStart: Color
 
-    /**
-     * Text color for selected chat-button.
-     */
-    public val buttonTextSelected: Color
+    public val chatShellBackground: Color
 }

@@ -95,6 +95,7 @@ comments:
       - '**/wasmJsTest/**'
       - '**/catalog/src/**'
       - '**/doc-parser/**'
+      - '**/code-gen/**'
     searchInNestedClass: true
     searchInInnerClass: true
     searchInInnerObject: true

@@ -30,7 +30,7 @@ class ToggleColorsTest : BaseColorsTest() {
         val expectedColors = mapOf(
             Triple(
                 /*isEnabled=*/false, /*isReadOnly=*/false, /*isToggled=*/false
-            ) to theme.buttonDisabled,
+            ) to theme.buttonColors.buttonDisabled,
             Triple(
                 true, false, false
             ) to theme.toggleOff,
@@ -116,7 +116,7 @@ class ToggleColorsTest : BaseColorsTest() {
             ) to Color.Transparent,
             Triple(
                 false, false, true
-            ) to theme.buttonDisabled,
+            ) to theme.buttonColors.buttonDisabled,
             Triple(
                 true, false, true
             ) to theme.supportSuccess,

@@ -1,23 +1,29 @@
+import org.jetbrains.kotlin.gradle.dsl.KotlinJsCompile
+
 plugins {
-    alias(libs.plugins.kotlin.jvm)
-    alias(libs.plugins.kotlin.serialization)
-    alias(libs.plugins.jetbrains.compose)
-    alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.kotlin.multiplatform)
 }
 
 group = "com.gabrieldrn.docparser"
 version = "unspecified"
 
-dependencies {
-    implementation(libs.kotlinx.serialization.json)
-    implementation(kotlin("reflect"))
-    implementation("org.jetbrains.compose.ui:ui-graphics:${libs.versions.compose.get()}")
-    implementation(compose.runtime)
-    implementation(libs.kotlinPoet)
+kotlin {
+    js {
+        nodejs()
+        binaries.executable()
+    }
 
-    testImplementation(kotlin("test"))
+    sourceSets {
+        val jsMain by getting {
+            dependencies {
+                implementation(npm("@carbon/themes", "11.43.0"))
+            }
+        }
+    }
 }
 
-tasks.test {
-    useJUnitPlatform()
+tasks.withType<KotlinJsCompile>().configureEach {
+    compilerOptions {
+        target = "es2015"
+    }
 }

@@ -5,43 +5,45 @@ package com.gabrieldrn.carbon.foundation.color.chat
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
+import kotlin.Suppress
 
 /**
  * Color tokens for the Chat component in the Gray90 theme.
  */
 @Immutable
+@Suppress("UndocumentedPublicProperty")
 public object Gray90ChatColors : ChatColors {
-    override val avatarAgent: Color = Color(0xFFC6C6C6)
+    override val chatAvatarAgent: Color = Color(0xFFC6C6C6)
 
-    override val avatarBot: Color = Color(0xFF8D8D8D)
+    override val chatAvatarBot: Color = Color(0xFF8D8D8D)
 
-    override val avatarUser: Color = Color(0xFF4589FF)
+    override val chatAvatarUser: Color = Color(0xFF4589FF)
 
-    override val bubbleAgent: Color = Color(0xFF262626)
+    override val chatBubbleAgent: Color = Color(0xFF262626)
 
-    override val bubbleBorder: Color = Color(0xFF525252)
+    override val chatBubbleBorder: Color = Color(0xFF525252)
 
-    override val bubbleUser: Color = Color(0xFF393939)
+    override val chatBubbleUser: Color = Color(0xFF393939)
 
-    override val headerBackground: Color = Color(0xFF262626)
+    override val chatButton: Color = Color(0xFF78A9FF)
 
-    override val promptBackground: Color = Color(0xFF161616)
+    override val chatButtonActive: Color = Color(0x668D8D8D)
 
-    override val promptBorderEnd: Color = Color(0x00262626)
+    override val chatButtonHover: Color = Color(0x288D8D8D)
 
-    override val promptBorderStart: Color = Color(0xFF262626)
+    override val chatButtonSelected: Color = Color(0x3D8D8D8D)
 
-    override val shellBackground: Color = Color(0xFF262626)
+    override val chatButtonTextHover: Color = Color(0xFFA6C8FF)
 
-    override val button: Color = Color(0xFF78A9FF)
+    override val chatButtonTextSelected: Color = Color(0xFFC6C6C6)
 
-    override val buttonActive: Color = Color(0x668D8D8D)
+    override val chatHeaderBackground: Color = Color(0xFF262626)
 
-    override val buttonHover: Color = Color(0x298D8D8D)
+    override val chatPromptBackground: Color = Color(0xFF161616)
 
-    override val buttonSelected: Color = Color(0x3D8D8D8D)
+    override val chatPromptBorderEnd: Color = Color(0x00262626)
 
-    override val buttonTextHover: Color = Color(0xFFA6C8FF)
+    override val chatPromptBorderStart: Color = Color(0xFF262626)
 
-    override val buttonTextSelected: Color = Color(0xFFC6C6C6)
+    override val chatShellBackground: Color = Color(0xFF262626)
 }

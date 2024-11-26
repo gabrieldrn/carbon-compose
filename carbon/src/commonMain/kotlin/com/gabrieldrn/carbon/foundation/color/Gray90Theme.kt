@@ -7,12 +7,15 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
 import com.gabrieldrn.carbon.foundation.color.ai.AiColors
 import com.gabrieldrn.carbon.foundation.color.ai.Gray90AiColors
+import com.gabrieldrn.carbon.foundation.color.button.ButtonColors
+import com.gabrieldrn.carbon.foundation.color.button.Gray90ButtonColors
 import com.gabrieldrn.carbon.foundation.color.chat.ChatColors
 import com.gabrieldrn.carbon.foundation.color.chat.Gray90ChatColors
 import com.gabrieldrn.carbon.foundation.color.notification.Gray90NotificationColors
 import com.gabrieldrn.carbon.foundation.color.notification.NotificationColors
 import com.gabrieldrn.carbon.foundation.color.tag.Gray90TagColors
 import com.gabrieldrn.carbon.foundation.color.tag.TagColors
+import kotlin.Suppress
 
 /**
  * One of the default _dark_ themes available in Carbon.
@@ -23,6 +26,7 @@ import com.gabrieldrn.carbon.foundation.color.tag.TagColors
  * The second layer uses Gray 70 and the third layer used Gray 60.
  */
 @Immutable
+@Suppress("UndocumentedPublicProperty")
 public object Gray90Theme : Theme() {
     override val background: Color = Color(0xFF262626)
 
@@ -30,17 +34,17 @@ public object Gray90Theme : Theme() {
 
     override val backgroundBrand: Color = Color(0xFF0F62FE)
 
-    override val backgroundHover: Color = Color(0x298D8D8D)
+    override val backgroundHover: Color = Color(0x288D8D8D)
 
     override val backgroundInverse: Color = Color(0xFFF4F4F4)
 
-    override val backgroundInverseHover: Color = Color(0xFFE5E5E5)
+    override val backgroundInverseHover: Color = Color(0xFFE8E8E8)
 
     override val backgroundSelected: Color = Color(0x3D8D8D8D)
 
-    override val backgroundSelectedHover: Color = Color(0x528D8D8D)
+    override val backgroundSelectedHover: Color = Color(0x518D8D8D)
 
-    override val borderDisabled: Color = Color(0x808D8D8D)
+    override val borderDisabled: Color = Color(0x7F8D8D8D)
 
     override val borderInteractive: Color = Color(0xFF4589FF)
 
@@ -54,15 +58,15 @@ public object Gray90Theme : Theme() {
 
     override val borderSubtle00: Color = Color(0xFF525252)
 
-    override val borderSubtle01: Color = Color(0xFF525252)
+    override val borderSubtle01: Color = Color(0xFF6F6F6F)
 
-    override val borderSubtle02: Color = Color(0xFF6F6F6F)
+    override val borderSubtle02: Color = Color(0xFF8D8D8D)
 
     override val borderSubtle03: Color = Color(0xFF8D8D8D)
 
-    override val borderSubtleSelected01: Color = Color(0xFF6F6F6F)
+    override val borderSubtleSelected01: Color = Color(0xFF8D8D8D)
 
-    override val borderSubtleSelected02: Color = Color(0xFF8D8D8D)
+    override val borderSubtleSelected02: Color = Color(0xFFA8A8A8)
 
     override val borderSubtleSelected03: Color = Color(0xFFA8A8A8)
 
@@ -71,36 +75,6 @@ public object Gray90Theme : Theme() {
     override val borderTile02: Color = Color(0xFF8D8D8D)
 
     override val borderTile03: Color = Color(0xFFA8A8A8)
-
-    override val buttonDangerActive: Color = Color(0xFF750E13)
-
-    override val buttonDangerHover: Color = Color(0xFFBA1B23)
-
-    override val buttonDangerPrimary: Color = Color(0xFFDA1E28)
-
-    override val buttonDangerSecondary: Color = Color(0xFFFF8389)
-
-    override val buttonDisabled: Color = Color(0xFF6F6F6F)
-
-    override val buttonPrimary: Color = Color(0xFF0F62FE)
-
-    override val buttonPrimaryActive: Color = Color(0xFF002D9C)
-
-    override val buttonPrimaryHover: Color = Color(0xFF0353E9)
-
-    override val buttonSecondary: Color = Color(0xFF6F6F6F)
-
-    override val buttonSecondaryActive: Color = Color(0xFF393939)
-
-    override val buttonSecondaryHover: Color = Color(0xFF606060)
-
-    override val buttonSeparator: Color = Color(0xFF161616)
-
-    override val buttonTertiary: Color = Color(0xFFFFFFFF)
-
-    override val buttonTertiaryActive: Color = Color(0xFFC6C6C6)
-
-    override val buttonTertiaryHover: Color = Color(0xFFF4F4F4)
 
     override val field01: Color = Color(0xFF393939)
 
@@ -120,7 +94,9 @@ public object Gray90Theme : Theme() {
 
     override val focusInverse: Color = Color(0xFF0F62FE)
 
-    override val iconDisabled: Color = Color(0x40F4F4F4)
+    override val highlight: Color = Color(0xFF002D9C)
+
+    override val iconDisabled: Color = Color(0x3FF4F4F4)
 
     override val iconInteractive: Color = Color(0xFFFFFFFF)
 
@@ -128,11 +104,19 @@ public object Gray90Theme : Theme() {
 
     override val iconOnColor: Color = Color(0xFFFFFFFF)
 
-    override val iconOnColorDisabled: Color = Color(0x40FFFFFF)
+    override val iconOnColorDisabled: Color = Color(0x3FFFFFFF)
 
     override val iconPrimary: Color = Color(0xFFF4F4F4)
 
     override val iconSecondary: Color = Color(0xFFC6C6C6)
+
+    override val interactive: Color = Color(0xFF4589FF)
+
+    override val layer01: Color = Color(0xFF393939)
+
+    override val layer02: Color = Color(0xFF525252)
+
+    override val layer03: Color = Color(0xFF6F6F6F)
 
     override val layerAccent01: Color = Color(0xFF525252)
 
@@ -140,23 +124,17 @@ public object Gray90Theme : Theme() {
 
     override val layerAccent03: Color = Color(0xFF8D8D8D)
 
-    override val layerAccentActive01: Color = Color(0xFF6F6F6F)
+    override val layerAccentActive01: Color = Color(0xFF8D8D8D)
 
     override val layerAccentActive02: Color = Color(0xFF393939)
 
     override val layerAccentActive03: Color = Color(0xFF525252)
 
-    override val layerAccentHover01: Color = Color(0xFF656565)
+    override val layerAccentHover01: Color = Color(0xFF636363)
 
     override val layerAccentHover02: Color = Color(0xFF5E5E5E)
 
     override val layerAccentHover03: Color = Color(0xFF7A7A7A)
-
-    override val layer01: Color = Color(0xFF393939)
-
-    override val layer02: Color = Color(0xFF525252)
-
-    override val layer03: Color = Color(0xFF6F6F6F)
 
     override val layerActive01: Color = Color(0xFF6F6F6F)
 
@@ -176,13 +154,13 @@ public object Gray90Theme : Theme() {
 
     override val layerSelected03: Color = Color(0xFF525252)
 
-    override val layerSelectedDisabled: Color = Color(0xFF8D8D8D)
+    override val layerSelectedDisabled: Color = Color(0xFFA8A8A8)
 
-    override val layerSelectedHover01: Color = Color(0xFF656565)
+    override val layerSelectedHover01: Color = Color(0xFF636363)
 
     override val layerSelectedHover02: Color = Color(0xFF5E5E5E)
 
-    override val layerSelectedHover03: Color = Color(0xFF656565)
+    override val layerSelectedHover03: Color = Color(0xFF636363)
 
     override val layerSelectedInverse: Color = Color(0xFFF4F4F4)
 
@@ -202,17 +180,13 @@ public object Gray90Theme : Theme() {
 
     override val linkVisited: Color = Color(0xFFBE95FF)
 
-    override val highlight: Color = Color(0xFF002D9C)
+    override val overlay: Color = Color(0xA5000000)
 
-    override val interactive: Color = Color(0xFF4589FF)
+    override val shadow: Color = Color(0xCC000000)
 
-    override val overlay: Color = Color(0xFF161616)
-
-    override val skeletonBackground: Color = Color(0xFF353535)
+    override val skeletonBackground: Color = Color(0xFF333333)
 
     override val skeletonElement: Color = Color(0xFF525252)
-
-    override val toggleOff: Color = Color(0xFF8D8D8D)
 
     override val supportCautionMajor: Color = Color(0xFFFF832B)
 
@@ -236,29 +210,33 @@ public object Gray90Theme : Theme() {
 
     override val supportWarningInverse: Color = Color(0xFFF1C21B)
 
-    override val textDisabled: Color = Color(0x40F4F4F4)
+    override val textDisabled: Color = Color(0x3FF4F4F4)
 
     override val textError: Color = Color(0xFFFFB3B8)
 
-    override val textHelper: Color = Color(0xFF8D8D8D)
+    override val textHelper: Color = Color(0xFFC6C6C6)
 
     override val textInverse: Color = Color(0xFF161616)
 
     override val textOnColor: Color = Color(0xFFFFFFFF)
 
-    override val textOnColorDisabled: Color = Color(0x40FFFFFF)
+    override val textOnColorDisabled: Color = Color(0x3FFFFFFF)
 
-    override val textPlaceholder: Color = Color(0xFF6F6F6F)
+    override val textPlaceholder: Color = Color(0x66F4F4F4)
 
     override val textPrimary: Color = Color(0xFFF4F4F4)
 
     override val textSecondary: Color = Color(0xFFC6C6C6)
 
+    override val toggleOff: Color = Color(0xFF8D8D8D)
+
     override val aiColors: AiColors = Gray90AiColors
 
-    override val tagColors: TagColors = Gray90TagColors
+    override val buttonColors: ButtonColors = Gray90ButtonColors
 
     override val chatColors: ChatColors = Gray90ChatColors
 
     override val notificationColors: NotificationColors = Gray90NotificationColors
+
+    override val tagColors: TagColors = Gray90TagColors
 }
