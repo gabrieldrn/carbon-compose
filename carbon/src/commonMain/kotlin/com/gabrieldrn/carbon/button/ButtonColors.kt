@@ -100,7 +100,7 @@ internal class ButtonColors private constructor(
     }
 
     val labelHoverColor: Color = when (buttonType) {
-        ButtonType.Tertiary,
+        ButtonType.Tertiary -> theme.textInverse
         ButtonType.TertiaryDanger,
         ButtonType.GhostDanger -> theme.textOnColor
         ButtonType.Ghost -> theme.linkPrimaryHover
@@ -124,24 +124,16 @@ internal class ButtonColors private constructor(
         else -> theme.iconOnColor
     }
 
-    val iconActiveColor: Color = if (isIconButton) {
-        theme.iconPrimary
-    } else {
-        when (buttonType) {
-            ButtonType.Tertiary -> theme.iconInverse
-            ButtonType.Ghost -> if (isIconButton) theme.iconPrimary else theme.linkPrimary
-            else -> theme.iconOnColor
-        }
+    val iconActiveColor: Color = when (buttonType) {
+        ButtonType.Tertiary -> theme.iconInverse
+        ButtonType.Ghost -> if (isIconButton) theme.iconPrimary else theme.linkPrimary
+        else -> theme.iconOnColor
     }
 
-    val iconHoverColor: Color = if (isIconButton) {
-        theme.iconPrimary
-    } else {
-        when (buttonType) {
-            ButtonType.Tertiary -> theme.iconInverse
-            ButtonType.Ghost -> if (isIconButton) theme.iconPrimary else theme.linkPrimaryHover
-            else -> theme.iconOnColor
-        }
+    val iconHoverColor: Color = when (buttonType) {
+        ButtonType.Tertiary -> theme.iconInverse
+        ButtonType.Ghost -> if (isIconButton) theme.iconPrimary else theme.linkPrimaryHover
+        else -> theme.iconOnColor
     }
 
     val iconDisabledColor: Color = when (buttonType) {

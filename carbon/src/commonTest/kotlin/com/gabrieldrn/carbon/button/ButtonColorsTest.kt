@@ -127,7 +127,7 @@ class ButtonColorsTest : BaseColorsTest() {
 
             assertEquals(
                 expected = when (buttonType) {
-                    ButtonType.Tertiary,
+                    ButtonType.Tertiary -> theme.textInverse
                     ButtonType.TertiaryDanger,
                     ButtonType.GhostDanger -> theme.textOnColor
                     ButtonType.Ghost -> theme.linkPrimaryHover
