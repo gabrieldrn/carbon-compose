@@ -29,6 +29,9 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -48,6 +51,10 @@ public fun ContentSwitcher(
 
     val colors = ContentSwitcherColors.colors()
 
+    val selectedOptionIndex by remember(options, selectedOption) {
+        mutableStateOf(options.indexOf(selectedOption))
+    }
+
     Row(
         modifier = modifier
             .border(
@@ -59,18 +66,38 @@ public fun ContentSwitcher(
             .height(height = SpacingScale.spacing08)
             .width(IntrinsicSize.Min) // By default, use only the minimum width needed.
     ) {
-        options.map { option ->
-            ContentSwitcherButton(
-                text = option,
-                isSelected = option == selectedOption,
-                colors = colors,
-                onClick = { onOptionSelected(option) },
+        options.mapIndexed { index, option ->
+            Box(
                 modifier = Modifier
                     // Make all buttons the same width as the widest button.
                     .width(IntrinsicSize.Max)
                     .weight(1f)
-                    .align(Alignment.CenterVertically)
-            )
+                    .align(Alignment.CenterVertically),
+                contentAlignment = Alignment.CenterStart
+            ) {
+                val displayDivider by remember(selectedOptionIndex) {
+                    mutableStateOf(
+                        index != selectedOptionIndex && index - 1 != selectedOptionIndex
+                    )
+                }
+
+                if (displayDivider) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxHeight()
+                            .padding(vertical = SpacingScale.spacing04)
+                            .width(width = 1.dp)
+                            .background(color = colors.dividerColor)
+                    )
+                }
+
+                ContentSwitcherButton(
+                    text = option,
+                    isSelected = index == selectedOptionIndex,
+                    colors = colors,
+                    onClick = { onOptionSelected(option) },
+                )
+            }
         }
     }
 }
@@ -88,7 +115,6 @@ private fun ContentSwitcherButton(
             .selectable(selected = isSelected, onClick = onClick)
             .fillMaxHeight()
             .background(color = colors.containerColor(isSelected).value)
-            .padding(horizontal = SpacingScale.spacing05)
     ) {
         Text(
             text = text,
@@ -98,6 +124,7 @@ private fun ContentSwitcherButton(
             modifier = Modifier
                 .fillMaxWidth()
                 .align(Alignment.CenterStart)
+                .padding(horizontal = SpacingScale.spacing05)
         )
     }
 }

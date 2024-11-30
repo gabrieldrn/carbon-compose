@@ -22,12 +22,21 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.graphics.Color
 import com.gabrieldrn.carbon.Carbon
+import com.gabrieldrn.carbon.foundation.color.Layer
 import com.gabrieldrn.carbon.foundation.color.Theme
 
 @Immutable
 internal class ContentSwitcherColors(
-    private val theme: Theme
+    private val theme: Theme,
+    private val layer: Layer
 ) {
+    val dividerColor = when (layer) {
+        Layer.Layer00 -> theme.borderSubtle00
+        Layer.Layer01 -> theme.borderSubtle01
+        Layer.Layer02 -> theme.borderSubtle02
+        Layer.Layer03 -> theme.borderSubtle03
+    }
+
     @Composable
     fun containerColor(isSelected: Boolean): State<Color> =
         rememberUpdatedState(
@@ -42,6 +51,6 @@ internal class ContentSwitcherColors(
 
     companion object {
         @Composable
-        fun colors() = ContentSwitcherColors(theme = Carbon.theme)
+        fun colors() = ContentSwitcherColors(theme = Carbon.theme, layer = Carbon.layer)
     }
 }
