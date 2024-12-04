@@ -57,7 +57,7 @@ private const val EXTRA_OPTIONS_MIN = 0
 private const val EXTRA_OPTIONS_MAX = 2
 
 private const val CONTENT_SWITCHER_OPT_1 = "Option 1"
-private const val CONTENT_SWITCHER_OPT_2 = "Longer option 2"
+private const val CONTENT_SWITCHER_OPT_2 = "Long option 2"
 
 @Composable
 fun ContentSwitcherDemoScreen(modifier: Modifier = Modifier) {

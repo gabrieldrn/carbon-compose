@@ -18,8 +18,7 @@ package com.gabrieldrn.carbon.contentswitcher
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
-import androidx.compose.runtime.State
-import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
 import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.foundation.color.Layer
@@ -30,6 +29,12 @@ internal class ContentSwitcherColors(
     private val theme: Theme,
     private val layer: Layer
 ) {
+    val containerUnselectedColor = Color.Transparent
+    val containerSelectedColor = theme.layerSelectedInverse
+
+    val labelUnselectedColor = theme.textSecondary
+    val labelSelectedColor = theme.textInverse
+
     val dividerColor = when (layer) {
         Layer.Layer00 -> theme.borderSubtle00
         Layer.Layer01 -> theme.borderSubtle01
@@ -37,20 +42,13 @@ internal class ContentSwitcherColors(
         Layer.Layer03 -> theme.borderSubtle03
     }
 
-    @Composable
-    fun containerColor(isSelected: Boolean): State<Color> =
-        rememberUpdatedState(
-            newValue = if (isSelected) theme.layerSelectedInverse else Color.Transparent
-        )
-
-    @Composable
-    fun labelColor(isSelected: Boolean): State<Color> =
-        rememberUpdatedState(
-            newValue = if (isSelected) theme.textInverse else theme.textSecondary
-        )
-
     companion object {
         @Composable
-        fun colors() = ContentSwitcherColors(theme = Carbon.theme, layer = Carbon.layer)
+        fun colors(
+            theme: Theme = Carbon.theme,
+            layer: Layer = Carbon.layer
+        ) = remember(theme, layer) {
+            ContentSwitcherColors(theme = theme, layer = layer)
+        }
     }
 }

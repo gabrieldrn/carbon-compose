@@ -16,8 +16,12 @@
 
 package com.gabrieldrn.carbon.contentswitcher
 
+import androidx.compose.animation.animateColor
+import androidx.compose.animation.core.snap
+import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
@@ -28,24 +32,28 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
+import com.gabrieldrn.carbon.button.ButtonFocusIndication
+import com.gabrieldrn.carbon.button.ButtonType
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
-import com.gabrieldrn.carbon.foundation.text.Text
 
 @Composable
 public fun ContentSwitcher(
     options: List<String>,
     selectedOption: String,
     onOptionSelected: (String) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     require(options.size >= 2) { "ContentSwitcher requires at least two options" }
 
@@ -66,36 +74,32 @@ public fun ContentSwitcher(
             .height(height = SpacingScale.spacing08)
             .width(IntrinsicSize.Min) // By default, use only the minimum width needed.
     ) {
-        options.mapIndexed { index, option ->
-            Box(
-                modifier = Modifier
-                    // Make all buttons the same width as the widest button.
-                    .width(IntrinsicSize.Max)
-                    .weight(1f)
-                    .align(Alignment.CenterVertically),
-                contentAlignment = Alignment.CenterStart
-            ) {
-                val displayDivider by remember(selectedOptionIndex) {
-                    mutableStateOf(
-                        index != selectedOptionIndex && index - 1 != selectedOptionIndex
-                    )
+        options.forEachIndexed { index, option ->
+            key(index, option) {
+                val interactionSource = remember { MutableInteractionSource() }
+
+                val isSelected by remember(selectedOptionIndex) {
+                    mutableStateOf(index == selectedOptionIndex)
                 }
 
-                if (displayDivider) {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxHeight()
-                            .padding(vertical = SpacingScale.spacing04)
-                            .width(width = 1.dp)
-                            .background(color = colors.dividerColor)
+                val displayDivider by remember(selectedOptionIndex, isSelected) {
+                    mutableStateOf(
+                        !isSelected && index - 1 != selectedOptionIndex
                     )
                 }
 
                 ContentSwitcherButton(
+                    isSelected = isSelected,
+                    displayDivider = displayDivider,
                     text = option,
-                    isSelected = index == selectedOptionIndex,
                     colors = colors,
+                    interactionSource = interactionSource,
                     onClick = { onOptionSelected(option) },
+                    modifier = Modifier
+                        // Make all buttons the same width as the widest button.
+                        .width(IntrinsicSize.Max)
+                        .weight(1f)
+                        .align(Alignment.CenterVertically)
                 )
             }
         }
@@ -104,27 +108,71 @@ public fun ContentSwitcher(
 
 @Composable
 private fun ContentSwitcherButton(
-    text: String,
     isSelected: Boolean,
+    displayDivider: Boolean,
+    text: String,
     colors: ContentSwitcherColors,
+    interactionSource: MutableInteractionSource,
     onClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
+    val transition = updateTransition(isSelected)
+
     Box(
         modifier = modifier
-            .selectable(selected = isSelected, onClick = onClick)
-            .fillMaxHeight()
-            .background(color = colors.containerColor(isSelected).value)
+            .selectable(
+                selected = isSelected,
+                onClick = onClick,
+                interactionSource = interactionSource,
+                indication = ButtonFocusIndication(Carbon.theme, ButtonType.Primary)
+            ),
+        contentAlignment = Alignment.CenterStart
     ) {
-        Text(
-            text = text,
-            style = Carbon.typography.bodyCompact01,
-            color = colors.labelColor(isSelected).value,
-            maxLines = 1,
+        val dividerTransition = updateTransition(displayDivider)
+
+        val dividerColor by dividerTransition.animateColor(
+            transitionSpec = { snap() }
+        ) {
+            if (it) colors.dividerColor else Color.Transparent
+        }
+
+        val containerColor by transition.animateColor(
+            transitionSpec = { snap() }
+        ) {
+            if (it) colors.containerSelectedColor else colors.containerUnselectedColor
+        }
+
+        val textColor by transition.animateColor(
+            transitionSpec = { snap() }
+        ) {
+            if (it) colors.labelSelectedColor else colors.labelUnselectedColor
+        }
+
+        // Divider
+        Box(
             modifier = Modifier
-                .fillMaxWidth()
-                .align(Alignment.CenterStart)
-                .padding(horizontal = SpacingScale.spacing05)
+                .fillMaxHeight()
+                .padding(vertical = SpacingScale.spacing04)
+                .width(width = 1.dp)
+                .background(color = dividerColor)
         )
+
+        Box(
+            modifier = Modifier
+                .fillMaxHeight()
+                .background(color = containerColor)
+        ) {
+            BasicText(
+                text = text,
+                style = Carbon.typography.bodyCompact01.merge(
+                    color = textColor,
+                ),
+                maxLines = 1,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .align(Alignment.CenterStart)
+                    .padding(horizontal = SpacingScale.spacing05)
+            )
+        }
     }
 }
