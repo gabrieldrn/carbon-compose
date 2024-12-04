@@ -17,7 +17,9 @@
 package com.gabrieldrn.carbon.contentswitcher
 
 import androidx.compose.animation.animateColor
+import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.snap
+import androidx.compose.animation.core.tween
 import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -41,11 +43,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.button.ButtonFocusIndication
 import com.gabrieldrn.carbon.button.ButtonType
+import com.gabrieldrn.carbon.foundation.motion.Motion
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 
 @Composable
@@ -106,6 +111,11 @@ public fun ContentSwitcher(
     }
 }
 
+private fun <T : Any> getTransitionSpec() = tween<T>(
+    durationMillis = Motion.Duration.fast02,
+    easing = Motion.Entrance.expressiveEasing
+)
+
 @Composable
 private fun ContentSwitcherButton(
     isSelected: Boolean,
@@ -136,14 +146,14 @@ private fun ContentSwitcherButton(
             if (it) colors.dividerColor else Color.Transparent
         }
 
-        val containerColor by transition.animateColor(
-            transitionSpec = { snap() }
+        val containerSelectedBackgroundHeight by transition.animateFloat(
+            transitionSpec = { getTransitionSpec() }
         ) {
-            if (it) colors.containerSelectedColor else colors.containerUnselectedColor
+            if (it) 0f else 1f
         }
 
         val textColor by transition.animateColor(
-            transitionSpec = { snap() }
+            transitionSpec = { getTransitionSpec() }
         ) {
             if (it) colors.labelSelectedColor else colors.labelUnselectedColor
         }
@@ -160,7 +170,20 @@ private fun ContentSwitcherButton(
         Box(
             modifier = Modifier
                 .fillMaxHeight()
-                .background(color = containerColor)
+                .drawBehind {
+                    // Unselected color background
+                    drawRect(colors.containerUnselectedColor)
+                    // Animated selected color background
+                    drawLine(
+                        color = colors.containerSelectedColor,
+                        start = Offset(x = size.width / 2, y = size.height),
+                        end = Offset(
+                            x = size.width / 2,
+                            y = size.height * containerSelectedBackgroundHeight
+                        ),
+                        strokeWidth = this.size.width
+                    )
+                }
         ) {
             BasicText(
                 text = text,
