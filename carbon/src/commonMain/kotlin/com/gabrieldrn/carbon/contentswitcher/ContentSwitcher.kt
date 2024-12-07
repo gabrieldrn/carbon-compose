@@ -18,16 +18,19 @@ package com.gabrieldrn.carbon.contentswitcher
 
 import androidx.compose.animation.animateColor
 import androidx.compose.animation.core.animateFloat
-import androidx.compose.animation.core.snap
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.interaction.FocusInteraction
+import androidx.compose.foundation.interaction.HoverInteraction
+import androidx.compose.foundation.interaction.Interaction
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -36,10 +39,14 @@ import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.snapshots.SnapshotStateMap
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -68,6 +75,10 @@ public fun ContentSwitcher(
         mutableStateOf(options.indexOf(selectedOption))
     }
 
+    val hoverState = remember {
+        mutableStateMapOf<Int, HoverInteraction.Enter>()
+    }
+
     Row(
         modifier = modifier
             .border(
@@ -83,50 +94,84 @@ public fun ContentSwitcher(
             key(index, option) {
                 val interactionSource = remember { MutableInteractionSource() }
 
-                val isSelected by remember(selectedOptionIndex) {
-                    mutableStateOf(index == selectedOptionIndex)
+                LaunchedEffect(interactionSource) {
+                    interactionSource.interactions.collect { interaction ->
+                        when (interaction) {
+                            is HoverInteraction.Enter -> hoverState[index] = interaction
+                            is HoverInteraction.Exit -> hoverState.remove(index)
+                        }
+                    }
                 }
 
-                val displayDivider by remember(selectedOptionIndex, isSelected) {
-                    mutableStateOf(
-                        !isSelected && index - 1 != selectedOptionIndex
-                    )
-                }
-
-                ContentSwitcherButton(
-                    isSelected = isSelected,
-                    displayDivider = displayDivider,
-                    text = option,
-                    colors = colors,
-                    interactionSource = interactionSource,
-                    onClick = { onOptionSelected(option) },
+                Box(
                     modifier = Modifier
                         // Make all buttons the same width as the widest button.
                         .width(IntrinsicSize.Max)
                         .weight(1f)
-                        .align(Alignment.CenterVertically)
-                )
+                        .align(Alignment.CenterVertically),
+                    contentAlignment = Alignment.CenterStart
+                ) {
+                    Divider(
+                        index = index,
+                        selectedOptionIndex = selectedOptionIndex,
+                        hoverState = hoverState,
+                        colors = colors
+                    )
+
+                    ContentSwitcherButton(
+                        index = index,
+                        selectedOptionIndex = selectedOptionIndex,
+                        text = option,
+                        colors = colors,
+                        interactionSource = interactionSource,
+                        onClick = { onOptionSelected(option) },
+                        modifier = Modifier.fillMaxSize()
+                    )
+                }
             }
         }
     }
 }
 
-private fun <T : Any> getTransitionSpec() = tween<T>(
+private fun <T : Any> getBottomContainerTransitionSpec() = tween<T>(
+    durationMillis = Motion.Duration.fast01,
+    easing = Motion.Entrance.expressiveEasing
+)
+
+private fun <T : Any> getUpperContainerTransitionSpec() = tween<T>(
     durationMillis = Motion.Duration.fast02,
     easing = Motion.Entrance.expressiveEasing
 )
 
 @Composable
 private fun ContentSwitcherButton(
-    isSelected: Boolean,
-    displayDivider: Boolean,
+    index: Int,
+    selectedOptionIndex: Int,
     text: String,
     colors: ContentSwitcherColors,
     interactionSource: MutableInteractionSource,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val transition = updateTransition(isSelected)
+    val interactions = remember { mutableStateListOf<Interaction>() }
+
+    LaunchedEffect(interactionSource) {
+        interactionSource.interactions.collect { interaction ->
+            when (interaction) {
+                is HoverInteraction.Enter -> interactions.add(interaction)
+                is HoverInteraction.Exit -> interactions.remove(interaction.enter)
+                is FocusInteraction.Focus -> interactions.add(interaction)
+                is FocusInteraction.Unfocus -> interactions.remove(interaction.focus)
+            }
+        }
+    }
+
+    val isSelected by remember(selectedOptionIndex) {
+        mutableStateOf(index == selectedOptionIndex)
+    }
+
+    val interactionsTransition = updateTransition(interactions)
+    val selectedTransition = updateTransition(isSelected)
 
     Box(
         modifier = modifier
@@ -138,41 +183,40 @@ private fun ContentSwitcherButton(
             ),
         contentAlignment = Alignment.CenterStart
     ) {
-        val dividerTransition = updateTransition(displayDivider)
-
-        val dividerColor by dividerTransition.animateColor(
-            transitionSpec = { snap() }
-        ) {
-            if (it) colors.dividerColor else Color.Transparent
+        // Due to the selection animation, the button have two layers of background.
+        // The first layer is the unselected color, and the second layer is the animated selected
+        // color.
+        val unselectedContainerColor by interactionsTransition.animateColor(
+            transitionSpec = { getBottomContainerTransitionSpec() }
+        ) { interactions ->
+            when {
+                interactions.any { it is HoverInteraction.Enter } ->
+                    colors.containerHoverUnselectedColor
+                interactions.any { it is FocusInteraction.Focus } ->
+                    colors.containerFocusUnselectedColor
+                else ->
+                    colors.containerUnselectedColor
+            }
         }
 
-        val containerSelectedBackgroundHeight by transition.animateFloat(
-            transitionSpec = { getTransitionSpec() }
+        val containerSelectedBackgroundHeight by selectedTransition.animateFloat(
+            transitionSpec = { getUpperContainerTransitionSpec() }
         ) {
             if (it) 0f else 1f
         }
 
-        val textColor by transition.animateColor(
-            transitionSpec = { getTransitionSpec() }
+        val textColor by selectedTransition.animateColor(
+            transitionSpec = { getUpperContainerTransitionSpec() }
         ) {
             if (it) colors.labelSelectedColor else colors.labelUnselectedColor
         }
-
-        // Divider
-        Box(
-            modifier = Modifier
-                .fillMaxHeight()
-                .padding(vertical = SpacingScale.spacing04)
-                .width(width = 1.dp)
-                .background(color = dividerColor)
-        )
 
         Box(
             modifier = Modifier
                 .fillMaxHeight()
                 .drawBehind {
                     // Unselected color background
-                    drawRect(colors.containerUnselectedColor)
+                    drawRect(unselectedContainerColor)
                     // Animated selected color background
                     drawLine(
                         color = colors.containerSelectedColor,
@@ -198,4 +242,44 @@ private fun ContentSwitcherButton(
             )
         }
     }
+}
+
+@Composable
+private fun Divider(
+    index: Int,
+    selectedOptionIndex: Int,
+    hoverState: SnapshotStateMap<Int, HoverInteraction.Enter>,
+    colors: ContentSwitcherColors,
+    modifier: Modifier = Modifier
+) {
+    // Check if the current or the previous button is hovered.
+    val hasHoverNearby = hoverState[index - 1] != null || hoverState[index] != null
+
+    val displayDivider by remember(
+        index,
+        selectedOptionIndex,
+        hasHoverNearby,
+    ) {
+        mutableStateOf(
+            index != selectedOptionIndex &&
+                index - 1 != selectedOptionIndex &&
+                !hasHoverNearby
+        )
+    }
+
+    val transition = updateTransition(displayDivider)
+
+    val dividerColor by transition.animateColor(
+        transitionSpec = { getBottomContainerTransitionSpec() }
+    ) {
+        if (it) colors.dividerColor else Color.Transparent
+    }
+
+    Box(
+        modifier = modifier
+            .fillMaxHeight()
+            .padding(vertical = SpacingScale.spacing04)
+            .width(width = 1.dp)
+            .background(color = dividerColor)
+    )
 }
