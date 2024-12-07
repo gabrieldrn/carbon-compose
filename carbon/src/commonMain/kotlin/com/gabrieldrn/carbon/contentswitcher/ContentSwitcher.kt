@@ -183,10 +183,11 @@ private fun ContentSwitcherButton(
             ),
         contentAlignment = Alignment.CenterStart
     ) {
-        // Due to the selection animation, the button have two layers of background.
-        // The first layer is the unselected color, and the second layer is the animated selected
-        // color.
-        val unselectedContainerColor by interactionsTransition.animateColor(
+        // Due to the selection animation, buttons have two background layers in their container.
+        // The first layer is for the resting and hovered states, and the second layer is for the
+        // selected state. The selected state is animated from the bottom to the top of the button.
+
+        val bottomContainerColor by interactionsTransition.animateColor(
             transitionSpec = { getBottomContainerTransitionSpec() }
         ) { interactions ->
             when {
@@ -199,7 +200,7 @@ private fun ContentSwitcherButton(
             }
         }
 
-        val containerSelectedBackgroundHeight by selectedTransition.animateFloat(
+        val upperContainerHeight by selectedTransition.animateFloat(
             transitionSpec = { getUpperContainerTransitionSpec() }
         ) {
             if (it) 0f else 1f
@@ -216,14 +217,14 @@ private fun ContentSwitcherButton(
                 .fillMaxHeight()
                 .drawBehind {
                     // Unselected color background
-                    drawRect(unselectedContainerColor)
+                    drawRect(bottomContainerColor)
                     // Animated selected color background
                     drawLine(
                         color = colors.containerSelectedColor,
                         start = Offset(x = size.width / 2, y = size.height),
                         end = Offset(
                             x = size.width / 2,
-                            y = size.height * containerSelectedBackgroundHeight
+                            y = size.height * upperContainerHeight
                         ),
                         strokeWidth = this.size.width
                     )
