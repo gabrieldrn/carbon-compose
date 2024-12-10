@@ -18,9 +18,9 @@ package com.gabrieldrn.carbon.contentswitcher
 
 import androidx.compose.animation.animateColor
 import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.snap
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.core.updateTransition
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.interaction.FocusInteraction
 import androidx.compose.foundation.interaction.HoverInteraction
@@ -66,6 +66,7 @@ public fun ContentSwitcher(
     selectedOption: String,
     onOptionSelected: (String) -> Unit,
     modifier: Modifier = Modifier,
+    isEnabled: Boolean = true,
 ) {
     require(options.size >= 2) { "ContentSwitcher requires at least two options" }
 
@@ -83,7 +84,7 @@ public fun ContentSwitcher(
         modifier = modifier
             .border(
                 width = 1.dp,
-                color = Carbon.theme.borderInverse,
+                color = if (isEnabled) colors.borderColor else colors.borderDisabledColor,
                 shape = RoundedCornerShape(4.dp)
             )
             .clip(shape = RoundedCornerShape(4.dp))
@@ -122,6 +123,7 @@ public fun ContentSwitcher(
                         index = index,
                         selectedOptionIndex = selectedOptionIndex,
                         text = option,
+                        isEnabled = isEnabled,
                         colors = colors,
                         interactionSource = interactionSource,
                         onClick = { onOptionSelected(option) },
@@ -143,11 +145,17 @@ private fun <T : Any> getUpperContainerTransitionSpec() = tween<T>(
     easing = Motion.Entrance.expressiveEasing
 )
 
+private data class ButtonState(
+    val isEnabled: Boolean,
+    val isSelected: Boolean,
+)
+
 @Composable
 private fun ContentSwitcherButton(
     index: Int,
     selectedOptionIndex: Int,
     text: String,
+    isEnabled: Boolean,
     colors: ContentSwitcherColors,
     interactionSource: MutableInteractionSource,
     onClick: () -> Unit,
@@ -166,82 +174,85 @@ private fun ContentSwitcherButton(
         }
     }
 
-    val isSelected by remember(selectedOptionIndex) {
-        mutableStateOf(index == selectedOptionIndex)
+    val buttonState by remember(isEnabled, selectedOptionIndex) {
+        mutableStateOf(ButtonState(isEnabled, index == selectedOptionIndex))
     }
 
     val interactionsTransition = updateTransition(interactions)
-    val selectedTransition = updateTransition(isSelected)
+    val selectedTransition = updateTransition(buttonState)
+
+    // Due to the selection animation, buttons have two background layers in their container.
+    // The first layer is for the resting and hovered states, and the second layer is for the
+    // selected state. The selected state is animated from the bottom to the top of the button.
+
+    val bottomContainerColor by interactionsTransition.animateColor(
+        transitionSpec = { getBottomContainerTransitionSpec() }
+    ) { transitionInteractions ->
+        when {
+            transitionInteractions.any { it is HoverInteraction.Enter } ->
+                colors.containerUnselectedHoverColor
+            transitionInteractions.any { it is FocusInteraction.Focus } ->
+                colors.containerUnselectedFocusColor
+            else ->
+                colors.containerUnselectedColor
+        }
+    }
+
+    val upperContainerHeight by selectedTransition.animateFloat(
+        transitionSpec = { getUpperContainerTransitionSpec() }
+    ) { state ->
+        if (state.isSelected) 0f else 1f
+    }
+
+    val textColor by selectedTransition.animateColor(
+        transitionSpec = {
+            if (!initialState.isEnabled || !targetState.isEnabled) snap()
+            else getUpperContainerTransitionSpec()
+        }
+    ) { state ->
+        when {
+            !state.isEnabled -> colors.labelDisabledColor
+            state.isSelected -> colors.labelSelectedColor
+            else -> colors.labelUnselectedColor
+        }
+    }
 
     Box(
         modifier = modifier
             .selectable(
-                selected = isSelected,
+                selected = buttonState.isSelected,
                 onClick = onClick,
                 interactionSource = interactionSource,
                 indication = ButtonFocusIndication(Carbon.theme, ButtonType.Primary)
-            ),
-        contentAlignment = Alignment.CenterStart
-    ) {
-        // Due to the selection animation, buttons have two background layers in their container.
-        // The first layer is for the resting and hovered states, and the second layer is for the
-        // selected state. The selected state is animated from the bottom to the top of the button.
-
-        val bottomContainerColor by interactionsTransition.animateColor(
-            transitionSpec = { getBottomContainerTransitionSpec() }
-        ) { interactions ->
-            when {
-                interactions.any { it is HoverInteraction.Enter } ->
-                    colors.containerHoverUnselectedColor
-                interactions.any { it is FocusInteraction.Focus } ->
-                    colors.containerFocusUnselectedColor
-                else ->
-                    colors.containerUnselectedColor
-            }
-        }
-
-        val upperContainerHeight by selectedTransition.animateFloat(
-            transitionSpec = { getUpperContainerTransitionSpec() }
-        ) {
-            if (it) 0f else 1f
-        }
-
-        val textColor by selectedTransition.animateColor(
-            transitionSpec = { getUpperContainerTransitionSpec() }
-        ) {
-            if (it) colors.labelSelectedColor else colors.labelUnselectedColor
-        }
-
-        Box(
-            modifier = Modifier
-                .fillMaxHeight()
-                .drawBehind {
-                    // Unselected color background
-                    drawRect(bottomContainerColor)
-                    // Animated selected color background
-                    drawLine(
-                        color = colors.containerSelectedColor,
-                        start = Offset(x = size.width / 2, y = size.height),
-                        end = Offset(
-                            x = size.width / 2,
-                            y = size.height * upperContainerHeight
-                        ),
-                        strokeWidth = this.size.width
-                    )
-                }
-        ) {
-            BasicText(
-                text = text,
-                style = Carbon.typography.bodyCompact01.merge(
-                    color = textColor,
-                ),
-                maxLines = 1,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .align(Alignment.CenterStart)
-                    .padding(horizontal = SpacingScale.spacing05)
             )
-        }
+            .fillMaxHeight()
+            .drawBehind {
+                // Unselected color background
+                drawRect(bottomContainerColor)
+                // Animated selected color background
+                drawLine(
+                    color =
+                        if (isEnabled) colors.containerSelectedColor
+                        else colors.containerSelectedDisabledColor,
+                    start = Offset(x = size.width / 2, y = size.height),
+                    end = Offset(
+                        x = size.width / 2,
+                        y = size.height * upperContainerHeight
+                    ),
+                    strokeWidth = this.size.width
+                )
+            }
+    ) {
+        BasicText(
+            text = text,
+            style = Carbon.typography.bodyCompact01,
+            color = { textColor },
+            maxLines = 1,
+            modifier = Modifier
+                .fillMaxWidth()
+                .align(Alignment.CenterStart)
+                .padding(horizontal = SpacingScale.spacing05)
+        )
     }
 }
 
@@ -281,6 +292,8 @@ private fun Divider(
             .fillMaxHeight()
             .padding(vertical = SpacingScale.spacing04)
             .width(width = 1.dp)
-            .background(color = dividerColor)
+            .drawBehind {
+                drawRect(color = dividerColor)
+            }
     )
 }

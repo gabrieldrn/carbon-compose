@@ -29,14 +29,18 @@ internal class ContentSwitcherColors(
     private val theme: Theme,
     private val layer: Layer
 ) {
-    val containerUnselectedColor = Color.Transparent
-    val containerHoverUnselectedColor = theme.backgroundHover
-    val containerFocusUnselectedColor = Color.Transparent
-
     val containerSelectedColor = theme.layerSelectedInverse
+    val containerSelectedDisabledColor = theme.layerSelectedDisabled
+    val containerUnselectedColor = Color.Transparent
+    val containerUnselectedHoverColor = theme.backgroundHover
+    val containerUnselectedFocusColor = Color.Transparent
 
-    val labelUnselectedColor = theme.textSecondary
+    val borderColor = theme.borderInverse
+    val borderDisabledColor = theme.borderDisabled
+
     val labelSelectedColor = theme.textInverse
+    val labelUnselectedColor = theme.textSecondary
+    val labelDisabledColor = theme.textDisabled
 
     val dividerColor = when (layer) {
         Layer.Layer00 -> theme.borderSubtle00

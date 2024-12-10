@@ -51,6 +51,7 @@ import com.gabrieldrn.carbon.foundation.color.CarbonLayer
 import com.gabrieldrn.carbon.foundation.color.Layer
 import com.gabrieldrn.carbon.foundation.color.containerBackground
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
+import com.gabrieldrn.carbon.toggle.Toggle
 import org.jetbrains.compose.resources.painterResource
 
 private const val EXTRA_OPTIONS_MIN = 0
@@ -82,6 +83,8 @@ fun ContentSwitcherDemoScreen(modifier: Modifier = Modifier) {
 
         var selectedOption by remember(extraOptions) { mutableStateOf(CONTENT_SWITCHER_OPT_1) }
 
+        var isEnabled by remember { mutableStateOf(true) }
+
         CarbonLayer(layer = layer) {
             Column(
                 modifier = Modifier
@@ -95,6 +98,7 @@ fun ContentSwitcherDemoScreen(modifier: Modifier = Modifier) {
                 ContentSwitcher(
                     options = options,
                     selectedOption = selectedOption,
+                    isEnabled = isEnabled,
                     onOptionSelected = { selectedOption = it }
                 )
             }
@@ -152,6 +156,12 @@ fun ContentSwitcherDemoScreen(modifier: Modifier = Modifier) {
                         isEnabled = moreButtonEnabled
                     )
                 }
+
+                Toggle(
+                    label = "Enable",
+                    isToggled = isEnabled,
+                    onToggleChange = { isEnabled = it },
+                )
 
                 LayerSelectionDropdown(
                     selectedLayer = layer,
