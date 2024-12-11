@@ -46,6 +46,7 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.runtime.snapshots.SnapshotStateMap
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -60,6 +61,45 @@ import com.gabrieldrn.carbon.button.ButtonType
 import com.gabrieldrn.carbon.foundation.motion.Motion
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 
+private fun <T : Any> getBottomContainerTransitionSpec() = tween<T>(
+    durationMillis = Motion.Duration.fast01,
+    easing = Motion.Entrance.expressiveEasing
+)
+
+private fun <T : Any> getUpperContainerTransitionSpec() = tween<T>(
+    durationMillis = Motion.Duration.fast02,
+    easing = Motion.Entrance.expressiveEasing
+)
+
+private data class ButtonState(
+    val isEnabled: Boolean,
+    val isSelected: Boolean,
+)
+
+/**
+ * # Content switcher
+ *
+ * Content switchers allow users to toggle between two or more content sections within the same
+ * space on the screen.
+ *
+ * Content switchers are frequently used to let users toggle between different formattings, like a
+ * grid view and a table view. They are also often used to narrow large content groups or to sort
+ * related content. For example, a messaging tool may use a content switcher to divide messages into
+ * three views such as “All,” “Read,” and “Unread.”
+ *
+ * (From [Content switcher documentation](https://carbondesignsystem.com/components/content-switcher/usage/))
+ *
+ * @param options A list of strings representing the options to be displayed. Each string is a
+ * label for an option. At least two options are required, otherwise, an [IllegalArgumentException]
+ * will be thrown.
+ * @param selectedOption The currently selected option.
+ * @param onOptionSelected Callback invoked when an option is selected. The label of the selected
+ * option is passed as a parameter.
+ * @param modifier The modifier to be applied to the content switcher.
+ * @param size The [ContentSwitcherSize] to be applied to the content switcher. Defaults to
+ * [ContentSwitcherSize.Medium].
+ * @param isEnabled Whether the content switcher is enabled or disabled.
+ */
 @Composable
 public fun ContentSwitcher(
     options: List<String>,
@@ -136,21 +176,6 @@ public fun ContentSwitcher(
     }
 }
 
-private fun <T : Any> getBottomContainerTransitionSpec() = tween<T>(
-    durationMillis = Motion.Duration.fast01,
-    easing = Motion.Entrance.expressiveEasing
-)
-
-private fun <T : Any> getUpperContainerTransitionSpec() = tween<T>(
-    durationMillis = Motion.Duration.fast02,
-    easing = Motion.Entrance.expressiveEasing
-)
-
-private data class ButtonState(
-    val isEnabled: Boolean,
-    val isSelected: Boolean,
-)
-
 @Composable
 private fun ContentSwitcherButton(
     index: Int,
@@ -162,18 +187,7 @@ private fun ContentSwitcherButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val interactions = remember { mutableStateListOf<Interaction>() }
-
-    LaunchedEffect(interactionSource) {
-        interactionSource.interactions.collect { interaction ->
-            when (interaction) {
-                is HoverInteraction.Enter -> interactions.add(interaction)
-                is HoverInteraction.Exit -> interactions.remove(interaction.enter)
-                is FocusInteraction.Focus -> interactions.add(interaction)
-                is FocusInteraction.Unfocus -> interactions.remove(interaction.focus)
-            }
-        }
-    }
+    val interactions = collectHoverAndFocusStates(interactionSource)
 
     val buttonState by remember(isEnabled, selectedOptionIndex) {
         mutableStateOf(ButtonState(isEnabled, index == selectedOptionIndex))
@@ -256,6 +270,26 @@ private fun ContentSwitcherButton(
                 .padding(horizontal = SpacingScale.spacing05)
         )
     }
+}
+
+@Composable
+private fun collectHoverAndFocusStates(
+    interactionSource: MutableInteractionSource,
+): SnapshotStateList<Interaction> {
+    val interactions = remember { mutableStateListOf<Interaction>() }
+
+    LaunchedEffect(interactionSource) {
+        interactionSource.interactions.collect { interaction ->
+            when (interaction) {
+                is HoverInteraction.Enter -> interactions.add(interaction)
+                is HoverInteraction.Exit -> interactions.remove(interaction.enter)
+                is FocusInteraction.Focus -> interactions.add(interaction)
+                is FocusInteraction.Unfocus -> interactions.remove(interaction.focus)
+            }
+        }
+    }
+
+    return interactions
 }
 
 @Composable
