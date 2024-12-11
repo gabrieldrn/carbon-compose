@@ -66,6 +66,7 @@ public fun ContentSwitcher(
     selectedOption: String,
     onOptionSelected: (String) -> Unit,
     modifier: Modifier = Modifier,
+    size: ContentSwitcherSize = ContentSwitcherSize.Medium,
     isEnabled: Boolean = true,
 ) {
     require(options.size >= 2) { "ContentSwitcher requires at least two options" }
@@ -79,7 +80,7 @@ public fun ContentSwitcher(
     val hoverState = remember {
         mutableStateMapOf<Int, HoverInteraction.Enter>()
     }
-
+ 
     Row(
         modifier = modifier
             .border(
@@ -88,7 +89,7 @@ public fun ContentSwitcher(
                 shape = RoundedCornerShape(4.dp)
             )
             .clip(shape = RoundedCornerShape(4.dp))
-            .height(height = SpacingScale.spacing08)
+            .height(height = size.height)
             .width(IntrinsicSize.Min) // By default, use only the minimum width needed.
     ) {
         options.forEachIndexed { index, option ->

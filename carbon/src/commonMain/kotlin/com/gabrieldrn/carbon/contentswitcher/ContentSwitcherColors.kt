@@ -25,7 +25,7 @@ import com.gabrieldrn.carbon.foundation.color.Layer
 import com.gabrieldrn.carbon.foundation.color.Theme
 
 @Immutable
-internal class ContentSwitcherColors(
+internal data class ContentSwitcherColors(
     private val theme: Theme,
     private val layer: Layer
 ) {
