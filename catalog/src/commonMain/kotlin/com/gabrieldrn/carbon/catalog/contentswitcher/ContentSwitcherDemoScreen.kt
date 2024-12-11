@@ -17,6 +17,7 @@
 package com.gabrieldrn.carbon.catalog.contentswitcher
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
@@ -47,6 +48,10 @@ import com.gabrieldrn.carbon.catalog.ic_add
 import com.gabrieldrn.carbon.catalog.ic_subtract
 import com.gabrieldrn.carbon.catalog.misc.LayerSelectionDropdown
 import com.gabrieldrn.carbon.contentswitcher.ContentSwitcher
+import com.gabrieldrn.carbon.contentswitcher.ContentSwitcherSize
+import com.gabrieldrn.carbon.dropdown.Dropdown
+import com.gabrieldrn.carbon.dropdown.base.DropdownInteractiveState
+import com.gabrieldrn.carbon.dropdown.base.toDropdownOptions
 import com.gabrieldrn.carbon.foundation.color.CarbonLayer
 import com.gabrieldrn.carbon.foundation.color.Layer
 import com.gabrieldrn.carbon.foundation.color.containerBackground
@@ -71,12 +76,16 @@ fun ContentSwitcherDemoScreen(modifier: Modifier = Modifier) {
     ) {
         var layer by rememberSaveable { mutableStateOf(Layer.Layer00) }
 
+        var size by rememberSaveable {
+            mutableStateOf(ContentSwitcherSize.Large)
+        }
+
         var extraOptions by rememberSaveable { mutableStateOf(1) }
 
         val options by rememberSaveable(extraOptions) {
             mutableStateOf(
                 mutableListOf(CONTENT_SWITCHER_OPT_1, CONTENT_SWITCHER_OPT_2).apply {
-                    repeat(extraOptions) { add("Option ${size + 1}") }
+                    repeat(extraOptions) { add("Option ${this.size + 1}") }
                 }.toList()
             )
         }
@@ -86,20 +95,20 @@ fun ContentSwitcherDemoScreen(modifier: Modifier = Modifier) {
         var isEnabled by remember { mutableStateOf(true) }
 
         CarbonLayer(layer = layer) {
-            Column(
+            Box(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(200.dp)
                     .containerBackground()
                     .padding(SpacingScale.spacing05),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
+                contentAlignment = Alignment.Center
             ) {
                 ContentSwitcher(
                     options = options,
                     selectedOption = selectedOption,
+                    onOptionSelected = { selectedOption = it },
                     isEnabled = isEnabled,
-                    onOptionSelected = { selectedOption = it }
+                    size = size
                 )
             }
         }
@@ -156,6 +165,17 @@ fun ContentSwitcherDemoScreen(modifier: Modifier = Modifier) {
                         isEnabled = moreButtonEnabled
                     )
                 }
+
+                Dropdown(
+                    label = "Size",
+                    placeholder = "Select size",
+                    options = ContentSwitcherSize.entries.toDropdownOptions(),
+                    selectedOption = size,
+                    onOptionSelected = { size = it },
+                    state = getSizeSpecification(size)
+                        ?.let(DropdownInteractiveState::Warning)
+                        ?: DropdownInteractiveState.Enabled
+                )
 
                 Toggle(
                     label = "Enable",
