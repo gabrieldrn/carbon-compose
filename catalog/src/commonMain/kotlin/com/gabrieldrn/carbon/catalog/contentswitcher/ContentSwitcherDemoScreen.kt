@@ -123,52 +123,17 @@ fun ContentSwitcherDemoScreen(modifier: Modifier = Modifier) {
                     .padding(SpacingScale.spacing05)
                     .containerBackground()
                     .padding(SpacingScale.spacing05),
-                verticalArrangement = Arrangement.spacedBy(SpacingScale.spacing04)
+                verticalArrangement = Arrangement.spacedBy(SpacingScale.spacing06)
             ) {
                 BasicText(
                     text = "Configuration",
                     style = Carbon.typography.heading02.copy(color = Carbon.theme.textPrimary)
                 )
 
-                BasicText(
-                    text = "Extra options",
-                    style = Carbon.typography.label01.copy(color = Carbon.theme.textSecondary),
+                ExtraOptionsSelector(
+                    extraOptions = extraOptions,
+                    onExtraOptionsChange = { extraOptions = it }
                 )
-
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    val lessButtonEnabled by remember(extraOptions) {
-                        mutableStateOf(extraOptions > EXTRA_OPTIONS_MIN)
-                    }
-                    val moreButtonEnabled by remember(extraOptions) {
-                        mutableStateOf(extraOptions < EXTRA_OPTIONS_MAX)
-                    }
-
-                    IconButton(
-                        iconPainter = painterResource(Res.drawable.ic_subtract),
-                        onClick = {
-                            extraOptions = extraOptions.minus(1).coerceAtLeast(EXTRA_OPTIONS_MIN)
-                        },
-                        isEnabled = lessButtonEnabled
-                    )
-
-                    BasicText(
-                        text = extraOptions.toString(),
-                        style = Carbon.typography.body01
-                            .copy(
-                                color = Carbon.theme.textPrimary,
-                                textAlign = TextAlign.Center
-                            ),
-                        modifier = Modifier.width(SpacingScale.spacing09)
-                    )
-
-                    IconButton(
-                        iconPainter = painterResource(Res.drawable.ic_add),
-                        onClick = {
-                            extraOptions = extraOptions.plus(1).coerceAtMost(EXTRA_OPTIONS_MAX)
-                        },
-                        isEnabled = moreButtonEnabled
-                    )
-                }
 
                 Dropdown(
                     label = "Size",
@@ -190,9 +155,65 @@ fun ContentSwitcherDemoScreen(modifier: Modifier = Modifier) {
                 LayerSelectionDropdown(
                     selectedLayer = layer,
                     onLayerSelected = { layer = it },
-                    modifier = Modifier.padding(top = SpacingScale.spacing03)
                 )
             }
+        }
+    }
+}
+
+@Composable
+private fun ExtraOptionsSelector(
+    extraOptions: Int,
+    onExtraOptionsChange: (Int) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Column(modifier = modifier) {
+
+        BasicText(
+            text = "Extra options",
+            style = Carbon.typography.label01.copy(color = Carbon.theme.textSecondary),
+        )
+
+        Row(
+            modifier = Modifier.padding(top = SpacingScale.spacing04),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            val lessButtonEnabled by remember(extraOptions) {
+                mutableStateOf(extraOptions > EXTRA_OPTIONS_MIN)
+            }
+            val moreButtonEnabled by remember(extraOptions) {
+                mutableStateOf(extraOptions < EXTRA_OPTIONS_MAX)
+            }
+
+            IconButton(
+                iconPainter = painterResource(Res.drawable.ic_subtract),
+                onClick = {
+                    onExtraOptionsChange(
+                        extraOptions.minus(1).coerceAtLeast(EXTRA_OPTIONS_MIN)
+                    )
+                },
+                isEnabled = lessButtonEnabled
+            )
+
+            BasicText(
+                text = extraOptions.toString(),
+                style = Carbon.typography.body01
+                    .copy(
+                        color = Carbon.theme.textPrimary,
+                        textAlign = TextAlign.Center
+                    ),
+                modifier = Modifier.width(SpacingScale.spacing09)
+            )
+
+            IconButton(
+                iconPainter = painterResource(Res.drawable.ic_add),
+                onClick = {
+                    onExtraOptionsChange(
+                        extraOptions.plus(1).coerceAtMost(EXTRA_OPTIONS_MAX)
+                    )
+                },
+                isEnabled = moreButtonEnabled
+            )
         }
     }
 }
