@@ -80,7 +80,7 @@ public fun ContentSwitcher(
     val hoverState = remember {
         mutableStateMapOf<Int, HoverInteraction.Enter>()
     }
- 
+
     Row(
         modifier = modifier
             .border(
@@ -290,8 +290,7 @@ private fun Divider(
 
     Box(
         modifier = modifier
-            .fillMaxHeight()
-            .padding(vertical = SpacingScale.spacing04)
+            .height(SpacingScale.spacing05)
             .width(width = 1.dp)
             .drawBehind {
                 drawRect(color = dividerColor)
