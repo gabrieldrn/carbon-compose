@@ -106,7 +106,11 @@ fun ContentSwitcherDemoScreen(modifier: Modifier = Modifier) {
                 ContentSwitcher(
                     options = options,
                     selectedOption = selectedOption,
-                    onOptionSelected = { selectedOption = it },
+                    onOptionSelected = {
+                        if (isEnabled) {
+                            selectedOption = it
+                        }
+                    },
                     isEnabled = isEnabled,
                     size = size
                 )

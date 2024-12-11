@@ -222,6 +222,7 @@ private fun ContentSwitcherButton(
         modifier = modifier
             .selectable(
                 selected = buttonState.isSelected,
+                enabled = isEnabled,
                 onClick = onClick,
                 interactionSource = interactionSource,
                 indication = ButtonFocusIndication(Carbon.theme, ButtonType.Primary)
