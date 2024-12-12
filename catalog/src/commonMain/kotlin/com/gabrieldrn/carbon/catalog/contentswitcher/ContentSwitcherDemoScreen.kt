@@ -45,10 +45,15 @@ import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.button.IconButton
 import com.gabrieldrn.carbon.catalog.Res
 import com.gabrieldrn.carbon.catalog.ic_add
+import com.gabrieldrn.carbon.catalog.ic_bicycle
+import com.gabrieldrn.carbon.catalog.ic_bus
+import com.gabrieldrn.carbon.catalog.ic_sailboat_offshore
 import com.gabrieldrn.carbon.catalog.ic_subtract
+import com.gabrieldrn.carbon.catalog.ic_train
 import com.gabrieldrn.carbon.catalog.misc.LayerSelectionDropdown
 import com.gabrieldrn.carbon.contentswitcher.ContentSwitcher
 import com.gabrieldrn.carbon.contentswitcher.ContentSwitcherSize
+import com.gabrieldrn.carbon.contentswitcher.IconContentSwitcher
 import com.gabrieldrn.carbon.dropdown.Dropdown
 import com.gabrieldrn.carbon.dropdown.base.DropdownInteractiveState
 import com.gabrieldrn.carbon.dropdown.base.toDropdownOptions
@@ -62,8 +67,10 @@ import org.jetbrains.compose.resources.painterResource
 private const val EXTRA_OPTIONS_MIN = 0
 private const val EXTRA_OPTIONS_MAX = 2
 
-private const val CONTENT_SWITCHER_OPT_1 = "Option 1"
-private const val CONTENT_SWITCHER_OPT_2 = "Long option 2"
+private const val DEFAULT_CONTENT_SWITCHER_OPT_1 = "Option 1"
+private const val DEFAULT_CONTENT_SWITCHER_OPT_2 = "Long option 2"
+
+private enum class ContentSwitcherVariant { Default, Icon }
 
 @Composable
 fun ContentSwitcherDemoScreen(modifier: Modifier = Modifier) {
@@ -76,21 +83,15 @@ fun ContentSwitcherDemoScreen(modifier: Modifier = Modifier) {
     ) {
         var layer by rememberSaveable { mutableStateOf(Layer.Layer00) }
 
+        var variant by rememberSaveable {
+            mutableStateOf(ContentSwitcherVariant.Default)
+        }
+
         var size by rememberSaveable {
             mutableStateOf(ContentSwitcherSize.Large)
         }
 
         var extraOptions by rememberSaveable { mutableStateOf(1) }
-
-        val options by rememberSaveable(extraOptions) {
-            mutableStateOf(
-                mutableListOf(CONTENT_SWITCHER_OPT_1, CONTENT_SWITCHER_OPT_2).apply {
-                    repeat(extraOptions) { add("Option ${this.size + 1}") }
-                }.toList()
-            )
-        }
-
-        var selectedOption by remember(extraOptions) { mutableStateOf(CONTENT_SWITCHER_OPT_1) }
 
         var isEnabled by remember { mutableStateOf(true) }
 
@@ -103,17 +104,18 @@ fun ContentSwitcherDemoScreen(modifier: Modifier = Modifier) {
                     .padding(SpacingScale.spacing05),
                 contentAlignment = Alignment.Center
             ) {
-                ContentSwitcher(
-                    options = options,
-                    selectedOption = selectedOption,
-                    onOptionSelected = {
-                        if (isEnabled) {
-                            selectedOption = it
-                        }
-                    },
-                    isEnabled = isEnabled,
-                    size = size
-                )
+                when (variant) {
+                    ContentSwitcherVariant.Default -> DemoDefaultContentSwitcher(
+                        extraOptions = extraOptions,
+                        isEnabled = isEnabled,
+                        size = size
+                    )
+                    ContentSwitcherVariant.Icon -> DemoIconContentSwitcher(
+                        extraOptions = extraOptions,
+                        isEnabled = isEnabled,
+                        size = size
+                    )
+                }
             }
         }
 
@@ -128,6 +130,14 @@ fun ContentSwitcherDemoScreen(modifier: Modifier = Modifier) {
                 BasicText(
                     text = "Configuration",
                     style = Carbon.typography.heading02.copy(color = Carbon.theme.textPrimary)
+                )
+
+                Dropdown(
+                    label = "Variant",
+                    placeholder = "Select variant",
+                    options = ContentSwitcherVariant.entries.toDropdownOptions(),
+                    selectedOption = variant,
+                    onOptionSelected = { variant = it },
                 )
 
                 ExtraOptionsSelector(
@@ -159,6 +169,79 @@ fun ContentSwitcherDemoScreen(modifier: Modifier = Modifier) {
             }
         }
     }
+}
+
+@Composable
+private fun DemoDefaultContentSwitcher(
+    extraOptions: Int,
+    isEnabled: Boolean,
+    size: ContentSwitcherSize,
+    modifier: Modifier = Modifier
+) {
+    val options by rememberSaveable(extraOptions) {
+        mutableStateOf(
+            mutableListOf(DEFAULT_CONTENT_SWITCHER_OPT_1, DEFAULT_CONTENT_SWITCHER_OPT_2).apply {
+                repeat(extraOptions) { add("Option ${this.size + 1}") }
+            }.toList()
+        )
+    }
+
+    var selectedOption by remember(extraOptions) { mutableStateOf(DEFAULT_CONTENT_SWITCHER_OPT_1) }
+
+    ContentSwitcher(
+        options = options,
+        selectedOption = selectedOption,
+        onOptionSelected = {
+            if (isEnabled) {
+                selectedOption = it
+            }
+        },
+        isEnabled = isEnabled,
+        size = size,
+        modifier = modifier
+    )
+}
+
+@Composable
+private fun DemoIconContentSwitcher(
+    extraOptions: Int,
+    isEnabled: Boolean,
+    size: ContentSwitcherSize,
+    modifier: Modifier = Modifier
+) {
+    val option1 = painterResource(Res.drawable.ic_train)
+    val option2 = painterResource(Res.drawable.ic_bus)
+    val option3 = painterResource(Res.drawable.ic_bicycle)
+    val option4 = painterResource(Res.drawable.ic_sailboat_offshore)
+
+    val options by rememberSaveable(extraOptions) {
+        mutableStateOf(
+            mutableListOf(option1, option2).apply {
+                when (extraOptions) {
+                    1 -> add(option3)
+                    2 -> {
+                        add(option3)
+                        add(option4)
+                    }
+                }
+            }.toList()
+        )
+    }
+
+    var selectedOption by remember(extraOptions) { mutableStateOf(option1) }
+
+    IconContentSwitcher(
+        options = options,
+        selectedOption = selectedOption,
+        onOptionSelected = {
+            if (isEnabled) {
+                selectedOption = it
+            }
+        },
+        isEnabled = isEnabled,
+        size = size,
+        modifier = modifier
+    )
 }
 
 @Composable

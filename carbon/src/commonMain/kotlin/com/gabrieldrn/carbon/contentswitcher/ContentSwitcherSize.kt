@@ -17,6 +17,7 @@
 package com.gabrieldrn.carbon.contentswitcher
 
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 
 /**
@@ -50,4 +51,18 @@ internal val ContentSwitcherSize.height: Dp
         ContentSwitcherSize.Small -> SpacingScale.spacing07
         ContentSwitcherSize.Medium -> SpacingScale.spacing08
         else -> SpacingScale.spacing09
+    }
+
+internal val ContentSwitcherSize.iconSize: Dp
+    get() = if (this == ContentSwitcherSize.Large) {
+        20.dp
+    } else {
+        SpacingScale.spacing05
+    }
+
+internal val ContentSwitcherSize.iconPadding: Dp
+    get() = when (this) {
+        ContentSwitcherSize.Small -> SpacingScale.spacing03
+        ContentSwitcherSize.Medium -> SpacingScale.spacing04
+        else -> 14.dp
     }

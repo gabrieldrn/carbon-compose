@@ -21,6 +21,7 @@ import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.snap
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.core.updateTransition
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.interaction.FocusInteraction
 import androidx.compose.foundation.interaction.HoverInteraction
@@ -34,6 +35,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -54,6 +56,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.button.ButtonFocusIndication
@@ -75,6 +79,49 @@ private data class ButtonState(
     val isEnabled: Boolean,
     val isSelected: Boolean,
 )
+
+/**
+ * # Content switcher - Icon variant
+ *
+ * Content switchers allow users to toggle between two or more content sections within the same
+ * space on the screen.
+ *
+ * Content switchers are frequently used to let users toggle between different formattings, like a
+ * grid view and a table view. They are also often used to narrow large content groups or to sort
+ * related content. For example, a messaging tool may use a content switcher to divide messages into
+ * three views such as “All,” “Read,” and “Unread.”
+ *
+ * (From [Content switcher documentation](https://carbondesignsystem.com/components/content-switcher/usage/))
+ *
+ * @param options A list of [Painter]s representing the options to be displayed. Each painter
+ * identifies an option and is used as the displayed icon. At least two options are required,
+ * otherwise, an [IllegalArgumentException] will be thrown.
+ * @param selectedOption The currently selected option.
+ * @param onOptionSelected Callback invoked when an option is selected. The painter of the selected
+ * option is passed as a parameter.
+ * @param modifier The modifier to be applied to the content switcher.
+ * @param size The [ContentSwitcherSize] to be applied to the content switcher. Defaults to
+ * [ContentSwitcherSize.Medium].
+ * @param isEnabled Whether the content switcher is enabled or disabled.
+ */
+@Composable
+public fun IconContentSwitcher(
+    options: List<Painter>,
+    selectedOption: Painter,
+    onOptionSelected: (Painter) -> Unit,
+    modifier: Modifier = Modifier,
+    size: ContentSwitcherSize = ContentSwitcherSize.Medium,
+    isEnabled: Boolean = true,
+) {
+    ContentSwitcherBase(
+        options = options,
+        selectedOption = selectedOption,
+        onOptionSelected = onOptionSelected,
+        modifier = modifier,
+        size = size,
+        isEnabled = isEnabled
+    )
+}
 
 /**
  * # Content switcher
@@ -105,6 +152,25 @@ public fun ContentSwitcher(
     options: List<String>,
     selectedOption: String,
     onOptionSelected: (String) -> Unit,
+    modifier: Modifier = Modifier,
+    size: ContentSwitcherSize = ContentSwitcherSize.Medium,
+    isEnabled: Boolean = true,
+) {
+    ContentSwitcherBase(
+        options = options,
+        selectedOption = selectedOption,
+        onOptionSelected = onOptionSelected,
+        modifier = modifier,
+        size = size,
+        isEnabled = isEnabled
+    )
+}
+
+@Composable
+private fun <T : Any> ContentSwitcherBase(
+    options: List<T>,
+    selectedOption: T,
+    onOptionSelected: (T) -> Unit,
     modifier: Modifier = Modifier,
     size: ContentSwitcherSize = ContentSwitcherSize.Medium,
     isEnabled: Boolean = true,
@@ -163,8 +229,9 @@ public fun ContentSwitcher(
                     ContentSwitcherButton(
                         index = index,
                         selectedOptionIndex = selectedOptionIndex,
-                        text = option,
+                        content = option,
                         isEnabled = isEnabled,
+                        componentSize = size,
                         colors = colors,
                         interactionSource = interactionSource,
                         onClick = { onOptionSelected(option) },
@@ -180,8 +247,9 @@ public fun ContentSwitcher(
 private fun ContentSwitcherButton(
     index: Int,
     selectedOptionIndex: Int,
-    text: String,
+    content: Any,
     isEnabled: Boolean,
+    componentSize: ContentSwitcherSize,
     colors: ContentSwitcherColors,
     interactionSource: MutableInteractionSource,
     onClick: () -> Unit,
@@ -219,9 +287,9 @@ private fun ContentSwitcherButton(
         if (state.isSelected) 0f else 1f
     }
 
-    val textColor by selectedTransition.animateColor(
+    val contentColor by selectedTransition.animateColor(
         transitionSpec = {
-            if (!initialState.isEnabled || !targetState.isEnabled) snap()
+            if (content is Painter || !initialState.isEnabled || !targetState.isEnabled) snap()
             else getUpperContainerTransitionSpec()
         }
     ) { state ->
@@ -259,16 +327,28 @@ private fun ContentSwitcherButton(
                 )
             }
     ) {
-        BasicText(
-            text = text,
-            style = Carbon.typography.bodyCompact01,
-            color = { textColor },
-            maxLines = 1,
-            modifier = Modifier
-                .fillMaxWidth()
-                .align(Alignment.CenterStart)
-                .padding(horizontal = SpacingScale.spacing05)
-        )
+        when (content) {
+            is String -> BasicText(
+                text = content,
+                style = Carbon.typography.bodyCompact01,
+                color = { contentColor },
+                maxLines = 1,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .align(Alignment.CenterStart)
+                    .padding(horizontal = SpacingScale.spacing05)
+            )
+            is Painter -> Image(
+                painter = content,
+                contentDescription = null,
+                colorFilter = ColorFilter.tint(contentColor),
+                modifier = Modifier
+                    .padding(componentSize.iconPadding)
+                    .size(componentSize.iconSize)
+                    .align(Alignment.Center)
+            )
+            else -> {}
+        }
     }
 }
 
