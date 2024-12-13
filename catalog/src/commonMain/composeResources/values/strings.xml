@@ -16,4 +16,9 @@
 
 <resources>
     <string name="demo_specification_discouraged_size">Discouraged size usage for the current platform</string>
+
+    <string name="content_switcher_demo_opt1_description">By train</string>
+    <string name="content_switcher_demo_opt2_description">By bus</string>
+    <string name="content_switcher_demo_opt3_description">By bicycle</string>
+    <string name="content_switcher_demo_opt4_description">By sailboat</string>
 </resources>

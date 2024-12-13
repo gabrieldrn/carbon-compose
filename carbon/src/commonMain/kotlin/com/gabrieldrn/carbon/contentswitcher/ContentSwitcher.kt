@@ -103,6 +103,8 @@ private data class ButtonState(
  * @param size The [ContentSwitcherSize] to be applied to the content switcher. Defaults to
  * [ContentSwitcherSize.Medium].
  * @param isEnabled Whether the content switcher is enabled or disabled.
+ * @param optionsContentDescriptions A map of [Painter]s to their content descriptions. This map is
+ * used to provide content descriptions for each option.
  */
 @Composable
 public fun IconContentSwitcher(
@@ -112,6 +114,7 @@ public fun IconContentSwitcher(
     modifier: Modifier = Modifier,
     size: ContentSwitcherSize = ContentSwitcherSize.Medium,
     isEnabled: Boolean = true,
+    optionsContentDescriptions: Map<Painter, String?> = emptyMap(),
 ) {
     ContentSwitcherBase(
         options = options,
@@ -119,7 +122,8 @@ public fun IconContentSwitcher(
         onOptionSelected = onOptionSelected,
         modifier = modifier,
         size = size,
-        isEnabled = isEnabled
+        isEnabled = isEnabled,
+        optionsContentDescriptions = optionsContentDescriptions
     )
 }
 
@@ -171,9 +175,10 @@ private fun <T : Any> ContentSwitcherBase(
     options: List<T>,
     selectedOption: T,
     onOptionSelected: (T) -> Unit,
+    size: ContentSwitcherSize,
+    isEnabled: Boolean,
     modifier: Modifier = Modifier,
-    size: ContentSwitcherSize = ContentSwitcherSize.Medium,
-    isEnabled: Boolean = true,
+    optionsContentDescriptions: Map<T, String?> = emptyMap(),
 ) {
     require(options.size >= 2) { "ContentSwitcher requires at least two options" }
 
@@ -235,7 +240,8 @@ private fun <T : Any> ContentSwitcherBase(
                         colors = colors,
                         interactionSource = interactionSource,
                         onClick = { onOptionSelected(option) },
-                        modifier = Modifier.fillMaxSize()
+                        modifier = Modifier.fillMaxSize(),
+                        contentDescription = optionsContentDescriptions[option]
                     )
                 }
             }
@@ -254,6 +260,7 @@ private fun ContentSwitcherButton(
     interactionSource: MutableInteractionSource,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
+    contentDescription: String? = null,
 ) {
     val interactions = collectHoverAndFocusStates(interactionSource)
 
@@ -340,7 +347,7 @@ private fun ContentSwitcherButton(
             )
             is Painter -> Image(
                 painter = content,
-                contentDescription = null,
+                contentDescription = contentDescription,
                 colorFilter = ColorFilter.tint(contentColor),
                 modifier = Modifier
                     .padding(componentSize.iconPadding)

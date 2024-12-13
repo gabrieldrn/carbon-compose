@@ -44,6 +44,10 @@ import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.button.IconButton
 import com.gabrieldrn.carbon.catalog.Res
+import com.gabrieldrn.carbon.catalog.content_switcher_demo_opt1_description
+import com.gabrieldrn.carbon.catalog.content_switcher_demo_opt2_description
+import com.gabrieldrn.carbon.catalog.content_switcher_demo_opt3_description
+import com.gabrieldrn.carbon.catalog.content_switcher_demo_opt4_description
 import com.gabrieldrn.carbon.catalog.ic_add
 import com.gabrieldrn.carbon.catalog.ic_bicycle
 import com.gabrieldrn.carbon.catalog.ic_bus
@@ -63,6 +67,7 @@ import com.gabrieldrn.carbon.foundation.color.containerBackground
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 import com.gabrieldrn.carbon.toggle.Toggle
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
 
 private const val EXTRA_OPTIONS_MIN = 0
 private const val EXTRA_OPTIONS_MAX = 2
@@ -214,6 +219,13 @@ private fun DemoIconContentSwitcher(
     val option3 = painterResource(Res.drawable.ic_bicycle)
     val option4 = painterResource(Res.drawable.ic_sailboat_offshore)
 
+    val contentDescriptions = mapOf(
+        option1 to stringResource(Res.string.content_switcher_demo_opt1_description),
+        option2 to stringResource(Res.string.content_switcher_demo_opt2_description),
+        option3 to stringResource(Res.string.content_switcher_demo_opt3_description),
+        option4 to stringResource(Res.string.content_switcher_demo_opt4_description)
+    )
+
     val options by rememberSaveable(extraOptions) {
         mutableStateOf(
             mutableListOf(option1, option2).apply {
@@ -238,6 +250,7 @@ private fun DemoIconContentSwitcher(
                 selectedOption = it
             }
         },
+        optionsContentDescriptions = contentDescriptions,
         isEnabled = isEnabled,
         size = size,
         modifier = modifier
