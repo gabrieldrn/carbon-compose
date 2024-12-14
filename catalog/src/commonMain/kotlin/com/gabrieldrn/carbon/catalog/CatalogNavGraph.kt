@@ -23,13 +23,16 @@ import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.createGraph
 import com.gabrieldrn.carbon.catalog.BaseDestination.Companion.eq
+import com.gabrieldrn.carbon.catalog.common.vertical_content_max_width
 import com.gabrieldrn.carbon.catalog.home.HomeScreen
 
 val navigationEnterScaleInTransition =
@@ -97,14 +100,18 @@ fun rememberNavGraph(
                         route = Destination.Settings.route,
                         enterTransition = { deadEndEnterTransition },
                         exitTransition = { deadEndExitTransition },
-                        content = { dest.content() }
+                        content = {
+                            dest.content(Modifier.sizeIn(maxWidth = vertical_content_max_width))
+                        }
                     )
 
                     else -> composable(
                         route = dest.route,
                         enterTransition = { getEnterTransition() },
                         exitTransition = { getExitTransition() },
-                        content = { dest.content() }
+                        content = {
+                            dest.content(Modifier.sizeIn(maxWidth = vertical_content_max_width))
+                        }
                     )
                 }
             }

@@ -14,14 +14,9 @@
  * limitations under the License.
  */
 
-package com.gabrieldrn.carbon.catalog
+package com.gabrieldrn.carbon.catalog.common
 
-import androidx.compose.runtime.staticCompositionLocalOf
-import com.gabrieldrn.carbon.catalog.CatalogLayoutType.Vertical
+import androidx.compose.ui.unit.dp
 
-val LocalCatalogLayoutType = staticCompositionLocalOf { Vertical }
-
-enum class CatalogLayoutType {
-    Vertical,
-    Horizontal
-}
+val vertical_content_max_width = 1000.dp
+val home_horizontal_max_height = 600.dp

@@ -17,6 +17,7 @@
 package com.gabrieldrn.carbon.catalog
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import com.gabrieldrn.carbon.catalog.buttons.ButtonDemoScreen
 import com.gabrieldrn.carbon.catalog.checkbox.CheckboxDemoScreen
 import com.gabrieldrn.carbon.catalog.contentswitcher.ContentSwitcherDemoScreen
@@ -36,7 +37,7 @@ enum class Destination(
     override val title: String,
     val illustration: DrawableResource? = null,
     override val route: String = "",
-    val content: @Composable () -> Unit = {}
+    val content: @Composable (Modifier) -> Unit = {}
 ) : BaseDestination {
     Home(
         title = "Carbon Design System",
@@ -47,7 +48,7 @@ enum class Destination(
         title = "Settings",
         illustration = null,
         route = "settings",
-        content = { SettingsScreen() }
+        content = { modifier -> SettingsScreen(modifier = modifier) }
     ),
     Accordion("Accordion"),
     Breadcrumb("Breadcrumb"),
@@ -55,20 +56,20 @@ enum class Destination(
         title = "Button",
         illustration = Res.drawable.tile_button,
         route = "button",
-        content = { ButtonDemoScreen() }
+        content = { modifier -> ButtonDemoScreen(modifier = modifier) }
     ),
     Checkbox(
         title = "Checkbox",
         illustration = Res.drawable.tile_checkbox,
         route = "checkbox",
-        content = { CheckboxDemoScreen() }
+        content = { modifier -> CheckboxDemoScreen(modifier = modifier) }
     ),
     CodeSnippet("Code snippet"),
     ContentSwitcher(
         "Content switcher",
         illustration = Res.drawable.tile_content_switcher,
         route = "contentswitcher",
-        content = { ContentSwitcherDemoScreen() }
+        content = { modifier -> ContentSwitcherDemoScreen(modifier = modifier) }
     ),
     DataTable("Data table"),
     DatePicker("Date picker"),
@@ -76,7 +77,12 @@ enum class Destination(
         title = "Dropdown",
         illustration = Res.drawable.tile_dropdown,
         route = "dropdown",
-        content = { DropdownDemoScreen(DropdownVariant.Default) }
+        content = { modifier ->
+            DropdownDemoScreen(
+                variant = DropdownVariant.Default,
+                modifier = modifier
+            )
+        }
     ),
     FileUploader("File uploader"),
     Form("Form"),
@@ -87,14 +93,19 @@ enum class Destination(
         title = "Loading",
         illustration = Res.drawable.tile_loading,
         route = "loading",
-        content = { LoadingDemoScreen() }
+        content = { modifier -> LoadingDemoScreen(modifier = modifier) }
     ),
     Modal("Modal"),
     MultiSelect(
         title = "Multi-select",
         illustration = Res.drawable.tile_mutliselect,
         route = "dropdown/multiselect",
-        content = { DropdownDemoScreen(DropdownVariant.Multiselect) }
+        content = { modifier ->
+            DropdownDemoScreen(
+                variant = DropdownVariant.Multiselect,
+                modifier = modifier
+            )
+        }
     ),
     Notification("Notification"),
     NumberInput("Number input"),
@@ -103,7 +114,7 @@ enum class Destination(
         title = "Progress bar",
         illustration = Res.drawable.tile_progress_bar,
         route = "progressbar",
-        content = { ProgressBarDemoScreen() }
+        content = { modifier -> ProgressBarDemoScreen(modifier = modifier) }
     ),
     ProgressIndicator("Progress indicator"),
     OverflowMenu("Overflow menu"),
@@ -111,7 +122,7 @@ enum class Destination(
         title = "Radio button",
         illustration = Res.drawable.tile_radiobutton,
         route = "radiobutton",
-        content = { RadioButtonDemoScreen() }
+        content = { modifier -> RadioButtonDemoScreen(modifier = modifier) }
     ),
     Search("Search"),
     Select("Select"),
@@ -122,20 +133,20 @@ enum class Destination(
         title = "Tag",
         illustration = Res.drawable.tile_tag,
         route = "tag",
-        content = { TagDemoScreen() }
+        content = { modifier -> TagDemoScreen(modifier = modifier) }
     ),
     TextInput(
         title = "Text input",
         illustration = Res.drawable.tile_text_input,
         route = "textinput",
-        content = { TextInputDemoScreen() }
+        content = { modifier -> TextInputDemoScreen(modifier = modifier) }
     ),
     Tile("Tile"),
     Toggle(
         title = "Toggle",
         illustration = Res.drawable.tile_toggle,
         route = "toggle",
-        content = { ToggleDemoScreen() }
+        content = { modifier -> ToggleDemoScreen(modifier = modifier) }
     ),
     Tooltip("Tooltip"),
     UIShell("UI shell");
