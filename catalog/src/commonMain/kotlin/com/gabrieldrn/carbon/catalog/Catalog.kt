@@ -17,7 +17,13 @@
 package com.gabrieldrn.carbon.catalog
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.WindowInsetsSides
+import androidx.compose.foundation.layout.add
+import androidx.compose.foundation.layout.displayCutout
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.only
+import androidx.compose.foundation.layout.statusBars
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
@@ -62,7 +68,24 @@ fun Catalog(
             onOpenLink = uriHandler::openUri,
         )
 
-        CompositionLocalProvider(LocalCatalogLayoutType provides layoutType) {
+        val baseWindowInsets = WindowInsets.statusBars.add(WindowInsets.displayCutout)
+
+        val windowInsets by remember(baseWindowInsets, layoutType) {
+            mutableStateOf(
+                baseWindowInsets.only(
+                    if (layoutType == CatalogLayoutType.Vertical) {
+                        WindowInsetsSides.Top
+                    } else {
+                        WindowInsetsSides.Top + WindowInsetsSides.Horizontal
+                    }
+                )
+            )
+        }
+
+        CompositionLocalProvider(
+            LocalCatalogLayoutType provides layoutType,
+            LocalCatalogWindowInsets provides windowInsets
+        ) {
             Column(
                 modifier = modifier
                     .fillMaxSize()
@@ -85,6 +108,7 @@ fun Catalog(
                         }
                     },
                     onMenuIconPressed = { navController.navigateUp() },
+                    windowInsets = windowInsets
                 )
 
                 NavHost(

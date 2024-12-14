@@ -16,10 +16,13 @@
 
 package com.gabrieldrn.carbon.catalog
 
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.runtime.staticCompositionLocalOf
 import com.gabrieldrn.carbon.catalog.CatalogLayoutType.Vertical
 
 val LocalCatalogLayoutType = staticCompositionLocalOf { Vertical }
+
+val LocalCatalogWindowInsets = staticCompositionLocalOf { WindowInsets(0, 0,0 ,0) }
 
 enum class CatalogLayoutType {
     Vertical,
