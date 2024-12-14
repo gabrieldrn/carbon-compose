@@ -16,8 +16,13 @@
 
 package com.gabrieldrn.carbon.catalog
 
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.unit.DpSize
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
+import androidx.compose.ui.window.WindowPosition
 import androidx.compose.ui.window.application
+import androidx.compose.ui.window.rememberWindowState
 import com.gabrieldrn.carbon.catalog.di.appModule
 import org.koin.core.context.startKoin
 
@@ -28,6 +33,10 @@ fun main() = application {
 
     Window(
         onCloseRequest = ::exitApplication,
+        state = rememberWindowState(
+            size = DpSize(800.dp, 1200.dp),
+            position = WindowPosition.Aligned(Alignment.Center)
+        ),
         title = "Carbon catalog",
     ) {
         Catalog()

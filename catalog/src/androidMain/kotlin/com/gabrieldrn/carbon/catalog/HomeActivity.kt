@@ -16,12 +16,17 @@
 
 package com.gabrieldrn.carbon.catalog
 
+import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.ui.platform.LocalConfiguration
 
 @Suppress("UndocumentedPublicClass")
 class HomeActivity : AppCompatActivity() {
@@ -32,7 +37,19 @@ class HomeActivity : AppCompatActivity() {
         enableEdgeToEdge(statusBarStyle = SystemBarStyle.dark(Color.TRANSPARENT))
 
         setContent {
-            Catalog()
+            val configuration = LocalConfiguration.current
+
+            val layoutType by remember {
+                derivedStateOf {
+                    if (configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
+                        CatalogLayoutType.Vertical
+                    } else {
+                        CatalogLayoutType.Horizontal
+                    }
+                }
+            }
+
+            Catalog(layoutType = layoutType)
         }
     }
 }

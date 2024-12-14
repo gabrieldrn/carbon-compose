@@ -27,7 +27,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.catalog.CatalogLayoutType
-import com.gabrieldrn.carbon.catalog.LocalLayoutType
+import com.gabrieldrn.carbon.catalog.LocalCatalogLayoutType
 import com.gabrieldrn.carbon.foundation.color.LocalCarbonTheme
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 import com.gabrieldrn.carbon.loading.Loading
@@ -61,7 +61,7 @@ fun LoadingDemoScreen(modifier: Modifier = Modifier) {
         }
     }
 
-    val isVertical = LocalLayoutType.current == CatalogLayoutType.Vertical
+    val isVertical = LocalCatalogLayoutType.current == CatalogLayoutType.Vertical
 
     if (isVertical) {
         Column(

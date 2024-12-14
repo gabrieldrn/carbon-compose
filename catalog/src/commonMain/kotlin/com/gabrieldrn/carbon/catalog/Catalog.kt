@@ -62,7 +62,7 @@ fun Catalog(
             onOpenLink = uriHandler::openUri,
         )
 
-        CompositionLocalProvider(LocalLayoutType provides layoutType) {
+        CompositionLocalProvider(LocalCatalogLayoutType provides layoutType) {
             Column(
                 modifier = modifier
                     .fillMaxSize()

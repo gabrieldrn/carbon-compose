@@ -18,19 +18,39 @@ package com.gabrieldrn.carbon.catalog
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.window.ComposeUIViewController
 import com.gabrieldrn.carbon.CarbonDesignSystem
 import com.gabrieldrn.carbon.foundation.color.containerBackground
 import platform.UIKit.UIViewController
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Suppress("FunctionNaming", "unused", "FunctionName")
 fun MainViewController(): UIViewController =
     ComposeUIViewController {
         CarbonDesignSystem {
+            val windowContainerSize = LocalWindowInfo.current.containerSize
+
+            val layoutType by remember {
+                derivedStateOf {
+                    with(windowContainerSize) {
+                        if (width < height) {
+                            CatalogLayoutType.Vertical
+                        } else {
+                            CatalogLayoutType.Horizontal
+                        }
+                    }
+                }
+            }
+
             Box(Modifier.fillMaxSize().containerBackground(), contentAlignment = Alignment.Center) {
-                Catalog()
+                Catalog(layoutType = layoutType)
             }
         }
     }
