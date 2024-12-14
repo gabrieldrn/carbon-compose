@@ -21,6 +21,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
+import androidx.compose.foundation.layout.add
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
@@ -47,6 +48,7 @@ import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.catalog.CatalogLayoutType
 import com.gabrieldrn.carbon.catalog.Destination
 import com.gabrieldrn.carbon.catalog.LocalCatalogLayoutType
+import com.gabrieldrn.carbon.catalog.LocalCatalogWindowInsets
 import com.gabrieldrn.carbon.catalog.common.home_horizontal_max_height
 import com.gabrieldrn.carbon.catalog.common.vertical_content_max_width
 import com.gabrieldrn.carbon.foundation.color.CarbonLayer
@@ -58,7 +60,10 @@ fun HomeScreen(
     onOpenLink: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val navBarPaddingValues = WindowInsets.navigationBars
+    val windowInsets = LocalCatalogWindowInsets.current
+
+    val navBarPaddingValues = windowInsets
+        .add(WindowInsets.navigationBars)
         .only(WindowInsetsSides.Bottom + WindowInsetsSides.Horizontal)
         .asPaddingValues()
 
