@@ -23,6 +23,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.snapshots.SnapshotStateMap
 
+/**
+ * Remembers and computes the state of a divider between two buttons in a content switcher.
+ *
+ * The divider is hidden if the current button is not selected and the previous button is not
+ * selected or hovered.
+ */
 @Composable
 internal fun rememberDisplayContentSwitcherButtonDividerState(
     buttonIndex: Int,

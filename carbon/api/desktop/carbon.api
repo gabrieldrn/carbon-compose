@@ -106,6 +106,7 @@ public final class com/gabrieldrn/carbon/common/selectable/SelectableInteractive
 
 public final class com/gabrieldrn/carbon/contentswitcher/ContentSwitcherKt {
 	public static final fun ContentSwitcher (Ljava/util/List;Ljava/lang/String;Lkotlin/jvm/functions/Function1;Landroidx/compose/ui/Modifier;Lcom/gabrieldrn/carbon/contentswitcher/ContentSwitcherSize;ZLandroidx/compose/runtime/Composer;II)V
+	public static final fun IconContentSwitcher (Ljava/util/List;Landroidx/compose/ui/graphics/painter/Painter;Lkotlin/jvm/functions/Function1;Landroidx/compose/ui/Modifier;Lcom/gabrieldrn/carbon/contentswitcher/ContentSwitcherSize;ZLjava/util/Map;Landroidx/compose/runtime/Composer;II)V
 }
 
 public final class com/gabrieldrn/carbon/contentswitcher/ContentSwitcherSize : java/lang/Enum {
