@@ -58,6 +58,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.button.ButtonFocusIndication
@@ -203,6 +204,7 @@ private fun <T : Any> ContentSwitcherBase(
             .clip(shape = RoundedCornerShape(4.dp))
             .height(height = size.height)
             .width(IntrinsicSize.Min) // By default, use only the minimum width needed.
+            .testTag(ContentSwitcherTestTags.ROOT)
     ) {
         options.forEachIndexed { index, option ->
             key(index, option) {
@@ -222,7 +224,8 @@ private fun <T : Any> ContentSwitcherBase(
                         // Make all buttons the same width as the widest button.
                         .width(IntrinsicSize.Max)
                         .weight(1f)
-                        .align(Alignment.CenterVertically),
+                        .align(Alignment.CenterVertically)
+                        .testTag(ContentSwitcherTestTags.BUTTON_LAYOUT),
                     contentAlignment = Alignment.CenterStart
                 ) {
                     Divider(
@@ -334,6 +337,7 @@ private fun ContentSwitcherButton(
                     strokeWidth = this.size.width
                 )
             }
+            .testTag(ContentSwitcherTestTags.BUTTON_CONTENT_ROOT)
     ) {
         when (content) {
             is String -> BasicText(
@@ -345,6 +349,7 @@ private fun ContentSwitcherButton(
                     .fillMaxWidth()
                     .align(Alignment.CenterStart)
                     .padding(horizontal = SpacingScale.spacing05)
+                    .testTag(ContentSwitcherTestTags.BUTTON_TEXT)
             )
             is Painter -> Image(
                 painter = content,
@@ -354,6 +359,7 @@ private fun ContentSwitcherButton(
                     .padding(componentSize.iconPadding)
                     .size(componentSize.iconSize)
                     .align(Alignment.Center)
+                    .testTag(ContentSwitcherTestTags.BUTTON_IMAGE)
             )
             else -> {}
         }
@@ -409,5 +415,6 @@ private fun Divider(
             .drawBehind {
                 drawRect(color = dividerColor)
             }
+            .testTag(ContentSwitcherTestTags.BUTTON_DIVIDER)
     )
 }
