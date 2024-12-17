@@ -62,6 +62,7 @@ import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.button.ButtonFocusIndication
 import com.gabrieldrn.carbon.button.ButtonType
+import com.gabrieldrn.carbon.contentswitcher.domain.rememberDisplayContentSwitcherButtonDividerState
 import com.gabrieldrn.carbon.foundation.motion.Motion
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 
@@ -77,7 +78,7 @@ private fun <T : Any> getUpperContainerTransitionSpec() = tween<T>(
 
 private data class ButtonState(
     val isEnabled: Boolean,
-    val isSelected: Boolean,
+    val isSelected: Boolean
 )
 
 /**
@@ -188,7 +189,7 @@ private fun <T : Any> ContentSwitcherBase(
         mutableStateOf(options.indexOf(selectedOption))
     }
 
-    val hoverState = remember {
+    val hoverStateMap = remember {
         mutableStateMapOf<Int, HoverInteraction.Enter>()
     }
 
@@ -210,8 +211,8 @@ private fun <T : Any> ContentSwitcherBase(
                 LaunchedEffect(interactionSource) {
                     interactionSource.interactions.collect { interaction ->
                         when (interaction) {
-                            is HoverInteraction.Enter -> hoverState[index] = interaction
-                            is HoverInteraction.Exit -> hoverState.remove(index)
+                            is HoverInteraction.Enter -> hoverStateMap[index] = interaction
+                            is HoverInteraction.Exit -> hoverStateMap.remove(index)
                         }
                     }
                 }
@@ -227,7 +228,7 @@ private fun <T : Any> ContentSwitcherBase(
                     Divider(
                         index = index,
                         selectedOptionIndex = selectedOptionIndex,
-                        hoverState = hoverState,
+                        hoverState = hoverStateMap,
                         colors = colors
                     )
 
@@ -311,7 +312,7 @@ private fun ContentSwitcherButton(
         modifier = modifier
             .selectable(
                 selected = buttonState.isSelected,
-                enabled = isEnabled,
+                enabled = buttonState.isEnabled,
                 onClick = onClick,
                 interactionSource = interactionSource,
                 indication = ButtonFocusIndication(Carbon.theme, ButtonType.Primary)
@@ -323,7 +324,7 @@ private fun ContentSwitcherButton(
                 // Animated selected color background
                 drawLine(
                     color =
-                        if (isEnabled) colors.containerSelectedColor
+                        if (buttonState.isEnabled) colors.containerSelectedColor
                         else colors.containerSelectedDisabledColor,
                     start = Offset(x = size.width / 2, y = size.height),
                     end = Offset(
@@ -387,20 +388,11 @@ private fun Divider(
     colors: ContentSwitcherColors,
     modifier: Modifier = Modifier
 ) {
-    // Check if the current or the previous button is hovered.
-    val hasHoverNearby = hoverState[index - 1] != null || hoverState[index] != null
-
-    val displayDivider by remember(
-        index,
-        selectedOptionIndex,
-        hasHoverNearby,
-    ) {
-        mutableStateOf(
-            index != selectedOptionIndex &&
-                index - 1 != selectedOptionIndex &&
-                !hasHoverNearby
-        )
-    }
+    val displayDivider by rememberDisplayContentSwitcherButtonDividerState(
+        buttonIndex = index,
+        selectedButtonIndex = selectedOptionIndex,
+        hoverStateMap = hoverState
+    )
 
     val transition = updateTransition(displayDivider)
 
