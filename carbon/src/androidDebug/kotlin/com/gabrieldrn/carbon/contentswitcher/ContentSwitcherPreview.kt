@@ -16,7 +16,6 @@
 
 package com.gabrieldrn.carbon.contentswitcher
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -29,22 +28,21 @@ import com.gabrieldrn.carbon.CarbonDesignSystem
 import com.gabrieldrn.carbon.foundation.color.containerBackground
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 
+private val options = listOf("Option 1", "Optioooooooooon 2", "Option 3")
+
 @Preview(device = "spec:width=1920dp,height=1080dp,dpi=480")
 @Composable
 private fun ContentSwitcherPreview() {
-    var selectedOption by remember { mutableStateOf("Option 1") }
+    var selectedOption by remember { mutableStateOf(options.first()) }
 
     CarbonDesignSystem {
-        Box(
+        ContentSwitcher(
+            options = options,
+            selectedOption = selectedOption,
+            onOptionSelected = { selectedOption = it },
             modifier = Modifier
                 .containerBackground()
                 .padding(SpacingScale.spacing05)
-        ) {
-            ContentSwitcher(
-                options = listOf("Option 1", "Optioooooooooon 2", "Option 3"),
-                selectedOption = selectedOption,
-                onOptionSelected = { selectedOption = it },
-            )
-        }
+        )
     }
 }

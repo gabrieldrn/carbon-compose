@@ -280,7 +280,8 @@ private fun ContentSwitcherButton(
     // selected state. The selected state is animated from the bottom to the top of the button.
 
     val bottomContainerColor by interactionsTransition.animateColor(
-        transitionSpec = { getBottomContainerTransitionSpec() }
+        transitionSpec = { getBottomContainerTransitionSpec() },
+        label = "Bottom container color"
     ) { transitionInteractions ->
         when {
             transitionInteractions.any { it is HoverInteraction.Enter } ->
@@ -293,7 +294,8 @@ private fun ContentSwitcherButton(
     }
 
     val upperContainerHeight by selectedTransition.animateFloat(
-        transitionSpec = { getUpperContainerTransitionSpec() }
+        transitionSpec = { getUpperContainerTransitionSpec() },
+        label = "Upper container height"
     ) { state ->
         if (state.isSelected) 0f else 1f
     }
@@ -302,7 +304,8 @@ private fun ContentSwitcherButton(
         transitionSpec = {
             if (content is Painter || !initialState.isEnabled || !targetState.isEnabled) snap()
             else getUpperContainerTransitionSpec()
-        }
+        },
+        label = "Content (Text/Painter) color"
     ) { state ->
         when {
             !state.isEnabled -> colors.labelDisabledColor
@@ -403,7 +406,8 @@ private fun Divider(
     val transition = updateTransition(displayDivider)
 
     val dividerColor by transition.animateColor(
-        transitionSpec = { getBottomContainerTransitionSpec() }
+        transitionSpec = { getBottomContainerTransitionSpec() },
+        label = "Divider color"
     ) {
         if (it) colors.dividerColor else Color.Transparent
     }
