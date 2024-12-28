@@ -17,6 +17,7 @@
 package com.gabrieldrn.carbon.contentswitcher
 
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -32,13 +33,18 @@ import androidx.compose.ui.test.assertAny
 import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsFocused
-import androidx.compose.ui.test.assertIsSelectable
+import androidx.compose.ui.test.assertIsNotSelected
 import androidx.compose.ui.test.assertIsSelected
 import androidx.compose.ui.test.assertWidthIsEqualTo
+import androidx.compose.ui.test.hasClickAction
 import androidx.compose.ui.test.hasContentDescription
 import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.hasText
+import androidx.compose.ui.test.isEnabled
 import androidx.compose.ui.test.isFocusable
+import androidx.compose.ui.test.isNotEnabled
+import androidx.compose.ui.test.isNotFocusable
+import androidx.compose.ui.test.isSelectable
 import androidx.compose.ui.test.onAllNodesWithTag
 import androidx.compose.ui.test.onChildren
 import androidx.compose.ui.test.onNodeWithTag
@@ -56,33 +62,39 @@ import kotlin.test.Test
 class ContentSwitcherTest {
 
     private val stringOptions = listOf("Option 1", "Optiooooon 2", "Option 3")
-    private var selectedStringOption by mutableStateOf(stringOptions.first())
-
+    private lateinit var iconOptions: List<Painter>
     private val iconVectorOptions = listOf(checkmarkFilledIcon, closeIcon, viewIcon)
 
+    private var _selectedStringOption by mutableStateOf(stringOptions.first())
+    private var _size by mutableStateOf(ContentSwitcherSize.Small)
+    private var _isEnabled by mutableStateOf(true)
 
     private fun ComposeUiTest.setupDefaultContentSwitcher() {
         setContent {
             ContentSwitcher(
                 options = stringOptions,
-                selectedOption = selectedStringOption,
-                onOptionSelected = { selectedStringOption = it }
+                selectedOption = _selectedStringOption,
+                onOptionSelected = { _selectedStringOption = it },
+                size = _size,
+                isEnabled = _isEnabled
             )
         }
     }
 
     private fun ComposeUiTest.setupIconContentSwitcher() {
         setContent {
-            val iconOptions = iconVectorOptions.map { rememberVectorPainter(it) }
+            iconOptions = key(Unit) { iconVectorOptions.map { rememberVectorPainter(it) } }
 
             var selectedIconOption by remember {
-                mutableStateOf<Painter>(iconOptions.first())
+                mutableStateOf(iconOptions.first())
             }
 
             IconContentSwitcher(
                 options = iconOptions,
                 selectedOption = selectedIconOption,
                 onOptionSelected = { selectedIconOption = it },
+                size = _size,
+                isEnabled = _isEnabled,
                 optionsContentDescriptions = iconOptions
                     .zip(iconVectorOptions.map { it.name })
                     .toMap()
@@ -90,6 +102,7 @@ class ContentSwitcherTest {
         }
     }
 
+    @Suppress("NestedBlockDepth")
     private fun ComposeUiTest.validateCommonLayout() {
         onNodeWithTag(ContentSwitcherTestTags.ROOT)
             .assertIsDisplayed()
@@ -119,24 +132,24 @@ class ContentSwitcherTest {
     fun contentSwitcher_default_validateLayout() = runComposeUiTest {
         setupDefaultContentSwitcher()
 
-        validateCommonLayout()
+        forEachParameter {
+            validateCommonLayout()
 
-        onAllNodesWithTag(
-            ContentSwitcherTestTags.BUTTON_CONTENT_ROOT,
-            useUnmergedTree = true
-        ).run {
-            assertCountEquals(stringOptions.size)
-            toList().forEachIndexed { index, node ->
-                with(node) {
-                    assertIsDisplayed()
-                    assertIsSelectable()
-                    assert(isFocusable())
-                    onChildren().run {
-                        assertCountEquals(1)
-                        assertAll(
-                            hasTestTag(ContentSwitcherTestTags.BUTTON_TEXT) and
-                                hasText(stringOptions[index])
-                        )
+            onAllNodesWithTag(
+                ContentSwitcherTestTags.BUTTON_CONTENT_ROOT,
+                useUnmergedTree = true
+            ).run {
+                assertCountEquals(stringOptions.size)
+                toList().forEachIndexed { index, node ->
+                    with(node) {
+                        assertIsDisplayed()
+                        onChildren().run {
+                            assertCountEquals(1)
+                            assertAll(
+                                hasTestTag(ContentSwitcherTestTags.BUTTON_TEXT) and
+                                    hasText(stringOptions[index])
+                            )
+                        }
                     }
                 }
             }
@@ -147,24 +160,24 @@ class ContentSwitcherTest {
     fun contentSwitcher_icon_validateLayout() = runComposeUiTest {
         setupIconContentSwitcher()
 
-        validateCommonLayout()
+        forEachParameter {
+            validateCommonLayout()
 
-        onAllNodesWithTag(
-            ContentSwitcherTestTags.BUTTON_CONTENT_ROOT,
-            useUnmergedTree = true
-        ).run {
-            assertCountEquals(stringOptions.size)
-            toList().forEachIndexed { index, node ->
-                with(node) {
-                    assertIsDisplayed()
-                    assertIsSelectable()
-                    assert(isFocusable())
-                    onChildren().run {
-                        assertCountEquals(1)
-                        assertAll(
-                            hasTestTag(ContentSwitcherTestTags.BUTTON_IMAGE) and
-                                hasContentDescription(iconVectorOptions[index].name)
-                        )
+            onAllNodesWithTag(
+                ContentSwitcherTestTags.BUTTON_CONTENT_ROOT,
+                useUnmergedTree = true
+            ).run {
+                assertCountEquals(stringOptions.size)
+                toList().forEachIndexed { index, node ->
+                    with(node) {
+                        assertIsDisplayed()
+                        onChildren().run {
+                            assertCountEquals(1)
+                            assertAll(
+                                hasTestTag(ContentSwitcherTestTags.BUTTON_IMAGE) and
+                                    hasContentDescription(iconVectorOptions[index].name)
+                            )
+                        }
                     }
                 }
             }
@@ -172,39 +185,79 @@ class ContentSwitcherTest {
     }
 
     @Test
-    fun contentSwitcher_all_validateSelectableInteractions() {
+    fun contentSwitcher_all_validateSemantics() {
         fun ComposeUiTest.runAssertions() {
             onAllNodesWithTag(ContentSwitcherTestTags.BUTTON_CONTENT_ROOT)
                 .toList()
-                .onEachIndexed { _, node ->
+                .onEachIndexed { index, node ->
                     with(node) {
+                        assert(
+                            isSelectable() and
+                                hasClickAction() and
+                                if (_isEnabled) isEnabled() else isNotEnabled()
+                        )
+
+                        val wasSelected = SemanticsMatcher
+                            .expectValue(SemanticsProperties.Selected, true)
+                            .matches(fetchSemanticsNode())
+
                         performClick()
-                        assertIsSelected()
+
+                        if (_isEnabled || wasSelected) assertIsSelected()
+                        else assertIsNotSelected()
                     }
                 }
                 .onEachIndexed { _, node ->
                     with(node) {
-                        requestFocus()
-                        assertIsFocused()
+                        if (_isEnabled) {
+                            assert(isFocusable())
+                            requestFocus()
+                            assertIsFocused()
+                        } else {
+                            assert(isNotFocusable())
+                        }
+
+                        val wasSelected = SemanticsMatcher
+                            .expectValue(SemanticsProperties.Selected, true)
+                            .matches(fetchSemanticsNode())
+
                         if (SemanticsMatcher
                                 .expectValue(SemanticsProperties.Selected, false)
                                 .matches(fetchSemanticsNode())
                         ) {
                             performKeyInput { pressKey(Key.Enter) }
                         }
-                        assertIsSelected()
+
+                        if (_isEnabled || wasSelected) assertIsSelected()
+                        else assertIsNotSelected()
                     }
                 }
         }
 
         runComposeUiTest {
             setupDefaultContentSwitcher()
-            runAssertions()
+
+            forEachParameter { runAssertions() }
         }
 
         runComposeUiTest {
             setupIconContentSwitcher()
-            runAssertions()
+
+            forEachParameter { runAssertions() }
+        }
+    }
+
+    private fun forEachParameter(
+        testBlock: () -> Unit
+    ) {
+        ContentSwitcherSize.entries.forEach { size ->
+            listOf(true, false).forEach { isEnabled ->
+                println("Running test with size = $size and isEnabled = $isEnabled")
+                _size = size
+                _isEnabled = isEnabled
+
+                testBlock()
+            }
         }
     }
 }
