@@ -19,6 +19,7 @@ package com.gabrieldrn.carbon.catalog
 import androidx.compose.runtime.Composable
 import com.gabrieldrn.carbon.catalog.buttons.ButtonDemoScreen
 import com.gabrieldrn.carbon.catalog.checkbox.CheckboxDemoScreen
+import com.gabrieldrn.carbon.catalog.contentswitcher.ContentSwitcherDemoScreen
 import com.gabrieldrn.carbon.catalog.dropdown.DropdownDemoScreen
 import com.gabrieldrn.carbon.catalog.dropdown.DropdownVariant
 import com.gabrieldrn.carbon.catalog.progressbar.ProgressBarDemoScreen
@@ -63,7 +64,12 @@ enum class Destination(
         content = { CheckboxDemoScreen() }
     ),
     CodeSnippet("Code snippet"),
-    ContentSwitcher("Content switcher"),
+    ContentSwitcher(
+        "Content switcher",
+        illustration = Res.drawable.tile_content_switcher,
+        route = "contentswitcher",
+        content = { ContentSwitcherDemoScreen() }
+    ),
     DataTable("Data table"),
     DatePicker("Date picker"),
     Dropdown(

@@ -104,6 +104,20 @@ public final class com/gabrieldrn/carbon/common/selectable/SelectableInteractive
 	public fun toString ()Ljava/lang/String;
 }
 
+public final class com/gabrieldrn/carbon/contentswitcher/ContentSwitcherKt {
+	public static final fun ContentSwitcher (Ljava/util/List;Ljava/lang/String;Lkotlin/jvm/functions/Function1;Landroidx/compose/ui/Modifier;Lcom/gabrieldrn/carbon/contentswitcher/ContentSwitcherSize;ZLandroidx/compose/runtime/Composer;II)V
+	public static final fun IconContentSwitcher (Ljava/util/List;Landroidx/compose/ui/graphics/painter/Painter;Lkotlin/jvm/functions/Function1;Landroidx/compose/ui/Modifier;Lcom/gabrieldrn/carbon/contentswitcher/ContentSwitcherSize;ZLjava/util/Map;Landroidx/compose/runtime/Composer;II)V
+}
+
+public final class com/gabrieldrn/carbon/contentswitcher/ContentSwitcherSize : java/lang/Enum {
+	public static final field Large Lcom/gabrieldrn/carbon/contentswitcher/ContentSwitcherSize;
+	public static final field Medium Lcom/gabrieldrn/carbon/contentswitcher/ContentSwitcherSize;
+	public static final field Small Lcom/gabrieldrn/carbon/contentswitcher/ContentSwitcherSize;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/gabrieldrn/carbon/contentswitcher/ContentSwitcherSize;
+	public static fun values ()[Lcom/gabrieldrn/carbon/contentswitcher/ContentSwitcherSize;
+}
+
 public final class com/gabrieldrn/carbon/dropdown/DropdownKt {
 	public static final fun Dropdown (Ljava/lang/String;Ljava/util/Map;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;Landroidx/compose/ui/Modifier;Ljava/lang/String;Lcom/gabrieldrn/carbon/dropdown/base/DropdownInteractiveState;Lcom/gabrieldrn/carbon/dropdown/base/DropdownSize;ZILandroidx/compose/runtime/Composer;II)V
 	public static final fun Dropdown (ZLjava/lang/String;Ljava/util/Map;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Ljava/lang/String;Lcom/gabrieldrn/carbon/dropdown/base/DropdownInteractiveState;Lcom/gabrieldrn/carbon/dropdown/base/DropdownSize;ZILandroidx/compose/runtime/Composer;III)V
