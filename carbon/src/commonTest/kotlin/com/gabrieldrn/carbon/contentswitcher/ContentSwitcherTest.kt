@@ -31,6 +31,7 @@ import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.assertAll
 import androidx.compose.ui.test.assertAny
 import androidx.compose.ui.test.assertCountEquals
+import androidx.compose.ui.test.assertHeightIsEqualTo
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsFocused
 import androidx.compose.ui.test.assertIsNotSelected
@@ -104,28 +105,34 @@ class ContentSwitcherTest {
 
     @Suppress("NestedBlockDepth")
     private fun ComposeUiTest.validateCommonLayout() {
+        val expectedHeight = _size.height
+
         onNodeWithTag(ContentSwitcherTestTags.ROOT)
             .assertIsDisplayed()
+            // Check global height
+            .assertHeightIsEqualTo(expectedHeight)
 
-        onAllNodesWithTag(ContentSwitcherTestTags.BUTTON_LAYOUT).run {
-            assertCountEquals(stringOptions.size)
-            toList().run {
+        onAllNodesWithTag(ContentSwitcherTestTags.BUTTON_LAYOUT)
+            .assertCountEquals(stringOptions.size)
+            .toList()
+            .run {
                 forEach {
                     it.assertIsDisplayed()
-                    it.onChildren().run {
-                        assertCountEquals(2)
-                        assertAny(hasTestTag(ContentSwitcherTestTags.BUTTON_CONTENT_ROOT))
-                        assertAny(hasTestTag(ContentSwitcherTestTags.BUTTON_DIVIDER))
-                    }
+                    it.onChildren()
+                        .assertCountEquals(2)
+                        .assertAny(hasTestTag(ContentSwitcherTestTags.BUTTON_CONTENT_ROOT))
+                        .assertAny(hasTestTag(ContentSwitcherTestTags.BUTTON_DIVIDER))
                 }
 
                 // Check that all buttons have the same width
                 val expectedWidthForEachButton = with(density) {
                     first().fetchSemanticsNode().size.width.toDp()
                 }
-                forEach { it.assertWidthIsEqualTo(expectedWidthForEachButton) }
+                forEach {
+                    it.assertWidthIsEqualTo(expectedWidthForEachButton)
+                        .assertHeightIsEqualTo(expectedHeight)
+                }
             }
-        }
     }
 
     @Test
@@ -135,24 +142,19 @@ class ContentSwitcherTest {
         forEachParameter {
             validateCommonLayout()
 
-            onAllNodesWithTag(
-                ContentSwitcherTestTags.BUTTON_CONTENT_ROOT,
-                useUnmergedTree = true
-            ).run {
-                assertCountEquals(stringOptions.size)
-                toList().forEachIndexed { index, node ->
-                    with(node) {
-                        assertIsDisplayed()
-                        onChildren().run {
-                            assertCountEquals(1)
-                            assertAll(
-                                hasTestTag(ContentSwitcherTestTags.BUTTON_TEXT) and
-                                    hasText(stringOptions[index])
-                            )
-                        }
-                    }
+            onAllNodesWithTag(ContentSwitcherTestTags.BUTTON_CONTENT_ROOT, useUnmergedTree = true)
+                .assertCountEquals(stringOptions.size)
+                .toList()
+                .forEachIndexed { index, node ->
+                    node
+                        .assertIsDisplayed()
+                        .onChildren()
+                        .assertCountEquals(1)
+                        .assertAll(
+                            hasTestTag(ContentSwitcherTestTags.BUTTON_TEXT) and
+                                hasText(stringOptions[index])
+                        )
                 }
-            }
         }
     }
 
@@ -163,24 +165,19 @@ class ContentSwitcherTest {
         forEachParameter {
             validateCommonLayout()
 
-            onAllNodesWithTag(
-                ContentSwitcherTestTags.BUTTON_CONTENT_ROOT,
-                useUnmergedTree = true
-            ).run {
-                assertCountEquals(stringOptions.size)
-                toList().forEachIndexed { index, node ->
-                    with(node) {
-                        assertIsDisplayed()
-                        onChildren().run {
-                            assertCountEquals(1)
-                            assertAll(
-                                hasTestTag(ContentSwitcherTestTags.BUTTON_IMAGE) and
-                                    hasContentDescription(iconVectorOptions[index].name)
-                            )
-                        }
-                    }
+            onAllNodesWithTag(ContentSwitcherTestTags.BUTTON_CONTENT_ROOT, useUnmergedTree = true)
+                .assertCountEquals(stringOptions.size)
+                .toList()
+                .forEachIndexed { index, node ->
+                    node
+                        .assertIsDisplayed()
+                        .onChildren()
+                        .assertCountEquals(1)
+                        .assertAll(
+                            hasTestTag(ContentSwitcherTestTags.BUTTON_IMAGE) and
+                                hasContentDescription(iconVectorOptions[index].name)
+                        )
                 }
-            }
         }
     }
 
