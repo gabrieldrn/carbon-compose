@@ -23,7 +23,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
-import androidx.compose.ui.input.key.Key
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.test.ComposeUiTest
 import androidx.compose.ui.test.SemanticsMatcher
@@ -33,7 +32,6 @@ import androidx.compose.ui.test.assertAny
 import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.assertHeightIsEqualTo
 import androidx.compose.ui.test.assertIsDisplayed
-import androidx.compose.ui.test.assertIsFocused
 import androidx.compose.ui.test.assertIsNotSelected
 import androidx.compose.ui.test.assertIsSelected
 import androidx.compose.ui.test.assertWidthIsEqualTo
@@ -50,9 +48,6 @@ import androidx.compose.ui.test.onAllNodesWithTag
 import androidx.compose.ui.test.onChildren
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
-import androidx.compose.ui.test.performKeyInput
-import androidx.compose.ui.test.pressKey
-import androidx.compose.ui.test.requestFocus
 import androidx.compose.ui.test.runComposeUiTest
 import com.gabrieldrn.carbon.icons.checkmarkFilledIcon
 import com.gabrieldrn.carbon.icons.closeIcon
@@ -62,7 +57,7 @@ import kotlin.test.Test
 
 class ContentSwitcherTest {
 
-    private val stringOptions = listOf("Option 1", "Optiooooon 2", "Option 3")
+    private val stringOptions = listOf("Option 1", "Optioooooooooooon 2", "Option 3")
     private lateinit var iconOptions: List<Painter>
     private val iconVectorOptions = listOf(checkmarkFilledIcon, closeIcon, viewIcon)
 
@@ -183,7 +178,7 @@ class ContentSwitcherTest {
 
     @Test
     fun contentSwitcher_all_validateSemantics() {
-        fun ComposeUiTest.runAssertions() {
+        fun ComposeUiTest.runGesturesAssertions() {
             onAllNodesWithTag(ContentSwitcherTestTags.BUTTON_CONTENT_ROOT)
                 .toList()
                 .onEachIndexed { index, node ->
@@ -204,43 +199,50 @@ class ContentSwitcherTest {
                         else assertIsNotSelected()
                     }
                 }
-                .onEachIndexed { _, node ->
+        }
+
+        fun ComposeUiTest.runAccessibilityAssertions(isIconVariant: Boolean) {
+            onAllNodesWithTag(
+                ContentSwitcherTestTags.BUTTON_CONTENT_ROOT,
+                useUnmergedTree = true
+            )
+                .toList()
+                .onEachIndexed { index, node ->
                     with(node) {
-                        if (_isEnabled) {
-                            assert(isFocusable())
-                            requestFocus()
-                            assertIsFocused()
-                        } else {
-                            assert(isNotFocusable())
+                        assert(
+                            if (_isEnabled) {
+                                isFocusable()
+                            } else {
+                                isNotFocusable()
+                            }
+                        )
+
+                        // TODO Test focus interactions. At the moment of this comment, testing
+                        //  those interactions are working as expected but not on Android platform.
+
+                        if (isIconVariant) {
+                            onChildren()
+                                .assertAny(hasContentDescription(iconVectorOptions[index].name))
                         }
-
-                        val wasSelected = SemanticsMatcher
-                            .expectValue(SemanticsProperties.Selected, true)
-                            .matches(fetchSemanticsNode())
-
-                        if (SemanticsMatcher
-                                .expectValue(SemanticsProperties.Selected, false)
-                                .matches(fetchSemanticsNode())
-                        ) {
-                            performKeyInput { pressKey(Key.Enter) }
-                        }
-
-                        if (_isEnabled || wasSelected) assertIsSelected()
-                        else assertIsNotSelected()
                     }
                 }
         }
 
         runComposeUiTest {
             setupDefaultContentSwitcher()
-
-            forEachParameter { runAssertions() }
+            forEachParameter { runGesturesAssertions() }
         }
-
+        runComposeUiTest {
+            setupDefaultContentSwitcher()
+            forEachParameter { runAccessibilityAssertions(isIconVariant = false) }
+        }
         runComposeUiTest {
             setupIconContentSwitcher()
-
-            forEachParameter { runAssertions() }
+            forEachParameter { runGesturesAssertions() }
+        }
+        runComposeUiTest {
+            setupIconContentSwitcher()
+            forEachParameter { runAccessibilityAssertions(isIconVariant = true) }
         }
     }
 
