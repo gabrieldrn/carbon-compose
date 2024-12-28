@@ -166,6 +166,7 @@ jobs:
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: ${{ matrix.api-level }}
+          profile: Pixel
           arch: x86_64
           script: ./gradlew :carbon:connectedAndroidTest
 
