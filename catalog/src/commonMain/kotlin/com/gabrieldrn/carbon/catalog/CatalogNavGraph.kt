@@ -23,10 +23,19 @@ import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.WindowInsetsSides
+import androidx.compose.foundation.layout.add
+import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.navigationBars
+import androidx.compose.foundation.layout.only
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
@@ -71,6 +80,24 @@ fun AnimatedContentTransitionScope<NavBackStackEntry>.getExitTransition() =
     }
 
 @Composable
+fun Modifier.destinationRootPadding(
+    windowInsets: WindowInsets = LocalCatalogWindowInsets.current,
+) = this.padding(
+    windowInsets
+        .add(WindowInsets.navigationBars)
+        .only(WindowInsetsSides.Bottom + WindowInsetsSides.Horizontal)
+        .asPaddingValues()
+        .let { navBarPaddingValues ->
+            PaddingValues(
+                start = navBarPaddingValues
+                    .calculateLeftPadding(LocalLayoutDirection.current),
+                end = navBarPaddingValues
+                    .calculateRightPadding(LocalLayoutDirection.current),
+            )
+        }
+)
+
+@Composable
 fun rememberNavGraph(
     navController: NavHostController,
     onOpenLink: (String) -> Unit
@@ -101,7 +128,11 @@ fun rememberNavGraph(
                         enterTransition = { deadEndEnterTransition },
                         exitTransition = { deadEndExitTransition },
                         content = {
-                            dest.content(Modifier.sizeIn(maxWidth = vertical_content_max_width))
+                            dest.content(
+                                Modifier
+                                    .destinationRootPadding()
+                                    .sizeIn(maxWidth = vertical_content_max_width)
+                            )
                         }
                     )
 
@@ -110,7 +141,11 @@ fun rememberNavGraph(
                         enterTransition = { getEnterTransition() },
                         exitTransition = { getExitTransition() },
                         content = {
-                            dest.content(Modifier.sizeIn(maxWidth = vertical_content_max_width))
+                            dest.content(
+                                Modifier
+                                    .destinationRootPadding()
+                                    .sizeIn(maxWidth = vertical_content_max_width)
+                            )
                         }
                     )
                 }
