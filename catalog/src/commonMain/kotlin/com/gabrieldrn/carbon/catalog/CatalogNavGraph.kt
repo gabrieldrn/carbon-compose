@@ -23,13 +23,23 @@ import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.WindowInsetsSides
+import androidx.compose.foundation.layout.add
+import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.navigationBars
+import androidx.compose.foundation.layout.only
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.createGraph
 import com.gabrieldrn.carbon.catalog.BaseDestination.Companion.eq
+import com.gabrieldrn.carbon.catalog.common.vertical_content_max_width
 import com.gabrieldrn.carbon.catalog.home.HomeScreen
 
 val navigationEnterScaleInTransition =
@@ -68,6 +78,16 @@ fun AnimatedContentTransitionScope<NavBackStackEntry>.getExitTransition() =
     }
 
 @Composable
+fun Modifier.destinationRootPadding(
+    windowInsets: WindowInsets = LocalCatalogWindowInsets.current,
+) = this.padding(
+    windowInsets
+        .add(WindowInsets.navigationBars)
+        .only(WindowInsetsSides.Horizontal)
+        .asPaddingValues()
+)
+
+@Composable
 fun rememberNavGraph(
     navController: NavHostController,
     onOpenLink: (String) -> Unit
@@ -97,14 +117,26 @@ fun rememberNavGraph(
                         route = Destination.Settings.route,
                         enterTransition = { deadEndEnterTransition },
                         exitTransition = { deadEndExitTransition },
-                        content = { dest.content() }
+                        content = {
+                            dest.content(
+                                Modifier
+                                    .destinationRootPadding()
+                                    .sizeIn(maxWidth = vertical_content_max_width)
+                            )
+                        }
                     )
 
                     else -> composable(
                         route = dest.route,
                         enterTransition = { getEnterTransition() },
                         exitTransition = { getExitTransition() },
-                        content = { dest.content() }
+                        content = {
+                            dest.content(
+                                Modifier
+                                    .destinationRootPadding()
+                                    .sizeIn(maxWidth = vertical_content_max_width)
+                            )
+                        }
                     )
                 }
             }

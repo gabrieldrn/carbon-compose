@@ -16,14 +16,23 @@
 
 package com.gabrieldrn.carbon.catalog
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.WindowInsetsSides
+import androidx.compose.foundation.layout.add
+import androidx.compose.foundation.layout.displayCutout
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.only
+import androidx.compose.foundation.layout.statusBars
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.navigation.compose.NavHost
@@ -46,7 +55,7 @@ fun Catalog(
     CarbonCatalogTheme {
         val allDestinations = remember { Destination.entries }
 
-        var currentScreen: BaseDestination by remember {
+        var currentScreen: BaseDestination by rememberSaveable {
             mutableStateOf(Destination.Home)
         }
 
@@ -62,7 +71,24 @@ fun Catalog(
             onOpenLink = uriHandler::openUri,
         )
 
-        CompositionLocalProvider(LocalLayoutType provides layoutType) {
+        val baseWindowInsets = WindowInsets.statusBars.add(WindowInsets.displayCutout)
+
+        val windowInsets by remember(baseWindowInsets, layoutType) {
+            mutableStateOf(
+                baseWindowInsets.only(
+                    if (layoutType == CatalogLayoutType.Vertical) {
+                        WindowInsetsSides.Top
+                    } else {
+                        WindowInsetsSides.Top + WindowInsetsSides.Horizontal
+                    }
+                )
+            )
+        }
+
+        CompositionLocalProvider(
+            LocalCatalogLayoutType provides layoutType,
+            LocalCatalogWindowInsets provides windowInsets
+        ) {
             Column(
                 modifier = modifier
                     .fillMaxSize()
@@ -85,12 +111,18 @@ fun Catalog(
                         }
                     },
                     onMenuIconPressed = { navController.navigateUp() },
+                    windowInsets = windowInsets
                 )
 
-                NavHost(
-                    navController = navController,
-                    graph = navGraph,
-                )
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    NavHost(
+                        navController = navController,
+                        graph = navGraph,
+                    )
+                }
             }
         }
     }
