@@ -17,14 +17,12 @@
 package com.gabrieldrn.carbon.catalog.home
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.add
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.only
@@ -41,7 +39,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.unit.dp
@@ -89,19 +86,14 @@ fun HomeScreen(
                 modifier = modifier.widthIn(max = vertical_content_max_width)
             )
         } else {
-            Box(
-                modifier = modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                ComponentsLazyRow(
-                    destinationsWithDemo = destinationsWithDemo,
-                    wipDestinations = wipDestinations,
-                    navBarPaddingValues = navBarPaddingValues,
-                    onTileClicked = onTileClicked,
-                    onOpenLink = onOpenLink,
-                    modifier = Modifier.heightIn(max = home_horizontal_max_height)
-                )
-            }
+            ComponentsLazyRow(
+                destinationsWithDemo = destinationsWithDemo,
+                wipDestinations = wipDestinations,
+                navBarPaddingValues = navBarPaddingValues,
+                onTileClicked = onTileClicked,
+                onOpenLink = onOpenLink,
+                modifier = Modifier.heightIn(max = home_horizontal_max_height)
+            )
         }
     }
 }
