@@ -23,7 +23,6 @@ import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.add
@@ -35,7 +34,6 @@ import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
@@ -85,16 +83,8 @@ fun Modifier.destinationRootPadding(
 ) = this.padding(
     windowInsets
         .add(WindowInsets.navigationBars)
-        .only(WindowInsetsSides.Bottom + WindowInsetsSides.Horizontal)
+        .only(WindowInsetsSides.Horizontal)
         .asPaddingValues()
-        .let { navBarPaddingValues ->
-            PaddingValues(
-                start = navBarPaddingValues
-                    .calculateLeftPadding(LocalLayoutDirection.current),
-                end = navBarPaddingValues
-                    .calculateRightPadding(LocalLayoutDirection.current),
-            )
-        }
 )
 
 @Composable
