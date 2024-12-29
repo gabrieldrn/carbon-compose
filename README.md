@@ -69,3 +69,9 @@ Maintaining a free and open-source project takes time! If you like it and would 
 - Offer me a latte ☕ (my daily fuel) with the GitHub sponsoring button on this repository main page.
   
 Thank you very much for your support!
+
+---
+
+Content featuring carbon-compose:
+
+<a href="https://jetc.dev/issues/230.html"><img src="https://img.shields.io/badge/As_Seen_In-jetc.dev_Newsletter_Issue_%23230-blue?logo=Jetpack+Compose&amp;logoColor=white" alt="As Seen In - jetc.dev Newsletter Issue #230"></a>
