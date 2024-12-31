@@ -34,7 +34,7 @@ fun main() = application {
     Window(
         onCloseRequest = ::exitApplication,
         state = rememberWindowState(
-            size = DpSize(800.dp, 1200.dp),
+            size = DpSize(1300.dp, 1000.dp),
             position = WindowPosition.Aligned(Alignment.Center)
         ),
         title = "Carbon catalog",

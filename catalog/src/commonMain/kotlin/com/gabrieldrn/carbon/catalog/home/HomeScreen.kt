@@ -41,6 +41,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.catalog.CatalogLayoutType
 import com.gabrieldrn.carbon.catalog.Destination
@@ -50,6 +51,8 @@ import com.gabrieldrn.carbon.catalog.common.home_horizontal_max_height
 import com.gabrieldrn.carbon.catalog.common.vertical_content_max_width
 import com.gabrieldrn.carbon.foundation.color.CarbonLayer
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
+
+expect val gridCellsSize: Dp
 
 @Composable
 fun HomeScreen(
@@ -139,7 +142,7 @@ private fun ComponentsLazyGrid(
     modifier: Modifier = Modifier
 ) {
     LazyVerticalGrid(
-        columns = GridCells.Fixed(2),
+        columns = GridCells.Adaptive(gridCellsSize),
         contentPadding = PaddingValues(
             start = SpacingScale.spacing05,
             top = SpacingScale.spacing05,
@@ -151,14 +154,14 @@ private fun ComponentsLazyGrid(
         horizontalArrangement = Arrangement.spacedBy(1.dp),
         modifier = modifier
     ) {
-        destinationItems(destinationsWithDemo, onTileClicked)
+        this.destinationItems(destinationsWithDemo, onTileClicked)
         if (wipDestinations.isNotEmpty()) {
-            item(span = { GridItemSpan(2) }) {
+            item(span = { GridItemSpan(maxLineSpan) }) {
                 WIPIndicatorItem(isInVerticalLayout = true)
             }
             destinationItems(wipDestinations, onTileClicked)
         }
-        item(span = { GridItemSpan(2) }) {
+        item(span = { GridItemSpan(maxLineSpan) }) {
             HomeLinksItem(onOpenLink = onOpenLink, isVertical = true)
         }
     }
