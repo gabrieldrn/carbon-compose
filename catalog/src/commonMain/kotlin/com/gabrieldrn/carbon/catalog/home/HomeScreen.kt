@@ -131,6 +131,10 @@ private fun ComponentsLazyRow(
     }
 }
 
+private const val COLUMNS_COUNT_SMALL_AND_MEDIUM = 2
+private const val COLUMNS_COUNT_LARGE_AND_XLARGE = 3
+private const val COLUMNS_COUNT_MAX = 4
+
 @Composable
 private fun ComponentsLazyGrid(
     destinationsWithDemo: List<Destination>,
@@ -142,11 +146,13 @@ private fun ComponentsLazyGrid(
 ) {
     val gridBreakpoint = LocalGridBreakpoint.current
     val gridCellsSpec = remember(gridBreakpoint) {
-        when (gridBreakpoint) {
-            GridBreakpoint.Small, GridBreakpoint.Medium -> GridCells.Fixed(2)
-            GridBreakpoint.Large, GridBreakpoint.XLarge -> GridCells.Fixed(3)
-            else -> GridCells.Fixed(4)
-        }
+        GridCells.Fixed(
+            when (gridBreakpoint) {
+                GridBreakpoint.Small, GridBreakpoint.Medium -> COLUMNS_COUNT_SMALL_AND_MEDIUM
+                GridBreakpoint.Large, GridBreakpoint.XLarge -> COLUMNS_COUNT_LARGE_AND_XLARGE
+                else -> COLUMNS_COUNT_MAX
+            }
+        )
     }
 
     val contentPadding = remember(gridBreakpoint, navBarPaddingValues) {

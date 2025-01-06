@@ -28,6 +28,7 @@ val LocalGridBreakpoint = staticCompositionLocalOf<GridBreakpoint> {
     error("No GridBreakpoint provided")
 }
 
+@Suppress("MagicNumber")
 enum class GridBreakpoint(
     val value: Dp,
     val columns: Int,
