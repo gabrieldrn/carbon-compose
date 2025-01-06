@@ -24,6 +24,7 @@ import androidx.compose.ui.window.WindowPosition
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
 import com.gabrieldrn.carbon.catalog.di.appModule
+import org.jetbrains.compose.resources.painterResource
 import org.koin.core.context.startKoin
 
 fun main() = application {
@@ -34,9 +35,10 @@ fun main() = application {
     Window(
         onCloseRequest = ::exitApplication,
         state = rememberWindowState(
-            size = DpSize(1300.dp, 1000.dp),
+            size = DpSize(width = 1440.dp, height = 1160.dp),
             position = WindowPosition.Aligned(Alignment.Center)
         ),
+        icon = painterResource(Res.drawable.ic_carbon),
         title = "Carbon catalog",
     ) {
         Catalog()

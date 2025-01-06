@@ -41,6 +41,8 @@ import com.gabrieldrn.carbon.api.ExperimentalCarbonApi
 import com.gabrieldrn.carbon.button.ButtonType
 import com.gabrieldrn.carbon.button.IconButton
 import com.gabrieldrn.carbon.catalog.BaseDestination.Companion.eq
+import com.gabrieldrn.carbon.catalog.common.LocalGridBreakpoint
+import com.gabrieldrn.carbon.catalog.common.getGridBreakpoint
 import com.gabrieldrn.carbon.catalog.theme.CarbonCatalogTheme
 import com.gabrieldrn.carbon.foundation.color.containerBackground
 import com.gabrieldrn.carbon.uishell.UiShellHeader
@@ -87,7 +89,8 @@ fun Catalog(
 
         CompositionLocalProvider(
             LocalCatalogLayoutType provides layoutType,
-            LocalCatalogWindowInsets provides windowInsets
+            LocalCatalogWindowInsets provides windowInsets,
+            LocalGridBreakpoint provides getGridBreakpoint()
         ) {
             Column(
                 modifier = modifier

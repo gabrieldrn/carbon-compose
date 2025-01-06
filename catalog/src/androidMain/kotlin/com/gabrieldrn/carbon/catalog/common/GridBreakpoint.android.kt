@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 Gabriel Derrien
+ * Copyright 2025 Gabriel Derrien
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,16 @@
 
 package com.gabrieldrn.carbon.catalog.common
 
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 
-val vertical_content_max_width = GridBreakpoint.Max.value
-val home_horizontal_max_height = 600.dp
+@Composable
+actual fun getGridBreakpoint(): GridBreakpoint =
+    when (LocalConfiguration.current.screenWidthDp.dp) {
+        in 0.dp..<GridBreakpoint.Small.value -> GridBreakpoint.Small
+        in GridBreakpoint.Small.value..<GridBreakpoint.Medium.value -> GridBreakpoint.Medium
+        in GridBreakpoint.Medium.value..<GridBreakpoint.Large.value -> GridBreakpoint.Large
+        in GridBreakpoint.Large.value..<GridBreakpoint.XLarge.value -> GridBreakpoint.XLarge
+        else -> GridBreakpoint.Max
+    }
