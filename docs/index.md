@@ -14,7 +14,7 @@ This versatile framework is available for the following platforms:
 - Android
 - iOS
 - Desktop (Windows, Linux, macOS)
-- Web (Wasm) (Coming soon)
+- Web (WasmJs)
 
 ## Motivations
 
@@ -52,7 +52,7 @@ List of the currently supported components:
 | Checkbox           |      ✅      |   ✅    |      ✅       |     ✅     |
 | Code snippet       |             |        |              |           |
 | Contained list     |             |        |              |           |
-| Content switcher   |             |        |              |           |
+| Content switcher   |      ✅      |   ✅    |      ✅       |     ✅     |
 | Data table         |             |        |              |           |
 | Date picker        |             |        |              |           |
 | Dropdown           |      ✅      |   ✅    |      ✅       |     ✅     |
