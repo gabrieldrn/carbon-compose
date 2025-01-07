@@ -8,9 +8,9 @@ on:
       - 'docs/**'
   pull_request:
     branches: [ '*' ]
-#    paths-ignore:
-#      - '**.md'
-#      - 'docs/**'
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
 
 jobs:
   lib-build:
