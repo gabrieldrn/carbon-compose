@@ -22,6 +22,9 @@
 - [Button](https://gabrieldrn.github.io/carbon-compose/api/-carbon%20-compose/com.gabrieldrn.carbon.button/-button.html)
 - [Icon button](https://gabrieldrn.github.io/carbon-compose/api/-carbon%20-compose/com.gabrieldrn.carbon.button/-icon-button.html)
 - [Checkbox](https://gabrieldrn.github.io/carbon-compose/api/-carbon%20-compose/com.gabrieldrn.carbon.checkbox/-checkbox.html)
+- ContentSwitcher
+  - [Default content switcher](https://gabrieldrn.github.io/carbon-compose/api/-carbon%20-compose/com.gabrieldrn.carbon.contentswitcher/-content-switcher.html)
+  - [Icon content switcher](https://gabrieldrn.github.io/carbon-compose/api/-carbon%20-compose/com.gabrieldrn.carbon.contentswitcher/-icon-content-switcher.html)
 - Dropdown
     - [Default dropdown](https://gabrieldrn.github.io/carbon-compose/api/-carbon%20-compose/com.gabrieldrn.carbon.dropdown/-dropdown.html)
     - [Multi-select dropdown](https://gabrieldrn.github.io/carbon-compose/api/-carbon%20-compose/com.gabrieldrn.carbon.dropdown.multiselect/-multiselect-dropdown.html)
