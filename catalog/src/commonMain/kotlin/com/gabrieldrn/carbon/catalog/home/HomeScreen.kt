@@ -46,6 +46,8 @@ import com.gabrieldrn.carbon.catalog.CatalogLayoutType
 import com.gabrieldrn.carbon.catalog.Destination
 import com.gabrieldrn.carbon.catalog.LocalCatalogLayoutType
 import com.gabrieldrn.carbon.catalog.LocalCatalogWindowInsets
+import com.gabrieldrn.carbon.catalog.common.GridBreakpoint
+import com.gabrieldrn.carbon.catalog.common.LocalGridBreakpoint
 import com.gabrieldrn.carbon.catalog.common.home_horizontal_max_height
 import com.gabrieldrn.carbon.catalog.common.vertical_content_max_width
 import com.gabrieldrn.carbon.foundation.color.CarbonLayer
@@ -129,6 +131,10 @@ private fun ComponentsLazyRow(
     }
 }
 
+private const val COLUMNS_COUNT_SMALL_AND_MEDIUM = 2
+private const val COLUMNS_COUNT_LARGE_AND_XLARGE = 3
+private const val COLUMNS_COUNT_MAX = 4
+
 @Composable
 private fun ComponentsLazyGrid(
     destinationsWithDemo: List<Destination>,
@@ -138,27 +144,50 @@ private fun ComponentsLazyGrid(
     onOpenLink: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val gridBreakpoint = LocalGridBreakpoint.current
+    val gridCellsSpec = remember(gridBreakpoint) {
+        GridCells.Fixed(
+            when (gridBreakpoint) {
+                GridBreakpoint.Small, GridBreakpoint.Medium -> COLUMNS_COUNT_SMALL_AND_MEDIUM
+                GridBreakpoint.Large, GridBreakpoint.XLarge -> COLUMNS_COUNT_LARGE_AND_XLARGE
+                else -> COLUMNS_COUNT_MAX
+            }
+        )
+    }
+
+    val contentPadding = remember(gridBreakpoint, navBarPaddingValues) {
+        val margin = gridBreakpoint
+            .padding
+            .takeIf {
+                gridBreakpoint in arrayOf(
+                    GridBreakpoint.Large, GridBreakpoint.XLarge, GridBreakpoint.Max
+                )
+            }
+            ?: 0.dp
+
+        PaddingValues(
+            start = margin,
+            top = margin,
+            end = margin,
+            bottom = margin + navBarPaddingValues.calculateBottomPadding(),
+        )
+    }
+
     LazyVerticalGrid(
-        columns = GridCells.Fixed(2),
-        contentPadding = PaddingValues(
-            start = SpacingScale.spacing05,
-            top = SpacingScale.spacing05,
-            end = SpacingScale.spacing05,
-            bottom = SpacingScale.spacing05 +
-                navBarPaddingValues.calculateBottomPadding(),
-        ),
+        columns = gridCellsSpec,
+        contentPadding = contentPadding,
         verticalArrangement = Arrangement.spacedBy(1.dp),
         horizontalArrangement = Arrangement.spacedBy(1.dp),
         modifier = modifier
     ) {
         destinationItems(destinationsWithDemo, onTileClicked)
         if (wipDestinations.isNotEmpty()) {
-            item(span = { GridItemSpan(2) }) {
+            item(span = { GridItemSpan(maxLineSpan) }) {
                 WIPIndicatorItem(isInVerticalLayout = true)
             }
             destinationItems(wipDestinations, onTileClicked)
         }
-        item(span = { GridItemSpan(2) }) {
+        item(span = { GridItemSpan(maxLineSpan) }) {
             HomeLinksItem(onOpenLink = onOpenLink, isVertical = true)
         }
     }

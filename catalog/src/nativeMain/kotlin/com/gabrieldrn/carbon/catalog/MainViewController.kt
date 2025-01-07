@@ -49,7 +49,10 @@ fun MainViewController(): UIViewController =
                 }
             }
 
-            Box(Modifier.fillMaxSize().containerBackground(), contentAlignment = Alignment.Center) {
+            Box(
+                modifier = Modifier.fillMaxSize().containerBackground(),
+                contentAlignment = Alignment.Center
+            ) {
                 Catalog(layoutType = layoutType)
             }
         }
