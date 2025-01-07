@@ -8,9 +8,9 @@ on:
       - 'docs/**'
   pull_request:
     branches: [ '*' ]
-    paths-ignore:
-      - '**.md'
-      - 'docs/**'
+#    paths-ignore:
+#      - '**.md'
+#      - 'docs/**'
 
 jobs:
   lib-build:
@@ -283,8 +283,6 @@ jobs:
 
       - name: Delete cache
         run: |
-          gh extension install actions/gh-actions-cache
-          set +e
-          gh actions-cache delete ${{ runner.os }}-gradle-${{ github.run_id }} --confirm
+          gh cache delete ${{ runner.os }}-gradle-${{ github.run_id }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
