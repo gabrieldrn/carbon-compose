@@ -169,10 +169,12 @@ internal fun DropdownField(
                 drawRect(fieldBackgroundColor)
 
                 if (state !is DropdownInteractiveState.Error) {
+                    // Canvas starts at 0.5px, so offset to draw a crisp line.
+                    val y = size.height + 0.5f
                     drawLine(
                         color = fieldBorderColor,
-                        start = Offset(0f, size.height),
-                        end = Offset(size.width, size.height),
+                        start = Offset(0f, y),
+                        end = Offset(size.width, y),
                         strokeWidth = 1.dp.toPx()
                     )
                 }
