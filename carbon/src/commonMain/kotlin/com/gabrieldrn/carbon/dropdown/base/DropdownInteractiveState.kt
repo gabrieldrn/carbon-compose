@@ -47,7 +47,7 @@ public sealed interface DropdownInteractiveState {
     public data object Disabled : DropdownInteractiveState
 
     /**
-     * The dropdown is read-only, meaning the user is not able change the selected option but
+     * The dropdown is read-only, meaning the user is not able to change the selected option but
      * screen readers can still read the dropdown.
      */
     public data object ReadOnly : DropdownInteractiveState
