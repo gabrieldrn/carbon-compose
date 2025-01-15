@@ -27,9 +27,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
@@ -37,19 +37,18 @@ import com.gabrieldrn.carbon.foundation.text.Text
 
 @Composable
 internal fun Tab(
-    label: String,
-    enabled: Boolean,
+    item: TabItem,
     selected: Boolean,
     beforeSelected: Boolean,
     isLast: Boolean,
     variant: TabVariant,
     onClick: () -> Unit
 ) {
-    val textColor = if (selected) {
-        Carbon.theme.textPrimary
-    } else {
-        Carbon.theme.textSecondary
-    }
+    val colors = TabColors.colors(variant)
+    val textColor by colors.tabLabelTextColor(
+        isEnabled = item.enabled,
+        isSelected = selected
+    )
 
     Box(
         Modifier
@@ -60,23 +59,14 @@ internal fun Tab(
                 }
             )
             .width(IntrinsicSize.Max)
-            .background(
-                when (variant) {
-                    TabVariant.Line -> Color.Transparent
-                    TabVariant.Contained -> if (selected) {
-                        Carbon.theme.layer01
-                    } else {
-                        Carbon.theme.layerAccent01
-                    }
-                }
-            )
+            .background(if (selected) colors.backgroundColor else colors.backgroundColorSelected)
             .clickable { onClick() }
     ) {
         Text(
             modifier = Modifier
                 .align(Alignment.Center)
                 .padding(horizontal = SpacingScale.spacing05),
-            text = label,
+            text = item.label,
             style = if (selected) {
                 Carbon.typography.headingCompact01.copy(textColor)
             } else {
@@ -98,7 +88,7 @@ internal fun Tab(
                         if (selected) {
                             Carbon.theme.borderInteractive
                         } else {
-                            Carbon.theme.borderSubtle00
+                            colors.bottomBorderUnselected
                         }
                     )
             )
@@ -109,7 +99,7 @@ internal fun Tab(
                     .align(Alignment.CenterEnd)
                     .width(1.dp)
                     .fillMaxHeight()
-                    .background(Carbon.theme.borderStrong01)
+                    .background(colors.verticalBorderUnselected)
             )
         }
     }

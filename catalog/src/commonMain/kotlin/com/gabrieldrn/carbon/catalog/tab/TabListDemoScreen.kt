@@ -119,5 +119,6 @@ internal fun TabListDemoScreen(modifier: Modifier = Modifier) {
     }
 }
 
-private val layersOptions = Layer.entries.associateWith { DropdownOption(it.toString()) }
+private val layersOptions =
+    Layer.entries.associateWith { DropdownOption(it.toString(), enabled = it != Layer.Layer03) }
 private val tabVariants = TabVariant.entries.toDropdownOptions()
