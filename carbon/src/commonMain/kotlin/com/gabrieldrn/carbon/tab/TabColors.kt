@@ -52,6 +52,8 @@ internal class TabColors private constructor(
         else -> theme.layer03
     }
 
+    val indicator = theme.borderInteractive
+
     val bottomBorderUnselected = when (layer) {
         Layer.Layer00 -> theme.borderSubtle01
         Layer.Layer01 -> theme.borderSubtle02
