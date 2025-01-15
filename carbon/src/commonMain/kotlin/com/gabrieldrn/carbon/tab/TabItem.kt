@@ -28,3 +28,8 @@ public data class TabItem(
     val label: String,
     val enabled: Boolean = true
 )
+
+/**
+ * Returns a map of strings to [TabItem]s.
+ */
+public fun tabItemsOf(vararg values: String): List<TabItem> = values.map { TabItem(it) }
