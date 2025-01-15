@@ -45,6 +45,7 @@ internal fun Tab(
     onClick: () -> Unit
 ) {
     val colors = TabColors.colors(variant)
+    val backgroundColor by colors.backgroundColor(isSelected = selected)
     val textColor by colors.tabLabelTextColor(
         isEnabled = item.enabled,
         isSelected = selected
@@ -59,8 +60,8 @@ internal fun Tab(
                 }
             )
             .width(IntrinsicSize.Max)
-            .background(if (selected) colors.backgroundColor else colors.backgroundColorSelected)
-            .clickable { onClick() }
+            .background(backgroundColor)
+            .clickable(enabled = item.enabled) { onClick() }
     ) {
         Text(
             modifier = Modifier

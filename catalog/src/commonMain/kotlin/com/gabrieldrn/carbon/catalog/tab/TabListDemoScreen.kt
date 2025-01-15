@@ -49,7 +49,6 @@ import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 import com.gabrieldrn.carbon.tab.TabItem
 import com.gabrieldrn.carbon.tab.TabList
 import com.gabrieldrn.carbon.tab.TabVariant
-import com.gabrieldrn.carbon.tab.tabItemsOf
 
 @Composable
 internal fun TabListDemoScreen(modifier: Modifier = Modifier) {
@@ -76,10 +75,10 @@ internal fun TabListDemoScreen(modifier: Modifier = Modifier) {
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
-                var selectedTab by remember { mutableStateOf(TabItem("Dashboard")) }
+                var selectedTab by remember { mutableStateOf(demoTabs[0]) }
 
                 TabList(
-                    tabs = tabItemsOf("Dashboard", "Monitoring", "Activity"),
+                    tabs = demoTabs,
                     selectedTab = selectedTab,
                     onTabSelected = { selectedTab = it },
                     variant = variantState
@@ -119,6 +118,12 @@ internal fun TabListDemoScreen(modifier: Modifier = Modifier) {
     }
 }
 
+private val demoTabs = listOf(
+    TabItem(label = "Dashboard"),
+    TabItem(label = "Monitoring"),
+    TabItem(label = "Activity"),
+    TabItem(label = "Disabled", enabled = false)
+)
 private val layersOptions =
     Layer.entries.associateWith { DropdownOption(it.toString(), enabled = it != Layer.Layer03) }
 private val tabVariants = TabVariant.entries.toDropdownOptions()
