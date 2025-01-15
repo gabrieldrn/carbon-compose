@@ -32,6 +32,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
@@ -55,12 +56,7 @@ internal fun Tab(
 
     Box(
         Modifier
-            .height(
-                when (variant) {
-                    TabVariant.Line -> SpacingScale.spacing08
-                    TabVariant.Contained -> SpacingScale.spacing09
-                }
-            )
+            .height(variant.height)
             .width(IntrinsicSize.Max)
             .background(backgroundColor)
             .drawBehind {
@@ -80,6 +76,7 @@ internal fun Tab(
                 }
             }
             .clickable(enabled = item.enabled) { onClick() }
+            .testTag(TabListTestTags.TAB_ROOT)
     ) {
         Text(
             modifier = Modifier
