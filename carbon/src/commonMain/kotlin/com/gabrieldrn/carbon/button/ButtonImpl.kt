@@ -17,54 +17,74 @@
 package com.gabrieldrn.carbon.button
 
 import androidx.compose.animation.Animatable
-import androidx.compose.animation.core.AnimationSpec
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.core.snap
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.HoverInteraction
+import androidx.compose.foundation.interaction.Interaction
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.PressInteraction
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.InspectableModifier
 import androidx.compose.ui.platform.debugInspectorInfo
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.foundation.motion.Motion
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 
-internal val buttonTransitionSpec: AnimationSpec<Color> = tween(
+internal fun <T : Any> getButtonTransitionSpec() = tween<T>(
     durationMillis = Motion.Duration.fast01,
     easing = Motion.Entrance.productiveEasing
 )
 
-private fun Modifier.iconButtonModifier() = this.requiredSize(SpacingScale.spacing09)
+private fun Modifier.requiredButtonSize(buttonSize: ButtonSize, isIconButton: Boolean) =
+    this
+        .requiredSize(
+            width = if (isIconButton) SpacingScale.spacing09 else Dp.Unspecified,
+            height = if (isIconButton) SpacingScale.spacing09 else buttonSize.heightDp()
+        )
+        .width(IntrinsicSize.Max)
 
-private fun Modifier.buttonModifier(buttonSize: ButtonSize) =
-    this.requiredHeight(buttonSize.heightDp())
-        .padding(buttonSize.getContainerPaddings())
+private fun AnimatedContentTransitionScope<ButtonScope>.getContentTransition() =
+    if (initialState.isEnabled != targetState.isEnabled) {
+        fadeIn(snap(), initialAlpha = 1f) togetherWith
+            fadeOut(snap(), targetAlpha = 1f)
+    } else {
+        fadeIn(getButtonTransitionSpec(), initialAlpha = 1f) togetherWith
+            fadeOut(getButtonTransitionSpec(), targetAlpha = 1f)
+    }
 
 internal data class ButtonScope(
     val colors: ButtonColors,
-    val buttonType: ButtonType,
-    val buttonSize: ButtonSize,
+    val isEnabled: Boolean,
+    val interaction: Interaction?,
 )
 
 @Composable
@@ -83,6 +103,8 @@ internal fun ButtonRowImpl(
     val containerColor = remember(colors) { Animatable(colors.containerColor) }
     val indication = remember(buttonType) { ButtonFocusIndication(theme, buttonType) }
 
+    // TODO Move container + border drawing to the indication instance. Here, animations are a bit
+    //  delayed and doesn't cancel when spammed.
     LaunchedEffect(isEnabled, colors) {
         containerColor.animateTo(
             targetValue = if (isEnabled) colors.containerColor else colors.containerDisabledColor,
@@ -100,14 +122,14 @@ internal fun ButtonRowImpl(
                     is PressInteraction.Press -> colors.containerActiveColor
                     else -> colors.containerColor
                 },
-                animationSpec = buttonTransitionSpec
+                animationSpec = getButtonTransitionSpec()
             )
         }
     }
 
-    Row(
+    Box(
         modifier = modifier
-            .width(IntrinsicSize.Max)
+            .requiredButtonSize(buttonSize, isIconButton)
             .drawBehind {
                 drawRect(color = containerColor.value)
             }
@@ -134,103 +156,80 @@ internal fun ButtonRowImpl(
                         properties["isIconButton"] = isIconButton.toString()
                     }
                 )
-            )
-            .then(
-                if (isIconButton) {
-                    Modifier.iconButtonModifier()
-                } else {
-                    Modifier.buttonModifier(buttonSize)
-                }
             ),
     ) {
-        content(ButtonScope(colors, buttonType, buttonSize))
+        val interaction by interactionSource.interactions.collectAsState(null)
+
+        val buttonScope by remember(
+            colors,
+            isEnabled,
+            interaction,
+        ) {
+            mutableStateOf(
+                ButtonScope(
+                    colors,
+                    isEnabled,
+                    interaction,
+                )
+            )
+        }
+
+        AnimatedContent(
+            targetState = buttonScope,
+            transitionSpec = { getContentTransition() },
+            label = "Button icon",
+        ) { scope ->
+            Row(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(buttonSize.getContainerPaddings(isIconButton))
+            ) {
+                content(scope)
+            }
+        }
     }
 }
 
 @Composable
 internal fun Label(
     label: String,
-    colors: ButtonColors,
-    isEnabled: Boolean,
-    interactionSource: MutableInteractionSource,
+    scope: ButtonScope,
     modifier: Modifier = Modifier,
 ) {
-    val animatedLabelTextColor = remember(colors) { Animatable(colors.labelColor) }
-
-    LaunchedEffect(isEnabled, colors) {
-        animatedLabelTextColor.animateTo(
-            targetValue = if (isEnabled) colors.labelColor else colors.labelDisabledColor,
-            animationSpec = snap()
-        )
-    }
-
-    LaunchedEffect(animatedLabelTextColor, isEnabled, colors) {
-        interactionSource
-            .interactions
-            .collect { interaction ->
-                if (!isEnabled) return@collect
-                animatedLabelTextColor.stop()
-                animatedLabelTextColor.animateTo(
-                    targetValue = when (interaction) {
-                        is HoverInteraction.Enter -> colors.labelHoverColor
-                        is PressInteraction.Press -> colors.labelActiveColor
-                        else -> colors.labelColor
-                    },
-                    animationSpec = buttonTransitionSpec
-                )
-            }
-    }
-
     BasicText(
         text = label,
-        modifier = modifier,
         style = Carbon.typography.bodyCompact01,
-        color = { animatedLabelTextColor.value },
+        color = {
+            when {
+                !scope.isEnabled -> scope.colors.labelDisabledColor
+                scope.interaction is HoverInteraction.Enter -> scope.colors.labelHoverColor
+                scope.interaction is PressInteraction.Press -> scope.colors.labelActiveColor
+                else -> scope.colors.labelColor
+            }
+        },
         maxLines = 1,
         softWrap = false,
+        modifier = modifier
     )
 }
 
 @Composable
-// FIXME Using Painter + colorFilter: animated color presents a lot of recompositions when animated.
-//  Try to optimize.
 internal fun ButtonIcon(
     painter: Painter,
-    colors: ButtonColors,
-    isEnabled: Boolean,
-    interactionSource: MutableInteractionSource,
+    scope: ButtonScope,
     modifier: Modifier = Modifier,
 ) {
-    val animatedIconColor = remember(colors) { Animatable(colors.iconColor) }
-
-    LaunchedEffect(isEnabled, colors) {
-        animatedIconColor.animateTo(
-            targetValue = if (isEnabled) colors.iconColor else colors.iconDisabledColor,
-            animationSpec = snap()
-        )
-    }
-
-    LaunchedEffect(animatedIconColor, isEnabled, colors) {
-        interactionSource
-            .interactions
-            .collect { interaction ->
-                if (!isEnabled) return@collect
-                animatedIconColor.stop()
-                animatedIconColor.animateTo(
-                    targetValue = when (interaction) {
-                        is HoverInteraction.Enter -> colors.iconHoverColor
-                        is PressInteraction.Press -> colors.iconActiveColor
-                        else -> colors.iconColor
-                    },
-                    animationSpec = buttonTransitionSpec
-                )
-            }
-    }
-
     Image(
         painter = painter,
         contentDescription = null,
-        colorFilter = ColorFilter.tint(animatedIconColor.value),
+        colorFilter = ColorFilter.tint(
+            when {
+                !scope.isEnabled -> scope.colors.iconDisabledColor
+                scope.interaction is HoverInteraction.Enter -> scope.colors.iconHoverColor
+                scope.interaction is PressInteraction.Press -> scope.colors.iconActiveColor
+                else -> scope.colors.iconColor
+            }
+        ),
         modifier = modifier
     )
 }

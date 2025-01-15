@@ -26,6 +26,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.foundation.verticalScroll
@@ -60,7 +61,6 @@ private val buttonTypes = ButtonType.entries.toDropdownOptions()
 private val buttonSizes = ButtonSize.entries.toDropdownOptions()
 
 @Composable
-@Suppress("DEPRECATION")
 fun ButtonDemoScreen(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
@@ -88,7 +88,7 @@ fun ButtonDemoScreen(modifier: Modifier = Modifier) {
                 ButtonVariant.Default -> Button(
                     label = buttonType.name,
                     onClick = {},
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier.width(400.dp),
                     iconPainter = icon,
                     isEnabled = isEnabled,
                     buttonType = buttonType,
@@ -141,7 +141,7 @@ fun ButtonDemoScreen(modifier: Modifier = Modifier) {
                         buttonVariant == ButtonVariant.Icon ->
                             DropdownInteractiveState.Disabled
                         buttonSize == ButtonSize.Small ||
-                        buttonSize == ButtonSize.Medium ->
+                            buttonSize == ButtonSize.Medium ->
                             DropdownInteractiveState.Warning("Discouraged size usage")
                         else ->
                             DropdownInteractiveState.Enabled

@@ -61,9 +61,6 @@ import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
  * @param buttonSize A [ButtonSize] that defines the button's size.
  * @param interactionSource The [MutableInteractionSource] that keeps track of the button's state.
  */
-// TODO Support system font scale?
-// FIXME This is currently compiled as restartable but not skippable because of the use of Painter.
-//  Check recomposition count with current implementation and replace Painter usage if necessary.
 @Composable
 public fun Button(
     label: String,
@@ -84,10 +81,8 @@ public fun Button(
         interactionSource = interactionSource,
     ) { buttonScope ->
         Label(
-            isEnabled = isEnabled,
-            colors = buttonScope.colors,
-            interactionSource = interactionSource,
             label = label,
+            scope = buttonScope,
             modifier = Modifier
                 .weight(weight = 1f)
                 .fillMaxHeight()
@@ -98,9 +93,7 @@ public fun Button(
         if (iconPainter != null) {
             ButtonIcon(
                 painter = iconPainter,
-                colors = buttonScope.colors,
-                isEnabled = isEnabled,
-                interactionSource = interactionSource,
+                scope = buttonScope,
                 modifier = if (buttonSize.isExtraLarge) {
                     Modifier.requiredSize(16.dp)
                 } else {
