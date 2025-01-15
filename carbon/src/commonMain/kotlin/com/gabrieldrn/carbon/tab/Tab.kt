@@ -63,12 +63,10 @@ internal fun Tab(
             .background(
                 when (variant) {
                     TabVariant.Line -> Color.Transparent
-                    TabVariant.Contained -> {
-                        if (selected) {
-                            Carbon.theme.layer01
-                        } else {
-                            Carbon.theme.layerAccent01
-                        }
+                    TabVariant.Contained -> if (selected) {
+                        Carbon.theme.layer01
+                    } else {
+                        Carbon.theme.layerAccent01
                     }
                 }
             )
