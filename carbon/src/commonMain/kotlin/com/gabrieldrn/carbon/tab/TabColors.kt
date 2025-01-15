@@ -35,29 +35,27 @@ import com.gabrieldrn.carbon.foundation.color.Theme
 internal class TabColors private constructor(
     private val theme: Theme,
     layer: Layer,
-    variant: TabVariant
+    private val variant: TabVariant
 ) {
 
-    val backgroundColor = when {
+    private val backgroundColorUnselected = when {
+        variant == TabVariant.Line -> Color.Transparent
+        layer == Layer.Layer00 -> theme.layerAccent01
+        layer == Layer.Layer01 -> theme.layerAccent02
+        else -> theme.layerAccent03
+    }
+
+    private val backgroundColorSelected = when {
         variant == TabVariant.Line -> Color.Transparent
         layer == Layer.Layer00 -> theme.layer01
         layer == Layer.Layer01 -> theme.layer02
         else -> theme.layer03
     }
 
-    val backgroundColorSelected = when {
-        variant == TabVariant.Line -> Color.Transparent
-        layer == Layer.Layer00 -> theme.layerAccent01
-        layer == Layer.Layer01 -> theme.layerAccent02
-        layer == Layer.Layer02 -> theme.layerAccent03
-        else -> theme.layerAccent03
-    }
-
     val bottomBorderUnselected = when (layer) {
-        Layer.Layer00 -> theme.borderSubtle00
-        Layer.Layer01 -> theme.borderSubtle01
-        Layer.Layer02 -> theme.borderSubtle02
-        Layer.Layer03 -> theme.borderSubtle03
+        Layer.Layer00 -> theme.borderSubtle01
+        Layer.Layer01 -> theme.borderSubtle02
+        Layer.Layer02, Layer.Layer03 -> theme.borderSubtle03
     }
 
     val verticalBorderUnselected = when (layer) {
@@ -67,14 +65,22 @@ internal class TabColors private constructor(
     }
 
     @Composable
+    fun backgroundColor(isSelected: Boolean): State<Color> =
+        rememberUpdatedState(
+            newValue = when {
+                variant == TabVariant.Line -> Color.Transparent
+                isSelected -> backgroundColorSelected
+                else -> backgroundColorUnselected
+            }
+        )
+
+    @Composable
     fun tabLabelTextColor(isEnabled: Boolean, isSelected: Boolean): State<Color> =
         rememberUpdatedState(
-            newValue = with(theme) {
-                when {
-                    !isEnabled -> textDisabled
-                    isSelected -> textPrimary
-                    else -> textSecondary
-                }
+            newValue = when {
+                !isEnabled -> theme.textDisabled
+                isSelected -> theme.textPrimary
+                else -> theme.textSecondary
             }
         )
 
