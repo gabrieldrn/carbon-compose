@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Gabriel Derrien
+ * Copyright 2025 Jacob Ras
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,6 +30,7 @@ import com.gabrieldrn.carbon.foundation.color.Theme
  *
  * @param theme The theme to use for the colors.
  * @param layer Current layer where the [TabList] is placed on.
+ * @param variant The visual variant of the tab.
  */
 @Immutable
 internal class TabColors private constructor(

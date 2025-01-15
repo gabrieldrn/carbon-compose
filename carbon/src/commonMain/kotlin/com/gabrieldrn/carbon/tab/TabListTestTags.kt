@@ -16,25 +16,6 @@
 
 package com.gabrieldrn.carbon.tab
 
-import androidx.compose.ui.unit.Dp
-import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
-
-/**
- * Visual variant of a [TabList].
- */
-public enum class TabVariant(
-    internal val height: Dp
-) {
-
-    /**
-     * A standalone tab that can also be nested within components. It is commonly used within
-     * components or for content using the entire page for layout, not connected to
-     * any other components.
-     */
-    Line(height = SpacingScale.spacing08),
-
-    /**
-     * An emphasized tab that is commonly used for defined content areas.
-     */
-    Contained(height = SpacingScale.spacing09)
+internal object TabListTestTags {
+    const val TAB_ROOT = "carbon_tab_root"
 }
