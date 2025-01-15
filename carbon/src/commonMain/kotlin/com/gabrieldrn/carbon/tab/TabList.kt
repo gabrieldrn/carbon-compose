@@ -56,8 +56,7 @@ public fun TabList(
     ) {
         tabs.forEachIndexed { index, tab ->
             Tab(
-                label = tab.label,
-                enabled = tab.enabled,
+                item = tab,
                 selected = tab == selectedTab,
                 beforeSelected = selectedIndex - index == 1,
                 isLast = tabs.lastIndex == index,
