@@ -77,7 +77,7 @@ List of the currently supported components:
 | Select             |             |        |              |           |
 | Slider             |             |        |              |           |
 | Structured list    |             |        |              |           |
-| Tabs               |             |        |              |           |
+| Tabs               |      ✅      |   ✅    |      ✅       |     ✅     |
 | Tags               |      ✅      |   ✅    |      ✅       |     ✅     |
 | Text input         |      ✅      |   ✅    |      ✅       |     ✅     |
 | Tile               |             |        |              |           |
