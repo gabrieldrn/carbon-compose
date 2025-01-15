@@ -20,9 +20,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.IntrinsicSize
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -30,6 +27,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
@@ -61,6 +63,22 @@ internal fun Tab(
             )
             .width(IntrinsicSize.Max)
             .background(backgroundColor)
+            .drawBehind {
+                when (variant) {
+                    TabVariant.Line -> drawIndicator(
+                        color = if (selected) colors.indicator else colors.bottomBorderUnselected,
+                        alignment = Alignment.Bottom
+                    )
+                    TabVariant.Contained -> {
+                        if (selected) {
+                            drawIndicator(color = colors.indicator, alignment = Alignment.Top)
+                        }
+                        if (!selected && !beforeSelected && !isLast) {
+                            drawSeparator(colors.verticalBorderUnselected)
+                        }
+                    }
+                }
+            }
             .clickable(enabled = item.enabled) { onClick() }
     ) {
         Text(
@@ -74,34 +92,31 @@ internal fun Tab(
                 Carbon.typography.bodyCompact01.copy(textColor)
             }
         )
-        if (variant == TabVariant.Line || selected) {
-            Spacer(
-                Modifier
-                    .align(
-                        when (variant) {
-                            TabVariant.Line -> Alignment.BottomCenter
-                            TabVariant.Contained -> Alignment.TopCenter
-                        }
-                    )
-                    .height(2.dp)
-                    .fillMaxWidth()
-                    .background(
-                        if (selected) {
-                            Carbon.theme.borderInteractive
-                        } else {
-                            colors.bottomBorderUnselected
-                        }
-                    )
-            )
-        }
-        if (variant == TabVariant.Contained && !selected && !beforeSelected && !isLast) {
-            Spacer(
-                Modifier
-                    .align(Alignment.CenterEnd)
-                    .width(1.dp)
-                    .fillMaxHeight()
-                    .background(colors.verticalBorderUnselected)
-            )
-        }
     }
+}
+
+private fun DrawScope.drawIndicator(
+    color: Color,
+    alignment: Alignment.Vertical
+) {
+    val y = when (alignment) {
+        Alignment.Top -> 0f
+        Alignment.Bottom -> size.height - 2.dp.toPx()
+        else -> error("Unsupported alignment: $alignment")
+    }
+    drawRect(
+        color = color,
+        topLeft = Offset(0f, y),
+        size = Size(width = size.width, height = 2.dp.toPx())
+    )
+}
+
+private fun DrawScope.drawSeparator(
+    color: Color
+) {
+    drawRect(
+        color = color,
+        topLeft = Offset(size.width - 1.dp.toPx(), 0f),
+        size = Size(width = 1.dp.toPx(), height = size.height)
+    )
 }
