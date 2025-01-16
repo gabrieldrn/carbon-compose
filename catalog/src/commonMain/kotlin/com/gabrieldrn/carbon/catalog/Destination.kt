@@ -138,6 +138,7 @@ enum class Destination(
     StructuredList("Structured list"),
     Tabs(
         title = "Tabs",
+        illustration = Res.drawable.tile_tabs,
         route = "tabs",
         content = { modifier -> TabListDemoScreen(modifier = modifier) }
     ),
