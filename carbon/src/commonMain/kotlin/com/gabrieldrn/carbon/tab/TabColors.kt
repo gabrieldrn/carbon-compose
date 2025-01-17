@@ -39,50 +39,101 @@ internal class TabColors private constructor(
     private val variant: TabVariant
 ) {
 
-    private val backgroundColorUnselected = when {
+    val backgroundColorUnselected = when {
         variant == TabVariant.Line -> Color.Transparent
         layer == Layer.Layer00 -> theme.layerAccent01
         layer == Layer.Layer01 -> theme.layerAccent02
         else -> theme.layerAccent03
     }
 
-    private val backgroundColorSelected = when {
+    val backgroundColorSelected = when {
         variant == TabVariant.Line -> Color.Transparent
         layer == Layer.Layer00 -> theme.layer01
         layer == Layer.Layer01 -> theme.layer02
         else -> theme.layer03
     }
 
-    val indicator = theme.borderInteractive
+    val backgroundColorHovered = when {
+        variant == TabVariant.Line -> Color.Transparent
+        layer == Layer.Layer00 -> theme.layerAccentHover01
+        layer == Layer.Layer01 -> theme.layerAccentHover02
+        else -> theme.layerAccentHover03
+    }
 
-    val bottomBorderUnselected = when (layer) {
+    val backgroundColorPressed = when {
+        variant == TabVariant.Line -> Color.Transparent
+        layer == Layer.Layer00 -> theme.layerAccentActive01
+        layer == Layer.Layer01 -> theme.layerAccentActive02
+        else -> theme.layerAccentActive03
+    }
+
+    private val bottomBorderUnselected = when (layer) {
         Layer.Layer00 -> theme.borderSubtle01
         Layer.Layer01 -> theme.borderSubtle02
         Layer.Layer02, Layer.Layer03 -> theme.borderSubtle03
     }
 
-    val verticalBorderUnselected = when (layer) {
+    private val bottomBorderHover = when (layer) {
+        Layer.Layer00 -> theme.borderStrong01
+        Layer.Layer01 -> theme.borderStrong02
+        Layer.Layer02, Layer.Layer03 -> theme.borderStrong03
+    }
+
+    val topBorder = theme.borderInteractive
+
+    val verticalBorder = when (layer) {
         Layer.Layer00 -> theme.borderStrong01
         Layer.Layer01 -> theme.borderStrong02
         Layer.Layer02, Layer.Layer03 -> theme.borderStrong03
     }
 
     @Composable
-    fun backgroundColor(isSelected: Boolean): State<Color> =
+    fun background(
+        enabled: Boolean,
+        selected: Boolean,
+        hovered: Boolean,
+        pressed: Boolean
+    ): State<Color> =
         rememberUpdatedState(
             newValue = when {
                 variant == TabVariant.Line -> Color.Transparent
-                isSelected -> backgroundColorSelected
+                !enabled -> theme.buttonColors.buttonDisabled
+                selected -> backgroundColorSelected
+                hovered -> backgroundColorHovered
+                pressed -> backgroundColorPressed
                 else -> backgroundColorUnselected
             }
         )
 
     @Composable
-    fun tabLabelTextColor(isEnabled: Boolean, isSelected: Boolean): State<Color> =
+    fun bottomBorder(
+        enabled: Boolean,
+        selected: Boolean,
+        hovered: Boolean
+    ): State<Color> =
         rememberUpdatedState(
             newValue = when {
-                !isEnabled -> theme.textDisabled
-                isSelected -> theme.textPrimary
+                !enabled -> theme.borderDisabled
+                selected -> theme.borderInteractive
+                hovered -> bottomBorderHover
+                else -> bottomBorderUnselected
+            }
+        )
+
+    @Composable
+    fun labelText(
+        enabled: Boolean,
+        selected: Boolean,
+        hovered: Boolean
+    ): State<Color> =
+        rememberUpdatedState(
+            newValue = when {
+                !enabled -> when (variant) {
+                    TabVariant.Line -> theme.textDisabled
+                    TabVariant.Contained -> theme.textOnColorDisabled
+                }
+                hovered -> theme.textPrimary
+                selected -> theme.textPrimary
                 else -> theme.textSecondary
             }
         )
