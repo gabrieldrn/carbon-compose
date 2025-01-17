@@ -72,12 +72,12 @@ internal fun Tab(
         hovered = isHovered
     )
     val textColorAnimated by animateColorAsState(textColor)
-    val bottomBorder by colors.bottomBorder(
+    val bottomBorderColor by colors.bottomBorder(
         enabled = item.enabled,
         selected = selected,
         hovered = isHovered
     )
-    val bottomBorderAnimated by animateColorAsState(bottomBorder)
+    val bottomBorderColorAnimated by animateColorAsState(bottomBorderColor)
 
     Box(
         Modifier
@@ -87,12 +87,15 @@ internal fun Tab(
             .drawBehind {
                 when (variant) {
                     TabVariant.Line -> drawIndicator(
-                        color = bottomBorderAnimated,
-                        alignment = Alignment.Bottom
+                        color = bottomBorderColorAnimated,
+                        position = IndicatorPosition.Bottom
                     )
                     TabVariant.Contained -> {
                         if (selected) {
-                            drawIndicator(color = colors.topBorder, alignment = Alignment.Top)
+                            drawIndicator(
+                                color = colors.topBorder,
+                                position = IndicatorPosition.Top
+                            )
                         }
                         if (!selected && !beforeSelected && !isLast) {
                             drawSeparator(colors.verticalBorder)
@@ -123,14 +126,15 @@ internal fun Tab(
     }
 }
 
+private enum class IndicatorPosition { Top, Bottom }
+
 private fun DrawScope.drawIndicator(
     color: Color,
-    alignment: Alignment.Vertical
+    position: IndicatorPosition
 ) {
-    val y = when (alignment) {
-        Alignment.Top -> 0f
-        Alignment.Bottom -> size.height - 2.dp.toPx()
-        else -> error("Unsupported alignment: $alignment")
+    val y = when (position) {
+        IndicatorPosition.Top -> 0f
+        IndicatorPosition.Bottom -> size.height - 2.dp.toPx()
     }
     drawRect(
         color = color,
