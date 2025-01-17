@@ -37,6 +37,12 @@ class TabListTest {
     private var _variant by mutableStateOf(TabVariant.Line)
 
     private val rootTag = "root"
+    private val testTabItems = listOf(
+        TabItem(label = "Dashboard"),
+        TabItem(label = "Monitoring"),
+        TabItem(label = "Activity"),
+        TabItem(label = "Disabled", enabled = false)
+    )
 
     @Test
     fun tabList_validateLayout() = runComposeUiTest {
@@ -80,10 +86,3 @@ class TabListTest {
         }
     }
 }
-
-private val testTabItems = listOf(
-    TabItem(label = "Dashboard"),
-    TabItem(label = "Monitoring"),
-    TabItem(label = "Activity"),
-    TabItem(label = "Disabled", enabled = false)
-)
