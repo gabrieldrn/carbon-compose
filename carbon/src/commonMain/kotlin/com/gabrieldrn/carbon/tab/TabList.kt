@@ -35,6 +35,7 @@ import androidx.compose.ui.unit.dp
  * @param onTabSelected Callback invoked when a tab is selected. The selected [TabItem] is
  * passed as a parameter, and the callback should be used to update a remembered state with
  * the new value.
+ * @param modifier The modifier to apply to the composable.
  * @param variant The variant of the tab list.
  */
 @Composable
