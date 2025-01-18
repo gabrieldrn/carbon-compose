@@ -16,11 +16,25 @@
 
 package com.gabrieldrn.carbon.tab
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.animateScrollBy
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.gabrieldrn.carbon.Res
+import com.gabrieldrn.carbon.button.ButtonType
+import com.gabrieldrn.carbon.button.IconButton
+import com.gabrieldrn.carbon.ic_arrow_left
+import com.gabrieldrn.carbon.ic_arrow_right
+import kotlinx.coroutines.launch
+import org.jetbrains.compose.resources.painterResource
 
 /**
  * # Tabs
@@ -47,23 +61,52 @@ public fun TabList(
     variant: TabVariant = TabVariant.Line
 ) {
     val selectedIndex = tabs.indexOf(selectedTab)
+    val scrollState = rememberScrollState()
+    val colors = TabColors.colors(variant)
+    val scope = rememberCoroutineScope()
 
-    Row(
-        modifier = modifier,
-        horizontalArrangement = when (variant) {
-            TabVariant.Line -> Arrangement.spacedBy(1.dp)
-            TabVariant.Contained -> Arrangement.Start
+    Box(modifier = modifier) {
+        Row(
+            modifier = Modifier.horizontalScroll(scrollState),
+            horizontalArrangement = when (variant) {
+                TabVariant.Line -> Arrangement.spacedBy(1.dp)
+                TabVariant.Contained -> Arrangement.Start
+            }
+        ) {
+            tabs.forEachIndexed { index, tab ->
+                Tab(
+                    item = tab,
+                    selected = tab == selectedTab,
+                    beforeSelected = selectedIndex - index == 1,
+                    isLast = tabs.lastIndex == index,
+                    variant = variant,
+                    colors = colors,
+                    onClick = { onTabSelected(tab) }
+                )
+            }
         }
-    ) {
-        tabs.forEachIndexed { index, tab ->
-            Tab(
-                item = tab,
-                selected = tab == selectedTab,
-                beforeSelected = selectedIndex - index == 1,
-                isLast = tabs.lastIndex == index,
-                variant = variant,
-                onClick = { onTabSelected(tab) }
+
+        if (scrollState.canScrollBackward) {
+            IconButton(
+                modifier = Modifier
+                    .background(colors.scrollButtonBackground)
+                    .align(Alignment.CenterStart),
+                iconPainter = painterResource(Res.drawable.ic_arrow_left),
+                buttonType = ButtonType.Ghost,
+                onClick = { scope.launch { scrollState.animateScrollBy(-SCROLL_DISTANCE) } }
+            )
+        }
+        if (scrollState.canScrollForward) {
+            IconButton(
+                modifier = Modifier
+                    .background(colors.scrollButtonBackground)
+                    .align(Alignment.CenterEnd),
+                iconPainter = painterResource(Res.drawable.ic_arrow_right),
+                buttonType = ButtonType.Ghost,
+                onClick = { scope.launch { scrollState.animateScrollBy(SCROLL_DISTANCE) } }
             )
         }
     }
 }
+
+private const val SCROLL_DISTANCE = 100f
