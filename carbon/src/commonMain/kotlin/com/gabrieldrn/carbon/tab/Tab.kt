@@ -39,6 +39,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.foundation.interaction.FocusIndication
@@ -52,9 +53,9 @@ internal fun Tab(
     beforeSelected: Boolean,
     isLast: Boolean,
     variant: TabVariant,
+    colors: TabColors,
     onClick: () -> Unit
 ) {
-    val colors = TabColors.colors(variant)
     val interactionSource = remember { MutableInteractionSource() }
     val isHovered by interactionSource.collectIsHoveredAsState()
     val isPressed by interactionSource.collectIsPressedAsState()
@@ -121,7 +122,9 @@ internal fun Tab(
                 Carbon.typography.headingCompact01.copy(textColorAnimated)
             } else {
                 Carbon.typography.bodyCompact01.copy(textColorAnimated)
-            }
+            },
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis
         )
     }
 }

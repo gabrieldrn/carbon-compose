@@ -79,6 +79,22 @@ internal class TabColors private constructor(
         Layer.Layer02, Layer.Layer03 -> theme.borderStrong03
     }
 
+    val scrollButtonBackgroundLine = when (layer) {
+        Layer.Layer00 -> theme.background
+        Layer.Layer01 -> theme.layer01
+        Layer.Layer02 -> theme.layer02
+        Layer.Layer03 -> theme.layer03
+    }
+    val scrollButtonBackgroundContained = when (layer) {
+        Layer.Layer00 -> theme.layerAccent01
+        Layer.Layer01 -> theme.layerAccent02
+        else -> theme.layerAccent03
+    }
+    val scrollButtonBackground = when (variant) {
+        TabVariant.Line -> scrollButtonBackgroundLine
+        TabVariant.Contained -> scrollButtonBackgroundContained
+    }
+
     val topBorder = theme.borderInteractive
 
     val verticalBorder = when (layer) {
