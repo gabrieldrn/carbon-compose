@@ -27,14 +27,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.unit.dp
-import com.gabrieldrn.carbon.Res
 import com.gabrieldrn.carbon.button.ButtonType
 import com.gabrieldrn.carbon.button.IconButton
-import com.gabrieldrn.carbon.ic_arrow_left
-import com.gabrieldrn.carbon.ic_arrow_right
+import com.gabrieldrn.carbon.icons.arrowLeftIcon
+import com.gabrieldrn.carbon.icons.arrowRightIcon
 import kotlinx.coroutines.launch
-import org.jetbrains.compose.resources.painterResource
 
 /**
  * # Tabs
@@ -91,7 +90,7 @@ public fun TabList(
                 modifier = Modifier
                     .background(colors.scrollButtonBackground)
                     .align(Alignment.CenterStart),
-                iconPainter = painterResource(Res.drawable.ic_arrow_left),
+                iconPainter = rememberVectorPainter(arrowLeftIcon),
                 buttonType = ButtonType.Ghost,
                 onClick = { scope.launch { scrollState.animateScrollBy(-SCROLL_DISTANCE) } }
             )
@@ -101,7 +100,7 @@ public fun TabList(
                 modifier = Modifier
                     .background(colors.scrollButtonBackground)
                     .align(Alignment.CenterEnd),
-                iconPainter = painterResource(Res.drawable.ic_arrow_right),
+                iconPainter = rememberVectorPainter(arrowRightIcon),
                 buttonType = ButtonType.Ghost,
                 onClick = { scope.launch { scrollState.animateScrollBy(SCROLL_DISTANCE) } }
             )
