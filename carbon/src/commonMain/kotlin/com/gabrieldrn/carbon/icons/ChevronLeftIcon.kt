@@ -29,40 +29,36 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.foundation.color.LocalCarbonTheme
 
-private val arrowLeftIconWidth = 32f.dp
-private val arrowLeftIconHeight = 32f.dp
+private val chevronLeftIconWidth = 32f.dp
+private val chevronLeftIconHeight = 32f.dp
 
-internal val arrowLeftIcon: ImageVector
+internal val chevronLeftIcon: ImageVector
     get() = ImageVector.Builder(
-        name = "ArrowLeftIcon",
-        defaultWidth = arrowLeftIconWidth,
-        defaultHeight = arrowLeftIconHeight,
-        viewportWidth = arrowLeftIconWidth.value,
-        viewportHeight = arrowLeftIconHeight.value
+        name = "ChevronLeftIcon",
+        defaultWidth = chevronLeftIconWidth,
+        defaultHeight = chevronLeftIconHeight,
+        viewportWidth = chevronLeftIconWidth.value,
+        viewportHeight = chevronLeftIconHeight.value
     ).apply {
         path(fill = SolidColor(Color(0xFF000000))) {
-            moveTo(14f, 26f)
-            lineToRelative(1.41f, -1.41f)
-            lineToRelative(-7.58f, -7.59f)
-            lineToRelative(20.17f, 0f)
-            lineToRelative(0f, -2f)
-            lineToRelative(-20.17f, 0f)
-            lineToRelative(7.58f, -7.59f)
-            lineToRelative(-1.41f, -1.41f)
-            lineToRelative(-10f, 10f)
-            lineToRelative(10f, 10f)
+            moveTo(10f, 16f)
+            lineTo(20f, 6f)
+            lineTo(21.4f, 7.4f)
+            lineTo(12.8f, 16f)
+            lineTo(21.4f, 24.6f)
+            lineTo(20f, 26f)
             close()
         }
     }.build()
 
 @Composable
-internal fun ArrowLeftIcon(
+internal fun ChevronLeftIcon(
     modifier: Modifier = Modifier,
     tint: Color = LocalCarbonTheme.current.iconPrimary,
     size: Dp = 16.dp
 ) {
     Image(
-        imageVector = arrowLeftIcon,
+        imageVector = chevronLeftIcon,
         contentDescription = null,
         colorFilter = ColorFilter.tint(tint),
         modifier = modifier.requiredSize(size)

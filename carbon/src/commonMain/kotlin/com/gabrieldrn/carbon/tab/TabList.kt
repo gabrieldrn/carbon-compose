@@ -31,8 +31,8 @@ import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.button.ButtonType
 import com.gabrieldrn.carbon.button.IconButton
-import com.gabrieldrn.carbon.icons.arrowLeftIcon
-import com.gabrieldrn.carbon.icons.arrowRightIcon
+import com.gabrieldrn.carbon.icons.chevronLeftIcon
+import com.gabrieldrn.carbon.icons.chevronRightIcon
 import kotlinx.coroutines.launch
 
 /**
@@ -90,7 +90,7 @@ public fun TabList(
                 modifier = Modifier
                     .background(colors.scrollButtonBackground)
                     .align(Alignment.CenterStart),
-                iconPainter = rememberVectorPainter(arrowLeftIcon),
+                iconPainter = rememberVectorPainter(chevronLeftIcon),
                 buttonType = ButtonType.Ghost,
                 onClick = { scope.launch { scrollState.animateScrollBy(-SCROLL_DISTANCE) } }
             )
@@ -100,7 +100,7 @@ public fun TabList(
                 modifier = Modifier
                     .background(colors.scrollButtonBackground)
                     .align(Alignment.CenterEnd),
-                iconPainter = rememberVectorPainter(arrowRightIcon),
+                iconPainter = rememberVectorPainter(chevronRightIcon),
                 buttonType = ButtonType.Ghost,
                 onClick = { scope.launch { scrollState.animateScrollBy(SCROLL_DISTANCE) } }
             )
