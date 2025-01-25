@@ -90,8 +90,7 @@ internal fun ButtonSize.getContainerPaddings(isIconButton: Boolean) = when {
         top = 11.dp,
         bottom = 11.dp
     )
-    this == ButtonSize.LargeProductive,
-    this == ButtonSize.LargeExpressive -> PaddingValues(
+    this == ButtonSize.LargeProductive || this == ButtonSize.LargeExpressive -> PaddingValues(
         start = SpacingScale.spacing05,
         top = 14.dp,
         bottom = 14.dp

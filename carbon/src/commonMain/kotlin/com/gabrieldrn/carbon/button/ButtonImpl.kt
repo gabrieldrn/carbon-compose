@@ -27,10 +27,9 @@ import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.HoverInteraction
-import androidx.compose.foundation.interaction.Interaction
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.interaction.PressInteraction
+import androidx.compose.foundation.interaction.collectIsHoveredAsState
+import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
@@ -42,12 +41,12 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.InspectableModifier
@@ -59,7 +58,7 @@ import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.foundation.motion.Motion
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 
-internal fun <T : Any> getButtonTransitionSpec() = tween<T>(
+internal val buttonTransitionSpec = tween<Float>(
     durationMillis = Motion.Duration.fast01,
     easing = Motion.Entrance.productiveEasing
 )
@@ -77,14 +76,15 @@ private fun AnimatedContentTransitionScope<ButtonScope>.getContentTransition() =
         fadeIn(snap(), initialAlpha = 1f) togetherWith
             fadeOut(snap(), targetAlpha = 1f)
     } else {
-        fadeIn(getButtonTransitionSpec(), initialAlpha = 1f) togetherWith
-            fadeOut(getButtonTransitionSpec(), targetAlpha = 1f)
+        fadeIn(buttonTransitionSpec, initialAlpha = 1f) togetherWith
+            fadeOut(buttonTransitionSpec, targetAlpha = 1f)
     }
 
 internal data class ButtonScope(
     val colors: ButtonColors,
     val isEnabled: Boolean,
-    val interaction: Interaction?,
+    val isPressed: Boolean,
+    val isHovered: Boolean
 )
 
 @Composable
@@ -100,31 +100,34 @@ internal fun ButtonRowImpl(
 ) {
     val theme = Carbon.theme
     val colors = ButtonColors.colors(buttonType, isIconButton)
+    val indication = remember(theme, buttonType) { ButtonFocusIndication(theme, buttonType) }
+
     val containerColor = remember(colors) { Animatable(colors.containerColor) }
-    val indication = remember(buttonType) { ButtonFocusIndication(theme, buttonType) }
 
-    // TODO Move container + border drawing to the indication instance. Here, animations are a bit
-    //  delayed and doesn't cancel when spammed.
-    LaunchedEffect(isEnabled, colors) {
+    val buttonAnimationSpec = tween<Color>(
+        durationMillis = Motion.Duration.fast01,
+        easing = Motion.Entrance.productiveEasing
+    )
+
+    val isPressed by interactionSource.collectIsPressedAsState()
+    val isHovered by interactionSource.collectIsHoveredAsState()
+
+    // FIXME On mobile target, the animation seems to be delayed and a simple click is immediately
+    //  cancelling the animation. This is not the case on desktop and wasm targets.
+    // Note: The container color animation could have been implemented in the indication, but it
+    // would have required to pass the enabled state to the indication as a constructor argument,
+    // which is not ideal as it would cause extra recompositions.
+    LaunchedEffect(isEnabled, isPressed, isHovered, colors) {
         containerColor.animateTo(
-            targetValue = if (isEnabled) colors.containerColor else colors.containerDisabledColor,
-            animationSpec = snap()
+            targetValue = when {
+                !isEnabled -> colors.containerDisabledColor
+                isPressed -> colors.containerActiveColor
+                isHovered -> colors.containerHoverColor
+                else -> colors.containerColor
+            },
+            animationSpec = buttonAnimationSpec,
+            initialVelocity = containerColor.targetValue
         )
-    }
-
-    LaunchedEffect(interactionSource, isEnabled, containerColor, colors) {
-        interactionSource.interactions.collect {
-            if (!isEnabled) return@collect
-            containerColor.stop()
-            containerColor.animateTo(
-                targetValue = when (it) {
-                    is HoverInteraction.Enter -> colors.containerHoverColor
-                    is PressInteraction.Press -> colors.containerActiveColor
-                    else -> colors.containerColor
-                },
-                animationSpec = getButtonTransitionSpec()
-            )
-        }
     }
 
     Box(
@@ -158,20 +161,8 @@ internal fun ButtonRowImpl(
                 )
             ),
     ) {
-        val interaction by interactionSource.interactions.collectAsState(null)
-
-        val buttonScope by remember(
-            colors,
-            isEnabled,
-            interaction,
-        ) {
-            mutableStateOf(
-                ButtonScope(
-                    colors,
-                    isEnabled,
-                    interaction,
-                )
-            )
+        val buttonScope by remember(colors, isEnabled, isPressed, isHovered) {
+            mutableStateOf(ButtonScope(colors, isEnabled, isPressed, isHovered))
         }
 
         AnimatedContent(
@@ -202,8 +193,8 @@ internal fun Label(
         color = {
             when {
                 !scope.isEnabled -> scope.colors.labelDisabledColor
-                scope.interaction is HoverInteraction.Enter -> scope.colors.labelHoverColor
-                scope.interaction is PressInteraction.Press -> scope.colors.labelActiveColor
+                scope.isHovered -> scope.colors.labelHoverColor
+                scope.isPressed -> scope.colors.labelActiveColor
                 else -> scope.colors.labelColor
             }
         },
@@ -225,8 +216,8 @@ internal fun ButtonIcon(
         colorFilter = ColorFilter.tint(
             when {
                 !scope.isEnabled -> scope.colors.iconDisabledColor
-                scope.interaction is HoverInteraction.Enter -> scope.colors.iconHoverColor
-                scope.interaction is PressInteraction.Press -> scope.colors.iconActiveColor
+                scope.isHovered -> scope.colors.iconHoverColor
+                scope.isPressed -> scope.colors.iconActiveColor
                 else -> scope.colors.iconColor
             }
         ),
