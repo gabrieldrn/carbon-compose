@@ -16,11 +16,14 @@
 
 package com.gabrieldrn.carbon.contentswitcher
 
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.animateColor
 import androidx.compose.animation.core.animateFloat
-import androidx.compose.animation.core.snap
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.core.updateTransition
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.interaction.FocusInteraction
@@ -300,20 +303,6 @@ private fun ContentSwitcherButton(
         if (state.isSelected) 0f else 1f
     }
 
-    val contentColor by selectedTransition.animateColor(
-        transitionSpec = {
-            if (content is Painter || !initialState.isEnabled || !targetState.isEnabled) snap()
-            else getUpperContainerTransitionSpec()
-        },
-        label = "Content (Text/Painter) color"
-    ) { state ->
-        when {
-            !state.isEnabled -> colors.labelDisabledColor
-            state.isSelected -> colors.labelSelectedColor
-            else -> colors.labelUnselectedColor
-        }
-    }
-
     Box(
         modifier = modifier
             .selectable(
@@ -342,30 +331,48 @@ private fun ContentSwitcherButton(
             }
             .testTag(ContentSwitcherTestTags.BUTTON_CONTENT_ROOT)
     ) {
-        when (content) {
-            is String -> BasicText(
-                text = content,
-                style = Carbon.typography.bodyCompact01,
-                color = { contentColor },
-                maxLines = 1,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .align(Alignment.CenterStart)
-                    .padding(horizontal = SpacingScale.spacing05)
-                    .testTag(ContentSwitcherTestTags.BUTTON_TEXT)
-            )
-            is Painter -> Image(
-                painter = content,
-                contentDescription = contentDescription,
-                colorFilter = ColorFilter.tint(contentColor),
-                modifier = Modifier
-                    .padding(componentSize.iconPadding)
-                    .size(componentSize.iconSize)
-                    .align(Alignment.Center)
-                    .testTag(ContentSwitcherTestTags.BUTTON_IMAGE)
-            )
-            else -> {}
-        }
+        AnimatedContent(
+            targetState = buttonState,
+            transitionSpec = {
+                fadeIn(getUpperContainerTransitionSpec()) togetherWith
+                    fadeOut(getUpperContainerTransitionSpec())
+            },
+            label = "Content (Text/Painter) w/ color",
+            content = { buttonState ->
+                val contentColor = when {
+                    !buttonState.isEnabled -> colors.labelDisabledColor
+                    buttonState.isSelected -> colors.labelSelectedColor
+                    else -> colors.labelUnselectedColor
+                }
+
+                when (content) {
+                    is String -> Box(Modifier.fillMaxSize()) {
+                        BasicText(
+                            text = content,
+                            style = Carbon.typography.bodyCompact01,
+                            color = { contentColor },
+                            maxLines = 1,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .align(Alignment.CenterStart)
+                                .padding(horizontal = SpacingScale.spacing05)
+                                .testTag(ContentSwitcherTestTags.BUTTON_TEXT)
+                        )
+                    }
+                    is Painter -> Image(
+                        painter = content,
+                        contentDescription = contentDescription,
+                        colorFilter = ColorFilter.tint(contentColor),
+                        modifier = Modifier
+                            .padding(componentSize.iconPadding)
+                            .size(componentSize.iconSize)
+                            .align(Alignment.Center)
+                            .testTag(ContentSwitcherTestTags.BUTTON_IMAGE)
+                    )
+                    else -> {}
+                }
+            }
+        )
     }
 }
 

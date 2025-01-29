@@ -65,9 +65,7 @@ public fun IconButton(
     ) { buttonScope ->
         ButtonIcon(
             painter = iconPainter,
-            colors = buttonScope.colors,
-            isEnabled = isEnabled,
-            interactionSource = interactionSource,
+            scope = buttonScope,
             modifier = Modifier
                 .padding(start = SpacingScale.spacing05, top = SpacingScale.spacing05)
                 .size(SpacingScale.spacing05)
