@@ -17,8 +17,11 @@
 package com.gabrieldrn.carbon.icons
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.requiredSize
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
@@ -64,16 +67,54 @@ internal val warningFilledIcon: ImageVector
         }
     }.build()
 
+internal val warningFilledInnerIcon: ImageVector
+    get() = ImageVector.Builder(
+        name = "WarningFilledInnerIcon",
+        defaultWidth = iconWidth,
+        defaultHeight = iconHeight,
+        viewportWidth = iconWidth.value,
+        viewportHeight = iconHeight.value
+    ).apply {
+        path(fill = SolidColor(Color(0xFF000000))) {
+            moveTo(17.5f, 23.5f)
+            curveToRelative(0f, 0.8f, -0.7f, 1.5f, -1.5f, 1.5f)
+            curveToRelative(-0.8f, 0f, -1.5f, -0.7f, -1.5f, -1.5f)
+            reflectiveCurveTo(15.2f, 22f, 16f, 22f)
+            curveTo(16.8f, 22f, 17.5f, 22.7f, 17.5f, 23.5f)
+            close()
+
+            moveTo(17.1f, 8f)
+            horizontalLineToRelative(-2.2f)
+            verticalLineToRelative(11f)
+            horizontalLineToRelative(2.2f)
+            verticalLineTo(8f)
+            close()
+        }
+    }.build()
+
 @Composable
 internal fun WarningFilledIcon(
     modifier: Modifier = Modifier,
     tint: Color = Carbon.theme.iconPrimary,
+    innerTint: Color = Color.Transparent,
     size: Dp = 16.dp
 ) {
-    Image(
-        imageVector = warningFilledIcon,
-        contentDescription = null,
-        colorFilter = ColorFilter.tint(tint),
-        modifier = modifier.requiredSize(size)
-    )
+    Box(modifier = modifier.size(size)) {
+        Image(
+            imageVector = warningFilledIcon,
+            contentDescription = null,
+            colorFilter = ColorFilter.tint(tint),
+            modifier = modifier
+                .requiredSize(size)
+                .align(Alignment.Center)
+        )
+        Image(
+            imageVector = warningFilledInnerIcon,
+            contentDescription = null,
+            colorFilter = ColorFilter.tint(innerTint),
+            modifier = modifier
+                .requiredSize(size)
+                .align(Alignment.Center)
+        )
+    }
 }
