@@ -56,7 +56,7 @@ import com.gabrieldrn.carbon.foundation.interaction.FocusIndication
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 import com.gabrieldrn.carbon.foundation.text.Text
 import com.gabrieldrn.carbon.icons.WarningAltIcon
-import com.gabrieldrn.carbon.icons.WarningIcon
+import com.gabrieldrn.carbon.icons.WarningFilledIcon
 import com.gabrieldrn.carbon.semantics.readOnly
 import com.gabrieldrn.carbon.textinput.TextInputState.Companion.isFocusable
 
@@ -362,8 +362,9 @@ private fun StateIcon(
     modifier: Modifier = Modifier
 ) {
     when (state) {
-        TextInputState.Error -> WarningIcon(
-            modifier = modifier.testTag(TextInputTestTags.STATE_ICON_ERROR)
+        TextInputState.Error -> WarningFilledIcon(
+            modifier = modifier.testTag(TextInputTestTags.STATE_ICON_ERROR),
+            tint = Carbon.theme.supportError
         )
         TextInputState.Warning -> WarningAltIcon(
             modifier = modifier.testTag(TextInputTestTags.STATE_ICON_WARNING)

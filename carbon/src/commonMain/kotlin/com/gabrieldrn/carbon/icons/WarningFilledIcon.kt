@@ -27,50 +27,53 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.path
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.gabrieldrn.carbon.foundation.color.LocalCarbonTheme
+import com.gabrieldrn.carbon.Carbon
 
-private val warningIconWidth = 32f.dp
-private val warningIconHeight = 32f.dp
+private val iconWidth = 32f.dp
+private val iconHeight = 32f.dp
 
-internal val warningIcon: ImageVector
+internal val warningFilledIcon: ImageVector
     get() = ImageVector.Builder(
-        name = "ErrorIcon",
-        defaultWidth = warningIconWidth,
-        defaultHeight = warningIconHeight,
-        viewportWidth = warningIconWidth.value,
-        viewportHeight = warningIconHeight.value
+        name = "WarningFilledIcon",
+        defaultWidth = iconWidth,
+        defaultHeight = iconHeight,
+        viewportWidth = iconWidth.value,
+        viewportHeight = iconHeight.value
     ).apply {
         path(fill = SolidColor(Color(0xFF000000))) {
-            moveTo(16f, 0f)
-            curveTo(7.2f, 0f, 0f, 7.2f, 0f, 16f)
-            curveTo(0f, 24.8f, 7.2f, 32f, 16f, 32f)
-            curveTo(24.8f, 32f, 32f, 24.8f, 32f, 16f)
-            curveTo(32f, 7.2f, 24.8f, 0f, 16f, 0f)
+            moveTo(16f, 2f)
+            curveTo(8.3f, 2f, 2f, 8.3f, 2f, 16f)
+            reflectiveCurveToRelative(6.3f, 14f, 14f, 14f)
+            reflectiveCurveToRelative(14f, -6.3f, 14f, -14f)
+            curveTo(30f, 8.3f, 23.7f, 2f, 16f, 2f)
             close()
-            moveTo(14.7f, 6.9f)
-            horizontalLineTo(17.2f)
-            verticalLineTo(19.5f)
-            horizontalLineTo(14.7f)
-            verticalLineTo(6.9f)
+
+            moveTo(14.9f, 8f)
+            horizontalLineToRelative(2.2f)
+            verticalLineToRelative(11f)
+            horizontalLineToRelative(-2.2f)
+            verticalLineTo(8f)
             close()
-            moveTo(16f, 26.3f)
-            curveTo(15.1f, 26.3f, 14.3f, 25.5f, 14.3f, 24.6f)
-            curveTo(14.3f, 23.7f, 15.1f, 22.9f, 16f, 22.9f)
-            curveTo(16.9f, 22.9f, 17.7f, 23.7f, 17.7f, 24.6f)
-            curveTo(17.7f, 25.5f, 16.9f, 26.3f, 16f, 26.3f)
+
+            moveTo(16f, 25f)
+            curveToRelative(-0.8f, 0f, -1.5f, -0.7f, -1.5f, -1.5f)
+            reflectiveCurveTo(15.2f, 22f, 16f, 22f)
+            curveToRelative(0.8f, 0f, 1.5f, 0.7f, 1.5f, 1.5f)
+            reflectiveCurveTo(16.8f, 25f, 16f, 25f)
             close()
         }
     }.build()
 
 @Composable
-internal fun WarningIcon(
+internal fun WarningFilledIcon(
     modifier: Modifier = Modifier,
+    tint: Color = Carbon.theme.iconPrimary,
     size: Dp = 16.dp
 ) {
     Image(
-        imageVector = warningIcon,
+        imageVector = warningFilledIcon,
         contentDescription = null,
-        colorFilter = ColorFilter.tint(LocalCarbonTheme.current.supportError),
+        colorFilter = ColorFilter.tint(tint),
         modifier = modifier.requiredSize(size)
     )
 }

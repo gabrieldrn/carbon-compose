@@ -61,7 +61,7 @@ import com.gabrieldrn.carbon.foundation.motion.Motion
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 import com.gabrieldrn.carbon.foundation.text.Text
 import com.gabrieldrn.carbon.icons.WarningAltIcon
-import com.gabrieldrn.carbon.icons.WarningIcon
+import com.gabrieldrn.carbon.icons.WarningFilledIcon
 import com.gabrieldrn.carbon.semantics.readOnly
 
 private val dropdownTransitionSpecFloat = tween<Float>(
@@ -244,11 +244,12 @@ internal fun DropdownStateIcon(
                 .layoutId(DropdownFieldContentId.STATE_ICON)
                 .testTag(DropdownTestTags.FIELD_WARNING_ICON)
         )
-        is DropdownInteractiveState.Error -> WarningIcon(
+        is DropdownInteractiveState.Error -> WarningFilledIcon(
             modifier = modifier
                 .padding(horizontal = SpacingScale.spacing03)
                 .layoutId(DropdownFieldContentId.STATE_ICON)
-                .testTag(DropdownTestTags.FIELD_ERROR_ICON)
+                .testTag(DropdownTestTags.FIELD_ERROR_ICON),
+            tint = Carbon.theme.supportError
         )
         else -> {}
     }
