@@ -30,69 +30,92 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.path
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.gabrieldrn.carbon.foundation.color.LocalCarbonTheme
+import com.gabrieldrn.carbon.Carbon
 
-private val warningAltIconWidth = 32f.dp
-private val warningAltIconHeight = 32f.dp
+private val iconWidth = 32f.dp
+private val iconHeight = 32f.dp
 
 internal val warningAltIcon: ImageVector
     get() = ImageVector.Builder(
-        name = "WarningIcon",
-        defaultWidth = warningAltIconWidth,
-        defaultHeight = warningAltIconHeight,
-        viewportWidth = warningAltIconWidth.value,
-        viewportHeight = warningAltIconHeight.value
+        name = "WarningAltFilledIcon",
+        defaultWidth = iconWidth,
+        defaultHeight = iconHeight,
+        viewportWidth = iconWidth.value,
+        viewportHeight = iconHeight.value
     ).apply {
         path(fill = SolidColor(Color(0xFF000000))) {
-            moveTo(30.9f, 32f)
-            horizontalLineTo(1.1f)
-            curveTo(0.5f, 32f, 0f, 31.5f, 0f, 30.9f)
-            curveTo(0f, 30.7f, 0f, 30.5f, 0.1f, 30.5f)
-            lineTo(15f, 1.8f)
-            curveTo(15.3f, 1.2f, 15.9f, 1f, 16.4f, 1.3f)
-            curveTo(16.6f, 1.4f, 16.8f, 1.6f, 16.9f, 1.8f)
-            lineTo(31.8f, 30.4f)
-            curveTo(32.1f, 31f, 31.9f, 31.7f, 31.3f, 32f)
-            curveTo(31.2f, 32f, 31.1f, 32f, 31f, 32f)
+            moveTo(16.002f, 6.1714f)
+            horizontalLineToRelative(-.004f)
+            lineTo(4.6487f, 27.9966f)
+            lineTo(4.6506f, 28f)
+            horizontalLineTo(27.3494f)
+            lineToRelative(.0019f, -.0034f)
+            close()
+
+            moveTo(14.875f, 12f)
+            horizontalLineToRelative(2.25f)
+            verticalLineToRelative(9f)
+            horizontalLineToRelative(-2.25f)
+            close()
+
+            moveTo(16f, 26f)
+            arcToRelative(1.5f, 1.5f, 0f, true, true, 1.5f, -1.5f)
+            arcTo(1.5f, 1.5f, 0f, false, true, 16f, 26f)
+            close()
+
+            moveTo(29f, 30f)
+            horizontalLineTo(3f)
+            arcToRelative(1f, 1f, 0f, false, true, -.8872f, -1.4614f)
+            lineToRelative(13f, -25f)
+            arcToRelative(1f, 1f, 0f, false, true, 1.7744f, 0f)
+            lineToRelative(13f, 25f)
+            arcTo(1f, 1f, 0f, false, true, 29f, 30f)
+            close()
+
+            moveTo(4.6507f, 28f)
+            horizontalLineTo(27.3493f)
+            lineToRelative(.002f, -.0033f)
+            lineTo(16.002f, 6.1714f)
+            horizontalLineToRelative(-.004f)
+            lineTo(4.6487f, 27.9967f)
             close()
         }
     }.build()
 
 internal val warningAltInnerIcon: ImageVector
     get() = ImageVector.Builder(
-        name = "CheckboxWarningInnerIcon",
-        defaultWidth = warningAltIconWidth,
-        defaultHeight = warningAltIconHeight,
-        viewportWidth = warningAltIconWidth.value,
-        viewportHeight = warningAltIconHeight.value
+        name = "WarningAltFilledInnerIcon",
+        defaultWidth = iconWidth,
+        defaultHeight = iconHeight,
+        viewportWidth = iconWidth.value,
+        viewportHeight = iconHeight.value
     ).apply {
         path(fill = SolidColor(Color(0xFF000000))) {
-            moveTo(16f, 28f)
-            curveTo(15.1f, 28f, 14.3f, 27.2f, 14.3f, 26.3f)
-            curveTo(14.3f, 25.4f, 15.1f, 24.6f, 16f, 24.6f)
-            curveTo(16.9f, 24.6f, 17.7f, 25.4f, 17.7f, 26.3f)
-            curveTo(17.7f, 27.2f, 16.9f, 28f, 16f, 28f)
+            moveTo(16f, 26f)
+            arcToRelative(1.5f, 1.5f, 0f, true, true, 1.5f, -1.5f)
+            arcTo(1.5f, 1.5f, 0f, false, true, 16f, 26f)
             close()
 
-            moveTo(14.7f, 11.4f)
-            horizontalLineTo(17.2f)
-            verticalLineTo(21.7f)
-            horizontalLineTo(14.7f)
-            verticalLineTo(11.4f)
+            moveToRelative(-1.125f, -5f)
+            horizontalLineToRelative(2.25f)
+            verticalLineTo(12f)
+            horizontalLineToRelative(-2.25f)
             close()
         }
     }.build()
 
 @Composable
-internal fun WarningAltIcon(
+internal fun WarningAltFilledIcon(
     modifier: Modifier = Modifier,
+    tint: Color = Carbon.theme.iconPrimary,
+    innerTint: Color = Color.Transparent,
     size: Dp = 16.dp
 ) {
     Box(modifier = modifier.size(size)) {
         Image(
             imageVector = warningAltIcon,
             contentDescription = null,
-            colorFilter = ColorFilter.tint(LocalCarbonTheme.current.supportWarning),
+            colorFilter = ColorFilter.tint(tint),
             modifier = Modifier
                 .requiredSize(size)
                 .align(Alignment.Center)
@@ -100,6 +123,7 @@ internal fun WarningAltIcon(
         Image(
             imageVector = warningAltInnerIcon,
             contentDescription = null,
+            colorFilter = ColorFilter.tint(innerTint),
             modifier = Modifier
                 .requiredSize(size)
                 .align(Alignment.Center)

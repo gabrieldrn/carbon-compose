@@ -29,7 +29,7 @@ import com.gabrieldrn.carbon.icons.CloseIcon
 import com.gabrieldrn.carbon.icons.ErrorFilledIcon
 import com.gabrieldrn.carbon.icons.ViewIcon
 import com.gabrieldrn.carbon.icons.ViewOffIcon
-import com.gabrieldrn.carbon.icons.WarningAltIcon
+import com.gabrieldrn.carbon.icons.WarningAltFilledIcon
 import com.gabrieldrn.carbon.icons.WarningFilledIcon
 
 private class IconParameterProvider : PreviewParameterProvider<@Composable () -> Unit> {
@@ -39,7 +39,7 @@ private class IconParameterProvider : PreviewParameterProvider<@Composable () ->
         add { ErrorFilledIcon() }
         add { ViewIcon() }
         add { ViewOffIcon() }
-        add { WarningAltIcon() }
+        add { WarningAltFilledIcon() }
         add { WarningFilledIcon() }
     }.asSequence()
 }

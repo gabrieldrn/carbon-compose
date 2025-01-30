@@ -36,6 +36,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.PointerEventPass
@@ -60,7 +61,7 @@ import com.gabrieldrn.carbon.foundation.interaction.FocusIndication
 import com.gabrieldrn.carbon.foundation.motion.Motion
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 import com.gabrieldrn.carbon.foundation.text.Text
-import com.gabrieldrn.carbon.icons.WarningAltIcon
+import com.gabrieldrn.carbon.icons.WarningAltFilledIcon
 import com.gabrieldrn.carbon.icons.WarningFilledIcon
 import com.gabrieldrn.carbon.semantics.readOnly
 
@@ -238,11 +239,13 @@ internal fun DropdownStateIcon(
     modifier: Modifier = Modifier
 ) {
     when (state) {
-        is DropdownInteractiveState.Warning -> WarningAltIcon(
+        is DropdownInteractiveState.Warning -> WarningAltFilledIcon(
             modifier = modifier
                 .padding(horizontal = SpacingScale.spacing03)
                 .layoutId(DropdownFieldContentId.STATE_ICON)
-                .testTag(DropdownTestTags.FIELD_WARNING_ICON)
+                .testTag(DropdownTestTags.FIELD_WARNING_ICON),
+            tint = Carbon.theme.supportWarning,
+            innerTint = Color.Black
         )
         is DropdownInteractiveState.Error -> WarningFilledIcon(
             modifier = modifier
