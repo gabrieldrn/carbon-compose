@@ -27,6 +27,7 @@ import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 import com.gabrieldrn.carbon.icons.CheckmarkFilledIcon
 import com.gabrieldrn.carbon.icons.CloseIcon
 import com.gabrieldrn.carbon.icons.ErrorFilledIcon
+import com.gabrieldrn.carbon.icons.InformationFilledIcon
 import com.gabrieldrn.carbon.icons.ViewIcon
 import com.gabrieldrn.carbon.icons.ViewOffIcon
 import com.gabrieldrn.carbon.icons.WarningAltFilledIcon
@@ -41,10 +42,15 @@ private class IconParameterProvider : PreviewParameterProvider<@Composable () ->
         add { ViewOffIcon() }
         add { WarningAltFilledIcon() }
         add { WarningFilledIcon() }
+        add { InformationFilledIcon() }
     }.asSequence()
 }
 
-@Preview(showBackground = true, backgroundColor = 0xFFFFFFFF)
+@Preview(
+    showBackground = true,
+    backgroundColor = 0xFFFFFFFF,
+    device = "spec:width=1080px,height=2424px,dpi=640"
+)
 @Composable
 private fun IconPreview(
     @PreviewParameter(IconParameterProvider::class) icon: @Composable () -> Unit
