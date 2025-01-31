@@ -1532,6 +1532,27 @@ public final class com/gabrieldrn/carbon/loading/LoadingKt {
 	public static final fun SmallLoading (Landroidx/compose/ui/Modifier;Landroidx/compose/runtime/Composer;II)V
 }
 
+public final class com/gabrieldrn/carbon/notification/CalloutNotificationKt {
+	public static final fun CalloutNotification (Ljava/lang/String;Landroidx/compose/ui/text/AnnotatedString;Lcom/gabrieldrn/carbon/notification/NotificationStatus;Landroidx/compose/ui/Modifier;ZLandroidx/compose/runtime/Composer;II)V
+}
+
+public final class com/gabrieldrn/carbon/notification/ComposableSingletons$CalloutNotificationKt {
+	public static final field INSTANCE Lcom/gabrieldrn/carbon/notification/ComposableSingletons$CalloutNotificationKt;
+	public static field lambda-1 Lkotlin/jvm/functions/Function3;
+	public fun <init> ()V
+	public final fun getLambda-1$carbon ()Lkotlin/jvm/functions/Function3;
+}
+
+public final class com/gabrieldrn/carbon/notification/NotificationStatus : java/lang/Enum {
+	public static final field Error Lcom/gabrieldrn/carbon/notification/NotificationStatus;
+	public static final field Informational Lcom/gabrieldrn/carbon/notification/NotificationStatus;
+	public static final field Success Lcom/gabrieldrn/carbon/notification/NotificationStatus;
+	public static final field Warning Lcom/gabrieldrn/carbon/notification/NotificationStatus;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/gabrieldrn/carbon/notification/NotificationStatus;
+	public static fun values ()[Lcom/gabrieldrn/carbon/notification/NotificationStatus;
+}
+
 public final class com/gabrieldrn/carbon/progressbar/ProgressBarKt {
 	public static final fun IndeterminateProgressBar (Landroidx/compose/ui/Modifier;Ljava/lang/String;Ljava/lang/String;ZZLcom/gabrieldrn/carbon/progressbar/ProgressBarState;Lcom/gabrieldrn/carbon/progressbar/ProgressBarSize;Landroidx/compose/runtime/Composer;II)V
 	public static final fun ProgressBar (FLandroidx/compose/ui/Modifier;Ljava/lang/String;Ljava/lang/String;ZZLcom/gabrieldrn/carbon/progressbar/ProgressBarState;Lcom/gabrieldrn/carbon/progressbar/ProgressBarSize;Landroidx/compose/runtime/Composer;II)V

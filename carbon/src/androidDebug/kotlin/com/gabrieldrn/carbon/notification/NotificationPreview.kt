@@ -32,7 +32,7 @@ private class NotificationStatusParameterProvider : PreviewParameterProvider<Not
     )
 }
 
-@Preview
+@Preview(group = "Low contrast")
 @Composable
 private fun CalloutNotificationPreview(
     @PreviewParameter(NotificationStatusParameterProvider::class) status: NotificationStatus
@@ -44,6 +44,23 @@ private fun CalloutNotificationPreview(
                 append("Lorem ipsum dolor sit amet, consectetur adipiscing elit.")
             },
             status = status
+        )
+    }
+}
+
+@Preview(group = "High contrast")
+@Composable
+private fun CalloutNotificationHighContrastPreview(
+    @PreviewParameter(NotificationStatusParameterProvider::class) status: NotificationStatus
+) {
+    CarbonDesignSystem {
+        CalloutNotification(
+            title = "Callout Notification",
+            body = buildAnnotatedString {
+                append("Lorem ipsum dolor sit amet, consectetur adipiscing elit.")
+            },
+            status = status,
+            highContrast = true
         )
     }
 }

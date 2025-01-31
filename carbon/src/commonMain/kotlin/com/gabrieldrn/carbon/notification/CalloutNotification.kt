@@ -51,6 +51,7 @@ import com.gabrieldrn.carbon.icons.WarningFilledIcon
  * with formatting, allowing for links, bold text, etc.
  * @param status The status of the notification, which determines its color and icon used.
  * @param modifier The modifier to apply to the component.
+ * @param highContrast Whether to use high contrast colors.
  */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -59,8 +60,12 @@ public fun CalloutNotification(
     body: AnnotatedString,
     status: NotificationStatus,
     modifier: Modifier = Modifier,
+    highContrast: Boolean = false
 ) {
-    val colors = NotificationColors.rememberColors(status)
+    val colors = NotificationColors.rememberColors(
+        status = status,
+        useHighContrast = highContrast
+    )
 
     NotificationContainer(
         colors = colors,

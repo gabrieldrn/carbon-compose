@@ -26,43 +26,78 @@ import com.gabrieldrn.carbon.foundation.color.Theme
 @Immutable
 internal class NotificationColors private constructor(
     theme: Theme,
-    status: NotificationStatus
+    status: NotificationStatus,
+    useHighContrast: Boolean,
 ) {
-    val titleColor = theme.textPrimary
-
-    val bodyColor = theme.textPrimary
-
-    val backgroundColor = when (status) {
-        NotificationStatus.Informational -> theme.notificationColors.notificationBackgroundInfo
-        NotificationStatus.Success -> theme.notificationColors.notificationBackgroundSuccess
-        NotificationStatus.Warning -> theme.notificationColors.notificationBackgroundWarning
-        NotificationStatus.Error -> theme.notificationColors.notificationBackgroundError
+    val titleColor = if (useHighContrast) {
+        theme.textInverse
+    } else {
+        theme.textPrimary
     }
 
-    val borderLeftColor = when (status) {
-        NotificationStatus.Informational -> theme.supportInfo
-        NotificationStatus.Success -> theme.supportSuccess
-        NotificationStatus.Warning -> theme.supportWarning
-        NotificationStatus.Error -> theme.supportError
+    val bodyColor = if (useHighContrast) {
+        theme.textInverse
+    } else {
+        theme.textPrimary
     }
 
-    val contourColor = when (status) {
-        NotificationStatus.Informational -> theme.supportInfo
-        NotificationStatus.Success -> theme.supportSuccess
-        NotificationStatus.Warning -> theme.supportWarning
-        NotificationStatus.Error -> theme.supportError
-    }
-        // Undocumented in Carbon website, but web implementations uses 40% alpha.
-        .copy(alpha = .4f)
-
-    val iconColor = when (status) {
-        NotificationStatus.Informational -> theme.supportInfo
-        NotificationStatus.Success -> theme.supportSuccess
-        NotificationStatus.Warning -> theme.supportWarning
-        NotificationStatus.Error -> theme.supportError
+    val backgroundColor = if (useHighContrast) {
+        theme.backgroundInverse
+    } else {
+        when (status) {
+            NotificationStatus.Informational -> theme.notificationColors.notificationBackgroundInfo
+            NotificationStatus.Success -> theme.notificationColors.notificationBackgroundSuccess
+            NotificationStatus.Warning -> theme.notificationColors.notificationBackgroundWarning
+            NotificationStatus.Error -> theme.notificationColors.notificationBackgroundError
+        }
     }
 
-    val iconInnerColor = if (status == NotificationStatus.Warning) {
+    val borderLeftColor = if (useHighContrast) {
+        when (status) {
+            NotificationStatus.Informational -> theme.supportInfoInverse
+            NotificationStatus.Success -> theme.supportSuccessInverse
+            NotificationStatus.Warning -> theme.supportWarningInverse
+            NotificationStatus.Error -> theme.supportErrorInverse
+        }
+    } else {
+        when (status) {
+            NotificationStatus.Informational -> theme.supportInfo
+            NotificationStatus.Success -> theme.supportSuccess
+            NotificationStatus.Warning -> theme.supportWarning
+            NotificationStatus.Error -> theme.supportError
+        }
+    }
+
+    val contourColor = if (useHighContrast) {
+        Color.Transparent
+    } else {
+        when (status) {
+            NotificationStatus.Informational -> theme.supportInfo
+            NotificationStatus.Success -> theme.supportSuccess
+            NotificationStatus.Warning -> theme.supportWarning
+            NotificationStatus.Error -> theme.supportError
+        }
+            // Undocumented in Carbon website, but web implementations uses 40% alpha.
+            .copy(alpha = .4f)
+    }
+
+    val iconColor = if (useHighContrast) {
+        when (status) {
+            NotificationStatus.Informational -> theme.supportInfoInverse
+            NotificationStatus.Success -> theme.supportSuccessInverse
+            NotificationStatus.Warning -> theme.supportWarningInverse
+            NotificationStatus.Error -> theme.supportErrorInverse
+        }
+    } else {
+        when (status) {
+            NotificationStatus.Informational -> theme.supportInfo
+            NotificationStatus.Success -> theme.supportSuccess
+            NotificationStatus.Warning -> theme.supportWarning
+            NotificationStatus.Error -> theme.supportError
+        }
+    }
+
+    val iconInnerColor = if (useHighContrast || status == NotificationStatus.Warning) {
         Color.Black
     } else {
         Color.Transparent
@@ -73,9 +108,10 @@ internal class NotificationColors private constructor(
         @Composable
         fun rememberColors(
             status: NotificationStatus,
+            useHighContrast: Boolean,
             theme: Theme = Carbon.theme,
-        ): NotificationColors = remember(theme, status) {
-            NotificationColors(theme, status)
+        ): NotificationColors = remember(theme, status, useHighContrast) {
+            NotificationColors(theme, status, useHighContrast)
         }
     }
 }
