@@ -41,7 +41,7 @@ private fun CalloutNotificationPreview(
         CalloutNotification(
             title = "Callout Notification",
             body = buildAnnotatedString {
-                append("This is a callout notification")
+                append("Lorem ipsum dolor sit amet, consectetur adipiscing elit.")
             },
             status = status
         )

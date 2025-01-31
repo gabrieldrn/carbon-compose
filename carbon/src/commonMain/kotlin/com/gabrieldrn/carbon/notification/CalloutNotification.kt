@@ -30,6 +30,10 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
+import com.gabrieldrn.carbon.icons.CheckmarkFilledIcon
+import com.gabrieldrn.carbon.icons.ErrorFilledIcon
+import com.gabrieldrn.carbon.icons.InformationFilledIcon
+import com.gabrieldrn.carbon.icons.WarningFilledIcon
 
 /**
  * # Callout notification
@@ -62,22 +66,65 @@ public fun CalloutNotification(
         colors = colors,
         modifier = modifier
     ) {
-        FlowRow(
-            horizontalArrangement = Arrangement.spacedBy(4.dp),
-            verticalArrangement = Arrangement.spacedBy(2.dp),
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            BasicText(
-                text = title,
-                style = Carbon.typography.headingCompact01,
-                color = { colors.titleColor }
+        Row {
+            Icon(
+                status = status,
+                colors = colors,
             )
-            BasicText(
-                text = body,
-                style = Carbon.typography.bodyCompact01,
-                color = { colors.bodyColor }
-            )
+
+            FlowRow(
+                horizontalArrangement = Arrangement.spacedBy(4.dp),
+                verticalArrangement = Arrangement.spacedBy(2.dp),
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(start = SpacingScale.spacing05)
+            ) {
+                BasicText(
+                    text = title,
+                    style = Carbon.typography.headingCompact01,
+                    color = { colors.titleColor }
+                )
+                BasicText(
+                    text = body,
+                    style = Carbon.typography.bodyCompact01,
+                    color = { colors.bodyColor }
+                )
+            }
         }
+    }
+}
+
+private val iconSize = 20.dp
+
+@Composable
+private fun Icon(
+    status: NotificationStatus,
+    colors: NotificationColors,
+    modifier: Modifier = Modifier
+) {
+    when (status) {
+        NotificationStatus.Informational -> InformationFilledIcon(
+            tint = colors.iconColor,
+            innerTint = colors.iconInnerColor,
+            size = iconSize,
+            modifier = modifier
+        )
+        NotificationStatus.Success -> CheckmarkFilledIcon(
+            tint = colors.iconColor,
+            size = iconSize,
+            modifier = modifier
+        )
+        NotificationStatus.Warning -> WarningFilledIcon(
+            tint = colors.iconColor,
+            innerTint = colors.iconInnerColor,
+            size = iconSize,
+            modifier = modifier
+        )
+        NotificationStatus.Error -> ErrorFilledIcon(
+            tint = colors.iconColor,
+            size = iconSize,
+            modifier = modifier
+        )
     }
 }
 
