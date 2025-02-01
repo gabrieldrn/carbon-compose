@@ -44,6 +44,7 @@ import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.button.IconButton
 import com.gabrieldrn.carbon.catalog.Res
+import com.gabrieldrn.carbon.catalog.common.LayerSelectionDropdown
 import com.gabrieldrn.carbon.catalog.content_switcher_demo_opt1_description
 import com.gabrieldrn.carbon.catalog.content_switcher_demo_opt2_description
 import com.gabrieldrn.carbon.catalog.content_switcher_demo_opt3_description
@@ -54,7 +55,6 @@ import com.gabrieldrn.carbon.catalog.ic_bus
 import com.gabrieldrn.carbon.catalog.ic_sailboat_offshore
 import com.gabrieldrn.carbon.catalog.ic_subtract
 import com.gabrieldrn.carbon.catalog.ic_train
-import com.gabrieldrn.carbon.catalog.misc.LayerSelectionDropdown
 import com.gabrieldrn.carbon.contentswitcher.ContentSwitcher
 import com.gabrieldrn.carbon.contentswitcher.ContentSwitcherSize
 import com.gabrieldrn.carbon.contentswitcher.IconContentSwitcher

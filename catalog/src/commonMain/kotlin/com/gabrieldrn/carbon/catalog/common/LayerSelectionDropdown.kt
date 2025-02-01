@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 Gabriel Derrien
+ * Copyright 2024-2025 Gabriel Derrien
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.gabrieldrn.carbon.catalog.misc
+package com.gabrieldrn.carbon.catalog.common
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
