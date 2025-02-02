@@ -97,7 +97,7 @@ internal class NotificationColors private constructor(
         }
     }
 
-    val iconInnerColor = if (useHighContrast || status == NotificationStatus.Warning) {
+    val iconInnerColor = if (status == NotificationStatus.Warning) {
         Color.Black
     } else {
         Color.Transparent
