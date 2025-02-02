@@ -1,0 +1,55 @@
+<!--
+  ~ Copyright 2025 Gabriel Derrien
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+        android:width="320dp"
+        android:height="320dp"
+        android:viewportWidth="320"
+        android:viewportHeight="320">
+    <path
+        android:fillColor="#FFF0F1"
+        android:pathData="M56.25,131.25h207.5v58.5h-207.5z"
+        android:strokeWidth="0.5"
+        android:strokeColor="#DA1E28"/>
+    <path
+        android:fillColor="#DA1E28"
+        android:pathData="M56,131h3v59h-3z"/>
+    <path
+        android:fillColor="#DA1E28"
+        android:pathData="M76,150m6.13,0a6.13,6.13 0,1 0,-12.25 0a6.13,6.13 0,1 0,12.25 0"/>
+    <group>
+        <clip-path
+            android:pathData="M76,150m6.13,0a6.13,6.13 0,1 0,-12.25 0a6.13,6.13 0,1 0,12.25 0"/>
+    </group>
+    <path
+        android:fillColor="#ffffff"
+        android:fillType="evenOdd"
+        android:pathData="M79.06,147.63L78.37,146.93L72.94,152.36L73.63,153.06L79.06,147.63Z"/>
+    <group>
+        <clip-path
+            android:fillType="evenOdd"
+            android:pathData="M79.06,147.63L78.37,146.93L72.94,152.36L73.63,153.06L79.06,147.63Z"/>
+    </group>
+    <path
+        android:fillColor="#A8A8A8"
+        android:pathData="M91,147h84v6h-84z"/>
+    <path
+        android:fillColor="#C6C6C6"
+        android:pathData="M91,169h128v6h-128z"/>
+    <path
+        android:fillColor="#C6C6C6"
+        android:pathData="M91,158h145.28v6h-145.28z"/>
+</vector>

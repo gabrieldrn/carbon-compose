@@ -110,7 +110,7 @@ enum class Destination(
     ),
     Notification(
         "Notification",
-        illustration = null,
+        illustration = Res.drawable.tile_notification,
         route = "notification",
         content = { modifier -> NotificationDemoScreen(modifier = modifier) }
     ),
