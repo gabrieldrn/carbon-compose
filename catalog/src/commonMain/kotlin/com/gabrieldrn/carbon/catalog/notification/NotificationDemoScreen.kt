@@ -52,6 +52,14 @@ fun NotificationDemoScreen(modifier: Modifier = Modifier) {
     }
 
     val parametersContent: @Composable ColumnScope.() -> Unit = {
+        CalloutNotification(
+            title = "",
+            body = buildAnnotatedString {
+                append("Other notification variants are a work in progress.")
+            },
+            status = NotificationStatus.Informational,
+        )
+
         Dropdown(
             placeholder = "Choose option",
             label = "Notification status",

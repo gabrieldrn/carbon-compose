@@ -17,7 +17,13 @@
 package com.gabrieldrn.carbon.notification
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -46,20 +52,20 @@ import com.gabrieldrn.carbon.icons.WarningFilledIcon
  *
  * (From [Notification documentation](https://carbondesignsystem.com/components/notification/usage/#callout))
  *
- * @param title The title of the notification.
  * @param body The body of the notification. This can be a simple string or a more complex text
  * with formatting, allowing for links, bold text, etc.
  * @param status The status of the notification, which determines its color and icon used.
  * @param modifier The modifier to apply to the component.
+ * @param title The title of the notification.
  * @param highContrast Whether to use high contrast colors.
  */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 public fun CalloutNotification(
-    title: String,
     body: AnnotatedString,
     status: NotificationStatus,
     modifier: Modifier = Modifier,
+    title: String = "",
     highContrast: Boolean = false
 ) {
     val colors = NotificationColors.rememberColors(
@@ -84,11 +90,13 @@ public fun CalloutNotification(
                     .weight(1f)
                     .padding(start = SpacingScale.spacing05)
             ) {
-                BasicText(
-                    text = title,
-                    style = Carbon.typography.headingCompact01,
-                    color = { colors.titleColor }
-                )
+                if (title.isNotBlank()) {
+                    BasicText(
+                        text = title,
+                        style = Carbon.typography.headingCompact01,
+                        color = { colors.titleColor }
+                    )
+                }
                 BasicText(
                     text = body,
                     style = Carbon.typography.bodyCompact01,
