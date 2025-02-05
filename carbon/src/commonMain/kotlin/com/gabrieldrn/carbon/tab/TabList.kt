@@ -22,6 +22,7 @@ import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
@@ -88,6 +89,7 @@ public fun TabList(
         if (scrollState.canScrollBackward) {
             IconButton(
                 modifier = Modifier
+                    .height(variant.height)
                     .background(colors.scrollButtonBackground)
                     .align(Alignment.CenterStart),
                 iconPainter = rememberVectorPainter(chevronLeftIcon),
@@ -98,6 +100,7 @@ public fun TabList(
         if (scrollState.canScrollForward) {
             IconButton(
                 modifier = Modifier
+                    .height(variant.height)
                     .background(colors.scrollButtonBackground)
                     .align(Alignment.CenterEnd),
                 iconPainter = rememberVectorPainter(chevronRightIcon),
