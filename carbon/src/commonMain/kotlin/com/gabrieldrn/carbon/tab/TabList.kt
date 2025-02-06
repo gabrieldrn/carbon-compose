@@ -22,14 +22,20 @@ import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.button.ButtonType
 import com.gabrieldrn.carbon.button.IconButton
 import com.gabrieldrn.carbon.icons.chevronLeftIcon
@@ -87,28 +93,52 @@ public fun TabList(
         }
 
         if (scrollState.canScrollBackward) {
-            IconButton(
-                modifier = Modifier
-                    .height(variant.height)
-                    .background(colors.scrollButtonBackground)
-                    .align(Alignment.CenterStart),
-                iconPainter = rememberVectorPainter(chevronLeftIcon),
-                buttonType = ButtonType.Ghost,
-                onClick = { scope.launch { scrollState.animateScrollBy(-SCROLL_DISTANCE) } }
-            )
+            Row(Modifier.align(Alignment.CenterStart)) {
+                IconButton(
+                    modifier = Modifier
+                        .height(variant.height)
+                        .background(colors.scrollButtonBackground),
+                    iconPainter = rememberVectorPainter(chevronLeftIcon),
+                    buttonType = ButtonType.Ghost,
+                    onClick = { scope.launch { scrollState.animateScrollBy(-SCROLL_DISTANCE) } }
+                )
+                if (variant == TabVariant.Line) {
+                    FadingEdge(height = variant.height)
+                }
+            }
         }
         if (scrollState.canScrollForward) {
-            IconButton(
-                modifier = Modifier
-                    .height(variant.height)
-                    .background(colors.scrollButtonBackground)
-                    .align(Alignment.CenterEnd),
-                iconPainter = rememberVectorPainter(chevronRightIcon),
-                buttonType = ButtonType.Ghost,
-                onClick = { scope.launch { scrollState.animateScrollBy(SCROLL_DISTANCE) } }
-            )
+            Row(Modifier.align(Alignment.CenterEnd)) {
+                if (variant == TabVariant.Line) {
+                    FadingEdge(height = variant.height, inversed = true)
+                }
+                IconButton(
+                    modifier = Modifier
+                        .height(variant.height)
+                        .background(colors.scrollButtonBackground),
+                    iconPainter = rememberVectorPainter(chevronRightIcon),
+                    buttonType = ButtonType.Ghost,
+                    onClick = { scope.launch { scrollState.animateScrollBy(SCROLL_DISTANCE) } }
+                )
+            }
         }
     }
+}
+
+@Composable
+private fun FadingEdge(height: Dp, inversed: Boolean = false) {
+    val containerColor = Carbon.theme.containerColor(Carbon.layer)
+    val brush = if (inversed) {
+        Brush.horizontalGradient(0f to Color.Transparent, 1f to containerColor)
+    } else {
+        Brush.horizontalGradient(0f to containerColor, 1f to Color.Transparent)
+    }
+    Spacer(
+        modifier = Modifier
+            .height(height)
+            .width(8.dp)
+            .background(brush)
+    )
 }
 
 private const val SCROLL_DISTANCE = 100f
