@@ -18,11 +18,10 @@ package com.gabrieldrn.carbon.notification
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
@@ -32,6 +31,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
@@ -77,32 +77,32 @@ public fun CalloutNotification(
         colors = colors,
         modifier = modifier
     ) {
-        Row {
-            Icon(
-                status = status,
-                colors = colors,
-            )
+        Icon(
+            status = status,
+            colors = colors,
+        )
 
-            FlowRow(
-                horizontalArrangement = Arrangement.spacedBy(4.dp),
-                verticalArrangement = Arrangement.spacedBy(2.dp),
-                modifier = Modifier
-                    .weight(1f)
-                    .padding(start = SpacingScale.spacing05)
-            ) {
-                if (title.isNotBlank()) {
-                    BasicText(
-                        text = title,
-                        style = Carbon.typography.headingCompact01,
-                        color = { colors.titleColor }
-                    )
-                }
+        FlowRow(
+            horizontalArrangement = Arrangement.spacedBy(4.dp),
+            verticalArrangement = Arrangement.spacedBy(2.dp),
+            modifier = Modifier
+                .weight(1f)
+                .padding(start = SpacingScale.spacing05)
+        ) {
+            if (title.isNotBlank()) {
                 BasicText(
-                    text = body,
-                    style = Carbon.typography.bodyCompact01,
-                    color = { colors.bodyColor }
+                    text = title,
+                    style = Carbon.typography.headingCompact01,
+                    color = { colors.titleColor },
+                    modifier = Modifier.testTag(NotificationTestTags.TITLE)
                 )
             }
+            BasicText(
+                text = body,
+                style = Carbon.typography.bodyCompact01,
+                color = { colors.bodyColor },
+                modifier = Modifier.testTag(NotificationTestTags.BODY)
+            )
         }
     }
 }
@@ -120,23 +120,23 @@ private fun Icon(
             tint = colors.iconColor,
             innerTint = colors.iconInnerColor,
             size = iconSize,
-            modifier = modifier
+            modifier = modifier.testTag(NotificationTestTags.ICON_INFORMATIONAL)
         )
         NotificationStatus.Success -> CheckmarkFilledIcon(
             tint = colors.iconColor,
             size = iconSize,
-            modifier = modifier
+            modifier = modifier.testTag(NotificationTestTags.ICON_SUCCESS)
         )
         NotificationStatus.Warning -> WarningFilledIcon(
             tint = colors.iconColor,
             innerTint = colors.iconInnerColor,
             size = iconSize,
-            modifier = modifier
+            modifier = modifier.testTag(NotificationTestTags.ICON_WARNING)
         )
         NotificationStatus.Error -> ErrorFilledIcon(
             tint = colors.iconColor,
             size = iconSize,
-            modifier = modifier
+            modifier = modifier.testTag(NotificationTestTags.ICON_ERROR)
         )
     }
 }
@@ -145,9 +145,9 @@ private fun Icon(
 private fun NotificationContainer(
     colors: NotificationColors,
     modifier: Modifier = Modifier,
-    content: @Composable BoxScope.() -> Unit = {}
+    content: @Composable RowScope.() -> Unit = {}
 ) {
-    Box(
+    Row(
         modifier = modifier
             .background(colors.backgroundColor)
             .drawWithContent {
@@ -168,7 +168,8 @@ private fun NotificationContainer(
                     size = Size(3f.dp.toPx(), size.height)
                 )
             }
-            .padding(SpacingScale.spacing05),
+            .padding(SpacingScale.spacing05)
+            .testTag(NotificationTestTags.CONTAINER),
         content = content
     )
 }
