@@ -104,7 +104,7 @@ internal fun WarningFilledIcon(
             imageVector = warningFilledIcon,
             contentDescription = null,
             colorFilter = ColorFilter.tint(tint),
-            modifier = modifier
+            modifier = Modifier
                 .requiredSize(size)
                 .align(Alignment.Center)
         )
@@ -112,7 +112,7 @@ internal fun WarningFilledIcon(
             imageVector = warningFilledInnerIcon,
             contentDescription = null,
             colorFilter = ColorFilter.tint(innerTint),
-            modifier = modifier
+            modifier = Modifier
                 .requiredSize(size)
                 .align(Alignment.Center)
         )

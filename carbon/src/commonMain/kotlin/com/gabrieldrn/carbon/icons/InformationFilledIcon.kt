@@ -108,7 +108,7 @@ internal fun InformationFilledIcon(
             imageVector = informationFilledIcon,
             contentDescription = null,
             colorFilter = ColorFilter.tint(tint),
-            modifier = modifier
+            modifier = Modifier
                 .requiredSize(size)
                 .align(Alignment.Center)
         )
@@ -116,7 +116,7 @@ internal fun InformationFilledIcon(
             imageVector = informationFilledInnerIcon,
             contentDescription = null,
             colorFilter = ColorFilter.tint(innerTint),
-            modifier = modifier
+            modifier = Modifier
                 .requiredSize(size)
                 .align(Alignment.Center)
         )
