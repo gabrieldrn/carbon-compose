@@ -1534,6 +1534,7 @@ public final class com/gabrieldrn/carbon/loading/LoadingKt {
 
 public final class com/gabrieldrn/carbon/notification/CalloutNotificationKt {
 	public static final fun CalloutNotification (Landroidx/compose/ui/text/AnnotatedString;Lcom/gabrieldrn/carbon/notification/NotificationStatus;Landroidx/compose/ui/Modifier;Ljava/lang/String;ZLandroidx/compose/runtime/Composer;II)V
+	public static final fun CalloutNotification (Ljava/lang/String;Lcom/gabrieldrn/carbon/notification/NotificationStatus;Landroidx/compose/ui/Modifier;Ljava/lang/String;ZLandroidx/compose/runtime/Composer;II)V
 }
 
 public final class com/gabrieldrn/carbon/notification/ComposableSingletons$CalloutNotificationKt {

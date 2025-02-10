@@ -107,6 +107,40 @@ public fun CalloutNotification(
     }
 }
 
+/**
+ * # Callout notification
+ *
+ * Callouts are used to highlight important information contextually within the contents of the
+ * page, and cannot be dismissed. Unlike other notification components they are not triggered by the
+ * user or system, rather they load with the contents of the page. They do not act as a feedback
+ * mechanism, they are persistent, and always present on the screen to provide necessary information
+ * to the user.
+ *
+ * (From [Notification documentation](https://carbondesignsystem.com/components/notification/usage/#callout))
+ *
+ * @param body The body of the notification.
+ * @param status The status of the notification, which determines its color and icon used.
+ * @param modifier The modifier to apply to the component.
+ * @param title The title of the notification.
+ * @param highContrast Whether to use high contrast colors.
+ */
+@Composable
+public fun CalloutNotification(
+    body: String,
+    status: NotificationStatus,
+    modifier: Modifier = Modifier,
+    title: String = "",
+    highContrast: Boolean = false
+) {
+    CalloutNotification(
+        body = AnnotatedString(body),
+        status = status,
+        modifier = modifier,
+        title = title,
+        highContrast = highContrast
+    )
+}
+
 private val iconSize = 20.dp
 
 @Composable
