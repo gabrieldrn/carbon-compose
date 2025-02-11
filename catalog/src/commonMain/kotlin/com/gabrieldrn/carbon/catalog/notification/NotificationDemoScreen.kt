@@ -18,6 +18,8 @@ package com.gabrieldrn.carbon.catalog.notification
 
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -34,17 +36,19 @@ import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.catalog.common.DemoScreenRoot
 import com.gabrieldrn.carbon.dropdown.Dropdown
 import com.gabrieldrn.carbon.dropdown.base.toDropdownOptions
+import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 import com.gabrieldrn.carbon.notification.CalloutNotification
 import com.gabrieldrn.carbon.notification.NotificationStatus
+import com.gabrieldrn.carbon.textinput.TextInput
 import com.gabrieldrn.carbon.toggle.Toggle
 
 @Composable
 fun NotificationDemoScreen(modifier: Modifier = Modifier) {
 
-    var notificationStatus by remember { mutableStateOf(NotificationStatus.Informational) }
+    var notificationStatus by remember { mutableStateOf(NotificationStatus.Success) }
     var highContrast by remember { mutableStateOf(false) }
 
-    val demoScreen: @Composable ColumnScope.() -> Unit = {
+    val urlDemoNotification: @Composable ColumnScope.() -> Unit = {
         val url = remember {
             "https://carbondesignsystem.com/components/notification/usage/#callout"
         }
@@ -74,6 +78,23 @@ fun NotificationDemoScreen(modifier: Modifier = Modifier) {
         )
     }
 
+    var title by remember {
+        mutableStateOf("Lorem ipsum")
+    }
+    var body by remember {
+        mutableStateOf("Lorem ipsum dolor sit amet, consectetur adipiscing elit.")
+    }
+
+    val editableDemoNotification: @Composable ColumnScope.() -> Unit = {
+        CalloutNotification(
+            title = title,
+            body = body,
+            status = notificationStatus,
+            highContrast = highContrast,
+            modifier = Modifier.width(IntrinsicSize.Max)
+        )
+    }
+
     val parametersContent: @Composable ColumnScope.() -> Unit = {
         CalloutNotification(
             title = "",
@@ -81,6 +102,20 @@ fun NotificationDemoScreen(modifier: Modifier = Modifier) {
                 append("Other notification variants are a work in progress.")
             },
             status = NotificationStatus.Informational,
+        )
+
+        TextInput(
+            label = "Title",
+            value = title,
+            onValueChange = { title = it },
+            placeholderText = "Enter a title"
+        )
+
+        TextInput(
+            label = "Body",
+            value = body,
+            onValueChange = { body = it },
+            placeholderText = "Enter a body"
         )
 
         Dropdown(
@@ -100,7 +135,13 @@ fun NotificationDemoScreen(modifier: Modifier = Modifier) {
 
     DemoScreenRoot(
         modifier = modifier,
-        demoContent = demoScreen,
+        demoContent = {
+            urlDemoNotification()
+
+            Spacer(modifier = Modifier.height(SpacingScale.spacing05))
+
+            editableDemoNotification()
+        },
         demoParametersContent = parametersContent
     )
 }
