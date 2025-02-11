@@ -25,7 +25,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.LinkAnnotation
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.TextLinkStyles
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.style.TextDecoration
+import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.catalog.common.DemoScreenRoot
 import com.gabrieldrn.carbon.dropdown.Dropdown
 import com.gabrieldrn.carbon.dropdown.base.toDropdownOptions
@@ -40,10 +45,28 @@ fun NotificationDemoScreen(modifier: Modifier = Modifier) {
     var highContrast by remember { mutableStateOf(false) }
 
     val demoScreen: @Composable ColumnScope.() -> Unit = {
+        val url = remember {
+            "https://carbondesignsystem.com/components/notification/usage/#callout"
+        }
         CalloutNotification(
             title = "Callout notification",
             body = buildAnnotatedString {
-                append("This is a callout notification.")
+                val clickableText = "callout notification"
+                val string = "This is a $clickableText."
+                append(string)
+                addLink(
+                    url = LinkAnnotation.Url(
+                        url = url,
+                        styles = TextLinkStyles(
+                            style = SpanStyle(
+                                color = Carbon.theme.linkPrimary,
+                                textDecoration = TextDecoration.Underline
+                            )
+                        ),
+                    ),
+                    start = string.indexOf(clickableText),
+                    end = string.indexOf(clickableText) + clickableText.length
+                )
             },
             status = notificationStatus,
             highContrast = highContrast,
