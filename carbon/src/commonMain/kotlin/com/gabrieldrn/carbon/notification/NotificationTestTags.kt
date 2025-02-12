@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 Gabriel Derrien
+ * Copyright 2025 Gabriel Derrien
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package com.gabrieldrn.carbon.icon
+package com.gabrieldrn.carbon.notification
 
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
-import com.gabrieldrn.carbon.icons.ViewOffIcon
-
-@Preview
-@Composable
-private fun IconPreview() {
-    ViewOffIcon()
+internal object NotificationTestTags {
+    const val CONTAINER = "carbon_notification_container"
+    const val ICON_INFORMATIONAL = "carbon_notification_icon_informational"
+    const val ICON_SUCCESS = "carbon_notification_icon_success"
+    const val ICON_WARNING = "carbon_notification_icon_warning"
+    const val ICON_ERROR = "carbon_notification_icon_error"
+    const val TITLE = "carbon_notification_title"
+    const val BODY = "carbon_notification_body"
 }

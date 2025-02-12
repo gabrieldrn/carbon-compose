@@ -45,9 +45,9 @@ import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.button.Button
 import com.gabrieldrn.carbon.button.IconButton
 import com.gabrieldrn.carbon.catalog.Res
+import com.gabrieldrn.carbon.catalog.common.LayerSelectionDropdown
 import com.gabrieldrn.carbon.catalog.ic_delete
 import com.gabrieldrn.carbon.catalog.ic_text_long_paragraph
-import com.gabrieldrn.carbon.catalog.misc.LayerSelectionDropdown
 import com.gabrieldrn.carbon.dropdown.Dropdown
 import com.gabrieldrn.carbon.dropdown.base.dropdownOptionsOf
 import com.gabrieldrn.carbon.dropdown.base.toDropdownOptions

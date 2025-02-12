@@ -35,77 +35,69 @@ import com.gabrieldrn.carbon.Carbon
 private val iconWidth = 32f.dp
 private val iconHeight = 32f.dp
 
-internal val warningAltIcon: ImageVector
+internal val informationFilledIcon: ImageVector
     get() = ImageVector.Builder(
-        name = "WarningAltFilledIcon",
+        name = "InformationFilledIcon",
         defaultWidth = iconWidth,
         defaultHeight = iconHeight,
         viewportWidth = iconWidth.value,
         viewportHeight = iconHeight.value
     ).apply {
         path(fill = SolidColor(Color(0xFF000000))) {
-            moveTo(16.002f, 6.1714f)
-            horizontalLineToRelative(-.004f)
-            lineTo(4.6487f, 27.9966f)
-            lineTo(4.6506f, 28f)
-            horizontalLineTo(27.3494f)
-            lineToRelative(.0019f, -.0034f)
+            moveTo(16f, 2f)
+            arcTo(14f, 14f, 0f, true, false, 30f, 16f)
+            arcTo(14f, 14f, 0f, false, false, 16f, 2f)
             close()
 
-            moveTo(14.875f, 12f)
-            horizontalLineToRelative(2.25f)
-            verticalLineToRelative(9f)
-            horizontalLineToRelative(-2.25f)
+            moveToRelative(0f, 6f)
+            arcToRelative(1.5f, 1.5f, 0f, true, true, -1.5f, 1.5f)
+            arcTo(1.5f, 1.5f, 0f, false, true, 16f, 8f)
             close()
 
-            moveTo(16f, 26f)
-            arcToRelative(1.5f, 1.5f, 0f, true, true, 1.5f, -1.5f)
-            arcTo(1.5f, 1.5f, 0f, false, true, 16f, 26f)
-            close()
-
-            moveTo(29f, 30f)
-            horizontalLineTo(3f)
-            arcToRelative(1f, 1f, 0f, false, true, -.8872f, -1.4614f)
-            lineToRelative(13f, -25f)
-            arcToRelative(1f, 1f, 0f, false, true, 1.7744f, 0f)
-            lineToRelative(13f, 25f)
-            arcTo(1f, 1f, 0f, false, true, 29f, 30f)
-            close()
-
-            moveTo(4.6507f, 28f)
-            horizontalLineTo(27.3493f)
-            lineToRelative(.002f, -.0033f)
-            lineTo(16.002f, 6.1714f)
-            horizontalLineToRelative(-.004f)
-            lineTo(4.6487f, 27.9967f)
+            moveToRelative(4f, 16.125f)
+            horizontalLineTo(12f)
+            verticalLineToRelative(-2.25f)
+            horizontalLineToRelative(2.875f)
+            verticalLineToRelative(-5.75f)
+            horizontalLineTo(13f)
+            verticalLineToRelative(-2.25f)
+            horizontalLineToRelative(4.125f)
+            verticalLineToRelative(8f)
+            horizontalLineTo(20f)
             close()
         }
     }.build()
 
-internal val warningAltInnerIcon: ImageVector
+internal val informationFilledInnerIcon: ImageVector
     get() = ImageVector.Builder(
-        name = "WarningAltFilledInnerIcon",
+        name = "InformationFilledInnerIcon",
         defaultWidth = iconWidth,
         defaultHeight = iconHeight,
         viewportWidth = iconWidth.value,
         viewportHeight = iconHeight.value
     ).apply {
         path(fill = SolidColor(Color(0xFF000000))) {
-            moveTo(16f, 26f)
-            arcToRelative(1.5f, 1.5f, 0f, true, true, 1.5f, -1.5f)
-            arcTo(1.5f, 1.5f, 0f, false, true, 16f, 26f)
+            moveTo(16f, 8f)
+            arcToRelative(1.5f, 1.5f, 0f, true, true, -1.5f, 1.5f)
+            arcTo(1.5f, 1.5f, 0f, false, true, 16f, 8f)
             close()
 
-            moveToRelative(-1.125f, -5f)
-            horizontalLineToRelative(2.25f)
-            verticalLineTo(12f)
-            horizontalLineToRelative(-2.25f)
+            moveToRelative(4f, 13.875f)
+            horizontalLineTo(17.125f)
+            verticalLineToRelative(-8f)
+            horizontalLineTo(13f)
+            verticalLineToRelative(2.25f)
+            horizontalLineToRelative(1.875f)
+            verticalLineToRelative(5.75f)
+            horizontalLineTo(12f)
+            verticalLineToRelative(2.25f)
+            horizontalLineToRelative(8f)
             close()
         }
     }.build()
 
 @Composable
-internal fun WarningAltFilledIcon(
+internal fun InformationFilledIcon(
     modifier: Modifier = Modifier,
     tint: Color = Carbon.theme.iconPrimary,
     innerTint: Color = Color.Transparent,
@@ -113,7 +105,7 @@ internal fun WarningAltFilledIcon(
 ) {
     Box(modifier = modifier.size(size)) {
         Image(
-            imageVector = warningAltIcon,
+            imageVector = informationFilledIcon,
             contentDescription = null,
             colorFilter = ColorFilter.tint(tint),
             modifier = Modifier
@@ -121,7 +113,7 @@ internal fun WarningAltFilledIcon(
                 .align(Alignment.Center)
         )
         Image(
-            imageVector = warningAltInnerIcon,
+            imageVector = informationFilledInnerIcon,
             contentDescription = null,
             colorFilter = ColorFilter.tint(innerTint),
             modifier = Modifier

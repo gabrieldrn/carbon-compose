@@ -23,6 +23,7 @@ import com.gabrieldrn.carbon.catalog.checkbox.CheckboxDemoScreen
 import com.gabrieldrn.carbon.catalog.contentswitcher.ContentSwitcherDemoScreen
 import com.gabrieldrn.carbon.catalog.dropdown.DropdownDemoScreen
 import com.gabrieldrn.carbon.catalog.dropdown.DropdownVariant
+import com.gabrieldrn.carbon.catalog.notification.NotificationDemoScreen
 import com.gabrieldrn.carbon.catalog.progressbar.ProgressBarDemoScreen
 import com.gabrieldrn.carbon.catalog.radiobutton.LoadingDemoScreen
 import com.gabrieldrn.carbon.catalog.radiobutton.RadioButtonDemoScreen
@@ -107,7 +108,12 @@ enum class Destination(
             )
         }
     ),
-    Notification("Notification"),
+    Notification(
+        "Notification",
+        illustration = Res.drawable.tile_notification,
+        route = "notification",
+        content = { modifier -> NotificationDemoScreen(modifier = modifier) }
+    ),
     NumberInput("Number input"),
     Pagination("Pagination"),
     ProgressBar(

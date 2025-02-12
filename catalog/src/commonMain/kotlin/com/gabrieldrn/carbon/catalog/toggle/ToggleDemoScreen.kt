@@ -40,7 +40,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
-import com.gabrieldrn.carbon.catalog.misc.LayerSelectionDropdown
+import com.gabrieldrn.carbon.catalog.common.LayerSelectionDropdown
 import com.gabrieldrn.carbon.dropdown.Dropdown
 import com.gabrieldrn.carbon.dropdown.base.dropdownOptionsOf
 import com.gabrieldrn.carbon.foundation.color.CarbonLayer

@@ -21,12 +21,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 import com.gabrieldrn.carbon.foundation.text.Text
-import com.gabrieldrn.carbon.icons.WarningAltIcon
-import com.gabrieldrn.carbon.icons.WarningIcon
+import com.gabrieldrn.carbon.icons.WarningAltFilledIcon
+import com.gabrieldrn.carbon.icons.WarningFilledIcon
 
 @Composable
 internal fun ErrorContent(
@@ -38,8 +39,9 @@ internal fun ErrorContent(
         modifier = modifier,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        WarningIcon(
-            modifier = Modifier.padding(SpacingScale.spacing01)
+        WarningFilledIcon(
+            modifier = Modifier.padding(SpacingScale.spacing01),
+            tint = Carbon.theme.supportError
         )
         Text(
             text = errorMessage,
@@ -60,7 +62,11 @@ internal fun WarningContent(
         modifier = modifier,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        WarningAltIcon(Modifier.padding(2.dp))
+        WarningAltFilledIcon(
+            modifier = Modifier.padding(2.dp),
+            tint = Carbon.theme.supportWarning,
+            innerTint = Color.Black
+        )
         Text(
             text = warningMessage,
             color = colors.warningMessageTextColor,
