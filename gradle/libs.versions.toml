@@ -15,7 +15,7 @@ androidxEspresso = "3.6.1"
 androidxNavigation = "2.7.0-alpha07"
 androidxTestExtJunit = "1.2.1"
 kotlinxSerializationJson = "1.7.3"
-composeScreenshot = "0.0.1-alpha02"
+composeScreenshot = "0.0.1-alpha08"
 
 # Community libraries
 kotlinPoet = "1.18.0"
@@ -33,6 +33,7 @@ settings = "1.2.0"
 [libraries]
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidxActivity" }
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidxAppcompat" }
+androidx-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "androidxCompose" }
 androidx-compose-ui-test = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "androidxCompose" }
 androidx-compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "androidxCompose" }
 androidx-navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "androidxNavigation" }

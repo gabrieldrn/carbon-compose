@@ -64,7 +64,9 @@ kotlin {
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
+            implementation(compose.foundation)
             implementation(compose.uiTest)
+            implementation(compose.uiTooling)
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
@@ -87,7 +89,7 @@ compose.resources {
 }
 
 android {
-    namespace = "carbon.compose"
+    namespace = "com.gabrieldrn.carbon"
 
     experimentalProperties["android.experimental.enableScreenshotTest"] = true
 
