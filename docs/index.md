@@ -43,6 +43,12 @@ will be updated accordingly over time.
 
 List of the currently supported components:
 
+✅ : Implemented
+
+🟡 : Partially implemented
+
+*empty* : Not implemented
+
 | Components         | Android  🤖 | iOS   | Desktop  🖥️ | wasmJs 🌐 |
 |--------------------|:-----------:|:------:|:------------:|:---------:|
 | Accordion          |             |        |              |           |
@@ -66,7 +72,7 @@ List of the currently supported components:
 | Menu buttons       |             |        |              |           |
 | Modal              |             |        |              |           |
 | Multi-Select       |      ✅      |   ✅    |      ✅       |     ✅     |
-| Notification       |             |        |              |           |
+| Notification       |     🟡      |   🟡   |      🟡      |    🟡     |
 | Number input       |             |        |              |           |
 | Pagination         |             |        |              |           |
 | Popover            |             |        |              |           |
