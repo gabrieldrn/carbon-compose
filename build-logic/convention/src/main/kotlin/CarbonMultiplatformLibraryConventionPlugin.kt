@@ -70,7 +70,9 @@ class CarbonMultiplatformLibraryConventionPlugin : Plugin<Project> {
         extensions.configure<ComposeCompilerGradlePluginExtension> {
             reportsDestination.set(layout.buildDirectory.dir("compose_compiler"))
             metricsDestination.set(layout.buildDirectory.dir("compose_compiler"))
-            stabilityConfigurationFile.set(file("${projectDir.absolutePath}/compose_compiler_config.conf"))
+            stabilityConfigurationFiles.add {
+                file("${projectDir.absolutePath}/compose_compiler_config.conf")
+            }
         }
     }
 }
