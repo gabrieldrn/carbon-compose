@@ -42,6 +42,9 @@ class CarbonApplicationConventionPlugin : Plugin<Project> {
             wasmJs {
                 browser()
                 binaries.executable()
+                compilerOptions {
+                    freeCompilerArgs.add("-Xwasm-debugger-custom-formatters")
+                }
             }
         }
 
