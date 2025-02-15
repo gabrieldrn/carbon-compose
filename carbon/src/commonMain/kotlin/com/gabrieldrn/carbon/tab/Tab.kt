@@ -54,6 +54,7 @@ internal fun Tab(
     isLast: Boolean,
     variant: TabVariant,
     colors: TabColors,
+    modifier: Modifier = Modifier,
     onClick: () -> Unit
 ) {
     val interactionSource = remember { MutableInteractionSource() }
@@ -81,7 +82,7 @@ internal fun Tab(
     val bottomBorderColorAnimated by animateColorAsState(bottomBorderColor)
 
     Box(
-        Modifier
+        modifier
             .height(variant.height)
             .width(IntrinsicSize.Max)
             .background(backgroundColorAnimated)
