@@ -18,6 +18,7 @@ package com.gabrieldrn.carbon.catalog
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import com.gabrieldrn.carbon.catalog.Destination.entries
 import com.gabrieldrn.carbon.catalog.buttons.ButtonDemoScreen
 import com.gabrieldrn.carbon.catalog.checkbox.CheckboxDemoScreen
 import com.gabrieldrn.carbon.catalog.contentswitcher.ContentSwitcherDemoScreen
@@ -28,6 +29,7 @@ import com.gabrieldrn.carbon.catalog.progressbar.ProgressBarDemoScreen
 import com.gabrieldrn.carbon.catalog.radiobutton.LoadingDemoScreen
 import com.gabrieldrn.carbon.catalog.radiobutton.RadioButtonDemoScreen
 import com.gabrieldrn.carbon.catalog.settings.SettingsScreen
+import com.gabrieldrn.carbon.catalog.tab.TabListDemoScreen
 import com.gabrieldrn.carbon.catalog.tag.TagDemoScreen
 import com.gabrieldrn.carbon.catalog.textinput.TextInputDemoScreen
 import com.gabrieldrn.carbon.catalog.toggle.ToggleDemoScreen
@@ -134,7 +136,12 @@ enum class Destination(
     Select("Select"),
     Slider("Slider"),
     StructuredList("Structured list"),
-    Tabs("Tabs"),
+    Tabs(
+        title = "Tabs",
+        illustration = Res.drawable.tile_tabs,
+        route = "tabs",
+        content = { modifier -> TabListDemoScreen(modifier = modifier) }
+    ),
     Tag(
         title = "Tag",
         illustration = Res.drawable.tile_tag,

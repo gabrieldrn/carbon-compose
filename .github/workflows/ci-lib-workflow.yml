@@ -265,24 +265,3 @@ jobs:
 
       - name: Build catalog app
         run: ./gradlew :catalog:build -x check
-
-  delete-cache:
-    name: Delete cache
-    permissions: write-all
-    if: always()
-    runs-on: ubuntu-latest
-    needs:
-      - lib-static-analysis
-      - lib-api-verification
-      - lib-tests-android
-      - lib-tests-desktop
-      - lib-tests-wasmjs
-      - catalog-app-build
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Delete cache
-        run: |
-          gh cache delete ${{ runner.os }}-gradle-${{ github.run_id }}
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
