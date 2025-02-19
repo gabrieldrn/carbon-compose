@@ -52,10 +52,10 @@ import com.gabrieldrn.carbon.dropdown.base.dpSize
  * @param expanded Whether the dropdown is expanded or not.
  * @param placeholder The text to be displayed in the field when no option is selected.
  * @param options The options to be displayed in the dropdown menu. A map signature ensures that the
- * @param selectedOption The currently selected option. When not null, the option associated with
- * this key will be displayed in the field.
  * keys are unique and can be used to identify the selected option. The strings associated with each
  * key are the texts to be displayed in the dropdown menu.
+ * @param selectedOption The currently selected option. When not null, the option associated with
+ * this key will be displayed in the field.
  * @param onOptionSelected Callback invoked when an option is selected. The selected option key is
  * passed as a parameter, and the callback should be used to update a remembered state with the new
  * value.
@@ -160,15 +160,17 @@ public fun <K : Any> Dropdown(
  * @param K Type to identify the options.
  * @param placeholder The text to be displayed in the field when no option is selected.
  * @param options The options to be displayed in the dropdown menu. A map signature ensures that the
- * @param selectedOption The currently selected option. When not null, the option associated with
- * this key will be displayed in the field.
  * keys are unique and can be used to identify the selected option. The strings associated with each
  * key are the texts to be displayed in the dropdown menu.
+ * @param selectedOption The currently selected option. When not null, the option associated with
+ * this key will be displayed in the field.
  * @param onOptionSelected Callback invoked when an option is selected. The selected option key is
  * passed as a parameter, and the callback should be used to update a remembered state with the new
  * value.
  * @param modifier The modifier to be applied to the dropdown.
- * @param label The label to be displayed above the dropdown field (optionnal).
+ * @param label The label to be displayed above the dropdown field (optionnal). NOTE: This label is
+ * provided as a convenience because its implementation may be very specific across contexts. You
+ * may need to implement your own label if the provided one does not meet your requirements.
  * @param state The [DropdownInteractiveState] of the dropdown.
  * @param dropdownSize The size of the dropdown, in terms of height. Defaults to
  * [DropdownSize.Large].

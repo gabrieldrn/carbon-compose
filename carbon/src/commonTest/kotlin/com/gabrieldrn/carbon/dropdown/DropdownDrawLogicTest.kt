@@ -28,21 +28,22 @@ class DropdownDrawLogicTest {
 
     @Test
     fun dropdownDrawLogic_getOptionsPopupHeightRatio_returnsCorrectValue() {
-        mapOf<Pair<Int, Int>, Float>(
-            1 to 0 to 1f,
-            1 to 1 to 1f,
-            1 to 2 to 1f,
-            2 to 0 to 1.5f,
-            2 to 1 to 1.5f,
-            2 to 2 to 2f,
-            3 to 0 to 1.5f,
-            3 to 1 to 1.5f,
-            3 to 2 to 2.5f,
-            3 to 3 to 3f,
-            4 to 3 to 3.5f,
+        // optionsSize, visibleItemsBeforeScroll, expectedRatio
+        listOf<Triple<Int, Int, Float>>(
+            Triple(0, 0, 0f),
+            Triple(1, 0, 1f),
+            Triple(1, 1, 1f),
+            Triple(1, 2, 1f),
+            Triple(2, 0, 1.5f),
+            Triple(2, 1, 1.5f),
+            Triple(2, 2, 2f),
+            Triple(3, 0, 1.5f),
+            Triple(3, 1, 1.5f),
+            Triple(3, 2, 2.5f),
+            Triple(3, 3, 3f),
+            Triple(4, 3, 3.5f),
         ).forEach {
-            val (optionsSize, visibleItems) = it.key
-            val expectedRatio = it.value
+            val (optionsSize, visibleItems, expectedRatio) = it
             val actualRatio = getOptionsPopupHeightRatio(
                 optionsSize = optionsSize,
                 visibleItemsBeforeScroll = visibleItems
