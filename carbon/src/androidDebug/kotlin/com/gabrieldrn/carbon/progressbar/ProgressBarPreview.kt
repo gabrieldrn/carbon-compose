@@ -25,7 +25,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 
 private class ProgressBarStateParameterProvider : PreviewParameterProvider<ProgressBarState> {
-    override val values = ProgressBarState.values().asSequence()
+    override val values = ProgressBarState.entries.asSequence()
 }
 
 @Preview(showBackground = true, backgroundColor = 0xFFFFFFFF)

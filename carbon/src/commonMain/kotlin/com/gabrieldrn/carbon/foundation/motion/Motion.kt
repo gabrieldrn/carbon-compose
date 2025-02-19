@@ -42,6 +42,7 @@ import androidx.compose.runtime.Immutable
  * boxes are great cases for expressive motion.
  */
 @Immutable
+@Suppress("ConstPropertyName")
 public object Motion {
 
     /**

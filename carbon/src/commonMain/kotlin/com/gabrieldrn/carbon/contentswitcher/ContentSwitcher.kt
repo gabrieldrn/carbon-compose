@@ -257,10 +257,10 @@ private fun <T : Any> ContentSwitcherBase(
 }
 
 @Composable
-private fun ContentSwitcherButton(
+private fun <T : Any> ContentSwitcherButton(
     index: Int,
     selectedOptionIndex: Int,
-    content: Any,
+    content: T,
     isEnabled: Boolean,
     componentSize: ContentSwitcherSize,
     colors: ContentSwitcherColors,

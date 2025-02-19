@@ -20,5 +20,5 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import com.gabrieldrn.carbon.foundation.color.Layer
 
 internal class LayerPreviewParameterProvider : PreviewParameterProvider<Layer> {
-    override val values: Sequence<Layer> = Layer.values().asSequence()
+    override val values: Sequence<Layer> = Layer.entries.asSequence()
 }

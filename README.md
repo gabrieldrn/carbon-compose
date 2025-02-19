@@ -4,7 +4,7 @@
 
 ![Carbon catalog pres](https://github.com/user-attachments/assets/d55e6893-ab18-498f-abec-1e2998dfe293)
 
-[![Kotlin](https://img.shields.io/badge/2.0.20-blue?logo=kotlin&logoColor=white&color=7F52FF)](http://kotlinlang.org)
+[![Kotlin](https://img.shields.io/badge/2.1.0-blue?logo=kotlin&logoColor=white&color=7F52FF)](http://kotlinlang.org)
 [![Compose Multiplatform](https://img.shields.io/badge/1.7.0-green?logo=jetpackcompose&logoColor=white&color=4284F3)](https://www.jetbrains.com/lp/compose-multiplatform)
 
 [![CI | compile & tests](https://github.com/gabrieldrn/carbon-compose/actions/workflows/ci-lib-workflow.yml/badge.svg)](https://github.com/gabrieldrn/carbon-compose/actions/workflows/ci-lib-workflow.yml)
