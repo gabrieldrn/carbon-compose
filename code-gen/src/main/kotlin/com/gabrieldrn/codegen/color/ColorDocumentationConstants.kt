@@ -64,10 +64,3 @@ val abstractThemeDoc =
 
         See [Themes guidelines](https://carbondesignsystem.com/guidelines/themes/overview/) for more information.
     """.trimIndent()
-
-val containerColorMemberDoc =
-    """
-        Returns the container color based on a provided [layer].
-        
-        @param layer Associated layer. Defaults to layer 00.
-    """.trimIndent()

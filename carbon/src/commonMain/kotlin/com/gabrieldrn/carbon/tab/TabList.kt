@@ -46,6 +46,7 @@ import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.button.ButtonType
 import com.gabrieldrn.carbon.button.IconButton
+import com.gabrieldrn.carbon.foundation.color.containerColor
 import com.gabrieldrn.carbon.icons.chevronLeftIcon
 import com.gabrieldrn.carbon.icons.chevronRightIcon
 import kotlinx.coroutines.CoroutineScope

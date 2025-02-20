@@ -19,7 +19,6 @@ package com.gabrieldrn.codegen
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
 import com.gabrieldrn.codegen.color.abstractThemeDoc
-import com.gabrieldrn.codegen.color.containerColorMemberDoc
 import com.gabrieldrn.codegen.color.deserializeColorTokens
 import com.gabrieldrn.codegen.color.g100ThemeDoc
 import com.gabrieldrn.codegen.color.g10ThemeDoc
@@ -48,7 +47,6 @@ private const val PACKAGE_ROOT = "com.gabrieldrn.carbon.foundation.color"
 private val sourcePath = Paths.get("carbon/src/commonMain/kotlin")
 
 //private val sourcePath = Paths.get("build/generated/kotlin")
-private val layerClass = ClassName(PACKAGE_ROOT, "Layer")
 private val themeAbstractionName = ClassName(PACKAGE_ROOT, "Theme")
 private val codeIndent = "    "
 private val generatedCodeMessage =
@@ -170,26 +168,6 @@ private fun generateThemeAbstraction(componentsAbstractions: List<ClassName>): T
         it.simpleName.replaceFirstChar { c -> c.lowercase() }
     }
 
-    val containerColorFuncSpec = FunSpec.builder("containerColor")
-        .addKdoc(containerColorMemberDoc)
-        .returns(Color::class)
-        .addParameter(
-            ParameterSpec.builder("layer", layerClass)
-                .defaultValue("Layer.Layer00")
-                .build()
-        )
-        .addStatement(
-            """
-                return when (layer) {
-                  Layer.Layer00 -> background
-                  Layer.Layer01 -> layer01
-                  Layer.Layer02 -> layer02
-                  Layer.Layer03 -> layer03
-                }
-            """.trimIndent()
-        )
-        .build()
-
     val copyAnonymousClass = TypeSpec.anonymousClassBuilder()
         .superclass(themeAbstractionName)
         .apply {
@@ -299,7 +277,7 @@ private fun generateThemeAbstraction(componentsAbstractions: List<ClassName>): T
             }
         )
         .addFunctions(
-            listOf(containerColorFuncSpec, copyThemeFuncSpec, equalsFunSpec, hashCodeFunSpec)
+            listOf(copyThemeFuncSpec, equalsFunSpec, hashCodeFunSpec)
         )
         .build()
 
