@@ -10,10 +10,6 @@ import com.gabrieldrn.carbon.foundation.color.button.ButtonColors
 import com.gabrieldrn.carbon.foundation.color.chat.ChatColors
 import com.gabrieldrn.carbon.foundation.color.notification.NotificationColors
 import com.gabrieldrn.carbon.foundation.color.tag.TagColors
-import kotlin.Any
-import kotlin.Boolean
-import kotlin.Int
-import kotlin.Suppress
 
 /**
  * Themes are used to modify existing components to fit a specific visual style. By using Carbon’s
@@ -240,18 +236,6 @@ public abstract class Theme {
     public abstract val notificationColors: NotificationColors
 
     public abstract val tagColors: TagColors
-
-    /**
-     * Returns the container color based on a provided [layer].
-     *
-     * @param layer Associated layer. Defaults to layer 00.
-     */
-    public fun containerColor(layer: Layer = Layer.Layer00): Color = when (layer) {
-      Layer.Layer00 -> background
-      Layer.Layer01 -> layer01
-      Layer.Layer02 -> layer02
-      Layer.Layer03 -> layer03
-    }
 
     @Suppress("LongMethod")
     internal fun copy(

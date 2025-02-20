@@ -28,6 +28,10 @@ import com.gabrieldrn.carbon.CarbonDesignSystem
 import com.gabrieldrn.carbon.dropdown.base.DropdownColors
 import com.gabrieldrn.carbon.dropdown.base.DropdownInteractiveState
 import com.gabrieldrn.carbon.foundation.color.Layer
+import com.gabrieldrn.carbon.foundation.color.layerActiveColor
+import com.gabrieldrn.carbon.foundation.color.layerHoverColor
+import com.gabrieldrn.carbon.foundation.color.layerSelectedColor
+import com.gabrieldrn.carbon.foundation.color.layerSelectedHoverColor
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -124,7 +128,7 @@ class DropdownColorsTest : BaseColorsTest() {
     }
 
     @Test
-    fun dropdownColors_chevronIconColor_colorsAreCorrect() = runComposeUiTest{
+    fun dropdownColors_chevronIconColor_colorsAreCorrect() = runComposeUiTest {
         val expectedColors: Map<Any, Any> =
             (interactiveStates.values + Layer.entries).associate {
                 if (it is DropdownInteractiveState.Disabled) it to theme.iconDisabled
@@ -210,26 +214,36 @@ class DropdownColorsTest : BaseColorsTest() {
     }
 
     @Test
-    fun dropdownColors_menuOptionBackgroundSelectedColor_colorsAreCorrect() = runComposeUiTest {
+    fun dropdownColors_menuOptionBackground_colorsAreCorrect() = runComposeUiTest {
         var result by mutableStateOf<Color>(Color.Unspecified)
 
-        forAllLayersAndStates(statesUnderTest = listOf(true, false)) { isSelected, layer ->
+        val expectedResults = mapOf(
+            Triple(false, false, false) to { Color.Transparent },
+            Triple(false, false, true) to { layer: Layer -> theme.layerActiveColor(layer) },
+            Triple(false, true, false) to { layer: Layer -> theme.layerHoverColor(layer) },
+            Triple(false, true, true) to { layer: Layer -> theme.layerActiveColor(layer) },
+            Triple(true, false, false) to { layer: Layer -> theme.layerSelectedColor(layer) },
+            Triple(true, false, true) to { layer: Layer -> theme.layerActiveColor(layer) },
+            Triple(true, true, false) to { layer: Layer -> theme.layerSelectedHoverColor(layer) },
+            Triple(true, true, true) to { layer: Layer -> theme.layerActiveColor(layer) },
+        )
+
+        forAllLayersAndStates(
+            statesUnderTest1 = listOf(true, false),
+            statesUnderTest2 = listOf(true, false),
+            statesUnderTest3 = listOf(true, false),
+        ) { isSelected, isHovered, isActive, layer ->
             result = DropdownColors
                 .colors()
-                .menuOptionBackgroundSelectedColor(isSelected = isSelected)
+                .menuOptionBackground(
+                    isSelected = isSelected,
+                    isHovered = isHovered,
+                    isActive = isActive
+                )
                 .value
 
             assertEquals(
-                expected = if (isSelected) {
-                    when (layer) {
-                        Layer.Layer00 -> theme.layerSelected01
-                        Layer.Layer01 -> theme.layerSelected02
-                        Layer.Layer02 -> theme.layerSelected03
-                        Layer.Layer03 -> theme.layerSelected03
-                    }
-                } else {
-                    Color.Transparent
-                },
+                expected = expectedResults[Triple(isSelected, isHovered, isActive)]!!(layer),
                 actual = result,
                 message = "isSelected: $isSelected, Layer: $layer"
             )

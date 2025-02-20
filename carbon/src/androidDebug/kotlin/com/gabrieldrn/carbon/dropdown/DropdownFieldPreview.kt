@@ -18,7 +18,6 @@ package com.gabrieldrn.carbon.dropdown
 
 import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.animation.core.rememberTransition
-import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -39,6 +38,7 @@ import com.gabrieldrn.carbon.dropdown.base.DropdownSize
 import com.gabrieldrn.carbon.dropdown.base.DropdownStateIcon
 import com.gabrieldrn.carbon.foundation.color.CarbonLayer
 import com.gabrieldrn.carbon.foundation.color.Layer
+import com.gabrieldrn.carbon.foundation.color.containerColor
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 
 private class DropdownLayerPreviewParameterProvider : PreviewParameterProvider<Layer> {
