@@ -86,7 +86,11 @@ internal fun <K : Any> DropdownPopupContent(
 
     // Option to focus on when the composition ends.
     val compositionEndTargetOption = remember(selectedOption, options) {
-        selectedOption ?: options.keys.first()
+        if (options.isEmpty()) {
+            null
+        } else {
+            selectedOption ?: options.keys.first()
+        }
     }
 
     LazyColumn(

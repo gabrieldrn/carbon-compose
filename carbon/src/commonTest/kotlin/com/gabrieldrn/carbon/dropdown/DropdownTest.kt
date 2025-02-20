@@ -25,6 +25,7 @@ import androidx.compose.ui.test.ComposeUiTest
 import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.assertIsNotDisplayed
 import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.onAllNodesWithTag
@@ -43,7 +44,7 @@ import kotlin.test.assertEquals
 
 class DropdownTest {
 
-    private val options = (0..9).associateWith { DropdownOption("Option $it") }
+    private var options by mutableStateOf((0..9).associateWith { DropdownOption("Option $it") })
     private val minVisibleItems = 4
 
     private var label by mutableStateOf<String?>("Dropdown")
@@ -98,6 +99,23 @@ class DropdownTest {
 
         onNode(hasTestTag(DropdownTestTags.MENU_OPTION).and(hasText("Option 9")))
             .assertIsDisplayed()
+
+        tearDown()
+    }
+
+    @Test
+    fun dropdown_optionsPopup_empty_validateLayout() = runComposeUiTest {
+        selectedOptionKey = null
+        options = mapOf()
+
+        setup()
+
+        isExpanded = true
+
+        onNodeWithTag(DropdownTestTags.POPUP_CONTENT)
+            .assertIsNotDisplayed()
+
+        onAllNodesWithTag(DropdownTestTags.MENU_OPTION).assertCountEquals(0)
 
         tearDown()
     }
