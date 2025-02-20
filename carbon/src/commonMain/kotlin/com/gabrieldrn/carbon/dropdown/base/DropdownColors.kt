@@ -24,6 +24,10 @@ import androidx.compose.ui.graphics.Color
 import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.foundation.color.Layer
 import com.gabrieldrn.carbon.foundation.color.Theme
+import com.gabrieldrn.carbon.foundation.color.layerActiveColor
+import com.gabrieldrn.carbon.foundation.color.layerHoverColor
+import com.gabrieldrn.carbon.foundation.color.layerSelectedColor
+import com.gabrieldrn.carbon.foundation.color.layerSelectedHoverColor
 
 /**
  * The colors used by the dropdown composable based on the current [theme].
@@ -121,15 +125,18 @@ internal class DropdownColors private constructor(
         )
 
     @Composable
-    fun menuOptionBackgroundSelectedColor(isSelected: Boolean): State<Color> =
+    fun menuOptionBackground(
+        isSelected: Boolean,
+        isHovered: Boolean,
+        isActive: Boolean
+    ): State<Color> =
         rememberUpdatedState(
-            newValue = with(theme) {
-                if (isSelected) when (layer) {
-                    Layer.Layer00 -> layerSelected01
-                    Layer.Layer01 -> layerSelected02
-                    else -> layerSelected03
-                }
-                else Color.Transparent
+            newValue = when {
+                isActive -> theme.layerActiveColor(layer)
+                !isSelected && isHovered -> theme.layerHoverColor(layer)
+                isSelected && isHovered -> theme.layerSelectedHoverColor(layer)
+                isSelected -> theme.layerSelectedColor(layer)
+                else -> Color.Transparent
             }
         )
 

@@ -67,4 +67,25 @@ abstract class BaseColorsTest {
             }
         }
     }
+
+    protected fun <T : Any, U : Any, V : Any> ComposeUiTest.forAllLayersAndStates(
+        statesUnderTest1: Collection<T>,
+        statesUnderTest2: Collection<U>,
+        statesUnderTest3: Collection<V>,
+        block: @Composable (state1: T, state2: U, state3: V, layer: Layer) -> Unit
+    ) {
+        setContent {
+            statesUnderTest1.forEach { state1 ->
+                statesUnderTest2.forEach { state2 ->
+                    statesUnderTest3.forEach { state3 ->
+                        Layer.entries.forEach { layer ->
+                            CarbonDesignSystem(theme = theme, layer = layer) {
+                                block(state1, state2, state3, layer)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

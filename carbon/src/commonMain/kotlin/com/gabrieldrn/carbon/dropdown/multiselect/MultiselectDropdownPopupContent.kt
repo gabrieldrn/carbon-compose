@@ -18,6 +18,8 @@ package com.gabrieldrn.carbon.dropdown.multiselect
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsHoveredAsState
+import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -136,10 +138,14 @@ private fun MultiselectDropdownMenuOption(
     modifier: Modifier = Modifier,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 ) {
-    val menuOptionBackgroundSelectedColor by colors.menuOptionBackgroundSelectedColor(
-        isSelected = isSelected
-    )
+    val isHovered by interactionSource.collectIsHoveredAsState()
+    val isPressed by interactionSource.collectIsPressedAsState()
 
+    val menuOptionBackgroundSelectedColor by colors.menuOptionBackground(
+        isSelected = isSelected,
+        isHovered = isHovered,
+        isActive = isPressed
+    )
     val menuOptionTextColor by colors.menuOptionTextColor(
         isEnabled = option.enabled,
         isSelected = isSelected
