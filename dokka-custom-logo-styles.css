@@ -1,0 +1,5 @@
+:root {
+    --dokka-logo-image-url: url('../images/carbon_docs_icon.png');
+    --dokka-logo-height: 40px;
+    --dokka-logo-width: 40px;
+}
