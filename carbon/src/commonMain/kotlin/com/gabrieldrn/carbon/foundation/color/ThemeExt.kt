@@ -29,3 +29,80 @@ public fun Theme.containerColor(layer: Layer = Layer.Layer00): Color = when (lay
     Layer.Layer02 -> layer02
     Layer.Layer03 -> layer03
 }
+
+/**
+ * Returns the `layer-active` color from this [Theme] based on the current [layer].
+ *
+ * @param layer Associated layer. Defaults to layer 00.
+ */
+public fun Theme.layerActiveColor(layer: Layer = Layer.Layer00): Color = when (layer) {
+    Layer.Layer00 -> layerActive01
+    Layer.Layer01 -> layerActive02
+    else -> layerActive03
+}
+
+/**
+ * Returns the `layer-hover` color from this [Theme] based on the current [layer].
+ *
+ * @param layer Associated layer. Defaults to layer 00.
+ */
+public fun Theme.layerHoverColor(layer: Layer = Layer.Layer00): Color = when (layer) {
+    Layer.Layer00 -> layerHover01
+    Layer.Layer01 -> layerHover02
+    else -> layerHover03
+}
+
+/**
+ * Returns the `layer-selected` color from this [Theme] based on the current [layer].
+ *
+ * @param layer Associated layer. Defaults to layer 00.
+ */
+public fun Theme.layerSelectedColor(layer: Layer = Layer.Layer00): Color = when (layer) {
+    Layer.Layer00 -> layerSelected01
+    Layer.Layer01 -> layerSelected02
+    else -> layerSelected03
+}
+
+/**
+ * Returns the `layer-selected-hover` color from this [Theme] based on the current [layer].
+ *
+ * @param layer Associated layer. Defaults to layer 00.
+ */
+public fun Theme.layerSelectedHoverColor(layer: Layer = Layer.Layer00): Color = when (layer) {
+    Layer.Layer00 -> layerSelectedHover01
+    Layer.Layer01 -> layerSelectedHover02
+    else -> layerSelectedHover03
+}
+
+/**
+ * Returns the `layer-accent` color from this [Theme] based on the current [layer].
+ *
+ * @param layer Associated layer. Defaults to layer 00.
+ */
+public fun Theme.layerAccentColor(layer: Layer = Layer.Layer00): Color = when (layer) {
+    Layer.Layer00 -> layerAccent01
+    Layer.Layer01 -> layerAccent02
+    else -> layerAccent03
+}
+
+/**
+ * Returns the `layer-accent-hover` color from this [Theme] based on the current [layer].
+ *
+ * @param layer Associated layer. Defaults to layer 00.
+ */
+public fun Theme.layerAccentHoverColor(layer: Layer = Layer.Layer00): Color = when (layer) {
+    Layer.Layer00 -> layerAccentHover01
+    Layer.Layer01 -> layerAccentHover02
+    else -> layerAccentHover03
+}
+
+/**
+ * Returns the `layer-accent-active` color from this [Theme] based on the current [layer].
+ *
+ * @param layer Associated layer. Defaults to layer 00.
+ */
+public fun Theme.layerAccentActiveColor(layer: Layer = Layer.Layer00): Color = when (layer) {
+    Layer.Layer00 -> layerAccentActive01
+    Layer.Layer01 -> layerAccentActive02
+    else -> layerAccentActive03
+}
