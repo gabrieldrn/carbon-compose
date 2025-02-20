@@ -61,7 +61,7 @@ List of the currently supported components:
 | Content switcher   |      ✅      |   ✅    |      ✅       |     ✅     |
 | Data table         |             |        |              |           |
 | Date picker        |             |        |              |           |
-| Dropdown           |      ✅      |   ✅    |      ✅       |     ✅     |
+| Dropdown           |     🟡      |   🟡   |      🟡      |    🟡     |
 | File uploader      |             |        |              |           |
 | Form               |             |        |              |           |
 | Inline loading     |             |        |              |           |
@@ -71,7 +71,6 @@ List of the currently supported components:
 | Menu               |             |        |              |           |
 | Menu buttons       |             |        |              |           |
 | Modal              |             |        |              |           |
-| Multi-Select       |      ✅      |   ✅    |      ✅       |     ✅     |
 | Notification       |     🟡      |   🟡   |      🟡      |    🟡     |
 | Number input       |             |        |              |           |
 | Pagination         |             |        |              |           |
@@ -83,9 +82,9 @@ List of the currently supported components:
 | Select             |             |        |              |           |
 | Slider             |             |        |              |           |
 | Structured list    |             |        |              |           |
-| Tabs               |      ✅      |   ✅    |      ✅       |     ✅     |
-| Tags               |      ✅      |   ✅    |      ✅       |     ✅     |
-| Text input         |      ✅      |   ✅    |      ✅       |     ✅     |
+| Tabs               |     🟡      |   🟡   |      🟡      |    🟡     |
+| Tags               |     🟡      |   🟡   |      🟡      |    🟡     |
+| Text input         |     🟡      |   🟡   |      🟡      |    🟡     |
 | Tile               |             |        |              |           |
 | Toggle             |      ✅      |   ✅    |      ✅       |     ✅     |
 | Toggletip          |             |        |              |           |
