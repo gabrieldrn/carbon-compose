@@ -24,7 +24,7 @@ jobs:
         run: ./gradlew :carbon:assemble --scan
 
       - name: Publish to MavenCentral
-        run: ./gradlew :carbon:publishAllPublicationsToMavenCentral --no-configuration-cache
+        run: ./gradlew :carbon:publishToMavenCentral --no-configuration-cache
         env:
           ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
           ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}

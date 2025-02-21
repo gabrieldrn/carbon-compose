@@ -1,4 +1,6 @@
 import com.gabrieldrn.carbon.Configuration
+import com.vanniktech.maven.publish.JavadocJar
+import com.vanniktech.maven.publish.KotlinMultiplatform
 import org.jetbrains.compose.ExperimentalComposeLibrary
 import org.jetbrains.dokka.base.DokkaBase
 import org.jetbrains.dokka.base.DokkaBaseConfiguration
@@ -117,6 +119,15 @@ tasks.dokkaHtml {
 }
 
 mavenPublishing {
+
+    configure(
+        KotlinMultiplatform(
+            javadocJar = JavadocJar.Dokka("dokkaHtml"),
+            sourcesJar = true,
+            androidVariantsToPublish = listOf("release")
+        )
+    )
+
     val artifactId = "carbon"
 
     publishing {

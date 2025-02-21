@@ -18,7 +18,7 @@ kotlinxSerializationJson = "1.7.3"
 
 # Community libraries
 kotlinPoet = "1.18.0"
-publish-plugin = "0.28.0"
+publish-plugin = "0.30.0"
 detekt = "1.23.7"
 dokka = "1.9.20"
 junit = "4.13.2"
