@@ -1,15 +1,22 @@
-<img src="https://github.com/user-attachments/assets/cf499dee-c867-4613-96a8-c018bdb3f112" width="150" height="150">
+<p align="left">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://github.com/user-attachments/assets/a0a20d5a-9f67-46ea-a68e-fe836b3a3d81">
+    <source media="(prefers-color-scheme: light)" srcset="https://github.com/user-attachments/assets/cf499dee-c867-4613-96a8-c018bdb3f112">
+    <img alt="Logo" src="https://github.com/user-attachments/assets/cf499dee-c867-4613-96a8-c018bdb3f112" width="150">
+  </picture>
+</p>
 
 # Carbon | Compose Multiplatform
 
-![Carbon catalog pres](https://github.com/user-attachments/assets/d55e6893-ab18-498f-abec-1e2998dfe293)
-
 [![Kotlin](https://img.shields.io/badge/2.1.0-blue?logo=kotlin&logoColor=white&color=7F52FF)](http://kotlinlang.org)
-[![Compose Multiplatform](https://img.shields.io/badge/1.7.0-green?logo=jetpackcompose&logoColor=white&color=4284F3)](https://www.jetbrains.com/lp/compose-multiplatform)
+[![Compose Multiplatform](https://img.shields.io/badge/1.7.4-green?logo=jetpackcompose&logoColor=white&color=4284F3)](https://www.jetbrains.com/lp/compose-multiplatform)
 
 [![CI | compile & tests](https://github.com/gabrieldrn/carbon-compose/actions/workflows/ci-lib-workflow.yml/badge.svg)](https://github.com/gabrieldrn/carbon-compose/actions/workflows/ci-lib-workflow.yml)
 
-A [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/) implementation of the [Carbon Design System](https://github.com/carbon-design-system/carbon).
+A [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/) implementation of IBM's [Carbon Design System](https://github.com/carbon-design-system/carbon).
+
+![](https://github.com/user-attachments/assets/82d8c108-7e6b-4ef8-8e6c-cf1ecf7026d1) | ![](https://github.com/user-attachments/assets/5b80e6a9-7b5c-41b0-9bac-169e2f051954) | ![](https://github.com/user-attachments/assets/a1ba04d5-c728-4791-848f-9e26df38c346)
+:--:|:--:|:--:
 
 **Supported platforms:**
 - Android
