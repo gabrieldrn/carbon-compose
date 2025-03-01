@@ -33,7 +33,7 @@ import androidx.compose.ui.text.TextLinkStyles
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextDecoration
 import com.gabrieldrn.carbon.Carbon
-import com.gabrieldrn.carbon.catalog.common.DemoScreenRoot
+import com.gabrieldrn.carbon.catalog.common.DemoScreen
 import com.gabrieldrn.carbon.dropdown.Dropdown
 import com.gabrieldrn.carbon.dropdown.base.toDropdownOptions
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
@@ -133,7 +133,7 @@ fun NotificationDemoScreen(modifier: Modifier = Modifier) {
         )
     }
 
-    DemoScreenRoot(
+    DemoScreen(
         modifier = modifier,
         demoContent = {
             urlDemoNotification()

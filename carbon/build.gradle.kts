@@ -93,6 +93,8 @@ android {
 
     dependencies {
         debugImplementation(compose.uiTooling)
+//        @OptIn(ExperimentalComposeLibrary::class)
+//        debugImplementation(compose.uiTest)
         debugImplementation(libs.androidx.compose.ui.test.manifest)
 
         testImplementation(libs.junit)
@@ -103,6 +105,8 @@ android {
         androidTestImplementation(libs.androidx.test.ext)
         androidTestImplementation(libs.androidx.test.espresso)
         androidTestImplementation(libs.androidx.compose.ui.test)
+//        @OptIn(ExperimentalComposeLibrary::class)
+//        androidTestImplementation(compose.uiTest)
     }
 }
 

@@ -26,13 +26,18 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import com.gabrieldrn.carbon.Carbon
-import com.gabrieldrn.carbon.catalog.common.DemoScreenRoot
+import com.gabrieldrn.carbon.catalog.common.DemoScreen
 import com.gabrieldrn.carbon.dropdown.Dropdown
 import com.gabrieldrn.carbon.dropdown.base.DropdownInteractiveState
 import com.gabrieldrn.carbon.dropdown.base.DropdownOption
 import com.gabrieldrn.carbon.dropdown.base.DropdownSize
 import com.gabrieldrn.carbon.dropdown.base.toDropdownOptions
+import com.gabrieldrn.carbon.notification.CalloutNotification
+import com.gabrieldrn.carbon.notification.NotificationStatus
+import com.gabrieldrn.carbon.tab.TabItem
 import com.gabrieldrn.carbon.toggle.Toggle
+
+private val dropdownVariants = DropdownVariant.entries.map { it.name }.map(::TabItem)
 
 private val dropdownStates = listOf(
     DropdownInteractiveState.Enabled,
@@ -85,9 +90,9 @@ internal fun DropdownDemoScreen(
         mutableStateOf(false)
     }
 
-    val demoContent: @Composable ColumnScope.() -> Unit = {
+    val demoContent: @Composable ColumnScope.(TabItem) -> Unit = { selectedVariant ->
 
-        when (variant) {
+        when (DropdownVariant.valueOf(selectedVariant.label)) {
             DropdownVariant.Default -> DefaultDemoDropdown(
                 state = dropdownState,
                 size = dropdownSize,
@@ -101,6 +106,11 @@ internal fun DropdownDemoScreen(
     }
 
     val parametersContent: @Composable ColumnScope.() -> Unit = {
+        CalloutNotification(
+            body = "Other dropdown variants are a work in progress.",
+            status = NotificationStatus.Informational,
+        )
+
         BasicText(
             text = "Configuration",
             style = Carbon.typography.heading02.copy(color = Carbon.theme.textPrimary)
@@ -133,9 +143,11 @@ internal fun DropdownDemoScreen(
         }
     }
 
-    DemoScreenRoot(
+    DemoScreen(
         modifier = modifier,
         demoContent = demoContent,
-        demoParametersContent = parametersContent
+        demoParametersContent = parametersContent,
+        variants = dropdownVariants,
+        defaultVariant = TabItem(variant.name)
     )
 }
