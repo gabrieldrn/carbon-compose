@@ -19,6 +19,7 @@ package com.gabrieldrn.carbon.catalog.common
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -26,12 +27,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -42,6 +43,8 @@ import com.gabrieldrn.carbon.foundation.color.CarbonLayer
 import com.gabrieldrn.carbon.foundation.color.Layer
 import com.gabrieldrn.carbon.foundation.color.containerBackground
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
+import com.gabrieldrn.carbon.notification.CalloutNotification
+import com.gabrieldrn.carbon.notification.NotificationStatus
 import com.gabrieldrn.carbon.tab.TabItem
 import com.gabrieldrn.carbon.tab.TabList
 
@@ -52,10 +55,11 @@ fun DemoScreen(
     demoParametersContent: @Composable ColumnScope.() -> Unit,
     demoContent: @Composable ColumnScope.(TabItem) -> Unit,
     modifier: Modifier = Modifier,
-    layers: Map<Layer, DropdownOption> = defaultLayersOptions
+    layers: Map<Layer, DropdownOption> = defaultLayersOptions,
+    displayVariantsWIPNotification: Boolean = false
 ) {
     var layer by rememberSaveable { mutableStateOf(Layer.Layer00) }
-    var variant by remember { mutableStateOf(defaultVariant) }
+    var variant by rememberSaveable { mutableStateOf(defaultVariant) }
 
     Column(
         modifier = modifier
@@ -63,36 +67,41 @@ fun DemoScreen(
             .containerBackground()
             .verticalScroll(state = rememberScrollState())
             .padding(WindowInsets.navigationBars.asPaddingValues())
+            .padding(horizontal = SpacingScale.spacing05)
+            .padding(top = SpacingScale.spacing03, bottom = SpacingScale.spacing05),
+        verticalArrangement = Arrangement.spacedBy(SpacingScale.spacing05)
     ) {
 
-        TabList(
-            tabs = variants,
-            selectedTab = variant,
-            onTabSelected = { variant = it },
-            modifier = Modifier
-                .padding(horizontal = SpacingScale.spacing05)
-                .padding(top = SpacingScale.spacing03)
-        )
-
-        CarbonLayer(layer = layer) {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .heightIn(min = 200.dp)
-                    .containerBackground()
-                    .padding(SpacingScale.spacing05),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center,
-                content = {
-                    demoContent(variant)
-                }
+        Column {
+            TabList(
+                tabs = variants,
+                selectedTab = variant,
+                onTabSelected = { variant = it },
             )
+
+            CarbonLayer(layer = layer) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .heightIn(min = 200.dp)
+                        .containerBackground()
+                        .padding(SpacingScale.spacing05),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center,
+                    content = {
+                        demoContent(variant)
+                    }
+                )
+            }
+        }
+
+        if (displayVariantsWIPNotification) {
+            WIPNotification()
         }
 
         CarbonLayer {
             Column(
                 modifier = Modifier
-                    .padding(SpacingScale.spacing05)
                     .containerBackground()
                     .padding(SpacingScale.spacing05),
                 verticalArrangement = Arrangement.spacedBy(SpacingScale.spacing04)
@@ -116,6 +125,7 @@ fun DemoScreen(
     demoContent: @Composable ColumnScope.() -> Unit,
     modifier: Modifier = Modifier,
     layers: Map<Layer, DropdownOption> = defaultLayersOptions,
+    displayVariantsWIPNotification: Boolean = false
 ) {
     var layer by rememberSaveable { mutableStateOf(Layer.Layer00) }
 
@@ -125,6 +135,8 @@ fun DemoScreen(
             .containerBackground()
             .verticalScroll(state = rememberScrollState())
             .padding(WindowInsets.navigationBars.asPaddingValues())
+            .padding(SpacingScale.spacing05),
+        verticalArrangement = Arrangement.spacedBy(SpacingScale.spacing05)
     ) {
         CarbonLayer(layer = layer) {
             Column(
@@ -139,10 +151,13 @@ fun DemoScreen(
             )
         }
 
+        if (displayVariantsWIPNotification) {
+            WIPNotification()
+        }
+
         CarbonLayer {
             Column(
                 modifier = Modifier
-                    .padding(SpacingScale.spacing05)
                     .containerBackground()
                     .padding(SpacingScale.spacing05),
                 verticalArrangement = Arrangement.spacedBy(SpacingScale.spacing04)
@@ -158,4 +173,16 @@ fun DemoScreen(
             }
         }
     }
+}
+
+@Composable
+private fun WIPNotification(
+    modifier: Modifier = Modifier
+) {
+    CalloutNotification(
+        body = "Other variants are a work in progress.",
+        status = NotificationStatus.Informational,
+        modifier = modifier
+            .width(IntrinsicSize.Max)
+    )
 }

@@ -96,14 +96,6 @@ fun NotificationDemoScreen(modifier: Modifier = Modifier) {
     }
 
     val parametersContent: @Composable ColumnScope.() -> Unit = {
-        CalloutNotification(
-            title = "",
-            body = buildAnnotatedString {
-                append("Other notification variants are a work in progress.")
-            },
-            status = NotificationStatus.Informational,
-        )
-
         TextInput(
             label = "Title",
             value = title,
@@ -142,6 +134,7 @@ fun NotificationDemoScreen(modifier: Modifier = Modifier) {
 
             editableDemoNotification()
         },
-        demoParametersContent = parametersContent
+        demoParametersContent = parametersContent,
+        displayVariantsWIPNotification = true
     )
 }

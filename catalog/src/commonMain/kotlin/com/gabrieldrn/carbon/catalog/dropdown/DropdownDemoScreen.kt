@@ -32,8 +32,6 @@ import com.gabrieldrn.carbon.dropdown.base.DropdownInteractiveState
 import com.gabrieldrn.carbon.dropdown.base.DropdownOption
 import com.gabrieldrn.carbon.dropdown.base.DropdownSize
 import com.gabrieldrn.carbon.dropdown.base.toDropdownOptions
-import com.gabrieldrn.carbon.notification.CalloutNotification
-import com.gabrieldrn.carbon.notification.NotificationStatus
 import com.gabrieldrn.carbon.tab.TabItem
 import com.gabrieldrn.carbon.toggle.Toggle
 
@@ -106,11 +104,6 @@ internal fun DropdownDemoScreen(
     }
 
     val parametersContent: @Composable ColumnScope.() -> Unit = {
-        CalloutNotification(
-            body = "Other dropdown variants are a work in progress.",
-            status = NotificationStatus.Informational,
-        )
-
         BasicText(
             text = "Configuration",
             style = Carbon.typography.heading02.copy(color = Carbon.theme.textPrimary)
@@ -148,6 +141,7 @@ internal fun DropdownDemoScreen(
         demoContent = demoContent,
         demoParametersContent = parametersContent,
         variants = dropdownVariants,
-        defaultVariant = TabItem(variant.name)
+        defaultVariant = TabItem(variant.name),
+        displayVariantsWIPNotification = true
     )
 }
