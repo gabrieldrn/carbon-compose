@@ -52,7 +52,7 @@ import com.gabrieldrn.carbon.tab.TabList
 fun DemoScreen(
     variants: List<TabItem>,
     defaultVariant: TabItem,
-    demoParametersContent: @Composable ColumnScope.() -> Unit,
+    demoParametersContent: @Composable ColumnScope.(TabItem) -> Unit,
     demoContent: @Composable ColumnScope.(TabItem) -> Unit,
     modifier: Modifier = Modifier,
     layers: Map<Layer, DropdownOption> = defaultLayersOptions,
@@ -106,7 +106,7 @@ fun DemoScreen(
                     .padding(SpacingScale.spacing05),
                 verticalArrangement = Arrangement.spacedBy(SpacingScale.spacing04)
             ) {
-                demoParametersContent()
+                demoParametersContent(variant)
 
                 LayerSelectionDropdown(
                     layers = layers,

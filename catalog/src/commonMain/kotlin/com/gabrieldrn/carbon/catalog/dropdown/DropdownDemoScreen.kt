@@ -103,7 +103,7 @@ internal fun DropdownDemoScreen(
         }
     }
 
-    val parametersContent: @Composable ColumnScope.() -> Unit = {
+    val parametersContent: @Composable ColumnScope.(TabItem) -> Unit = {
         BasicText(
             text = "Configuration",
             style = Carbon.typography.heading02.copy(color = Carbon.theme.textPrimary)
