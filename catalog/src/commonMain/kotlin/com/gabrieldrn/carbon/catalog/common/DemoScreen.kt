@@ -52,14 +52,19 @@ import com.gabrieldrn.carbon.tab.TabList
 fun DemoScreen(
     variants: List<TabItem>,
     defaultVariant: TabItem,
-    demoParametersContent: @Composable ColumnScope.(TabItem) -> Unit,
     demoContent: @Composable ColumnScope.(TabItem) -> Unit,
     modifier: Modifier = Modifier,
     layers: Map<Layer, DropdownOption> = defaultLayersOptions,
-    displayVariantsWIPNotification: Boolean = false
+    displayVariantsWIPNotification: Boolean = false,
+    displayLayerParameter: Boolean = true,
+    demoParametersContent: (@Composable ColumnScope.(TabItem) -> Unit)? = null,
 ) {
     var layer by rememberSaveable { mutableStateOf(Layer.Layer00) }
     var variant by rememberSaveable { mutableStateOf(defaultVariant) }
+
+    val hasParameterScreen = rememberSaveable(demoParametersContent, displayLayerParameter) {
+        demoParametersContent != null || displayLayerParameter
+    }
 
     Column(
         modifier = modifier
@@ -82,8 +87,18 @@ fun DemoScreen(
             CarbonLayer(layer = layer) {
                 Column(
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .heightIn(min = 200.dp)
+                        .then(
+                            if (hasParameterScreen) {
+                                Modifier
+                                    .fillMaxWidth()
+                                    .heightIn(min = 200.dp)
+                            } else {
+                                Modifier
+                                    .width(IntrinsicSize.Max)
+                                    .weight(1f)
+                                    .align(Alignment.CenterHorizontally)
+                            }
+                        )
                         .containerBackground()
                         .padding(SpacingScale.spacing05),
                     horizontalAlignment = Alignment.CenterHorizontally,
@@ -99,21 +114,23 @@ fun DemoScreen(
             WIPNotification()
         }
 
-        CarbonLayer {
-            Column(
-                modifier = Modifier
-                    .containerBackground()
-                    .padding(SpacingScale.spacing05),
-                verticalArrangement = Arrangement.spacedBy(SpacingScale.spacing04)
-            ) {
-                demoParametersContent(variant)
+        if (hasParameterScreen) {
+            CarbonLayer {
+                Column(
+                    modifier = Modifier
+                        .containerBackground()
+                        .padding(SpacingScale.spacing05),
+                    verticalArrangement = Arrangement.spacedBy(SpacingScale.spacing04)
+                ) {
+                    demoParametersContent?.invoke(this, variant)
 
-                LayerSelectionDropdown(
-                    layers = layers,
-                    selectedLayer = layer,
-                    onLayerSelected = { layer = it },
-                    modifier = Modifier.padding(top = SpacingScale.spacing03)
-                )
+                    LayerSelectionDropdown(
+                        layers = layers,
+                        selectedLayer = layer,
+                        onLayerSelected = { layer = it },
+                        modifier = Modifier.padding(top = SpacingScale.spacing03)
+                    )
+                }
             }
         }
     }
@@ -121,13 +138,18 @@ fun DemoScreen(
 
 @Composable
 fun DemoScreen(
-    demoParametersContent: @Composable ColumnScope.() -> Unit,
     demoContent: @Composable ColumnScope.() -> Unit,
     modifier: Modifier = Modifier,
     layers: Map<Layer, DropdownOption> = defaultLayersOptions,
-    displayVariantsWIPNotification: Boolean = false
+    displayVariantsWIPNotification: Boolean = false,
+    displayLayerParameter: Boolean = true,
+    demoParametersContent: (@Composable ColumnScope.() -> Unit)? = null
 ) {
     var layer by rememberSaveable { mutableStateOf(Layer.Layer00) }
+
+    val hasParameterScreen = rememberSaveable(demoParametersContent, displayLayerParameter) {
+        demoParametersContent != null || displayLayerParameter
+    }
 
     Column(
         modifier = modifier
@@ -141,8 +163,18 @@ fun DemoScreen(
         CarbonLayer(layer = layer) {
             Column(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .heightIn(min = 200.dp)
+                    .then(
+                        if (hasParameterScreen) {
+                            Modifier
+                                .fillMaxWidth()
+                                .heightIn(min = 200.dp)
+                        } else {
+                            Modifier
+                                .width(IntrinsicSize.Max)
+                                .weight(1f)
+                                .align(Alignment.CenterHorizontally)
+                        }
+                    )
                     .containerBackground()
                     .padding(SpacingScale.spacing05),
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -155,21 +187,23 @@ fun DemoScreen(
             WIPNotification()
         }
 
-        CarbonLayer {
-            Column(
-                modifier = Modifier
-                    .containerBackground()
-                    .padding(SpacingScale.spacing05),
-                verticalArrangement = Arrangement.spacedBy(SpacingScale.spacing04)
-            ) {
-                demoParametersContent()
+        if (hasParameterScreen) {
+            CarbonLayer {
+                Column(
+                    modifier = Modifier
+                        .containerBackground()
+                        .padding(SpacingScale.spacing05),
+                    verticalArrangement = Arrangement.spacedBy(SpacingScale.spacing04)
+                ) {
+                    demoParametersContent?.invoke(this)
 
-                LayerSelectionDropdown(
-                    layers = layers,
-                    selectedLayer = layer,
-                    onLayerSelected = { layer = it },
-                    modifier = Modifier.padding(top = SpacingScale.spacing03)
-                )
+                    LayerSelectionDropdown(
+                        layers = layers,
+                        selectedLayer = layer,
+                        onLayerSelected = { layer = it },
+                        modifier = Modifier.padding(top = SpacingScale.spacing03)
+                    )
+                }
             }
         }
     }
