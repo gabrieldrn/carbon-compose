@@ -42,17 +42,6 @@ private val interactiveStates = listOf(
 
 @Composable
 fun CheckboxDemoScreen(modifier: Modifier = Modifier) {
-
-    var checkboxState by rememberSaveable {
-        mutableStateOf(ToggleableState.Off)
-    }
-
-    fun nextState() {
-        checkboxState = ToggleableState.entries.toTypedArray().let { states ->
-            states[(states.indexOf(checkboxState) + 1) % states.size]
-        }
-    }
-
     DemoScreen(
         demoContent = {
             Column(
@@ -61,6 +50,17 @@ fun CheckboxDemoScreen(modifier: Modifier = Modifier) {
                     Alignment.CenterVertically
                 ),
             ) {
+                var checkboxState by rememberSaveable {
+                    mutableStateOf(ToggleableState.Off)
+                }
+
+                fun nextState() {
+                    checkboxState = ToggleableState.entries.toTypedArray().let { states ->
+                        states[(states.indexOf(checkboxState) + 1) % states.size]
+                    }
+                }
+
+
                 interactiveStates.forEach { interactiveState ->
                     Checkbox(
                         state = checkboxState,
