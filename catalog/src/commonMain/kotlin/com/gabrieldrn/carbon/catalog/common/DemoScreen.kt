@@ -62,7 +62,7 @@ fun DemoScreen(
     var layer by rememberSaveable { mutableStateOf(Layer.Layer00) }
     var variant by rememberSaveable { mutableStateOf(defaultVariant) }
 
-    val hasParameterScreen = rememberSaveable(demoParametersContent, displayLayerParameter) {
+    val hasParametersContent = rememberSaveable(demoParametersContent, displayLayerParameter) {
         demoParametersContent != null || displayLayerParameter
     }
 
@@ -77,7 +77,17 @@ fun DemoScreen(
         verticalArrangement = Arrangement.spacedBy(SpacingScale.spacing05)
     ) {
 
-        Column {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .then(
+                    if (!hasParametersContent) {
+                        Modifier.weight(1f)
+                    } else {
+                        Modifier
+                    }
+                )
+        ) {
             TabList(
                 tabs = variants,
                 selectedTab = variant,
@@ -88,14 +98,13 @@ fun DemoScreen(
                 Column(
                     modifier = Modifier
                         .then(
-                            if (hasParameterScreen) {
+                            if (hasParametersContent) {
                                 Modifier
                                     .fillMaxWidth()
                                     .heightIn(min = 200.dp)
                             } else {
                                 Modifier
                                     .width(IntrinsicSize.Max)
-                                    .weight(1f)
                                     .align(Alignment.CenterHorizontally)
                             }
                         )
@@ -114,7 +123,7 @@ fun DemoScreen(
             WIPNotification()
         }
 
-        if (hasParameterScreen) {
+        if (hasParametersContent) {
             CarbonLayer {
                 Column(
                     modifier = Modifier
@@ -147,7 +156,7 @@ fun DemoScreen(
 ) {
     var layer by rememberSaveable { mutableStateOf(Layer.Layer00) }
 
-    val hasParameterScreen = rememberSaveable(demoParametersContent, displayLayerParameter) {
+    val hasParametersContent = rememberSaveable(demoParametersContent, displayLayerParameter) {
         demoParametersContent != null || displayLayerParameter
     }
 
@@ -164,7 +173,7 @@ fun DemoScreen(
             Column(
                 modifier = Modifier
                     .then(
-                        if (hasParameterScreen) {
+                        if (hasParametersContent) {
                             Modifier
                                 .fillMaxWidth()
                                 .heightIn(min = 200.dp)
@@ -187,7 +196,7 @@ fun DemoScreen(
             WIPNotification()
         }
 
-        if (hasParameterScreen) {
+        if (hasParametersContent) {
             CarbonLayer {
                 Column(
                     modifier = Modifier
