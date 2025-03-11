@@ -30,7 +30,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.text.BasicText
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -149,11 +148,6 @@ fun TextInputDemoScreen(modifier: Modifier = Modifier) {
                     .padding(SpacingScale.spacing05),
                 verticalArrangement = Arrangement.spacedBy(SpacingScale.spacing05)
             ) {
-                BasicText(
-                    text = "Configuration",
-                    style = Carbon.typography.heading02.copy(color = Carbon.theme.textPrimary)
-                )
-
                 Dropdown(
                     label = "Variant / modifier",
                     placeholder = "Choose a variant",

@@ -17,7 +17,6 @@
 package com.gabrieldrn.carbon.catalog.buttons
 
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -25,7 +24,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.button.Button
 import com.gabrieldrn.carbon.button.ButtonSize
 import com.gabrieldrn.carbon.button.ButtonType
@@ -58,11 +56,6 @@ fun ButtonDemoScreen(modifier: Modifier = Modifier) {
         variants = buttonVariants,
         defaultVariant = buttonVariants.first(),
         demoParametersContent = { variant ->
-            BasicText(
-                text = "Configuration",
-                style = Carbon.typography.heading02.copy(color = Carbon.theme.textPrimary)
-            )
-
             Dropdown(
                 label = "Button type",
                 placeholder = "Choose option",

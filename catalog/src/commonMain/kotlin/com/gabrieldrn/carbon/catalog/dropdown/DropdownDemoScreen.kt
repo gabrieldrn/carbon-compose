@@ -17,7 +17,6 @@
 package com.gabrieldrn.carbon.catalog.dropdown
 
 import androidx.compose.foundation.layout.ColumnScope
-import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -25,7 +24,6 @@ import androidx.compose.runtime.saveable.Saver
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.catalog.common.DemoScreen
 import com.gabrieldrn.carbon.dropdown.Dropdown
 import com.gabrieldrn.carbon.dropdown.base.DropdownInteractiveState
@@ -104,11 +102,6 @@ internal fun DropdownDemoScreen(
     }
 
     val parametersContent: @Composable ColumnScope.(TabItem) -> Unit = {
-        BasicText(
-            text = "Configuration",
-            style = Carbon.typography.heading02.copy(color = Carbon.theme.textPrimary)
-        )
-
         Dropdown(
             placeholder = "Choose option",
             label = "Dropdown state",
