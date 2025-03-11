@@ -29,6 +29,7 @@ import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.BasicText
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -38,6 +39,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.dropdown.base.DropdownOption
 import com.gabrieldrn.carbon.foundation.color.CarbonLayer
 import com.gabrieldrn.carbon.foundation.color.Layer
@@ -124,23 +126,12 @@ fun DemoScreen(
         }
 
         if (hasParametersContent) {
-            CarbonLayer {
-                Column(
-                    modifier = Modifier
-                        .containerBackground()
-                        .padding(SpacingScale.spacing05),
-                    verticalArrangement = Arrangement.spacedBy(SpacingScale.spacing04)
-                ) {
-                    demoParametersContent?.invoke(this, variant)
-
-                    LayerSelectionDropdown(
-                        layers = layers,
-                        selectedLayer = layer,
-                        onLayerSelected = { layer = it },
-                        modifier = Modifier.padding(top = SpacingScale.spacing03)
-                    )
-                }
-            }
+            ParametersLayout(
+                layers = layers,
+                selectedLayer = layer,
+                onLayerSelected = { layer = it },
+                content = { demoParametersContent?.invoke(this, variant) }
+            )
         }
     }
 }
@@ -197,23 +188,43 @@ fun DemoScreen(
         }
 
         if (hasParametersContent) {
-            CarbonLayer {
-                Column(
-                    modifier = Modifier
-                        .containerBackground()
-                        .padding(SpacingScale.spacing05),
-                    verticalArrangement = Arrangement.spacedBy(SpacingScale.spacing04)
-                ) {
-                    demoParametersContent?.invoke(this)
+            ParametersLayout(
+                layers = layers,
+                selectedLayer = layer,
+                onLayerSelected = { layer = it },
+                content = { demoParametersContent?.invoke(this) }
+            )
+        }
+    }
+}
 
-                    LayerSelectionDropdown(
-                        layers = layers,
-                        selectedLayer = layer,
-                        onLayerSelected = { layer = it },
-                        modifier = Modifier.padding(top = SpacingScale.spacing03)
-                    )
-                }
-            }
+@Composable
+private fun ParametersLayout(
+    layers: Map<Layer, DropdownOption>,
+    selectedLayer: Layer,
+    onLayerSelected: (Layer) -> Unit,
+    content: @Composable ColumnScope.() -> Unit?,
+) {
+    CarbonLayer {
+        Column(
+            modifier = Modifier
+                .containerBackground()
+                .padding(SpacingScale.spacing05),
+            verticalArrangement = Arrangement.spacedBy(SpacingScale.spacing04)
+        ) {
+            BasicText(
+                text = "Configuration",
+                style = Carbon.typography.heading02.copy(color = Carbon.theme.textPrimary)
+            )
+
+            content()
+
+            LayerSelectionDropdown(
+                layers = layers,
+                selectedLayer = selectedLayer,
+                onLayerSelected = onLayerSelected,
+                modifier = Modifier.padding(top = SpacingScale.spacing03)
+            )
         }
     }
 }
