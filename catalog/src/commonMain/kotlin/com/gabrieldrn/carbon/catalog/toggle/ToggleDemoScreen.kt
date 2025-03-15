@@ -42,7 +42,6 @@ fun ToggleDemoScreen(modifier: Modifier = Modifier) {
 
     DemoScreen(
         variants = toggleVariants,
-        defaultVariant = toggleVariants.first(),
         demoContent = { variant ->
             if (ToggleVariant.valueOf(variant.label) == ToggleVariant.Default) {
                 Toggle(

@@ -33,7 +33,6 @@ private val loadingVariants = LoadingVariant.entries.map { TabItem(it.name) }
 fun LoadingDemoScreen(modifier: Modifier = Modifier) {
     DemoScreen(
         variants = loadingVariants,
-        defaultVariant = loadingVariants.first(),
         demoContent = { variant ->
             when (LoadingVariant.valueOf(variant.label)) {
                 LoadingVariant.Large ->

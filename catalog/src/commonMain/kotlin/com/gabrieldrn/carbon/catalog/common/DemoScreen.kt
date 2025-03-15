@@ -53,9 +53,9 @@ import com.gabrieldrn.carbon.tab.TabList
 @Composable
 fun DemoScreen(
     variants: List<TabItem>,
-    defaultVariant: TabItem,
     demoContent: @Composable ColumnScope.(TabItem) -> Unit,
     modifier: Modifier = Modifier,
+    defaultVariant: TabItem = variants.first(),
     layers: Map<Layer, DropdownOption> = defaultLayersOptions,
     displayVariantsWIPNotification: Boolean = false,
     displayLayerParameter: Boolean = true,

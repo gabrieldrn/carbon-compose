@@ -131,7 +131,6 @@ fun ProgressBarDemoScreen(modifier: Modifier = Modifier) {
 
     DemoScreen(
         variants = progressBarVariants,
-        defaultVariant = progressBarVariants.first(),
         demoParametersContent = parameters,
         demoContent = demoContent,
         modifier = modifier

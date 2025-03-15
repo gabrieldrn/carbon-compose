@@ -73,7 +73,6 @@ fun TextInputDemoScreen(modifier: Modifier = Modifier) {
 
     DemoScreen(
         variants = textInputVariants,
-        defaultVariant = textInputVariants.first(),
         demoContent = { variantTabItem ->
             val variant = TextInputVariant.fromLabel(variantTabItem.label)
 

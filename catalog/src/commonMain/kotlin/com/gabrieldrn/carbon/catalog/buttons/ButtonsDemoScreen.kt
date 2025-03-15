@@ -54,7 +54,6 @@ fun ButtonDemoScreen(modifier: Modifier = Modifier) {
     DemoScreen(
         modifier = modifier,
         variants = buttonVariants,
-        defaultVariant = buttonVariants.first(),
         demoParametersContent = { variant ->
             Dropdown(
                 label = "Button type",

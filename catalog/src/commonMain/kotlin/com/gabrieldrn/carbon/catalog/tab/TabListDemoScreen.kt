@@ -45,7 +45,6 @@ private val tabVariants = TabVariant.entries.map { TabItem(it.name) }
 internal fun TabListDemoScreen(modifier: Modifier = Modifier) {
     DemoScreen(
         variants = tabVariants,
-        defaultVariant = tabVariants.first(),
         demoContent = { variant ->
             var selectedTab by remember { mutableStateOf(demoTabs[0]) }
 
