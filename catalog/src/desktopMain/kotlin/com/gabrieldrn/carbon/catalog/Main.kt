@@ -35,7 +35,7 @@ fun main() = application {
     Window(
         onCloseRequest = ::exitApplication,
         state = rememberWindowState(
-            size = DpSize(width = 1440.dp, height = 1160.dp),
+            size = DpSize(width = 900.dp, height = 800.dp),
             position = WindowPosition.Aligned(Alignment.Center)
         ),
         icon = painterResource(Res.drawable.ic_carbon),

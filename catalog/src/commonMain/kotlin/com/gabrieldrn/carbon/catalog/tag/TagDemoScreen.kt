@@ -17,18 +17,10 @@
 package com.gabrieldrn.carbon.catalog.tag
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowColumn
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.asPaddingValues
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.text.BasicText
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -37,13 +29,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.catalog.Res
+import com.gabrieldrn.carbon.catalog.common.DemoScreen
 import com.gabrieldrn.carbon.catalog.ic_carbon
 import com.gabrieldrn.carbon.dropdown.Dropdown
 import com.gabrieldrn.carbon.dropdown.base.toDropdownOptions
-import com.gabrieldrn.carbon.foundation.color.CarbonLayer
-import com.gabrieldrn.carbon.foundation.color.containerBackground
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 import com.gabrieldrn.carbon.tag.ReadOnlyTag
 import com.gabrieldrn.carbon.tag.TagSize
@@ -56,77 +46,60 @@ private val tagSizes = TagSize.entries.toDropdownOptions()
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun TagDemoScreen(modifier: Modifier = Modifier) {
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .containerBackground()
-            .verticalScroll(state = rememberScrollState())
-            .padding(WindowInsets.navigationBars.asPaddingValues()),
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        var tagSize by rememberSaveable { mutableStateOf(TagSize.Medium) }
-        var displayIcon by rememberSaveable { mutableStateOf(false) }
 
-        FlowColumn(
-            maxItemsInEachColumn = 3,
-            horizontalArrangement = Arrangement.spacedBy(
-                SpacingScale.spacing03,
-                alignment = Alignment.CenterHorizontally
-            ),
-            verticalArrangement = Arrangement.spacedBy(
-                SpacingScale.spacing03,
-                alignment = Alignment.CenterVertically
-            ),
-            modifier = Modifier
-                .height(200.dp)
-                .padding(SpacingScale.spacing05)
-        ) {
-            TagType.entries.forEach { color ->
-                ReadOnlyTag(
-                    text = "Tag",
-                    icon = if (displayIcon) {
-                        { painterResource(resource = Res.drawable.ic_carbon) }
-                    } else {
-                        null
-                    },
-                    type = color,
-                    size = tagSize
-                )
-            }
-        }
+    var tagSize by rememberSaveable { mutableStateOf(TagSize.Medium) }
+    var displayIcon by rememberSaveable { mutableStateOf(false) }
 
-        CarbonLayer {
-            Column(
+    DemoScreen(
+        demoContent = {
+            FlowColumn(
+                maxItemsInEachColumn = 3,
+                horizontalArrangement = Arrangement.spacedBy(
+                    SpacingScale.spacing03,
+                    alignment = Alignment.CenterHorizontally
+                ),
+                verticalArrangement = Arrangement.spacedBy(
+                    SpacingScale.spacing03,
+                    alignment = Alignment.CenterVertically
+                ),
                 modifier = Modifier
+                    .height(200.dp)
                     .padding(SpacingScale.spacing05)
-                    .containerBackground()
-                    .padding(SpacingScale.spacing05),
-                verticalArrangement = Arrangement.spacedBy(SpacingScale.spacing04)
             ) {
-                BasicText(
-                    text = "Configuration",
-                    style = Carbon.typography.heading02.copy(color = Carbon.theme.textPrimary)
-                )
-
-                Dropdown(
-                    placeholder = "",
-                    label = "Tag size",
-                    options = tagSizes,
-                    selectedOption = tagSize,
-                    onOptionSelected = { tagSize = it },
-                )
-
-                Toggle(
-                    isToggled = displayIcon,
-                    onToggleChange = { displayIcon = it },
-                    label = "Tag icon",
-                    actionText = if (displayIcon) {
-                        "Displayed"
-                    } else {
-                        "Hidden"
-                    },
-                )
+                TagType.entries.forEach { color ->
+                    ReadOnlyTag(
+                        text = "Tag",
+                        icon = if (displayIcon) {
+                            { painterResource(resource = Res.drawable.ic_carbon) }
+                        } else {
+                            null
+                        },
+                        type = color,
+                        size = tagSize
+                    )
+                }
             }
-        }
-    }
+        },
+        demoParametersContent = {
+            Dropdown(
+                placeholder = "",
+                label = "Tag size",
+                options = tagSizes,
+                selectedOption = tagSize,
+                onOptionSelected = { tagSize = it },
+            )
+
+            Toggle(
+                isToggled = displayIcon,
+                onToggleChange = { displayIcon = it },
+                label = "Tag icon",
+                actionText = if (displayIcon) {
+                    "Displayed"
+                } else {
+                    "Hidden"
+                },
+            )
+        },
+        modifier = modifier
+    )
 }

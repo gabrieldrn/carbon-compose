@@ -33,7 +33,7 @@ import androidx.compose.ui.text.TextLinkStyles
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextDecoration
 import com.gabrieldrn.carbon.Carbon
-import com.gabrieldrn.carbon.catalog.common.DemoScreenRoot
+import com.gabrieldrn.carbon.catalog.common.DemoScreen
 import com.gabrieldrn.carbon.dropdown.Dropdown
 import com.gabrieldrn.carbon.dropdown.base.toDropdownOptions
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
@@ -96,14 +96,6 @@ fun NotificationDemoScreen(modifier: Modifier = Modifier) {
     }
 
     val parametersContent: @Composable ColumnScope.() -> Unit = {
-        CalloutNotification(
-            title = "",
-            body = buildAnnotatedString {
-                append("Other notification variants are a work in progress.")
-            },
-            status = NotificationStatus.Informational,
-        )
-
         TextInput(
             label = "Title",
             value = title,
@@ -133,7 +125,7 @@ fun NotificationDemoScreen(modifier: Modifier = Modifier) {
         )
     }
 
-    DemoScreenRoot(
+    DemoScreen(
         modifier = modifier,
         demoContent = {
             urlDemoNotification()
@@ -142,6 +134,7 @@ fun NotificationDemoScreen(modifier: Modifier = Modifier) {
 
             editableDemoNotification()
         },
-        demoParametersContent = parametersContent
+        demoParametersContent = parametersContent,
+        displayVariantsWIPNotification = true
     )
 }

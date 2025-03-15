@@ -18,15 +18,14 @@ package com.gabrieldrn.carbon.catalog
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.gabrieldrn.carbon.catalog.Destination.entries
 import com.gabrieldrn.carbon.catalog.buttons.ButtonDemoScreen
 import com.gabrieldrn.carbon.catalog.checkbox.CheckboxDemoScreen
 import com.gabrieldrn.carbon.catalog.contentswitcher.ContentSwitcherDemoScreen
 import com.gabrieldrn.carbon.catalog.dropdown.DropdownDemoScreen
 import com.gabrieldrn.carbon.catalog.dropdown.DropdownVariant
+import com.gabrieldrn.carbon.catalog.loading.LoadingDemoScreen
 import com.gabrieldrn.carbon.catalog.notification.NotificationDemoScreen
 import com.gabrieldrn.carbon.catalog.progressbar.ProgressBarDemoScreen
-import com.gabrieldrn.carbon.catalog.radiobutton.LoadingDemoScreen
 import com.gabrieldrn.carbon.catalog.radiobutton.RadioButtonDemoScreen
 import com.gabrieldrn.carbon.catalog.settings.SettingsScreen
 import com.gabrieldrn.carbon.catalog.tab.TabListDemoScreen
