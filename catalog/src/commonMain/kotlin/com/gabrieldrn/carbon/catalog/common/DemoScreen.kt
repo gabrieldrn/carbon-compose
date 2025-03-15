@@ -38,6 +38,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.composed
 import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.dropdown.base.DropdownOption
@@ -49,6 +50,14 @@ import com.gabrieldrn.carbon.notification.CalloutNotification
 import com.gabrieldrn.carbon.notification.NotificationStatus
 import com.gabrieldrn.carbon.tab.TabItem
 import com.gabrieldrn.carbon.tab.TabList
+
+private fun Modifier.contentPadding() = composed {
+    if (Carbon.layer == Layer.Layer00) {
+        padding(vertical = SpacingScale.spacing05)
+    } else {
+        padding(SpacingScale.spacing05)
+    }
+}
 
 @Composable
 fun DemoScreen(
@@ -111,7 +120,7 @@ fun DemoScreen(
                             }
                         )
                         .containerBackground()
-                        .padding(SpacingScale.spacing05),
+                        .contentPadding(),
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center,
                     content = {
@@ -176,7 +185,7 @@ fun DemoScreen(
                         }
                     )
                     .containerBackground()
-                    .padding(SpacingScale.spacing05),
+                    .contentPadding(),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center,
                 content = demoContent
