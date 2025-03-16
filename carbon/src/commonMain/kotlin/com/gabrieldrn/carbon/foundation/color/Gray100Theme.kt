@@ -1,20 +1,16 @@
 // ----------------------------------
 // /!\ Generated code. Do not modify.
 // ----------------------------------
+@file:Suppress("TopLevelPropertyNaming", "TrailingWhitespace")
+
 package com.gabrieldrn.carbon.foundation.color
 
-import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
-import com.gabrieldrn.carbon.foundation.color.ai.AiColors
 import com.gabrieldrn.carbon.foundation.color.ai.Gray100AiColors
-import com.gabrieldrn.carbon.foundation.color.button.ButtonColors
 import com.gabrieldrn.carbon.foundation.color.button.Gray100ButtonColors
-import com.gabrieldrn.carbon.foundation.color.chat.ChatColors
 import com.gabrieldrn.carbon.foundation.color.chat.Gray100ChatColors
 import com.gabrieldrn.carbon.foundation.color.notification.Gray100NotificationColors
-import com.gabrieldrn.carbon.foundation.color.notification.NotificationColors
 import com.gabrieldrn.carbon.foundation.color.tag.Gray100TagColors
-import com.gabrieldrn.carbon.foundation.color.tag.TagColors
 import kotlin.Suppress
 
 /**
@@ -25,218 +21,112 @@ import kotlin.Suppress
  *
  * The second layer uses Gray 10 and the third layer used White.
  */
-@Immutable
-@Suppress("UndocumentedPublicProperty")
-public object Gray100Theme : Theme() {
-    override val background: Color = Color(0xFF161616)
-
-    override val backgroundActive: Color = Color(0x668D8D8D)
-
-    override val backgroundBrand: Color = Color(0xFF0F62FE)
-
-    override val backgroundHover: Color = Color(0x288D8D8D)
-
-    override val backgroundInverse: Color = Color(0xFFF4F4F4)
-
-    override val backgroundInverseHover: Color = Color(0xFFE8E8E8)
-
-    override val backgroundSelected: Color = Color(0x3D8D8D8D)
-
-    override val backgroundSelectedHover: Color = Color(0x518D8D8D)
-
-    override val borderDisabled: Color = Color(0x7F8D8D8D)
-
-    override val borderInteractive: Color = Color(0xFF4589FF)
-
-    override val borderInverse: Color = Color(0xFFF4F4F4)
-
-    override val borderStrong01: Color = Color(0xFF6F6F6F)
-
-    override val borderStrong02: Color = Color(0xFF8D8D8D)
-
-    override val borderStrong03: Color = Color(0xFFA8A8A8)
-
-    override val borderSubtle00: Color = Color(0xFF393939)
-
-    override val borderSubtle01: Color = Color(0xFF525252)
-
-    override val borderSubtle02: Color = Color(0xFF6F6F6F)
-
-    override val borderSubtle03: Color = Color(0xFF6F6F6F)
-
-    override val borderSubtleSelected01: Color = Color(0xFF6F6F6F)
-
-    override val borderSubtleSelected02: Color = Color(0xFF8D8D8D)
-
-    override val borderSubtleSelected03: Color = Color(0xFF8D8D8D)
-
-    override val borderTile01: Color = Color(0xFF525252)
-
-    override val borderTile02: Color = Color(0xFF6F6F6F)
-
-    override val borderTile03: Color = Color(0xFF8D8D8D)
-
-    override val field01: Color = Color(0xFF262626)
-
-    override val field02: Color = Color(0xFF393939)
-
-    override val field03: Color = Color(0xFF525252)
-
-    override val fieldHover01: Color = Color(0xFF333333)
-
-    override val fieldHover02: Color = Color(0xFF474747)
-
-    override val fieldHover03: Color = Color(0xFF636363)
-
-    override val focus: Color = Color(0xFFFFFFFF)
-
-    override val focusInset: Color = Color(0xFF161616)
-
-    override val focusInverse: Color = Color(0xFF0F62FE)
-
-    override val highlight: Color = Color(0xFF001D6C)
-
-    override val iconDisabled: Color = Color(0x3FF4F4F4)
-
-    override val iconInteractive: Color = Color(0xFFFFFFFF)
-
-    override val iconInverse: Color = Color(0xFF161616)
-
-    override val iconOnColor: Color = Color(0xFFFFFFFF)
-
-    override val iconOnColorDisabled: Color = Color(0x3FFFFFFF)
-
-    override val iconPrimary: Color = Color(0xFFF4F4F4)
-
-    override val iconSecondary: Color = Color(0xFFC6C6C6)
-
-    override val interactive: Color = Color(0xFF4589FF)
-
-    override val layer01: Color = Color(0xFF262626)
-
-    override val layer02: Color = Color(0xFF393939)
-
-    override val layer03: Color = Color(0xFF525252)
-
-    override val layerAccent01: Color = Color(0xFF393939)
-
-    override val layerAccent02: Color = Color(0xFF525252)
-
-    override val layerAccent03: Color = Color(0xFF6F6F6F)
-
-    override val layerAccentActive01: Color = Color(0xFF6F6F6F)
-
-    override val layerAccentActive02: Color = Color(0xFF8D8D8D)
-
-    override val layerAccentActive03: Color = Color(0xFF393939)
-
-    override val layerAccentHover01: Color = Color(0xFF474747)
-
-    override val layerAccentHover02: Color = Color(0xFF636363)
-
-    override val layerAccentHover03: Color = Color(0xFF5E5E5E)
-
-    override val layerActive01: Color = Color(0xFF525252)
-
-    override val layerActive02: Color = Color(0xFF6F6F6F)
-
-    override val layerActive03: Color = Color(0xFF8D8D8D)
-
-    override val layerHover01: Color = Color(0xFF333333)
-
-    override val layerHover02: Color = Color(0xFF474747)
-
-    override val layerHover03: Color = Color(0xFF636363)
-
-    override val layerSelected01: Color = Color(0xFF393939)
-
-    override val layerSelected02: Color = Color(0xFF525252)
-
-    override val layerSelected03: Color = Color(0xFF6F6F6F)
-
-    override val layerSelectedDisabled: Color = Color(0xFFA8A8A8)
-
-    override val layerSelectedHover01: Color = Color(0xFF474747)
-
-    override val layerSelectedHover02: Color = Color(0xFF636363)
-
-    override val layerSelectedHover03: Color = Color(0xFF5E5E5E)
-
-    override val layerSelectedInverse: Color = Color(0xFFF4F4F4)
-
-    override val linkInverse: Color = Color(0xFF0F62FE)
-
-    override val linkInverseActive: Color = Color(0xFF161616)
-
-    override val linkInverseHover: Color = Color(0xFF0043CE)
-
-    override val linkInverseVisited: Color = Color(0xFF8A3FFC)
-
-    override val linkPrimary: Color = Color(0xFF78A9FF)
-
-    override val linkPrimaryHover: Color = Color(0xFFA6C8FF)
-
-    override val linkSecondary: Color = Color(0xFFA6C8FF)
-
-    override val linkVisited: Color = Color(0xFFBE95FF)
-
-    override val overlay: Color = Color(0xA5000000)
-
-    override val shadow: Color = Color(0xCC000000)
-
-    override val skeletonBackground: Color = Color(0xFF292929)
-
-    override val skeletonElement: Color = Color(0xFF393939)
-
-    override val supportCautionMajor: Color = Color(0xFFFF832B)
-
-    override val supportCautionMinor: Color = Color(0xFFF1C21B)
-
-    override val supportCautionUndefined: Color = Color(0xFFA56EFF)
-
-    override val supportError: Color = Color(0xFFFA4D56)
-
-    override val supportErrorInverse: Color = Color(0xFFDA1E28)
-
-    override val supportInfo: Color = Color(0xFF4589FF)
-
-    override val supportInfoInverse: Color = Color(0xFF0043CE)
-
-    override val supportSuccess: Color = Color(0xFF42BE65)
-
-    override val supportSuccessInverse: Color = Color(0xFF24A148)
-
-    override val supportWarning: Color = Color(0xFFF1C21B)
-
-    override val supportWarningInverse: Color = Color(0xFFF1C21B)
-
-    override val textDisabled: Color = Color(0x3FF4F4F4)
-
-    override val textError: Color = Color(0xFFFF8389)
-
-    override val textHelper: Color = Color(0xFFA8A8A8)
-
-    override val textInverse: Color = Color(0xFF161616)
-
-    override val textOnColor: Color = Color(0xFFFFFFFF)
-
-    override val textOnColorDisabled: Color = Color(0x3FFFFFFF)
-
-    override val textPlaceholder: Color = Color(0x66F4F4F4)
-
-    override val textPrimary: Color = Color(0xFFF4F4F4)
-
-    override val textSecondary: Color = Color(0xFFC6C6C6)
-
-    override val toggleOff: Color = Color(0xFF6F6F6F)
-
-    override val aiColors: AiColors = Gray100AiColors
-
-    override val buttonColors: ButtonColors = Gray100ButtonColors
-
-    override val chatColors: ChatColors = Gray100ChatColors
-
-    override val notificationColors: NotificationColors = Gray100NotificationColors
-
-    override val tagColors: TagColors = Gray100TagColors
-}
+public val Gray100Theme: Theme = 
+    Theme(
+        background = Color(0xFF161616),
+        backgroundActive = Color(0x668D8D8D),
+        backgroundBrand = Color(0xFF0F62FE),
+        backgroundHover = Color(0x288D8D8D),
+        backgroundInverse = Color(0xFFF4F4F4),
+        backgroundInverseHover = Color(0xFFE8E8E8),
+        backgroundSelected = Color(0x3D8D8D8D),
+        backgroundSelectedHover = Color(0x518D8D8D),
+        borderDisabled = Color(0x7F8D8D8D),
+        borderInteractive = Color(0xFF4589FF),
+        borderInverse = Color(0xFFF4F4F4),
+        borderStrong01 = Color(0xFF6F6F6F),
+        borderStrong02 = Color(0xFF8D8D8D),
+        borderStrong03 = Color(0xFFA8A8A8),
+        borderSubtle00 = Color(0xFF393939),
+        borderSubtle01 = Color(0xFF525252),
+        borderSubtle02 = Color(0xFF6F6F6F),
+        borderSubtle03 = Color(0xFF6F6F6F),
+        borderSubtleSelected01 = Color(0xFF6F6F6F),
+        borderSubtleSelected02 = Color(0xFF8D8D8D),
+        borderSubtleSelected03 = Color(0xFF8D8D8D),
+        borderTile01 = Color(0xFF525252),
+        borderTile02 = Color(0xFF6F6F6F),
+        borderTile03 = Color(0xFF8D8D8D),
+        field01 = Color(0xFF262626),
+        field02 = Color(0xFF393939),
+        field03 = Color(0xFF525252),
+        fieldHover01 = Color(0xFF333333),
+        fieldHover02 = Color(0xFF474747),
+        fieldHover03 = Color(0xFF636363),
+        focus = Color(0xFFFFFFFF),
+        focusInset = Color(0xFF161616),
+        focusInverse = Color(0xFF0F62FE),
+        highlight = Color(0xFF001D6C),
+        iconDisabled = Color(0x3FF4F4F4),
+        iconInteractive = Color(0xFFFFFFFF),
+        iconInverse = Color(0xFF161616),
+        iconOnColor = Color(0xFFFFFFFF),
+        iconOnColorDisabled = Color(0x3FFFFFFF),
+        iconPrimary = Color(0xFFF4F4F4),
+        iconSecondary = Color(0xFFC6C6C6),
+        interactive = Color(0xFF4589FF),
+        layer01 = Color(0xFF262626),
+        layer02 = Color(0xFF393939),
+        layer03 = Color(0xFF525252),
+        layerAccent01 = Color(0xFF393939),
+        layerAccent02 = Color(0xFF525252),
+        layerAccent03 = Color(0xFF6F6F6F),
+        layerAccentActive01 = Color(0xFF6F6F6F),
+        layerAccentActive02 = Color(0xFF8D8D8D),
+        layerAccentActive03 = Color(0xFF393939),
+        layerAccentHover01 = Color(0xFF474747),
+        layerAccentHover02 = Color(0xFF636363),
+        layerAccentHover03 = Color(0xFF5E5E5E),
+        layerActive01 = Color(0xFF525252),
+        layerActive02 = Color(0xFF6F6F6F),
+        layerActive03 = Color(0xFF8D8D8D),
+        layerHover01 = Color(0xFF333333),
+        layerHover02 = Color(0xFF474747),
+        layerHover03 = Color(0xFF636363),
+        layerSelected01 = Color(0xFF393939),
+        layerSelected02 = Color(0xFF525252),
+        layerSelected03 = Color(0xFF6F6F6F),
+        layerSelectedDisabled = Color(0xFFA8A8A8),
+        layerSelectedHover01 = Color(0xFF474747),
+        layerSelectedHover02 = Color(0xFF636363),
+        layerSelectedHover03 = Color(0xFF5E5E5E),
+        layerSelectedInverse = Color(0xFFF4F4F4),
+        linkInverse = Color(0xFF0F62FE),
+        linkInverseActive = Color(0xFF161616),
+        linkInverseHover = Color(0xFF0043CE),
+        linkInverseVisited = Color(0xFF8A3FFC),
+        linkPrimary = Color(0xFF78A9FF),
+        linkPrimaryHover = Color(0xFFA6C8FF),
+        linkSecondary = Color(0xFFA6C8FF),
+        linkVisited = Color(0xFFBE95FF),
+        overlay = Color(0xA5000000),
+        shadow = Color(0xCC000000),
+        skeletonBackground = Color(0xFF292929),
+        skeletonElement = Color(0xFF393939),
+        supportCautionMajor = Color(0xFFFF832B),
+        supportCautionMinor = Color(0xFFF1C21B),
+        supportCautionUndefined = Color(0xFFA56EFF),
+        supportError = Color(0xFFFA4D56),
+        supportErrorInverse = Color(0xFFDA1E28),
+        supportInfo = Color(0xFF4589FF),
+        supportInfoInverse = Color(0xFF0043CE),
+        supportSuccess = Color(0xFF42BE65),
+        supportSuccessInverse = Color(0xFF24A148),
+        supportWarning = Color(0xFFF1C21B),
+        supportWarningInverse = Color(0xFFF1C21B),
+        textDisabled = Color(0x3FF4F4F4),
+        textError = Color(0xFFFF8389),
+        textHelper = Color(0xFFA8A8A8),
+        textInverse = Color(0xFF161616),
+        textOnColor = Color(0xFFFFFFFF),
+        textOnColorDisabled = Color(0x3FFFFFFF),
+        textPlaceholder = Color(0x66F4F4F4),
+        textPrimary = Color(0xFFF4F4F4),
+        textSecondary = Color(0xFFC6C6C6),
+        toggleOff = Color(0xFF6F6F6F),
+        aiColors = Gray100AiColors,
+        buttonColors = Gray100ButtonColors,
+        chatColors = Gray100ChatColors,
+        notificationColors = Gray100NotificationColors,
+        tagColors = Gray100TagColors
+    )
