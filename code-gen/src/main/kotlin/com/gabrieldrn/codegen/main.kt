@@ -27,13 +27,15 @@ import com.gabrieldrn.codegen.color.model.colortokens.Theme
 import com.gabrieldrn.codegen.color.whiteThemeDoc
 import com.squareup.kotlinpoet.AnnotationSpec
 import com.squareup.kotlinpoet.ClassName
+import com.squareup.kotlinpoet.CodeBlock
 import com.squareup.kotlinpoet.FileSpec
 import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.KModifier
+import com.squareup.kotlinpoet.MemberName
 import com.squareup.kotlinpoet.ParameterSpec
 import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeSpec
-import com.squareup.kotlinpoet.asTypeName
+import com.squareup.kotlinpoet.buildCodeBlock
 import com.squareup.kotlinpoet.typeNameOf
 import java.nio.file.Paths
 import java.util.Locale
@@ -46,9 +48,14 @@ private const val PACKAGE_ROOT = "com.gabrieldrn.carbon.foundation.color"
 
 private val sourcePath = Paths.get("carbon/src/commonMain/kotlin")
 
+private val composeColorMemberName = MemberName(
+    "androidx.compose.ui.graphics",
+    "Color"
+)
+
 //private val sourcePath = Paths.get("build/generated/kotlin")
 private val themeAbstractionName = ClassName(PACKAGE_ROOT, "Theme")
-private val codeIndent = "    "
+private const val codeIndent = "    "
 private val generatedCodeMessage =
     """
         ----------------------------------
@@ -59,9 +66,14 @@ private val generatedCodeMessage =
 private const val componentInterfaceKdoc = "Color tokens for the %s component."
 private const val componentImplementationKdoc = "Color tokens for the %s component in the %s theme."
 
-private val undocumentedPublicPropertyAnnotation =
+private val dataClassesSuppressedIssuesAnnotation =
     AnnotationSpec.builder(Suppress::class)
         .addMember("%S", "UndocumentedPublicProperty")
+        .build()
+
+private val topLevelPropertiesSuppressedIssuesAnnotation =
+    AnnotationSpec.builder(Suppress::class)
+        .addMember("%S, %S", "TopLevelPropertyNaming", "TrailingWhitespace")
         .build()
 
 private fun String.capitalize() = replaceFirstChar {
@@ -82,30 +94,32 @@ fun main() {
         .filterNot { it.returnType.jvmErasure == String::class }
         .map { it.name }
 
-    val componentsAbstractions = generateComponentsAbstractions(componentsNames)
+    val componentsDataClasses = generateComponentsDataClasses(componentsNames)
 
-    val themeAbstractionSpec = generateThemeAbstraction(componentsAbstractions.values.toList())
+    val themeAbstractionSpec = generateThemeDataClass(componentsDataClasses.values.toList())
 
-    val componentsImplementations: Map<ThemeName, Map<ComponentName, ClassName>> =
+    val componentsThemesInstances: Map<ThemeName, Map<ComponentName, ClassName>> =
         themes.entries.associate { (name, theme) ->
-            name to
-                generateComponentsImplementations(name.capitalize(), theme, componentsAbstractions)
+            name to generateComponentsThemesTopLevelProperties(
+                name.capitalize(),
+                theme,
+                componentsDataClasses
+            )
         }
 
     themes.forEach { (name, theme) ->
-        val components = componentsImplementations[name]!!
+        val components = componentsThemesInstances[name]!!
 
-        generateThemeImplementation(
+        generateThemeTopLevelProperty(
             themeAbstractionSpec,
             name,
             theme,
-            componentsAbstractions,
             components,
         )
     }
 }
 
-private fun generateComponentsAbstractions(
+private fun generateComponentsDataClasses(
     components: List<ComponentName>
 ): Map<String, ClassName> {
 
@@ -121,9 +135,17 @@ private fun generateComponentsAbstractions(
             .filter { it.returnType.jvmErasure == String::class }
             .map { token ->
                 PropertySpec.builder(token.name, Color::class)
-                    .addModifiers(KModifier.ABSTRACT)
+                    .initializer(token.name)
                     .build()
             }
+
+        val constructor = FunSpec.constructorBuilder()
+            .addParameters(
+                componentProperties.map {
+                    ParameterSpec.builder(it.name, it.type).build()
+                }
+            )
+            .build()
 
         ClassName(
             "$PACKAGE_ROOT." +
@@ -132,168 +154,88 @@ private fun generateComponentsAbstractions(
                     .replaceFirstChar { it.lowercase() },
             componentName
         ).apply {
-            val componentInterfaceSpec = TypeSpec.interfaceBuilder(this)
+            val componentSpec = TypeSpec.classBuilder(this)
+                .primaryConstructor(constructor)
                 .addKdoc(
                     componentInterfaceKdoc.format(
                         componentName.substringBefore("Colors")
                     )
                 )
+                .addModifiers(KModifier.DATA)
                 .addAnnotation(Immutable::class)
-                .addAnnotation(undocumentedPublicPropertyAnnotation)
+                .addAnnotation(dataClassesSuppressedIssuesAnnotation)
                 .addProperties(componentProperties)
                 .build()
 
             FileSpec.builder(this)
                 .indent(codeIndent)
                 .addFileComment(generatedCodeMessage)
-                .addType(componentInterfaceSpec)
+                .addType(componentSpec)
                 .build()
                 .writeTo(sourcePath)
 
-            println("$simpleName interface generated.")
+            println("$simpleName data class generated.")
         }
     }
 }
 
-private fun generateThemeAbstraction(componentsAbstractions: List<ClassName>): TypeSpec {
+/**
+ * Generates the data class representing the theme abstraction.
+ */
+private fun generateThemeDataClass(componentsDataClasses: List<ClassName>): TypeSpec {
     val coreTokens = Theme::class.memberProperties
         .filter { it.returnType == String::class.createType() }
         .map { token ->
             PropertySpec.builder(token.name, Color::class)
-                .addModifiers(KModifier.ABSTRACT)
+                .initializer(token.name)
                 .build()
         }
 
-    val components = componentsAbstractions.associateBy {
-        it.simpleName.replaceFirstChar { c -> c.lowercase() }
-    }
-
-    val copyAnonymousClass = TypeSpec.anonymousClassBuilder()
-        .superclass(themeAbstractionName)
-        .apply {
-            coreTokens.forEach { token ->
-                addProperty(
-                    PropertySpec.builder(token.name, Color::class)
-                        .initializer(token.name)
-                        .addModifiers(KModifier.OVERRIDE)
-                        .build()
-                )
-            }
-            components.forEach { (name, className) ->
-                addProperty(
-                    PropertySpec.builder(name, className)
-                        .initializer(name)
-                        .addModifiers(KModifier.OVERRIDE)
-                        .build()
-                )
-            }
+    val components = componentsDataClasses
+        .associateBy {
+            it.simpleName.replaceFirstChar { c -> c.lowercase() }
         }
-        .build()
-
-    val copyThemeFuncSpec = FunSpec.builder("copy")
-        .returns(themeAbstractionName)
-        .addModifiers(KModifier.INTERNAL)
-        .addAnnotation(
-            AnnotationSpec.builder(Suppress::class)
-                .addMember("%S", "LongMethod")
+        .map { (name, className) ->
+            PropertySpec.builder(name, className)
+                .initializer(name)
                 .build()
-        )
+        }
+
+    val constructor = FunSpec.constructorBuilder()
         .addParameters(
-            coreTokens.map { token ->
-                ParameterSpec.builder(token.name, Color::class)
-                    .defaultValue("this.${token.name}")
-                    .build()
+            (coreTokens + components).map {
+                ParameterSpec.builder(it.name, it.type).build()
             }
         )
-        .addParameters(
-            components.map { (name, className) ->
-                ParameterSpec.builder(name, className)
-                    .defaultValue("this.$name")
-                    .build()
-            }
-        )
-        .addStatement("return %L", copyAnonymousClass)
         .build()
 
-    val equalsFunSpec = FunSpec.builder("equals")
-        .addModifiers(KModifier.OVERRIDE)
-        .addParameter("other", Any::class.asTypeName().copy(nullable = true))
-        .returns(Boolean::class)
-        .addAnnotation(
-            AnnotationSpec.builder(Suppress::class)
-                .addMember("%S", "CognitiveComplexMethod")
-                .addMember("%S", "CyclomaticComplexMethod")
-                .addMember("%S", "LongMethod")
-                .build()
-        )
-        .addStatement("if (this === other) return true")
-        .addStatement("if (other !is %T) return false", themeAbstractionName)
-        .apply {
-            val statement = "if (%N != other.%N) return false"
-            coreTokens.forEach { spec ->
-                addStatement(statement, spec.name, spec.name)
-            }
-            components.forEach { (name, _) ->
-                addStatement(statement, name, name)
-            }
-        }
-        .addStatement("return true")
-        .build()
-
-    val hashCodeFunSpec = FunSpec.builder("hashCode")
-        .addModifiers(KModifier.OVERRIDE)
-        .returns(Int::class)
-        .addAnnotation(
-            AnnotationSpec.builder(Suppress::class)
-                .addMember("%S", "LongMethod")
-                .build()
-        )
-        .apply {
-            coreTokens.forEachIndexed { index, spec ->
-                if (index == 0) {
-                    addStatement("var result = %N.hashCode()", spec.name)
-                } else {
-                    addStatement("result = 31 * result + %N.hashCode()", spec.name)
-                }
-            }
-            components.forEach { (name, _) ->
-                addStatement("result = 31 * result + %N.hashCode()", name)
-            }
-        }
-        .addStatement("return result")
-        .build()
-
-    val themeAbstraction = TypeSpec.classBuilder(themeAbstractionName)
+    val themeSpec = TypeSpec.classBuilder(themeAbstractionName)
+        .primaryConstructor(constructor)
         .addKdoc(abstractThemeDoc)
-        .addModifiers(KModifier.ABSTRACT)
+        .addModifiers(KModifier.DATA)
         .addAnnotation(Immutable::class)
-        .addAnnotation(undocumentedPublicPropertyAnnotation)
+        .addAnnotation(dataClassesSuppressedIssuesAnnotation)
         .addProperties(coreTokens)
-        .addProperties(
-            components.map { (name, className) ->
-                PropertySpec.builder(name, className)
-                    .addModifiers(KModifier.ABSTRACT)
-                    .build()
-            }
-        )
-        .addFunctions(
-            listOf(copyThemeFuncSpec, equalsFunSpec, hashCodeFunSpec)
-        )
+        .addProperties(components)
         .build()
 
     FileSpec.builder(PACKAGE_ROOT, themeAbstractionName.simpleName)
         .indent(codeIndent)
         .addFileComment(generatedCodeMessage)
-        .addType(themeAbstraction)
+        .addType(themeSpec)
         .build()
         .writeTo(sourcePath)
 
-    println("Theme interface generated.")
+    println("Theme data class generated.")
 
-    return themeAbstraction
+    return themeSpec
 }
 
-private fun generateComponentsImplementations(
+/**
+ * Generates the top-level properties instantiating the colors of each component for the given
+ * theme.
+ */
+private fun generateComponentsThemesTopLevelProperties(
     themeName: String,
     theme: Theme,
     componentsAbstractions: Map<String, ClassName>
@@ -309,6 +251,8 @@ private fun generateComponentsImplementations(
             val componentName: ComponentName = component.name
             val componentType = component.returnType.jvmErasure
             val componentTokensInstance = component.getter.call(theme)
+            val componentSpec =
+                componentsAbstractions[componentName] ?: error("Component not found.")
 
             val componentInterfaceName = ClassName(
                 "$PACKAGE_ROOT." +
@@ -322,36 +266,45 @@ private fun generateComponentsImplementations(
                 .filter { it.returnType.jvmErasure == String::class }
                 .map { token ->
                     val color = token.getter.call(componentTokensInstance) as String
-                    PropertySpec.builder(token.name, Color::class)
-                        .addModifiers(KModifier.OVERRIDE)
-                        .initializer("Color(0x%s)".format(color.removePrefix("#")))
+                    val colorValue = "0x%s".format(color.removePrefix("#"))
+                    CodeBlock.builder()
+                        .add("${token.name} = %M($colorValue)", composeColorMemberName)
                         .build()
                 }
 
-            val componentSpec = TypeSpec.objectBuilder(componentInterfaceName)
+            val themedComponentSpec = PropertySpec
+                .builder(componentInterfaceName.simpleName, componentSpec, KModifier.PUBLIC)
                 .addKdoc(
                     componentImplementationKdoc.format(
-                        componentName.substringBefore("Colors").capitalize(),
-                        themeName
+                        componentName.substringBefore("Colors").capitalize(), themeName
                     )
                 )
-                .addSuperinterface(
-                    componentsAbstractions[componentName] ?: error("Component not found.")
+                .initializer(
+                    buildCodeBlock {
+                        add("\n%T(\n", componentSpec)
+                        // Weird behavior with the indentation
+                        indent()
+                        indent()
+                        componentProperties.forEachIndexed { index, property ->
+                            add(property)
+                            if (index < componentProperties.size - 1) add(",")
+                            add("\n")
+                        }
+                        unindent()
+                        unindent()
+                        add(")")
+                    }
                 )
-                .addModifiers(KModifier.PUBLIC)
-                .addAnnotation(Immutable::class)
-                .addAnnotation(undocumentedPublicPropertyAnnotation)
-                .addProperties(componentProperties)
                 .build()
 
             FileSpec.builder(componentInterfaceName.packageName, componentInterfaceName.simpleName)
-                .indent(codeIndent)
                 .addFileComment(generatedCodeMessage)
-                .addType(componentSpec)
+                .addProperty(themedComponentSpec)
+                .addAnnotation(topLevelPropertiesSuppressedIssuesAnnotation)
                 .build()
                 .writeTo(sourcePath)
 
-            println("${componentInterfaceName.simpleName} implementation generated.")
+            println("${componentInterfaceName.simpleName} top level property generated.")
 
             implementations[componentName] = componentInterfaceName
         }
@@ -359,11 +312,13 @@ private fun generateComponentsImplementations(
     return implementations
 }
 
-private fun generateThemeImplementation(
+/**
+ * Generates the top-level property instantiating the colors of the given theme.
+ */
+private fun generateThemeTopLevelProperty(
     abstractionSpec: TypeSpec,
     name: ThemeName,
     tokens: Theme,
-    componentsAbstractions: Map<String, ClassName>,
     componentsImplementations: Map<ComponentName, ClassName>
 ) {
     val themeMemberProperties = Theme::class.memberProperties
@@ -374,22 +329,42 @@ private fun generateThemeImplementation(
     val coreTokens = abstractionSpec.propertySpecs
         .filter { it.type == colorTypeName }
         .map { token ->
-            val value = themeMemberProperties[token.name]!!.getter.call(tokens) as String
-            PropertySpec.builder(token.name, Color::class)
-                .initializer("Color(0x%s)".format(value.removePrefix("#")))
-                .addModifiers(KModifier.OVERRIDE)
+            val color = themeMemberProperties[token.name]!!.getter.call(tokens) as String
+            val colorValue = "0x%s".format(color.removePrefix("#"))
+            CodeBlock.builder()
+                .add("${token.name} = %M($colorValue)", composeColorMemberName)
                 .build()
         }
 
-    val components = componentsImplementations.map { (name, className) ->
-        PropertySpec.builder(name, componentsAbstractions[name]!!)
-            .initializer("%T", className)
-            .addModifiers(KModifier.OVERRIDE)
+    val components = componentsImplementations.map { (name, implementation) ->
+        CodeBlock.builder()
+            .add("$name = %T", implementation)
             .build()
     }
 
-    val themeSpec = TypeSpec.objectBuilder(name.capitalize() + themeAbstractionName.simpleName)
-        .superclass(themeAbstractionName)
+    val initializer = buildCodeBlock {
+        add("\n%T(\n", themeAbstractionName)
+        // Weird behavior with the indentation
+        indent()
+        indent()
+        (coreTokens + components).let { blocks ->
+            blocks.forEachIndexed { index, property ->
+                add(property)
+                if (index < blocks.size - 1) add(",")
+                add("\n")
+            }
+        }
+        unindent()
+        unindent()
+        add(")")
+    }
+
+    val themeSpec = PropertySpec
+        .builder(
+            name.capitalize() + themeAbstractionName.simpleName,
+            themeAbstractionName,
+            KModifier.PUBLIC
+        )
         .apply {
             when {
                 name.startsWith("white") -> whiteThemeDoc
@@ -399,19 +374,15 @@ private fun generateThemeImplementation(
                 else -> null
             }?.let(::addKdoc)
         }
-        .addModifiers(KModifier.PUBLIC)
-        .addAnnotation(Immutable::class)
-        .addAnnotation(undocumentedPublicPropertyAnnotation)
-        .addProperties(coreTokens)
-        .addProperties(components)
+        .initializer(initializer)
         .build()
 
     FileSpec.builder(PACKAGE_ROOT, name.capitalize() + themeAbstractionName.simpleName)
-        .indent(codeIndent)
         .addFileComment(generatedCodeMessage)
-        .addType(themeSpec)
+        .addProperty(themeSpec)
+        .addAnnotation(topLevelPropertiesSuppressedIssuesAnnotation)
         .build()
         .writeTo(sourcePath)
 
-    println("${name.capitalize()} theme implementation generated.")
+    println("${name.capitalize()} theme top level property generated.")
 }
