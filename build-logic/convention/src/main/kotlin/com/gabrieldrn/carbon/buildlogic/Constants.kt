@@ -22,7 +22,7 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 internal object Constants {
 
     object Versions {
-        const val COMPILE_SDK = 34
+        const val COMPILE_SDK = 35
         const val MIN_SDK = 23
 
         val JAVA = JavaVersion.VERSION_17

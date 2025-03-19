@@ -71,7 +71,7 @@ fun DemoScreen(
     demoParametersContent: (@Composable ColumnScope.(TabItem) -> Unit)? = null,
 ) {
     var layer by rememberSaveable { mutableStateOf(Layer.Layer00) }
-    var variant by rememberSaveable { mutableStateOf(defaultVariant) }
+    var variant by rememberSaveable(stateSaver = TabItem.Saver) { mutableStateOf(defaultVariant) }
 
     val hasParametersContent = rememberSaveable(demoParametersContent, displayLayerParameter) {
         demoParametersContent != null || displayLayerParameter

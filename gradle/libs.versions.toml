@@ -1,20 +1,23 @@
 [versions]
 # region Build + build-logic
-androidGradlePlugin = "8.5.2"
-kotlin = "2.1.0"
+androidGradlePlugin = "8.9.0"
+kotlin = "2.1.10"
 binaryCompatibilityValidator = "0.16.2"
 # endregion
 # region Libraries
-compose = "1.7.0"
-androidxActivity = "1.9.3"
+compose = "1.7.3"
+androidxActivity = "1.10.1"
 androidxAppcompat = "1.7.0"
-#https://developer.android.com/jetpack/androidx/releases/compose-compiler#declaring_dependencies
-#https://developer.android.com/jetpack/androidx/releases/compose-kotlin
-androidxCompose = "1.7.4"
+# Individual androix compose libraries version usage is based on the compose version used by
+# the compose multiplatform plugin.
+# https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.7.3
+#noinspection GradleDependency
+androidxCompose = "1.7.6"
 androidxEspresso = "3.6.1"
 androidxNavigation = "2.7.0-alpha07"
 androidxTestExtJunit = "1.2.1"
-kotlinxSerializationJson = "1.7.3"
+kotlinxCoroutinesSwing = "1.10.1"
+kotlinxSerializationJson = "1.8.0"
 
 # Community libraries
 kotlinPoet = "1.18.0"
@@ -32,7 +35,6 @@ settings = "1.2.0"
 [libraries]
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidxActivity" }
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidxAppcompat" }
-androidx-compose-ui-test = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "androidxCompose" }
 androidx-compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "androidxCompose" }
 androidx-navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "androidxNavigation" }
 androidx-test-espresso = { module = "androidx.test.espresso:espresso-core", version.ref = "androidxEspresso" }
@@ -40,7 +42,7 @@ androidx-test-ext = { module = "androidx.test.ext:junit", version.ref = "android
 junit = { module = "junit:junit", version.ref = "junit" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
-kotlinx-coroutines-swing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "kotlinxSerializationJson" }
+kotlinx-coroutines-swing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "kotlinxCoroutinesSwing" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 kotlinPoet = { module = "com.squareup:kotlinpoet", version.ref = "kotlinPoet" }
 timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
