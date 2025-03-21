@@ -18,7 +18,7 @@ jobs:
           distribution: adopt
 
       - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v3
+        uses: gradle/actions/setup-gradle@v4
 
       - name: Assemble lib
         run: ./gradlew :carbon:assemble --scan
