@@ -2,14 +2,14 @@
 # region Build + build-logic
 androidGradlePlugin = "8.9.0"
 kotlin = "2.1.10"
-binaryCompatibilityValidator = "0.16.2"
+binaryCompatibilityValidator = "0.17.0"
 # endregion
 # region Libraries
 compose = "1.7.3"
 androidxActivity = "1.10.1"
 androidxAppcompat = "1.7.0"
 # Individual androix compose libraries version usage is based on the compose version used by
-# the compose multiplatform plugin.
+# the compose multiplatform plugin to avoid having different versions of the same library.
 # https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.7.3
 #noinspection GradleDependency
 androidxCompose = "1.7.6"
