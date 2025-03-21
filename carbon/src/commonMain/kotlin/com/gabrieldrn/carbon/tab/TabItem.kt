@@ -17,6 +17,7 @@
 package com.gabrieldrn.carbon.tab
 
 import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.saveable.Saver
 
 /**
  * Represents a single tab in a [TabList] component.
@@ -27,7 +28,34 @@ import androidx.compose.runtime.Immutable
 public data class TabItem(
     val label: String,
     val enabled: Boolean = true
-)
+) {
+
+    @Suppress("UndocumentedPublicClass")
+    public companion object {
+
+        /**
+         * A [Saver] implementation for [TabItem] objects, allowing them to be saved and restored
+         * within Compose's state saving system.
+         *
+         * Example Usage:
+         * ```
+         * val myTabItem = rememberSaveable(stateSaver = TabItem.Saver) {
+         *     TabItem("My Tab", true)
+         * }
+         * ```
+         *
+         * @see Saver
+         * @see androidx.compose.runtime.saveable.rememberSaveable
+         */
+        public val Saver: Saver<TabItem, String> = Saver(
+            save = { "${it.label},${it.enabled}" },
+            restore = {
+                val (label, enabled) = it.split(",")
+                TabItem(label, enabled.toBoolean())
+            }
+        )
+    }
+}
 
 /**
  * Returns a map of strings to [TabItem]s.

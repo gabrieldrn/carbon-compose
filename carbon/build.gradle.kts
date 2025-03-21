@@ -102,7 +102,6 @@ android {
         androidTestImplementation(libs.kotlin.test)
         androidTestImplementation(libs.androidx.test.ext)
         androidTestImplementation(libs.androidx.test.espresso)
-        androidTestImplementation(libs.androidx.compose.ui.test)
     }
 }
 

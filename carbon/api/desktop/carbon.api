@@ -1007,6 +1007,7 @@ public final class com/gabrieldrn/carbon/semantics/SemanticsExtKt {
 
 public final class com/gabrieldrn/carbon/tab/TabItem {
 	public static final field $stable I
+	public static final field Companion Lcom/gabrieldrn/carbon/tab/TabItem$Companion;
 	public fun <init> (Ljava/lang/String;Z)V
 	public synthetic fun <init> (Ljava/lang/String;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
@@ -1018,6 +1019,10 @@ public final class com/gabrieldrn/carbon/tab/TabItem {
 	public final fun getLabel ()Ljava/lang/String;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/gabrieldrn/carbon/tab/TabItem$Companion {
+	public final fun getSaver ()Landroidx/compose/runtime/saveable/Saver;
 }
 
 public final class com/gabrieldrn/carbon/tab/TabItemKt {
