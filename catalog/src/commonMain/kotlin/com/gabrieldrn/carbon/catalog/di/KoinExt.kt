@@ -22,6 +22,7 @@ import com.gabrieldrn.carbon.catalog.common.ViewModel
 import org.koin.compose.currentKoinScope
 import org.koin.compose.koinInject
 import org.koin.core.parameter.ParametersDefinition
+import org.koin.core.parameter.emptyParametersHolder
 import org.koin.core.qualifier.Qualifier
 import org.koin.core.scope.Scope
 
@@ -29,7 +30,7 @@ import org.koin.core.scope.Scope
 inline fun <reified T : ViewModel> injectViewModel(
     qualifier: Qualifier? = null,
     scope: Scope = currentKoinScope(),
-    noinline parameters: ParametersDefinition? = null,
+    noinline parameters: ParametersDefinition = { emptyParametersHolder() },
 ): T {
     val viewModel = koinInject<T>(
         qualifier = qualifier,
