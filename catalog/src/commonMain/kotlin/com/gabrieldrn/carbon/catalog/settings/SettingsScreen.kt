@@ -17,10 +17,12 @@
 package com.gabrieldrn.carbon.catalog.settings
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
@@ -33,10 +35,11 @@ import androidx.compose.ui.Modifier
 import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.catalog.di.injectViewModel
 import com.gabrieldrn.carbon.catalog.theme.CarbonTheme
+import com.gabrieldrn.carbon.dropdown.Dropdown
+import com.gabrieldrn.carbon.dropdown.base.toDropdownOptions
 import com.gabrieldrn.carbon.foundation.color.CarbonLayer
 import com.gabrieldrn.carbon.foundation.color.containerBackground
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
-import com.gabrieldrn.carbon.radiobutton.RadioButton
 
 @Composable
 fun SettingsScreen(
@@ -50,7 +53,7 @@ fun SettingsScreen(
             .fillMaxSize()
             .containerBackground()
             .verticalScroll(state = rememberScrollState())
-            .padding(WindowInsets.navigationBars.asPaddingValues()),
+            .padding(WindowInsets.navigationBars.asPaddingValues())
     ) {
         CarbonLayer {
             Column(
@@ -66,39 +69,35 @@ fun SettingsScreen(
                     ),
                 )
 
-                BasicText(
-                    text = "Light",
-                    style = Carbon.typography.heading01.copy(
-                        color = Carbon.theme.textPrimary
-                    ),
+                Dropdown(
+                    placeholder = "Light theme",
+                    label = "Light theme",
+                    options = CarbonTheme.LightTheme
+                        .entries
+                        .map { it.displayName }
+                        .toDropdownOptions(),
+                    selectedOption = uiState.lightTheme.displayName,
+                    onOptionSelected = {
+                        viewModel.setLightTheme(CarbonTheme.LightTheme.fromDisplayName(it))
+                    },
                     modifier = Modifier.padding(top = SpacingScale.spacing03)
                 )
 
-                CarbonTheme.LightTheme.entries.forEach { theme ->
-                    RadioButton(
-                        selected = theme == uiState.lightTheme,
-                        label = theme.displayName,
-                        onClick = { viewModel.setLightTheme(theme) },
-                        modifier = Modifier.padding(top = SpacingScale.spacing03)
-                    )
-                }
+                Spacer(modifier = Modifier.height(SpacingScale.spacing04))
 
-                BasicText(
-                    text = "Dark",
-                    style = Carbon.typography.heading01.copy(
-                        color = Carbon.theme.textPrimary
-                    ),
-                    modifier = Modifier.padding(top = SpacingScale.spacing05)
+                Dropdown(
+                    placeholder = "Dark theme",
+                    label = "Dark theme",
+                    options = CarbonTheme.DarkTheme
+                        .entries
+                        .map { it.displayName }
+                        .toDropdownOptions(),
+                    selectedOption = uiState.darkTheme.displayName,
+                    onOptionSelected = {
+                        viewModel.setDarkTheme(CarbonTheme.DarkTheme.fromDisplayName(it))
+                    },
+                    modifier = Modifier.padding(top = SpacingScale.spacing03)
                 )
-
-                CarbonTheme.DarkTheme.entries.forEach { theme ->
-                    RadioButton(
-                        selected = theme == uiState.darkTheme,
-                        label = theme.displayName,
-                        onClick = { viewModel.setDarkTheme(theme) },
-                        modifier = Modifier.padding(top = SpacingScale.spacing03)
-                    )
-                }
             }
         }
     }
