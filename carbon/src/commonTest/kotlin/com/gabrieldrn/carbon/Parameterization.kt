@@ -28,6 +28,10 @@ in the same activity. This requires to use mutable states at class level to stor
 it's not ideal but it's a trade-off between execution time and code readability.
  */
 
+const val PARAMTRZD_DEPRECATION_MESSAGE =
+    "This paramaterization method is deprecated, use the common forEachParameter method instead."
+const val PARAMTRZD_DEPRECATION_REPLACE = "forEachParameter"
+
 inline fun <reified A : Any, reified B : Any> forEachParameter(
     aValues: Array<A>,
     bValues: Array<B>,

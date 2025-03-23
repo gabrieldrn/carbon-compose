@@ -49,6 +49,8 @@ import androidx.compose.ui.test.onChildren
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.runComposeUiTest
+import com.gabrieldrn.carbon.PARAMTRZD_DEPRECATION_MESSAGE
+import com.gabrieldrn.carbon.PARAMTRZD_DEPRECATION_REPLACE
 import com.gabrieldrn.carbon.icons.checkmarkFilledIcon
 import com.gabrieldrn.carbon.icons.closeIcon
 import com.gabrieldrn.carbon.icons.viewIcon
@@ -246,6 +248,11 @@ class ContentSwitcherTest {
         }
     }
 
+    @Deprecated(
+        message = PARAMTRZD_DEPRECATION_MESSAGE,
+        level = DeprecationLevel.WARNING,
+        replaceWith = ReplaceWith(PARAMTRZD_DEPRECATION_REPLACE)
+    )
     private fun forEachParameter(
         testBlock: () -> Unit
     ) {

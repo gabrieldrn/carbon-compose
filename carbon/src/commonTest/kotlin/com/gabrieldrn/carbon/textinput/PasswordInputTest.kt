@@ -30,6 +30,8 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.runComposeUiTest
 import com.gabrieldrn.carbon.CarbonDesignSystem
+import com.gabrieldrn.carbon.PARAMTRZD_DEPRECATION_MESSAGE
+import com.gabrieldrn.carbon.PARAMTRZD_DEPRECATION_REPLACE
 import com.gabrieldrn.carbon.icons.viewIcon
 import com.gabrieldrn.carbon.icons.viewOffIcon
 import com.gabrieldrn.carbon.semantics.assertHasImageVector
@@ -152,6 +154,11 @@ class PasswordInputTest {
     }
 
     @Suppress("NestedBlockDepth")
+    @Deprecated(
+        message = PARAMTRZD_DEPRECATION_MESSAGE,
+        level = DeprecationLevel.WARNING,
+        replaceWith = ReplaceWith(PARAMTRZD_DEPRECATION_REPLACE)
+    )
     private fun forEachParameter(
         testBlock: (String, Boolean, String, String, TextInputState) -> Unit
     ) {

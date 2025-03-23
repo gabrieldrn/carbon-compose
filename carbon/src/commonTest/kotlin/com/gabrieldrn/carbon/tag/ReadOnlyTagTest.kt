@@ -30,6 +30,8 @@ import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.runComposeUiTest
 import com.gabrieldrn.carbon.CarbonDesignSystem
+import com.gabrieldrn.carbon.PARAMTRZD_DEPRECATION_MESSAGE
+import com.gabrieldrn.carbon.PARAMTRZD_DEPRECATION_REPLACE
 import kotlin.test.Test
 
 class ReadOnlyTagTest {
@@ -78,6 +80,11 @@ class ReadOnlyTagTest {
     }
 
     @Suppress("NestedBlockDepth")
+    @Deprecated(
+        message = PARAMTRZD_DEPRECATION_MESSAGE,
+        level = DeprecationLevel.WARNING,
+        replaceWith = ReplaceWith(PARAMTRZD_DEPRECATION_REPLACE)
+    )
     private fun forEachParameter(
         testBlock: (String, (@Composable () -> Painter)?, TagType, TagSize) -> Unit
     ) {
