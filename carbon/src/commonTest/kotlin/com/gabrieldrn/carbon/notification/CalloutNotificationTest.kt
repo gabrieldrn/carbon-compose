@@ -23,10 +23,9 @@ import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.runComposeUiTest
-import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.buildAnnotatedString
-import co.touchlab.kermit.Logger
 import com.gabrieldrn.carbon.CarbonDesignSystem
+import com.gabrieldrn.carbon.forEachParameter
 import kotlin.test.Test
 
 class CalloutNotificationTest {
@@ -50,7 +49,16 @@ class CalloutNotificationTest {
             }
         }
 
-        forEachParameter1 { body, status, title, highContrast ->
+        forEachParameter(
+            arrayOf(
+                buildAnnotatedString {},
+                buildAnnotatedString { append("This is a callout notification.") }
+            ),
+            NotificationStatus.entries.toTypedArray(),
+            arrayOf("", "Callout notification"),
+            arrayOf(false, true)
+        ) { body, status, title, highContrast ->
+
             _annotatedStringBody = body
             _status = status
             _title = title
@@ -101,7 +109,13 @@ class CalloutNotificationTest {
             }
         }
 
-        forEachParameter2 { body, status, title, highContrast ->
+        forEachParameter(
+            arrayOf("", "This is a callout notification."),
+            NotificationStatus.entries.toTypedArray(),
+            arrayOf("", "Callout notification"),
+            arrayOf(false, true)
+        ) { body, status, title, highContrast ->
+
             _stringBody = body
             _status = status
             _title = title
@@ -134,51 +148,6 @@ class CalloutNotificationTest {
                 } else {
                     assertIsDisplayed()
                     assertTextEquals(body)
-                }
-            }
-        }
-    }
-
-    @Suppress("NestedBlockDepth")
-    private fun forEachParameter1(
-        testBlock: (AnnotatedString, NotificationStatus, String, Boolean) -> Unit
-    ) {
-        arrayOf(
-            buildAnnotatedString {},
-            buildAnnotatedString { append("This is a callout notification.") }
-        ).forEach { body ->
-            NotificationStatus.entries.forEach { status ->
-                arrayOf("", "Callout notification").forEach { title ->
-                    arrayOf(false, true).forEach { highContrast ->
-                        Logger.d(
-                            "body: $body, " +
-                                "status: $status, " +
-                                "title: $title, " +
-                                "highContrast: $highContrast"
-                        )
-                        testBlock(body, status, title, highContrast)
-                    }
-                }
-            }
-        }
-    }
-
-    @Suppress("NestedBlockDepth")
-    private fun forEachParameter2(
-        testBlock: (String, NotificationStatus, String, Boolean) -> Unit
-    ) {
-        arrayOf("", "This is a callout notification.").forEach { body ->
-            NotificationStatus.entries.forEach { status ->
-                arrayOf("", "Callout notification").forEach { title ->
-                    arrayOf(false, true).forEach { highContrast ->
-                        Logger.d(
-                            "body: $body, " +
-                                "status: $status, " +
-                                "title: $title, " +
-                                "highContrast: $highContrast"
-                        )
-                        testBlock(body, status, title, highContrast)
-                    }
                 }
             }
         }
