@@ -26,6 +26,7 @@ import com.gabrieldrn.carbon.foundation.color.Layer
 import com.gabrieldrn.carbon.foundation.color.Theme
 import com.gabrieldrn.carbon.foundation.color.borderStrongColor
 import com.gabrieldrn.carbon.foundation.color.borderSubtleColor
+import com.gabrieldrn.carbon.foundation.color.fieldColor
 
 @Immutable
 internal class TextInputColors private constructor(
@@ -47,11 +48,7 @@ internal class TextInputColors private constructor(
             newValue = if (state == TextInputState.ReadOnly) {
                 Color.Transparent
             } else {
-                when (layer) {
-                    Layer.Layer00 -> theme.field01
-                    Layer.Layer01 -> theme.field02
-                    else -> theme.field03
-                }
+                theme.fieldColor(layer)
             }
         )
 

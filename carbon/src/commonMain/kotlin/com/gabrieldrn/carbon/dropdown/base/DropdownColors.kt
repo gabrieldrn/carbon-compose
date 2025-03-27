@@ -26,6 +26,7 @@ import com.gabrieldrn.carbon.foundation.color.Layer
 import com.gabrieldrn.carbon.foundation.color.Theme
 import com.gabrieldrn.carbon.foundation.color.borderStrongColor
 import com.gabrieldrn.carbon.foundation.color.borderSubtleColor
+import com.gabrieldrn.carbon.foundation.color.fieldColor
 import com.gabrieldrn.carbon.foundation.color.layerActiveColor
 import com.gabrieldrn.carbon.foundation.color.layerColor
 import com.gabrieldrn.carbon.foundation.color.layerHoverColor
@@ -61,14 +62,9 @@ internal class DropdownColors private constructor(
     @Composable
     fun fieldBackgroundColor(state: DropdownInteractiveState): State<Color> =
         rememberUpdatedState(
-            newValue = with(theme) {
+            newValue =
                 if (state == DropdownInteractiveState.ReadOnly) Color.Transparent
-                else when (layer) {
-                    Layer.Layer00 -> field01
-                    Layer.Layer01 -> field02
-                    else -> field03
-                }
-            }
+                else theme.fieldColor(layer)
         )
 
     @Composable
