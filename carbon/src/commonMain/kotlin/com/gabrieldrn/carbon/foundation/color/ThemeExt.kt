@@ -114,22 +114,22 @@ public fun Theme.layerAccentActiveColor(layer: Layer = Layer.Layer00): Color = w
 }
 
 /**
- * Returns the contextual `layer-border-subtle` color token corresponding to the [layer] it is
+ * Returns the contextual `border-subtle` color token corresponding to the [layer] it is
  * placed on.
  * @param layer Containing layer. Defaults to layer 00.
  */
-public fun Theme.layerBorderSubtle(layer: Layer = Layer.Layer00): Color = when (layer) {
+public fun Theme.borderSubtleColor(layer: Layer = Layer.Layer00): Color = when (layer) {
     Layer.Layer00 -> borderSubtle01
     Layer.Layer01 -> borderSubtle02
     else -> borderSubtle03
 }
 
 /**
- * Returns the contextual `layer-border-strong` color token corresponding to the [layer] it is
+ * Returns the contextual `border-strong` color token corresponding to the [layer] it is
  * placed on.
  * @param layer Containing layer. Defaults to layer 00.
  */
-public fun Theme.layerBorderStrong(layer: Layer = Layer.Layer00): Color = when (layer) {
+public fun Theme.borderStrongColor(layer: Layer = Layer.Layer00): Color = when (layer) {
     Layer.Layer00 -> borderStrong01
     Layer.Layer01 -> borderStrong02
     else -> borderStrong03

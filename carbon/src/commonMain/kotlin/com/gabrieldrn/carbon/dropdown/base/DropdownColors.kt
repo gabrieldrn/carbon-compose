@@ -24,8 +24,9 @@ import androidx.compose.ui.graphics.Color
 import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.foundation.color.Layer
 import com.gabrieldrn.carbon.foundation.color.Theme
+import com.gabrieldrn.carbon.foundation.color.borderStrongColor
+import com.gabrieldrn.carbon.foundation.color.borderSubtleColor
 import com.gabrieldrn.carbon.foundation.color.layerActiveColor
-import com.gabrieldrn.carbon.foundation.color.layerBorderSubtle
 import com.gabrieldrn.carbon.foundation.color.layerColor
 import com.gabrieldrn.carbon.foundation.color.layerHoverColor
 import com.gabrieldrn.carbon.foundation.color.layerSelectedColor
@@ -46,7 +47,7 @@ internal class DropdownColors private constructor(
     val checkmarkIconColor = theme.iconPrimary
     val fieldBorderErrorColor = theme.supportError
     val menuOptionBackgroundColor = theme.layerColor(layer)
-    val menuOptionBorderColor = theme.layerBorderSubtle(layer)
+    val menuOptionBorderColor = theme.borderSubtleColor(layer)
 
     @Composable
     fun chevronIconColor(state: DropdownInteractiveState): State<Color> =
@@ -77,16 +78,8 @@ internal class DropdownColors private constructor(
                 when (state) {
                     is DropdownInteractiveState.Error -> supportError
                     is DropdownInteractiveState.Disabled -> Color.Transparent
-                    is DropdownInteractiveState.ReadOnly -> when (layer) {
-                        Layer.Layer00 -> borderSubtle01
-                        Layer.Layer01 -> borderSubtle02
-                        else -> borderSubtle03
-                    }
-                    else -> when (layer) {
-                        Layer.Layer00 -> borderStrong01
-                        Layer.Layer01 -> borderStrong02
-                        else -> borderStrong03
-                    }
+                    is DropdownInteractiveState.ReadOnly -> theme.borderSubtleColor(layer)
+                    else -> theme.borderStrongColor(layer)
                 }
             }
         )

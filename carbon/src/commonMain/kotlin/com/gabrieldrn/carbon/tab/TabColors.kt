@@ -24,6 +24,13 @@ import androidx.compose.ui.graphics.Color
 import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.foundation.color.Layer
 import com.gabrieldrn.carbon.foundation.color.Theme
+import com.gabrieldrn.carbon.foundation.color.borderStrongColor
+import com.gabrieldrn.carbon.foundation.color.borderSubtleColor
+import com.gabrieldrn.carbon.foundation.color.containerColor
+import com.gabrieldrn.carbon.foundation.color.layerAccentActiveColor
+import com.gabrieldrn.carbon.foundation.color.layerAccentColor
+import com.gabrieldrn.carbon.foundation.color.layerAccentHoverColor
+import com.gabrieldrn.carbon.foundation.color.layerColor
 
 /**
  * The colors used by the [TabList] composable based on the current [theme].
@@ -39,57 +46,30 @@ internal class TabColors private constructor(
     private val variant: TabVariant
 ) {
 
-    val backgroundColorUnselected = when {
-        variant == TabVariant.Line -> Color.Transparent
-        layer == Layer.Layer00 -> theme.layerAccent01
-        layer == Layer.Layer01 -> theme.layerAccent02
-        else -> theme.layerAccent03
-    }
+    private val backgroundColorUnselected =
+        if (variant == TabVariant.Line) Color.Transparent
+        else theme.layerAccentColor(layer)
 
-    val backgroundColorSelected = when {
-        variant == TabVariant.Line -> Color.Transparent
-        layer == Layer.Layer00 -> theme.layer01
-        layer == Layer.Layer01 -> theme.layer02
-        else -> theme.layer03
-    }
+    private val backgroundColorSelected =
+        if (variant == TabVariant.Line) Color.Transparent
+        else theme.layerColor(layer)
 
-    val backgroundColorHovered = when {
-        variant == TabVariant.Line -> Color.Transparent
-        layer == Layer.Layer00 -> theme.layerAccentHover01
-        layer == Layer.Layer01 -> theme.layerAccentHover02
-        else -> theme.layerAccentHover03
-    }
+    private val backgroundColorHovered =
+        if (variant == TabVariant.Line) Color.Transparent
+        else theme.layerAccentHoverColor(layer)
 
-    val backgroundColorPressed = when {
-        variant == TabVariant.Line -> Color.Transparent
-        layer == Layer.Layer00 -> theme.layerAccentActive01
-        layer == Layer.Layer01 -> theme.layerAccentActive02
-        else -> theme.layerAccentActive03
-    }
+    private val backgroundColorPressed =
+        if (variant == TabVariant.Line) Color.Transparent
+        else theme.layerAccentActiveColor(layer)
 
-    private val bottomBorderUnselected = when (layer) {
-        Layer.Layer00 -> theme.borderSubtle01
-        Layer.Layer01 -> theme.borderSubtle02
-        Layer.Layer02, Layer.Layer03 -> theme.borderSubtle03
-    }
+    private val bottomBorderUnselected = theme.borderSubtleColor(layer)
 
-    private val bottomBorderHover = when (layer) {
-        Layer.Layer00 -> theme.borderStrong01
-        Layer.Layer01 -> theme.borderStrong02
-        Layer.Layer02, Layer.Layer03 -> theme.borderStrong03
-    }
+    private val bottomBorderHover = theme.borderStrongColor(layer)
 
-    val scrollButtonBackgroundLine = when (layer) {
-        Layer.Layer00 -> theme.background
-        Layer.Layer01 -> theme.layer01
-        Layer.Layer02 -> theme.layer02
-        Layer.Layer03 -> theme.layer03
-    }
-    val scrollButtonBackgroundContained = when (layer) {
-        Layer.Layer00 -> theme.layerAccent01
-        Layer.Layer01 -> theme.layerAccent02
-        else -> theme.layerAccent03
-    }
+    private val scrollButtonBackgroundLine = theme.containerColor(layer)
+
+    private val scrollButtonBackgroundContained = theme.layerAccentColor(layer)
+
     val scrollButtonBackground = when (variant) {
         TabVariant.Line -> scrollButtonBackgroundLine
         TabVariant.Contained -> scrollButtonBackgroundContained
@@ -97,11 +77,7 @@ internal class TabColors private constructor(
 
     val topBorder = theme.borderInteractive
 
-    val verticalBorder = when (layer) {
-        Layer.Layer00 -> theme.borderStrong01
-        Layer.Layer01 -> theme.borderStrong02
-        Layer.Layer02, Layer.Layer03 -> theme.borderStrong03
-    }
+    val verticalBorder = theme.borderStrongColor(layer)
 
     @Composable
     fun background(

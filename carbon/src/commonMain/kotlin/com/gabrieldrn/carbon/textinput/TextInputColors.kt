@@ -24,8 +24,8 @@ import androidx.compose.ui.graphics.Color
 import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.foundation.color.Layer
 import com.gabrieldrn.carbon.foundation.color.Theme
-import com.gabrieldrn.carbon.foundation.color.layerBorderStrong
-import com.gabrieldrn.carbon.foundation.color.layerBorderSubtle
+import com.gabrieldrn.carbon.foundation.color.borderStrongColor
+import com.gabrieldrn.carbon.foundation.color.borderSubtleColor
 
 @Immutable
 internal class TextInputColors private constructor(
@@ -37,8 +37,8 @@ internal class TextInputColors private constructor(
     fun fieldBorderColor(state: TextInputState): State<Color> =
         rememberUpdatedState(
             newValue =
-                if (state == TextInputState.ReadOnly) theme.layerBorderSubtle(layer)
-                else theme.layerBorderStrong(layer)
+                if (state == TextInputState.ReadOnly) theme.borderSubtleColor(layer)
+                else theme.borderStrongColor(layer)
         )
 
     @Composable

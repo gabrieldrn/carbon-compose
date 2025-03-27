@@ -24,6 +24,7 @@ import androidx.compose.ui.graphics.Color
 import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.foundation.color.Layer
 import com.gabrieldrn.carbon.foundation.color.Theme
+import com.gabrieldrn.carbon.foundation.color.borderSubtleColor
 
 /**
  * Colors to be used by a [Toggle] based on its state.
@@ -57,11 +58,7 @@ internal data class ToggleColors private constructor(
     ): State<Color> =
         rememberUpdatedState(
             newValue = if (isReadOnly && isEnabled) {
-                when (layer) {
-                    Layer.Layer00 -> theme.borderSubtle01
-                    Layer.Layer01 -> theme.borderSubtle02
-                    else -> theme.borderSubtle03
-                }
+                theme.borderSubtleColor(layer)
             } else {
                 Color.Transparent
             }
