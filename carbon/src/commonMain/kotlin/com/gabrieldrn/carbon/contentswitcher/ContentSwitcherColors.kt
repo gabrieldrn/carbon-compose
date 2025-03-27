@@ -23,6 +23,7 @@ import androidx.compose.ui.graphics.Color
 import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.foundation.color.Layer
 import com.gabrieldrn.carbon.foundation.color.Theme
+import com.gabrieldrn.carbon.foundation.color.borderSubtleColor
 
 @Immutable
 internal data class ContentSwitcherColors(
@@ -42,12 +43,7 @@ internal data class ContentSwitcherColors(
     val labelUnselectedColor = theme.textSecondary
     val labelDisabledColor = theme.textDisabled
 
-    val dividerColor = when (layer) {
-        Layer.Layer00 -> theme.borderSubtle00
-        Layer.Layer01 -> theme.borderSubtle01
-        Layer.Layer02 -> theme.borderSubtle02
-        Layer.Layer03 -> theme.borderSubtle03
-    }
+    val dividerColor = theme.borderSubtleColor(layer)
 
     companion object {
         @Composable
