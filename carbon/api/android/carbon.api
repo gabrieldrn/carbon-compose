@@ -212,6 +212,33 @@ public final class com/gabrieldrn/carbon/dropdown/multiselect/MultiselectDropdow
 	public static final fun MultiselectDropdown (ZLjava/lang/String;Ljava/util/Map;Ljava/util/List;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Ljava/lang/String;Lcom/gabrieldrn/carbon/dropdown/base/DropdownInteractiveState;Lcom/gabrieldrn/carbon/dropdown/base/DropdownSize;ILandroidx/compose/runtime/Composer;III)V
 }
 
+public final class com/gabrieldrn/carbon/foundation/color/ContextualTokensKt {
+	public static final fun borderStrongColor (Lcom/gabrieldrn/carbon/foundation/color/Theme;Lcom/gabrieldrn/carbon/foundation/color/Layer;)J
+	public static synthetic fun borderStrongColor$default (Lcom/gabrieldrn/carbon/foundation/color/Theme;Lcom/gabrieldrn/carbon/foundation/color/Layer;ILjava/lang/Object;)J
+	public static final fun borderSubtleColor (Lcom/gabrieldrn/carbon/foundation/color/Theme;Lcom/gabrieldrn/carbon/foundation/color/Layer;)J
+	public static synthetic fun borderSubtleColor$default (Lcom/gabrieldrn/carbon/foundation/color/Theme;Lcom/gabrieldrn/carbon/foundation/color/Layer;ILjava/lang/Object;)J
+	public static final fun containerColor (Lcom/gabrieldrn/carbon/foundation/color/Theme;Lcom/gabrieldrn/carbon/foundation/color/Layer;)J
+	public static synthetic fun containerColor$default (Lcom/gabrieldrn/carbon/foundation/color/Theme;Lcom/gabrieldrn/carbon/foundation/color/Layer;ILjava/lang/Object;)J
+	public static final fun fieldColor (Lcom/gabrieldrn/carbon/foundation/color/Theme;Lcom/gabrieldrn/carbon/foundation/color/Layer;)J
+	public static synthetic fun fieldColor$default (Lcom/gabrieldrn/carbon/foundation/color/Theme;Lcom/gabrieldrn/carbon/foundation/color/Layer;ILjava/lang/Object;)J
+	public static final fun layerAccentActiveColor (Lcom/gabrieldrn/carbon/foundation/color/Theme;Lcom/gabrieldrn/carbon/foundation/color/Layer;)J
+	public static synthetic fun layerAccentActiveColor$default (Lcom/gabrieldrn/carbon/foundation/color/Theme;Lcom/gabrieldrn/carbon/foundation/color/Layer;ILjava/lang/Object;)J
+	public static final fun layerAccentColor (Lcom/gabrieldrn/carbon/foundation/color/Theme;Lcom/gabrieldrn/carbon/foundation/color/Layer;)J
+	public static synthetic fun layerAccentColor$default (Lcom/gabrieldrn/carbon/foundation/color/Theme;Lcom/gabrieldrn/carbon/foundation/color/Layer;ILjava/lang/Object;)J
+	public static final fun layerAccentHoverColor (Lcom/gabrieldrn/carbon/foundation/color/Theme;Lcom/gabrieldrn/carbon/foundation/color/Layer;)J
+	public static synthetic fun layerAccentHoverColor$default (Lcom/gabrieldrn/carbon/foundation/color/Theme;Lcom/gabrieldrn/carbon/foundation/color/Layer;ILjava/lang/Object;)J
+	public static final fun layerActiveColor (Lcom/gabrieldrn/carbon/foundation/color/Theme;Lcom/gabrieldrn/carbon/foundation/color/Layer;)J
+	public static synthetic fun layerActiveColor$default (Lcom/gabrieldrn/carbon/foundation/color/Theme;Lcom/gabrieldrn/carbon/foundation/color/Layer;ILjava/lang/Object;)J
+	public static final fun layerColor (Lcom/gabrieldrn/carbon/foundation/color/Theme;Lcom/gabrieldrn/carbon/foundation/color/Layer;)J
+	public static synthetic fun layerColor$default (Lcom/gabrieldrn/carbon/foundation/color/Theme;Lcom/gabrieldrn/carbon/foundation/color/Layer;ILjava/lang/Object;)J
+	public static final fun layerHoverColor (Lcom/gabrieldrn/carbon/foundation/color/Theme;Lcom/gabrieldrn/carbon/foundation/color/Layer;)J
+	public static synthetic fun layerHoverColor$default (Lcom/gabrieldrn/carbon/foundation/color/Theme;Lcom/gabrieldrn/carbon/foundation/color/Layer;ILjava/lang/Object;)J
+	public static final fun layerSelectedColor (Lcom/gabrieldrn/carbon/foundation/color/Theme;Lcom/gabrieldrn/carbon/foundation/color/Layer;)J
+	public static synthetic fun layerSelectedColor$default (Lcom/gabrieldrn/carbon/foundation/color/Theme;Lcom/gabrieldrn/carbon/foundation/color/Layer;ILjava/lang/Object;)J
+	public static final fun layerSelectedHoverColor (Lcom/gabrieldrn/carbon/foundation/color/Theme;Lcom/gabrieldrn/carbon/foundation/color/Layer;)J
+	public static synthetic fun layerSelectedHoverColor$default (Lcom/gabrieldrn/carbon/foundation/color/Theme;Lcom/gabrieldrn/carbon/foundation/color/Layer;ILjava/lang/Object;)J
+}
+
 public final class com/gabrieldrn/carbon/foundation/color/Gray100ThemeKt {
 	public static final fun getGray100Theme ()Lcom/gabrieldrn/carbon/foundation/color/Theme;
 }
@@ -456,25 +483,6 @@ public final class com/gabrieldrn/carbon/foundation/color/Theme {
 	public final fun getToggleOff-0d7_KjU ()J
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
-}
-
-public final class com/gabrieldrn/carbon/foundation/color/ThemeExtKt {
-	public static final fun containerColor (Lcom/gabrieldrn/carbon/foundation/color/Theme;Lcom/gabrieldrn/carbon/foundation/color/Layer;)J
-	public static synthetic fun containerColor$default (Lcom/gabrieldrn/carbon/foundation/color/Theme;Lcom/gabrieldrn/carbon/foundation/color/Layer;ILjava/lang/Object;)J
-	public static final fun layerAccentActiveColor (Lcom/gabrieldrn/carbon/foundation/color/Theme;Lcom/gabrieldrn/carbon/foundation/color/Layer;)J
-	public static synthetic fun layerAccentActiveColor$default (Lcom/gabrieldrn/carbon/foundation/color/Theme;Lcom/gabrieldrn/carbon/foundation/color/Layer;ILjava/lang/Object;)J
-	public static final fun layerAccentColor (Lcom/gabrieldrn/carbon/foundation/color/Theme;Lcom/gabrieldrn/carbon/foundation/color/Layer;)J
-	public static synthetic fun layerAccentColor$default (Lcom/gabrieldrn/carbon/foundation/color/Theme;Lcom/gabrieldrn/carbon/foundation/color/Layer;ILjava/lang/Object;)J
-	public static final fun layerAccentHoverColor (Lcom/gabrieldrn/carbon/foundation/color/Theme;Lcom/gabrieldrn/carbon/foundation/color/Layer;)J
-	public static synthetic fun layerAccentHoverColor$default (Lcom/gabrieldrn/carbon/foundation/color/Theme;Lcom/gabrieldrn/carbon/foundation/color/Layer;ILjava/lang/Object;)J
-	public static final fun layerActiveColor (Lcom/gabrieldrn/carbon/foundation/color/Theme;Lcom/gabrieldrn/carbon/foundation/color/Layer;)J
-	public static synthetic fun layerActiveColor$default (Lcom/gabrieldrn/carbon/foundation/color/Theme;Lcom/gabrieldrn/carbon/foundation/color/Layer;ILjava/lang/Object;)J
-	public static final fun layerHoverColor (Lcom/gabrieldrn/carbon/foundation/color/Theme;Lcom/gabrieldrn/carbon/foundation/color/Layer;)J
-	public static synthetic fun layerHoverColor$default (Lcom/gabrieldrn/carbon/foundation/color/Theme;Lcom/gabrieldrn/carbon/foundation/color/Layer;ILjava/lang/Object;)J
-	public static final fun layerSelectedColor (Lcom/gabrieldrn/carbon/foundation/color/Theme;Lcom/gabrieldrn/carbon/foundation/color/Layer;)J
-	public static synthetic fun layerSelectedColor$default (Lcom/gabrieldrn/carbon/foundation/color/Theme;Lcom/gabrieldrn/carbon/foundation/color/Layer;ILjava/lang/Object;)J
-	public static final fun layerSelectedHoverColor (Lcom/gabrieldrn/carbon/foundation/color/Theme;Lcom/gabrieldrn/carbon/foundation/color/Layer;)J
-	public static synthetic fun layerSelectedHoverColor$default (Lcom/gabrieldrn/carbon/foundation/color/Theme;Lcom/gabrieldrn/carbon/foundation/color/Layer;ILjava/lang/Object;)J
 }
 
 public final class com/gabrieldrn/carbon/foundation/color/ThemeStaticCompositionKt {

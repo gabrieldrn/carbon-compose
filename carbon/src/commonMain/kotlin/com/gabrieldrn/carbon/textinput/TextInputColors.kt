@@ -45,11 +45,9 @@ internal class TextInputColors private constructor(
     @Composable
     fun fieldBackgroundColor(state: TextInputState): State<Color> =
         rememberUpdatedState(
-            newValue = if (state == TextInputState.ReadOnly) {
-                Color.Transparent
-            } else {
-                theme.fieldColor(layer)
-            }
+            newValue =
+                if (state == TextInputState.ReadOnly) Color.Transparent
+                else theme.fieldColor(layer)
         )
 
     @Composable
