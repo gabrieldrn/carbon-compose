@@ -25,6 +25,8 @@ import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.foundation.color.Layer
 import com.gabrieldrn.carbon.foundation.color.Theme
 import com.gabrieldrn.carbon.foundation.color.layerActiveColor
+import com.gabrieldrn.carbon.foundation.color.layerBorderSubtle
+import com.gabrieldrn.carbon.foundation.color.layerColor
 import com.gabrieldrn.carbon.foundation.color.layerHoverColor
 import com.gabrieldrn.carbon.foundation.color.layerSelectedColor
 import com.gabrieldrn.carbon.foundation.color.layerSelectedHoverColor
@@ -43,16 +45,8 @@ internal class DropdownColors private constructor(
 
     val checkmarkIconColor = theme.iconPrimary
     val fieldBorderErrorColor = theme.supportError
-    val menuOptionBackgroundColor = when (layer) {
-        Layer.Layer00 -> theme.layer01
-        Layer.Layer01 -> theme.layer02
-        else -> theme.layer03
-    }
-    val menuOptionBorderColor = when (layer) {
-        Layer.Layer00 -> theme.borderSubtle01
-        Layer.Layer01 -> theme.borderSubtle02
-        else -> theme.borderSubtle03
-    }
+    val menuOptionBackgroundColor = theme.layerColor(layer)
+    val menuOptionBorderColor = theme.layerBorderSubtle(layer)
 
     @Composable
     fun chevronIconColor(state: DropdownInteractiveState): State<Color> =
