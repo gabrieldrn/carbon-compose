@@ -1,12 +1,12 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <SmellBaseline>
-  <ManuallySuppressedIssues>
-    <ID>CognitiveComplexMethod:ContentSwitcher.kt$@Composable private fun ContentSwitcherButton( index: Int, selectedOptionIndex: Int, content: Any, isEnabled: Boolean, componentSize: ContentSwitcherSize, colors: ContentSwitcherColors, interactionSource: MutableInteractionSource, onClick: () -> Unit, modifier: Modifier = Modifier, contentDescription: String? = null, )</ID>
-    <ID>CyclomaticComplexMethod:ContentSwitcher.kt$@Composable private fun ContentSwitcherButton( index: Int, selectedOptionIndex: Int, content: Any, isEnabled: Boolean, componentSize: ContentSwitcherSize, colors: ContentSwitcherColors, interactionSource: MutableInteractionSource, onClick: () -> Unit, modifier: Modifier = Modifier, contentDescription: String? = null, )</ID>
-    <ID>TooManyFunctions:ThemeExt.kt$com.gabrieldrn.carbon.foundation.color.ThemeExt.kt</ID>
-  </ManuallySuppressedIssues>
-  <CurrentIssues>
-    <ID>OutdatedDocumentation:ProgressBar.kt$@Composable public fun IndeterminateProgressBar( modifier: Modifier = Modifier, labelText: String? = null, helperText: String? = null, indented: Boolean = false, inlined: Boolean = false, state: ProgressBarState = ProgressBarState.Active, size: ProgressBarSize = ProgressBarSize.Big, )</ID>
-    <ID>UndocumentedPublicFunction:UIShellHeader.kt$@ExperimentalCarbonApi @Composable public fun UiShellHeader( headerName: String, modifier: Modifier = Modifier, menuIconPainter: Painter? = null, onMenuIconPressed: () -> Unit = {}, windowInsets: WindowInsets = WindowInsets.statusBars.only(WindowInsetsSides.Top), inlineTheme: Theme = LocalCarbonInlineTheme.current, )</ID>
-  </CurrentIssues>
+    <ManuallySuppressedIssues>
+        <ID>CognitiveComplexMethod:ContentSwitcher.kt$@Composable private fun ContentSwitcherButton( index: Int, selectedOptionIndex: Int, content: Any, isEnabled: Boolean, componentSize: ContentSwitcherSize, colors: ContentSwitcherColors, interactionSource: MutableInteractionSource, onClick: () -> Unit, modifier: Modifier = Modifier, contentDescription: String? = null, )</ID>
+        <ID>CyclomaticComplexMethod:ContentSwitcher.kt$@Composable private fun ContentSwitcherButton( index: Int, selectedOptionIndex: Int, content: Any, isEnabled: Boolean, componentSize: ContentSwitcherSize, colors: ContentSwitcherColors, interactionSource: MutableInteractionSource, onClick: () -> Unit, modifier: Modifier = Modifier, contentDescription: String? = null, )</ID>
+        <ID>TooManyFunctions:ContextualTokens.kt$com.gabrieldrn.carbon.foundation.color.ContextualTokens.kt</ID>
+    </ManuallySuppressedIssues>
+    <CurrentIssues>
+        <ID>OutdatedDocumentation:ProgressBar.kt$@Composable public fun IndeterminateProgressBar( modifier: Modifier = Modifier, labelText: String? = null, helperText: String? = null, indented: Boolean = false, inlined: Boolean = false, state: ProgressBarState = ProgressBarState.Active, size: ProgressBarSize = ProgressBarSize.Big, )</ID>
+        <ID>UndocumentedPublicFunction:UIShellHeader.kt$@ExperimentalCarbonApi @Composable public fun UiShellHeader( headerName: String, modifier: Modifier = Modifier, menuIconPainter: Painter? = null, onMenuIconPressed: () -> Unit = {}, windowInsets: WindowInsets = WindowInsets.statusBars.only(WindowInsetsSides.Top), inlineTheme: Theme = LocalCarbonInlineTheme.current, )</ID>
+    </CurrentIssues>
 </SmellBaseline>
