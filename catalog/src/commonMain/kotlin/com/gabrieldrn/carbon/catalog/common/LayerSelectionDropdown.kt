@@ -22,7 +22,10 @@ import com.gabrieldrn.carbon.dropdown.Dropdown
 import com.gabrieldrn.carbon.dropdown.base.DropdownOption
 import com.gabrieldrn.carbon.foundation.color.Layer
 
-val defaultLayersOptions = Layer.entries.associateWith { DropdownOption(it.toString()) }
+val defaultLayersOptions = Layer
+    .entries
+    .filterNot { it == Layer.Layer03 }
+    .associateWith { DropdownOption(it.toString()) }
 
 @Composable
 fun LayerSelectionDropdown(

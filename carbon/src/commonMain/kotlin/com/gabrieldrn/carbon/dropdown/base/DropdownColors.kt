@@ -24,7 +24,11 @@ import androidx.compose.ui.graphics.Color
 import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.foundation.color.Layer
 import com.gabrieldrn.carbon.foundation.color.Theme
+import com.gabrieldrn.carbon.foundation.color.borderStrongColor
+import com.gabrieldrn.carbon.foundation.color.borderSubtleColor
+import com.gabrieldrn.carbon.foundation.color.fieldColor
 import com.gabrieldrn.carbon.foundation.color.layerActiveColor
+import com.gabrieldrn.carbon.foundation.color.layerColor
 import com.gabrieldrn.carbon.foundation.color.layerHoverColor
 import com.gabrieldrn.carbon.foundation.color.layerSelectedColor
 import com.gabrieldrn.carbon.foundation.color.layerSelectedHoverColor
@@ -43,16 +47,8 @@ internal class DropdownColors private constructor(
 
     val checkmarkIconColor = theme.iconPrimary
     val fieldBorderErrorColor = theme.supportError
-    val menuOptionBackgroundColor = when (layer) {
-        Layer.Layer00 -> theme.layer01
-        Layer.Layer01 -> theme.layer02
-        else -> theme.layer03
-    }
-    val menuOptionBorderColor = when (layer) {
-        Layer.Layer00 -> theme.borderSubtle01
-        Layer.Layer01 -> theme.borderSubtle02
-        else -> theme.borderSubtle03
-    }
+    val menuOptionBackgroundColor = theme.layerColor(layer)
+    val menuOptionBorderColor = theme.borderSubtleColor(layer)
 
     @Composable
     fun chevronIconColor(state: DropdownInteractiveState): State<Color> =
@@ -66,14 +62,9 @@ internal class DropdownColors private constructor(
     @Composable
     fun fieldBackgroundColor(state: DropdownInteractiveState): State<Color> =
         rememberUpdatedState(
-            newValue = with(theme) {
+            newValue =
                 if (state == DropdownInteractiveState.ReadOnly) Color.Transparent
-                else when (layer) {
-                    Layer.Layer00 -> field01
-                    Layer.Layer01 -> field02
-                    else -> field03
-                }
-            }
+                else theme.fieldColor(layer)
         )
 
     @Composable
@@ -83,16 +74,8 @@ internal class DropdownColors private constructor(
                 when (state) {
                     is DropdownInteractiveState.Error -> supportError
                     is DropdownInteractiveState.Disabled -> Color.Transparent
-                    is DropdownInteractiveState.ReadOnly -> when (layer) {
-                        Layer.Layer00 -> borderSubtle01
-                        Layer.Layer01 -> borderSubtle02
-                        else -> borderSubtle03
-                    }
-                    else -> when (layer) {
-                        Layer.Layer00 -> borderStrong01
-                        Layer.Layer01 -> borderStrong02
-                        else -> borderStrong03
-                    }
+                    is DropdownInteractiveState.ReadOnly -> theme.borderSubtleColor(layer)
+                    else -> theme.borderStrongColor(layer)
                 }
             }
         )

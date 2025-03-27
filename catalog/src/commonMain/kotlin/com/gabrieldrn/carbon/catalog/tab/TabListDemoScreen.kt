@@ -23,8 +23,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import com.gabrieldrn.carbon.catalog.common.DemoScreen
-import com.gabrieldrn.carbon.dropdown.base.DropdownOption
-import com.gabrieldrn.carbon.foundation.color.Layer
 import com.gabrieldrn.carbon.tab.TabItem
 import com.gabrieldrn.carbon.tab.TabList
 import com.gabrieldrn.carbon.tab.TabVariant
@@ -35,9 +33,6 @@ private val demoTabs = listOf(
     TabItem(label = "Activity"),
     TabItem(label = "Disabled", enabled = false)
 )
-
-private val layersOptions =
-    Layer.entries.associateWith { DropdownOption(it.toString(), enabled = it != Layer.Layer03) }
 
 private val tabVariants = TabVariant.entries.map { TabItem(it.name) }
 
@@ -55,7 +50,6 @@ internal fun TabListDemoScreen(modifier: Modifier = Modifier) {
                 variant = TabVariant.valueOf(variant.label)
             )
         },
-        layers = layersOptions,
         modifier = modifier
     )
 }

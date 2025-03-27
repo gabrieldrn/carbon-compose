@@ -24,6 +24,9 @@ import androidx.compose.ui.graphics.Color
 import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.foundation.color.Layer
 import com.gabrieldrn.carbon.foundation.color.Theme
+import com.gabrieldrn.carbon.foundation.color.borderStrongColor
+import com.gabrieldrn.carbon.foundation.color.borderSubtleColor
+import com.gabrieldrn.carbon.foundation.color.fieldColor
 
 @Immutable
 internal class TextInputColors private constructor(
@@ -34,36 +37,17 @@ internal class TextInputColors private constructor(
     @Composable
     fun fieldBorderColor(state: TextInputState): State<Color> =
         rememberUpdatedState(
-            newValue = if (state == TextInputState.ReadOnly) {
-                when (layer) {
-                    Layer.Layer00 -> theme.borderSubtle00
-                    Layer.Layer01 -> theme.borderSubtle01
-                    Layer.Layer02 -> theme.borderSubtle02
-                    Layer.Layer03 -> theme.borderSubtle03
-                }
-            } else {
-                when (layer) {
-                    Layer.Layer00 -> theme.borderStrong01
-                    Layer.Layer01 -> theme.borderStrong02
-                    Layer.Layer02,
-                    Layer.Layer03 -> theme.borderStrong03
-                }
-            }
+            newValue =
+                if (state == TextInputState.ReadOnly) theme.borderSubtleColor(layer)
+                else theme.borderStrongColor(layer)
         )
 
     @Composable
     fun fieldBackgroundColor(state: TextInputState): State<Color> =
         rememberUpdatedState(
-            newValue = if (state == TextInputState.ReadOnly) {
-                Color.Transparent
-            } else {
-                when (layer) {
-                    Layer.Layer00 -> theme.field01
-                    Layer.Layer01 -> theme.field02
-                    Layer.Layer02,
-                    Layer.Layer03 -> theme.field03
-                }
-            }
+            newValue =
+                if (state == TextInputState.ReadOnly) Color.Transparent
+                else theme.fieldColor(layer)
         )
 
     @Composable
