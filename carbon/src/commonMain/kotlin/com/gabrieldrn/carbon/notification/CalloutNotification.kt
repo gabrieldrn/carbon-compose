@@ -16,18 +16,9 @@
 
 package com.gabrieldrn.carbon.notification
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.unit.dp
-import com.gabrieldrn.carbon.Carbon
-import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 
 /**
  * # Callout notification
@@ -47,7 +38,6 @@ import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
  * @param title The title of the notification.
  * @param highContrast Whether to use high contrast colors.
  */
-@OptIn(ExperimentalLayoutApi::class)
 @Composable
 public fun CalloutNotification(
     body: AnnotatedString,
@@ -56,39 +46,14 @@ public fun CalloutNotification(
     title: String = "",
     highContrast: Boolean = false
 ) {
-    val colors = NotificationColors.rememberColors(
-        status = status,
-        useHighContrast = highContrast
-    )
-
     NotificationContainer(
+        body = body,
+        title = title,
         status = status,
-        colors = colors,
+        displayCloseButton = false,
+        highContrast = highContrast,
         modifier = modifier
-    ) {
-        FlowRow(
-            horizontalArrangement = Arrangement.spacedBy(4.dp),
-            verticalArrangement = Arrangement.spacedBy(2.dp),
-            modifier = Modifier
-                .weight(1f)
-                .padding(start = SpacingScale.spacing05)
-        ) {
-            if (title.isNotBlank()) {
-                BasicText(
-                    text = title,
-                    style = Carbon.typography.headingCompact01,
-                    color = { colors.titleColor },
-                    modifier = Modifier.testTag(NotificationTestTags.TITLE)
-                )
-            }
-            BasicText(
-                text = body,
-                style = Carbon.typography.bodyCompact01,
-                color = { colors.bodyColor },
-                modifier = Modifier.testTag(NotificationTestTags.BODY)
-            )
-        }
-    }
+    )
 }
 
 /**
