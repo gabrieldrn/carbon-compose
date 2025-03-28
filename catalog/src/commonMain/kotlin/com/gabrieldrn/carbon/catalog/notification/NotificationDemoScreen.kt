@@ -17,8 +17,11 @@
 package com.gabrieldrn.carbon.catalog.notification
 
 import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -26,8 +29,10 @@ import androidx.compose.ui.Modifier
 import com.gabrieldrn.carbon.catalog.common.DemoScreen
 import com.gabrieldrn.carbon.dropdown.Dropdown
 import com.gabrieldrn.carbon.dropdown.base.toDropdownOptions
+import com.gabrieldrn.carbon.notification.InlineNotification
 import com.gabrieldrn.carbon.notification.NotificationStatus
 import com.gabrieldrn.carbon.tab.TabItem
+import com.gabrieldrn.carbon.textinput.TextArea
 import com.gabrieldrn.carbon.textinput.TextInput
 import com.gabrieldrn.carbon.toggle.Toggle
 
@@ -44,9 +49,7 @@ fun NotificationDemoScreen(
 ) {
     var notificationStatus by remember { mutableStateOf(NotificationStatus.Success) }
     var highContrast by remember { mutableStateOf(false) }
-    var title by remember {
-        mutableStateOf("Lorem ipsum")
-    }
+    var title by remember { mutableStateOf("Lorem ipsum") }
     var body by remember {
         mutableStateOf("Lorem ipsum dolor sit amet, consectetur adipiscing elit.")
     }
@@ -59,7 +62,7 @@ fun NotificationDemoScreen(
             placeholderText = "Enter a title"
         )
 
-        TextInput(
+        TextArea(
             label = "Body",
             value = body,
             onValueChange = { body = it },
@@ -84,13 +87,31 @@ fun NotificationDemoScreen(
     DemoScreen(
         variants = variants,
         modifier = modifier,
-        demoContent = {
-            CalloutNotificationDemo(
-                title = title,
-                body = body,
-                notificationStatus = notificationStatus,
-                highContrast = highContrast
-            )
+        demoContent = { variant ->
+            when (NotificationVariant.valueOf(variant.label)) {
+                NotificationVariant.Callout -> CalloutNotificationDemo(
+                    title = title,
+                    body = body,
+                    notificationStatus = notificationStatus,
+                    highContrast = highContrast
+                )
+
+                NotificationVariant.Inline ->
+                    // Usage of this key fixes an issue with the focus indication color when
+                    // changing the high contrast parameter. Although the focus indication instance
+                    // is set to be re-calculated when the high contrast parameter changes, the
+                    // rendered color is not updated.
+                    key(highContrast) {
+                        InlineNotification(
+                            title = title,
+                            body = body,
+                            status = notificationStatus,
+                            onClose = {},
+                            modifier = Modifier.width(IntrinsicSize.Max),
+                            highContrast = highContrast
+                        )
+                    }
+            }
         },
         demoParametersContent = parametersContent,
         displayVariantsWIPNotification = true
