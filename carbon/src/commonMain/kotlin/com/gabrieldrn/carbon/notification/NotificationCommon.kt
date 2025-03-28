@@ -55,7 +55,9 @@ import com.gabrieldrn.carbon.icons.InformationFilledIcon
 import com.gabrieldrn.carbon.icons.WarningFilledIcon
 import com.gabrieldrn.carbon.icons.closeIcon
 
-private val iconSize = 20.dp
+// Required icon size from Carbon's documentation is 20px, however, when applying paddings of
+// 16px around it, this doesn't compute to a min size of 48px (16+16+20=52)
+private val iconSize = 18.dp
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
