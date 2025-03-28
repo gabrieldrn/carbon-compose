@@ -34,13 +34,14 @@ import kotlinx.coroutines.launch
 @Stable
 internal abstract class FocusIndicationInstance(
     protected val interactionSource: InteractionSource,
-    theme: Theme
+    theme: Theme,
+    useInverseColor: Boolean = false
 ) : Modifier.Node(), DrawModifierNode {
 
     protected val borderFocusWidth = 2f.dp
     protected val insetFocusWidth = 1f.dp
 
-    protected open val borderFocusColor = theme.focus
+    protected open val borderFocusColor = if (useInverseColor) theme.focusInverse else theme.focus
     protected open val insetFocusColor = Color.Transparent
 
     protected val focusAnimation = Animatable(0f)
