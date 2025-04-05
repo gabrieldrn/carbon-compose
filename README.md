@@ -27,6 +27,51 @@ A [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/) i
 > [!CAUTION]
 > This library is **still under development** and **unofficial**. Contributions are welcomed!
 
+# Import library
+
+To start using Carbon in your Compose app, add the dependency according to your dependencies declaration method:
+
+## Version catalog
+
+```toml
+[versions]
+carbon = "x.x.x"
+
+[libraries]
+carbon-compose = { module = "io.github.gabrieldrn:carbon", version.ref = "carbon" }
+```
+
+```kotlin
+dependencies {
+    implementation(libs.carbon.compose)
+}
+```
+
+## KTS
+
+```kotlin
+dependencies {
+    implementation("io.github.gabrieldrn:carbon:$version")
+}
+```
+
+## Groovy
+
+```Groovy
+dependencies {
+    implementation "io.github.gabrieldrn:carbon:$version"
+}
+```
+
+Use the latest version in the [releases page](https://github.com/gabrieldrn/carbon-compose/releases).
+
+# Usage
+
+Visit https://gabrieldrn.github.io/carbon-compose/getting-started/usage/ to learn how to use Carbon
+in your app.
+
+---
+
 # 🤳 Catalog App
 
 For testing purposes, this project provides a _catalog_ app for supported targets.
@@ -53,7 +98,7 @@ You can run the desktop version by executing the `run` Gradle task in a terminal
 
 ## Browser 🌐
 
-You can access the web catalog app at https://gabrieldrn.github.io/carbon-compose/catalog/index.html. 
+You can access the web catalog app at https://gabrieldrn.github.io/carbon-compose/catalog/index.html.
 
 Or you can run the web version locally by executing the `wasmJsBrowserRun` Gradle task in a terminal:
 ```
@@ -63,19 +108,15 @@ Or you can run the web version locally by executing the `wasmJsBrowserRun` Gradl
 # Documentation
 
 Visit the project's Github Pages https://gabrieldrn.github.io/carbon-compose/ to get more information about the
-project, some documentation, its API reference and the catalog app. 
+project, some documentation, its API reference and the catalog app.
 
 # Contributions
 
 The project is open for contributions, have a look at the contribution guidelines and the issues list!
 
-# Support the project 🫶 
+# Support
 
-Maintaining a free and open-source project takes time! If you like it and would like to encourage me, you can:
-- Star and share the project,
-- Offer me a latte ☕ (my daily fuel) with the GitHub sponsoring button on this repository main page.
-  
-Thank you very much for your support!
+Feel free to ⭐ the project and/or [leave a tip](https://github.com/sponsors/gabrieldrn) if you like carbon-compose! 🙂
 
 ---
 
