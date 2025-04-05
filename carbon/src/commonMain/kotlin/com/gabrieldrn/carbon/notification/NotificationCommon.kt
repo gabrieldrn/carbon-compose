@@ -166,6 +166,7 @@ private fun CloseButton(
                 role = Role.Button
             )
             .padding(SpacingScale.spacing05)
+            .testTag(NotificationTestTags.CLOSE_BUTTON)
     ) {
         Image(
             painter = rememberVectorPainter(closeIcon),

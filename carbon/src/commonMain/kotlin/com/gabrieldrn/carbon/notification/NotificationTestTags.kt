@@ -24,4 +24,5 @@ internal object NotificationTestTags {
     const val ICON_ERROR = "carbon_notification_icon_error"
     const val TITLE = "carbon_notification_title"
     const val BODY = "carbon_notification_body"
+    const val CLOSE_BUTTON = "carbon_notification_close_button"
 }
