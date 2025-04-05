@@ -948,10 +948,8 @@ public final class com/gabrieldrn/carbon/notification/CalloutNotificationKt {
 	public static final fun CalloutNotification (Ljava/lang/String;Lcom/gabrieldrn/carbon/notification/NotificationStatus;Landroidx/compose/ui/Modifier;Ljava/lang/String;ZLandroidx/compose/runtime/Composer;II)V
 }
 
-public final class com/gabrieldrn/carbon/notification/ComposableSingletons$CalloutNotificationKt {
-	public static final field INSTANCE Lcom/gabrieldrn/carbon/notification/ComposableSingletons$CalloutNotificationKt;
-	public fun <init> ()V
-	public final fun getLambda-1$carbon ()Lkotlin/jvm/functions/Function3;
+public final class com/gabrieldrn/carbon/notification/InlineNotificationKt {
+	public static final fun InlineNotification (Ljava/lang/String;Ljava/lang/String;Lcom/gabrieldrn/carbon/notification/NotificationStatus;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;ZLandroidx/compose/runtime/Composer;II)V
 }
 
 public final class com/gabrieldrn/carbon/notification/NotificationStatus : java/lang/Enum {

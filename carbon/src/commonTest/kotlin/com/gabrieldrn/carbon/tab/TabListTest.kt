@@ -29,6 +29,8 @@ import androidx.compose.ui.test.onAllNodesWithTag
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.runComposeUiTest
 import com.gabrieldrn.carbon.CarbonDesignSystem
+import com.gabrieldrn.carbon.PARAMTRZD_DEPRECATION_MESSAGE
+import com.gabrieldrn.carbon.PARAMTRZD_DEPRECATION_REPLACE
 import com.gabrieldrn.carbon.toList
 import kotlin.test.Test
 
@@ -75,6 +77,11 @@ class TabListTest {
         }
     }
 
+    @Deprecated(
+        message = PARAMTRZD_DEPRECATION_MESSAGE,
+        level = DeprecationLevel.WARNING,
+        replaceWith = ReplaceWith(PARAMTRZD_DEPRECATION_REPLACE)
+    )
     private fun forEachParameter(
         testBlock: () -> Unit
     ) {

@@ -27,14 +27,16 @@ import com.gabrieldrn.carbon.foundation.motion.Motion
 
 internal class ButtonFocusIndication(
     private val theme: Theme,
-    private val buttonType: ButtonType
+    private val buttonType: ButtonType,
+    private val useInverseColor: Boolean = false
 ) : FocusIndication(theme) {
 
     private class ButtonIndicationInstance(
         interactionSource: InteractionSource,
         theme: Theme,
-        buttonType: ButtonType
-    ) : DefaultFocusIndicationInstance(interactionSource, theme) {
+        buttonType: ButtonType,
+        useInverseColor: Boolean = false
+    ) : DefaultFocusIndicationInstance(interactionSource, theme, useInverseColor) {
 
         override val insetFocusColor = if (buttonType == ButtonType.Ghost) {
             Color.Transparent
@@ -49,7 +51,7 @@ internal class ButtonFocusIndication(
     }
 
     override fun create(interactionSource: InteractionSource): DelegatableNode =
-        ButtonIndicationInstance(interactionSource, theme, buttonType)
+        ButtonIndicationInstance(interactionSource, theme, buttonType, useInverseColor)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

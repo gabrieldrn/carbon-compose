@@ -16,30 +16,9 @@
 
 package com.gabrieldrn.carbon.notification
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.RowScope
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.drawWithContent
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.geometry.Size
-import androidx.compose.ui.graphics.SolidColor
-import androidx.compose.ui.graphics.drawscope.Stroke
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.unit.dp
-import com.gabrieldrn.carbon.Carbon
-import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
-import com.gabrieldrn.carbon.icons.CheckmarkFilledIcon
-import com.gabrieldrn.carbon.icons.ErrorFilledIcon
-import com.gabrieldrn.carbon.icons.InformationFilledIcon
-import com.gabrieldrn.carbon.icons.WarningFilledIcon
 
 /**
  * # Callout notification
@@ -59,7 +38,6 @@ import com.gabrieldrn.carbon.icons.WarningFilledIcon
  * @param title The title of the notification.
  * @param highContrast Whether to use high contrast colors.
  */
-@OptIn(ExperimentalLayoutApi::class)
 @Composable
 public fun CalloutNotification(
     body: AnnotatedString,
@@ -68,43 +46,14 @@ public fun CalloutNotification(
     title: String = "",
     highContrast: Boolean = false
 ) {
-    val colors = NotificationColors.rememberColors(
-        status = status,
-        useHighContrast = highContrast
-    )
-
     NotificationContainer(
-        colors = colors,
+        body = body,
+        title = title,
+        status = status,
+        displayCloseButton = false,
+        highContrast = highContrast,
         modifier = modifier
-    ) {
-        Icon(
-            status = status,
-            colors = colors,
-        )
-
-        FlowRow(
-            horizontalArrangement = Arrangement.spacedBy(4.dp),
-            verticalArrangement = Arrangement.spacedBy(2.dp),
-            modifier = Modifier
-                .weight(1f)
-                .padding(start = SpacingScale.spacing05)
-        ) {
-            if (title.isNotBlank()) {
-                BasicText(
-                    text = title,
-                    style = Carbon.typography.headingCompact01,
-                    color = { colors.titleColor },
-                    modifier = Modifier.testTag(NotificationTestTags.TITLE)
-                )
-            }
-            BasicText(
-                text = body,
-                style = Carbon.typography.bodyCompact01,
-                color = { colors.bodyColor },
-                modifier = Modifier.testTag(NotificationTestTags.BODY)
-            )
-        }
-    }
+    )
 }
 
 /**
@@ -138,72 +87,5 @@ public fun CalloutNotification(
         modifier = modifier,
         title = title,
         highContrast = highContrast
-    )
-}
-
-private val iconSize = 20.dp
-
-@Composable
-private fun Icon(
-    status: NotificationStatus,
-    colors: NotificationColors,
-    modifier: Modifier = Modifier
-) {
-    when (status) {
-        NotificationStatus.Informational -> InformationFilledIcon(
-            tint = colors.iconColor,
-            innerTint = colors.iconInnerColor,
-            size = iconSize,
-            modifier = modifier.testTag(NotificationTestTags.ICON_INFORMATIONAL)
-        )
-        NotificationStatus.Success -> CheckmarkFilledIcon(
-            tint = colors.iconColor,
-            size = iconSize,
-            modifier = modifier.testTag(NotificationTestTags.ICON_SUCCESS)
-        )
-        NotificationStatus.Warning -> WarningFilledIcon(
-            tint = colors.iconColor,
-            innerTint = colors.iconInnerColor,
-            size = iconSize,
-            modifier = modifier.testTag(NotificationTestTags.ICON_WARNING)
-        )
-        NotificationStatus.Error -> ErrorFilledIcon(
-            tint = colors.iconColor,
-            size = iconSize,
-            modifier = modifier.testTag(NotificationTestTags.ICON_ERROR)
-        )
-    }
-}
-
-@Composable
-private fun NotificationContainer(
-    colors: NotificationColors,
-    modifier: Modifier = Modifier,
-    content: @Composable RowScope.() -> Unit = {}
-) {
-    Row(
-        modifier = modifier
-            .background(colors.backgroundColor)
-            .drawWithContent {
-                drawContent()
-                val contourWidthPx = 1.dp.toPx()
-                drawRect(
-                    brush = SolidColor(colors.contourColor),
-                    topLeft = Offset(contourWidthPx / 2, contourWidthPx / 2),
-                    size = Size(
-                        size.width - contourWidthPx,
-                        size.height - contourWidthPx
-                    ),
-                    style = Stroke(1.dp.toPx())
-                )
-                drawRect(
-                    brush = SolidColor(colors.borderLeftColor),
-                    topLeft = Offset.Zero,
-                    size = Size(3f.dp.toPx(), size.height)
-                )
-            }
-            .padding(SpacingScale.spacing05)
-            .testTag(NotificationTestTags.CONTAINER),
-        content = content
     )
 }

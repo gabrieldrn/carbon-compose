@@ -17,49 +17,36 @@
 package com.gabrieldrn.carbon.notification
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
-import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import com.gabrieldrn.carbon.CarbonDesignSystem
-
-internal class NotificationStatusParameterProvider : PreviewParameterProvider<NotificationStatus> {
-    override val values = sequenceOf(
-        NotificationStatus.Informational,
-        NotificationStatus.Success,
-        NotificationStatus.Warning,
-        NotificationStatus.Error
-    )
-}
 
 @Preview(group = "Low contrast")
 @Composable
-private fun CalloutNotificationPreview(
+private fun InlineNotificationPreview(
     @PreviewParameter(NotificationStatusParameterProvider::class) status: NotificationStatus
 ) {
     CarbonDesignSystem {
-        CalloutNotification(
+        InlineNotification(
             title = "Callout Notification",
-            body = buildAnnotatedString {
-                append("Lorem ipsum dolor sit amet, consectetur adipiscing elit.")
-            },
-            status = status
+            body = "Lorem ipsum dolor.",
+            status = status,
+            onClose = {}
         )
     }
 }
 
 @Preview(group = "High contrast")
 @Composable
-private fun CalloutNotificationHighContrastPreview(
+private fun InlineNotificationHighContrastPreview(
     @PreviewParameter(NotificationStatusParameterProvider::class) status: NotificationStatus
 ) {
     CarbonDesignSystem {
-        CalloutNotification(
+        InlineNotification(
             title = "Callout Notification",
-            body = buildAnnotatedString {
-                append("Lorem ipsum dolor sit amet, consectetur adipiscing elit.")
-            },
+            body = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
             status = status,
+            onClose = {},
             highContrast = true
         )
     }

@@ -33,6 +33,7 @@
     - [Small loading](https://gabrieldrn.github.io/carbon-compose/api/-carbon%20-compose/com.gabrieldrn.carbon.loading/-small-loading.html)
 - Notification
     - [Callout notification](https://gabrieldrn.github.io/carbon-compose/api/-carbon%20-compose/com.gabrieldrn.carbon.notification/-callout-notification.html)
+    - [Inline notification](https://gabrieldrn.github.io/carbon-compose/api/-carbon%20-compose/com.gabrieldrn.carbon.notification/-inline-notification.html)
 - Progress bar
     - [Default progress bar](https://gabrieldrn.github.io/carbon-compose/api/-carbon%20-compose/com.gabrieldrn.carbon.progressbar/-progress-bar.html)
     - [Indeterminate progress bar](https://gabrieldrn.github.io/carbon-compose/api/-carbon%20-compose/com.gabrieldrn.carbon.progressbar/-indeterminate-progress-bar.html)

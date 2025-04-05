@@ -39,7 +39,8 @@ internal open class FocusIndication(private val theme: Theme) : IndicationNodeFa
     internal open class DefaultFocusIndicationInstance(
         interactionSource: InteractionSource,
         theme: Theme,
-    ) : FocusIndicationInstance(interactionSource, theme) {
+        useInverseColor: Boolean = false
+    ) : FocusIndicationInstance(interactionSource, theme, useInverseColor) {
 
         override val focusAnimationSpec: FiniteAnimationSpec<Float> = snap()
 

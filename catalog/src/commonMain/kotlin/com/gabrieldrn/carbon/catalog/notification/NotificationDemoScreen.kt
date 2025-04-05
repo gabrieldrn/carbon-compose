@@ -18,84 +18,43 @@ package com.gabrieldrn.carbon.catalog.notification
 
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.IntrinsicSize
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.LinkAnnotation
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.TextLinkStyles
-import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.style.TextDecoration
-import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.catalog.common.DemoScreen
 import com.gabrieldrn.carbon.dropdown.Dropdown
 import com.gabrieldrn.carbon.dropdown.base.toDropdownOptions
-import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
-import com.gabrieldrn.carbon.notification.CalloutNotification
+import com.gabrieldrn.carbon.notification.InlineNotification
 import com.gabrieldrn.carbon.notification.NotificationStatus
+import com.gabrieldrn.carbon.tab.TabItem
+import com.gabrieldrn.carbon.textinput.TextArea
 import com.gabrieldrn.carbon.textinput.TextInput
 import com.gabrieldrn.carbon.toggle.Toggle
 
-@Composable
-fun NotificationDemoScreen(modifier: Modifier = Modifier) {
+private enum class NotificationVariant {
+    Callout,
+    Inline
+}
 
+private val variants = NotificationVariant.entries.map { TabItem(it.name) }
+
+@Composable
+fun NotificationDemoScreen(
+    modifier: Modifier = Modifier
+) {
     var notificationStatus by remember { mutableStateOf(NotificationStatus.Success) }
     var highContrast by remember { mutableStateOf(false) }
-
-    val urlDemoNotification: @Composable ColumnScope.() -> Unit = {
-        val url = remember {
-            "https://carbondesignsystem.com/components/notification/usage/#callout"
-        }
-        CalloutNotification(
-            title = "Callout notification",
-            body = buildAnnotatedString {
-                val clickableText = "callout notification"
-                val string = "This is a $clickableText."
-                append(string)
-                addLink(
-                    url = LinkAnnotation.Url(
-                        url = url,
-                        styles = TextLinkStyles(
-                            style = SpanStyle(
-                                color = Carbon.theme.linkPrimary,
-                                textDecoration = TextDecoration.Underline
-                            )
-                        ),
-                    ),
-                    start = string.indexOf(clickableText),
-                    end = string.indexOf(clickableText) + clickableText.length
-                )
-            },
-            status = notificationStatus,
-            highContrast = highContrast,
-            modifier = Modifier.width(IntrinsicSize.Max)
-        )
-    }
-
-    var title by remember {
-        mutableStateOf("Lorem ipsum")
-    }
+    var title by remember { mutableStateOf("Lorem ipsum") }
     var body by remember {
         mutableStateOf("Lorem ipsum dolor sit amet, consectetur adipiscing elit.")
     }
 
-    val editableDemoNotification: @Composable ColumnScope.() -> Unit = {
-        CalloutNotification(
-            title = title,
-            body = body,
-            status = notificationStatus,
-            highContrast = highContrast,
-            modifier = Modifier.width(IntrinsicSize.Max)
-        )
-    }
-
-    val parametersContent: @Composable ColumnScope.() -> Unit = {
+    val parametersContent: @Composable ColumnScope.(TabItem) -> Unit = {
         TextInput(
             label = "Title",
             value = title,
@@ -103,7 +62,7 @@ fun NotificationDemoScreen(modifier: Modifier = Modifier) {
             placeholderText = "Enter a title"
         )
 
-        TextInput(
+        TextArea(
             label = "Body",
             value = body,
             onValueChange = { body = it },
@@ -126,13 +85,33 @@ fun NotificationDemoScreen(modifier: Modifier = Modifier) {
     }
 
     DemoScreen(
+        variants = variants,
         modifier = modifier,
-        demoContent = {
-            urlDemoNotification()
+        demoContent = { variant ->
+            when (NotificationVariant.valueOf(variant.label)) {
+                NotificationVariant.Callout -> CalloutNotificationDemo(
+                    title = title,
+                    body = body,
+                    notificationStatus = notificationStatus,
+                    highContrast = highContrast
+                )
 
-            Spacer(modifier = Modifier.height(SpacingScale.spacing05))
-
-            editableDemoNotification()
+                NotificationVariant.Inline ->
+                    // Usage of this key fixes an issue with the focus indication color when
+                    // changing the high contrast parameter. Although the focus indication instance
+                    // is set to be re-calculated when the high contrast parameter changes, the
+                    // rendered color is not updated.
+                    key(highContrast) {
+                        InlineNotification(
+                            title = title,
+                            body = body,
+                            status = notificationStatus,
+                            onClose = {},
+                            modifier = Modifier.width(IntrinsicSize.Max),
+                            highContrast = highContrast
+                        )
+                    }
+            }
         },
         demoParametersContent = parametersContent,
         displayVariantsWIPNotification = true
