@@ -18,11 +18,14 @@ package com.gabrieldrn.carbon.accordion
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -31,6 +34,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
+
+private val ACCORDION_WIDTH_WIDER = 640.dp
+private val ACCORDION_WIDTH_NARROW = 420.dp
+private val accordionMediumWidthRange = ACCORDION_WIDTH_NARROW..ACCORDION_WIDTH_WIDER
+
+private const val ACCORDION_WIDER_MARGIN_RATIO = .25f
 
 @Composable
 private fun Modifier.sectionModifier(flushAlignment: Boolean): Modifier =
@@ -66,28 +75,39 @@ public fun Accordion(
 ) {
     val dividerColor = Carbon.theme.borderSubtle00 // TODO Adjust by layer
 
-    Column(modifier = modifier) {
-        Spacer(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(1.dp)
-                .background(dividerColor)
-        )
+    BoxWithConstraints(modifier = modifier) {
+        val marginRight = remember(maxWidth) {
+            when {
+                maxWidth > ACCORDION_WIDTH_WIDER -> maxWidth * ACCORDION_WIDER_MARGIN_RATIO
+                maxWidth in accordionMediumWidthRange -> SpacingScale.spacing10
+                else -> SpacingScale.spacing05
+            }
+        }
 
-        sections.forEach { (header, body) ->
-            Section(
-                header = header,
-                body = body,
-                size = size,
-                flushAlignment = flushAlignment,
-                modifier = Modifier.fillMaxWidth()
-            )
+        Column {
             Spacer(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(1.dp)
                     .background(dividerColor)
             )
+
+            sections.forEach { (header, body) ->
+                Section(
+                    header = header,
+                    body = body,
+                    size = size,
+                    flushAlignment = flushAlignment,
+                    marginRight = { Spacer(modifier = Modifier.width(marginRight)) },
+                    modifier = Modifier.fillMaxWidth()
+                )
+                Spacer(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(1.dp)
+                        .background(dividerColor)
+                )
+            }
         }
     }
 }
@@ -98,6 +118,7 @@ private fun Section(
     body: String,
     size: AccordionSize,
     flushAlignment: Boolean,
+    marginRight: @Composable () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val typography = Carbon.typography
@@ -115,13 +136,18 @@ private fun Section(
                 modifier = Modifier.align(Alignment.CenterStart)
             )
         }
-        BasicText(
-            text = body,
-            style = textStyle,
-            modifier = Modifier.padding(
-                top = SpacingScale.spacing03,
-                bottom = SpacingScale.spacing06
+        Row {
+            BasicText(
+                text = body,
+                style = textStyle,
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(
+                        top = SpacingScale.spacing03,
+                        bottom = SpacingScale.spacing06
+                    )
             )
-        )
+            marginRight()
+        }
     }
 }
