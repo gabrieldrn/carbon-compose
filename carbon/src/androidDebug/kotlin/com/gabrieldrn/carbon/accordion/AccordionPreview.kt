@@ -20,6 +20,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import com.gabrieldrn.carbon.CarbonDesignSystem
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 
@@ -29,12 +31,21 @@ private val sections = listOf(
     "Section 3" to "This is the third section"
 )
 
+private class AccordionSizePreviewParameterProvider : PreviewParameterProvider<AccordionSize> {
+    override val values: Sequence<AccordionSize>
+        get() = AccordionSize.entries.asSequence()
+}
+
 @Preview(showBackground = true)
 @Composable
-private fun AccordionPreview() {
+private fun AccordionPreview(
+    @PreviewParameter(AccordionSizePreviewParameterProvider::class)
+    size: AccordionSize
+) {
     CarbonDesignSystem {
         Accordion(
             sections = sections,
+            size = size,
             modifier = Modifier.padding(SpacingScale.spacing05)
         )
     }

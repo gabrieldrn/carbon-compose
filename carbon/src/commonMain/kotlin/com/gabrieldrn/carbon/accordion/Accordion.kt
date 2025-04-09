@@ -47,12 +47,14 @@ import com.gabrieldrn.carbon.Carbon
  * @param sections A list of pairs containing the header and body text for each section. The header
  * is the title of the section and the body is the content of the section. The sections are
  * displayed in order. Each pair associates a header (first element) with a body (second element).
+ * @param size The size of the accordion.
  * @param modifier The modifier to be applied to the accordion.
  */
 @Composable
 public fun Accordion(
     sections: List<Pair<String, String>>,
-    modifier: Modifier = Modifier
+    size: AccordionSize,
+    modifier: Modifier = Modifier,
 ) {
     val dividerColor = Carbon.theme.borderSubtle00 // TODO Adjust by layer
 
@@ -68,6 +70,7 @@ public fun Accordion(
             Section(
                 header = header,
                 body = body,
+                size = size,
                 modifier = Modifier.fillMaxWidth()
             )
             Spacer(
@@ -84,6 +87,7 @@ public fun Accordion(
 private fun Section(
     header: String,
     body: String,
+    size: AccordionSize,
     modifier: Modifier = Modifier
 ) {
     val typography = Carbon.typography
@@ -94,7 +98,7 @@ private fun Section(
     }
 
     Column(modifier = modifier.padding(start = 16.dp)) {
-        Box(modifier = Modifier.height(40.dp)) {
+        Box(modifier = Modifier.height(size.heightDp())) {
             BasicText(
                 text = header,
                 style = textStyle,
