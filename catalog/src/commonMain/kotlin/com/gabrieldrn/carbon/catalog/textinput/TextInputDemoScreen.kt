@@ -30,6 +30,7 @@ import com.gabrieldrn.carbon.button.Button
 import com.gabrieldrn.carbon.button.IconButton
 import com.gabrieldrn.carbon.catalog.Res
 import com.gabrieldrn.carbon.catalog.common.DemoScreen
+import com.gabrieldrn.carbon.catalog.common.loremIpsum
 import com.gabrieldrn.carbon.catalog.ic_delete
 import com.gabrieldrn.carbon.catalog.ic_text_long_paragraph
 import com.gabrieldrn.carbon.dropdown.Dropdown
@@ -44,15 +45,6 @@ import org.jetbrains.compose.resources.painterResource
 
 private val textInputStateOptions = TextInputState.entries.toDropdownOptions()
 private val textInputVariants = TextInputVariant.entries.map { TabItem(it.label) }
-
-private val loremIpsum =
-    """
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco 
-        laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in 
-        voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat 
-        cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
-    """.trimIndent().replace("\n", "")
 
 private enum class TextInputVariant(val label: String) {
     TextInput("Text input"),
