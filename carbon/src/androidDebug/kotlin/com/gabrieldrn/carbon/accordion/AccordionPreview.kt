@@ -50,3 +50,19 @@ private fun AccordionPreview(
         )
     }
 }
+
+@Preview(showBackground = true)
+@Composable
+private fun FlushedAccordionPreview(
+    @PreviewParameter(AccordionSizePreviewParameterProvider::class)
+    size: AccordionSize
+) {
+    CarbonDesignSystem {
+        Accordion(
+            sections = sections,
+            size = size,
+            flushAlignment = true,
+            modifier = Modifier.padding(SpacingScale.spacing05)
+        )
+    }
+}

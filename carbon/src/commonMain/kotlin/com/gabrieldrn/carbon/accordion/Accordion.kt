@@ -30,6 +30,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
+import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
+
+@Composable
+private fun Modifier.sectionModifier(flushAlignment: Boolean): Modifier =
+    if (flushAlignment) this else padding(start = SpacingScale.spacing05)
 
 /**
  * # Accordion
@@ -49,12 +54,15 @@ import com.gabrieldrn.carbon.Carbon
  * displayed in order. Each pair associates a header (first element) with a body (second element).
  * @param size The size of the accordion.
  * @param modifier The modifier to be applied to the accordion.
+ * @param flushAlignment Whether to use the flush alignment modifier or not. Flush alignment places
+ * the row title and chevron icons with 0px padding, keeping them flush to the rule dividers
  */
 @Composable
 public fun Accordion(
     sections: List<Pair<String, String>>,
     size: AccordionSize,
     modifier: Modifier = Modifier,
+    flushAlignment: Boolean = false
 ) {
     val dividerColor = Carbon.theme.borderSubtle00 // TODO Adjust by layer
 
@@ -71,6 +79,7 @@ public fun Accordion(
                 header = header,
                 body = body,
                 size = size,
+                flushAlignment = flushAlignment,
                 modifier = Modifier.fillMaxWidth()
             )
             Spacer(
@@ -88,6 +97,7 @@ private fun Section(
     header: String,
     body: String,
     size: AccordionSize,
+    flushAlignment: Boolean,
     modifier: Modifier = Modifier
 ) {
     val typography = Carbon.typography
@@ -97,7 +107,7 @@ private fun Section(
         typography.body01.copy(color = theme.textPrimary)
     }
 
-    Column(modifier = modifier.padding(start = 16.dp)) {
+    Column(modifier = modifier.sectionModifier(flushAlignment)) {
         Box(modifier = Modifier.height(size.heightDp())) {
             BasicText(
                 text = header,
@@ -108,7 +118,10 @@ private fun Section(
         BasicText(
             text = body,
             style = textStyle,
-            modifier = Modifier.padding(top = 8.dp, bottom = 24.dp)
+            modifier = Modifier.padding(
+                top = SpacingScale.spacing03,
+                bottom = SpacingScale.spacing06
+            )
         )
     }
 }
