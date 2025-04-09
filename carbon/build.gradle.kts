@@ -54,9 +54,6 @@ kotlin {
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.ui)
-            implementation(compose.uiTest) {
-                exclude(group = "androidx.test.espresso", module = "espresso-core")
-            }
             implementation(compose.animation)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
@@ -65,7 +62,9 @@ kotlin {
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
-            implementation(compose.uiTest)
+            implementation(compose.uiTest) {
+                exclude(group = "androidx.test.espresso", module = "espresso-core")
+            }
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
