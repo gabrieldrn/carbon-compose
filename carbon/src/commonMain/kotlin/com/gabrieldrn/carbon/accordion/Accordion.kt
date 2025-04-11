@@ -31,6 +31,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
@@ -90,6 +91,7 @@ public fun Accordion(
                     .fillMaxWidth()
                     .height(1.dp)
                     .background(dividerColor)
+                    .testTag(AccordionTestTags.DIVIDER_TOP)
             )
 
             sections.forEach { (header, body) ->
@@ -98,7 +100,13 @@ public fun Accordion(
                     body = body,
                     size = size,
                     flushAlignment = flushAlignment,
-                    marginRight = { Spacer(modifier = Modifier.width(marginRight)) },
+                    marginRight = {
+                        Spacer(
+                            modifier = Modifier
+                                .width(marginRight)
+                                .testTag(AccordionTestTags.MARGIN_RIGHT)
+                        )
+                    },
                     modifier = Modifier.fillMaxWidth()
                 )
                 Spacer(
@@ -106,6 +114,7 @@ public fun Accordion(
                         .fillMaxWidth()
                         .height(1.dp)
                         .background(dividerColor)
+                        .testTag(AccordionTestTags.DIVIDER_BOTTOM)
                 )
             }
         }
@@ -133,7 +142,9 @@ private fun Section(
             BasicText(
                 text = header,
                 style = textStyle,
-                modifier = Modifier.align(Alignment.CenterStart)
+                modifier = Modifier
+                    .align(Alignment.CenterStart)
+                    .testTag(AccordionTestTags.TITLE)
             )
         }
         Row {
@@ -146,6 +157,7 @@ private fun Section(
                         top = SpacingScale.spacing03,
                         bottom = SpacingScale.spacing06
                     )
+                    .testTag(AccordionTestTags.BODY)
             )
             marginRight()
         }
