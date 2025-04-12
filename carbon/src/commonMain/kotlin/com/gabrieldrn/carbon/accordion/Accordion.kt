@@ -105,7 +105,7 @@ public fun Accordion(
     modifier: Modifier = Modifier,
     flushAlignment: Boolean = false
 ) {
-    val dividerColor = Carbon.theme.borderSubtle00 // TODO Adjust by layer
+    val colors = AccordionColors.colors()
 
     BoxWithConstraints(modifier = modifier) {
         val marginRight = remember(maxWidth) {
@@ -121,7 +121,7 @@ public fun Accordion(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(1.dp)
-                    .background(dividerColor)
+                    .background(colors.dividerColor)
                     .testTag(AccordionTestTags.DIVIDER_TOP)
             )
 
@@ -131,6 +131,7 @@ public fun Accordion(
                     body = body,
                     size = size,
                     flushAlignment = flushAlignment,
+                    colors = colors,
                     marginRight = {
                         Spacer(
                             modifier = Modifier
@@ -140,11 +141,12 @@ public fun Accordion(
                     },
                     modifier = Modifier.fillMaxWidth()
                 )
+
                 Spacer(
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(1.dp)
-                        .background(dividerColor)
+                        .background(colors.dividerColor)
                         .testTag(AccordionTestTags.DIVIDER_BOTTOM)
                 )
             }
@@ -158,19 +160,19 @@ private fun Section(
     body: String,
     size: AccordionSize,
     flushAlignment: Boolean,
+    colors: AccordionColors,
     marginRight: @Composable () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val typography = Carbon.typography
-    val theme = Carbon.theme
 
-    val textStyle = remember {
-        typography.body01.copy(color = theme.textPrimary)
+    val textStyle = remember(typography, colors) {
+        typography.body01.copy(color = colors.textColor)
     }
 
-    val componentsModifier = Modifier.sectionModifier(flushAlignment)
-
     var isExpanded by remember { mutableStateOf(false) }
+
+    val componentsModifier = Modifier.sectionModifier(flushAlignment)
 
     Column(modifier = modifier) {
         Row(
@@ -197,6 +199,7 @@ private fun Section(
                 )
             )
         }
+
         AnimatedVisibility(
             visible = isExpanded,
             enter = expandAnimationSpec,
@@ -218,6 +221,7 @@ private fun Section(
                         )
                         .testTag(AccordionTestTags.BODY)
                 )
+
                 marginRight()
             }
         }
