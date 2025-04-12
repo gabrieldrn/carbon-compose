@@ -23,7 +23,6 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -43,6 +42,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
+import com.gabrieldrn.carbon.common.molecules.AnimatedChevronDownIcon
 import com.gabrieldrn.carbon.foundation.motion.Motion
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 
@@ -75,7 +75,7 @@ private val shrinkAnimationSpec =
 
 @Composable
 private fun Modifier.sectionModifier(flushAlignment: Boolean): Modifier =
-    if (flushAlignment) this else padding(start = SpacingScale.spacing05)
+    if (flushAlignment) this else padding(horizontal = SpacingScale.spacing05)
 
 /**
  * # Accordion
@@ -173,7 +173,8 @@ private fun Section(
     var isExpanded by remember { mutableStateOf(false) }
 
     Column(modifier = modifier) {
-        Box(
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .height(size.heightDp())
                 .fillMaxWidth()
@@ -184,8 +185,16 @@ private fun Section(
                 text = header,
                 style = textStyle,
                 modifier = Modifier
-                    .align(Alignment.CenterStart)
+                    .weight(1f)
                     .testTag(AccordionTestTags.TITLE)
+            )
+
+            AnimatedChevronDownIcon(
+                rotateToUp = isExpanded,
+                transitionSpec = tween(
+                    durationMillis = Motion.Duration.fast01,
+                    easing = Motion.Entrance.productiveEasing
+                )
             )
         }
         AnimatedVisibility(
