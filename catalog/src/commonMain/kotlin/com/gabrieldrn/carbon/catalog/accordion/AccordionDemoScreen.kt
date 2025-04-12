@@ -16,14 +16,20 @@
 
 package com.gabrieldrn.carbon.catalog.accordion
 
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import com.gabrieldrn.carbon.accordion.Accordion
 import com.gabrieldrn.carbon.accordion.AccordionSize
 import com.gabrieldrn.carbon.catalog.common.DemoScreen
 import com.gabrieldrn.carbon.catalog.common.loremIpsum
-import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
+import com.gabrieldrn.carbon.dropdown.Dropdown
+import com.gabrieldrn.carbon.dropdown.base.DropdownInteractiveState
+import com.gabrieldrn.carbon.dropdown.base.toDropdownOptions
+import com.gabrieldrn.carbon.toggle.Toggle
 
 private val sections = listOf(
     "Section 1" to loremIpsum,
@@ -33,12 +39,34 @@ private val sections = listOf(
 
 @Composable
 fun AccordionDemoScreen(modifier: Modifier = Modifier) {
+
+    var accordionSize by rememberSaveable { mutableStateOf(AccordionSize.Large) }
+    var isFlushed by rememberSaveable { mutableStateOf(false) }
+
     DemoScreen(
+        demoParametersContent = {
+            Dropdown(
+                placeholder = "Choose accordion size",
+                label = "Accordion size",
+                options = AccordionSize.entries.toDropdownOptions(),
+                state = getSizeSpecification(accordionSize)
+                    ?.let(DropdownInteractiveState::Warning)
+                    ?: DropdownInteractiveState.Enabled,
+                selectedOption = accordionSize,
+                onOptionSelected = { accordionSize = it },
+            )
+
+            Toggle(
+                label = "Flushed alignment",
+                isToggled = isFlushed,
+                onToggleChange = { isFlushed = it }
+            )
+        },
         demoContent = {
             Accordion(
                 sections = sections,
-                size = AccordionSize.Large,
-                modifier = Modifier.padding(SpacingScale.spacing05)
+                size = accordionSize,
+                flushAlignment = isFlushed,
             )
         },
         modifier = modifier
