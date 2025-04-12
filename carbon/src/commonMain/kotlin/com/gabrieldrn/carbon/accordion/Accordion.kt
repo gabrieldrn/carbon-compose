@@ -16,7 +16,13 @@
 
 package com.gabrieldrn.carbon.accordion
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
@@ -28,12 +34,16 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
+import com.gabrieldrn.carbon.foundation.motion.Motion
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 
 private val ACCORDION_WIDTH_WIDER = 640.dp
@@ -41,6 +51,27 @@ private val ACCORDION_WIDTH_NARROW = 420.dp
 private val accordionMediumWidthRange = ACCORDION_WIDTH_NARROW..ACCORDION_WIDTH_WIDER
 
 private const val ACCORDION_WIDER_MARGIN_RATIO = .25f
+
+private val expandAnimationSpec =
+    fadeIn(
+        tween(
+            durationMillis = Motion.Duration.moderate01,
+            easing = Motion.Entrance.productiveEasing
+        )
+    ) + expandVertically(
+        tween(
+            durationMillis = Motion.Duration.fast01,
+            easing = Motion.Entrance.productiveEasing
+        )
+    )
+
+private val shrinkAnimationSpec =
+    shrinkVertically(
+        tween(
+            durationMillis = Motion.Duration.fast01,
+            easing = Motion.Entrance.productiveEasing
+        )
+    )
 
 @Composable
 private fun Modifier.sectionModifier(flushAlignment: Boolean): Modifier =
@@ -137,8 +168,18 @@ private fun Section(
         typography.body01.copy(color = theme.textPrimary)
     }
 
-    Column(modifier = modifier.sectionModifier(flushAlignment)) {
-        Box(modifier = Modifier.height(size.heightDp())) {
+    val componentsModifier = Modifier.sectionModifier(flushAlignment)
+
+    var isExpanded by remember { mutableStateOf(false) }
+
+    Column(modifier = modifier) {
+        Box(
+            modifier = Modifier
+                .height(size.heightDp())
+                .fillMaxWidth()
+                .clickable { isExpanded = !isExpanded }
+                .then(componentsModifier)
+        ) {
             BasicText(
                 text = header,
                 style = textStyle,
@@ -147,19 +188,29 @@ private fun Section(
                     .testTag(AccordionTestTags.TITLE)
             )
         }
-        Row {
-            BasicText(
-                text = body,
-                style = textStyle,
-                modifier = Modifier
-                    .weight(1f)
-                    .padding(
-                        top = SpacingScale.spacing03,
-                        bottom = SpacingScale.spacing06
-                    )
-                    .testTag(AccordionTestTags.BODY)
-            )
-            marginRight()
+        AnimatedVisibility(
+            visible = isExpanded,
+            enter = expandAnimationSpec,
+            exit = shrinkAnimationSpec,
+            modifier = Modifier
+                .fillMaxWidth()
+                .then(componentsModifier)
+                .testTag(AccordionTestTags.BODY_CONTAINER)
+        ) {
+            Row {
+                BasicText(
+                    text = body,
+                    style = textStyle,
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(
+                            top = SpacingScale.spacing03,
+                            bottom = SpacingScale.spacing06
+                        )
+                        .testTag(AccordionTestTags.BODY)
+                )
+                marginRight()
+            }
         }
     }
 }
