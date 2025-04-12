@@ -48,6 +48,12 @@ class CarbonMultiplatformLibraryConventionPlugin : Plugin<Project> {
 
             wasmJs { browser() }
 
+            listOf(
+                iosX64(),
+                iosArm64(),
+                iosSimulatorArm64()
+            )
+
             sourceSets.apply {
                 all {
                     languageSettings.optIn("androidx.compose.ui.test.ExperimentalTestApi")

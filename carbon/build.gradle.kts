@@ -62,6 +62,8 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
 
             implementation(libs.touchlab.kermit)
+
+            api(project(":carbon:common"))
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

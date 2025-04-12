@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 Gabriel Derrien
+ * Copyright 2024-2025 Gabriel Derrien
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.gabrieldrn.carbon.semantics
+package com.gabrieldrn.carbon.common.semantics
 
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -53,8 +53,12 @@ public fun Modifier.readOnly(
     .semantics(
         mergeDescendants = mergeDescendants
     ) {
-        if (role != null) { this.role = role }
-        if (state != null) { toggleableState = state }
+        if (role != null) {
+            this.role = role
+        }
+        if (state != null) {
+            toggleableState = state
+        }
         readOnly()
         disabled()
     }

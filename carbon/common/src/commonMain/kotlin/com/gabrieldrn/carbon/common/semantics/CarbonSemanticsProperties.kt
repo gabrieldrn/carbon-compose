@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 Gabriel Derrien
+ * Copyright 2024-2025 Gabriel Derrien
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,10 +14,12 @@
  * limitations under the License.
  */
 
-package com.gabrieldrn.carbon.semantics
+package com.gabrieldrn.carbon.common.semantics
 
 import androidx.compose.ui.semantics.SemanticsPropertyKey
 import androidx.compose.ui.semantics.SemanticsPropertyReceiver
+import com.gabrieldrn.carbon.common.semantics.CarbonSemanticsProperties.ImageVectorName
+import com.gabrieldrn.carbon.common.semantics.CarbonSemanticsProperties.ReadOnly
 
 /**
  * Carbon design system semantics properties. They follow the same principles as the ones from
@@ -36,7 +38,7 @@ public object CarbonSemanticsProperties {
     /**
      * @see [imageVectorName]
      */
-    internal val ImageVectorName: SemanticsPropertyKey<String> =
+    public val ImageVectorName: SemanticsPropertyKey<String> =
         SemanticsPropertyKey("ImageVectorName")
 
 }
@@ -45,12 +47,12 @@ public object CarbonSemanticsProperties {
  * Whether the node is read-only.
  */
 public fun SemanticsPropertyReceiver.readOnly() {
-    this[CarbonSemanticsProperties.ReadOnly] = true
+    this[ReadOnly] = true
 }
 
 /**
  * Mark semantic node that contains an icon identified by its name.
  */
-internal fun SemanticsPropertyReceiver.imageVectorName(name: String) {
-    this[CarbonSemanticsProperties.ImageVectorName] = name
+public fun SemanticsPropertyReceiver.imageVectorName(name: String) {
+    this[ImageVectorName] = name
 }

@@ -25,6 +25,7 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.runComposeUiTest
+import com.gabrieldrn.carbon.common.semantics.readOnly
 import kotlin.test.Test
 
 class ReadOnlyTest {

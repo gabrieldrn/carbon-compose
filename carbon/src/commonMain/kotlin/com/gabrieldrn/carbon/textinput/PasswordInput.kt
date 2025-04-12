@@ -40,11 +40,11 @@ import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.button.ButtonType
 import com.gabrieldrn.carbon.button.IconButton
+import com.gabrieldrn.carbon.common.semantics.imageVectorName
 import com.gabrieldrn.carbon.foundation.color.LocalCarbonTheme
 import com.gabrieldrn.carbon.foundation.color.Theme
 import com.gabrieldrn.carbon.icons.viewIcon
 import com.gabrieldrn.carbon.icons.viewOffIcon
-import com.gabrieldrn.carbon.semantics.imageVectorName
 
 /**
  * A modified [KeyboardOptions.Default] with autoCorrect set to false and keyboardType set to

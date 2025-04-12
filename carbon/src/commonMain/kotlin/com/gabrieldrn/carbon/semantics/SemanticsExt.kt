@@ -20,6 +20,7 @@ import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.SemanticsNodeInteraction
 import androidx.compose.ui.test.assert
+import com.gabrieldrn.carbon.common.semantics.CarbonSemanticsProperties
 
 /**
  * Returns whether the node is read-only and checks the following:

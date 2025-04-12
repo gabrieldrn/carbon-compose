@@ -41,13 +41,13 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
-import com.gabrieldrn.carbon.foundation.interaction.ToggleableFocusIndication
 import com.gabrieldrn.carbon.common.selectable.ErrorContent
 import com.gabrieldrn.carbon.common.selectable.SelectableInteractiveState
 import com.gabrieldrn.carbon.common.selectable.WarningContent
+import com.gabrieldrn.carbon.common.semantics.readOnly
+import com.gabrieldrn.carbon.foundation.interaction.ToggleableFocusIndication
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 import com.gabrieldrn.carbon.foundation.text.Text
-import com.gabrieldrn.carbon.semantics.readOnly
 
 private val checkboxBorderWidth = 1.dp
 private val checkboxCornerRadius = 2.dp

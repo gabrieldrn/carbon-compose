@@ -6,7 +6,6 @@ import com.gabrieldrn.carbon.buildlogic.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 
@@ -15,7 +14,7 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
  */
 class CarbonApplicationConventionPlugin : Plugin<Project> {
 
-    @OptIn(ExperimentalKotlinGradlePluginApi::class, ExperimentalWasmDsl::class)
+    @OptIn(ExperimentalWasmDsl::class)
     override fun apply(target: Project) = with(target) {
         val libs = libs
 
