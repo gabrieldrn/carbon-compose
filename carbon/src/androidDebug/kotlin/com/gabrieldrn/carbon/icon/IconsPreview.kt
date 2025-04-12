@@ -25,6 +25,9 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 import com.gabrieldrn.carbon.icons.CheckmarkFilledIcon
+import com.gabrieldrn.carbon.icons.ChevronDownIcon
+import com.gabrieldrn.carbon.icons.ChevronLeftIcon
+import com.gabrieldrn.carbon.icons.ChevronRightIcon
 import com.gabrieldrn.carbon.icons.CloseIcon
 import com.gabrieldrn.carbon.icons.ErrorFilledIcon
 import com.gabrieldrn.carbon.icons.InformationFilledIcon
@@ -36,13 +39,16 @@ import com.gabrieldrn.carbon.icons.WarningFilledIcon
 private class IconParameterProvider : PreviewParameterProvider<@Composable () -> Unit> {
     override val values = buildList<@Composable () -> Unit> {
         add { CheckmarkFilledIcon() }
+        add { ChevronDownIcon() }
+        add { ChevronLeftIcon() }
+        add { ChevronRightIcon() }
         add { CloseIcon() }
         add { ErrorFilledIcon() }
+        add { InformationFilledIcon() }
         add { ViewIcon() }
         add { ViewOffIcon() }
         add { WarningAltFilledIcon() }
         add { WarningFilledIcon() }
-        add { InformationFilledIcon() }
     }.asSequence()
 }
 

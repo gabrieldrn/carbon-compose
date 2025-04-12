@@ -20,7 +20,6 @@ import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.animation.core.Transition
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.gestures.awaitEachGesture
@@ -37,7 +36,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.PointerEventPass
 import androidx.compose.ui.input.pointer.pointerInput
@@ -61,6 +59,7 @@ import com.gabrieldrn.carbon.foundation.interaction.FocusIndication
 import com.gabrieldrn.carbon.foundation.motion.Motion
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 import com.gabrieldrn.carbon.foundation.text.Text
+import com.gabrieldrn.carbon.icons.ChevronDownIcon
 import com.gabrieldrn.carbon.icons.WarningAltFilledIcon
 import com.gabrieldrn.carbon.icons.WarningFilledIcon
 import com.gabrieldrn.carbon.semantics.readOnly
@@ -141,10 +140,8 @@ internal fun DropdownField(
         content = {
             fieldContent()
 
-            Image(
-                imageVector = chevronDownIcon,
-                contentDescription = null,
-                colorFilter = ColorFilter.tint(chevronIconColor),
+            ChevronDownIcon(
+                tint = chevronIconColor,
                 modifier = Modifier
                     .padding(start = getChevronStartSpacing(state))
                     .graphicsLayer {
