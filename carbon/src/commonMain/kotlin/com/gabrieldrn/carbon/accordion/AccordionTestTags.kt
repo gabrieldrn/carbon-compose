@@ -18,8 +18,9 @@ package com.gabrieldrn.carbon.accordion
 
 internal object AccordionTestTags {
     const val TITLE = "carbon_accordion_title"
+    const val TITLE_CONTAINER = "carbon_accordion_title_container"
     const val BODY = "carbon_accordion_body"
-    const val BODY_CONTAINER = "carbon_accordion_body"
+    const val BODY_CONTAINER = "carbon_accordion_body_container"
     const val MARGIN_RIGHT = "carbon_accordion_margin_right"
     const val DIVIDER_TOP = "carbon_accordion_divider_top"
     const val DIVIDER_BOTTOM = "carbon_accordion_divider_bottom"

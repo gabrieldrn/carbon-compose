@@ -76,8 +76,8 @@ private val expandAnimationTransition =
 private val shrinkAnimationTransition = shrinkVertically(expandShrinkAnimationSpecIntSize)
 
 @Composable
-private fun Modifier.sectionModifier(flushAlignment: Boolean): Modifier =
-    if (flushAlignment) this else padding(horizontal = SpacingScale.spacing05)
+private fun Modifier.flushPadding(flushAlignment: Boolean): Modifier =
+    if (flushAlignment) padding(horizontal = SpacingScale.spacing05) else this
 
 /**
  * Represents a section within an Accordion component.
@@ -135,11 +135,14 @@ public fun Accordion(
             }
         }
 
+        val flushPadding = Modifier.flushPadding(flushAlignment)
+
         Column {
             Spacer(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(1.dp)
+                    .then(flushPadding)
                     .background(colors.dividerColor)
                     .testTag(AccordionTestTags.DIVIDER_TOP)
             )
@@ -148,7 +151,6 @@ public fun Accordion(
                 Section(
                     section = section,
                     size = size,
-                    flushAlignment = flushAlignment,
                     colors = colors,
                     marginRight = {
                         Spacer(
@@ -164,6 +166,7 @@ public fun Accordion(
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(1.dp)
+                        .then(flushPadding)
                         .background(colors.dividerColor)
                         .testTag(AccordionTestTags.DIVIDER_BOTTOM)
                 )
@@ -176,7 +179,6 @@ public fun Accordion(
 private fun Section(
     section: AccordionSection,
     size: AccordionSize,
-    flushAlignment: Boolean,
     colors: AccordionColors,
     marginRight: @Composable () -> Unit,
     modifier: Modifier = Modifier
@@ -193,8 +195,6 @@ private fun Section(
     val textStyle = remember(typography, textColor) {
         typography.body01.copy(color = textColor)
     }
-
-    val componentsModifier = Modifier.sectionModifier(flushAlignment)
 
     LaunchedEffect(section.isEnabled) {
         if (isExpanded && !section.isEnabled) {
@@ -217,7 +217,8 @@ private fun Section(
                 .drawBehind {
                     drawRect(if (isHovered) hoverBackgroundColor else Color.Transparent)
                 }
-                .then(componentsModifier)
+                .padding(horizontal = SpacingScale.spacing05)
+                .testTag(AccordionTestTags.TITLE_CONTAINER)
         ) {
             BasicText(
                 text = section.title,
@@ -240,7 +241,7 @@ private fun Section(
             exit = shrinkAnimationTransition,
             modifier = Modifier
                 .fillMaxWidth()
-                .then(componentsModifier)
+                .padding(horizontal = SpacingScale.spacing05)
                 .testTag(AccordionTestTags.BODY_CONTAINER)
         ) {
             Row {
