@@ -23,6 +23,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import com.gabrieldrn.carbon.accordion.Accordion
+import com.gabrieldrn.carbon.accordion.AccordionSection
 import com.gabrieldrn.carbon.accordion.AccordionSize
 import com.gabrieldrn.carbon.catalog.common.DemoScreen
 import com.gabrieldrn.carbon.catalog.common.loremIpsum
@@ -32,9 +33,10 @@ import com.gabrieldrn.carbon.dropdown.base.toDropdownOptions
 import com.gabrieldrn.carbon.toggle.Toggle
 
 private val sections = listOf(
-    "Section 1" to loremIpsum,
-    "Section 2" to loremIpsum,
-    "Section 3" to loremIpsum
+    AccordionSection("Section 1", loremIpsum),
+    AccordionSection("Section 2", loremIpsum),
+    AccordionSection("Section 3", loremIpsum),
+    AccordionSection("Section 4", loremIpsum, isEnabled = false)
 )
 
 @Composable

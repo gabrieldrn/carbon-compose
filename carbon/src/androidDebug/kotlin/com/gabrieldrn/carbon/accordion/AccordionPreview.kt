@@ -26,9 +26,10 @@ import com.gabrieldrn.carbon.CarbonDesignSystem
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 
 private val sections = listOf(
-    "Section 1" to "This is the first section",
-    "Section 2" to "This is the second section",
-    "Section 3" to "This is the third section"
+    AccordionSection("Section 1", "This is the first section"),
+    AccordionSection("Section 2", "This is the second section"),
+    AccordionSection("Section 3", "This is the third section"),
+    AccordionSection("Section 4", "This is the third section", isEnabled = false)
 )
 
 private class AccordionSizePreviewParameterProvider : PreviewParameterProvider<AccordionSize> {

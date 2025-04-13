@@ -33,6 +33,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -78,6 +79,23 @@ private fun Modifier.sectionModifier(flushAlignment: Boolean): Modifier =
     if (flushAlignment) this else padding(horizontal = SpacingScale.spacing05)
 
 /**
+ * Represents a section within an Accordion component.
+ *
+ * An Accordion Section consists of a title, a body containing the content to be displayed,
+ * and an enabled state indicating whether the section can be interacted with.
+ *
+ * @property title The title of the accordion section, typically displayed as a clickable header.
+ * @property body The content of the accordion section, displayed when the section is expanded.
+ * @property isEnabled Indicates whether the section is enabled (interactive) or disabled
+ * (non-interactive).  Defaults to true.
+ */
+public data class AccordionSection(
+    val title: String,
+    val body: String,
+    val isEnabled: Boolean = true
+)
+
+/**
  * # Accordion
  *
  * The accordion component delivers large amounts of content in a small space through progressive
@@ -100,7 +118,7 @@ private fun Modifier.sectionModifier(flushAlignment: Boolean): Modifier =
  */
 @Composable
 public fun Accordion(
-    sections: List<Pair<String, String>>,
+    sections: List<AccordionSection>,
     size: AccordionSize,
     modifier: Modifier = Modifier,
     flushAlignment: Boolean = false
@@ -125,10 +143,9 @@ public fun Accordion(
                     .testTag(AccordionTestTags.DIVIDER_TOP)
             )
 
-            sections.forEach { (header, body) ->
+            sections.forEach { section ->
                 Section(
-                    header = header,
-                    body = body,
+                    section = section,
                     size = size,
                     flushAlignment = flushAlignment,
                     colors = colors,
@@ -156,8 +173,7 @@ public fun Accordion(
 
 @Composable
 private fun Section(
-    header: String,
-    body: String,
+    section: AccordionSection,
     size: AccordionSize,
     flushAlignment: Boolean,
     colors: AccordionColors,
@@ -166,13 +182,24 @@ private fun Section(
 ) {
     val typography = Carbon.typography
 
-    val textStyle = remember(typography, colors) {
-        typography.body01.copy(color = colors.textColor)
+    val textColor by colors.textColor(section.isEnabled)
+    val iconColor by colors.iconColor(section.isEnabled)
+
+    val textStyle = remember(typography, textColor) {
+        typography.body01.copy(color = textColor)
     }
 
-    var isExpanded by remember { mutableStateOf(false) }
+    var isExpanded by remember {
+        mutableStateOf(false)
+    }
 
     val componentsModifier = Modifier.sectionModifier(flushAlignment)
+
+    LaunchedEffect(section.isEnabled) {
+        if (isExpanded && !section.isEnabled) {
+            isExpanded = false
+        }
+    }
 
     Column(modifier = modifier) {
         Row(
@@ -180,11 +207,11 @@ private fun Section(
             modifier = Modifier
                 .height(size.heightDp())
                 .fillMaxWidth()
-                .clickable { isExpanded = !isExpanded }
+                .clickable(enabled = section.isEnabled) { isExpanded = !isExpanded }
                 .then(componentsModifier)
         ) {
             BasicText(
-                text = header,
+                text = section.title,
                 style = textStyle,
                 modifier = Modifier
                     .weight(1f)
@@ -193,6 +220,7 @@ private fun Section(
 
             AnimatedChevronDownIcon(
                 rotateToUp = isExpanded,
+                tint = iconColor,
                 transitionSpec = tween(
                     durationMillis = Motion.Duration.fast01,
                     easing = Motion.Entrance.productiveEasing
@@ -211,7 +239,7 @@ private fun Section(
         ) {
             Row {
                 BasicText(
-                    text = body,
+                    text = section.body,
                     style = textStyle,
                     modifier = Modifier
                         .weight(1f)
