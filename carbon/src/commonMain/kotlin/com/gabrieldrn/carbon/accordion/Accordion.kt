@@ -103,13 +103,13 @@ public data class AccordionSection(
  *
  * (From [Accordion documentation](https://carbondesignsystem.com/components/accordion/usage/))
  *
- * @param sections A list of pairs containing the header and body text for each section. The header
- * is the title of the section and the body is the content of the section. The sections are
- * displayed in order. Each pair associates a header (first element) with a body (second element).
- * @param size The size of the accordion.
- * @param modifier The modifier to be applied to the accordion.
- * @param flushAlignment Whether to use the flush alignment modifier or not. Flush alignment places
- * the row title and chevron icons with 0px padding, keeping them flush to the rule dividers
+ * @param sections A list of [AccordionSection] objects, each representing a section in the
+ * accordion.
+ * @param size The size of the accordion, determining the overall visual density and padding.
+ * Use [AccordionSize].
+ * @param modifier Modifier for styling and layout of the accordion.
+ * @param flushAlignment Whether to use flush alignment. When `true`, the section title and chevron
+ * icon will have no padding, aligning them with the divider lines. Defaults to `false`.
  */
 @Composable
 public fun Accordion(
