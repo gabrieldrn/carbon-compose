@@ -23,6 +23,8 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -40,11 +42,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.common.molecules.AnimatedChevronDownIcon
+import com.gabrieldrn.carbon.foundation.color.layerHoverColor
+import com.gabrieldrn.carbon.foundation.interaction.FocusIndication
 import com.gabrieldrn.carbon.foundation.motion.Motion
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 
@@ -59,15 +65,15 @@ private val expandShrinkAnimationSpecFloat = tween<Float>(
     easing = Motion.Entrance.productiveEasing
 )
 
-private val expandShrinkAnimationSpecFInt = tween<IntSize>(
+private val expandShrinkAnimationSpecIntSize = tween<IntSize>(
     durationMillis = Motion.Duration.fast02,
     easing = Motion.Entrance.productiveEasing
 )
 
 private val expandAnimationTransition =
-    fadeIn(expandShrinkAnimationSpecFloat) + expandVertically(expandShrinkAnimationSpecFInt)
+    fadeIn(expandShrinkAnimationSpecFloat) + expandVertically(expandShrinkAnimationSpecIntSize)
 
-private val shrinkAnimationTransition = shrinkVertically(expandShrinkAnimationSpecFInt)
+private val shrinkAnimationTransition = shrinkVertically(expandShrinkAnimationSpecIntSize)
 
 @Composable
 private fun Modifier.sectionModifier(flushAlignment: Boolean): Modifier =
@@ -176,16 +182,16 @@ private fun Section(
     modifier: Modifier = Modifier
 ) {
     val typography = Carbon.typography
+    val interactionSource = remember { MutableInteractionSource() }
+    val isHovered by interactionSource.collectIsHoveredAsState()
+    var isExpanded by remember { mutableStateOf(false) }
 
     val textColor by colors.textColor(section.isEnabled)
     val iconColor by colors.iconColor(section.isEnabled)
+    val hoverBackgroundColor = Carbon.theme.layerHoverColor(Carbon.layer)
 
     val textStyle = remember(typography, textColor) {
         typography.body01.copy(color = textColor)
-    }
-
-    var isExpanded by remember {
-        mutableStateOf(false)
     }
 
     val componentsModifier = Modifier.sectionModifier(flushAlignment)
@@ -202,7 +208,15 @@ private fun Section(
             modifier = Modifier
                 .height(size.heightDp())
                 .fillMaxWidth()
-                .clickable(enabled = section.isEnabled) { isExpanded = !isExpanded }
+                .clickable(
+                    interactionSource = interactionSource,
+                    indication = FocusIndication(Carbon.theme),
+                    enabled = section.isEnabled,
+                    onClick = { isExpanded = !isExpanded }
+                )
+                .drawBehind {
+                    drawRect(if (isHovered) hoverBackgroundColor else Color.Transparent)
+                }
                 .then(componentsModifier)
         ) {
             BasicText(
