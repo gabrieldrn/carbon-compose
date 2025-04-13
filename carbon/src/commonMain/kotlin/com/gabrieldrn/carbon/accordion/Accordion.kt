@@ -41,6 +41,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.common.molecules.AnimatedChevronDownIcon
@@ -53,26 +54,20 @@ private val accordionMediumWidthRange = ACCORDION_WIDTH_NARROW..ACCORDION_WIDTH_
 
 private const val ACCORDION_WIDER_MARGIN_RATIO = .25f
 
-private val expandAnimationSpec =
-    fadeIn(
-        tween(
-            durationMillis = Motion.Duration.moderate01,
-            easing = Motion.Entrance.productiveEasing
-        )
-    ) + expandVertically(
-        tween(
-            durationMillis = Motion.Duration.fast01,
-            easing = Motion.Entrance.productiveEasing
-        )
-    )
+private val expandShrinkAnimationSpecFloat = tween<Float>(
+    durationMillis = Motion.Duration.fast02,
+    easing = Motion.Entrance.productiveEasing
+)
 
-private val shrinkAnimationSpec =
-    shrinkVertically(
-        tween(
-            durationMillis = Motion.Duration.fast01,
-            easing = Motion.Entrance.productiveEasing
-        )
-    )
+private val expandShrinkAnimationSpecFInt = tween<IntSize>(
+    durationMillis = Motion.Duration.fast02,
+    easing = Motion.Entrance.productiveEasing
+)
+
+private val expandAnimationTransition =
+    fadeIn(expandShrinkAnimationSpecFloat) + expandVertically(expandShrinkAnimationSpecFInt)
+
+private val shrinkAnimationTransition = shrinkVertically(expandShrinkAnimationSpecFInt)
 
 @Composable
 private fun Modifier.sectionModifier(flushAlignment: Boolean): Modifier =
@@ -221,17 +216,14 @@ private fun Section(
             AnimatedChevronDownIcon(
                 rotateToUp = isExpanded,
                 tint = iconColor,
-                transitionSpec = tween(
-                    durationMillis = Motion.Duration.fast01,
-                    easing = Motion.Entrance.productiveEasing
-                )
+                transitionSpec = expandShrinkAnimationSpecFloat
             )
         }
 
         AnimatedVisibility(
             visible = isExpanded,
-            enter = expandAnimationSpec,
-            exit = shrinkAnimationSpec,
+            enter = expandAnimationTransition,
+            exit = shrinkAnimationTransition,
             modifier = Modifier
                 .fillMaxWidth()
                 .then(componentsModifier)
