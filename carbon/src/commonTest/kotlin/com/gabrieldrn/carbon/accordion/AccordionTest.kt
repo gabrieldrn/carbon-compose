@@ -22,7 +22,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.onAllNodesWithTag
+import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.runComposeUiTest
 import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.CarbonDesignSystem
@@ -58,14 +60,18 @@ class AccordionTest {
             }
         }
 
+        onAllNodesWithTag(AccordionTestTags.TITLE_CONTAINER)
+            .toList()
+            .onEach { node -> node.performClick() }
+
         fun assertMarginWidth(expected: Float, absoluteTolerance: Float = 0f) {
             onAllNodesWithTag(AccordionTestTags.MARGIN_RIGHT)
+                .assertCountEquals(2)
                 .toList()
                 .onEach { node ->
-                    val marginWidth = node.fetchSemanticsNode()
-                        .size
-                        .width
-                        .let { with(density) { it.toDp() } }
+                    val marginWidth = with(density) {
+                        node.fetchSemanticsNode().size.width.toDp()
+                    }
 
                     assertEquals(
                         expected = expected,
