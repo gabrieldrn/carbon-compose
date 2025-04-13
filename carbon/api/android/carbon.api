@@ -11,6 +11,38 @@ public final class com/gabrieldrn/carbon/CarbonKt {
 	public static final fun CarbonDesignSystem (Lcom/gabrieldrn/carbon/foundation/color/Theme;Lcom/gabrieldrn/carbon/foundation/color/Theme;Lcom/gabrieldrn/carbon/foundation/color/Layer;Lkotlin/jvm/functions/Function2;Landroidx/compose/runtime/Composer;II)V
 }
 
+public final class com/gabrieldrn/carbon/accordion/AccordionKt {
+	public static final fun Accordion (Ljava/util/List;Lcom/gabrieldrn/carbon/accordion/AccordionSize;Landroidx/compose/ui/Modifier;ZLandroidx/compose/runtime/Composer;II)V
+}
+
+public final class com/gabrieldrn/carbon/accordion/AccordionSection {
+	public static final field $stable I
+	public fun <init> (Landroidx/compose/ui/text/AnnotatedString;Landroidx/compose/ui/text/AnnotatedString;Z)V
+	public synthetic fun <init> (Landroidx/compose/ui/text/AnnotatedString;Landroidx/compose/ui/text/AnnotatedString;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Z)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Landroidx/compose/ui/text/AnnotatedString;
+	public final fun component2 ()Landroidx/compose/ui/text/AnnotatedString;
+	public final fun component3 ()Z
+	public final fun copy (Landroidx/compose/ui/text/AnnotatedString;Landroidx/compose/ui/text/AnnotatedString;Z)Lcom/gabrieldrn/carbon/accordion/AccordionSection;
+	public static synthetic fun copy$default (Lcom/gabrieldrn/carbon/accordion/AccordionSection;Landroidx/compose/ui/text/AnnotatedString;Landroidx/compose/ui/text/AnnotatedString;ZILjava/lang/Object;)Lcom/gabrieldrn/carbon/accordion/AccordionSection;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getBody ()Landroidx/compose/ui/text/AnnotatedString;
+	public final fun getTitle ()Landroidx/compose/ui/text/AnnotatedString;
+	public fun hashCode ()I
+	public final fun isEnabled ()Z
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/gabrieldrn/carbon/accordion/AccordionSize : java/lang/Enum {
+	public static final field Large Lcom/gabrieldrn/carbon/accordion/AccordionSize;
+	public static final field Medium Lcom/gabrieldrn/carbon/accordion/AccordionSize;
+	public static final field Small Lcom/gabrieldrn/carbon/accordion/AccordionSize;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/gabrieldrn/carbon/accordion/AccordionSize;
+	public static fun values ()[Lcom/gabrieldrn/carbon/accordion/AccordionSize;
+}
+
 public abstract interface annotation class com/gabrieldrn/carbon/api/ExperimentalCarbonApi : java/lang/annotation/Annotation {
 }
 
