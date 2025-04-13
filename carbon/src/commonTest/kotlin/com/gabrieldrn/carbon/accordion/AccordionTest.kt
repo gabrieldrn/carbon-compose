@@ -48,8 +48,9 @@ class AccordionTest {
 
                     Accordion(
                         sections = listOf(
-                            "Title" to "Content",
-                            "Title" to "Content",
+                            AccordionSection("Title", "Content"),
+                            AccordionSection("Title", "Content"),
+                            AccordionSection("Title", "Content", isEnabled = false),
                         ),
                         size = AccordionSize.Medium
                     )

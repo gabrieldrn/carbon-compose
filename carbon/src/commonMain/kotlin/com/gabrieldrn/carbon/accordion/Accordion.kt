@@ -45,6 +45,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
@@ -83,18 +84,34 @@ private fun Modifier.flushPadding(flushAlignment: Boolean): Modifier =
  * Represents a section within an Accordion component.
  *
  * An Accordion Section consists of a title, a body containing the content to be displayed,
- * and an enabled state indicating whether the section can be interacted with.
+ * and an enabled state indicating whether the section can be interacted with.  The title and body
+ * are represented as AnnotatedStrings to allow for rich text formatting within the section.
  *
  * @property title The title of the accordion section, typically displayed as a clickable header.
  * @property body The content of the accordion section, displayed when the section is expanded.
  * @property isEnabled Indicates whether the section is enabled (interactive) or disabled
- * (non-interactive).  Defaults to true.
+ * (non-interactive). Defaults to true. A disabled section cannot be expanded or collapsed.
  */
 public data class AccordionSection(
-    val title: String,
-    val body: String,
+    val title: AnnotatedString,
+    val body: AnnotatedString,
     val isEnabled: Boolean = true
-)
+) {
+
+    /**
+     * Alternative constructor of [AccordionSection] that takes plain strings for the title and
+     * body.
+     */
+    public constructor(
+        title: String,
+        body: String,
+        isEnabled: Boolean = true
+    ) : this(
+        title = AnnotatedString(title),
+        body = AnnotatedString(body),
+        isEnabled = isEnabled
+    )
+}
 
 /**
  * # Accordion
