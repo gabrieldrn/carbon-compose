@@ -71,7 +71,7 @@ class AccordionTest {
     }
 
     @Test
-    fun accordion_validateLayout() = runComposeUiTest {
+    fun accordion_shrinkedContent_validateLayout() = runComposeUiTest {
         setupContent()
 
         forEachParameter(
@@ -137,6 +137,30 @@ class AccordionTest {
                 onNodeWithTagAt(AccordionTestTags.CHEVRON_ICON, index, true)
                     .assertIsDisplayed()
 
+                onNodeWithTagAt(AccordionTestTags.DIVIDER_BOTTOM, index)
+                    .assertIsDisplayed()
+            }
+        }
+    }
+
+    @Test
+    fun accordion_expandedContent_validateLayout() = runComposeUiTest {
+        setupContent()
+
+        forEachParameter(
+            testSections,
+            AccordionSize.entries.toTypedArray(),
+            arrayOf(false, true)
+        ) { sections, size, flushedAlignment ->
+
+            _sections = sections
+            _size = size
+            _flushedAlignment = flushedAlignment
+
+            sections.forEachIndexed { index, section ->
+
+                val titleContainer = onAllNodesWithTag(AccordionTestTags.TITLE_CONTAINER)[index]
+
                 val bodyContainer = onNodeWithTag(AccordionTestTags.BODY_CONTAINER, true)
                 val body = onNodeWithTag(AccordionTestTags.BODY, true)
                 val marginRight = onNodeWithTag(AccordionTestTags.MARGIN_RIGHT, true)
@@ -156,9 +180,6 @@ class AccordionTest {
                 }
 
                 titleContainer.performClick()
-
-                onNodeWithTagAt(AccordionTestTags.DIVIDER_BOTTOM, index)
-                    .assertIsDisplayed()
             }
         }
     }
