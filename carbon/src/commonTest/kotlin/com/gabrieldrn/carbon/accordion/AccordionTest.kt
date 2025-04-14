@@ -22,6 +22,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.test.ComposeUiTest
 import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.assertHasClickAction
@@ -40,18 +41,24 @@ import com.gabrieldrn.carbon.CarbonDesignSystem
 import com.gabrieldrn.carbon.forEachParameter
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 import com.gabrieldrn.carbon.toList
+import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class AccordionTest {
 
-    @Test
-    @Suppress("LocalVariableName")
-    fun accordion_validateLayout() = runComposeUiTest {
-        var _sections by mutableStateOf(listOf<AccordionSection>())
-        var _size by mutableStateOf(AccordionSize.Medium)
-        var _flushedAlignment by mutableStateOf(false)
+    private var _sections by mutableStateOf(listOf<AccordionSection>())
+    private var _size by mutableStateOf(AccordionSize.Medium)
+    private var _flushedAlignment by mutableStateOf(false)
 
+    @BeforeTest
+    fun setup() {
+        _sections = listOf()
+        _size = AccordionSize.Medium
+        _flushedAlignment = false
+    }
+
+    private fun ComposeUiTest.setupContent() {
         setContent {
             CarbonDesignSystem {
                 Accordion(
@@ -61,22 +68,14 @@ class AccordionTest {
                 )
             }
         }
+    }
+
+    @Test
+    fun accordion_validateLayout() = runComposeUiTest {
+        setupContent()
 
         forEachParameter(
-            arrayOf(
-                listOf(),
-                listOf(
-                    AccordionSection("Title", "Content"),
-                    AccordionSection("Title", "Content"),
-                    AccordionSection("Title", "Content"),
-                    AccordionSection("Title", "Content"),
-                ),
-                listOf(
-                    AccordionSection("Title", "Content", isEnabled = false),
-                    AccordionSection("Title", "Content", isEnabled = false),
-                    AccordionSection("Title", "Content", isEnabled = false),
-                )
-            ),
+            testSections,
             AccordionSize.entries.toTypedArray(),
             arrayOf(false, true)
         ) { sections, size, flushedAlignment ->
@@ -123,20 +122,11 @@ class AccordionTest {
                     onNodeWithTagAt(
                         AccordionTestTags.TITLE_CONTAINER,
                         index,
-                        true
                     )
 
-                titleContainer.run {
-                    assertIsDisplayed()
-                    assertHasClickAction()
-                    if (section.isEnabled) {
-                        assert(isEnabled())
-                        requestFocus()
-                        assertIsFocused()
-                    } else {
-                        assert(isNotEnabled())
-                    }
-                }
+                titleContainer
+                    .assertIsDisplayed()
+                    .assertHasClickAction()
 
                 onNodeWithTagAt(AccordionTestTags.TITLE, index, true)
                     .run {
@@ -169,6 +159,34 @@ class AccordionTest {
 
                 onNodeWithTagAt(AccordionTestTags.DIVIDER_BOTTOM, index)
                     .assertIsDisplayed()
+            }
+        }
+    }
+
+    @Test
+    fun accordion_validateSemantics() = runComposeUiTest {
+        setupContent()
+
+        forEachParameter(
+            testSections,
+            AccordionSize.entries.toTypedArray(),
+            arrayOf(false, true)
+        ) { sections, size, flushedAlignment ->
+
+            _sections = sections
+            _size = size
+            _flushedAlignment = flushedAlignment
+
+            sections.forEachIndexed { index, section ->
+                onAllNodesWithTag(AccordionTestTags.TITLE_CONTAINER)[index].run {
+                    if (section.isEnabled) {
+                        assert(isEnabled())
+                        requestFocus()
+                        assertIsFocused()
+                    } else {
+                        assert(isNotEnabled())
+                    }
+                }
             }
         }
     }
@@ -238,5 +256,22 @@ class AccordionTest {
         widthConstraint = 419.dp
 
         assertMarginWidth(expected = SpacingScale.spacing05.value)
+    }
+
+    private companion object {
+        val testSections = arrayOf(
+            listOf(),
+            listOf(
+                AccordionSection("Title", "Content"),
+                AccordionSection("Title", "Content"),
+                AccordionSection("Title", "Content"),
+                AccordionSection("Title", "Content"),
+            ),
+            listOf(
+                AccordionSection("Title", "Content", isEnabled = false),
+                AccordionSection("Title", "Content", isEnabled = false),
+                AccordionSection("Title", "Content", isEnabled = false),
+            )
+        )
     }
 }

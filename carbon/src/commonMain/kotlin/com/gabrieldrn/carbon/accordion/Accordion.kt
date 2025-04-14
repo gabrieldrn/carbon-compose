@@ -23,6 +23,7 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.focusable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -227,6 +228,10 @@ private fun Section(
             modifier = Modifier
                 .height(size.heightDp())
                 .fillMaxWidth()
+                .focusable(
+                    interactionSource = interactionSource,
+                    enabled = section.isEnabled
+                )
                 .clickable(
                     interactionSource = interactionSource,
                     indication = FocusIndication(Carbon.theme),
