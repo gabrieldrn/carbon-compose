@@ -17,10 +17,13 @@
 package com.gabrieldrn.carbon.accordion
 
 internal object AccordionTestTags {
-    const val TITLE = "carbon_accordion_title"
+    const val ROOT = "carbon_accordion_root"
+    const val SECTION_CONTAINER = "carbon_accordion_section_container"
     const val TITLE_CONTAINER = "carbon_accordion_title_container"
-    const val BODY = "carbon_accordion_body"
+    const val TITLE = "carbon_accordion_title"
+    const val CHEVRON_ICON = "carbon_accordion_chevron_icon"
     const val BODY_CONTAINER = "carbon_accordion_body_container"
+    const val BODY = "carbon_accordion_body"
     const val MARGIN_RIGHT = "carbon_accordion_margin_right"
     const val DIVIDER_TOP = "carbon_accordion_divider_top"
     const val DIVIDER_BOTTOM = "carbon_accordion_divider_bottom"

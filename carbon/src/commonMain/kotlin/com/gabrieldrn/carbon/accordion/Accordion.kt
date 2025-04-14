@@ -35,6 +35,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -92,6 +93,7 @@ private fun Modifier.flushPadding(flushAlignment: Boolean): Modifier =
  * @property isEnabled Indicates whether the section is enabled (interactive) or disabled
  * (non-interactive). Defaults to true. A disabled section cannot be expanded or collapsed.
  */
+@Immutable
 public data class AccordionSection(
     val title: AnnotatedString,
     val body: AnnotatedString,
@@ -143,7 +145,7 @@ public fun Accordion(
 ) {
     val colors = AccordionColors.colors()
 
-    BoxWithConstraints(modifier = modifier) {
+    BoxWithConstraints(modifier = modifier.testTag(AccordionTestTags.ROOT)) {
         val marginRight = remember(maxWidth) {
             when {
                 maxWidth > ACCORDION_WIDTH_WIDER -> maxWidth * ACCORDION_WIDER_MARGIN_RATIO
@@ -219,7 +221,7 @@ private fun Section(
         }
     }
 
-    Column(modifier = modifier) {
+    Column(modifier = modifier.testTag(AccordionTestTags.SECTION_CONTAINER)) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
@@ -248,7 +250,8 @@ private fun Section(
             AnimatedChevronDownIcon(
                 rotateToUp = isExpanded,
                 tint = iconColor,
-                transitionSpec = expandShrinkAnimationSpecFloat
+                transitionSpec = expandShrinkAnimationSpecFloat,
+                modifier = Modifier.testTag(AccordionTestTags.CHEVRON_ICON)
             )
         }
 
