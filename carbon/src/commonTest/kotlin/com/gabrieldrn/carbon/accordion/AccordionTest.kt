@@ -29,6 +29,7 @@ import androidx.compose.ui.test.assertHasClickAction
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsFocused
 import androidx.compose.ui.test.assertTextEquals
+import androidx.compose.ui.test.assertWidthIsEqualTo
 import androidx.compose.ui.test.isEnabled
 import androidx.compose.ui.test.isNotEnabled
 import androidx.compose.ui.test.onAllNodesWithTag
@@ -36,7 +37,9 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.requestFocus
 import androidx.compose.ui.test.runComposeUiTest
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import co.touchlab.kermit.Logger
 import com.gabrieldrn.carbon.CarbonDesignSystem
 import com.gabrieldrn.carbon.forEachParameter
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
@@ -106,7 +109,7 @@ class AccordionTest {
             fun onNodeWithTagAt(tag: String, index: Int, useUnmergedTree: Boolean = false) =
                 onAllNodesWithTag(tag, useUnmergedTree = useUnmergedTree)[index]
 
-            sections.forEachIndexed { index, section ->
+            sections.forEachIndexed { index, _ ->
 
                 onNodeWithTagAt(AccordionTestTags.SECTION_CONTAINER, index).run {
                     assertIsDisplayed()
@@ -237,46 +240,39 @@ class AccordionTest {
             }
         }
 
+        if (containerWidth <= 640.dp) {
+            Logger.w("The current device width is too small to check all cases in this test")
+        }
+
         onAllNodesWithTag(AccordionTestTags.TITLE_CONTAINER)
             .toList()
             .onEach { node -> node.performClick() }
 
-        fun assertMarginWidth(expected: Float, absoluteTolerance: Float = 0f) {
+        fun assertMarginWidth(expected: Dp) {
             onAllNodesWithTag(AccordionTestTags.MARGIN_RIGHT)
                 .assertCountEquals(2)
                 .toList()
-                .onEach { node ->
-                    val marginWidth = with(density) {
-                        node.fetchSemanticsNode().size.width.toDp()
-                    }
-
-                    assertEquals(
-                        expected = expected,
-                        actual = marginWidth.value,
-                        absoluteTolerance = absoluteTolerance
-                    )
-                }
+                .onEach { it.assertWidthIsEqualTo(expected) }
         }
 
         // This condition can be false on mobile targets if their maximum screen width is smaller.
         // The following assertions will then be ignored for those targets but others must validate
         // them.
         if (containerWidth >= 641.dp) {
-            assertMarginWidth(
-                expected = (containerWidth * .25f).value,
-                absoluteTolerance = .5f
-            )
+            assertMarginWidth(expected = containerWidth * .25f)
         }
 
-        arrayOf(420.dp, 640.dp).onEach { constrainedWidth ->
-            widthConstraint = constrainedWidth
+        if (containerWidth >= 420.dp) {
+            arrayOf(420.dp, 640.dp).onEach { constrainedWidth ->
+                widthConstraint = constrainedWidth
 
-            assertMarginWidth(expected = SpacingScale.spacing10.value)
+                assertMarginWidth(expected = SpacingScale.spacing10)
+            }
         }
 
         widthConstraint = 419.dp
 
-        assertMarginWidth(expected = SpacingScale.spacing05.value)
+        assertMarginWidth(expected = SpacingScale.spacing05)
     }
 
     private companion object {
