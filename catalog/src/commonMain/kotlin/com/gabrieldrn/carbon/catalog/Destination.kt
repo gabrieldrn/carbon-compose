@@ -18,6 +18,7 @@ package com.gabrieldrn.carbon.catalog
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import com.gabrieldrn.carbon.catalog.accordion.AccordionDemoScreen
 import com.gabrieldrn.carbon.catalog.buttons.ButtonDemoScreen
 import com.gabrieldrn.carbon.catalog.checkbox.CheckboxDemoScreen
 import com.gabrieldrn.carbon.catalog.contentswitcher.ContentSwitcherDemoScreen
@@ -52,7 +53,12 @@ enum class Destination(
         route = "settings",
         content = { modifier -> SettingsScreen(modifier = modifier) }
     ),
-    Accordion("Accordion"),
+    Accordion(
+        "Accordion",
+        illustration = Res.drawable.tile_accordion,
+        route = "accordion",
+        content = { modifier -> AccordionDemoScreen(modifier = modifier) }
+    ),
     Breadcrumb("Breadcrumb"),
     Button(
         title = "Button",

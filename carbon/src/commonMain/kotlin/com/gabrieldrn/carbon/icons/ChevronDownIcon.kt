@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 Gabriel Derrien
+ * Copyright 2024-2025 Gabriel Derrien
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,31 +14,53 @@
  * limitations under the License.
  */
 
-package com.gabrieldrn.carbon.dropdown.base
+package com.gabrieldrn.carbon.icons
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.requiredSize
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.path
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.gabrieldrn.carbon.Carbon
+
+private val chevronDownIconWidth = 32f.dp
+private val chevronDownIconHeight = 32f.dp
 
 internal val chevronDownIcon: ImageVector
     get() = ImageVector.Builder(
         name = "ChevronDownIcon",
         defaultWidth = chevronDownIconWidth,
-        defaultHeight = chevronDownIconWidth,
+        defaultHeight = chevronDownIconHeight,
         viewportWidth = chevronDownIconWidth.value,
-        viewportHeight = chevronDownIconWidth.value
+        viewportHeight = chevronDownIconHeight.value
     ).apply {
         path(fill = SolidColor(Color(0xFF000000))) {
-            moveTo(8f, 11f)
-            lineTo(3f, 6f)
-            lineTo(3.7f, 5.3f)
-            lineTo(8f, 9.6f)
-            lineTo(12.3f, 5.3f)
-            lineTo(13f, 6f)
+            moveTo(16f, 22f)
+            lineTo(6f, 12f)
+            lineTo(7.4f, 10.6f)
+            lineTo(16f, 19.2f)
+            lineTo(24.6f, 10.6f)
+            lineTo(26f, 12f)
             close()
         }
     }.build()
 
-internal val chevronDownIconWidth = 16f.dp
+@Composable
+internal fun ChevronDownIcon(
+    modifier: Modifier = Modifier,
+    tint: Color = Carbon.theme.iconPrimary,
+    size: Dp = 16.dp
+) {
+    Image(
+        imageVector = chevronDownIcon,
+        contentDescription = null,
+        colorFilter = ColorFilter.tint(tint),
+        modifier = modifier.requiredSize(size)
+    )
+}

@@ -18,9 +18,6 @@ package com.gabrieldrn.carbon.dropdown.base
 
 import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.animation.core.Transition
-import androidx.compose.animation.core.animateFloat
-import androidx.compose.animation.core.tween
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.gestures.awaitEachGesture
@@ -37,8 +34,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.PointerEventPass
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.Layout
@@ -53,24 +48,17 @@ import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
+import com.gabrieldrn.carbon.common.molecules.AnimatedChevronDownIcon
 import com.gabrieldrn.carbon.dropdown.base.DropdownInteractiveState.Companion.helperText
 import com.gabrieldrn.carbon.dropdown.base.DropdownInteractiveState.Companion.isFocusable
 import com.gabrieldrn.carbon.dropdown.domain.getChevronStartSpacing
 import com.gabrieldrn.carbon.foundation.input.onEnterKeyEvent
 import com.gabrieldrn.carbon.foundation.interaction.FocusIndication
-import com.gabrieldrn.carbon.foundation.motion.Motion
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 import com.gabrieldrn.carbon.foundation.text.Text
 import com.gabrieldrn.carbon.icons.WarningAltFilledIcon
 import com.gabrieldrn.carbon.icons.WarningFilledIcon
 import com.gabrieldrn.carbon.semantics.readOnly
-
-private val dropdownTransitionSpecFloat = tween<Float>(
-    durationMillis = Motion.Duration.moderate01,
-    easing = Motion.Standard.productiveEasing
-)
-
-private const val CHEVRON_ROTATION_ANGLE = 180f
 
 /**
  * Sets up a custom clickability for the dropdown field.
@@ -126,13 +114,6 @@ internal fun DropdownField(
     modifier: Modifier = Modifier,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
 ) {
-    val chevronRotation by expandTransition.animateFloat(
-        transitionSpec = { dropdownTransitionSpecFloat },
-        label = "Chevron rotation"
-    ) {
-        if (it) CHEVRON_ROTATION_ANGLE else 0f
-    }
-
     val fieldBackgroundColor by colors.fieldBackgroundColor(state)
     val fieldBorderColor by colors.fieldBorderColor(state)
     val chevronIconColor by colors.chevronIconColor(state)
@@ -141,15 +122,11 @@ internal fun DropdownField(
         content = {
             fieldContent()
 
-            Image(
-                imageVector = chevronDownIcon,
-                contentDescription = null,
-                colorFilter = ColorFilter.tint(chevronIconColor),
+            AnimatedChevronDownIcon(
+                animationTransition = expandTransition,
+                tint = chevronIconColor,
                 modifier = Modifier
                     .padding(start = getChevronStartSpacing(state))
-                    .graphicsLayer {
-                        rotationZ = chevronRotation
-                    }
                     .layoutId(DropdownFieldContentId.CHEVRON)
                     .testTag(DropdownTestTags.FIELD_CHEVRON)
             )

@@ -30,6 +30,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -108,10 +109,12 @@ internal fun <K : Any> BaseDropdown(
 ) {
     val interactionSource = remember { MutableInteractionSource() }
 
-    val expandedStates = remember { MutableTransitionState(false) }
-    expandedStates.targetState = expanded
-
+    val expandedStates = remember { MutableTransitionState(expanded) }
     val expandTransition = rememberTransition(expandedStates, "Dropdown")
+
+    LaunchedEffect(expanded) {
+        expandedStates.targetState = expanded
+    }
 
     val labelTextColor by colors.labelTextColor(state)
     val helperTextColor by colors.helperTextColor(state)

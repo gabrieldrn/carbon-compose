@@ -51,10 +51,10 @@ import org.jetbrains.compose.resources.Font
  */
 public val LocalCarbonTypography: ProvidableCompositionLocal<CarbonTypography> =
     staticCompositionLocalOf {
-        Logger.w(
+        Logger.w(IllegalStateException("No Typography provided")) {
             "No Typography provided, please make sure to wrap your UI " +
-                "with the CarbonDesignSystem composable."
-        )
+            "with the CarbonDesignSystem composable."
+        }
         CarbonTypography(
             FontFamily.SansSerif,
             FontFamily.Serif,
