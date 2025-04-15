@@ -51,21 +51,20 @@ kotlin {
     @OptIn(ExperimentalComposeLibrary::class)
     sourceSets {
         commonMain.dependencies {
+            api(project(":carbon:common"))
+
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.ui)
-            implementation(compose.uiTest) {
-                exclude(group = "androidx.test.espresso", module = "espresso-core")
-            }
             implementation(compose.animation)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
 
             implementation(libs.touchlab.kermit)
-
-            api(project(":carbon:common"))
         }
         commonTest.dependencies {
+            implementation(project(":carbon:test"))
+
             implementation(libs.kotlin.test)
             implementation(compose.uiTest)
         }

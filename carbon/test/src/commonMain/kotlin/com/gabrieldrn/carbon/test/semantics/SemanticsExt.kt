@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.gabrieldrn.carbon.semantics
+package com.gabrieldrn.carbon.test.semantics
 
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.test.SemanticsMatcher
@@ -52,7 +52,7 @@ public fun SemanticsNodeInteraction.assertIsReadOnly(
 /**
  * Returns whether the node has an icon with the given name.
  */
-internal fun SemanticsNodeInteraction.assertHasImageVector(
+public fun SemanticsNodeInteraction.assertHasImageVector(
     iconName: String
 ): SemanticsNodeInteraction = assert(
     matcher = SemanticsMatcher(

@@ -24,6 +24,7 @@ include(
     ":catalog",
     ":carbon",
     ":carbon:common",
+    ":carbon:test",
     ":code-gen",
     "doc-parser",
 )

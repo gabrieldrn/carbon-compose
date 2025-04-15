@@ -1,0 +1,19 @@
+public final class com/gabrieldrn/carbon/common/semantics/CarbonSemanticsProperties {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/gabrieldrn/carbon/common/semantics/CarbonSemanticsProperties;
+	public final fun getImageVectorName ()Landroidx/compose/ui/semantics/SemanticsPropertyKey;
+	public final fun getReadOnly ()Landroidx/compose/ui/semantics/SemanticsPropertyKey;
+}
+
+public final class com/gabrieldrn/carbon/common/semantics/CarbonSemanticsPropertiesKt {
+	public static final fun imageVectorName (Landroidx/compose/ui/semantics/SemanticsPropertyReceiver;Ljava/lang/String;)V
+	public static final fun readOnly (Landroidx/compose/ui/semantics/SemanticsPropertyReceiver;)V
+}
+
+public final class com/gabrieldrn/carbon/common/semantics/ReadOnlyKt {
+	public static final fun readOnly-jlSe5Mo (Landroidx/compose/ui/Modifier;Landroidx/compose/ui/semantics/Role;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/ui/state/ToggleableState;Z)Landroidx/compose/ui/Modifier;
+	public static final fun readOnly-jlSe5Mo (Landroidx/compose/ui/Modifier;Landroidx/compose/ui/semantics/Role;Landroidx/compose/foundation/interaction/MutableInteractionSource;ZZ)Landroidx/compose/ui/Modifier;
+	public static synthetic fun readOnly-jlSe5Mo$default (Landroidx/compose/ui/Modifier;Landroidx/compose/ui/semantics/Role;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/ui/state/ToggleableState;ZILjava/lang/Object;)Landroidx/compose/ui/Modifier;
+	public static synthetic fun readOnly-jlSe5Mo$default (Landroidx/compose/ui/Modifier;Landroidx/compose/ui/semantics/Role;Landroidx/compose/foundation/interaction/MutableInteractionSource;ZZILjava/lang/Object;)Landroidx/compose/ui/Modifier;
+}
+
