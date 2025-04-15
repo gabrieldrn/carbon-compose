@@ -130,7 +130,7 @@ jobs:
             ~/.gradle/wrapper
 
       - name: Run API verification
-        run: ./gradlew :carbon:apiCheck
+        run: ./gradlew apiCheck
 
   lib-tests-android:
     name: Unit + UI tests - library - Android
