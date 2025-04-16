@@ -3,6 +3,7 @@ import org.jetbrains.compose.ExperimentalComposeLibrary
 plugins {
     id("carbon.kmp.library")
     id("carbon.detekt")
+    id("carbon.dokka")
 }
 
 kotlin {
@@ -20,4 +21,8 @@ kotlin {
 
 android {
     namespace = "com.gabrieldrn.carbon.common"
+}
+
+dokka {
+    moduleName.set("carbon-test")
 }

@@ -17,6 +17,7 @@ dependencies {
     compileOnly(libs.kotlin.gradlePlugin)
     compileOnly(libs.detekt.gradlePlugin)
     compileOnly(libs.compose.compiler)
+    compileOnly(libs.dokka.plugin)
 }
 
 gradlePlugin {
@@ -34,6 +35,11 @@ gradlePlugin {
         register("detekt") {
             id = "carbon.detekt"
             implementationClass = "CarbonDetektConventionPlugin"
+        }
+
+        register("dokka") {
+            id = "carbon.dokka"
+            implementationClass = "CarbonDokkaConventionPlugin"
         }
     }
 }

@@ -2,15 +2,13 @@ import com.gabrieldrn.carbon.Configuration
 import com.vanniktech.maven.publish.JavadocJar
 import com.vanniktech.maven.publish.KotlinMultiplatform
 import org.jetbrains.compose.ExperimentalComposeLibrary
-import org.jetbrains.dokka.base.DokkaBase
-import org.jetbrains.dokka.base.DokkaBaseConfiguration
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 
 plugins {
     id("carbon.kmp.library")
     id("carbon.detekt")
+    id("carbon.dokka")
     alias(libs.plugins.vanniktech.publish.plugin)
-    alias(libs.plugins.dokka)
 }
 
 buildscript {
@@ -106,23 +104,15 @@ android {
     }
 }
 
-tasks.dokkaHtml {
-    pluginConfiguration<DokkaBase, DokkaBaseConfiguration> {
-        customStyleSheets = listOf(
-            file("../docs/dokka-custom-styles.css"),
-            file("../docs/dokka-custom-logo-styles.css")
-        )
-        customAssets = listOf(file("../docs/assets/carbon_docs_icon.png"))
-    }
-    moduleName.set("Carbon Compose")
-    moduleVersion.set("v${Configuration.versionName}")
+dokka {
+    moduleName.set("carbon")
 }
 
 mavenPublishing {
 
     configure(
         KotlinMultiplatform(
-            javadocJar = JavadocJar.Dokka("dokkaHtml"),
+            javadocJar = JavadocJar.Dokka("dokkaGenerate"),
             sourcesJar = true,
             androidVariantsToPublish = listOf("release")
         )
