@@ -20,7 +20,7 @@ kotlin {
 }
 
 android {
-    namespace = "com.gabrieldrn.carbon.common"
+    namespace = "com.gabrieldrn.carbon.test"
 }
 
 dokka {
