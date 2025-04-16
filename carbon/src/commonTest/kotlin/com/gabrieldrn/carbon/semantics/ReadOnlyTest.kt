@@ -26,6 +26,7 @@ import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.runComposeUiTest
 import com.gabrieldrn.carbon.common.semantics.readOnly
+import com.gabrieldrn.carbon.test.semantics.assertIsReadOnly
 import kotlin.test.Test
 
 class ReadOnlyTest {
