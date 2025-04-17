@@ -22,7 +22,6 @@ plugins {
     alias(libs.plugins.binaryCompatibilityValidator)
     alias(libs.plugins.vanniktech.publish.plugin)
     alias(libs.plugins.dokka)
-    id("carbon.dokka")
 }
 
 apiValidation {
@@ -35,6 +34,16 @@ apiValidation {
 dokka {
     moduleName.set("Carbon Compose")
     moduleVersion.set("v${Configuration.versionName}")
+
+    pluginsConfiguration.html {
+        customStyleSheets.from(
+            project.rootDir.resolve("docs/dokka-custom-styles.css"),
+            project.rootDir.resolve("docs/dokka-custom-logo-styles.css")
+        )
+        customAssets.from(
+            project.rootDir.resolve("docs/assets/carbon_docs_icon.png")
+        )
+    }
 }
 
 dependencies {

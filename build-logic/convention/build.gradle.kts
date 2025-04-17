@@ -37,10 +37,5 @@ gradlePlugin {
             id = "carbon.detekt"
             implementationClass = "CarbonDetektConventionPlugin"
         }
-
-        register("dokka") {
-            id = "carbon.dokka"
-            implementationClass = "CarbonDokkaConventionPlugin"
-        }
     }
 }
