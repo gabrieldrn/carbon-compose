@@ -1,12 +1,16 @@
 # `:carbon`
 
-Main module containing the published `io.github.gabrieldrn:carbon` artifact providing the 
-`carbon-compose` library.
+Main module from where is created the published `io.github.gabrieldrn:carbon` artifact.
+
+It contains Carbon's foundation elements such as colors, themes, typography, etc. and the
+implementations of all the components.
+
+---
 
 This module has sub-projects and is structured as follows:
 
 ```
-(.)carbon <- Main module / published 'carbon-compose' library
+(.)carbon <- Main module / published 'carbon' library
 ├── src
 ├── ...
 ├── build.gradle.kts
