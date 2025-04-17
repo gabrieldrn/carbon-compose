@@ -1,23 +1,17 @@
 import com.gabrieldrn.carbon.Configuration
-import com.vanniktech.maven.publish.JavadocJar
-import com.vanniktech.maven.publish.KotlinMultiplatform
 import org.jetbrains.compose.ExperimentalComposeLibrary
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 
 plugins {
     id("carbon.kmp.library")
     id("carbon.detekt")
-    id("carbon.dokka")
-    alias(libs.plugins.vanniktech.publish.plugin)
 }
 
-buildscript {
-    dependencies {
-        classpath(libs.dokka.base)
-    }
+carbonLibrary {
+    artifactId.set("carbon")
+    artifactGroup.set(Configuration.artifactGroup)
+    version.set(Configuration.version)
 }
-
-apply(from = "${rootDir}/scripts/publishing.gradle.kts")
 
 kotlin {
     listOf(
@@ -101,47 +95,5 @@ android {
         androidTestImplementation(libs.kotlin.test)
         androidTestImplementation(libs.androidx.test.ext)
         androidTestImplementation(libs.androidx.test.espresso)
-    }
-}
-
-dokka {
-    moduleName.set("carbon")
-}
-
-mavenPublishing {
-
-    configure(
-        KotlinMultiplatform(
-            javadocJar = JavadocJar.Dokka("dokkaGenerate"),
-            sourcesJar = true,
-            androidVariantsToPublish = listOf("release")
-        )
-    )
-
-    val artifactId = "carbon"
-
-    publishing {
-        repositories {
-            maven {
-                name = "GitHub"
-                url = uri("https://maven.pkg.github.com/gabrieldrn/carbon-compose")
-                credentials {
-                    username = System.getenv("GITHUB_ACTOR")
-                        ?: project.findProperty("CARBON_GITHUB_USER").toString()
-                    password = System.getenv("GITHUB_TOKEN")
-                        ?: project.findProperty("CARBON_GITHUB_TOKEN").toString()
-                }
-            }
-        }
-    }
-
-    coordinates(
-        groupId = Configuration.artifactGroup,
-        artifactId = artifactId,
-        version = rootProject.extra.get("libVersion").toString()
-    )
-
-    pom {
-        name.set(artifactId)
     }
 }

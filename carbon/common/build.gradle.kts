@@ -1,7 +1,14 @@
+import com.gabrieldrn.carbon.Configuration
+
 plugins {
     id("carbon.kmp.library")
     id("carbon.detekt")
-    id("carbon.dokka")
+}
+
+carbonLibrary {
+    artifactId.set("carbon-common")
+    artifactGroup.set(Configuration.artifactGroup)
+    version.set(Configuration.version)
 }
 
 kotlin {
@@ -15,8 +22,4 @@ kotlin {
 
 android {
     namespace = "com.gabrieldrn.carbon.common"
-}
-
-dokka {
-    moduleName.set("carbon-common")
 }

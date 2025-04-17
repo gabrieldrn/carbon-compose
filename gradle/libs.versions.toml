@@ -61,6 +61,7 @@ detekt-gradlePlugin = { group = "io.gitlab.arturbosch.detekt", name = "io.gitlab
 dokka-base = { group = "org.jetbrains.dokka", name = "dokka-base", version.ref = "dokka" }
 dokka-plugin = { group = "org.jetbrains.dokka", name = "dokka-gradle-plugin", version.ref = "dokka" }
 compose-compiler = { group = "org.jetbrains.kotlin.plugin.compose", name = "org.jetbrains.kotlin.plugin.compose.gradle.plugin", version.ref = "kotlin" }
+vanniktechPublishPlugin = { group = "com.vanniktech", name = "gradle-maven-publish-plugin", version.ref = "publish-plugin" }
 
 [plugins]
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }

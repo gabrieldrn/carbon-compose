@@ -18,6 +18,7 @@ dependencies {
     compileOnly(libs.detekt.gradlePlugin)
     compileOnly(libs.compose.compiler)
     compileOnly(libs.dokka.plugin)
+    compileOnly(libs.vanniktechPublishPlugin)
 }
 
 gradlePlugin {
