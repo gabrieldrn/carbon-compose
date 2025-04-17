@@ -18,9 +18,7 @@ kotlin {
         commonMain.dependencies {
             api(project(":carbon:common"))
             implementation(compose.foundation)
-            implementation(compose.uiTest) {
-                exclude(group = "androidx.test.espresso", module = "espresso-core")
-            }
+            implementation(compose.uiTest)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
@@ -34,4 +32,8 @@ kotlin {
 
 android {
     namespace = "com.gabrieldrn.carbon.test"
+
+    dependencies {
+        debugImplementation(libs.androidx.compose.ui.test.manifest)
+    }
 }

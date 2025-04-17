@@ -31,4 +31,8 @@ kotlin {
 
 android {
     namespace = "com.gabrieldrn.carbon.common"
+
+    dependencies {
+        debugImplementation(libs.androidx.compose.ui.test.manifest)
+    }
 }

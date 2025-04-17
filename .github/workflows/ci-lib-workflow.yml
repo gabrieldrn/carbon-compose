@@ -45,45 +45,6 @@ jobs:
       - name: Build lib module
         run: ./gradlew :carbon:build --stacktrace -x check
 
-  lib-build-and-test-ios:
-    name: Build and test Carbon library module for iOS
-    runs-on: macos-14
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Official Gradle Wrapper Validation Action
-        uses: gradle/actions/wrapper-validation@v4
-
-      - name: Set up JDK 17
-        uses: actions/setup-java@v4
-        with:
-          java-version: '17'
-          distribution: adopt
-
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
-
-      - name: Grant execute permission for gradlew script
-        run: chmod +x gradlew
-
-      - name: Set up cocoapods
-        uses: maxim-lobanov/setup-cocoapods@v1
-        with:
-          version: latest
-
-      - name: Build lib module
-        run: ./gradlew :carbon:build --stacktrace -x check
-
-      - name: Run tests
-        run: ./gradlew :carbon:iosSimulatorArm64Test
-
-      - name: Tests reporting
-        uses: mikepenz/action-junit-report@v5
-        if: success() || failure()
-        with:
-          report_paths: '**/test-results/iosSimulatorArm64Test/**/*.xml'
-          detailed_summary: true
-
   lib-static-analysis:
     name: Static code analysis - library
     runs-on: ubuntu-latest
@@ -168,13 +129,58 @@ jobs:
           api-level: ${{ matrix.api-level }}
           profile: Nexus 6
           arch: x86_64
-          script: ./gradlew :carbon:connectedAndroidTest
+          script: ./gradlew connectedAndroidTest
 
       - name: Tests reporting
         uses: mikepenz/action-junit-report@v5
         if: success() || failure()
         with:
           report_paths: '**/androidTest-results/**/*.xml'
+          detailed_summary: true
+
+  lib-test-ios:
+    name: Unit + UI tests - library - iOS
+    runs-on: macos-14
+    needs: lib-build
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Official Gradle Wrapper Validation Action
+        uses: gradle/actions/wrapper-validation@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: adopt
+
+      - name: Set up Gradle cache
+        uses: actions/cache@v4
+        with:
+          key: ${{ runner.os }}-gradle-${{ github.run_id }}
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Grant execute permission for gradlew script
+        run: chmod +x gradlew
+
+      - name: Set up cocoapods
+        uses: maxim-lobanov/setup-cocoapods@v1
+        with:
+          version: latest
+
+      - name: Run tests
+        run: ./gradlew iosSimulatorArm64Test
+
+      - name: Tests reporting
+        uses: mikepenz/action-junit-report@v5
+        if: success() || failure()
+        with:
+          report_paths: '**/test-results/iosSimulatorArm64Test/**/*.xml'
           detailed_summary: true
 
   lib-tests-desktop:
@@ -199,7 +205,7 @@ jobs:
             ~/.gradle/wrapper
 
       - name: Run tests
-        run: ./gradlew :carbon:desktopTest
+        run: ./gradlew desktopTest
 
       - name: Tests reporting
         uses: mikepenz/action-junit-report@v5
@@ -230,7 +236,7 @@ jobs:
             ~/.gradle/wrapper
 
       - name: Run tests
-        run: ./gradlew :carbon:wasmJsTest
+        run: ./gradlew wasmJsTest
 
       - name: Tests reporting
         uses: mikepenz/action-junit-report@v5
