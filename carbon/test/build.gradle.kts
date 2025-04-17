@@ -17,10 +17,17 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(project(":carbon:common"))
-
+            implementation(compose.foundation)
             implementation(compose.uiTest) {
                 exclude(group = "androidx.test.espresso", module = "espresso-core")
             }
+        }
+        commonTest.dependencies {
+            implementation(libs.kotlin.test)
+            implementation(compose.uiTest)
+        }
+        desktopMain.dependencies {
+            implementation(compose.desktop.currentOs)
         }
     }
 }
