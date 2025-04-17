@@ -99,7 +99,7 @@ class CarbonMultiplatformLibraryConventionPlugin : Plugin<Project> {
             reportsDestination.set(layout.buildDirectory.dir("compose_compiler"))
             metricsDestination.set(layout.buildDirectory.dir("compose_compiler"))
             stabilityConfigurationFiles.add {
-                file("${projectDir.absolutePath}/compose_compiler_config.conf")
+                project.rootDir.resolve("compose/compiler_config.conf")
             }
         }
 
