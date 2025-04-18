@@ -51,7 +51,7 @@ List of the currently supported components:
 
 | Components         | Android  🤖 | iOS   | Desktop  🖥️ | wasmJs 🌐 |
 |--------------------|:-----------:|:------:|:------------:|:---------:|
-| Accordion          |             |        |              |           |
+| Accordion          |      ✅      |   ✅    |      ✅       |     ✅     |
 | AI label           |             |        |              |           |
 | Breadcrumb         |             |        |              |           |
 | Button             |      ✅      |   ✅    |      ✅       |     ✅     |
