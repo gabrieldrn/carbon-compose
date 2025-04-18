@@ -9,44 +9,44 @@
 ## Foundation
 
 - Themes
-    - [White](https://gabrieldrn.github.io/carbon-compose/api/-carbon%20-compose/com.gabrieldrn.carbon.foundation.color/-white-theme/index.html)
-    - [Grey10](https://gabrieldrn.github.io/carbon-compose/api/-carbon%20-compose/com.gabrieldrn.carbon.foundation.color/-gray10-theme/index.html)
-    - [Grey90](https://gabrieldrn.github.io/carbon-compose/api/-carbon%20-compose/com.gabrieldrn.carbon.foundation.color/-gray90-theme/index.html)
-    - [Grey100](https://gabrieldrn.github.io/carbon-compose/api/-carbon%20-compose/com.gabrieldrn.carbon.foundation.color/-gray100-theme/index.html)
-- [Typography](https://gabrieldrn.github.io/carbon-compose/api/-carbon%20-compose/com.gabrieldrn.carbon.foundation.text/-carbon-typography/index.html) 
+    - [White](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.foundation.color/-white-theme.html)
+    - [Grey10](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.foundation.color/-gray10-theme.html)
+    - [Grey90](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.foundation.color/-gray90-theme.html)
+    - [Grey100](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.foundation.color/-gray100-theme.html)
+- [Typography](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.foundation.text/-carbon-typography/index.html) 
     (IBM Plex)
-- [Layering](https://gabrieldrn.github.io/carbon-compose/api/-carbon%20-compose/com.gabrieldrn.carbon.foundation.color/-layer/index.html)
+- [Layering](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.foundation.color/-layer/index.html)
 
 ## Components
 
-- [Button](https://gabrieldrn.github.io/carbon-compose/api/-carbon%20-compose/com.gabrieldrn.carbon.button/-button.html)
-- [Icon button](https://gabrieldrn.github.io/carbon-compose/api/-carbon%20-compose/com.gabrieldrn.carbon.button/-icon-button.html)
-- [Checkbox](https://gabrieldrn.github.io/carbon-compose/api/-carbon%20-compose/com.gabrieldrn.carbon.checkbox/-checkbox.html)
+- [Button](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.button/-button.html)
+- [Icon button](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.button/-icon-button.html)
+- [Checkbox](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.checkbox/-checkbox.html)
 - ContentSwitcher
-  - [Default content switcher](https://gabrieldrn.github.io/carbon-compose/api/-carbon%20-compose/com.gabrieldrn.carbon.contentswitcher/-content-switcher.html)
-  - [Icon content switcher](https://gabrieldrn.github.io/carbon-compose/api/-carbon%20-compose/com.gabrieldrn.carbon.contentswitcher/-icon-content-switcher.html)
+  - [Default content switcher](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.contentswitcher/-content-switcher.html)
+  - [Icon content switcher](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.contentswitcher/-icon-content-switcher.html)
 - Dropdown
-    - [Default dropdown](https://gabrieldrn.github.io/carbon-compose/api/-carbon%20-compose/com.gabrieldrn.carbon.dropdown/-dropdown.html)
-    - [Multi-select dropdown](https://gabrieldrn.github.io/carbon-compose/api/-carbon%20-compose/com.gabrieldrn.carbon.dropdown.multiselect/-multiselect-dropdown.html)
+    - [Default dropdown](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.dropdown/-dropdown.html)
+    - [Multi-select dropdown](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.dropdown.multiselect/-multiselect-dropdown.html)
 - Loading
-    - [Default loading](https://gabrieldrn.github.io/carbon-compose/api/-carbon%20-compose/com.gabrieldrn.carbon.loading/-loading.html)
-    - [Small loading](https://gabrieldrn.github.io/carbon-compose/api/-carbon%20-compose/com.gabrieldrn.carbon.loading/-small-loading.html)
+    - [Default loading](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.loading/-loading.html)
+    - [Small loading](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.loading/-small-loading.html)
 - Notification
-    - [Callout notification](https://gabrieldrn.github.io/carbon-compose/api/-carbon%20-compose/com.gabrieldrn.carbon.notification/-callout-notification.html)
-    - [Inline notification](https://gabrieldrn.github.io/carbon-compose/api/-carbon%20-compose/com.gabrieldrn.carbon.notification/-inline-notification.html)
+    - [Callout notification](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.notification/-callout-notification.html)
+    - [Inline notification](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.notification/-inline-notification.html)
 - Progress bar
-    - [Default progress bar](https://gabrieldrn.github.io/carbon-compose/api/-carbon%20-compose/com.gabrieldrn.carbon.progressbar/-progress-bar.html)
-    - [Indeterminate progress bar](https://gabrieldrn.github.io/carbon-compose/api/-carbon%20-compose/com.gabrieldrn.carbon.progressbar/-indeterminate-progress-bar.html)
-- [Radio button](https://gabrieldrn.github.io/carbon-compose/api/-carbon%20-compose/com.gabrieldrn.carbon.radiobutton/-radio-button.html)
+    - [Default progress bar](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.progressbar/-progress-bar.html)
+    - [Indeterminate progress bar](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.progressbar/-indeterminate-progress-bar.html)
+- [Radio button](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.radiobutton/-radio-button.html)
 - Tag
-    - [Read-only tag](https://gabrieldrn.github.io/carbon-compose/api/-carbon%20-compose/com.gabrieldrn.carbon.tag/-read-only-tag.html.html)
+    - [Read-only tag](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.tag/-read-only-tag.html.html)
 - Text input
-    - [Default text input](https://gabrieldrn.github.io/carbon-compose/api/-carbon%20-compose/com.gabrieldrn.carbon.textinput/-text-input.html)
-    - [Text area](https://gabrieldrn.github.io/carbon-compose/api/-carbon%20-compose/com.gabrieldrn.carbon.textinput/-text-area.html)
-    - [Password input](https://gabrieldrn.github.io/carbon-compose/api/-carbon%20-compose/com.gabrieldrn.carbon.textinput/-password-input.html)
+    - [Default text input](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.textinput/-text-input.html)
+    - [Text area](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.textinput/-text-area.html)
+    - [Password input](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.textinput/-password-input.html)
 - Toggle
-    - [Default toggle](https://gabrieldrn.github.io/carbon-compose/api/-carbon%20-compose/com.gabrieldrn.carbon.toggle/-toggle.html)
-    - [Small toggle](https://gabrieldrn.github.io/carbon-compose/api/-carbon%20-compose/com.gabrieldrn.carbon.toggle/-small-toggle.html)
+    - [Default toggle](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.toggle/-toggle.html)
+    - [Small toggle](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.toggle/-small-toggle.html)
 
 ### Missing components size options
 
