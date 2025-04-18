@@ -67,7 +67,7 @@ jobs:
             ~/.gradle/wrapper
 
       - name: Run Detekt
-        run: ./gradlew :carbon:detekt
+        run: ./gradlew detekt
 
   lib-api-verification:
     name: API signature verification - library
