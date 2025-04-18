@@ -39,7 +39,7 @@ jobs:
 
       - name: Build Dokka
         run: |
-          ./gradlew :carbon:dokkaHtml
+          ./gradlew dokkaGenerate
           mkdir -p site/api
           cp -r carbon/build/dokka/html/* site/api
 
