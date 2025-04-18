@@ -20,7 +20,7 @@ class CarbonDetektConventionPlugin : Plugin<Project> {
                 "src/main/kotlin",
                 "src/commonMain/kotlin",
                 "src/androidMain/kotlin",
-                "src/iosMain/kotlin",
+                "src/nativeMain/kotlin",
             )
             toolVersion = libs.getVersion("detekt")
             parallel = false

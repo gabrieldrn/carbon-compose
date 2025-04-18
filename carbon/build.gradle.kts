@@ -1,25 +1,17 @@
 import com.gabrieldrn.carbon.Configuration
-import com.vanniktech.maven.publish.JavadocJar
-import com.vanniktech.maven.publish.KotlinMultiplatform
 import org.jetbrains.compose.ExperimentalComposeLibrary
-import org.jetbrains.dokka.base.DokkaBase
-import org.jetbrains.dokka.base.DokkaBaseConfiguration
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 
 plugins {
     id("carbon.kmp.library")
     id("carbon.detekt")
-    alias(libs.plugins.vanniktech.publish.plugin)
-    alias(libs.plugins.dokka)
 }
 
-buildscript {
-    dependencies {
-        classpath(libs.dokka.base)
-    }
+carbonLibrary {
+    artifactId.set("carbon")
+    artifactGroup.set(Configuration.artifactGroup)
+    version.set(Configuration.version)
 }
-
-apply(from = "${rootDir}/scripts/publishing.gradle.kts")
 
 kotlin {
     listOf(
@@ -51,12 +43,11 @@ kotlin {
     @OptIn(ExperimentalComposeLibrary::class)
     sourceSets {
         commonMain.dependencies {
+            api(project(":carbon:common"))
+
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.ui)
-            implementation(compose.uiTest) {
-                exclude(group = "androidx.test.espresso", module = "espresso-core")
-            }
             implementation(compose.animation)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
@@ -64,6 +55,8 @@ kotlin {
             implementation(libs.touchlab.kermit)
         }
         commonTest.dependencies {
+            implementation(project(":carbon:test"))
+
             implementation(libs.kotlin.test)
             implementation(compose.uiTest)
         }
@@ -102,55 +95,5 @@ android {
         androidTestImplementation(libs.kotlin.test)
         androidTestImplementation(libs.androidx.test.ext)
         androidTestImplementation(libs.androidx.test.espresso)
-    }
-}
-
-tasks.dokkaHtml {
-    pluginConfiguration<DokkaBase, DokkaBaseConfiguration> {
-        customStyleSheets = listOf(
-            file("../docs/dokka-custom-styles.css"),
-            file("../docs/dokka-custom-logo-styles.css")
-        )
-        customAssets = listOf(file("../docs/assets/carbon_docs_icon.png"))
-    }
-    moduleName.set("Carbon Compose")
-    moduleVersion.set("v${Configuration.versionName}")
-}
-
-mavenPublishing {
-
-    configure(
-        KotlinMultiplatform(
-            javadocJar = JavadocJar.Dokka("dokkaHtml"),
-            sourcesJar = true,
-            androidVariantsToPublish = listOf("release")
-        )
-    )
-
-    val artifactId = "carbon"
-
-    publishing {
-        repositories {
-            maven {
-                name = "GitHub"
-                url = uri("https://maven.pkg.github.com/gabrieldrn/carbon-compose")
-                credentials {
-                    username = System.getenv("GITHUB_ACTOR")
-                        ?: project.findProperty("CARBON_GITHUB_USER").toString()
-                    password = System.getenv("GITHUB_TOKEN")
-                        ?: project.findProperty("CARBON_GITHUB_TOKEN").toString()
-                }
-            }
-        }
-    }
-
-    coordinates(
-        groupId = Configuration.artifactGroup,
-        artifactId = artifactId,
-        version = rootProject.extra.get("libVersion").toString()
-    )
-
-    pom {
-        name.set(artifactId)
     }
 }

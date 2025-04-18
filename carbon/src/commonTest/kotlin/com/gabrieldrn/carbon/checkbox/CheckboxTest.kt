@@ -30,7 +30,7 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.runComposeUiTest
 import com.gabrieldrn.carbon.common.selectable.SelectableInteractiveState
-import com.gabrieldrn.carbon.semantics.assertIsReadOnly
+import com.gabrieldrn.carbon.test.semantics.assertIsReadOnly
 import kotlin.test.Test
 import kotlin.test.assertNotEquals
 

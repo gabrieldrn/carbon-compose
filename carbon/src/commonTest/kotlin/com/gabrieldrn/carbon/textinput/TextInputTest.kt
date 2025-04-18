@@ -32,7 +32,7 @@ import androidx.compose.ui.test.runComposeUiTest
 import com.gabrieldrn.carbon.CarbonDesignSystem
 import com.gabrieldrn.carbon.PARAMTRZD_DEPRECATION_MESSAGE
 import com.gabrieldrn.carbon.PARAMTRZD_DEPRECATION_REPLACE
-import com.gabrieldrn.carbon.semantics.isReadOnly
+import com.gabrieldrn.carbon.test.semantics.isReadOnly
 import kotlin.test.Test
 
 class TextInputTest {

@@ -34,8 +34,8 @@ import com.gabrieldrn.carbon.PARAMTRZD_DEPRECATION_MESSAGE
 import com.gabrieldrn.carbon.PARAMTRZD_DEPRECATION_REPLACE
 import com.gabrieldrn.carbon.icons.viewIcon
 import com.gabrieldrn.carbon.icons.viewOffIcon
-import com.gabrieldrn.carbon.semantics.assertHasImageVector
-import com.gabrieldrn.carbon.semantics.isReadOnly
+import com.gabrieldrn.carbon.test.semantics.assertHasImageVector
+import com.gabrieldrn.carbon.test.semantics.isReadOnly
 import kotlin.test.Test
 
 class PasswordInputTest {

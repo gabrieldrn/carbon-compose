@@ -21,9 +21,9 @@ kotlinxSerializationJson = "1.8.0"
 
 # Community libraries
 kotlinPoet = "1.18.0"
-publish-plugin = "0.30.0"
+publish-plugin = "0.31.0"
 detekt = "1.23.7"
-dokka = "1.9.20"
+dokka = "2.0.0"
 junit = "4.13.2"
 timber = "5.0.1"
 koin = "4.0.2"
@@ -59,7 +59,9 @@ android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", ver
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 detekt-gradlePlugin = { group = "io.gitlab.arturbosch.detekt", name = "io.gitlab.arturbosch.detekt.gradle.plugin", version.ref = "detekt" }
 dokka-base = { group = "org.jetbrains.dokka", name = "dokka-base", version.ref = "dokka" }
+dokka-plugin = { group = "org.jetbrains.dokka", name = "dokka-gradle-plugin", version.ref = "dokka" }
 compose-compiler = { group = "org.jetbrains.kotlin.plugin.compose", name = "org.jetbrains.kotlin.plugin.compose.gradle.plugin", version.ref = "kotlin" }
+vanniktechPublishPlugin = { group = "com.vanniktech", name = "gradle-maven-publish-plugin", version.ref = "publish-plugin" }
 
 [plugins]
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }

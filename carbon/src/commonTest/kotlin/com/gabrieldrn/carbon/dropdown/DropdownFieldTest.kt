@@ -49,7 +49,7 @@ import com.gabrieldrn.carbon.dropdown.base.DropdownTestTags
 import com.gabrieldrn.carbon.dropdown.base.dpSize
 import com.gabrieldrn.carbon.foundation.color.WhiteTheme
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
-import com.gabrieldrn.carbon.semantics.assertIsReadOnly
+import com.gabrieldrn.carbon.test.semantics.assertIsReadOnly
 import kotlin.test.Test
 
 open class DropdownFieldTest {

@@ -36,10 +36,10 @@ import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.common.selectable.ErrorContent
 import com.gabrieldrn.carbon.common.selectable.SelectableInteractiveState
 import com.gabrieldrn.carbon.common.selectable.WarningContent
+import com.gabrieldrn.carbon.common.semantics.readOnly
 import com.gabrieldrn.carbon.foundation.interaction.ToggleableFocusIndication
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 import com.gabrieldrn.carbon.foundation.text.Text
-import com.gabrieldrn.carbon.semantics.readOnly
 
 private val RadioButtonSize = 20.dp
 private val RadioButtonStrokeWidth = 1.dp

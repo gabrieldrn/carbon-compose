@@ -1020,29 +1020,6 @@ public final class com/gabrieldrn/carbon/radiobutton/RadioButtonKt {
 	public static final fun RadioButton (ZLjava/lang/String;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Lcom/gabrieldrn/carbon/common/selectable/SelectableInteractiveState;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;II)V
 }
 
-public final class com/gabrieldrn/carbon/semantics/CarbonSemanticsProperties {
-	public static final field $stable I
-	public static final field INSTANCE Lcom/gabrieldrn/carbon/semantics/CarbonSemanticsProperties;
-	public final fun getReadOnly ()Landroidx/compose/ui/semantics/SemanticsPropertyKey;
-}
-
-public final class com/gabrieldrn/carbon/semantics/CarbonSemanticsPropertiesKt {
-	public static final fun readOnly (Landroidx/compose/ui/semantics/SemanticsPropertyReceiver;)V
-}
-
-public final class com/gabrieldrn/carbon/semantics/ReadOnlyKt {
-	public static final fun readOnly-jlSe5Mo (Landroidx/compose/ui/Modifier;Landroidx/compose/ui/semantics/Role;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/ui/state/ToggleableState;Z)Landroidx/compose/ui/Modifier;
-	public static final fun readOnly-jlSe5Mo (Landroidx/compose/ui/Modifier;Landroidx/compose/ui/semantics/Role;Landroidx/compose/foundation/interaction/MutableInteractionSource;ZZ)Landroidx/compose/ui/Modifier;
-	public static synthetic fun readOnly-jlSe5Mo$default (Landroidx/compose/ui/Modifier;Landroidx/compose/ui/semantics/Role;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/ui/state/ToggleableState;ZILjava/lang/Object;)Landroidx/compose/ui/Modifier;
-	public static synthetic fun readOnly-jlSe5Mo$default (Landroidx/compose/ui/Modifier;Landroidx/compose/ui/semantics/Role;Landroidx/compose/foundation/interaction/MutableInteractionSource;ZZILjava/lang/Object;)Landroidx/compose/ui/Modifier;
-}
-
-public final class com/gabrieldrn/carbon/semantics/SemanticsExtKt {
-	public static final fun assertIsReadOnly (Landroidx/compose/ui/test/SemanticsNodeInteraction;Lkotlin/jvm/functions/Function0;)Landroidx/compose/ui/test/SemanticsNodeInteraction;
-	public static synthetic fun assertIsReadOnly$default (Landroidx/compose/ui/test/SemanticsNodeInteraction;Lkotlin/jvm/functions/Function0;ILjava/lang/Object;)Landroidx/compose/ui/test/SemanticsNodeInteraction;
-	public static final fun isReadOnly ()Landroidx/compose/ui/test/SemanticsMatcher;
-}
-
 public final class com/gabrieldrn/carbon/tab/TabItem {
 	public static final field $stable I
 	public static final field Companion Lcom/gabrieldrn/carbon/tab/TabItem$Companion;

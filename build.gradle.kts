@@ -1,3 +1,5 @@
+import com.gabrieldrn.carbon.Configuration
+
 buildscript {
     repositories {
         google()
@@ -17,9 +19,9 @@ plugins {
     alias(libs.plugins.android.application) apply false
     alias(libs.plugins.android.library) apply false
     alias(libs.plugins.detekt) apply false
-    alias(libs.plugins.dokka) apply false
     alias(libs.plugins.binaryCompatibilityValidator)
     alias(libs.plugins.vanniktech.publish.plugin)
+    alias(libs.plugins.dokka)
 }
 
 apiValidation {
@@ -29,6 +31,23 @@ apiValidation {
     ignoredProjects.addAll(listOf("catalog", "code-gen"))
 }
 
-//tasks.register("clean", Delete::class) {
-//    delete(rootProject.layout.buildDirectory)
-//}
+dokka {
+    moduleName.set("Carbon Compose")
+    moduleVersion.set("v${Configuration.versionName}")
+
+    pluginsConfiguration.html {
+        customStyleSheets.from(
+            project.rootDir.resolve("docs/dokka-custom-styles.css"),
+            project.rootDir.resolve("docs/dokka-custom-logo-styles.css")
+        )
+        customAssets.from(
+            project.rootDir.resolve("docs/assets/carbon_docs_icon.png")
+        )
+    }
+}
+
+dependencies {
+    dokka(project(":carbon"))
+    dokka(project(":carbon:common"))
+    dokka(project(":carbon:test"))
+}

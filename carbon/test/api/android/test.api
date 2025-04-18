@@ -1,0 +1,7 @@
+public final class com/gabrieldrn/carbon/test/semantics/SemanticsExtKt {
+	public static final fun assertHasImageVector (Landroidx/compose/ui/test/SemanticsNodeInteraction;Ljava/lang/String;)Landroidx/compose/ui/test/SemanticsNodeInteraction;
+	public static final fun assertIsReadOnly (Landroidx/compose/ui/test/SemanticsNodeInteraction;Lkotlin/jvm/functions/Function0;)Landroidx/compose/ui/test/SemanticsNodeInteraction;
+	public static synthetic fun assertIsReadOnly$default (Landroidx/compose/ui/test/SemanticsNodeInteraction;Lkotlin/jvm/functions/Function0;ILjava/lang/Object;)Landroidx/compose/ui/test/SemanticsNodeInteraction;
+	public static final fun isReadOnly ()Landroidx/compose/ui/test/SemanticsMatcher;
+}
+

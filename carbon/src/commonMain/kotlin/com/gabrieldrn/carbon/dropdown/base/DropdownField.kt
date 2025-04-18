@@ -49,6 +49,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.common.molecules.AnimatedChevronDownIcon
+import com.gabrieldrn.carbon.common.semantics.readOnly
 import com.gabrieldrn.carbon.dropdown.base.DropdownInteractiveState.Companion.helperText
 import com.gabrieldrn.carbon.dropdown.base.DropdownInteractiveState.Companion.isFocusable
 import com.gabrieldrn.carbon.dropdown.domain.getChevronStartSpacing
@@ -58,7 +59,6 @@ import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 import com.gabrieldrn.carbon.foundation.text.Text
 import com.gabrieldrn.carbon.icons.WarningAltFilledIcon
 import com.gabrieldrn.carbon.icons.WarningFilledIcon
-import com.gabrieldrn.carbon.semantics.readOnly
 
 /**
  * Sets up a custom clickability for the dropdown field.

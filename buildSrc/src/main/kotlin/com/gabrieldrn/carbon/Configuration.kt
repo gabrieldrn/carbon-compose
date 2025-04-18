@@ -24,4 +24,11 @@ object Configuration {
     const val versionCode = 5
     const val snapshotVersionName = "$majorVersion.$minorVersion.${patchVersion + 1}-SNAPSHOT"
     const val artifactGroup = "io.github.gabrieldrn"
+
+    val version
+        get() = if (System.getenv("SNAPSHOT").toBoolean()) {
+            snapshotVersionName
+        } else {
+            versionName
+        }
 }
