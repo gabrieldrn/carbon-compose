@@ -18,6 +18,20 @@ To start using Carbon in your Compose app, add the dependency according to your 
     }
     ```
 
+    **KMP:**
+
+    ```kotlin
+    kotlin {
+        sourceSets {
+            ...
+            commonMain.dependencies {
+                implementation(libs.carbon.compose)
+            }
+            ...
+        }
+    }
+    ```
+
 === "KTS"
 
     ```kotlin

@@ -43,6 +43,37 @@ CarbonDesignSystem(
     UI shell elements are still a work in progress. However, a UI shell header is available with limited implementation 
     and documentation.
 
+#### Custom themes
+
+If needed, you can customize existing themes to your liking, or create new ones.
+
+```kotlin
+val customTheme1 = WhiteTheme.copy(
+    textPrimary = Color.Magenta
+)
+
+val customTheme2 = Theme(
+    background = Color.Black,
+    ...
+)
+
+@Composable
+fun MyCarbonApp(
+    content: @Composable () -> Unit
+) {
+    CarbonDesignSystem(
+        theme = if (isSystemInDarkTheme()) {
+            customTheme1
+        } else {
+            customTheme2
+        },
+        uiShellInlineTheme = Gray100Theme,
+        content = content
+    )
+}
+
+```
+
 ### Layering
 
 `CarbonDesignSystem` also offers a `layer` argument to **globally** set the 

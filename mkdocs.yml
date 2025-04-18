@@ -23,10 +23,11 @@ theme:
 nav:
   - Overview: index.md
   - Getting started:
-    - 'Import Carbon': getting-started/import-lib.md
-    - 'Using Carbon': getting-started/usage.md
+      - 'Import Carbon': getting-started/import-lib.md
+      - 'Using Carbon': getting-started/usage.md
   - Components:
-    - components/index.md
+      - components/index.md
+  - Test utilities: test-utils/index.md
   - Catalog: catalog/index.html
   - API Reference: api/index.html
 
