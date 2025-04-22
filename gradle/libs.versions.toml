@@ -8,9 +8,9 @@ binaryCompatibilityValidator = "0.17.0"
 compose = "1.7.3"
 androidxActivity = "1.10.1"
 androidxAppcompat = "1.7.0"
-# Individual androix compose libraries version usage is based on the compose version used by
-# the compose multiplatform plugin to avoid having different versions of the same library.
-# https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.7.3
+# Individual AndroidX compose libraries version usage is based on the Compose version used by
+# the Compose Multiplatform plugin to avoid having different versions of the same library.
+# https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.7.6
 #noinspection GradleDependency
 androidxCompose = "1.7.6"
 androidxEspresso = "3.6.1"
