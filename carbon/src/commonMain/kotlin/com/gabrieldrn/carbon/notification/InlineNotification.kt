@@ -17,6 +17,7 @@
 package com.gabrieldrn.carbon.notification
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.AnnotatedString
 
@@ -31,9 +32,8 @@ import androidx.compose.ui.text.AnnotatedString
  *
  * @param title The title of the notification.
  * @param body The body of the notification.
- * @param status The status of the notification, which determines its color and icon
- * used.
- * @param onClose The callback to be called when the notification is closed.
+ * @param status The status of the notification, which determines its color and icon used.
+ * @param onClose Callback invoked when the close icon is clicked.
  * @param modifier The modifier to apply to the component.
  * @param highContrast Whether to use high contrast colors.
  */
@@ -47,12 +47,59 @@ public fun InlineNotification(
     highContrast: Boolean = false
 ) {
     NotificationContainer(
-        body = AnnotatedString(body),
+        body = remember(body) { AnnotatedString(body) },
         title = title,
         status = status,
         displayCloseButton = true,
         highContrast = highContrast,
         modifier = modifier,
+        onClose = onClose
+    )
+}
+
+/**
+ * # Inline notification - Actionable
+ *
+ * Inline notifications show up in task flows, to notify users of the status of an action or system.
+ * They usually appear at the top of the primary content area or close to the item needing
+ * attention.
+ *
+ * Actionable inline notifications have a ghost button action that is adjacent to the title and body
+ * content. On mobile screens the action button wraps under the body content. This button should
+ * allow users to take further action on the notification.
+ *
+ * (From [Notification documentation](https://carbondesignsystem.com/components/notification/usage/#inline))
+ *
+ * @param title The title of the notification.
+ * @param body The body of the notification.
+ * @param actionLabel The label of the action button.
+ * @param status The status of the notification, which determines its color and icon used.
+ * @param onClose Callback invoked when the close icon is clicked.
+ * @param onAction Callback invoked when the action button is clicked.
+ * @param modifier The modifier to apply to the component.
+ * @param highContrast Whether to use high contrast colors.
+ */
+@Composable
+public fun ActionableInlineNotification(
+    title: String,
+    body: String,
+    actionLabel: String,
+    status: NotificationStatus,
+    onClose: () -> Unit,
+    onAction: () -> Unit,
+    modifier: Modifier = Modifier,
+    highContrast: Boolean = false
+) {
+    NotificationContainer(
+        body = remember(body) { AnnotatedString(body) },
+        title = title,
+        status = status,
+        displayCloseButton = true,
+        highContrast = highContrast,
+        modifier = modifier,
+        actionLabel = actionLabel,
+        actionableLayout = ActionableLayout.Inline,
+        onAction = onAction,
         onClose = onClose
     )
 }

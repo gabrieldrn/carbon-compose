@@ -31,6 +31,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -46,8 +47,12 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
+import com.gabrieldrn.carbon.button.Button
 import com.gabrieldrn.carbon.button.ButtonFocusIndication
+import com.gabrieldrn.carbon.button.ButtonSize
 import com.gabrieldrn.carbon.button.ButtonType
+import com.gabrieldrn.carbon.foundation.color.LocalCarbonTheme
+import com.gabrieldrn.carbon.foundation.color.Theme
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 import com.gabrieldrn.carbon.icons.CheckmarkFilledIcon
 import com.gabrieldrn.carbon.icons.ErrorFilledIcon
@@ -59,7 +64,21 @@ import com.gabrieldrn.carbon.icons.closeIcon
 // 16px around it, this doesn't compute to a min size of 48px (16+16+20=52)
 private val iconSize = 18.dp
 
-@OptIn(ExperimentalLayoutApi::class)
+internal enum class ActionableLayout { None, Toast, Inline }
+
+@Composable
+private fun rememberInlineActionButtonTheme(
+    theme: Theme,
+    highContrast: Boolean
+) = remember(theme, highContrast) {
+    if (highContrast)
+        theme.copy(
+            linkPrimary = theme.linkInverse,
+            linkPrimaryHover = theme.linkInverseHover,
+        )
+    else theme
+}
+
 @Composable
 internal fun NotificationContainer(
     body: AnnotatedString,
@@ -68,6 +87,9 @@ internal fun NotificationContainer(
     displayCloseButton: Boolean,
     highContrast: Boolean,
     modifier: Modifier = Modifier,
+    actionLabel: String = "",
+    actionableLayout: ActionableLayout = ActionableLayout.None,
+    onAction: () -> Unit = {},
     onClose: () -> Unit = {},
 ) {
     val colors = NotificationColors.rememberColors(
@@ -101,33 +123,51 @@ internal fun NotificationContainer(
         Icon(
             status = status,
             colors = colors,
-            modifier = Modifier
-                .padding(start = SpacingScale.spacing05)
-                .padding(top = SpacingScale.spacing05)
+            modifier = Modifier.padding(
+                start = SpacingScale.spacing05,
+                top = SpacingScale.spacing05
+            )
         )
 
-        FlowRow(
-            horizontalArrangement = Arrangement.spacedBy(4.dp),
-            verticalArrangement = Arrangement.spacedBy(2.dp),
-            modifier = Modifier
-                .weight(1f)
-                .padding(start = SpacingScale.spacing05)
-                .padding(vertical = SpacingScale.spacing05)
-        ) {
-            if (title.isNotBlank()) {
-                BasicText(
-                    text = title,
-                    style = Carbon.typography.headingCompact01,
-                    color = { colors.titleColor },
-                    modifier = Modifier.testTag(NotificationTestTags.TITLE)
-                )
-            }
-            BasicText(
-                text = body,
-                style = Carbon.typography.bodyCompact01,
-                color = { colors.bodyColor },
-                modifier = Modifier.testTag(NotificationTestTags.BODY)
+        when (actionableLayout) {
+            ActionableLayout.None -> TextContent(
+                title = title,
+                body = body,
+                colors = colors,
+                modifier = Modifier.weight(1f)
             )
+
+            ActionableLayout.Inline -> Row(modifier = Modifier.weight(1f)) {
+                TextContent(
+                    title = title,
+                    body = body,
+                    colors = colors,
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(end = SpacingScale.spacing05)
+                )
+
+                val buttonTheme = rememberInlineActionButtonTheme(
+                    theme = Carbon.theme,
+                    highContrast = highContrast
+                )
+
+                CompositionLocalProvider(LocalCarbonTheme provides buttonTheme) {
+                    Button(
+                        label = actionLabel,
+                        buttonSize = ButtonSize.Small,
+                        buttonType = ButtonType.Ghost,
+                        onClick = onAction,
+                        modifier = Modifier
+                            .padding(top = SpacingScale.spacing03)
+                            .testTag(NotificationTestTags.ACTION_BUTTON)
+                    )
+                }
+            }
+
+            ActionableLayout.Toast -> {
+                // TODO
+            }
         }
 
         if (displayCloseButton) {
@@ -138,6 +178,38 @@ internal fun NotificationContainer(
         } else {
             Spacer(modifier = Modifier.width(SpacingScale.spacing05))
         }
+    }
+}
+
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+private fun TextContent(
+    title: String,
+    body: AnnotatedString,
+    colors: NotificationColors,
+    modifier: Modifier = Modifier
+) {
+    FlowRow(
+        horizontalArrangement = Arrangement.spacedBy(4.dp),
+        verticalArrangement = Arrangement.spacedBy(2.dp),
+        modifier = modifier
+            .padding(start = SpacingScale.spacing05)
+            .padding(vertical = SpacingScale.spacing05)
+    ) {
+        if (title.isNotBlank()) {
+            BasicText(
+                text = title,
+                style = Carbon.typography.headingCompact01,
+                color = { colors.titleColor },
+                modifier = Modifier.testTag(NotificationTestTags.TITLE)
+            )
+        }
+        BasicText(
+            text = body,
+            style = Carbon.typography.bodyCompact01,
+            color = { colors.bodyColor },
+            modifier = Modifier.testTag(NotificationTestTags.BODY)
+        )
     }
 }
 

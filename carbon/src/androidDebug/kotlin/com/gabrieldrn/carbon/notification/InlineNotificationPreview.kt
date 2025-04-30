@@ -51,3 +51,38 @@ private fun InlineNotificationHighContrastPreview(
         )
     }
 }
+
+@Preview(group = "Low contrast")
+@Composable
+private fun ActionableInlineNotificationPreview(
+    @PreviewParameter(NotificationStatusParameterProvider::class) status: NotificationStatus
+) {
+    CarbonDesignSystem {
+        ActionableInlineNotification(
+            title = "Callout Notification",
+            body = "Lorem ipsum dolor.",
+            actionLabel = "Action",
+            status = status,
+            onAction = {},
+            onClose = {}
+        )
+    }
+}
+
+@Preview(group = "High contrast")
+@Composable
+private fun ActionableInlineNotificationHighContrastPreview(
+    @PreviewParameter(NotificationStatusParameterProvider::class) status: NotificationStatus
+) {
+    CarbonDesignSystem {
+        ActionableInlineNotification(
+            title = "Callout Notification",
+            body = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            actionLabel = "Action",
+            status = status,
+            onAction = {},
+            onClose = {},
+            highContrast = true
+        )
+    }
+}

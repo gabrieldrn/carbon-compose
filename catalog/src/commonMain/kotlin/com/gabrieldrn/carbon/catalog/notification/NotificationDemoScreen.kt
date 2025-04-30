@@ -29,6 +29,7 @@ import androidx.compose.ui.Modifier
 import com.gabrieldrn.carbon.catalog.common.DemoScreen
 import com.gabrieldrn.carbon.dropdown.Dropdown
 import com.gabrieldrn.carbon.dropdown.base.toDropdownOptions
+import com.gabrieldrn.carbon.notification.ActionableInlineNotification
 import com.gabrieldrn.carbon.notification.InlineNotification
 import com.gabrieldrn.carbon.notification.NotificationStatus
 import com.gabrieldrn.carbon.tab.TabItem
@@ -36,12 +37,17 @@ import com.gabrieldrn.carbon.textinput.TextArea
 import com.gabrieldrn.carbon.textinput.TextInput
 import com.gabrieldrn.carbon.toggle.Toggle
 
-private enum class NotificationVariant {
-    Callout,
-    Inline
+private enum class NotificationVariant(val label: String) {
+    Callout("Callout"),
+    Inline("Inline"),
+    ActionableInline("Actionable Inline");
+
+    companion object {
+        fun fromLabel(label: String) = entries.first { it.label == label }
+    }
 }
 
-private val variants = NotificationVariant.entries.map { TabItem(it.name) }
+private val variants = NotificationVariant.entries.map { TabItem(it.label) }
 
 @Composable
 fun NotificationDemoScreen(
@@ -88,7 +94,7 @@ fun NotificationDemoScreen(
         variants = variants,
         modifier = modifier,
         demoContent = { variant ->
-            when (NotificationVariant.valueOf(variant.label)) {
+            when (NotificationVariant.fromLabel(variant.label)) {
                 NotificationVariant.Callout -> CalloutNotificationDemo(
                     title = title,
                     body = body,
@@ -106,6 +112,20 @@ fun NotificationDemoScreen(
                             title = title,
                             body = body,
                             status = notificationStatus,
+                            onClose = {},
+                            modifier = Modifier.width(IntrinsicSize.Max),
+                            highContrast = highContrast
+                        )
+                    }
+
+                NotificationVariant.ActionableInline ->
+                    key(highContrast) {
+                        ActionableInlineNotification(
+                            title = title,
+                            body = body,
+                            status = notificationStatus,
+                            actionLabel = "Action",
+                            onAction = {},
                             onClose = {},
                             modifier = Modifier.width(IntrinsicSize.Max),
                             highContrast = highContrast
