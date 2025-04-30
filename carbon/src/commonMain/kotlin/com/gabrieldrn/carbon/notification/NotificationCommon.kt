@@ -246,7 +246,7 @@ private fun CloseButton(
             colorFilter = ColorFilter.tint(
                 if (isHighContrast) theme.iconInverse else theme.iconPrimary
             ),
-            modifier = Modifier.size(20.dp).align(Alignment.Center),
+            modifier = Modifier.size(iconSize).align(Alignment.Center),
         )
     }
 }
