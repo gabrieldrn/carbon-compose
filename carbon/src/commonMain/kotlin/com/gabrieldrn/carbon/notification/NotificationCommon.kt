@@ -31,7 +31,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -47,11 +46,8 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
-import com.gabrieldrn.carbon.button.Button
 import com.gabrieldrn.carbon.button.ButtonFocusIndication
-import com.gabrieldrn.carbon.button.ButtonSize
 import com.gabrieldrn.carbon.button.ButtonType
-import com.gabrieldrn.carbon.foundation.color.LocalCarbonTheme
 import com.gabrieldrn.carbon.foundation.color.Theme
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 import com.gabrieldrn.carbon.icons.CheckmarkFilledIcon
@@ -64,129 +60,105 @@ import com.gabrieldrn.carbon.icons.closeIcon
 // 16px around it, this doesn't compute to a min size of 48px (16+16+20=52)
 private val iconSize = 18.dp
 
-internal enum class ActionableLayout { None, Toast, Inline }
+internal data class NotificationScope(
+    val colors: NotificationColors,
+    val inlineActionButtonTheme: Theme
+) {
 
-@Composable
-private fun rememberInlineActionButtonTheme(
-    theme: Theme,
-    highContrast: Boolean
-) = remember(theme, highContrast) {
-    if (highContrast)
-        theme.copy(
-            linkPrimary = theme.linkInverse,
-            linkPrimaryHover = theme.linkInverseHover,
-        )
-    else theme
+    companion object {
+        @Composable
+        fun rememberScope(
+            status: NotificationStatus,
+            useHighContrast: Boolean,
+            theme: Theme = Carbon.theme,
+        ): NotificationScope {
+            val colors = NotificationColors.rememberColors(
+                status = status,
+                useHighContrast = useHighContrast,
+                theme = theme
+            )
+
+            return remember(colors, useHighContrast, theme) {
+                NotificationScope(
+                    colors = colors,
+                    inlineActionButtonTheme =
+                        if (useHighContrast) theme.copy(
+                            linkPrimary = theme.linkInverse,
+                            linkPrimaryHover = theme.linkInverseHover,
+                        ) else theme
+                )
+            }
+        }
+    }
 }
 
 @Composable
 internal fun NotificationContainer(
-    body: AnnotatedString,
-    title: String,
     status: NotificationStatus,
     displayCloseButton: Boolean,
     highContrast: Boolean,
     modifier: Modifier = Modifier,
-    actionLabel: String = "",
-    actionableLayout: ActionableLayout = ActionableLayout.None,
-    onAction: () -> Unit = {},
     onClose: () -> Unit = {},
+    content: @Composable NotificationScope.() -> Unit = {},
 ) {
-    val colors = NotificationColors.rememberColors(
+    val scope = NotificationScope.rememberScope(
         status = status,
         useHighContrast = highContrast
     )
 
-    Row(
-        modifier = modifier
-            .background(colors.backgroundColor)
-            .drawWithContent {
-                drawContent()
-                val contourWidthPx = 1.dp.toPx()
-                drawRect(
-                    brush = SolidColor(colors.contourColor),
-                    topLeft = Offset(contourWidthPx / 2, contourWidthPx / 2),
-                    size = Size(
-                        size.width - contourWidthPx,
-                        size.height - contourWidthPx
-                    ),
-                    style = Stroke(1.dp.toPx())
-                )
-                drawRect(
-                    brush = SolidColor(colors.borderLeftColor),
-                    topLeft = Offset.Zero,
-                    size = Size(3f.dp.toPx(), size.height)
-                )
-            }
-            .testTag(NotificationTestTags.CONTAINER)
-    ) {
-        Icon(
-            status = status,
-            colors = colors,
-            modifier = Modifier.padding(
-                start = SpacingScale.spacing05,
-                top = SpacingScale.spacing05
-            )
-        )
-
-        when (actionableLayout) {
-            ActionableLayout.None -> TextContent(
-                title = title,
-                body = body,
-                colors = colors,
-                modifier = Modifier.weight(1f)
-            )
-
-            ActionableLayout.Inline -> Row(modifier = Modifier.weight(1f)) {
-                TextContent(
-                    title = title,
-                    body = body,
-                    colors = colors,
-                    modifier = Modifier
-                        .weight(1f)
-                        .padding(end = SpacingScale.spacing05)
-                )
-
-                val buttonTheme = rememberInlineActionButtonTheme(
-                    theme = Carbon.theme,
-                    highContrast = highContrast
-                )
-
-                CompositionLocalProvider(LocalCarbonTheme provides buttonTheme) {
-                    Button(
-                        label = actionLabel,
-                        buttonSize = ButtonSize.Small,
-                        buttonType = ButtonType.Ghost,
-                        onClick = onAction,
-                        modifier = Modifier
-                            .padding(top = SpacingScale.spacing03)
-                            .testTag(NotificationTestTags.ACTION_BUTTON)
+    with(scope) {
+        Row(
+            modifier = modifier
+                .background(colors.backgroundColor)
+                .drawWithContent {
+                    drawContent()
+                    val contourWidthPx = 1.dp.toPx()
+                    drawRect(
+                        brush = SolidColor(colors.contourColor),
+                        topLeft = Offset(contourWidthPx / 2, contourWidthPx / 2),
+                        size = Size(
+                            size.width - contourWidthPx,
+                            size.height - contourWidthPx
+                        ),
+                        style = Stroke(1.dp.toPx())
+                    )
+                    drawRect(
+                        brush = SolidColor(colors.borderLeftColor),
+                        topLeft = Offset.Zero,
+                        size = Size(3f.dp.toPx(), size.height)
                     )
                 }
-            }
-
-            ActionableLayout.Toast -> {
-                // TODO
-            }
-        }
-
-        if (displayCloseButton) {
-            CloseButton(
-                onClick = onClose,
-                isHighContrast = highContrast
+                .testTag(NotificationTestTags.CONTAINER)
+        ) {
+            StatusIcon(
+                status = status,
+                modifier = Modifier.padding(
+                    start = SpacingScale.spacing05,
+                    top = SpacingScale.spacing05
+                )
             )
-        } else {
-            Spacer(modifier = Modifier.width(SpacingScale.spacing05))
+
+            Box(modifier = Modifier.weight(1f)) {
+                content(this@with)
+            }
+
+            if (displayCloseButton) {
+                CloseButton(
+                    onClick = onClose,
+                    isHighContrast = highContrast
+                )
+            } else {
+                Spacer(modifier = Modifier.width(SpacingScale.spacing05))
+            }
         }
     }
 }
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-private fun TextContent(
+internal fun NotificationScope.FlowTextContent(
     title: String,
     body: AnnotatedString,
-    colors: NotificationColors,
     modifier: Modifier = Modifier
 ) {
     FlowRow(
@@ -208,7 +180,7 @@ private fun TextContent(
             text = body,
             style = Carbon.typography.bodyCompact01,
             color = { colors.bodyColor },
-            modifier = Modifier.testTag(NotificationTestTags.BODY)
+            modifier = Modifier.testTag(NotificationTestTags.SUBTITLE)
         )
     }
 }
@@ -252,9 +224,8 @@ private fun CloseButton(
 }
 
 @Composable
-private fun Icon(
+private fun NotificationScope.StatusIcon(
     status: NotificationStatus,
-    colors: NotificationColors,
     modifier: Modifier = Modifier
 ) {
     when (status) {

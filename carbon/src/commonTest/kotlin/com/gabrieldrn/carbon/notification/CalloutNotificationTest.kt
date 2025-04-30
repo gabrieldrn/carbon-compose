@@ -85,7 +85,7 @@ class CalloutNotificationTest {
                 }
             }
 
-            onNodeWithTag(NotificationTestTags.BODY).run {
+            onNodeWithTag(NotificationTestTags.SUBTITLE).run {
                 if (body.text.isBlank()) {
                     assertExists()
                 } else {
@@ -142,7 +142,7 @@ class CalloutNotificationTest {
                 }
             }
 
-            onNodeWithTag(NotificationTestTags.BODY).run {
+            onNodeWithTag(NotificationTestTags.SUBTITLE).run {
                 if (body.isBlank()) {
                     assertExists()
                 } else {

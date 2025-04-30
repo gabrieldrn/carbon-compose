@@ -82,7 +82,7 @@ class InlineNotificationTest {
                 }
             }
 
-            onNodeWithTag(NotificationTestTags.BODY).run {
+            onNodeWithTag(NotificationTestTags.SUBTITLE).run {
                 if (body.isBlank()) {
                     assertExists()
                 } else {

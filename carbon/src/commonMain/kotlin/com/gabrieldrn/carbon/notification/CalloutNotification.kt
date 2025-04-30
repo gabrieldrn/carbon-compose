@@ -47,13 +47,16 @@ public fun CalloutNotification(
     highContrast: Boolean = false
 ) {
     NotificationContainer(
-        body = body,
-        title = title,
         status = status,
         displayCloseButton = false,
         highContrast = highContrast,
         modifier = modifier
-    )
+    ) {
+        FlowTextContent(
+            title = title,
+            body = body,
+        )
+    }
 }
 
 /**
