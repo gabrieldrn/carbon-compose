@@ -31,6 +31,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -60,6 +61,7 @@ import com.gabrieldrn.carbon.icons.closeIcon
 // 16px around it, this doesn't compute to a min size of 48px (16+16+20=52)
 private val iconSize = 18.dp
 
+@Stable
 internal data class NotificationScope(
     val colors: NotificationColors,
     val inlineActionButtonTheme: Theme
@@ -186,7 +188,7 @@ internal fun NotificationScope.FlowTextContent(
 }
 
 @Composable
-private fun CloseButton(
+private fun NotificationScope.CloseButton(
     onClick: () -> Unit,
     isHighContrast: Boolean,
     modifier: Modifier = Modifier,
@@ -215,9 +217,7 @@ private fun CloseButton(
         Image(
             painter = rememberVectorPainter(closeIcon),
             contentDescription = "Close button",
-            colorFilter = ColorFilter.tint(
-                if (isHighContrast) theme.iconInverse else theme.iconPrimary
-            ),
+            colorFilter = ColorFilter.tint(colors.closeIconColor),
             modifier = Modifier.size(iconSize).align(Alignment.Center),
         )
     }
