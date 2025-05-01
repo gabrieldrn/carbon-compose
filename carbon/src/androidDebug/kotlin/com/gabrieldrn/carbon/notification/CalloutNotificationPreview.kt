@@ -20,17 +20,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
-import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import com.gabrieldrn.carbon.CarbonDesignSystem
-
-internal class NotificationStatusParameterProvider : PreviewParameterProvider<NotificationStatus> {
-    override val values = sequenceOf(
-        NotificationStatus.Informational,
-        NotificationStatus.Success,
-        NotificationStatus.Warning,
-        NotificationStatus.Error
-    )
-}
 
 @Preview(group = "Low contrast")
 @Composable

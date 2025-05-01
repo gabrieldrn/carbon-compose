@@ -36,6 +36,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithContent
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.ColorFilter
@@ -95,12 +96,46 @@ internal data class NotificationScope(
 }
 
 @Composable
+private fun Modifier.notificationContainerModifier(
+    colors: NotificationColors,
+    isFloating: Boolean
+): Modifier {
+    val elevationModifier = if (isFloating) Modifier.shadow(elevation = 4.dp) else Modifier
+
+    return this
+        .then(elevationModifier)
+        .background(colors.backgroundColor)
+        .drawWithContent {
+            drawContent()
+            val contourWidthPx = 1.dp.toPx()
+            if (!isFloating) {
+                drawRect(
+                    brush = SolidColor(colors.contourColor),
+                    topLeft = Offset(contourWidthPx / 2, contourWidthPx / 2),
+                    size = Size(
+                        size.width - contourWidthPx,
+                        size.height - contourWidthPx
+                    ),
+                    style = Stroke(1.dp.toPx())
+                )
+            }
+            drawRect(
+                brush = SolidColor(colors.borderLeftColor),
+                topLeft = Offset.Zero,
+                size = Size(3f.dp.toPx(), size.height)
+            )
+        }
+        .testTag(NotificationTestTags.CONTAINER)
+}
+
+@Composable
 internal fun NotificationContainer(
     status: NotificationStatus,
     displayCloseButton: Boolean,
     highContrast: Boolean,
     modifier: Modifier = Modifier,
     onClose: () -> Unit = {},
+    isFloating: Boolean = false, // Not sure if it's the right term...
     content: @Composable NotificationScope.() -> Unit = {},
 ) {
     val scope = NotificationScope.rememberScope(
@@ -110,27 +145,10 @@ internal fun NotificationContainer(
 
     with(scope) {
         Row(
-            modifier = modifier
-                .background(colors.backgroundColor)
-                .drawWithContent {
-                    drawContent()
-                    val contourWidthPx = 1.dp.toPx()
-                    drawRect(
-                        brush = SolidColor(colors.contourColor),
-                        topLeft = Offset(contourWidthPx / 2, contourWidthPx / 2),
-                        size = Size(
-                            size.width - contourWidthPx,
-                            size.height - contourWidthPx
-                        ),
-                        style = Stroke(1.dp.toPx())
-                    )
-                    drawRect(
-                        brush = SolidColor(colors.borderLeftColor),
-                        topLeft = Offset.Zero,
-                        size = Size(3f.dp.toPx(), size.height)
-                    )
-                }
-                .testTag(NotificationTestTags.CONTAINER)
+            modifier = modifier.notificationContainerModifier(
+                colors = colors,
+                isFloating = isFloating
+            )
         ) {
             StatusIcon(
                 status = status,

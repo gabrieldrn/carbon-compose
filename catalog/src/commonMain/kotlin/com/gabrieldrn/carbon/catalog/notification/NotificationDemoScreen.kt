@@ -16,8 +16,10 @@
 
 package com.gabrieldrn.carbon.catalog.notification
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -29,9 +31,11 @@ import androidx.compose.ui.Modifier
 import com.gabrieldrn.carbon.catalog.common.DemoScreen
 import com.gabrieldrn.carbon.dropdown.Dropdown
 import com.gabrieldrn.carbon.dropdown.base.toDropdownOptions
+import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 import com.gabrieldrn.carbon.notification.ActionableInlineNotification
 import com.gabrieldrn.carbon.notification.InlineNotification
 import com.gabrieldrn.carbon.notification.NotificationStatus
+import com.gabrieldrn.carbon.notification.ToastNotification
 import com.gabrieldrn.carbon.tab.TabItem
 import com.gabrieldrn.carbon.textinput.TextArea
 import com.gabrieldrn.carbon.textinput.TextInput
@@ -40,6 +44,7 @@ import com.gabrieldrn.carbon.toggle.Toggle
 private enum class NotificationVariant(val label: String) {
     Callout("Callout"),
     Inline("Inline"),
+    Toast("Toast"),
     ActionableInline("Actionable Inline");
 
     companion object {
@@ -117,6 +122,29 @@ fun NotificationDemoScreen(
                             highContrast = highContrast
                         )
                     }
+
+                NotificationVariant.Toast -> Column {
+                    ToastNotification(
+                        title = title,
+                        body = body,
+                        status = notificationStatus,
+                        onClose = {},
+                        modifier = Modifier.width(IntrinsicSize.Max),
+                        highContrast = highContrast
+                    )
+
+                    ToastNotification(
+                        title = title,
+                        body = body,
+                        status = notificationStatus,
+                        onClose = {},
+                        modifier = Modifier
+                            .width(IntrinsicSize.Max)
+                            .padding(top = SpacingScale.spacing05),
+                        highContrast = highContrast,
+                        timestamp = "Time stamp [12:12:12 AM]"
+                    )
+                }
 
                 NotificationVariant.ActionableInline ->
                     key(highContrast) {
