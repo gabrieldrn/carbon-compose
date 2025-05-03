@@ -47,6 +47,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import co.touchlab.kermit.Logger
 import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.foundation.interaction.FocusIndication
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
@@ -95,9 +96,23 @@ internal fun <K : Any> DropdownPopupContent(
         }
     }
 
+    val initialFirstVisibleItemIndex = remember(options, selectedOptionIndex) {
+        options
+            .keys
+            .indexOf(compositionEndTargetOption)
+            .let {
+                if (it < 0) {
+                    Logger.w("Selected option not found in options")
+                    0
+                } else {
+                    it
+                }
+            }
+    }
+
     LazyColumn(
         state = rememberLazyListState(
-            initialFirstVisibleItemIndex = options.keys.indexOf(compositionEndTargetOption)
+            initialFirstVisibleItemIndex = initialFirstVisibleItemIndex
         ),
         modifier = modifier
             .background(color = colors.menuOptionBackgroundColor)
