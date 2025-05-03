@@ -90,7 +90,7 @@ public fun <K : Any> Dropdown(
     isInlined: Boolean = false,
     minVisibleItems: Int = 4,
 ) {
-    val fieldText = remember(selectedOption) {
+    val fieldText = remember(selectedOption, placeholder) {
         options[selectedOption]?.value ?: placeholder
     }
 
