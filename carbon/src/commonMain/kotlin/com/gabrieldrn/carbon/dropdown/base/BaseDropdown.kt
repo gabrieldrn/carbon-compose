@@ -166,29 +166,57 @@ internal fun <K : Any> BaseDropdown(
     }
 
     if (isInlined) {
-        Row(
-            modifier = modifier,
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center
-        ) {
-            label.takeIf { !it.isNullOrBlank() }?.let {
-                DropdownLabel(
-                    text = it,
-                    color = labelTextColor
-                )
-            }
-
-            Column(modifier = Modifier.padding(start = SpacingScale.spacing06)) {
-                fieldAndPopup()
+        val isWarningOrError = state is DropdownInteractiveState.Warning
+            || state is DropdownInteractiveState.Error
+        if (isWarningOrError) {
+            Row(
+                modifier = modifier,
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(SpacingScale.spacing06)
+            ) {
+                label.takeIf { !it.isNullOrBlank() }?.let {
+                    DropdownLabel(
+                        text = it,
+                        color = labelTextColor
+                    )
+                }
 
                 state.helperText?.let {
                     DropdownHelperText(
                         text = it,
-                        color = helperTextColor
+                        color = helperTextColor,
+                        modifier = Modifier
+                            .padding(start = SpacingScale.spacing06)
+                            .align(Alignment.CenterVertically)
                     )
                 }
             }
+        } else {
+            Row(
+                modifier = modifier,
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center
+            ) {
+                label.takeIf { !it.isNullOrBlank() }?.let {
+                    DropdownLabel(
+                        text = it,
+                        color = labelTextColor
+                    )
+                }
+
+                Column(modifier = Modifier.padding(start = SpacingScale.spacing06)) {
+                    fieldAndPopup()
+
+                    state.helperText?.let {
+                        DropdownHelperText(
+                            text = it,
+                            color = helperTextColor
+                        )
+                    }
+                }
+            }
         }
+
     } else {
         Column(modifier = modifier) {
             label.takeIf { !it.isNullOrBlank() }?.let {
