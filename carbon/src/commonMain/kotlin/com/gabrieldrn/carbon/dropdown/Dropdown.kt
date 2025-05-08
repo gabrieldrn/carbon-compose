@@ -22,6 +22,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.Dp
 import co.touchlab.kermit.Logger
 import com.gabrieldrn.carbon.dropdown.base.BaseDropdown
 import com.gabrieldrn.carbon.dropdown.base.DropdownColors
@@ -88,6 +89,8 @@ public fun <K : Any> Dropdown(
     state: DropdownInteractiveState = DropdownInteractiveState.Enabled,
     dropdownSize: DropdownSize = DropdownSize.Large,
     isInlined: Boolean = false,
+    minFieldWidth: Dp = Dp.Unspecified,
+    maxFieldWidth: Dp = Dp.Unspecified,
     minVisibleItems: Int = 4,
 ) {
     val fieldText = remember(selectedOption) {
@@ -124,6 +127,8 @@ public fun <K : Any> Dropdown(
 
             DropdownStateIcon(state = state)
         },
+        minFieldWidth = minFieldWidth,
+        maxFieldWidth = maxFieldWidth,
         popupContent = {
             DropdownPopupContent(
                 selectedOption = selectedOption,
@@ -190,6 +195,8 @@ public fun <K : Any> Dropdown(
     state: DropdownInteractiveState = DropdownInteractiveState.Enabled,
     dropdownSize: DropdownSize = DropdownSize.Large,
     isInlined: Boolean = false,
+    minFieldWidth: Dp = Dp.Unspecified,
+    maxFieldWidth: Dp = Dp.Unspecified,
     minVisibleItems: Int = 4,
 ) {
     var isExpanded by remember { mutableStateOf(false) }
@@ -214,6 +221,8 @@ public fun <K : Any> Dropdown(
         label = label,
         state = state,
         dropdownSize = dropdownSize,
+        minFieldWidth = minFieldWidth,
+        maxFieldWidth = maxFieldWidth,
         isInlined = isInlined
     )
 }

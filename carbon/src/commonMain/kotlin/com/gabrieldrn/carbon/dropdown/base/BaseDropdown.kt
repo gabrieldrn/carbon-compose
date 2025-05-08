@@ -29,6 +29,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.Stable
@@ -103,6 +104,8 @@ internal fun <K : Any> BaseDropdown(
     label: String? = null,
     state: DropdownInteractiveState = DropdownInteractiveState.Enabled,
     dropdownSize: DropdownSize = DropdownSize.Large,
+    minFieldWidth: Dp = Dp.Unspecified,
+    maxFieldWidth: Dp = Dp.Unspecified,
     isInlined: Boolean = false,
     fieldContent: @Composable () -> Unit,
     popupContent: @Composable DropdownPopupScope.() -> Unit,
@@ -166,57 +169,30 @@ internal fun <K : Any> BaseDropdown(
     }
 
     if (isInlined) {
-        val isWarningOrError = state is DropdownInteractiveState.Warning
-            || state is DropdownInteractiveState.Error
-        if (isWarningOrError) {
-            Row(
-                modifier = modifier,
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(SpacingScale.spacing06)
-            ) {
-                label.takeIf { !it.isNullOrBlank() }?.let {
-                    DropdownLabel(
-                        text = it,
-                        color = labelTextColor
-                    )
-                }
-
-                state.helperText?.let {
-                    DropdownHelperText(
-                        text = it,
-                        color = helperTextColor,
-                        modifier = Modifier
-                            .padding(start = SpacingScale.spacing06)
-                            .align(Alignment.CenterVertically)
-                    )
-                }
+        Row(
+            modifier = modifier.widthIn(min = minFieldWidth, max = maxFieldWidth),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
+        ) {
+            label.takeIf { !it.isNullOrBlank() }?.let {
+                DropdownLabel(
+                    text = it,
+                    color = labelTextColor
+                )
             }
-        } else {
-            Row(
-                modifier = modifier,
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Center
-            ) {
-                label.takeIf { !it.isNullOrBlank() }?.let {
-                    DropdownLabel(
-                        text = it,
-                        color = labelTextColor
-                    )
-                }
 
-                Column(modifier = Modifier.padding(start = SpacingScale.spacing06)) {
-                    fieldAndPopup()
+            Box(Modifier.weight(1f)) {
+                fieldAndPopup()
+            }
 
-                    state.helperText?.let {
-                        DropdownHelperText(
-                            text = it,
-                            color = helperTextColor
-                        )
-                    }
-                }
+            state.helperText?.let {
+                DropdownHelperText(
+                    text = it,
+                    color = helperTextColor,
+                    modifier = Modifier.padding(start = SpacingScale.spacing04)
+                )
             }
         }
-
     } else {
         Column(modifier = modifier) {
             label.takeIf { !it.isNullOrBlank() }?.let {
