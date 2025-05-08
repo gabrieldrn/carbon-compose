@@ -65,7 +65,8 @@ private val iconSize = 18.dp
 @Stable
 internal data class NotificationScope(
     val colors: NotificationColors,
-    val inlineActionButtonTheme: Theme
+    val actionableInlineTheme: Theme,
+    val actionableToastTheme: Theme,
 ) {
 
     companion object {
@@ -84,11 +85,23 @@ internal data class NotificationScope(
             return remember(colors, useHighContrast, theme) {
                 NotificationScope(
                     colors = colors,
-                    inlineActionButtonTheme =
+                    actionableInlineTheme =
                         if (useHighContrast) theme.copy(
                             linkPrimary = theme.linkInverse,
                             linkPrimaryHover = theme.linkInverseHover,
-                        ) else theme
+                        ) else theme,
+                    actionableToastTheme =
+                        if (useHighContrast) with(theme.notificationColors) {
+                            val buttonsColors = theme.buttonColors.copy(
+                                buttonTertiary = notificationActionTertiaryInverse,
+                                buttonTertiaryActive = notificationActionTertiaryInverseActive,
+                                buttonTertiaryHover = notificationActionTertiaryInverseHover,
+                            )
+                            theme.copy(
+                                textInverse = notificationActionTertiaryInverseText,
+                                buttonColors = buttonsColors
+                            )
+                        } else theme,
                 )
             }
         }

@@ -33,6 +33,7 @@ import com.gabrieldrn.carbon.dropdown.Dropdown
 import com.gabrieldrn.carbon.dropdown.base.toDropdownOptions
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 import com.gabrieldrn.carbon.notification.ActionableInlineNotification
+import com.gabrieldrn.carbon.notification.ActionableToastNotification
 import com.gabrieldrn.carbon.notification.InlineNotification
 import com.gabrieldrn.carbon.notification.NotificationStatus
 import com.gabrieldrn.carbon.notification.ToastNotification
@@ -45,7 +46,8 @@ private enum class NotificationVariant(val label: String) {
     Callout("Callout"),
     Inline("Inline"),
     Toast("Toast"),
-    ActionableInline("Actionable Inline");
+    ActionableInline("Actionable Inline"),
+    ActionableToast("Actionable Toast");
 
     companion object {
         fun fromLabel(label: String) = entries.first { it.label == label }
@@ -159,6 +161,18 @@ fun NotificationDemoScreen(
                             highContrast = highContrast
                         )
                     }
+
+                NotificationVariant.ActionableToast ->
+                    ActionableToastNotification(
+                        title = title,
+                        body = body,
+                        status = notificationStatus,
+                        actionLabel = "Action",
+                        onAction = {},
+                        onClose = {},
+                        modifier = Modifier.width(IntrinsicSize.Max),
+                        highContrast = highContrast
+                    )
             }
         },
         demoParametersContent = parametersContent,

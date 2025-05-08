@@ -97,8 +97,8 @@ public fun ActionableInlineNotification(
     body: String,
     actionLabel: String,
     status: NotificationStatus,
-    onClose: () -> Unit,
     onAction: () -> Unit,
+    onClose: () -> Unit,
     modifier: Modifier = Modifier,
     highContrast: Boolean = false
 ) {
@@ -119,7 +119,7 @@ public fun ActionableInlineNotification(
             )
 
             CompositionLocalProvider(
-                LocalCarbonTheme provides this@NotificationContainer.inlineActionButtonTheme
+                LocalCarbonTheme provides this@NotificationContainer.actionableInlineTheme
             ) {
                 Button(
                     label = actionLabel,
