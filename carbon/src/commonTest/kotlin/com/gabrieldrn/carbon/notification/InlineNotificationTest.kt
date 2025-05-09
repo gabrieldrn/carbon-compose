@@ -19,6 +19,7 @@ package com.gabrieldrn.carbon.notification
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.test.ComposeUiTest
 import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.assertHasClickAction
 import androidx.compose.ui.test.assertIsDisplayed
@@ -37,6 +38,46 @@ class InlineNotificationTest {
     private var _title by mutableStateOf("")
     private var _actionLabel by mutableStateOf("")
     private var _highContrast by mutableStateOf(false)
+
+    private fun ComposeUiTest.commonLayoutValidation(
+        title: String,
+        body: String,
+        status: NotificationStatus
+    ) {
+        onNodeWithTag(NotificationTestTags.CONTAINER)
+            .assertIsDisplayed()
+
+        onNodeWithTag(
+            when (status) {
+                NotificationStatus.Informational -> NotificationTestTags.ICON_INFORMATIONAL
+                NotificationStatus.Success -> NotificationTestTags.ICON_SUCCESS
+                NotificationStatus.Warning -> NotificationTestTags.ICON_WARNING
+                NotificationStatus.Error -> NotificationTestTags.ICON_ERROR
+            }
+        ).assertIsDisplayed()
+
+        onNodeWithTag(NotificationTestTags.TITLE).run {
+            if (title.isBlank()) {
+                assertDoesNotExist()
+            } else {
+                assertIsDisplayed()
+                assertTextEquals(title)
+            }
+        }
+
+        onNodeWithTag(NotificationTestTags.SUBTITLE).run {
+            if (body.isBlank()) {
+                assertExists()
+            } else {
+                assertIsDisplayed()
+                assertTextEquals(body)
+            }
+        }
+
+        onNodeWithTag(NotificationTestTags.CLOSE_BUTTON)
+            .assertIsDisplayed()
+            .assertHasClickAction()
+    }
 
     @Test
     fun inlineNotification_validateLayout() = runComposeUiTest {
@@ -64,39 +105,11 @@ class InlineNotificationTest {
             _title = title
             _highContrast = highContrast
 
-            onNodeWithTag(NotificationTestTags.CONTAINER)
-                .assertIsDisplayed()
-
-            onNodeWithTag(
-                when (status) {
-                    NotificationStatus.Informational -> NotificationTestTags.ICON_INFORMATIONAL
-                    NotificationStatus.Success -> NotificationTestTags.ICON_SUCCESS
-                    NotificationStatus.Warning -> NotificationTestTags.ICON_WARNING
-                    NotificationStatus.Error -> NotificationTestTags.ICON_ERROR
-                }
-            ).assertIsDisplayed()
-
-            onNodeWithTag(NotificationTestTags.TITLE).run {
-                if (title.isBlank()) {
-                    assertDoesNotExist()
-                } else {
-                    assertIsDisplayed()
-                    assertTextEquals(title)
-                }
-            }
-
-            onNodeWithTag(NotificationTestTags.SUBTITLE).run {
-                if (body.isBlank()) {
-                    assertExists()
-                } else {
-                    assertIsDisplayed()
-                    assertTextEquals(body)
-                }
-            }
-
-            onNodeWithTag(NotificationTestTags.CLOSE_BUTTON)
-                .assertIsDisplayed()
-                .assertHasClickAction()
+            commonLayoutValidation(
+                title = title,
+                body = body,
+                status = status
+            )
         }
     }
 
@@ -130,39 +143,11 @@ class InlineNotificationTest {
             _actionLabel = actionLabel
             _highContrast = highContrast
 
-            onNodeWithTag(NotificationTestTags.CONTAINER)
-                .assertIsDisplayed()
-
-            onNodeWithTag(
-                when (status) {
-                    NotificationStatus.Informational -> NotificationTestTags.ICON_INFORMATIONAL
-                    NotificationStatus.Success -> NotificationTestTags.ICON_SUCCESS
-                    NotificationStatus.Warning -> NotificationTestTags.ICON_WARNING
-                    NotificationStatus.Error -> NotificationTestTags.ICON_ERROR
-                }
-            ).assertIsDisplayed()
-
-            onNodeWithTag(NotificationTestTags.TITLE).run {
-                if (title.isBlank()) {
-                    assertDoesNotExist()
-                } else {
-                    assertIsDisplayed()
-                    assertTextEquals(title)
-                }
-            }
-
-            onNodeWithTag(NotificationTestTags.SUBTITLE).run {
-                if (body.isBlank()) {
-                    assertExists()
-                } else {
-                    assertIsDisplayed()
-                    assertTextEquals(body)
-                }
-            }
-
-            onNodeWithTag(NotificationTestTags.CLOSE_BUTTON)
-                .assertIsDisplayed()
-                .assertHasClickAction()
+            commonLayoutValidation(
+                title = title,
+                body = body,
+                status = status
+            )
 
             onNodeWithTag(NotificationTestTags.ACTION_BUTTON)
                 .assertIsDisplayed()
