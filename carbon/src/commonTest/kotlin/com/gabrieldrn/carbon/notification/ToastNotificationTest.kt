@@ -19,6 +19,7 @@ package com.gabrieldrn.carbon.notification
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.test.ComposeUiTest
 import androidx.compose.ui.test.assertHasClickAction
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertTextEquals
@@ -34,7 +35,48 @@ class ToastNotificationTest {
     private var _body by mutableStateOf("")
     private var _status by mutableStateOf(NotificationStatus.Informational)
     private var _highContrast by mutableStateOf(false)
+    private var _actionLabel by mutableStateOf("")
     private var _timestamp by mutableStateOf("")
+
+    private fun ComposeUiTest.commonLayoutValidation(
+        title: String,
+        body: String,
+        status: NotificationStatus
+    ) {
+        onNodeWithTag(NotificationTestTags.CONTAINER)
+            .assertIsDisplayed()
+
+        onNodeWithTag(
+            when (status) {
+                NotificationStatus.Informational -> NotificationTestTags.ICON_INFORMATIONAL
+                NotificationStatus.Success -> NotificationTestTags.ICON_SUCCESS
+                NotificationStatus.Warning -> NotificationTestTags.ICON_WARNING
+                NotificationStatus.Error -> NotificationTestTags.ICON_ERROR
+            }
+        ).assertIsDisplayed()
+
+        onNodeWithTag(NotificationTestTags.TITLE).run {
+            if (title.isBlank()) {
+                assertDoesNotExist()
+            } else {
+                assertIsDisplayed()
+                assertTextEquals(title)
+            }
+        }
+
+        onNodeWithTag(NotificationTestTags.SUBTITLE).run {
+            if (body.isBlank()) {
+                assertExists()
+            } else {
+                assertIsDisplayed()
+                assertTextEquals(body)
+            }
+        }
+
+        onNodeWithTag(NotificationTestTags.CLOSE_BUTTON)
+            .assertIsDisplayed()
+            .assertHasClickAction()
+    }
 
     @Test
     fun toastNotification_validateLayout() = runComposeUiTest {
@@ -65,40 +107,11 @@ class ToastNotificationTest {
             _highContrast = highContrast
             _timestamp = timestamp
 
-
-            onNodeWithTag(NotificationTestTags.CONTAINER)
-                .assertIsDisplayed()
-
-            onNodeWithTag(
-                when (status) {
-                    NotificationStatus.Informational -> NotificationTestTags.ICON_INFORMATIONAL
-                    NotificationStatus.Success -> NotificationTestTags.ICON_SUCCESS
-                    NotificationStatus.Warning -> NotificationTestTags.ICON_WARNING
-                    NotificationStatus.Error -> NotificationTestTags.ICON_ERROR
-                }
-            ).assertIsDisplayed()
-
-            onNodeWithTag(NotificationTestTags.TITLE).run {
-                if (title.isBlank()) {
-                    assertDoesNotExist()
-                } else {
-                    assertIsDisplayed()
-                    assertTextEquals(title)
-                }
-            }
-
-            onNodeWithTag(NotificationTestTags.SUBTITLE).run {
-                if (body.isBlank()) {
-                    assertExists()
-                } else {
-                    assertIsDisplayed()
-                    assertTextEquals(body)
-                }
-            }
-
-            onNodeWithTag(NotificationTestTags.CLOSE_BUTTON)
-                .assertIsDisplayed()
-                .assertHasClickAction()
+            commonLayoutValidation(
+                title = title,
+                body = body,
+                status = status,
+            )
 
             onNodeWithTag(NotificationTestTags.DETAILS).run {
                 if (timestamp.isBlank()) {
@@ -108,6 +121,49 @@ class ToastNotificationTest {
                     assertTextEquals(timestamp)
                 }
             }
+        }
+    }
+
+    @Test
+    fun toastNotification_actionable_validateLayout() = runComposeUiTest {
+        setContent {
+            CarbonDesignSystem {
+                ActionableToastNotification(
+                    title = _title,
+                    body = _body,
+                    actionLabel = _actionLabel,
+                    status = _status,
+                    onAction = {},
+                    onClose = {},
+                    highContrast = _highContrast,
+                )
+            }
+        }
+
+        forEachParameter(
+            arrayOf("", "This is a toast notification."),
+            NotificationStatus.entries.toTypedArray(),
+            arrayOf("", "Toast notification"),
+            arrayOf("", "Action"),
+            arrayOf(false, true)
+        ) { body, status, title, actionLabel, highContrast ->
+
+            _body = body
+            _status = status
+            _title = title
+            _actionLabel = actionLabel
+            _highContrast = highContrast
+
+            commonLayoutValidation(
+                title = title,
+                body = body,
+                status = status
+            )
+
+            onNodeWithTag(NotificationTestTags.ACTION_BUTTON)
+                .assertIsDisplayed()
+                .assertHasClickAction()
+                .assertTextEquals(actionLabel)
         }
     }
 }
