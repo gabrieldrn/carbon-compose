@@ -19,6 +19,7 @@ package com.gabrieldrn.carbon.notification
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.test.ComposeUiTest
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.onNodeWithTag
@@ -35,6 +36,32 @@ class CalloutNotificationTest {
     private var _status by mutableStateOf(NotificationStatus.Informational)
     private var _title by mutableStateOf("")
     private var _highContrast by mutableStateOf(false)
+
+    private fun ComposeUiTest.commonLayoutValidation(
+        title: String,
+        status: NotificationStatus
+    ) {
+        onNodeWithTag(NotificationTestTags.CONTAINER)
+            .assertIsDisplayed()
+
+        onNodeWithTag(
+            when (status) {
+                NotificationStatus.Informational -> NotificationTestTags.ICON_INFORMATIONAL
+                NotificationStatus.Success -> NotificationTestTags.ICON_SUCCESS
+                NotificationStatus.Warning -> NotificationTestTags.ICON_WARNING
+                NotificationStatus.Error -> NotificationTestTags.ICON_ERROR
+            }
+        ).assertIsDisplayed()
+
+        onNodeWithTag(NotificationTestTags.TITLE).run {
+            if (title.isBlank()) {
+                assertDoesNotExist()
+            } else {
+                assertIsDisplayed()
+                assertTextEquals(title)
+            }
+        }
+    }
 
     @Test
     fun calloutNotification_annotatedStringBody_validateLayout() = runComposeUiTest {
@@ -64,26 +91,10 @@ class CalloutNotificationTest {
             _title = title
             _highContrast = highContrast
 
-            onNodeWithTag(NotificationTestTags.CONTAINER)
-                .assertIsDisplayed()
-
-            onNodeWithTag(
-                when (status) {
-                    NotificationStatus.Informational -> NotificationTestTags.ICON_INFORMATIONAL
-                    NotificationStatus.Success -> NotificationTestTags.ICON_SUCCESS
-                    NotificationStatus.Warning -> NotificationTestTags.ICON_WARNING
-                    NotificationStatus.Error -> NotificationTestTags.ICON_ERROR
-                }
-            ).assertIsDisplayed()
-
-            onNodeWithTag(NotificationTestTags.TITLE).run {
-                if (title.isBlank()) {
-                    assertDoesNotExist()
-                } else {
-                    assertIsDisplayed()
-                    assertTextEquals(title)
-                }
-            }
+            commonLayoutValidation(
+                title = title,
+                status = status
+            )
 
             onNodeWithTag(NotificationTestTags.SUBTITLE).run {
                 if (body.text.isBlank()) {
@@ -121,26 +132,10 @@ class CalloutNotificationTest {
             _title = title
             _highContrast = highContrast
 
-            onNodeWithTag(NotificationTestTags.CONTAINER)
-                .assertIsDisplayed()
-
-            onNodeWithTag(
-                when (status) {
-                    NotificationStatus.Informational -> NotificationTestTags.ICON_INFORMATIONAL
-                    NotificationStatus.Success -> NotificationTestTags.ICON_SUCCESS
-                    NotificationStatus.Warning -> NotificationTestTags.ICON_WARNING
-                    NotificationStatus.Error -> NotificationTestTags.ICON_ERROR
-                }
-            ).assertIsDisplayed()
-
-            onNodeWithTag(NotificationTestTags.TITLE).run {
-                if (title.isBlank()) {
-                    assertDoesNotExist()
-                } else {
-                    assertIsDisplayed()
-                    assertTextEquals(title)
-                }
-            }
+            commonLayoutValidation(
+                title = title,
+                status = status
+            )
 
             onNodeWithTag(NotificationTestTags.SUBTITLE).run {
                 if (body.isBlank()) {
