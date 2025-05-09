@@ -19,9 +19,11 @@ package com.gabrieldrn.carbon.notification
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.assertHasClickAction
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertTextEquals
+import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.runComposeUiTest
 import com.gabrieldrn.carbon.CarbonDesignSystem
@@ -33,10 +35,11 @@ class InlineNotificationTest {
     private var _body by mutableStateOf("")
     private var _status by mutableStateOf(NotificationStatus.Informational)
     private var _title by mutableStateOf("")
+    private var _actionLabel by mutableStateOf("")
     private var _highContrast by mutableStateOf(false)
 
     @Test
-    fun inlineNotifications_validateLayout() = runComposeUiTest {
+    fun inlineNotification_validateLayout() = runComposeUiTest {
         setContent {
             CarbonDesignSystem {
                 InlineNotification(
@@ -94,6 +97,77 @@ class InlineNotificationTest {
             onNodeWithTag(NotificationTestTags.CLOSE_BUTTON)
                 .assertIsDisplayed()
                 .assertHasClickAction()
+        }
+    }
+
+    @Test
+    fun inlineNotification_actionable_validateLayout() = runComposeUiTest {
+        setContent {
+            CarbonDesignSystem {
+                ActionableInlineNotification(
+                    title = _title,
+                    body = _body,
+                    actionLabel = _actionLabel,
+                    status = _status,
+                    onClose = {},
+                    onAction = {},
+                    highContrast = _highContrast,
+                )
+            }
+        }
+
+        forEachParameter(
+            arrayOf("", "This is an inline notification."),
+            NotificationStatus.entries.toTypedArray(),
+            arrayOf("", "Inline notification"),
+            arrayOf("", "Action"),
+            arrayOf(false, true)
+        ) { body, status, title, actionLabel, highContrast ->
+
+            _body = body
+            _status = status
+            _title = title
+            _actionLabel = actionLabel
+            _highContrast = highContrast
+
+            onNodeWithTag(NotificationTestTags.CONTAINER)
+                .assertIsDisplayed()
+
+            onNodeWithTag(
+                when (status) {
+                    NotificationStatus.Informational -> NotificationTestTags.ICON_INFORMATIONAL
+                    NotificationStatus.Success -> NotificationTestTags.ICON_SUCCESS
+                    NotificationStatus.Warning -> NotificationTestTags.ICON_WARNING
+                    NotificationStatus.Error -> NotificationTestTags.ICON_ERROR
+                }
+            ).assertIsDisplayed()
+
+            onNodeWithTag(NotificationTestTags.TITLE).run {
+                if (title.isBlank()) {
+                    assertDoesNotExist()
+                } else {
+                    assertIsDisplayed()
+                    assertTextEquals(title)
+                }
+            }
+
+            onNodeWithTag(NotificationTestTags.SUBTITLE).run {
+                if (body.isBlank()) {
+                    assertExists()
+                } else {
+                    assertIsDisplayed()
+                    assertTextEquals(body)
+                }
+            }
+
+            onNodeWithTag(NotificationTestTags.CLOSE_BUTTON)
+                .assertIsDisplayed()
+                .assertHasClickAction()
+
+            onNodeWithTag(NotificationTestTags.ACTION_BUTTON)
+                .assertIsDisplayed()
+                .assertHasClickAction()
+                .assert(hasText(actionLabel))
         }
     }
 }

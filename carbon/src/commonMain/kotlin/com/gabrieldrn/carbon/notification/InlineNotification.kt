@@ -86,8 +86,8 @@ public fun InlineNotification(
  * @param body The body of the notification.
  * @param actionLabel The label of the action button.
  * @param status The status of the notification, which determines its color and icon used.
- * @param onClose Callback invoked when the close icon is clicked.
  * @param onAction Callback invoked when the action button is clicked.
+ * @param onClose Callback invoked when the close icon is clicked.
  * @param modifier The modifier to apply to the component.
  * @param highContrast Whether to use high contrast colors.
  */
