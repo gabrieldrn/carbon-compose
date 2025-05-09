@@ -31,7 +31,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -50,7 +49,6 @@ import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.button.ButtonFocusIndication
 import com.gabrieldrn.carbon.button.ButtonType
-import com.gabrieldrn.carbon.foundation.color.Theme
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 import com.gabrieldrn.carbon.icons.CheckmarkFilledIcon
 import com.gabrieldrn.carbon.icons.ErrorFilledIcon
@@ -61,52 +59,6 @@ import com.gabrieldrn.carbon.icons.closeIcon
 // Required icon size from Carbon's documentation is 20px, however, when applying paddings of
 // 16px around it, this doesn't compute to a min size of 48px (16+16+20=52)
 private val iconSize = 18.dp
-
-@Stable
-internal data class NotificationScope(
-    val colors: NotificationColors,
-    val actionableInlineTheme: Theme,
-    val actionableToastTheme: Theme,
-) {
-
-    companion object {
-        @Composable
-        fun rememberScope(
-            status: NotificationStatus,
-            useHighContrast: Boolean,
-            theme: Theme = Carbon.theme,
-        ): NotificationScope {
-            val colors = NotificationColors.rememberColors(
-                status = status,
-                useHighContrast = useHighContrast,
-                theme = theme
-            )
-
-            return remember(colors, useHighContrast, theme) {
-                NotificationScope(
-                    colors = colors,
-                    actionableInlineTheme =
-                        if (useHighContrast) theme.copy(
-                            linkPrimary = theme.linkInverse,
-                            linkPrimaryHover = theme.linkInverseHover,
-                        ) else theme,
-                    actionableToastTheme =
-                        if (useHighContrast) with(theme.notificationColors) {
-                            val buttonsColors = theme.buttonColors.copy(
-                                buttonTertiary = notificationActionTertiaryInverse,
-                                buttonTertiaryActive = notificationActionTertiaryInverseActive,
-                                buttonTertiaryHover = notificationActionTertiaryInverseHover,
-                            )
-                            theme.copy(
-                                textInverse = notificationActionTertiaryInverseText,
-                                buttonColors = buttonsColors
-                            )
-                        } else theme,
-                )
-            }
-        }
-    }
-}
 
 @Composable
 private fun Modifier.notificationContainerModifier(
@@ -151,7 +103,7 @@ internal fun NotificationContainer(
     isFloating: Boolean = false, // Not sure if it's the right term...
     content: @Composable NotificationScope.() -> Unit = {},
 ) {
-    val scope = NotificationScope.rememberScope(
+    val scope = rememberNotificationScope(
         status = status,
         useHighContrast = highContrast
     )

@@ -980,7 +980,14 @@ public final class com/gabrieldrn/carbon/notification/CalloutNotificationKt {
 	public static final fun CalloutNotification (Ljava/lang/String;Lcom/gabrieldrn/carbon/notification/NotificationStatus;Landroidx/compose/ui/Modifier;Ljava/lang/String;ZLandroidx/compose/runtime/Composer;II)V
 }
 
+public final class com/gabrieldrn/carbon/notification/ComposableSingletons$NotificationCommonKt {
+	public static final field INSTANCE Lcom/gabrieldrn/carbon/notification/ComposableSingletons$NotificationCommonKt;
+	public fun <init> ()V
+	public final fun getLambda-1$carbon_release ()Lkotlin/jvm/functions/Function3;
+}
+
 public final class com/gabrieldrn/carbon/notification/InlineNotificationKt {
+	public static final fun ActionableInlineNotification (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/gabrieldrn/carbon/notification/NotificationStatus;Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;ZLandroidx/compose/runtime/Composer;II)V
 	public static final fun InlineNotification (Ljava/lang/String;Ljava/lang/String;Lcom/gabrieldrn/carbon/notification/NotificationStatus;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;ZLandroidx/compose/runtime/Composer;II)V
 }
 
@@ -992,6 +999,11 @@ public final class com/gabrieldrn/carbon/notification/NotificationStatus : java/
 	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public static fun valueOf (Ljava/lang/String;)Lcom/gabrieldrn/carbon/notification/NotificationStatus;
 	public static fun values ()[Lcom/gabrieldrn/carbon/notification/NotificationStatus;
+}
+
+public final class com/gabrieldrn/carbon/notification/ToastNotificationKt {
+	public static final fun ActionableToastNotification (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/gabrieldrn/carbon/notification/NotificationStatus;Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;ZLandroidx/compose/runtime/Composer;II)V
+	public static final fun ToastNotification (Ljava/lang/String;Ljava/lang/String;Lcom/gabrieldrn/carbon/notification/NotificationStatus;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;ZLjava/lang/String;Landroidx/compose/runtime/Composer;II)V
 }
 
 public final class com/gabrieldrn/carbon/progressbar/ProgressBarKt {
