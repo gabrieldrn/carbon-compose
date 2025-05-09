@@ -108,12 +108,12 @@ public fun ToastNotification(
  *
  * @param title The title of the notification.
  * @param body The body of the notification.
+ * @param actionLabel The label of the action button.
  * @param status The status of the notification, which determines its color and icon used.
+ * @param onAction Callback invoked when the action button is clicked.
  * @param onClose Callback invoked when the close icon is clicked.
  * @param modifier The modifier to apply to the component.
  * @param highContrast Whether to use high contrast colors.
- * @param timestamp An optional timestamp text below the body used showing the time the notification
- * was sent.
  */
 @Composable
 public fun ActionableToastNotification(
