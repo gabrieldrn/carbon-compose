@@ -37,6 +37,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.NavHostController
 import com.gabrieldrn.carbon.api.ExperimentalCarbonApi
 import com.gabrieldrn.carbon.button.ButtonType
 import com.gabrieldrn.carbon.button.IconButton
@@ -52,6 +53,7 @@ import org.jetbrains.compose.resources.painterResource
 @Composable
 fun Catalog(
     modifier: Modifier = Modifier,
+    navController: NavHostController = rememberNavController(),
     layoutType: CatalogLayoutType = CatalogLayoutType.Vertical,
 ) {
     CarbonCatalogTheme {
@@ -61,7 +63,7 @@ fun Catalog(
             mutableStateOf(Destination.Home)
         }
 
-        val navController = rememberNavController().apply {
+        val navController = navController.apply {
             addOnDestinationChangedListener { _, destination, _ ->
                 currentScreen = allDestinations.first { it eq destination }
             }
