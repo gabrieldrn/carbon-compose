@@ -26,6 +26,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -122,7 +123,8 @@ internal fun <K : Any> BaseDropdown(
     val labelTextColor by colors.labelTextColor(state)
     val helperTextColor by colors.helperTextColor(state)
 
-    val fieldAndPopup = @Composable {
+    @Composable
+    fun fieldAndPopup(mod: Modifier = Modifier) {
         FieldAndPopupLayout(
             options = options,
             dropdownSize = dropdownSize,
@@ -164,13 +166,13 @@ internal fun <K : Any> BaseDropdown(
                         is DropdownInteractiveState.ReadOnly -> "Read-only"
                     }
                 }
-            }
+            }.then(mod)
         )
     }
 
     if (isInlined) {
         Row(
-            modifier = modifier.widthIn(min = minFieldWidth, max = maxFieldWidth),
+            modifier = Modifier,
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
@@ -181,9 +183,11 @@ internal fun <K : Any> BaseDropdown(
                 )
             }
 
-            Box(Modifier.weight(1f)) {
-                fieldAndPopup()
-            }
+            fieldAndPopup(
+                    Modifier
+                        .weight(1f)
+                        .widthIn(min = minFieldWidth, max = maxFieldWidth)
+                )
 
             state.helperText?.let {
                 DropdownHelperText(
