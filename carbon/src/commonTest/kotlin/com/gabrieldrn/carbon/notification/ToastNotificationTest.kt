@@ -20,25 +20,27 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.test.ComposeUiTest
+import androidx.compose.ui.test.assertHasClickAction
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.runComposeUiTest
-import androidx.compose.ui.text.buildAnnotatedString
 import com.gabrieldrn.carbon.CarbonDesignSystem
 import com.gabrieldrn.carbon.forEachParameter
 import kotlin.test.Test
 
-class CalloutNotificationTest {
+class ToastNotificationTest {
 
-    private var _annotatedStringBody by mutableStateOf(buildAnnotatedString {})
-    private var _stringBody by mutableStateOf("")
-    private var _status by mutableStateOf(NotificationStatus.Informational)
     private var _title by mutableStateOf("")
+    private var _body by mutableStateOf("")
+    private var _status by mutableStateOf(NotificationStatus.Informational)
     private var _highContrast by mutableStateOf(false)
+    private var _actionLabel by mutableStateOf("")
+    private var _timestamp by mutableStateOf("")
 
     private fun ComposeUiTest.commonLayoutValidation(
         title: String,
+        body: String,
         status: NotificationStatus
     ) {
         onNodeWithTag(NotificationTestTags.CONTAINER)
@@ -61,90 +63,107 @@ class CalloutNotificationTest {
                 assertTextEquals(title)
             }
         }
+
+        onNodeWithTag(NotificationTestTags.SUBTITLE).run {
+            if (body.isBlank()) {
+                assertExists()
+            } else {
+                assertIsDisplayed()
+                assertTextEquals(body)
+            }
+        }
+
+        onNodeWithTag(NotificationTestTags.CLOSE_BUTTON)
+            .assertIsDisplayed()
+            .assertHasClickAction()
     }
 
     @Test
-    fun calloutNotification_annotatedStringBody_validateLayout() = runComposeUiTest {
+    fun toastNotification_validateLayout() = runComposeUiTest {
         setContent {
             CarbonDesignSystem {
-                CalloutNotification(
+                ToastNotification(
                     title = _title,
-                    body = _annotatedStringBody,
+                    body = _body,
                     status = _status,
+                    onClose = {},
                     highContrast = _highContrast,
+                    timestamp = _timestamp
                 )
             }
         }
 
         forEachParameter(
-            arrayOf(
-                buildAnnotatedString {},
-                buildAnnotatedString { append("This is a callout notification.") }
-            ),
+            arrayOf("", "This is a toast notification."),
             NotificationStatus.entries.toTypedArray(),
-            arrayOf("", "Callout notification"),
-            arrayOf(false, true)
-        ) { body, status, title, highContrast ->
+            arrayOf("", "Toast notification"),
+            arrayOf(false, true),
+            arrayOf("", "12:00")
+        ) { body, status, title, highContrast, timestamp ->
 
-            _annotatedStringBody = body
+            _body = body
             _status = status
             _title = title
             _highContrast = highContrast
+            _timestamp = timestamp
 
             commonLayoutValidation(
                 title = title,
-                status = status
+                body = body,
+                status = status,
             )
 
-            onNodeWithTag(NotificationTestTags.SUBTITLE).run {
-                if (body.text.isBlank()) {
-                    assertExists()
+            onNodeWithTag(NotificationTestTags.DETAILS).run {
+                if (timestamp.isBlank()) {
+                    assertDoesNotExist()
                 } else {
                     assertIsDisplayed()
-                    assertTextEquals(body.text)
+                    assertTextEquals(timestamp)
                 }
             }
         }
     }
 
     @Test
-    fun calloutNotification_stringBody_validateLayout() = runComposeUiTest {
+    fun toastNotification_actionable_validateLayout() = runComposeUiTest {
         setContent {
             CarbonDesignSystem {
-                CalloutNotification(
+                ActionableToastNotification(
                     title = _title,
-                    body = _stringBody,
+                    body = _body,
+                    actionLabel = _actionLabel,
                     status = _status,
+                    onAction = {},
+                    onClose = {},
                     highContrast = _highContrast,
                 )
             }
         }
 
         forEachParameter(
-            arrayOf("", "This is a callout notification."),
+            arrayOf("", "This is a toast notification."),
             NotificationStatus.entries.toTypedArray(),
-            arrayOf("", "Callout notification"),
+            arrayOf("", "Toast notification"),
+            arrayOf("", "Action"),
             arrayOf(false, true)
-        ) { body, status, title, highContrast ->
+        ) { body, status, title, actionLabel, highContrast ->
 
-            _stringBody = body
+            _body = body
             _status = status
             _title = title
+            _actionLabel = actionLabel
             _highContrast = highContrast
 
             commonLayoutValidation(
                 title = title,
+                body = body,
                 status = status
             )
 
-            onNodeWithTag(NotificationTestTags.SUBTITLE).run {
-                if (body.isBlank()) {
-                    assertExists()
-                } else {
-                    assertIsDisplayed()
-                    assertTextEquals(body)
-                }
-            }
+            onNodeWithTag(NotificationTestTags.ACTION_BUTTON)
+                .assertIsDisplayed()
+                .assertHasClickAction()
+                .assertTextEquals(actionLabel)
         }
     }
 }

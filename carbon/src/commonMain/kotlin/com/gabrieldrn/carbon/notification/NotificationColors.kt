@@ -103,6 +103,12 @@ internal class NotificationColors private constructor(
         Color.Transparent
     }
 
+    val closeIconColor = if (useHighContrast) {
+        theme.textInverse
+    } else {
+        theme.textPrimary
+    }
+
     companion object {
 
         @Composable
