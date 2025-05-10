@@ -28,22 +28,16 @@ class CarbonDetektConventionPlugin : Plugin<Project> {
             allRules = false
             debug = false
             ignoreFailures = false
-            basePath = this@with.projectDir.absolutePath
+            basePath = rootProject.projectDir.absolutePath
             ignoredBuildTypes = listOf("debug")
         }
 
         tasks.named<Detekt>("detekt").configure {
             reports {
-                xml {
-                    required.set(true)
-                    outputLocation.set(file("build/reports/detekt/detekt.xml"))
-                }
-                html {
-                    required.set(true)
-                    outputLocation.set(file("build/reports/detekt/detekt.html"))
-                }
+                xml.required.set(true)
+                html.required.set(true)
                 txt.required.set(false)
-                sarif.required.set(false)
+                sarif.required.set(true)
             }
         }
     }
