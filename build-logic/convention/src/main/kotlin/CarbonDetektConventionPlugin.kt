@@ -27,7 +27,7 @@ class CarbonDetektConventionPlugin : Plugin<Project> {
             config.setFrom("$rootDir/config/detekt/detekt.yml")
             allRules = false
             debug = false
-            ignoreFailures = true
+            ignoreFailures = false
             basePath = this@with.projectDir.absolutePath
             ignoredBuildTypes = listOf("debug")
         }
