@@ -55,7 +55,7 @@ internal class DropdownFieldContentMeasurePolicy(
         val wrappedConstraints = if (constraints.hasBoundedWidth) {
             constraints.copy(minWidth = 0, minHeight = 0)
         } else {
-            constraints.copy(minHeight = 0)
+            constraints.copy(minHeight = 0, maxHeight = 0)
         }
 
         val tag = measurables
