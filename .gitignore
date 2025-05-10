@@ -40,6 +40,7 @@ local.properties
 !/.idea/codeStyles/Project.xml
 !/.idea/codeStyles/codeStyleConfig.xml
 !/.idea/externalDependencies.xml
+!/.idea/icon.svg
 !/.idea/detekt.xml
 
 # Gradle cache
