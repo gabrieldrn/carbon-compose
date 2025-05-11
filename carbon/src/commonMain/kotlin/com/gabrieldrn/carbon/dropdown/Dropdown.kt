@@ -179,6 +179,8 @@ public fun <K : Any> Dropdown(
  * @param state The [DropdownInteractiveState] of the dropdown.
  * @param dropdownSize The size of the dropdown, in terms of height. Defaults to
  * [DropdownSize.Large].
+ * @param minFieldWidth The minimum width to apply to the dropdown field when inline. Defaults to `Dp.Unspecified`.
+ * @param maxFieldWidth The maximum width to apply to the dropdown field when inline. Defaults to `Dp.Unspecified`.
  * @param isInlined Whether the dropdown should have the inline modification or not.
  * @param minVisibleItems The minimum number of items to be visible in the dropdown menu before the
  * user needs to scroll. This value is used to calculate the height of the menu. Defaults to 4.
