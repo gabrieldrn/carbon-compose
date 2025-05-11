@@ -151,8 +151,8 @@ public final class com/gabrieldrn/carbon/contentswitcher/ContentSwitcherSize : j
 }
 
 public final class com/gabrieldrn/carbon/dropdown/DropdownKt {
-	public static final fun Dropdown (Ljava/lang/String;Ljava/util/Map;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;Landroidx/compose/ui/Modifier;Ljava/lang/String;Lcom/gabrieldrn/carbon/dropdown/base/DropdownInteractiveState;Lcom/gabrieldrn/carbon/dropdown/base/DropdownSize;ZILandroidx/compose/runtime/Composer;II)V
-	public static final fun Dropdown (ZLjava/lang/String;Ljava/util/Map;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Ljava/lang/String;Lcom/gabrieldrn/carbon/dropdown/base/DropdownInteractiveState;Lcom/gabrieldrn/carbon/dropdown/base/DropdownSize;ZILandroidx/compose/runtime/Composer;III)V
+	public static final fun Dropdown-79gd5jQ (ZLjava/lang/String;Ljava/util/Map;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Ljava/lang/String;Lcom/gabrieldrn/carbon/dropdown/base/DropdownInteractiveState;Lcom/gabrieldrn/carbon/dropdown/base/DropdownSize;ZFFILandroidx/compose/runtime/Composer;III)V
+	public static final fun Dropdown-w41Enmo (Ljava/lang/String;Ljava/util/Map;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;Landroidx/compose/ui/Modifier;Ljava/lang/String;Lcom/gabrieldrn/carbon/dropdown/base/DropdownInteractiveState;Lcom/gabrieldrn/carbon/dropdown/base/DropdownSize;ZFFILandroidx/compose/runtime/Composer;III)V
 }
 
 public abstract interface class com/gabrieldrn/carbon/dropdown/base/DropdownInteractiveState {
