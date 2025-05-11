@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DetektPluginSettings">
+    <option name="baselinePath" value="$PROJECT_DIR$/carbon/detekt-baseline.xml" />
+    <option name="configurationFiles">
+      <list>
+        <option value="$PROJECT_DIR$/config/detekt/detekt.yml" />
+      </list>
+    </option>
+    <option name="enableDetekt" value="true" />
+    <option name="enableForProjectResult" value="Accepted" />
+  </component>
+</project>

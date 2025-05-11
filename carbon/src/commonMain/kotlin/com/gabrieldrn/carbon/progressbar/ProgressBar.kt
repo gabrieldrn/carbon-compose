@@ -93,6 +93,7 @@ public fun ProgressBar(
  * @param indented Whether to indent the label and helper texts.
  * @param inlined When true, sets the label text inlined with the progress bar. In this case the
  * helper text is not displayed.
+ * @param state The state of the progress bar.
  * @param size The size type of the progress bar.
  */
 @Composable
