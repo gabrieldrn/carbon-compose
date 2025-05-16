@@ -27,6 +27,7 @@ import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.statusBars
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -63,12 +64,6 @@ fun Catalog(
             mutableStateOf(Destination.Home)
         }
 
-        val navController = navController.apply {
-            addOnDestinationChangedListener { _, destination, _ ->
-                currentScreen = allDestinations.first { it eq destination }
-            }
-        }
-
         val uriHandler = LocalUriHandler.current
         val navGraph = rememberNavGraph(
             navController = navController,
@@ -87,6 +82,14 @@ fun Catalog(
                     }
                 )
             )
+        }
+
+        LaunchedEffect(navController, allDestinations) {
+            navController.apply {
+                addOnDestinationChangedListener { _, destination, _ ->
+                    currentScreen = allDestinations.first { it eq destination }
+                }
+            }
         }
 
         CompositionLocalProvider(
