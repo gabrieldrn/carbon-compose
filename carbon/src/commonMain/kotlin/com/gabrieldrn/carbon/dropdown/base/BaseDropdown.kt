@@ -26,9 +26,11 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.Stable
@@ -103,6 +105,8 @@ internal fun <K : Any> BaseDropdown(
     label: String? = null,
     state: DropdownInteractiveState = DropdownInteractiveState.Enabled,
     dropdownSize: DropdownSize = DropdownSize.Large,
+    minFieldWidth: Dp = Dp.Unspecified,
+    maxFieldWidth: Dp = Dp.Unspecified,
     isInlined: Boolean = false,
     fieldContent: @Composable () -> Unit,
     popupContent: @Composable DropdownPopupScope.() -> Unit,
@@ -119,7 +123,8 @@ internal fun <K : Any> BaseDropdown(
     val labelTextColor by colors.labelTextColor(state)
     val helperTextColor by colors.helperTextColor(state)
 
-    val fieldAndPopup = @Composable {
+    @Composable
+    fun fieldAndPopup(mod: Modifier = Modifier) {
         FieldAndPopupLayout(
             options = options,
             dropdownSize = dropdownSize,
@@ -161,13 +166,13 @@ internal fun <K : Any> BaseDropdown(
                         is DropdownInteractiveState.ReadOnly -> "Read-only"
                     }
                 }
-            }
+            }.then(mod)
         )
     }
 
     if (isInlined) {
         Row(
-            modifier = modifier,
+            modifier = Modifier,
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
@@ -178,15 +183,18 @@ internal fun <K : Any> BaseDropdown(
                 )
             }
 
-            Column(modifier = Modifier.padding(start = SpacingScale.spacing06)) {
-                fieldAndPopup()
+            fieldAndPopup(
+                    Modifier
+                        .weight(1f)
+                        .widthIn(min = minFieldWidth, max = maxFieldWidth)
+                )
 
-                state.helperText?.let {
-                    DropdownHelperText(
-                        text = it,
-                        color = helperTextColor
-                    )
-                }
+            state.helperText?.let {
+                DropdownHelperText(
+                    text = it,
+                    color = helperTextColor,
+                    modifier = Modifier.padding(start = SpacingScale.spacing04)
+                )
             }
         }
     } else {
