@@ -31,10 +31,6 @@ public data class Breadcrumb(
     val isEnabled: Boolean = true,
 )
 
-private data object Separator {
-    const val CHAR: Char = '/'
-}
-
 @Composable
 public fun Breadcrumb(
     breadcrumbs: List<Breadcrumb>,
@@ -93,7 +89,7 @@ private fun Separator(
     modifier: Modifier = Modifier
 ) {
     BasicText(
-        text = Separator.CHAR.toString(),
+        text = "/",
         style = Carbon.typography.bodyCompact01.copy(
             color = Carbon.theme.textPrimary
         ),
