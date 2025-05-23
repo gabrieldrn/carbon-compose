@@ -16,14 +16,17 @@
 
 package com.gabrieldrn.carbon.breadcrumb
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.layout.layoutId
+import androidx.compose.ui.text.LinkAnnotation
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.TextLinkStyles
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 
@@ -73,8 +76,8 @@ public fun Breadcrumb(
                 BreadcrumbItem(
                     breadcrumb = element,
                     textStyle = textStyle,
+                    onClick = onBreadcrumbClick,
                     modifier = Modifier
-                        .clickable { onBreadcrumbClick(element) }
                         .layoutId(BreadcrumbMeasurePolicy.LayoutId.Breadcrumb)
                 )
 
@@ -99,19 +102,35 @@ public fun Breadcrumb(
 private fun BreadcrumbItem(
     breadcrumb: Breadcrumb,
     textStyle: TextStyle,
+    onClick: (Breadcrumb) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    BasicText(
-        text = breadcrumb.label,
-        style = textStyle.copy(
-            color = if (breadcrumb.isEnabled) {
-                Carbon.theme.linkPrimary
-            } else {
-                Carbon.theme.textPrimary
-            }
-        ),
-        modifier = modifier
-    )
+    if (breadcrumb.isEnabled) {
+        BasicText(
+            text = buildAnnotatedString {
+                append(breadcrumb.label)
+                addLink(
+                    clickable = LinkAnnotation.Clickable(
+                        tag = "tag?",
+                        styles = TextLinkStyles(
+                            style = SpanStyle(color = Carbon.theme.linkPrimary)
+                        ),
+                        linkInteractionListener = { onClick(breadcrumb) }
+                    ),
+                    start = 0,
+                    end = breadcrumb.label.length
+                )
+            },
+            style = textStyle,
+            modifier = modifier
+        )
+    } else {
+        BasicText(
+            text = breadcrumb.label,
+            style = textStyle.copy(color = Carbon.theme.textPrimary),
+            modifier = modifier
+        )
+    }
 }
 
 @Composable

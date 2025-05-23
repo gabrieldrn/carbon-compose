@@ -29,7 +29,7 @@ import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 
 private val breadcrumbs = buildList {
     repeat(3) {
-        add(Breadcrumb(label = "Breadcrumb ${it + 1}"))
+        add(Breadcrumb(label = "Breadcrumb ${it + 1}", isEnabled = it != 0))
     }
 }
 
