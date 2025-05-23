@@ -40,10 +40,9 @@ import androidx.compose.ui.unit.Constraints
  *    determined by the widest breadcrumb-separator pair. The total height is the
  *    sum of the heights of each row.
  *
- *  The items are identified and ordered using `LayoutId.Breadcrumb` and
- *  `LayoutId.Separator`, which include an `index` property for correct sequencing.
- *  If there are more breadcrumbs than separators, the trailing breadcrumbs will be
- *  laid out without a following separator.
+ * The items are identified with a [LayoutId].
+ * If there are more breadcrumbs than separators, the trailing breadcrumbs will be
+ * laid out without a following separator.
  */
 internal class BreadcrumbMeasurePolicy : MeasurePolicy {
 
@@ -65,13 +64,11 @@ internal class BreadcrumbMeasurePolicy : MeasurePolicy {
         )
 
         val breadcrumbPlaceables = measurables
-            .filter { it.layoutId is LayoutId.Breadcrumb }
-            .sortedBy { (it.layoutId as LayoutId.Breadcrumb).index } // FIXME May not be necessary
+            .filter { it.layoutId == LayoutId.Breadcrumb }
             .map { it.measure(childConstraints) }
 
         val separatorPlaceables = measurables
-            .filter { it.layoutId is LayoutId.Separator }
-            .sortedBy { (it.layoutId as LayoutId.Separator).index } // FIXME May not be necessary
+            .filter { it.layoutId == LayoutId.Separator }
             .map { it.measure(childConstraints) }
             .toMutableList<Placeable?>() // <- Add nullability
             // Fill the missing separators with nulls for zipping operation
@@ -115,10 +112,5 @@ internal class BreadcrumbMeasurePolicy : MeasurePolicy {
         }
     }
 
-    internal sealed interface LayoutId {
-        val index: Int
-
-        data class Breadcrumb(override val index: Int) : LayoutId
-        data class Separator(override val index: Int) : LayoutId
-    }
+    internal enum class LayoutId { Breadcrumb, Separator }
 }

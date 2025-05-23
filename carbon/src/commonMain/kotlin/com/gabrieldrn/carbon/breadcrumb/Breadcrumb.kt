@@ -75,7 +75,7 @@ public fun Breadcrumb(
                     textStyle = textStyle,
                     modifier = Modifier
                         .clickable { onBreadcrumbClick(element) }
-                        .layoutId(BreadcrumbMeasurePolicy.LayoutId.Breadcrumb(index))
+                        .layoutId(BreadcrumbMeasurePolicy.LayoutId.Breadcrumb)
                 )
 
                 if (index < breadcrumbs.size - 1 ||
@@ -85,7 +85,7 @@ public fun Breadcrumb(
                         textStyle = textStyle,
                         modifier = Modifier
                             .padding(horizontal = SpacingScale.spacing03)
-                            .layoutId(BreadcrumbMeasurePolicy.LayoutId.Separator(index))
+                            .layoutId(BreadcrumbMeasurePolicy.LayoutId.Separator)
                     )
                 }
             }
