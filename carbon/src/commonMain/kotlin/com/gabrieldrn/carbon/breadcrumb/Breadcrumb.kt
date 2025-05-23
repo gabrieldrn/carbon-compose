@@ -23,6 +23,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.layout.layoutId
+import androidx.compose.ui.text.TextStyle
 import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 
@@ -49,14 +50,21 @@ public data class Breadcrumb(
  * @param onBreadcrumbClick Callback invoked when a breadcrumb is clicked.
  * @param modifier The modifier to be applied to the breadcrumb.
  * @param displayTrailingSeparator Whether to display a trailing separator or not.
+ * @param size The size of the breadcrumb.
  */
 @Composable
 public fun Breadcrumb(
     breadcrumbs: List<Breadcrumb>,
     onBreadcrumbClick: (Breadcrumb) -> Unit,
     modifier: Modifier = Modifier,
-    displayTrailingSeparator: Boolean = false
+    displayTrailingSeparator: Boolean = false,
+    size: BreadcrumbSize = BreadcrumbSize.Medium
 ) {
+    val textStyle = when (size) {
+        BreadcrumbSize.Medium -> Carbon.typography.bodyCompact01
+        BreadcrumbSize.Small -> Carbon.typography.label01
+    }
+
     Layout(
         content = {
             if (breadcrumbs.isEmpty()) return@Layout
@@ -64,6 +72,7 @@ public fun Breadcrumb(
             breadcrumbs.forEachIndexed { index, element ->
                 BreadcrumbItem(
                     breadcrumb = element,
+                    textStyle = textStyle,
                     modifier = Modifier
                         .clickable { onBreadcrumbClick(element) }
                         .layoutId(BreadcrumbMeasurePolicy.LayoutId.Breadcrumb(index))
@@ -73,6 +82,7 @@ public fun Breadcrumb(
                     index == breadcrumbs.size - 1 && displayTrailingSeparator
                 ) {
                     Separator(
+                        textStyle = textStyle,
                         modifier = Modifier
                             .padding(horizontal = SpacingScale.spacing03)
                             .layoutId(BreadcrumbMeasurePolicy.LayoutId.Separator(index))
@@ -88,11 +98,12 @@ public fun Breadcrumb(
 @Composable
 private fun BreadcrumbItem(
     breadcrumb: Breadcrumb,
+    textStyle: TextStyle,
     modifier: Modifier = Modifier
 ) {
     BasicText(
         text = breadcrumb.label,
-        style = Carbon.typography.bodyCompact01.copy(
+        style = textStyle.copy(
             color = if (breadcrumb.isEnabled) {
                 Carbon.theme.linkPrimary
             } else {
@@ -105,11 +116,12 @@ private fun BreadcrumbItem(
 
 @Composable
 private fun Separator(
+    textStyle: TextStyle,
     modifier: Modifier = Modifier
 ) {
     BasicText(
         text = "/",
-        style = Carbon.typography.bodyCompact01.copy(
+        style = textStyle.copy(
             color = Carbon.theme.textPrimary
         ),
         modifier = modifier

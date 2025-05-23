@@ -19,9 +19,11 @@ package com.gabrieldrn.carbon.breadcrumb
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.CarbonDesignSystem
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 
@@ -31,9 +33,9 @@ private val breadcrumbs = buildList {
     }
 }
 
-@Preview(showBackground = true, device = "spec:width=1280px,height=2856px,dpi=640")
+@Preview(showBackground = true)
 @Composable
-private fun BreadcrumbPreview() {
+private fun MediumBreadcrumbPreview() {
     CarbonDesignSystem {
         Column(modifier = Modifier.fillMaxWidth()) {
             Breadcrumb(
@@ -48,6 +50,30 @@ private fun BreadcrumbPreview() {
                 modifier = Modifier
                     .padding(top = SpacingScale.spacing05)
                     .width(200.dp)
+            )
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun SmallBreadcrumbPreview() {
+    CarbonDesignSystem {
+        Column(modifier = Modifier.fillMaxWidth()) {
+            Breadcrumb(
+                breadcrumbs = breadcrumbs,
+                onBreadcrumbClick = {},
+                displayTrailingSeparator = true,
+                size = BreadcrumbSize.Small
+            )
+            Breadcrumb(
+                breadcrumbs = breadcrumbs,
+                onBreadcrumbClick = {},
+                displayTrailingSeparator = false,
+                modifier = Modifier
+                    .padding(top = SpacingScale.spacing05)
+                    .width(200.dp),
+                size = BreadcrumbSize.Small
             )
         }
     }
