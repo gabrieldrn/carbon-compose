@@ -24,6 +24,27 @@ import androidx.compose.ui.layout.Placeable
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.unit.Constraints
 
+/**
+ * A [MeasurePolicy] for arranging breadcrumb items and separators.
+ *
+ * This policy handles two main scenarios:
+ *
+ * 1. **Horizontal Layout:** If all breadcrumbs and separators fit within the available
+ *    width, they are laid out horizontally. Each breadcrumb is followed by its
+ *    corresponding separator. The height of the layout is determined by the tallest
+ *    item (breadcrumb or separator) in the row.
+ *
+ * 2. **Vertical Layout (Overflow):** If the total width of breadcrumbs and separators
+ *    exceeds the available width, they are laid out vertically. Each breadcrumb
+ *    and its separator (if present) occupy a row. The width of the layout is
+ *    determined by the widest breadcrumb-separator pair. The total height is the
+ *    sum of the heights of each row.
+ *
+ *  The items are identified and ordered using `LayoutId.Breadcrumb` and
+ *  `LayoutId.Separator`, which include an `index` property for correct sequencing.
+ *  If there are more breadcrumbs than separators, the trailing breadcrumbs will be
+ *  laid out without a following separator.
+ */
 internal class BreadcrumbMeasurePolicy : MeasurePolicy {
 
     override fun MeasureScope.measure(

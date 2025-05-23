@@ -26,11 +26,30 @@ import androidx.compose.ui.layout.layoutId
 import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 
+/**
+ * Represents a breadcrumb.
+ *
+ * @param label The label of the breadcrumb.
+ * @param isEnabled Whether the breadcrumb is enabled or not.
+ */
 public data class Breadcrumb(
     val label: String,
     val isEnabled: Boolean = true,
 )
 
+/**
+ * # Breadcrumb
+ *
+ * Breadcrumbs show users their current location relative to the information architecture and enable
+ * them to quickly move up to a parent level or previous step.
+ *
+ * (From [Breadcrumb documentation](https://carbondesignsystem.com/components/breadcrumb/usage/))
+ *
+ * @param breadcrumbs The list of breadcrumbs to display.
+ * @param onBreadcrumbClick Callback invoked when a breadcrumb is clicked.
+ * @param modifier The modifier to be applied to the breadcrumb.
+ * @param displayTrailingSeparator Whether to display a trailing separator or not.
+ */
 @Composable
 public fun Breadcrumb(
     breadcrumbs: List<Breadcrumb>,
