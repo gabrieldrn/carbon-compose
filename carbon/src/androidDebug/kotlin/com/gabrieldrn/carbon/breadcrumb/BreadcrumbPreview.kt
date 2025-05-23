@@ -45,7 +45,9 @@ private fun BreadcrumbPreview() {
                 breadcrumbs = breadcrumbs,
                 onBreadcrumbClick = {},
                 displayTrailingSeparator = false,
-                modifier = Modifier.padding(top = SpacingScale.spacing05)
+                modifier = Modifier
+                    .padding(top = SpacingScale.spacing05)
+                    .width(200.dp)
             )
         }
     }

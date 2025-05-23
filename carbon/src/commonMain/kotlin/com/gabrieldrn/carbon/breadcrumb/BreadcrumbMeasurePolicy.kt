@@ -100,10 +100,9 @@ internal class BreadcrumbMeasurePolicy : MeasurePolicy {
                 }
             }
         } else {
-            val width = zippedPlaceables.maxOf { (b, s) -> b.width + (s?.width ?: 0) }
             val height = zippedPlaceables.sumOf { (b, s) -> maxOf(b.height, s?.height ?: 0) }
 
-            layout(width, height) {
+            layout(childConstraints.maxWidth, height) {
                 var yPosition = 0
 
                 zippedPlaceables.forEach { (breadcrumb, separator: Placeable?) ->
