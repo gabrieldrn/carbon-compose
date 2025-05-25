@@ -50,6 +50,8 @@ internal class BreadcrumbMeasurePolicy : MeasurePolicy {
         measurables: List<Measurable>,
         constraints: Constraints
     ): MeasureResult {
+        if (measurables.isEmpty()) return layout(0, 0) {}
+
         val childConstraints = Constraints(
             maxWidth = if (constraints.hasBoundedWidth) {
                 constraints.maxWidth

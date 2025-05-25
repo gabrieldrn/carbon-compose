@@ -22,6 +22,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.layout.layoutId
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.LinkAnnotation
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextLinkStyles
@@ -79,6 +80,7 @@ public fun Breadcrumb(
                     onClick = onBreadcrumbClick,
                     modifier = Modifier
                         .layoutId(BreadcrumbMeasurePolicy.LayoutId.Breadcrumb)
+                        .testTag(BreadcrumbTestTags.ITEM)
                 )
 
                 if (index < breadcrumbs.size - 1 ||
@@ -89,6 +91,7 @@ public fun Breadcrumb(
                         modifier = Modifier
                             .padding(horizontal = SpacingScale.spacing03)
                             .layoutId(BreadcrumbMeasurePolicy.LayoutId.Separator)
+                            .testTag(BreadcrumbTestTags.SEPARATOR)
                     )
                 }
             }
