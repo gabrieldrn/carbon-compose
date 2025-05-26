@@ -22,6 +22,7 @@ class CarbonApplicationConventionPlugin : Plugin<Project> {
             apply(libs.getPlugin("android-application"))
             apply(libs.getPlugin("kotlin-multiplatform"))
             apply(libs.getPlugin("jetbrains-compose"))
+            apply(libs.getPlugin("jetbrains-compose-hotReload"))
             apply(libs.getPlugin("compose-compiler"))
         }
 

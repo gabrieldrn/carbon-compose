@@ -1,11 +1,12 @@
 [versions]
 # region Build + build-logic
 androidGradlePlugin = "8.9.0"
-kotlin = "2.1.10"
+kotlin = "2.1.21"
 binaryCompatibilityValidator = "0.17.0"
 # endregion
 # region Libraries
-compose = "1.8.0"
+compose = "1.8.1"
+composeHotReload = "1.0.0-alpha10"
 androidxActivity = "1.10.1"
 androidxAppcompat = "1.7.0"
 # Individual AndroidX compose libraries version usage is based on the Compose version used by
@@ -14,7 +15,7 @@ androidxAppcompat = "1.7.0"
 #noinspection GradleDependency
 androidxCompose = "1.7.6"
 androidxEspresso = "3.6.1"
-androidxNavigation = "2.9.0-beta01"
+androidxNavigation = "2.9.0-beta02"
 androidxTestExtJunit = "1.2.1"
 kotlinxCoroutinesSwing = "1.10.1"
 kotlinxSerializationJson = "1.8.0"
@@ -70,6 +71,7 @@ kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref 
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 binaryCompatibilityValidator = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "binaryCompatibilityValidator" }
 jetbrains-compose = { id = "org.jetbrains.compose", version.ref = "compose" }
+jetbrains-compose-hotReload = { id = "org.jetbrains.compose.hot-reload", version.ref = "composeHotReload" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
 android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
