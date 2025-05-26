@@ -35,7 +35,7 @@ private val breadcrumbs = buildList {
         add(
             Breadcrumb(
                 label = "Breadcrumb ${it + 1}",
-                isEnabled = it != 0
+                isEnabled = it != 2
             )
         )
     }

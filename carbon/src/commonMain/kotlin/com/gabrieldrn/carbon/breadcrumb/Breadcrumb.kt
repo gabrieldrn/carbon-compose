@@ -17,14 +17,22 @@
 package com.gabrieldrn.carbon.breadcrumb
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.pointer.PointerIcon
+import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextDecoration
 import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 
@@ -103,21 +111,36 @@ private fun BreadcrumbItem(
     breadcrumb: Breadcrumb,
     textStyle: TextStyle,
     onClick: (Breadcrumb) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 ) {
+    val theme = Carbon.theme
+    val isHovered by interactionSource.collectIsHoveredAsState()
+
+    val textStyle = remember(theme, textStyle, breadcrumb.isEnabled, isHovered) {
+        textStyle.copy(
+            textDecoration = if (isHovered) TextDecoration.Underline else TextDecoration.None,
+            color = when {
+                isHovered && breadcrumb.isEnabled -> theme.linkPrimaryHover
+                breadcrumb.isEnabled -> theme.linkPrimary
+                else -> theme.textPrimary
+            }
+        )
+    }
+
     BasicText(
         text = breadcrumb.label,
-        style = textStyle.copy(
-            color = if (breadcrumb.isEnabled) {
-                Carbon.theme.linkPrimary
-            } else {
-                Carbon.theme.textPrimary
-            }
-        ),
+        style = textStyle,
         modifier = modifier
-            .clickable(enabled = breadcrumb.isEnabled) {
-                onClick(breadcrumb)
-            }
+            .clickable(
+                enabled = breadcrumb.isEnabled,
+                interactionSource = interactionSource,
+                indication = BreadcrumbIndication(Carbon.theme),
+                onClick = { onClick(breadcrumb) }
+            )
+            .pointerHoverIcon(
+                icon = if (breadcrumb.isEnabled) PointerIcon.Hand else PointerIcon.Default
+            )
     )
 }
 
@@ -128,9 +151,7 @@ private fun Separator(
 ) {
     BasicText(
         text = "/",
-        style = textStyle.copy(
-            color = Carbon.theme.textPrimary
-        ),
-        modifier = modifier
+        style = textStyle.copy(color = Carbon.theme.textPrimary),
+        modifier = modifier.clearAndSetSemantics {}
     )
 }

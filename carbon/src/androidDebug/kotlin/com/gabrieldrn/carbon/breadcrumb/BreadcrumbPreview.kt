@@ -30,7 +30,7 @@ import com.gabrieldrn.carbon.CarbonDesignSystem
 
 private val breadcrumbs = buildList {
     repeat(3) {
-        add(Breadcrumb(label = "Breadcrumb ${it + 1}", isEnabled = it != 0))
+        add(Breadcrumb(label = "Breadcrumb ${it + 1}", isEnabled = it != 2))
     }
 }
 
