@@ -53,6 +53,9 @@ public data class Breadcrumb(
  * Breadcrumbs show users their current location relative to the information architecture and enable
  * them to quickly move up to a parent level or previous step.
  *
+ * This implementation doesn't have the overflow menu as the required components are not available
+ * yet.
+ *
  * (From [Breadcrumb documentation](https://carbondesignsystem.com/components/breadcrumb/usage/))
  *
  * @param breadcrumbs The list of breadcrumbs to display.
