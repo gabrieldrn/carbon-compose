@@ -19,23 +19,22 @@ package com.gabrieldrn.carbon.breadcrumb
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.test.assertCountEquals
-import androidx.compose.ui.test.click
+import androidx.compose.ui.test.assertHasClickAction
+import androidx.compose.ui.test.assertIsEnabled
+import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.onAllNodesWithTag
-import androidx.compose.ui.test.onNodeWithTag
-import androidx.compose.ui.test.performSemanticsAction
-import androidx.compose.ui.test.performTouchInput
+import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.runComposeUiTest
-import androidx.compose.ui.text.TextLayoutResult
 import com.gabrieldrn.carbon.CarbonDesignSystem
+import com.gabrieldrn.carbon.toList
 import kotlin.test.Test
-import kotlin.test.assertTrue
+import kotlin.test.assertEquals
 
 class BreadcrumbTest {
 
     @Test
-    fun breadcrumb_noItems() = runComposeUiTest {
+    fun breadcrumb_noItems_rendersCorrectly() = runComposeUiTest {
         var displayTrailingSeparator by mutableStateOf(false)
 
         setContent {
@@ -61,7 +60,7 @@ class BreadcrumbTest {
     }
 
     @Test
-    fun breadcrumb_oneItem() = runComposeUiTest {
+    fun breadcrumb_oneItem_rendersCorrectly() = runComposeUiTest {
         var displayTrailingSeparator by mutableStateOf(false)
 
         setContent {
@@ -88,20 +87,58 @@ class BreadcrumbTest {
     }
 
     @Test
-    fun breadcrumb_item_validateLinkAnnotation() = runComposeUiTest {
+    fun breadcrumb_manyItems_rendersCorrectly() = runComposeUiTest {
+        var displayTrailingSeparator by mutableStateOf(false)
+
+        setContent {
+            CarbonDesignSystem {
+                Breadcrumb(
+                    breadcrumbs = listOf(
+                        Breadcrumb(label = "Item 1"),
+                        Breadcrumb(label = "Item 2"),
+                        Breadcrumb(label = "Item 3"),
+                    ),
+                    onBreadcrumbClick = {},
+                    displayTrailingSeparator = displayTrailingSeparator
+                )
+            }
+        }
+
+        listOf(true, false).forEach {
+            displayTrailingSeparator = it
+
+            onAllNodesWithTag(BreadcrumbTestTags.ITEM)
+                .assertCountEquals(3)
+
+            onAllNodesWithTag(BreadcrumbTestTags.SEPARATOR)
+                .assertCountEquals(if (displayTrailingSeparator) 3 else 2)
+        }
+    }
+
+
+    @Test
+    fun breadcrumb_item_validateClickableAndCallbackWithCorrectItem() = runComposeUiTest {
         var isItemEnabled by mutableStateOf(false)
-        var clickAnswer = false
+        var returnedItem: Breadcrumb? = null
 
         setContent {
             CarbonDesignSystem {
                 Breadcrumb(
                     breadcrumbs = listOf(
                         Breadcrumb(
-                            label = "Item",
+                            label = "Item 1",
+                            isEnabled = isItemEnabled
+                        ),
+                        Breadcrumb(
+                            label = "Item 2",
+                            isEnabled = isItemEnabled
+                        ),
+                        Breadcrumb(
+                            label = "Item 3",
                             isEnabled = isItemEnabled
                         ),
                     ),
-                    onBreadcrumbClick = { clickAnswer = true }
+                    onBreadcrumbClick = { returnedItem = it }
                 )
             }
         }
@@ -109,22 +146,19 @@ class BreadcrumbTest {
         listOf(true, false).forEach { isEnabled ->
             isItemEnabled = isEnabled
 
-            onNodeWithTag(BreadcrumbTestTags.ITEM).run {
-                performSemanticsAction(SemanticsActions.GetTextLayoutResult) {
-                    val result = mutableListOf<TextLayoutResult>().apply { it(this) }.first()
-                    val text = result.layoutInput.text
-                    val linkAnnotations = text.getLinkAnnotations(0, text.length)
-
+            onAllNodesWithTag(BreadcrumbTestTags.ITEM)
+                .toList()
+                .forEachIndexed { index, node ->
+                    node.assertHasClickAction()
                     if (isItemEnabled) {
-                        val linkBounds = result.getBoundingBox(linkAnnotations.first().start)
-                        performTouchInput { click(linkBounds.center) }
-                        assertTrue(clickAnswer)
-                        clickAnswer = false
+                        node.assertIsEnabled()
+
+                        node.performClick()
+                        assertEquals("Item ${index + 1}", returnedItem?.label)
                     } else {
-                        assertTrue(linkAnnotations.isEmpty())
+                        node.assertIsNotEnabled()
                     }
                 }
-            }
         }
     }
 }
