@@ -1010,7 +1010,7 @@ public final class com/gabrieldrn/carbon/notification/CalloutNotificationKt {
 public final class com/gabrieldrn/carbon/notification/ComposableSingletons$NotificationCommonKt {
 	public static final field INSTANCE Lcom/gabrieldrn/carbon/notification/ComposableSingletons$NotificationCommonKt;
 	public fun <init> ()V
-	public final fun getLambda-1$carbon_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$162559929$carbon_release ()Lkotlin/jvm/functions/Function3;
 }
 
 public final class com/gabrieldrn/carbon/notification/InlineNotificationKt {
@@ -1162,7 +1162,7 @@ public final class com/gabrieldrn/carbon/toggle/ToggleKt {
 public final class com/gabrieldrn/carbon/uishell/ComposableSingletons$UIShellHeaderKt {
 	public static final field INSTANCE Lcom/gabrieldrn/carbon/uishell/ComposableSingletons$UIShellHeaderKt;
 	public fun <init> ()V
-	public final fun getLambda-1$carbon_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$259921001$carbon_release ()Lkotlin/jvm/functions/Function3;
 }
 
 public final class com/gabrieldrn/carbon/uishell/UIShellHeaderKt {
