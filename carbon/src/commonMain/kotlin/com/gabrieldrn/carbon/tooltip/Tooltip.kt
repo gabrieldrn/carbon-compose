@@ -47,12 +47,14 @@ private val tooltipSingleLineMaxWidth = 208.dp
 public fun TooltipBox(
     tooltipText: String,
     modifier: Modifier = Modifier,
+    placement: TooltipPlacement = TooltipPlacement.Bottom,
     content: @Composable () -> Unit
 ) {
     TooltipBox(
         tooltipText = tooltipText,
         modifier = modifier,
-        tooltipState = rememberBasicTooltipState(),
+        state = rememberBasicTooltipState(),
+        placement = placement,
         content = content
     )
 }
@@ -62,7 +64,8 @@ public fun TooltipBox(
 internal fun TooltipBox(
     tooltipText: String,
     modifier: Modifier = Modifier,
-    tooltipState: BasicTooltipState = rememberBasicTooltipState(),
+    state: BasicTooltipState = rememberBasicTooltipState(),
+    placement: TooltipPlacement = TooltipPlacement.Bottom,
     content: @Composable () -> Unit
 ) {
     BasicTooltipBox(
@@ -70,9 +73,10 @@ internal fun TooltipBox(
         tooltip = {
             SingleLineTooltipPopup(
                 text = tooltipText,
+                placement = placement
             )
         },
-        state = tooltipState,
+        state = state,
         modifier = modifier,
         focusable = false
     ) {
@@ -83,6 +87,7 @@ internal fun TooltipBox(
 @Composable
 private fun SingleLineTooltipPopup(
     text: String,
+    placement: TooltipPlacement,
     modifier: Modifier = Modifier,
 ) {
     BasicText(
@@ -94,12 +99,11 @@ private fun SingleLineTooltipPopup(
             .padding(6.dp)
             .background(
                 color = Carbon.theme.backgroundInverse,
-                shape = TooltipShape()
+                shape = TooltipShape(placement)
             )
             .widthIn(max = tooltipSingleLineMaxWidth)
             .padding(horizontal = SpacingScale.spacing05, vertical = SpacingScale.spacing01),
     )
-
 }
 
 private class TooltipPositionProvider(
@@ -112,6 +116,7 @@ private class TooltipPositionProvider(
         popupContentSize: IntSize
     ): IntOffset {
         // Bottom center position for the tooltip.
+        // TODO Other placements
         return IntOffset(
             x = anchorBounds.left + (anchorBounds.width - popupContentSize.width) / 2,
             y = anchorBounds.bottom + with(density) { SpacingScale.spacing02.roundToPx() }
