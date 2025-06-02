@@ -24,10 +24,11 @@ package com.gabrieldrn.carbon.tooltip
  */
 public enum class TooltipPlacement {
 
-    /**
-     * Automatic placement of the tooltip based on available space.
-     */
-    Auto,
+//    TODO May require a significant amount of work to implement.
+//    /**
+//     * Automatic placement of the tooltip based on available space.
+//     */
+//    Auto,
 
     /**
      * Places the tooltip to the right of the UI trigger.

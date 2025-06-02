@@ -18,33 +18,43 @@ package com.gabrieldrn.carbon.tooltip
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberBasicTooltipState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.tooling.preview.PreviewParameterProvider
+import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.CarbonDesignSystem
 import com.gabrieldrn.carbon.button.Button
-import com.gabrieldrn.carbon.foundation.color.containerBackground
+
+private class TooltipPlacementPreviewParameterProvider :
+    PreviewParameterProvider<TooltipPlacement> {
+    override val values: Sequence<TooltipPlacement>
+        get() = TooltipPlacement.entries.asSequence()
+}
 
 @OptIn(ExperimentalFoundationApi::class)
 @Preview
 @Composable
-private fun TooltipPreview() {
+private fun TooltipPreview(
+    @PreviewParameter(TooltipPlacementPreviewParameterProvider::class)
+    placement: TooltipPlacement,
+) {
     CarbonDesignSystem {
         Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .containerBackground(),
+            modifier = Modifier.size(400.dp),
             contentAlignment = Alignment.Center
         ) {
             TooltipBox(
                 tooltipText = "This is a tooltip",
-                tooltipState = rememberBasicTooltipState(
+                state = rememberBasicTooltipState(
                     initialIsVisible = true,
                     isPersistent = true
-                )
+                ),
+                placement = placement
             ) {
                 Button(
                     label = "Hover me",
