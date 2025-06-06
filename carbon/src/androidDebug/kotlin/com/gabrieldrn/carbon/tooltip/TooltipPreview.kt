@@ -49,7 +49,7 @@ private fun TooltipPreview(
             contentAlignment = Alignment.Center
         ) {
             TooltipBox(
-                tooltipText = "This is a tooltip",
+                tooltipText = placement.name,
                 state = rememberBasicTooltipState(
                     initialIsVisible = true,
                     isPersistent = true
