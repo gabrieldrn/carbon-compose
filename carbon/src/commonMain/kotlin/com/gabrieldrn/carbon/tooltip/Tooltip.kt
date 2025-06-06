@@ -16,6 +16,7 @@
 
 package com.gabrieldrn.carbon.tooltip
 
+import androidx.annotation.VisibleForTesting
 import androidx.compose.foundation.BasicTooltipBox
 import androidx.compose.foundation.BasicTooltipState
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -69,7 +70,10 @@ internal fun TooltipBox(
     content: @Composable () -> Unit
 ) {
     BasicTooltipBox(
-        positionProvider = TooltipPositionProvider(LocalDensity.current),
+        positionProvider = TooltipPositionProvider(
+            density = LocalDensity.current,
+            placement = placement
+        ),
         tooltip = {
             SingleLineTooltipPopup(
                 text = tooltipText,
@@ -106,20 +110,42 @@ private fun SingleLineTooltipPopup(
     )
 }
 
-private class TooltipPositionProvider(
-    private val density: Density
+internal class TooltipPositionProvider
+@VisibleForTesting(otherwise = VisibleForTesting.PRIVATE) constructor(
+    private val density: Density,
+    private val placement: TooltipPlacement
 ) : PopupPositionProvider {
+
     override fun calculatePosition(
         anchorBounds: IntRect,
         windowSize: IntSize,
         layoutDirection: LayoutDirection,
         popupContentSize: IntSize
     ): IntOffset {
-        // Bottom center position for the tooltip.
-        // TODO Other placements
-        return IntOffset(
-            x = anchorBounds.left + (anchorBounds.width - popupContentSize.width) / 2,
-            y = anchorBounds.bottom + with(density) { SpacingScale.spacing02.roundToPx() }
-        )
+        val popupPadding = with(density) {
+            SpacingScale.spacing02.roundToPx()
+        }
+
+        return when (placement) {
+            TooltipPlacement.Right -> IntOffset(
+                x = anchorBounds.right + popupPadding,
+                y = anchorBounds.top + (anchorBounds.height - popupContentSize.height) / 2
+            )
+
+            TooltipPlacement.Left -> IntOffset(
+                x = anchorBounds.left - popupContentSize.width - popupPadding,
+                y = anchorBounds.top + (anchorBounds.height - popupContentSize.height) / 2
+            )
+
+            TooltipPlacement.Bottom -> IntOffset(
+                x = anchorBounds.left + (anchorBounds.width - popupContentSize.width) / 2,
+                y = anchorBounds.bottom + popupPadding
+            )
+
+            TooltipPlacement.Top -> IntOffset(
+                x = anchorBounds.left + (anchorBounds.width - popupContentSize.width) / 2,
+                y = anchorBounds.top - popupContentSize.height - popupPadding
+            )
+        }
     }
 }
