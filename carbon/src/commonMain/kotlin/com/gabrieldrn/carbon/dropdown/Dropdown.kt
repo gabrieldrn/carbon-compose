@@ -22,6 +22,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.Dp
 import co.touchlab.kermit.Logger
 import com.gabrieldrn.carbon.dropdown.base.BaseDropdown
 import com.gabrieldrn.carbon.dropdown.base.DropdownColors
@@ -88,6 +89,8 @@ public fun <K : Any> Dropdown(
     state: DropdownInteractiveState = DropdownInteractiveState.Enabled,
     dropdownSize: DropdownSize = DropdownSize.Large,
     isInlined: Boolean = false,
+    minFieldWidth: Dp = Dp.Unspecified,
+    maxFieldWidth: Dp = Dp.Unspecified,
     minVisibleItems: Int = 4,
 ) {
     val fieldText = remember(selectedOption, placeholder) {
@@ -124,6 +127,8 @@ public fun <K : Any> Dropdown(
 
             DropdownStateIcon(state = state)
         },
+        minFieldWidth = minFieldWidth,
+        maxFieldWidth = maxFieldWidth,
         popupContent = {
             DropdownPopupContent(
                 selectedOption = selectedOption,
@@ -174,6 +179,8 @@ public fun <K : Any> Dropdown(
  * @param state The [DropdownInteractiveState] of the dropdown.
  * @param dropdownSize The size of the dropdown, in terms of height. Defaults to
  * [DropdownSize.Large].
+ * @param minFieldWidth The minimum width to apply to the dropdown field when inline. Defaults to `Dp.Unspecified`.
+ * @param maxFieldWidth The maximum width to apply to the dropdown field when inline. Defaults to `Dp.Unspecified`.
  * @param isInlined Whether the dropdown should have the inline modification or not.
  * @param minVisibleItems The minimum number of items to be visible in the dropdown menu before the
  * user needs to scroll. This value is used to calculate the height of the menu. Defaults to 4.
@@ -190,6 +197,8 @@ public fun <K : Any> Dropdown(
     state: DropdownInteractiveState = DropdownInteractiveState.Enabled,
     dropdownSize: DropdownSize = DropdownSize.Large,
     isInlined: Boolean = false,
+    minFieldWidth: Dp = Dp.Unspecified,
+    maxFieldWidth: Dp = Dp.Unspecified,
     minVisibleItems: Int = 4,
 ) {
     var isExpanded by remember { mutableStateOf(false) }
@@ -214,6 +223,8 @@ public fun <K : Any> Dropdown(
         label = label,
         state = state,
         dropdownSize = dropdownSize,
+        minFieldWidth = minFieldWidth,
+        maxFieldWidth = maxFieldWidth,
         isInlined = isInlined
     )
 }
