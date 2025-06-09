@@ -24,6 +24,7 @@ import androidx.compose.runtime.saveable.Saver
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.catalog.common.DemoScreen
 import com.gabrieldrn.carbon.dropdown.Dropdown
 import com.gabrieldrn.carbon.dropdown.base.DropdownInteractiveState
@@ -92,7 +93,9 @@ internal fun DropdownDemoScreen(
             DropdownVariant.Default -> DefaultDemoDropdown(
                 state = dropdownState,
                 size = dropdownSize,
-                isInlined = isInlined
+                isInlined = isInlined,
+                minFieldWidth = 120.dp,
+                maxFieldWidth = 300.dp
             )
             DropdownVariant.Multiselect -> MultiselectDemoDropdown(
                 state = dropdownState,
