@@ -93,7 +93,7 @@ public fun <K : Any> Dropdown(
     maxFieldWidth: Dp = Dp.Unspecified,
     minVisibleItems: Int = 4,
 ) {
-    val fieldText = remember(selectedOption) {
+    val fieldText = remember(selectedOption, placeholder) {
         options[selectedOption]?.value ?: placeholder
     }
 

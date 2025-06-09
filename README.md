@@ -27,94 +27,39 @@ A [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/) i
 > [!CAUTION]
 > This library is **still under development** and **unofficial**. Contributions are welcomed!
 
-# Import library
-
-To start using Carbon in your Compose app, add the dependency according to your dependencies declaration method:
-
-## Version catalog
-
-```toml
-[versions]
-carbon = "x.x.x"
-
-[libraries]
-carbon-compose = { module = "io.github.gabrieldrn:carbon", version.ref = "carbon" }
-```
-
-```kotlin
-dependencies {
-    implementation(libs.carbon.compose)
-}
-```
-
-## KTS
-
-```kotlin
-dependencies {
-    implementation("io.github.gabrieldrn:carbon:$version")
-}
-```
-
-## Groovy
-
-```Groovy
-dependencies {
-    implementation "io.github.gabrieldrn:carbon:$version"
-}
-```
-
-Use the latest version in the [releases page](https://github.com/gabrieldrn/carbon-compose/releases).
-
-# Usage
-
-Visit https://gabrieldrn.github.io/carbon-compose/getting-started/usage/ to learn how to use Carbon
-in your app.
 
 ---
 
+# 📦 Import library
+
+To start using Carbon in your Compose app, follow the instructions on how to add Carbon Compose to
+your project on the [Import Carbon](https://gabrieldrn.github.io/carbon-compose/getting-started/import-lib/) page.
+
+Use the latest version in the [releases page](https://github.com/gabrieldrn/carbon-compose/releases).
+
+# ⚙️ Usage
+
+Read [Using Carbon](https://gabrieldrn.github.io/carbon-compose/getting-started/usage/) to learn how to use Carbon
+in your app.
+
 # 🤳 Catalog App
 
-For testing purposes, this project provides a _catalog_ app for supported targets.
+The `:catalog` module is a KMP application offering an interactive showcase to test and explore
+implemented components of this project. It supports all the library supported platforms and allows
+developers to visualize and interact with the components in different environments.
 
-As this is a KMP project, please follow [those steps](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-setup.html) to setup your environment accordingly.
+For more information on how to build and use the catalog app, please refer to the module's [README](catalog/README.md).
 
-## Android 🤖
-
-You can either run the app from the Android App run configuration in Android Studio, or compile an APK by executing the assemble task in a terminal:
-```
-./gradlew :catalog:assemble
-```
-
-## iOS 
-
-To run the iOS catalog app, open the Xcode project located in `<git repo>/iosCatalog` and run it (⌘R).
-
-## Desktop 🖥️
-
-You can run the desktop version by executing the `run` Gradle task in a terminal:
-```
-./gradlew :catalog:run
-```
-
-## Browser 🌐
-
-You can access the web catalog app at https://gabrieldrn.github.io/carbon-compose/catalog/index.html.
-
-Or you can run the web version locally by executing the `wasmJsBrowserRun` Gradle task in a terminal:
-```
-./gradlew :catalog:wasmJsBrowserRun
-```
-
-# Documentation
+# 📖 Documentation
 
 Visit the project's Github Pages https://gabrieldrn.github.io/carbon-compose/ to get more information about the
 project, some documentation, its API reference and the catalog app.
 
-# Contributions
+# 🧑‍💻 Contributions
 
 The project is open for contributions, have a look at the contribution guidelines and the issues list!
 
-# Support
+# ❤️ Support
 
 Feel free to ⭐ the project and/or [leave a tip](https://github.com/sponsors/gabrieldrn) if you like carbon-compose! 🙂
 

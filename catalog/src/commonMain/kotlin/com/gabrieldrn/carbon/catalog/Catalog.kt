@@ -27,6 +27,7 @@ import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.statusBars
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -37,6 +38,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.NavHostController
 import com.gabrieldrn.carbon.api.ExperimentalCarbonApi
 import com.gabrieldrn.carbon.button.ButtonType
 import com.gabrieldrn.carbon.button.IconButton
@@ -52,6 +54,7 @@ import org.jetbrains.compose.resources.painterResource
 @Composable
 fun Catalog(
     modifier: Modifier = Modifier,
+    navController: NavHostController = rememberNavController(),
     layoutType: CatalogLayoutType = CatalogLayoutType.Vertical,
 ) {
     CarbonCatalogTheme {
@@ -59,12 +62,6 @@ fun Catalog(
 
         var currentScreen: BaseDestination by rememberSaveable {
             mutableStateOf(Destination.Home)
-        }
-
-        val navController = rememberNavController().apply {
-            addOnDestinationChangedListener { _, destination, _ ->
-                currentScreen = allDestinations.first { it eq destination }
-            }
         }
 
         val uriHandler = LocalUriHandler.current
@@ -85,6 +82,14 @@ fun Catalog(
                     }
                 )
             )
+        }
+
+        LaunchedEffect(navController, allDestinations) {
+            navController.apply {
+                addOnDestinationChangedListener { _, destination, _ ->
+                    currentScreen = allDestinations.first { it eq destination }
+                }
+            }
         }
 
         CompositionLocalProvider(

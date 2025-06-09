@@ -46,6 +46,33 @@ public final class com/gabrieldrn/carbon/accordion/AccordionSize : java/lang/Enu
 public abstract interface annotation class com/gabrieldrn/carbon/api/ExperimentalCarbonApi : java/lang/annotation/Annotation {
 }
 
+public final class com/gabrieldrn/carbon/breadcrumb/Breadcrumb {
+	public static final field $stable I
+	public fun <init> (Ljava/lang/String;Z)V
+	public synthetic fun <init> (Ljava/lang/String;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Z
+	public final fun copy (Ljava/lang/String;Z)Lcom/gabrieldrn/carbon/breadcrumb/Breadcrumb;
+	public static synthetic fun copy$default (Lcom/gabrieldrn/carbon/breadcrumb/Breadcrumb;Ljava/lang/String;ZILjava/lang/Object;)Lcom/gabrieldrn/carbon/breadcrumb/Breadcrumb;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getLabel ()Ljava/lang/String;
+	public fun hashCode ()I
+	public final fun isEnabled ()Z
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/gabrieldrn/carbon/breadcrumb/BreadcrumbKt {
+	public static final fun Breadcrumb (Ljava/util/List;Lkotlin/jvm/functions/Function1;Landroidx/compose/ui/Modifier;ZLcom/gabrieldrn/carbon/breadcrumb/BreadcrumbSize;Landroidx/compose/runtime/Composer;II)V
+}
+
+public final class com/gabrieldrn/carbon/breadcrumb/BreadcrumbSize : java/lang/Enum {
+	public static final field Medium Lcom/gabrieldrn/carbon/breadcrumb/BreadcrumbSize;
+	public static final field Small Lcom/gabrieldrn/carbon/breadcrumb/BreadcrumbSize;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/gabrieldrn/carbon/breadcrumb/BreadcrumbSize;
+	public static fun values ()[Lcom/gabrieldrn/carbon/breadcrumb/BreadcrumbSize;
+}
+
 public final class com/gabrieldrn/carbon/button/ButtonKt {
 	public static final fun Button (Ljava/lang/String;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Landroidx/compose/ui/graphics/painter/Painter;ZLcom/gabrieldrn/carbon/button/ButtonType;Lcom/gabrieldrn/carbon/button/ButtonSize;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;II)V
 }
@@ -980,7 +1007,14 @@ public final class com/gabrieldrn/carbon/notification/CalloutNotificationKt {
 	public static final fun CalloutNotification (Ljava/lang/String;Lcom/gabrieldrn/carbon/notification/NotificationStatus;Landroidx/compose/ui/Modifier;Ljava/lang/String;ZLandroidx/compose/runtime/Composer;II)V
 }
 
+public final class com/gabrieldrn/carbon/notification/ComposableSingletons$NotificationCommonKt {
+	public static final field INSTANCE Lcom/gabrieldrn/carbon/notification/ComposableSingletons$NotificationCommonKt;
+	public fun <init> ()V
+	public final fun getLambda$162559929$carbon ()Lkotlin/jvm/functions/Function3;
+}
+
 public final class com/gabrieldrn/carbon/notification/InlineNotificationKt {
+	public static final fun ActionableInlineNotification (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/gabrieldrn/carbon/notification/NotificationStatus;Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;ZLandroidx/compose/runtime/Composer;II)V
 	public static final fun InlineNotification (Ljava/lang/String;Ljava/lang/String;Lcom/gabrieldrn/carbon/notification/NotificationStatus;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;ZLandroidx/compose/runtime/Composer;II)V
 }
 
@@ -992,6 +1026,11 @@ public final class com/gabrieldrn/carbon/notification/NotificationStatus : java/
 	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public static fun valueOf (Ljava/lang/String;)Lcom/gabrieldrn/carbon/notification/NotificationStatus;
 	public static fun values ()[Lcom/gabrieldrn/carbon/notification/NotificationStatus;
+}
+
+public final class com/gabrieldrn/carbon/notification/ToastNotificationKt {
+	public static final fun ActionableToastNotification (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/gabrieldrn/carbon/notification/NotificationStatus;Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;ZLandroidx/compose/runtime/Composer;II)V
+	public static final fun ToastNotification (Ljava/lang/String;Ljava/lang/String;Lcom/gabrieldrn/carbon/notification/NotificationStatus;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;ZLjava/lang/String;Landroidx/compose/runtime/Composer;II)V
 }
 
 public final class com/gabrieldrn/carbon/progressbar/ProgressBarKt {
@@ -1123,7 +1162,7 @@ public final class com/gabrieldrn/carbon/toggle/ToggleKt {
 public final class com/gabrieldrn/carbon/uishell/ComposableSingletons$UIShellHeaderKt {
 	public static final field INSTANCE Lcom/gabrieldrn/carbon/uishell/ComposableSingletons$UIShellHeaderKt;
 	public fun <init> ()V
-	public final fun getLambda-1$carbon ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$259921001$carbon ()Lkotlin/jvm/functions/Function3;
 }
 
 public final class com/gabrieldrn/carbon/uishell/UIShellHeaderKt {

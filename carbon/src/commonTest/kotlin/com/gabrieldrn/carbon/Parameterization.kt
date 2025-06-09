@@ -90,3 +90,38 @@ inline fun <reified A : Any, reified B : Any, reified C : Any, reified D : Any> 
         }
     }
 }
+
+inline fun <reified A : Any, reified B : Any, reified C : Any, reified D : Any, reified E : Any>
+    forEachParameter(
+    aValues: Array<A>,
+    bValues: Array<B>,
+    cValues: Array<C>,
+    dValues: Array<D>,
+    eValues: Array<E>,
+    block: (A, B, C, D, E) -> Unit
+) {
+    val aTypeName = A::class.simpleName
+    val bTypeName = B::class.simpleName
+    val cTypeName = C::class.simpleName
+    val dTypeName = D::class.simpleName
+    val eTypeName = E::class.simpleName
+
+    aValues.forEach { a ->
+        bValues.forEach { b ->
+            cValues.forEach { c ->
+                dValues.forEach { d ->
+                    eValues.forEach { e ->
+                        Logger.d(
+                            "$aTypeName: $a, " +
+                                "$bTypeName: $b, " +
+                                "$cTypeName: $c, " +
+                                "$dTypeName: $d, " +
+                                "$eTypeName: $e"
+                        )
+                        block(a, b, c, d, e)
+                    }
+                }
+            }
+        }
+    }
+}

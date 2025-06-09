@@ -23,26 +23,42 @@ import com.gabrieldrn.carbon.CarbonDesignSystem
 
 @Preview(group = "Low contrast")
 @Composable
-private fun InlineNotificationPreview(
+private fun ToastNotificationPreview(
     @PreviewParameter(NotificationStatusParameterProvider::class) status: NotificationStatus
 ) {
     CarbonDesignSystem {
-        InlineNotification(
+        ToastNotification(
             title = "Callout Notification",
-            body = "Lorem ipsum dolor.",
+            body = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
             status = status,
             onClose = {}
         )
     }
 }
 
-@Preview(group = "High contrast")
+@Preview(group = "Low contrast - Timestamp")
 @Composable
-private fun InlineNotificationHighContrastPreview(
+private fun ToastNotificationTimestampPreview(
     @PreviewParameter(NotificationStatusParameterProvider::class) status: NotificationStatus
 ) {
     CarbonDesignSystem {
-        InlineNotification(
+        ToastNotification(
+            title = "Callout Notification",
+            body = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            status = status,
+            onClose = {},
+            timestamp = "12:00"
+        )
+    }
+}
+
+@Preview(group = "High contrast")
+@Composable
+private fun ToastNotificationHighContrastPreview(
+    @PreviewParameter(NotificationStatusParameterProvider::class) status: NotificationStatus
+) {
+    CarbonDesignSystem {
+        ToastNotification(
             title = "Callout Notification",
             body = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
             status = status,
@@ -52,37 +68,20 @@ private fun InlineNotificationHighContrastPreview(
     }
 }
 
-@Preview(group = "Low contrast")
-@Composable
-private fun ActionableInlineNotificationPreview(
-    @PreviewParameter(NotificationStatusParameterProvider::class) status: NotificationStatus
-) {
-    CarbonDesignSystem {
-        ActionableInlineNotification(
-            title = "Callout Notification",
-            body = "Lorem ipsum dolor.",
-            actionLabel = "Action",
-            status = status,
-            onAction = {},
-            onClose = {}
-        )
-    }
-}
 
-@Preview(group = "High contrast")
+@Preview(group = "High contrast - Timestamp")
 @Composable
-private fun ActionableInlineNotificationHighContrastPreview(
+private fun ToastNotificationTimestampHighContrastPreview(
     @PreviewParameter(NotificationStatusParameterProvider::class) status: NotificationStatus
 ) {
     CarbonDesignSystem {
-        ActionableInlineNotification(
+        ToastNotification(
             title = "Callout Notification",
             body = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-            actionLabel = "Action",
             status = status,
-            onAction = {},
             onClose = {},
-            highContrast = true
+            highContrast = true,
+            timestamp = "12:00"
         )
     }
 }
