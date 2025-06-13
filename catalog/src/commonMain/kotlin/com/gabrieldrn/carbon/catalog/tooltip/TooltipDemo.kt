@@ -27,6 +27,7 @@ import com.gabrieldrn.carbon.button.Button
 import com.gabrieldrn.carbon.catalog.common.DemoScreen
 import com.gabrieldrn.carbon.dropdown.Dropdown
 import com.gabrieldrn.carbon.dropdown.base.toDropdownOptions
+import com.gabrieldrn.carbon.toggle.Toggle
 import com.gabrieldrn.carbon.tooltip.TooltipBox
 import com.gabrieldrn.carbon.tooltip.TooltipPlacement
 
@@ -37,11 +38,19 @@ fun TooltipDemoScreen(modifier: Modifier = Modifier) {
     var tooltipPlacement by rememberSaveable {
         mutableStateOf(TooltipPlacement.Bottom)
     }
+    var singleLine by rememberSaveable {
+        mutableStateOf(true)
+    }
 
     DemoScreen(
         demoContent = {
             TooltipBox(
-                tooltipText = "This is a tooltip",
+                tooltipText = if (singleLine) {
+                    "To be, or not to be"
+                } else {
+                    "To be, or not to be,\nthat is the question"
+                },
+                singleLine = singleLine,
                 placement = tooltipPlacement
             ) {
                 Button(
@@ -57,6 +66,12 @@ fun TooltipDemoScreen(modifier: Modifier = Modifier) {
                 options = TooltipPlacement.entries.toDropdownOptions(),
                 selectedOption = tooltipPlacement,
                 onOptionSelected = { tooltipPlacement = it }
+            )
+
+            Toggle(
+                isToggled = singleLine,
+                onToggleChange = { singleLine = it },
+                label = "Single line",
             )
         },
         modifier = modifier

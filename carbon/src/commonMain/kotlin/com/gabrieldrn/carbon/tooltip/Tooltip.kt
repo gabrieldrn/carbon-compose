@@ -21,11 +21,13 @@ import androidx.compose.foundation.BasicTooltipBox
 import androidx.compose.foundation.BasicTooltipState
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberBasicTooltipState
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.style.TextOverflow
@@ -42,12 +44,41 @@ import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 // TODO Default placement on mobile is Bottom
 
 private val tooltipSingleLineMaxWidth = 208.dp
+private val tooltipMultiLineMaxWidth = 288.dp
+private val tooltipSingleLinePaddingValues = PaddingValues(
+    horizontal = SpacingScale.spacing05,
+    vertical = SpacingScale.spacing01
+)
+private val tooltipMultiLinePaddingValues = PaddingValues(SpacingScale.spacing05)
+private val tooltipMargin = SpacingScale.spacing02
 
+/**
+ * # TooltipBox
+ *
+ * Composable wrapping a UI trigger (e.g. a button) and displaying a tooltip when the user hovers
+ * over it.
+ *
+ * Tooltips display additional information upon hover or focus that is contextual, helpful, and
+ * nonessential while providing the ability to communicate and give clarity to a user.
+ *
+ * From [Tooltip documentation](https://carbondesignsystem.com/components/tooltip/usage/)
+ *
+ * @param tooltipText Text to display in the tooltip.
+ * @param modifier Default Modifier to be applied to the whole composable.
+ * @param singleLine Either the text in the tooltip should be displayed in a single line or not.
+ * Note that the tooltip width is limited to a maximum width depending on this parameter and the
+ * text might be truncated if it exceeds the maximum width.
+ * @param placement Placement of the tooltip relative to the UI trigger. Defaults to
+ * [TooltipPlacement.Bottom].
+ * @param content UI trigger content that will be wrapped by the tooltip. This is typically a button
+ * or an icon that the user can hover over to see the tooltip.
+ */
 @Composable
 @ExperimentalFoundationApi
 public fun TooltipBox(
     tooltipText: String,
     modifier: Modifier = Modifier,
+    singleLine: Boolean = false,
     placement: TooltipPlacement = TooltipPlacement.Bottom,
     content: @Composable () -> Unit
 ) {
@@ -55,6 +86,7 @@ public fun TooltipBox(
         tooltipText = tooltipText,
         modifier = modifier,
         state = rememberBasicTooltipState(),
+        singleLine = singleLine,
         placement = placement,
         content = content
     )
@@ -66,6 +98,7 @@ internal fun TooltipBox(
     tooltipText: String,
     modifier: Modifier = Modifier,
     state: BasicTooltipState = rememberBasicTooltipState(),
+    singleLine: Boolean = false,
     placement: TooltipPlacement = TooltipPlacement.Bottom,
     content: @Composable () -> Unit
 ) {
@@ -77,6 +110,7 @@ internal fun TooltipBox(
         tooltip = {
             SingleLineTooltipPopup(
                 text = tooltipText,
+                singleLine = singleLine,
                 placement = placement
             )
         },
@@ -91,22 +125,32 @@ internal fun TooltipBox(
 @Composable
 private fun SingleLineTooltipPopup(
     text: String,
+    singleLine: Boolean,
     placement: TooltipPlacement,
     modifier: Modifier = Modifier,
 ) {
+    val shape = remember(placement, singleLine) {
+        TooltipShape(placement, singleLine)
+    }
+
     BasicText(
         text = text,
         style = Carbon.typography.body01.copy(color = Carbon.theme.textInverse),
-        maxLines = 1,
+        maxLines = if (singleLine) 1 else Int.MAX_VALUE,
         overflow = TextOverflow.Ellipsis,
         modifier = modifier
-            .padding(6.dp)
+            .padding(shape.caretSize + tooltipMargin)
             .background(
                 color = Carbon.theme.backgroundInverse,
-                shape = TooltipShape(placement)
+                shape = shape
             )
-            .widthIn(max = tooltipSingleLineMaxWidth)
-            .padding(horizontal = SpacingScale.spacing05, vertical = SpacingScale.spacing01),
+            .widthIn(
+                max = if (singleLine) tooltipSingleLineMaxWidth else tooltipMultiLineMaxWidth
+            )
+            .padding(
+                if (singleLine) tooltipSingleLinePaddingValues
+                else tooltipMultiLinePaddingValues
+            ),
     )
 }
 
