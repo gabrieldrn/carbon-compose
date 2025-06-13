@@ -29,8 +29,11 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 
 internal class TooltipShape(
-    private val placement: TooltipPlacement
+    private val placement: TooltipPlacement,
+    isSingleLine: Boolean
 ) : Shape {
+
+    val caretSize = if (isSingleLine) singleSizeCaretSize else multiLineCaretSize
 
     override fun createOutline(
         size: Size,
@@ -57,33 +60,32 @@ internal class TooltipShape(
                         moveTo(0f, size.height / 2 - caretSizePx)
                         relativeLineTo(-caretSizePx, caretSizePx)
                         relativeLineTo(caretSizePx, caretSizePx)
-                        close()
                     }
                     TooltipPlacement.Left -> {
                         moveTo(size.width, size.height / 2 - caretSizePx)
                         relativeLineTo(caretSizePx, caretSizePx)
                         relativeLineTo(-caretSizePx, caretSizePx)
-                        close()
                     }
                     TooltipPlacement.Top -> {
                         moveTo(size.width / 2 - caretSizePx, size.height)
                         relativeLineTo(caretSizePx, caretSizePx)
                         relativeLineTo(caretSizePx, -caretSizePx)
-                        close()
                     }
                     TooltipPlacement.Bottom -> {
                         moveTo(size.width / 2 - caretSizePx, 0f)
                         relativeLineTo(caretSizePx, -caretSizePx)
                         relativeLineTo(caretSizePx, caretSizePx)
-                        close()
                     }
                 }
+
+                close()
             }
         )
     }
 
     companion object {
         val cornerSize = CornerSize(2.dp)
-        val caretSize = 6.dp
+        private val singleSizeCaretSize = 6.dp
+        private val multiLineCaretSize = 8.dp
     }
 }
