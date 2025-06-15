@@ -16,7 +16,11 @@
 
 package com.gabrieldrn.carbon.tooltip
 
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.shape.CornerSize
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.RoundRect
 import androidx.compose.ui.geometry.Size
@@ -25,15 +29,18 @@ import androidx.compose.ui.graphics.Outline
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.Density
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 
 internal class TooltipShape(
     private val placement: TooltipPlacement,
+    private val alignment: TooltipAlignment,
+    private val tooltipContentPaddingValues: PaddingValues,
     isSingleLine: Boolean
 ) : Shape {
 
-    val caretSize = if (isSingleLine) singleSizeCaretSize else multiLineCaretSize
+    val caretSize: Dp = if (isSingleLine) singleSizeCaretSize else multiLineCaretSize
 
     override fun createOutline(
         size: Size,
@@ -42,6 +49,19 @@ internal class TooltipShape(
     ): Outline {
         val cornerRadius = CornerRadius(cornerSize.toPx(size, density))
         val caretSizePx = with(density) { caretSize.toPx() }
+        val horizontalContentPadding = with(density) {
+            tooltipContentPaddingValues
+                .calculateStartPadding(LayoutDirection.Ltr)
+                .toPx()
+        }
+
+        fun horizontalCaretXPosition(): Float {
+            return when (alignment) {
+                TooltipAlignment.Start -> horizontalContentPadding
+                TooltipAlignment.Center -> size.width / 2 - caretSizePx
+                TooltipAlignment.End -> size.width - horizontalContentPadding - caretSizePx * 2
+            }
+        }
 
         return Outline.Generic(
             Path().apply {
@@ -67,12 +87,12 @@ internal class TooltipShape(
                         relativeLineTo(-caretSizePx, caretSizePx)
                     }
                     TooltipPlacement.Top -> {
-                        moveTo(size.width / 2 - caretSizePx, size.height)
+                        moveTo(horizontalCaretXPosition(), size.height)
                         relativeLineTo(caretSizePx, caretSizePx)
                         relativeLineTo(caretSizePx, -caretSizePx)
                     }
                     TooltipPlacement.Bottom -> {
-                        moveTo(size.width / 2 - caretSizePx, 0f)
+                        moveTo(horizontalCaretXPosition(), 0f)
                         relativeLineTo(caretSizePx, -caretSizePx)
                         relativeLineTo(caretSizePx, caretSizePx)
                     }
@@ -88,4 +108,16 @@ internal class TooltipShape(
         private val singleSizeCaretSize = 6.dp
         private val multiLineCaretSize = 8.dp
     }
+}
+
+@Composable
+internal fun rememberTooltipShape(
+    placement: TooltipPlacement,
+    alignment: TooltipAlignment,
+    tooltipContentPaddingValues: PaddingValues,
+    isSingleLine: Boolean
+): TooltipShape = remember(
+    placement, alignment, tooltipContentPaddingValues, isSingleLine
+) {
+    TooltipShape(placement, alignment, tooltipContentPaddingValues, isSingleLine)
 }

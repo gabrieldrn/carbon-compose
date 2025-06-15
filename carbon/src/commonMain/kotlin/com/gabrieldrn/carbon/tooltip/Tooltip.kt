@@ -16,7 +16,6 @@
 
 package com.gabrieldrn.carbon.tooltip
 
-import androidx.annotation.VisibleForTesting
 import androidx.compose.foundation.BasicTooltipBox
 import androidx.compose.foundation.BasicTooltipState
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -31,13 +30,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.Density
-import androidx.compose.ui.unit.IntOffset
-import androidx.compose.ui.unit.IntRect
-import androidx.compose.ui.unit.IntSize
-import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.PopupPositionProvider
 import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 
@@ -70,6 +63,8 @@ private val tooltipMargin = SpacingScale.spacing02
  * text might be truncated if it exceeds the maximum width.
  * @param placement Placement of the tooltip relative to the UI trigger. Defaults to
  * [TooltipPlacement.Bottom].
+ * @param alignment Alignment of the tooltip relative to the UI trigger. Defaults to
+ * [TooltipAlignment.Center].
  * @param content UI trigger content that will be wrapped by the tooltip. This is typically a button
  * or an icon that the user can hover over to see the tooltip.
  */
@@ -79,7 +74,8 @@ public fun TooltipBox(
     tooltipText: String,
     modifier: Modifier = Modifier,
     singleLine: Boolean = false,
-    placement: TooltipPlacement = TooltipPlacement.Bottom,
+    placement: TooltipPlacement = TooltipPlacement.Top,
+    alignment: TooltipAlignment = TooltipAlignment.Center,
     content: @Composable () -> Unit
 ) {
     TooltipBox(
@@ -88,6 +84,7 @@ public fun TooltipBox(
         state = rememberBasicTooltipState(),
         singleLine = singleLine,
         placement = placement,
+        alignment = alignment,
         content = content
     )
 }
@@ -99,19 +96,35 @@ internal fun TooltipBox(
     modifier: Modifier = Modifier,
     state: BasicTooltipState = rememberBasicTooltipState(),
     singleLine: Boolean = false,
-    placement: TooltipPlacement = TooltipPlacement.Bottom,
+    placement: TooltipPlacement = TooltipPlacement.Top,
+    alignment: TooltipAlignment = TooltipAlignment.Center,
     content: @Composable () -> Unit
 ) {
+    val tooltipContentPaddingValues = remember(singleLine) {
+        if (singleLine) tooltipSingleLinePaddingValues
+        else tooltipMultiLinePaddingValues
+    }
+
+    val shape: TooltipShape = rememberTooltipShape(
+        placement = placement,
+        alignment = alignment,
+        tooltipContentPaddingValues = tooltipContentPaddingValues,
+        isSingleLine = singleLine
+    )
+
     BasicTooltipBox(
         positionProvider = TooltipPositionProvider(
+            placement = placement,
+            alignment = alignment,
+            caretSize = shape.caretSize,
+            tooltipContentPaddingValues = tooltipContentPaddingValues,
             density = LocalDensity.current,
-            placement = placement
         ),
         tooltip = {
             SingleLineTooltipPopup(
                 text = tooltipText,
                 singleLine = singleLine,
-                placement = placement
+                shape = shape,
             )
         },
         state = state,
@@ -126,13 +139,9 @@ internal fun TooltipBox(
 private fun SingleLineTooltipPopup(
     text: String,
     singleLine: Boolean,
-    placement: TooltipPlacement,
+    shape: TooltipShape,
     modifier: Modifier = Modifier,
 ) {
-    val shape = remember(placement, singleLine) {
-        TooltipShape(placement, singleLine)
-    }
-
     BasicText(
         text = text,
         style = Carbon.typography.body01.copy(color = Carbon.theme.textInverse),
@@ -152,44 +161,4 @@ private fun SingleLineTooltipPopup(
                 else tooltipMultiLinePaddingValues
             ),
     )
-}
-
-internal class TooltipPositionProvider
-@VisibleForTesting(otherwise = VisibleForTesting.PRIVATE) constructor(
-    private val density: Density,
-    private val placement: TooltipPlacement
-) : PopupPositionProvider {
-
-    override fun calculatePosition(
-        anchorBounds: IntRect,
-        windowSize: IntSize,
-        layoutDirection: LayoutDirection,
-        popupContentSize: IntSize
-    ): IntOffset {
-        val popupPadding = with(density) {
-            SpacingScale.spacing02.roundToPx()
-        }
-
-        return when (placement) {
-            TooltipPlacement.Right -> IntOffset(
-                x = anchorBounds.right + popupPadding,
-                y = anchorBounds.top + (anchorBounds.height - popupContentSize.height) / 2
-            )
-
-            TooltipPlacement.Left -> IntOffset(
-                x = anchorBounds.left - popupContentSize.width - popupPadding,
-                y = anchorBounds.top + (anchorBounds.height - popupContentSize.height) / 2
-            )
-
-            TooltipPlacement.Bottom -> IntOffset(
-                x = anchorBounds.left + (anchorBounds.width - popupContentSize.width) / 2,
-                y = anchorBounds.bottom + popupPadding
-            )
-
-            TooltipPlacement.Top -> IntOffset(
-                x = anchorBounds.left + (anchorBounds.width - popupContentSize.width) / 2,
-                y = anchorBounds.top - popupContentSize.height - popupPadding
-            )
-        }
-    }
 }

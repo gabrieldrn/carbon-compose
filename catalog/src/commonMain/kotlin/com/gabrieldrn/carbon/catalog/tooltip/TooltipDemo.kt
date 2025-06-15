@@ -28,6 +28,7 @@ import com.gabrieldrn.carbon.catalog.common.DemoScreen
 import com.gabrieldrn.carbon.dropdown.Dropdown
 import com.gabrieldrn.carbon.dropdown.base.toDropdownOptions
 import com.gabrieldrn.carbon.toggle.Toggle
+import com.gabrieldrn.carbon.tooltip.TooltipAlignment
 import com.gabrieldrn.carbon.tooltip.TooltipBox
 import com.gabrieldrn.carbon.tooltip.TooltipPlacement
 
@@ -36,7 +37,10 @@ import com.gabrieldrn.carbon.tooltip.TooltipPlacement
 fun TooltipDemoScreen(modifier: Modifier = Modifier) {
 
     var tooltipPlacement by rememberSaveable {
-        mutableStateOf(TooltipPlacement.Bottom)
+        mutableStateOf(TooltipPlacement.Top)
+    }
+    var tooltipAlignment by rememberSaveable {
+        mutableStateOf(TooltipAlignment.Center)
     }
     var singleLine by rememberSaveable {
         mutableStateOf(true)
@@ -46,12 +50,13 @@ fun TooltipDemoScreen(modifier: Modifier = Modifier) {
         demoContent = {
             TooltipBox(
                 tooltipText = if (singleLine) {
-                    "To be, or not to be"
+                    "To be, or not to be..."
                 } else {
                     "To be, or not to be,\nthat is the question"
                 },
                 singleLine = singleLine,
-                placement = tooltipPlacement
+                placement = tooltipPlacement,
+                alignment = tooltipAlignment
             ) {
                 Button(
                     label = "Hover me",
@@ -66,6 +71,14 @@ fun TooltipDemoScreen(modifier: Modifier = Modifier) {
                 options = TooltipPlacement.entries.toDropdownOptions(),
                 selectedOption = tooltipPlacement,
                 onOptionSelected = { tooltipPlacement = it }
+            )
+
+            Dropdown(
+                placeholder = "Choose option",
+                label = "Alignment",
+                options = TooltipAlignment.entries.toDropdownOptions(),
+                selectedOption = tooltipAlignment,
+                onOptionSelected = { tooltipAlignment = it }
             )
 
             Toggle(
