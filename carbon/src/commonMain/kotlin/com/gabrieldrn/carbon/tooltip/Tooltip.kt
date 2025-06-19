@@ -100,7 +100,9 @@ internal fun TooltipBox(
     alignment: TooltipAlignment = TooltipAlignment.Center,
     content: @Composable () -> Unit
 ) {
-    val tooltipContentPaddingValues = remember(singleLine) {
+    val density = LocalDensity.current
+
+    val tooltipContentPaddingValues: PaddingValues = remember(singleLine) {
         if (singleLine) tooltipSingleLinePaddingValues
         else tooltipMultiLinePaddingValues
     }
@@ -112,19 +114,27 @@ internal fun TooltipBox(
         isSingleLine = singleLine
     )
 
-    BasicTooltipBox(
-        positionProvider = TooltipPositionProvider(
+    val tooltipPositionProvider = remember(
+        placement, alignment, shape.caretSize, tooltipContentPaddingValues, singleLine, density
+    ) {
+        TooltipPositionProvider(
             placement = placement,
             alignment = alignment,
             caretSize = shape.caretSize,
             tooltipContentPaddingValues = tooltipContentPaddingValues,
-            density = LocalDensity.current,
-        ),
+            isSingleLine = singleLine,
+            density = density,
+        )
+    }
+
+    BasicTooltipBox(
+        positionProvider = tooltipPositionProvider,
         tooltip = {
             SingleLineTooltipPopup(
                 text = tooltipText,
                 singleLine = singleLine,
                 shape = shape,
+                contentPaddingValues = tooltipContentPaddingValues,
             )
         },
         state = state,
@@ -140,6 +150,7 @@ private fun SingleLineTooltipPopup(
     text: String,
     singleLine: Boolean,
     shape: TooltipShape,
+    contentPaddingValues: PaddingValues,
     modifier: Modifier = Modifier,
 ) {
     BasicText(
@@ -156,9 +167,6 @@ private fun SingleLineTooltipPopup(
             .widthIn(
                 max = if (singleLine) tooltipSingleLineMaxWidth else tooltipMultiLineMaxWidth
             )
-            .padding(
-                if (singleLine) tooltipSingleLinePaddingValues
-                else tooltipMultiLinePaddingValues
-            ),
+            .padding(contentPaddingValues),
     )
 }
