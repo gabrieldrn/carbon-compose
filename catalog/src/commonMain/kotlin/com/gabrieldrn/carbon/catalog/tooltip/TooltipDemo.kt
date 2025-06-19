@@ -52,14 +52,17 @@ fun TooltipDemoScreen(modifier: Modifier = Modifier) {
                 tooltipText = if (singleLine) {
                     "To be, or not to be..."
                 } else {
-                    "To be, or not to be,\nthat is the question"
+                    "To be, or not to be, that is the question\n" +
+                        "Whether 'tis nobler in the mind to suffer\n" +
+                        "The slings and arrows of outrageous fortune,\n" +
+                        "Or to take arms against a sea of troubles"
                 },
                 singleLine = singleLine,
                 placement = tooltipPlacement,
                 alignment = tooltipAlignment
             ) {
                 Button(
-                    label = "Hover me",
+                    label = "Hover me", // TODO For mobile, use "Long press me" instead.
                     onClick = { /* No-op */ },
                 )
             }
