@@ -74,6 +74,7 @@ public final class com/gabrieldrn/carbon/breadcrumb/BreadcrumbSize : java/lang/E
 }
 
 public final class com/gabrieldrn/carbon/button/ButtonKt {
+	public static final fun Button (Ljava/lang/String;Lcom/gabrieldrn/carbon/tooltip/TooltipParameters;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Landroidx/compose/ui/Modifier;Landroidx/compose/ui/graphics/painter/Painter;ZLcom/gabrieldrn/carbon/button/ButtonType;Lcom/gabrieldrn/carbon/button/ButtonSize;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;II)V
 	public static final fun Button (Ljava/lang/String;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Landroidx/compose/ui/graphics/painter/Painter;ZLcom/gabrieldrn/carbon/button/ButtonType;Lcom/gabrieldrn/carbon/button/ButtonSize;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;II)V
 }
 
@@ -1157,6 +1158,49 @@ public final class com/gabrieldrn/carbon/textinput/TextInputState$Companion {
 public final class com/gabrieldrn/carbon/toggle/ToggleKt {
 	public static final fun SmallToggle (ZLkotlin/jvm/functions/Function1;Landroidx/compose/ui/Modifier;Ljava/lang/String;ZZLandroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;II)V
 	public static final fun Toggle (ZLkotlin/jvm/functions/Function1;Landroidx/compose/ui/Modifier;Ljava/lang/String;Ljava/lang/String;ZZLandroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;II)V
+}
+
+public final class com/gabrieldrn/carbon/tooltip/TooltipAlignment : java/lang/Enum {
+	public static final field Center Lcom/gabrieldrn/carbon/tooltip/TooltipAlignment;
+	public static final field End Lcom/gabrieldrn/carbon/tooltip/TooltipAlignment;
+	public static final field Start Lcom/gabrieldrn/carbon/tooltip/TooltipAlignment;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/gabrieldrn/carbon/tooltip/TooltipAlignment;
+	public static fun values ()[Lcom/gabrieldrn/carbon/tooltip/TooltipAlignment;
+}
+
+public final class com/gabrieldrn/carbon/tooltip/TooltipKt {
+	public static final fun TooltipBox (Lcom/gabrieldrn/carbon/tooltip/TooltipParameters;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/ui/Modifier;Lkotlin/jvm/functions/Function2;Landroidx/compose/runtime/Composer;II)V
+	public static final fun TooltipBox (Ljava/lang/String;Landroidx/compose/ui/Modifier;ZLcom/gabrieldrn/carbon/tooltip/TooltipPlacement;Lcom/gabrieldrn/carbon/tooltip/TooltipAlignment;Landroidx/compose/foundation/interaction/MutableInteractionSource;Lkotlin/jvm/functions/Function2;Landroidx/compose/runtime/Composer;II)V
+}
+
+public final class com/gabrieldrn/carbon/tooltip/TooltipParameters {
+	public static final field $stable I
+	public fun <init> (Ljava/lang/String;ZLcom/gabrieldrn/carbon/tooltip/TooltipPlacement;Lcom/gabrieldrn/carbon/tooltip/TooltipAlignment;)V
+	public synthetic fun <init> (Ljava/lang/String;ZLcom/gabrieldrn/carbon/tooltip/TooltipPlacement;Lcom/gabrieldrn/carbon/tooltip/TooltipAlignment;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Z
+	public final fun component3 ()Lcom/gabrieldrn/carbon/tooltip/TooltipPlacement;
+	public final fun component4 ()Lcom/gabrieldrn/carbon/tooltip/TooltipAlignment;
+	public final fun copy (Ljava/lang/String;ZLcom/gabrieldrn/carbon/tooltip/TooltipPlacement;Lcom/gabrieldrn/carbon/tooltip/TooltipAlignment;)Lcom/gabrieldrn/carbon/tooltip/TooltipParameters;
+	public static synthetic fun copy$default (Lcom/gabrieldrn/carbon/tooltip/TooltipParameters;Ljava/lang/String;ZLcom/gabrieldrn/carbon/tooltip/TooltipPlacement;Lcom/gabrieldrn/carbon/tooltip/TooltipAlignment;ILjava/lang/Object;)Lcom/gabrieldrn/carbon/tooltip/TooltipParameters;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAlignment ()Lcom/gabrieldrn/carbon/tooltip/TooltipAlignment;
+	public final fun getPlacement ()Lcom/gabrieldrn/carbon/tooltip/TooltipPlacement;
+	public final fun getSingleLine ()Z
+	public final fun getText ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/gabrieldrn/carbon/tooltip/TooltipPlacement : java/lang/Enum {
+	public static final field Bottom Lcom/gabrieldrn/carbon/tooltip/TooltipPlacement;
+	public static final field Left Lcom/gabrieldrn/carbon/tooltip/TooltipPlacement;
+	public static final field Right Lcom/gabrieldrn/carbon/tooltip/TooltipPlacement;
+	public static final field Top Lcom/gabrieldrn/carbon/tooltip/TooltipPlacement;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/gabrieldrn/carbon/tooltip/TooltipPlacement;
+	public static fun values ()[Lcom/gabrieldrn/carbon/tooltip/TooltipPlacement;
 }
 
 public final class com/gabrieldrn/carbon/uishell/ComposableSingletons$UIShellHeaderKt {
