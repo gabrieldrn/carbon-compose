@@ -44,6 +44,8 @@ import org.jetbrains.compose.resources.painterResource
 
 private enum class UITriggerOption { Button, IconButton }
 
+expect val buttonLabel: String
+
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun TooltipDemoScreen(modifier: Modifier = Modifier) {
@@ -89,7 +91,7 @@ fun TooltipDemoScreen(modifier: Modifier = Modifier) {
             ) {
                 when (uiTrigger) {
                     UITriggerOption.Button -> Button(
-                        label = "Hover me", // TODO For mobile, use "Long press me" instead.
+                        label = buttonLabel,
                         tooltipParameters = tooltipParameters,
                         onClick = {}
                     )
