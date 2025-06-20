@@ -30,18 +30,27 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.button.Button
+import com.gabrieldrn.carbon.button.IconButton
+import com.gabrieldrn.carbon.catalog.Res
 import com.gabrieldrn.carbon.catalog.common.DemoScreen
+import com.gabrieldrn.carbon.catalog.ic_cognitive
 import com.gabrieldrn.carbon.dropdown.Dropdown
 import com.gabrieldrn.carbon.dropdown.base.toDropdownOptions
 import com.gabrieldrn.carbon.toggle.Toggle
 import com.gabrieldrn.carbon.tooltip.TooltipAlignment
 import com.gabrieldrn.carbon.tooltip.TooltipParameters
 import com.gabrieldrn.carbon.tooltip.TooltipPlacement
+import org.jetbrains.compose.resources.painterResource
+
+private enum class UITriggerOption { Button, IconButton }
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun TooltipDemoScreen(modifier: Modifier = Modifier) {
 
+    var uiTrigger by rememberSaveable {
+        mutableStateOf(UITriggerOption.Button)
+    }
     var tooltipPlacement by rememberSaveable {
         mutableStateOf(TooltipPlacement.Top)
     }
@@ -78,17 +87,33 @@ fun TooltipDemoScreen(modifier: Modifier = Modifier) {
                     .height(300.dp),
                 contentAlignment = Alignment.Center
             ) {
-                Button(
-                    label = "Hover me", // TODO For mobile, use "Long press me" instead.
-                    tooltipParameters = tooltipParameters,
-                    onClick = {}
-                )
+                when (uiTrigger) {
+                    UITriggerOption.Button -> Button(
+                        label = "Hover me", // TODO For mobile, use "Long press me" instead.
+                        tooltipParameters = tooltipParameters,
+                        onClick = {}
+                    )
+                    UITriggerOption.IconButton -> IconButton(
+                        iconPainter = painterResource(Res.drawable.ic_cognitive),
+                        tooltipParameters = tooltipParameters,
+                        onClick = {},
+                        isEnabled = true
+                    )
+                }
             }
         },
         demoParametersContent = {
             Dropdown(
                 placeholder = "Choose option",
-                label = "Placement",
+                label = "UI trigger",
+                options = UITriggerOption.entries.toDropdownOptions(),
+                selectedOption = uiTrigger,
+                onOptionSelected = { uiTrigger = it }
+            )
+
+            Dropdown(
+                placeholder = "Choose option",
+                label = "Tooltip placement",
                 options = TooltipPlacement.entries.toDropdownOptions(),
                 selectedOption = tooltipPlacement,
                 onOptionSelected = { tooltipPlacement = it }
@@ -96,7 +121,7 @@ fun TooltipDemoScreen(modifier: Modifier = Modifier) {
 
             Dropdown(
                 placeholder = "Choose option",
-                label = "Alignment",
+                label = "Tooltip alignment",
                 options = TooltipAlignment.entries.toDropdownOptions(),
                 selectedOption = tooltipAlignment,
                 onOptionSelected = { tooltipAlignment = it }

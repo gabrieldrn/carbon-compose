@@ -16,6 +16,7 @@
 
 package com.gabrieldrn.carbon.button
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -24,6 +25,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
+import com.gabrieldrn.carbon.tooltip.TooltipBox
+import com.gabrieldrn.carbon.tooltip.TooltipParameters
 
 /**
  * # Icon button
@@ -69,6 +72,59 @@ public fun IconButton(
             modifier = Modifier
                 .padding(start = SpacingScale.spacing05, top = SpacingScale.spacing05)
                 .size(SpacingScale.spacing05)
+        )
+    }
+}
+
+/**
+ * # Icon button
+ * Buttons are used to initialize an action. Button labels express what action will occur when the
+ * user interacts with it.
+ *
+ * Icon buttons allow users to take actions, and make choices, with a single tap. Icon buttons can
+ * take the form of a primary, secondary, tertiary, or ghost variant but most commonly will be
+ * styled as primary or ghost buttons.
+ *
+ * This variant of the icon button uses Carbon's [TooltipBox] to display a tooltip when the user
+ * hovers over or focuses it.
+ *
+ * (From [Button documentation](https://carbondesignsystem.com/components/button/usage/))
+ *
+ * @param iconPainter Icon painter to be displayed in the button.
+ * @param tooltipParameters Parameters to configure the tooltip.
+ * @param onClick Callback invoked when the button is clicked.
+ * @param modifier The modifier to be applied to the button.
+ * @param tooltipModifier The modifier to be applied to the tooltip.
+ * @param buttonType A [ButtonType] that defines the button's type.
+ * @param isEnabled Whether the button is enabled or disabled.
+ * @param interactionSource The [MutableInteractionSource] that keeps track of the button's state.
+ *
+ * @see [Button]
+ */
+@ExperimentalFoundationApi
+@Composable
+public fun IconButton(
+    iconPainter: Painter,
+    tooltipParameters: TooltipParameters,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    tooltipModifier: Modifier = Modifier,
+    buttonType: ButtonType = ButtonType.Primary,
+    isEnabled: Boolean = true,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+) {
+    TooltipBox(
+        parameters = tooltipParameters,
+        uiTriggerMutableInteractionSource = interactionSource,
+        modifier = tooltipModifier
+    ) {
+        IconButton(
+            iconPainter = iconPainter,
+            onClick = onClick,
+            modifier = modifier,
+            buttonType = buttonType,
+            isEnabled = isEnabled,
+            interactionSource = interactionSource
         )
     }
 }
