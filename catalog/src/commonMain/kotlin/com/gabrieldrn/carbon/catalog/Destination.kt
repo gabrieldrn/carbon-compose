@@ -174,7 +174,8 @@ enum class Destination(
         content = { modifier -> ToggleDemoScreen(modifier = modifier) }
     ),
     Tooltip(
-        "Tooltip",
+        title = "Tooltip",
+        illustration = Res.drawable.tile_tooltip,
         route = "tooltip",
         content = { modifier -> TooltipDemoScreen(modifier = modifier) }
     ),
