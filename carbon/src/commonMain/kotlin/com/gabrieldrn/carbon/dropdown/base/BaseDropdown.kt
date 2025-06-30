@@ -26,7 +26,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -105,9 +104,9 @@ internal fun <K : Any> BaseDropdown(
     label: String? = null,
     state: DropdownInteractiveState = DropdownInteractiveState.Enabled,
     dropdownSize: DropdownSize = DropdownSize.Large,
+    isInlined: Boolean = false,
     minFieldWidth: Dp = Dp.Unspecified,
     maxFieldWidth: Dp = Dp.Unspecified,
-    isInlined: Boolean = false,
     fieldContent: @Composable () -> Unit,
     popupContent: @Composable DropdownPopupScope.() -> Unit,
 ) {
@@ -123,8 +122,7 @@ internal fun <K : Any> BaseDropdown(
     val labelTextColor by colors.labelTextColor(state)
     val helperTextColor by colors.helperTextColor(state)
 
-    @Composable
-    fun fieldAndPopup(mod: Modifier = Modifier) {
+    val fieldAndPopup = @Composable {
         FieldAndPopupLayout(
             options = options,
             dropdownSize = dropdownSize,
@@ -143,6 +141,7 @@ internal fun <K : Any> BaseDropdown(
                     expandedStates = expandedStates,
                     onExpandedChange = onExpandedChange,
                     fieldContent = fieldContent,
+                    modifier = Modifier.widthIn( minFieldWidth,maxFieldWidth )
                 )
             },
             popup = {
@@ -166,15 +165,14 @@ internal fun <K : Any> BaseDropdown(
                         is DropdownInteractiveState.ReadOnly -> "Read-only"
                     }
                 }
-            }.then(mod)
+            }
         )
     }
 
     if (isInlined) {
         Row(
-            modifier = Modifier,
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center
+            horizontalArrangement = Arrangement.spacedBy(SpacingScale.spacing06)
         ) {
             label.takeIf { !it.isNullOrBlank() }?.let {
                 DropdownLabel(
@@ -183,17 +181,12 @@ internal fun <K : Any> BaseDropdown(
                 )
             }
 
-            fieldAndPopup(
-                    Modifier
-                        .weight(1f)
-                        .widthIn(min = minFieldWidth, max = maxFieldWidth)
-                )
+            fieldAndPopup()
 
             state.helperText?.let {
                 DropdownHelperText(
                     text = it,
-                    color = helperTextColor,
-                    modifier = Modifier.padding(start = SpacingScale.spacing04)
+                    color = helperTextColor
                 )
             }
         }

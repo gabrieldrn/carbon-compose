@@ -71,6 +71,8 @@ import com.gabrieldrn.carbon.dropdown.base.dpSize
  * @param dropdownSize The size of the dropdown, in terms of height. Defaults to
  * [DropdownSize.Large].
  * @param isInlined Whether the dropdown should have the inline modification or not.
+ * @param minFieldWidth Minimum width of the field when inline.
+ * @param maxFieldWidth Maximum width of the field when inline.
  * @param minVisibleItems The minimum number of items to be visible in the dropdown menu before the
  * user needs to scroll. This value is used to calculate the height of the menu. Defaults to 4.
  * @throws IllegalArgumentException If the options map is empty.
@@ -118,6 +120,8 @@ public fun <K : Any> Dropdown(
         state = state,
         dropdownSize = dropdownSize,
         isInlined = isInlined,
+        minFieldWidth = minFieldWidth,
+        maxFieldWidth = maxFieldWidth,
         fieldContent = {
             DropdownPlaceholderText(
                 placeholderText = fieldText,
@@ -127,8 +131,6 @@ public fun <K : Any> Dropdown(
 
             DropdownStateIcon(state = state)
         },
-        minFieldWidth = minFieldWidth,
-        maxFieldWidth = maxFieldWidth,
         popupContent = {
             DropdownPopupContent(
                 selectedOption = selectedOption,
@@ -182,6 +184,8 @@ public fun <K : Any> Dropdown(
  * @param minFieldWidth The minimum width to apply to the dropdown field when inline. Defaults to `Dp.Unspecified`.
  * @param maxFieldWidth The maximum width to apply to the dropdown field when inline. Defaults to `Dp.Unspecified`.
  * @param isInlined Whether the dropdown should have the inline modification or not.
+ * @param minFieldWidth Minimum width of the field when inline.
+ * @param maxFieldWidth Maximum width of the field when inline.
  * @param minVisibleItems The minimum number of items to be visible in the dropdown menu before the
  * user needs to scroll. This value is used to calculate the height of the menu. Defaults to 4.
  * @throws IllegalArgumentException If the options map is empty.

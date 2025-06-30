@@ -94,7 +94,8 @@ internal fun DropdownDemoScreen(
                 state = dropdownState,
                 size = dropdownSize,
                 isInlined = isInlined,
-                maxFieldWidth = 400.dp
+                minFieldWidth = 120.dp,
+                maxFieldWidth = 300.dp
             )
             DropdownVariant.Multiselect -> MultiselectDemoDropdown(
                 state = dropdownState,
