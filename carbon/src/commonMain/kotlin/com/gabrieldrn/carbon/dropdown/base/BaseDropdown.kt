@@ -141,7 +141,7 @@ internal fun <K : Any> BaseDropdown(
                     expandedStates = expandedStates,
                     onExpandedChange = onExpandedChange,
                     fieldContent = fieldContent,
-                    modifier = Modifier.widthIn( minFieldWidth,maxFieldWidth )
+                    modifier = Modifier.widthIn(minFieldWidth, maxFieldWidth)
                 )
             },
             popup = {
@@ -172,12 +172,13 @@ internal fun <K : Any> BaseDropdown(
     if (isInlined) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(SpacingScale.spacing06)
+            horizontalArrangement = Arrangement.Center
         ) {
             label.takeIf { !it.isNullOrBlank() }?.let {
                 DropdownLabel(
                     text = it,
-                    color = labelTextColor
+                    color = labelTextColor,
+                    modifier = Modifier.padding(end = SpacingScale.spacing05)
                 )
             }
 
@@ -186,7 +187,8 @@ internal fun <K : Any> BaseDropdown(
             state.helperText?.let {
                 DropdownHelperText(
                     text = it,
-                    color = helperTextColor
+                    color = helperTextColor,
+                    modifier = Modifier.padding(start = SpacingScale.spacing04)
                 )
             }
         }
@@ -205,7 +207,8 @@ internal fun <K : Any> BaseDropdown(
             state.helperText?.let {
                 DropdownHelperText(
                     text = it,
-                    color = helperTextColor
+                    color = helperTextColor,
+                    modifier = Modifier.padding(top = SpacingScale.spacing02)
                 )
             }
         }
@@ -300,7 +303,6 @@ private fun DropdownHelperText(
         style = Carbon.typography.helperText01,
         color = color,
         modifier = modifier
-            .padding(top = SpacingScale.spacing02)
             .testTag(DropdownTestTags.HELPER_TEXT)
     )
 }

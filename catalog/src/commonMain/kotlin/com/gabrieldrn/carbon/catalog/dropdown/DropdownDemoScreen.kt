@@ -24,6 +24,7 @@ import androidx.compose.runtime.saveable.Saver
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.catalog.common.DemoScreen
 import com.gabrieldrn.carbon.dropdown.Dropdown
@@ -89,13 +90,20 @@ internal fun DropdownDemoScreen(
 
     val demoContent: @Composable ColumnScope.(TabItem) -> Unit = { selectedVariant ->
 
+        val fieldWidthIn by rememberSaveable(isInlined) {
+            mutableStateOf(
+                if (isInlined) 120.dp to 250.dp
+                else Dp.Unspecified to 300.dp
+            )
+        }
+
         when (DropdownVariant.valueOf(selectedVariant.label)) {
             DropdownVariant.Default -> DefaultDemoDropdown(
                 state = dropdownState,
                 size = dropdownSize,
                 isInlined = isInlined,
-                minFieldWidth = 120.dp,
-                maxFieldWidth = 300.dp
+                minFieldWidth = fieldWidthIn.first,
+                maxFieldWidth = fieldWidthIn.second
             )
             DropdownVariant.Multiselect -> MultiselectDemoDropdown(
                 state = dropdownState,
@@ -104,7 +112,7 @@ internal fun DropdownDemoScreen(
         }
     }
 
-    val parametersContent: @Composable ColumnScope.(TabItem) -> Unit = {
+    val parametersContent: @Composable ColumnScope.(TabItem) -> Unit = { selectedVariant ->
         Dropdown(
             placeholder = "Choose option",
             label = "Dropdown state",
@@ -123,13 +131,12 @@ internal fun DropdownDemoScreen(
             )
         }
 
-        if (variant == DropdownVariant.Default) {
-            Toggle(
-                label = "Inlined",
-                isToggled = isInlined,
-                onToggleChange = { isInlined = it },
-            )
-        }
+        Toggle(
+            label = "Inlined",
+            isToggled = isInlined,
+            onToggleChange = { isInlined = it },
+            isEnabled = DropdownVariant.valueOf(selectedVariant.label) == DropdownVariant.Default
+        )
     }
 
     DemoScreen(
