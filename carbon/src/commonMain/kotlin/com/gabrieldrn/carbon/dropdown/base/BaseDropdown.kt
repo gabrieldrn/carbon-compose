@@ -29,6 +29,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.Stable
@@ -104,6 +105,8 @@ internal fun <K : Any> BaseDropdown(
     state: DropdownInteractiveState = DropdownInteractiveState.Enabled,
     dropdownSize: DropdownSize = DropdownSize.Large,
     isInlined: Boolean = false,
+    minFieldWidth: Dp = Dp.Unspecified,
+    maxFieldWidth: Dp = Dp.Unspecified,
     fieldContent: @Composable () -> Unit,
     popupContent: @Composable DropdownPopupScope.() -> Unit,
 ) {
@@ -138,6 +141,7 @@ internal fun <K : Any> BaseDropdown(
                     expandedStates = expandedStates,
                     onExpandedChange = onExpandedChange,
                     fieldContent = fieldContent,
+                    modifier = Modifier.widthIn(minFieldWidth, maxFieldWidth)
                 )
             },
             popup = {
@@ -167,26 +171,25 @@ internal fun <K : Any> BaseDropdown(
 
     if (isInlined) {
         Row(
-            modifier = modifier,
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
             label.takeIf { !it.isNullOrBlank() }?.let {
                 DropdownLabel(
                     text = it,
-                    color = labelTextColor
+                    color = labelTextColor,
+                    modifier = Modifier.padding(end = SpacingScale.spacing05)
                 )
             }
 
-            Column(modifier = Modifier.padding(start = SpacingScale.spacing06)) {
-                fieldAndPopup()
+            fieldAndPopup()
 
-                state.helperText?.let {
-                    DropdownHelperText(
-                        text = it,
-                        color = helperTextColor
-                    )
-                }
+            state.helperText?.let {
+                DropdownHelperText(
+                    text = it,
+                    color = helperTextColor,
+                    modifier = Modifier.padding(start = SpacingScale.spacing04)
+                )
             }
         }
     } else {
@@ -204,7 +207,8 @@ internal fun <K : Any> BaseDropdown(
             state.helperText?.let {
                 DropdownHelperText(
                     text = it,
-                    color = helperTextColor
+                    color = helperTextColor,
+                    modifier = Modifier.padding(top = SpacingScale.spacing02)
                 )
             }
         }
@@ -299,7 +303,6 @@ private fun DropdownHelperText(
         style = Carbon.typography.helperText01,
         color = color,
         modifier = modifier
-            .padding(top = SpacingScale.spacing02)
             .testTag(DropdownTestTags.HELPER_TEXT)
     )
 }
