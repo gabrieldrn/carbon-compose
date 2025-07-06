@@ -28,7 +28,7 @@ import androidx.compose.ui.window.PopupPositionProvider
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 
 internal class TooltipPositionProvider
-@VisibleForTesting(otherwise = VisibleForTesting.Companion.PRIVATE) constructor(
+@VisibleForTesting(otherwise = VisibleForTesting.Companion.PACKAGE_PRIVATE) constructor(
     private val placement: TooltipPlacement,
     private val alignment: TooltipAlignment,
     private val caretSize: Dp,
@@ -41,6 +41,7 @@ internal class TooltipPositionProvider
         caretSize.roundToPx()
     }
 
+    // Spacing around the actual popup. This allows to draw the caret.
     private val popupPadding = with(density) {
         SpacingScale.spacing02.roundToPx()
     }
@@ -55,6 +56,7 @@ internal class TooltipPositionProvider
             .roundToPx()
     }
 
+    // Distance between the edge of the content (excluding the margin around) and the caret tip.
     private val edgeToCaretTipOffset =
         popupPadding + contentPadding + 2 * caretSizeInt
 
@@ -82,7 +84,7 @@ internal class TooltipPositionProvider
         }
 
         fun verticalYOffset(): Int {
-            val uiTriggerHalfEight = anchorBounds.height / 2
+            val uiTriggerHalfHeight = anchorBounds.height / 2
 
             return if (isSingleLine) {
                 anchorBounds.top + (anchorBounds.height - popupContentSize.height) / 2
@@ -90,13 +92,13 @@ internal class TooltipPositionProvider
                 when (alignment) {
                     TooltipAlignment.Start -> anchorBounds.top +
                         -edgeToCaretTipOffset +
-                        uiTriggerHalfEight
+                        uiTriggerHalfHeight
                     TooltipAlignment.Center -> anchorBounds.top +
                         (anchorBounds.height - popupContentSize.height) / 2
                     TooltipAlignment.End -> anchorBounds.bottom -
                         popupContentSize.height +
                         edgeToCaretTipOffset -
-                        uiTriggerHalfEight
+                        uiTriggerHalfHeight
                 }
             }
         }

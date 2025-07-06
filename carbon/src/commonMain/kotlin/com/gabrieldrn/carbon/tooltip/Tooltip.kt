@@ -39,7 +39,8 @@ import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 import kotlinx.coroutines.launch
 
-// TODO Default placement on mobile is Bottom
+// TODO Definition tooltip variant
+// TODO Handle Esc key event to dismiss tooltip
 
 private val tooltipSingleLineMaxWidth = 208.dp
 private val tooltipMultiLineMaxWidth = 288.dp
@@ -98,6 +99,16 @@ private val tooltipMargin = SpacingScale.spacing02
  *     onClick = {}
  * )
  * ```
+ *
+ * ## Automatic placement
+ *
+ * Carbon's documentation states that Tooltips have an automatic placement: "tooltips can detect the
+ * edges of the browser to be placed in view so the container does not get cutoff". However, as this
+ * implementation of the Tooltip is using Compose's Popup component under the hood, it is not
+ * possible to implement such a behaviour because the tooltip popup shape must be determined by its
+ * placement, which, in the case of an automatic one, have to be determined by the position provider
+ * during its pass in `calculatePosition`, which, if reused to recalculate the shape inside the
+ * compose scope, might cause undesired results or errors with the framework.
  *
  * From [Tooltip documentation](https://carbondesignsystem.com/components/tooltip/usage/)
  *

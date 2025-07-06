@@ -24,11 +24,8 @@ package com.gabrieldrn.carbon.tooltip
  */
 public enum class TooltipPlacement {
 
-//    TODO May require a significant amount of work to implement.
-//    /**
-//     * Automatic placement of the tooltip based on available space.
-//     */
-//    Auto,
+    // Auto: Requires a significant amount of work to implement. Impossible to implement with
+    // Compose's popup (check Tooltip component KDoc).
 
     /**
      * Places the tooltip to the right of the UI trigger.
