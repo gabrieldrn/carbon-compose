@@ -48,6 +48,7 @@
 - Toggle
     - [Default toggle](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.toggle/-toggle.html)
     - [Small toggle](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.toggle/-small-toggle.html)
+- [Tooltip](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.tooltip/-tooltip-box.html)
 
 ### Missing components size options
 

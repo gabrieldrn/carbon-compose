@@ -39,9 +39,6 @@ import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 import kotlinx.coroutines.launch
 
-// TODO Definition tooltip variant
-// TODO Handle Esc key event to dismiss tooltip
-
 private val tooltipSingleLineMaxWidth = 208.dp
 private val tooltipMultiLineMaxWidth = 288.dp
 private val tooltipSingleLinePaddingValues = PaddingValues(
@@ -79,7 +76,7 @@ private val tooltipMargin = SpacingScale.spacing02
  *         modifier = Modifier.clickable(
  *             interactionSource = uiTriggerMutableInteractionSource,
  *             indication = null,
- *             onClick = { /* No-op */ }
+ *             onClick = {}
  *         )
  *     )
  * }
@@ -110,6 +107,8 @@ private val tooltipMargin = SpacingScale.spacing02
  * during its pass in `calculatePosition`, which, if reused to recalculate the shape inside the
  * compose scope, might cause undesired results or errors with the framework.
  *
+ * **TL;DR**: Automatic placement is not supported.
+ *
  * From [Tooltip documentation](https://carbondesignsystem.com/components/tooltip/usage/)
  *
  * @param tooltipText Text to display in the tooltip.
@@ -124,7 +123,7 @@ private val tooltipMargin = SpacingScale.spacing02
  * @param uiTriggerMutableInteractionSource A shared [MutableInteractionSource] that will be used
  * to track the focus interactions of the UI trigger.
  * @param content UI trigger content that will be wrapped by the tooltip. This is typically a button
- * or an icon that the user can hover over to see the tooltip.
+ * or an icon that the user can hover over or long-press to see the tooltip.
  */
 @Composable
 @ExperimentalFoundationApi
@@ -168,7 +167,7 @@ public fun TooltipBox(
  * to track the focus interactions of the UI trigger.
  * @param modifier Default Modifier to be applied to the whole composable.
  * @param content UI trigger content that will be wrapped by the tooltip. This is typically a button
- * or an icon that the user can hover over to see the tooltip.
+ * or an icon that the user can hover over or long-press to see the tooltip.
  */
 @Composable
 @ExperimentalFoundationApi
