@@ -88,5 +88,6 @@ List of the currently supported components:
 | Tile               |             |        |              |           |
 | Toggle             |      ✅      |   ✅    |      ✅       |     ✅     |
 | Toggletip          |             |        |              |           |
+| Tooltip            |      ✅      |   ✅    |      ✅       |     ✅     |
 | Treeview           |             |        |              |           |
 | UI shell           |             |        |              |           |

@@ -34,6 +34,7 @@ import com.gabrieldrn.carbon.catalog.tab.TabListDemoScreen
 import com.gabrieldrn.carbon.catalog.tag.TagDemoScreen
 import com.gabrieldrn.carbon.catalog.textinput.TextInputDemoScreen
 import com.gabrieldrn.carbon.catalog.toggle.ToggleDemoScreen
+import com.gabrieldrn.carbon.catalog.tooltip.TooltipDemoScreen
 import org.jetbrains.compose.resources.DrawableResource
 
 @Suppress("UndocumentedPublicClass", "UndocumentedPublicProperty")
@@ -172,7 +173,12 @@ enum class Destination(
         route = "toggle",
         content = { modifier -> ToggleDemoScreen(modifier = modifier) }
     ),
-    Tooltip("Tooltip"),
+    Tooltip(
+        title = "Tooltip",
+        illustration = Res.drawable.tile_tooltip,
+        route = "tooltip",
+        content = { modifier -> TooltipDemoScreen(modifier = modifier) }
+    ),
     UIShell("UI shell");
 
     companion object {
