@@ -11,7 +11,6 @@ import com.gabrieldrn.carbon.foundation.color.button.WhiteButtonColors
 import com.gabrieldrn.carbon.foundation.color.chat.WhiteChatColors
 import com.gabrieldrn.carbon.foundation.color.notification.WhiteNotificationColors
 import com.gabrieldrn.carbon.foundation.color.tag.WhiteTagColors
-import kotlin.Suppress
 
 /**
  * One of the default _light_ themes available in Carbon.
@@ -21,7 +20,7 @@ import kotlin.Suppress
  *
  * The second layer uses White and the third layer used Gray 10.
  */
-public val WhiteTheme: Theme = 
+public val WhiteTheme: Theme =
     Theme(
         background = Color(0xFFFFFFFF),
         backgroundActive = Color(0x7F8D8D8D),
@@ -80,6 +79,9 @@ public val WhiteTheme: Theme =
         layerActive01 = Color(0xFFC6C6C6),
         layerActive02 = Color(0xFFC6C6C6),
         layerActive03 = Color(0xFFC6C6C6),
+        layerBackground01 = Color(0xFFFFFFFF),
+        layerBackground02 = Color(0xFFF4F4F4),
+        layerBackground03 = Color(0xFFFFFFFF),
         layerHover01 = Color(0xFFE8E8E8),
         layerHover02 = Color(0xFFE8E8E8),
         layerHover03 = Color(0xFFE8E8E8),

@@ -21,7 +21,7 @@ kotlinxCoroutinesSwing = "1.10.2"
 kotlinxSerializationJson = "1.8.1"
 
 # Community libraries
-kotlinPoet = "1.18.0"
+kotlinPoet = "2.2.0"
 publish-plugin = "0.31.0"
 detekt = "1.23.8"
 dokka = "2.0.0"

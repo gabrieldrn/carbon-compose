@@ -4,5 +4,5 @@ from the Carbon Design System and generate JSON files with the extracted data. E
 corresponds to a theme and are then used by the `:code-gen` module to generate Kotlin 
 implementations from those tokens.
 
-Use `./gradlew :doc-parser:jsNodeRun` to run the parser and generate the JSON files. Generated files are placed in
-`:code-gen`
+Use `./gradlew :doc-parser:jsNodeProductionRun` to run the parser and generate the JSON files. Generated files are 
+placed in `:code-gen`

@@ -16,8 +16,7 @@ import kotlin.Suppress
 /**
  * One of the default _light_ themes available in Carbon.
  *
- * This theme uses Gray 10 as the global background color and is layered first with components using
- * White backgrounds.
+ * This theme uses Gray 10 as the global background color and is layered first with components using White backgrounds.
  *
  * The second layer uses Gray 10 and the third layer used White.
  */
@@ -80,6 +79,9 @@ public val Gray10Theme: Theme =
         layerActive01 = Color(0xFFC6C6C6),
         layerActive02 = Color(0xFFC6C6C6),
         layerActive03 = Color(0xFFC6C6C6),
+        layerBackground01 = Color(0xFFF4F4F4),
+        layerBackground02 = Color(0xFFFFFFFF),
+        layerBackground03 = Color(0xFFF4F4F4),
         layerHover01 = Color(0xFFE8E8E8),
         layerHover02 = Color(0xFFE8E8E8),
         layerHover03 = Color(0xFFE8E8E8),
