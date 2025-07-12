@@ -69,15 +69,9 @@ fun ButtonDemoScreen(modifier: Modifier = Modifier) {
                 placeholder = "Choose option",
                 options = buttonSizes,
                 selectedOption = buttonSize,
-                state = when {
-                    ButtonVariant.valueOf(variant.label) == ButtonVariant.Icon ->
-                        DropdownInteractiveState.Disabled
-                    buttonSize == ButtonSize.Small ||
-                        buttonSize == ButtonSize.Medium ->
-                        DropdownInteractiveState.Warning("Discouraged size usage")
-                    else ->
-                        DropdownInteractiveState.Enabled
-                },
+                state = getSizeSpecification(buttonSize)
+                    ?.let(DropdownInteractiveState::Warning)
+                    ?: DropdownInteractiveState.Enabled,
                 onOptionSelected = { buttonSize = it },
             )
 
