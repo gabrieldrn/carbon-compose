@@ -42,10 +42,11 @@ import com.gabrieldrn.carbon.foundation.color.containerColor
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 
 private class DropdownLayerPreviewParameterProvider : PreviewParameterProvider<Layer> {
-    override val values: Sequence<Layer> = Layer
-        .entries
-        .filterNot { it == Layer.Layer03 }
-        .asSequence()
+    override val values: Sequence<Layer> = sequenceOf(
+        Layer.Layer01,
+        Layer.Layer02,
+        Layer.Layer03
+    )
 }
 
 @Preview(showBackground = true)

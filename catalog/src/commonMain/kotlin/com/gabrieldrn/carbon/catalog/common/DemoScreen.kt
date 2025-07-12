@@ -138,6 +138,7 @@ fun DemoScreen(
             ParametersLayout(
                 layers = layers,
                 selectedLayer = layer,
+                displayLayerParameter = displayLayerParameter,
                 onLayerSelected = { layer = it },
                 content = { demoParametersContent?.invoke(this, variant) }
             )
@@ -200,6 +201,7 @@ fun DemoScreen(
             ParametersLayout(
                 layers = layers,
                 selectedLayer = layer,
+                displayLayerParameter = displayLayerParameter,
                 onLayerSelected = { layer = it },
                 content = { demoParametersContent?.invoke(this) }
             )
@@ -211,6 +213,7 @@ fun DemoScreen(
 private fun ParametersLayout(
     layers: Map<Layer, DropdownOption>,
     selectedLayer: Layer,
+    displayLayerParameter: Boolean,
     onLayerSelected: (Layer) -> Unit,
     content: @Composable ColumnScope.() -> Unit?,
 ) {
@@ -228,12 +231,14 @@ private fun ParametersLayout(
 
             content()
 
-            LayerSelectionDropdown(
-                layers = layers,
-                selectedLayer = selectedLayer,
-                onLayerSelected = onLayerSelected,
-                modifier = Modifier.padding(top = SpacingScale.spacing03)
-            )
+            if (displayLayerParameter) {
+                LayerSelectionDropdown(
+                    layers = layers,
+                    selectedLayer = selectedLayer,
+                    onLayerSelected = onLayerSelected,
+                    modifier = Modifier.padding(top = SpacingScale.spacing03)
+                )
+            }
         }
     }
 }

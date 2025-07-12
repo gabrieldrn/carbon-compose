@@ -133,6 +133,7 @@ fun ProgressBarDemoScreen(modifier: Modifier = Modifier) {
         variants = progressBarVariants,
         demoParametersContent = parameters,
         demoContent = demoContent,
+        displayLayerParameter = false,
         modifier = modifier
     )
 }

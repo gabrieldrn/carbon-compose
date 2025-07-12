@@ -62,6 +62,7 @@ fun BreadcrumbDemoScreen(modifier: Modifier = Modifier) {
                 onToggleChange = { trailingSeparator = it }
             )
         },
+        displayLayerParameter = false,
         modifier = modifier,
     )
 }
