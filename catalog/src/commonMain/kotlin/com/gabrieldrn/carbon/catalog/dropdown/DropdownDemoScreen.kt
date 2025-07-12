@@ -128,6 +128,9 @@ internal fun DropdownDemoScreen(
                 options = sizes,
                 selectedOption = dropdownSize,
                 onOptionSelected = { dropdownSize = it },
+                state = getSizeSpecification(dropdownSize)
+                    ?.let(DropdownInteractiveState::Warning)
+                    ?: DropdownInteractiveState.Enabled
             )
         }
 
