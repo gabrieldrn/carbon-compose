@@ -63,7 +63,7 @@ import com.gabrieldrn.carbon.dropdown.base.DropdownInteractiveState
 import com.gabrieldrn.carbon.dropdown.base.toDropdownOptions
 import com.gabrieldrn.carbon.foundation.color.CarbonLayer
 import com.gabrieldrn.carbon.foundation.color.Layer
-import com.gabrieldrn.carbon.foundation.color.containerBackground
+import com.gabrieldrn.carbon.foundation.color.layerBackground
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 import com.gabrieldrn.carbon.toggle.Toggle
 import org.jetbrains.compose.resources.painterResource
@@ -82,7 +82,7 @@ fun ContentSwitcherDemoScreen(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .fillMaxSize()
-            .containerBackground()
+            .layerBackground()
             .verticalScroll(state = rememberScrollState())
             .padding(WindowInsets.navigationBars.asPaddingValues())
     ) {
@@ -105,7 +105,7 @@ fun ContentSwitcherDemoScreen(modifier: Modifier = Modifier) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(200.dp)
-                    .containerBackground()
+                    .layerBackground()
                     .padding(SpacingScale.spacing05),
                 contentAlignment = Alignment.Center
             ) {
@@ -128,7 +128,7 @@ fun ContentSwitcherDemoScreen(modifier: Modifier = Modifier) {
             Column(
                 modifier = Modifier
                     .padding(SpacingScale.spacing05)
-                    .containerBackground()
+                    .layerBackground()
                     .padding(SpacingScale.spacing05),
                 verticalArrangement = Arrangement.spacedBy(SpacingScale.spacing06)
             ) {

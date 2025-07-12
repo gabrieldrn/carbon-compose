@@ -19,10 +19,26 @@ package com.gabrieldrn.carbon.foundation.color
 import androidx.compose.ui.graphics.Color
 
 /**
+ * Returns the contextual `layer-background` color token corresponding to the [layer] it is placed
+ * on.
+ *
+ * @param layer Associated layer. Defaults to layer 00.
+ */
+public fun Theme.layerBackgroundColor(layer: Layer = Layer.Layer00): Color = when (layer) {
+    Layer.Layer00 -> layerBackground01
+    Layer.Layer01 -> layerBackground02
+    else -> layerBackground03
+}
+
+/**
  * Returns the container color based on a provided [layer].
  *
  * @param layer Associated layer. Defaults to layer 00.
  */
+@Deprecated(
+    "Replaced with `layerBackgroundColor` in favor to the new `layer-background` colors",
+    replaceWith = ReplaceWith("layerBackgroundColor")
+)
 public fun Theme.containerColor(layer: Layer = Layer.Layer00): Color = when (layer) {
     Layer.Layer00 -> background
     Layer.Layer01 -> layer01

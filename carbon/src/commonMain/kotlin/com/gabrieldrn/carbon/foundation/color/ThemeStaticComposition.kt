@@ -76,8 +76,16 @@ public fun CarbonLayer(
 }
 
 /**
+ * Applies a background color to the modifier corresponding to the current [Layer].
+ */
+public fun Modifier.layerBackground(): Modifier = this.composed {
+    background(Carbon.theme.layerBackgroundColor(Carbon.layer))
+}
+
+/**
  * Applies a background color to the modifier based on the current [Layer].
  */
+@Deprecated("Use alternative using `layer-background` colors.")
 public fun Modifier.containerBackground(): Modifier = this.composed {
     background(Carbon.theme.containerColor(Carbon.layer))
 }

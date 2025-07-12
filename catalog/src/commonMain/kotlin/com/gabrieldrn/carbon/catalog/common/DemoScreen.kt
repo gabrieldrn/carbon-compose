@@ -44,7 +44,7 @@ import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.dropdown.base.DropdownOption
 import com.gabrieldrn.carbon.foundation.color.CarbonLayer
 import com.gabrieldrn.carbon.foundation.color.Layer
-import com.gabrieldrn.carbon.foundation.color.containerBackground
+import com.gabrieldrn.carbon.foundation.color.layerBackground
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 import com.gabrieldrn.carbon.notification.CalloutNotification
 import com.gabrieldrn.carbon.notification.NotificationStatus
@@ -80,7 +80,7 @@ fun DemoScreen(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .containerBackground()
+            .layerBackground()
             .verticalScroll(state = rememberScrollState())
             .padding(WindowInsets.navigationBars.asPaddingValues())
             .padding(horizontal = SpacingScale.spacing05)
@@ -119,7 +119,7 @@ fun DemoScreen(
                                     .align(Alignment.CenterHorizontally)
                             }
                         )
-                        .containerBackground()
+                        .layerBackground()
                         .contentPadding(),
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center,
@@ -163,7 +163,7 @@ fun DemoScreen(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .containerBackground()
+            .layerBackground()
             .verticalScroll(state = rememberScrollState())
             .padding(WindowInsets.navigationBars.asPaddingValues())
             .padding(SpacingScale.spacing05),
@@ -184,7 +184,7 @@ fun DemoScreen(
                                 .align(Alignment.CenterHorizontally)
                         }
                     )
-                    .containerBackground()
+                    .layerBackground()
                     .contentPadding(),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center,
@@ -217,7 +217,7 @@ private fun ParametersLayout(
     CarbonLayer {
         Column(
             modifier = Modifier
-                .containerBackground()
+                .layerBackground()
                 .padding(SpacingScale.spacing05),
             verticalArrangement = Arrangement.spacedBy(SpacingScale.spacing04)
         ) {

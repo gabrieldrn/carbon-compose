@@ -25,7 +25,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.gabrieldrn.carbon.CarbonDesignSystem
-import com.gabrieldrn.carbon.foundation.color.containerBackground
+import com.gabrieldrn.carbon.foundation.color.layerBackground
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 
 private val options = listOf("Option 1", "Optioooooooooon 2", "Option 3")
@@ -41,7 +41,7 @@ private fun ContentSwitcherPreview() {
             selectedOption = selectedOption,
             onOptionSelected = { selectedOption = it },
             modifier = Modifier
-                .containerBackground()
+                .layerBackground()
                 .padding(SpacingScale.spacing05)
         )
     }

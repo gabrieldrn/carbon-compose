@@ -40,7 +40,7 @@ import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.catalog.Destination
 import com.gabrieldrn.carbon.catalog.Res
 import com.gabrieldrn.carbon.catalog.picto_construction_worker
-import com.gabrieldrn.carbon.foundation.color.containerBackground
+import com.gabrieldrn.carbon.foundation.color.layerBackground
 import com.gabrieldrn.carbon.foundation.motion.Motion
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 import kotlinx.coroutines.launch
@@ -84,7 +84,7 @@ fun CarbonComponentGridTile(
     Box(
         modifier = modifier
             .clickable(onClick = onTileClicked)
-            .containerBackground()
+            .layerBackground()
             .fillMaxSize()
     ) {
         Box(
