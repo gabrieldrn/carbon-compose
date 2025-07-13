@@ -1,7 +1,7 @@
 // ----------------------------------
 // /!\ Generated code. Do not modify.
 // ----------------------------------
-@file:Suppress("TopLevelPropertyNaming", "TrailingWhitespace")
+@file:Suppress("TopLevelPropertyNaming", "TrailingWhitespace", "MaxLineLength")
 
 package com.gabrieldrn.carbon.foundation.color
 
@@ -11,16 +11,16 @@ import com.gabrieldrn.carbon.foundation.color.button.WhiteButtonColors
 import com.gabrieldrn.carbon.foundation.color.chat.WhiteChatColors
 import com.gabrieldrn.carbon.foundation.color.notification.WhiteNotificationColors
 import com.gabrieldrn.carbon.foundation.color.tag.WhiteTagColors
+import kotlin.Suppress
 
 /**
  * One of the default _light_ themes available in Carbon.
  *
- * This theme uses White as the global background color and is layered first with components using
- * Gray 10 backgrounds.
+ * This theme uses White as the global background color and is layered first with components using Gray 10 backgrounds.
  *
  * The second layer uses White and the third layer used Gray 10.
  */
-public val WhiteTheme: Theme =
+public val WhiteTheme: Theme = 
     Theme(
         background = Color(0xFFFFFFFF),
         backgroundActive = Color(0x7F8D8D8D),

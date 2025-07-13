@@ -38,7 +38,7 @@ import com.squareup.kotlinpoet.TypeSpec
 import com.squareup.kotlinpoet.buildCodeBlock
 import com.squareup.kotlinpoet.typeNameOf
 import java.nio.file.Paths
-import java.util.Locale
+import java.util.*
 import kotlin.reflect.full.createType
 import kotlin.reflect.full.declaredMemberProperties
 import kotlin.reflect.full.memberProperties
@@ -68,12 +68,12 @@ private const val componentImplementationKdoc = "Color tokens for the %s compone
 
 private val dataClassesSuppressedIssuesAnnotation =
     AnnotationSpec.builder(Suppress::class)
-        .addMember("%S", "UndocumentedPublicProperty")
+        .addMember("%S, %S", "UndocumentedPublicProperty", "MaxLineLength")
         .build()
 
 private val topLevelPropertiesSuppressedIssuesAnnotation =
     AnnotationSpec.builder(Suppress::class)
-        .addMember("%S, %S", "TopLevelPropertyNaming", "TrailingWhitespace")
+        .addMember("%S, %S, %S", "TopLevelPropertyNaming", "TrailingWhitespace", "MaxLineLength")
         .build()
 
 private fun String.capitalize() = replaceFirstChar {

@@ -11,7 +11,7 @@ import kotlin.Suppress
  * Color tokens for the Chat component.
  */
 @Immutable
-@Suppress("UndocumentedPublicProperty")
+@Suppress("UndocumentedPublicProperty", "MaxLineLength")
 public data class ChatColors(
     public val chatAvatarAgent: Color,
     public val chatAvatarBot: Color,

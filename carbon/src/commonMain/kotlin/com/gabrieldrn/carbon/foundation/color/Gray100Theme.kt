@@ -1,7 +1,7 @@
 // ----------------------------------
 // /!\ Generated code. Do not modify.
 // ----------------------------------
-@file:Suppress("TopLevelPropertyNaming", "TrailingWhitespace")
+@file:Suppress("TopLevelPropertyNaming", "TrailingWhitespace", "MaxLineLength")
 
 package com.gabrieldrn.carbon.foundation.color
 

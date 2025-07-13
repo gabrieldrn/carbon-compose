@@ -11,7 +11,7 @@ import kotlin.Suppress
  * Color tokens for the Button component.
  */
 @Immutable
-@Suppress("UndocumentedPublicProperty")
+@Suppress("UndocumentedPublicProperty", "MaxLineLength")
 public data class ButtonColors(
     public val buttonDangerActive: Color,
     public val buttonDangerHover: Color,

@@ -20,7 +20,7 @@ import kotlin.Suppress
  * See [Themes guidelines](https://carbondesignsystem.com/guidelines/themes/overview/) for more information.
  */
 @Immutable
-@Suppress("UndocumentedPublicProperty")
+@Suppress("UndocumentedPublicProperty", "MaxLineLength")
 public data class Theme(
     public val background: Color,
     public val backgroundActive: Color,

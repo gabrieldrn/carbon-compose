@@ -11,7 +11,7 @@ import kotlin.Suppress
  * Color tokens for the Tag component.
  */
 @Immutable
-@Suppress("UndocumentedPublicProperty")
+@Suppress("UndocumentedPublicProperty", "MaxLineLength")
 public data class TagColors(
     public val tagBackgroundBlue: Color,
     public val tagBackgroundCoolGray: Color,
