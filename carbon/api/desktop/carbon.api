@@ -290,6 +290,8 @@ public final class com/gabrieldrn/carbon/foundation/color/ContextualTokensKt {
 	public static synthetic fun layerAccentHoverColor$default (Lcom/gabrieldrn/carbon/foundation/color/Theme;Lcom/gabrieldrn/carbon/foundation/color/Layer;ILjava/lang/Object;)J
 	public static final fun layerActiveColor (Lcom/gabrieldrn/carbon/foundation/color/Theme;Lcom/gabrieldrn/carbon/foundation/color/Layer;)J
 	public static synthetic fun layerActiveColor$default (Lcom/gabrieldrn/carbon/foundation/color/Theme;Lcom/gabrieldrn/carbon/foundation/color/Layer;ILjava/lang/Object;)J
+	public static final fun layerBackgroundColor (Lcom/gabrieldrn/carbon/foundation/color/Theme;Lcom/gabrieldrn/carbon/foundation/color/Layer;)J
+	public static synthetic fun layerBackgroundColor$default (Lcom/gabrieldrn/carbon/foundation/color/Theme;Lcom/gabrieldrn/carbon/foundation/color/Layer;ILjava/lang/Object;)J
 	public static final fun layerColor (Lcom/gabrieldrn/carbon/foundation/color/Theme;Lcom/gabrieldrn/carbon/foundation/color/Layer;)J
 	public static synthetic fun layerColor$default (Lcom/gabrieldrn/carbon/foundation/color/Theme;Lcom/gabrieldrn/carbon/foundation/color/Layer;ILjava/lang/Object;)J
 	public static final fun layerHoverColor (Lcom/gabrieldrn/carbon/foundation/color/Theme;Lcom/gabrieldrn/carbon/foundation/color/Layer;)J
@@ -326,16 +328,19 @@ public final class com/gabrieldrn/carbon/foundation/color/Layer : java/lang/Enum
 
 public final class com/gabrieldrn/carbon/foundation/color/Theme {
 	public static final field $stable I
-	public synthetic fun <init> (JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJLcom/gabrieldrn/carbon/foundation/color/ai/AiColors;Lcom/gabrieldrn/carbon/foundation/color/button/ButtonColors;Lcom/gabrieldrn/carbon/foundation/color/chat/ChatColors;Lcom/gabrieldrn/carbon/foundation/color/notification/NotificationColors;Lcom/gabrieldrn/carbon/foundation/color/tag/TagColors;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJLcom/gabrieldrn/carbon/foundation/color/ai/AiColors;Lcom/gabrieldrn/carbon/foundation/color/button/ButtonColors;Lcom/gabrieldrn/carbon/foundation/color/chat/ChatColors;Lcom/gabrieldrn/carbon/foundation/color/notification/NotificationColors;Lcom/gabrieldrn/carbon/foundation/color/tag/TagColors;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1-0d7_KjU ()J
 	public final fun component10-0d7_KjU ()J
 	public final fun component100-0d7_KjU ()J
 	public final fun component101-0d7_KjU ()J
-	public final fun component102 ()Lcom/gabrieldrn/carbon/foundation/color/ai/AiColors;
-	public final fun component103 ()Lcom/gabrieldrn/carbon/foundation/color/button/ButtonColors;
-	public final fun component104 ()Lcom/gabrieldrn/carbon/foundation/color/chat/ChatColors;
-	public final fun component105 ()Lcom/gabrieldrn/carbon/foundation/color/notification/NotificationColors;
-	public final fun component106 ()Lcom/gabrieldrn/carbon/foundation/color/tag/TagColors;
+	public final fun component102-0d7_KjU ()J
+	public final fun component103-0d7_KjU ()J
+	public final fun component104-0d7_KjU ()J
+	public final fun component105 ()Lcom/gabrieldrn/carbon/foundation/color/ai/AiColors;
+	public final fun component106 ()Lcom/gabrieldrn/carbon/foundation/color/button/ButtonColors;
+	public final fun component107 ()Lcom/gabrieldrn/carbon/foundation/color/chat/ChatColors;
+	public final fun component108 ()Lcom/gabrieldrn/carbon/foundation/color/notification/NotificationColors;
+	public final fun component109 ()Lcom/gabrieldrn/carbon/foundation/color/tag/TagColors;
 	public final fun component11-0d7_KjU ()J
 	public final fun component12-0d7_KjU ()J
 	public final fun component13-0d7_KjU ()J
@@ -433,8 +438,8 @@ public final class com/gabrieldrn/carbon/foundation/color/Theme {
 	public final fun component97-0d7_KjU ()J
 	public final fun component98-0d7_KjU ()J
 	public final fun component99-0d7_KjU ()J
-	public final fun copy-2-eky90 (JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJLcom/gabrieldrn/carbon/foundation/color/ai/AiColors;Lcom/gabrieldrn/carbon/foundation/color/button/ButtonColors;Lcom/gabrieldrn/carbon/foundation/color/chat/ChatColors;Lcom/gabrieldrn/carbon/foundation/color/notification/NotificationColors;Lcom/gabrieldrn/carbon/foundation/color/tag/TagColors;)Lcom/gabrieldrn/carbon/foundation/color/Theme;
-	public static synthetic fun copy-2-eky90$default (Lcom/gabrieldrn/carbon/foundation/color/Theme;JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJLcom/gabrieldrn/carbon/foundation/color/ai/AiColors;Lcom/gabrieldrn/carbon/foundation/color/button/ButtonColors;Lcom/gabrieldrn/carbon/foundation/color/chat/ChatColors;Lcom/gabrieldrn/carbon/foundation/color/notification/NotificationColors;Lcom/gabrieldrn/carbon/foundation/color/tag/TagColors;IIIILjava/lang/Object;)Lcom/gabrieldrn/carbon/foundation/color/Theme;
+	public final fun copy-QO2q6N4 (JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJLcom/gabrieldrn/carbon/foundation/color/ai/AiColors;Lcom/gabrieldrn/carbon/foundation/color/button/ButtonColors;Lcom/gabrieldrn/carbon/foundation/color/chat/ChatColors;Lcom/gabrieldrn/carbon/foundation/color/notification/NotificationColors;Lcom/gabrieldrn/carbon/foundation/color/tag/TagColors;)Lcom/gabrieldrn/carbon/foundation/color/Theme;
+	public static synthetic fun copy-QO2q6N4$default (Lcom/gabrieldrn/carbon/foundation/color/Theme;JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJLcom/gabrieldrn/carbon/foundation/color/ai/AiColors;Lcom/gabrieldrn/carbon/foundation/color/button/ButtonColors;Lcom/gabrieldrn/carbon/foundation/color/chat/ChatColors;Lcom/gabrieldrn/carbon/foundation/color/notification/NotificationColors;Lcom/gabrieldrn/carbon/foundation/color/tag/TagColors;IIIILjava/lang/Object;)Lcom/gabrieldrn/carbon/foundation/color/Theme;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getAiColors ()Lcom/gabrieldrn/carbon/foundation/color/ai/AiColors;
 	public final fun getBackground-0d7_KjU ()J
@@ -496,6 +501,9 @@ public final class com/gabrieldrn/carbon/foundation/color/Theme {
 	public final fun getLayerActive01-0d7_KjU ()J
 	public final fun getLayerActive02-0d7_KjU ()J
 	public final fun getLayerActive03-0d7_KjU ()J
+	public final fun getLayerBackground01-0d7_KjU ()J
+	public final fun getLayerBackground02-0d7_KjU ()J
+	public final fun getLayerBackground03-0d7_KjU ()J
 	public final fun getLayerHover01-0d7_KjU ()J
 	public final fun getLayerHover02-0d7_KjU ()J
 	public final fun getLayerHover03-0d7_KjU ()J
@@ -553,6 +561,7 @@ public final class com/gabrieldrn/carbon/foundation/color/ThemeStaticComposition
 	public static final fun getLocalCarbonInlineTheme ()Landroidx/compose/runtime/ProvidableCompositionLocal;
 	public static final fun getLocalCarbonLayer ()Landroidx/compose/runtime/ProvidableCompositionLocal;
 	public static final fun getLocalCarbonTheme ()Landroidx/compose/runtime/ProvidableCompositionLocal;
+	public static final fun layerBackground (Landroidx/compose/ui/Modifier;)Landroidx/compose/ui/Modifier;
 }
 
 public final class com/gabrieldrn/carbon/foundation/color/WhiteThemeKt {
