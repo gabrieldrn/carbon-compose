@@ -16,21 +16,11 @@
 
 package com.gabrieldrn.carbon.catalog.contentswitcher
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.asPaddingValues
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.BasicText
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -40,11 +30,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.button.IconButton
 import com.gabrieldrn.carbon.catalog.Res
-import com.gabrieldrn.carbon.catalog.common.LayerSelectionDropdown
+import com.gabrieldrn.carbon.catalog.common.DemoScreen
 import com.gabrieldrn.carbon.catalog.content_switcher_demo_opt1_description
 import com.gabrieldrn.carbon.catalog.content_switcher_demo_opt2_description
 import com.gabrieldrn.carbon.catalog.content_switcher_demo_opt3_description
@@ -61,10 +50,8 @@ import com.gabrieldrn.carbon.contentswitcher.IconContentSwitcher
 import com.gabrieldrn.carbon.dropdown.Dropdown
 import com.gabrieldrn.carbon.dropdown.base.DropdownInteractiveState
 import com.gabrieldrn.carbon.dropdown.base.toDropdownOptions
-import com.gabrieldrn.carbon.foundation.color.CarbonLayer
-import com.gabrieldrn.carbon.foundation.color.Layer
-import com.gabrieldrn.carbon.foundation.color.containerBackground
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
+import com.gabrieldrn.carbon.tab.TabItem
 import com.gabrieldrn.carbon.toggle.Toggle
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
@@ -77,103 +64,60 @@ private const val DEFAULT_CONTENT_SWITCHER_OPT_2 = "Long option 2"
 
 private enum class ContentSwitcherVariant { Default, Icon }
 
+private val contentSwitcherVariants = ContentSwitcherVariant.entries.map { it.name }.map(::TabItem)
+
 @Composable
 fun ContentSwitcherDemoScreen(modifier: Modifier = Modifier) {
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .containerBackground()
-            .verticalScroll(state = rememberScrollState())
-            .padding(WindowInsets.navigationBars.asPaddingValues())
-    ) {
-        var layer by rememberSaveable { mutableStateOf(Layer.Layer00) }
 
-        var variant by rememberSaveable {
-            mutableStateOf(ContentSwitcherVariant.Default)
-        }
-
-        var size by rememberSaveable {
-            mutableStateOf(ContentSwitcherSize.Large)
-        }
-
-        var extraOptions by rememberSaveable { mutableStateOf(1) }
-
-        var isEnabled by remember { mutableStateOf(true) }
-
-        CarbonLayer(layer = layer) {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(200.dp)
-                    .containerBackground()
-                    .padding(SpacingScale.spacing05),
-                contentAlignment = Alignment.Center
-            ) {
-                when (variant) {
-                    ContentSwitcherVariant.Default -> DemoDefaultContentSwitcher(
-                        extraOptions = extraOptions,
-                        isEnabled = isEnabled,
-                        size = size
-                    )
-                    ContentSwitcherVariant.Icon -> DemoIconContentSwitcher(
-                        extraOptions = extraOptions,
-                        isEnabled = isEnabled,
-                        size = size
-                    )
-                }
-            }
-        }
-
-        CarbonLayer {
-            Column(
-                modifier = Modifier
-                    .padding(SpacingScale.spacing05)
-                    .containerBackground()
-                    .padding(SpacingScale.spacing05),
-                verticalArrangement = Arrangement.spacedBy(SpacingScale.spacing06)
-            ) {
-                BasicText(
-                    text = "Configuration",
-                    style = Carbon.typography.heading02.copy(color = Carbon.theme.textPrimary)
-                )
-
-                Dropdown(
-                    label = "Variant",
-                    placeholder = "Select variant",
-                    options = ContentSwitcherVariant.entries.toDropdownOptions(),
-                    selectedOption = variant,
-                    onOptionSelected = { variant = it },
-                )
-
-                ExtraOptionsSelector(
-                    extraOptions = extraOptions,
-                    onExtraOptionsChange = { extraOptions = it }
-                )
-
-                Dropdown(
-                    label = "Size",
-                    placeholder = "Select size",
-                    options = ContentSwitcherSize.entries.toDropdownOptions(),
-                    selectedOption = size,
-                    onOptionSelected = { size = it },
-                    state = getSizeSpecification(size)
-                        ?.let(DropdownInteractiveState::Warning)
-                        ?: DropdownInteractiveState.Enabled
-                )
-
-                Toggle(
-                    label = "Enable",
-                    isToggled = isEnabled,
-                    onToggleChange = { isEnabled = it },
-                )
-
-                LayerSelectionDropdown(
-                    selectedLayer = layer,
-                    onLayerSelected = { layer = it },
-                )
-            }
-        }
+    var size by rememberSaveable {
+        mutableStateOf(ContentSwitcherSize.Large)
     }
+
+    var extraOptions by rememberSaveable { mutableStateOf(1) }
+
+    var isEnabled by remember { mutableStateOf(true) }
+
+    DemoScreen(
+        modifier = modifier,
+        variants = contentSwitcherVariants,
+        demoParametersContent = {
+            ExtraOptionsSelector(
+                extraOptions = extraOptions,
+                onExtraOptionsChange = { extraOptions = it }
+            )
+
+            Dropdown(
+                label = "Size",
+                placeholder = "Select size",
+                options = ContentSwitcherSize.entries.toDropdownOptions(),
+                selectedOption = size,
+                onOptionSelected = { size = it },
+                state = getSizeSpecification(size)
+                    ?.let(DropdownInteractiveState::Warning)
+                    ?: DropdownInteractiveState.Enabled
+            )
+
+            Toggle(
+                label = "Enable",
+                isToggled = isEnabled,
+                onToggleChange = { isEnabled = it },
+            )
+        },
+        demoContent = { variant ->
+            when (ContentSwitcherVariant.valueOf(variant.label)) {
+                ContentSwitcherVariant.Default -> DemoDefaultContentSwitcher(
+                    extraOptions = extraOptions,
+                    isEnabled = isEnabled,
+                    size = size
+                )
+                ContentSwitcherVariant.Icon -> DemoIconContentSwitcher(
+                    extraOptions = extraOptions,
+                    isEnabled = isEnabled,
+                    size = size
+                )
+            }
+        }
+    )
 }
 
 @Composable

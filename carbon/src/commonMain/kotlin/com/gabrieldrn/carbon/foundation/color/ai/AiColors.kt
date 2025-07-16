@@ -11,7 +11,7 @@ import kotlin.Suppress
  * Color tokens for the Ai component.
  */
 @Immutable
-@Suppress("UndocumentedPublicProperty")
+@Suppress("UndocumentedPublicProperty", "MaxLineLength")
 public data class AiColors(
     public val aiAuraEnd: Color,
     public val aiAuraHoverBackground: Color,

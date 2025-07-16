@@ -27,7 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.window.ComposeUIViewController
 import com.gabrieldrn.carbon.CarbonDesignSystem
-import com.gabrieldrn.carbon.foundation.color.containerBackground
+import com.gabrieldrn.carbon.foundation.color.layerBackground
 import platform.UIKit.UIViewController
 
 @OptIn(ExperimentalComposeUiApi::class)
@@ -50,7 +50,7 @@ fun MainViewController(): UIViewController =
             }
 
             Box(
-                modifier = Modifier.fillMaxSize().containerBackground(),
+                modifier = Modifier.fillMaxSize().layerBackground(),
                 contentAlignment = Alignment.Center
             ) {
                 Catalog(layoutType = layoutType)

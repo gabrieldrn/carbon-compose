@@ -109,19 +109,19 @@ CarbonDesignSystem {
 
 When working with layers, the background should be adjusted to reflect the corresponding layer.
 
-Carbon Compose provides a `containerBackground` modifier that you can apply to any composable to automatically set the 
+Carbon Compose provides a `layerBackground` modifier that you can apply to any composable to automatically set the 
 appropriate background:
 
 ```kotlin
 Box(
     modifier = Modifier
         .fillMaxSize()
-        .containerBackground()
+        .layerBackground()
 ) {
     Button()
 }
 ```
-[`fun Modifier.containerBackground()` :octicons-arrow-up-right-24:](https://gabrieldrn.github.io/carbon-compose/api/-carbon%20-compose/com.gabrieldrn.carbon.foundation.color/container-background.html)
+[`fun Modifier.layerBackground()` :octicons-arrow-up-right-24:](https://gabrieldrn.github.io/carbon-compose/api/-carbon%20-compose/com.gabrieldrn.carbon.foundation.color/layer-background.html)
 
 ### Typography
 

@@ -54,6 +54,7 @@ fun ButtonDemoScreen(modifier: Modifier = Modifier) {
     DemoScreen(
         modifier = modifier,
         variants = buttonVariants,
+        displayLayerParameter = false,
         demoParametersContent = { variant ->
             Dropdown(
                 label = "Button type",

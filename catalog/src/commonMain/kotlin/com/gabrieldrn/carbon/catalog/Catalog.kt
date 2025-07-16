@@ -36,9 +36,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalUriHandler
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.NavHostController
 import com.gabrieldrn.carbon.api.ExperimentalCarbonApi
 import com.gabrieldrn.carbon.button.ButtonType
 import com.gabrieldrn.carbon.button.IconButton
@@ -46,7 +46,7 @@ import com.gabrieldrn.carbon.catalog.BaseDestination.Companion.eq
 import com.gabrieldrn.carbon.catalog.common.LocalGridBreakpoint
 import com.gabrieldrn.carbon.catalog.common.getGridBreakpoint
 import com.gabrieldrn.carbon.catalog.theme.CarbonCatalogTheme
-import com.gabrieldrn.carbon.foundation.color.containerBackground
+import com.gabrieldrn.carbon.foundation.color.layerBackground
 import com.gabrieldrn.carbon.uishell.UiShellHeader
 import org.jetbrains.compose.resources.painterResource
 
@@ -100,7 +100,7 @@ fun Catalog(
             Column(
                 modifier = modifier
                     .fillMaxSize()
-                    .containerBackground()
+                    .layerBackground()
             ) {
                 UiShellHeader(
                     headerName = currentScreen.title,

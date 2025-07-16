@@ -44,7 +44,7 @@ import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.dropdown.base.DropdownOption
 import com.gabrieldrn.carbon.foundation.color.CarbonLayer
 import com.gabrieldrn.carbon.foundation.color.Layer
-import com.gabrieldrn.carbon.foundation.color.containerBackground
+import com.gabrieldrn.carbon.foundation.color.layerBackground
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 import com.gabrieldrn.carbon.notification.CalloutNotification
 import com.gabrieldrn.carbon.notification.NotificationStatus
@@ -80,7 +80,7 @@ fun DemoScreen(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .containerBackground()
+            .layerBackground()
             .verticalScroll(state = rememberScrollState())
             .padding(WindowInsets.navigationBars.asPaddingValues())
             .padding(horizontal = SpacingScale.spacing05)
@@ -119,7 +119,7 @@ fun DemoScreen(
                                     .align(Alignment.CenterHorizontally)
                             }
                         )
-                        .containerBackground()
+                        .layerBackground()
                         .contentPadding(),
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center,
@@ -138,6 +138,7 @@ fun DemoScreen(
             ParametersLayout(
                 layers = layers,
                 selectedLayer = layer,
+                displayLayerParameter = displayLayerParameter,
                 onLayerSelected = { layer = it },
                 content = { demoParametersContent?.invoke(this, variant) }
             )
@@ -163,7 +164,7 @@ fun DemoScreen(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .containerBackground()
+            .layerBackground()
             .verticalScroll(state = rememberScrollState())
             .padding(WindowInsets.navigationBars.asPaddingValues())
             .padding(SpacingScale.spacing05),
@@ -184,7 +185,7 @@ fun DemoScreen(
                                 .align(Alignment.CenterHorizontally)
                         }
                     )
-                    .containerBackground()
+                    .layerBackground()
                     .contentPadding(),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center,
@@ -200,6 +201,7 @@ fun DemoScreen(
             ParametersLayout(
                 layers = layers,
                 selectedLayer = layer,
+                displayLayerParameter = displayLayerParameter,
                 onLayerSelected = { layer = it },
                 content = { demoParametersContent?.invoke(this) }
             )
@@ -211,13 +213,14 @@ fun DemoScreen(
 private fun ParametersLayout(
     layers: Map<Layer, DropdownOption>,
     selectedLayer: Layer,
+    displayLayerParameter: Boolean,
     onLayerSelected: (Layer) -> Unit,
     content: @Composable ColumnScope.() -> Unit?,
 ) {
     CarbonLayer {
         Column(
             modifier = Modifier
-                .containerBackground()
+                .layerBackground()
                 .padding(SpacingScale.spacing05),
             verticalArrangement = Arrangement.spacedBy(SpacingScale.spacing04)
         ) {
@@ -228,12 +231,14 @@ private fun ParametersLayout(
 
             content()
 
-            LayerSelectionDropdown(
-                layers = layers,
-                selectedLayer = selectedLayer,
-                onLayerSelected = onLayerSelected,
-                modifier = Modifier.padding(top = SpacingScale.spacing03)
-            )
+            if (displayLayerParameter) {
+                LayerSelectionDropdown(
+                    layers = layers,
+                    selectedLayer = selectedLayer,
+                    onLayerSelected = onLayerSelected,
+                    modifier = Modifier.padding(top = SpacingScale.spacing03)
+                )
+            }
         }
     }
 }

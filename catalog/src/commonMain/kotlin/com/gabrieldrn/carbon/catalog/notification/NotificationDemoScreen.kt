@@ -176,6 +176,7 @@ fun NotificationDemoScreen(
             }
         },
         demoParametersContent = parametersContent,
+        displayLayerParameter = false,
         displayVariantsWIPNotification = true
     )
 }

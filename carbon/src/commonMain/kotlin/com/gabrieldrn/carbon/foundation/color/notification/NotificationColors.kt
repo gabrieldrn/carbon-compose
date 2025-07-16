@@ -11,7 +11,7 @@ import kotlin.Suppress
  * Color tokens for the Notification component.
  */
 @Immutable
-@Suppress("UndocumentedPublicProperty")
+@Suppress("UndocumentedPublicProperty", "MaxLineLength")
 public data class NotificationColors(
     public val notificationActionHover: Color,
     public val notificationActionTertiaryInverse: Color,

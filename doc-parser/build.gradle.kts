@@ -16,7 +16,7 @@ kotlin {
     sourceSets {
         val jsMain by getting {
             dependencies {
-                implementation(npm("@carbon/themes", "11.43.0"))
+                implementation(npm("@carbon/themes", "11.55.0"))
             }
         }
     }

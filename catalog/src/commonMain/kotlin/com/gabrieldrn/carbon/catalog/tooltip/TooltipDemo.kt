@@ -135,6 +135,7 @@ fun TooltipDemoScreen(modifier: Modifier = Modifier) {
                 label = "Single line",
             )
         },
+        displayLayerParameter = false,
         modifier = modifier
     )
 }

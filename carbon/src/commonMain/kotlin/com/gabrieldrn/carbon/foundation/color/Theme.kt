@@ -13,18 +13,14 @@ import com.gabrieldrn.carbon.foundation.color.tag.TagColors
 import kotlin.Suppress
 
 /**
- * Themes are used to modify existing components to fit a specific visual style. By using Carbon’s
- * tokens, developers can easily customize all of their components by changing a set of universal
- * variables, eliminating the need to modify individual components.
+ * Themes are used to modify existing components to fit a specific visual style. By using Carbon’s tokens, developers can easily customize all of their components by changing a set of universal variables, eliminating the need to modify individual components.
  *
- * Themes serve as an organizational framework for color in Carbon, with each theme based on a
- * specific primary background color. And they actually get their names from their background color.
+ * Themes serve as an organizational framework for color in Carbon, with each theme based on a specific primary background color. And they actually get their names from their background color.
  *
- * See [Themes guidelines](https://carbondesignsystem.com/guidelines/themes/overview/) for more
- * information.
+ * See [Themes guidelines](https://carbondesignsystem.com/guidelines/themes/overview/) for more information.
  */
 @Immutable
-@Suppress("UndocumentedPublicProperty")
+@Suppress("UndocumentedPublicProperty", "MaxLineLength")
 public data class Theme(
     public val background: Color,
     public val backgroundActive: Color,
@@ -83,6 +79,9 @@ public data class Theme(
     public val layerActive01: Color,
     public val layerActive02: Color,
     public val layerActive03: Color,
+    public val layerBackground01: Color,
+    public val layerBackground02: Color,
+    public val layerBackground03: Color,
     public val layerHover01: Color,
     public val layerHover02: Color,
     public val layerHover03: Color,

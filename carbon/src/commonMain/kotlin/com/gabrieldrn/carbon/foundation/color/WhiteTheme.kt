@@ -1,7 +1,7 @@
 // ----------------------------------
 // /!\ Generated code. Do not modify.
 // ----------------------------------
-@file:Suppress("TopLevelPropertyNaming", "TrailingWhitespace")
+@file:Suppress("TopLevelPropertyNaming", "TrailingWhitespace", "MaxLineLength")
 
 package com.gabrieldrn.carbon.foundation.color
 
@@ -16,8 +16,7 @@ import kotlin.Suppress
 /**
  * One of the default _light_ themes available in Carbon.
  *
- * This theme uses White as the global background color and is layered first with components using
- * Gray 10 backgrounds.
+ * This theme uses White as the global background color and is layered first with components using Gray 10 backgrounds.
  *
  * The second layer uses White and the third layer used Gray 10.
  */
@@ -80,6 +79,9 @@ public val WhiteTheme: Theme =
         layerActive01 = Color(0xFFC6C6C6),
         layerActive02 = Color(0xFFC6C6C6),
         layerActive03 = Color(0xFFC6C6C6),
+        layerBackground01 = Color(0xFFFFFFFF),
+        layerBackground02 = Color(0xFFF4F4F4),
+        layerBackground03 = Color(0xFFFFFFFF),
         layerHover01 = Color(0xFFE8E8E8),
         layerHover02 = Color(0xFFE8E8E8),
         layerHover03 = Color(0xFFE8E8E8),

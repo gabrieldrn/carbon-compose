@@ -38,7 +38,7 @@ import com.gabrieldrn.carbon.catalog.theme.CarbonTheme
 import com.gabrieldrn.carbon.dropdown.Dropdown
 import com.gabrieldrn.carbon.dropdown.base.toDropdownOptions
 import com.gabrieldrn.carbon.foundation.color.CarbonLayer
-import com.gabrieldrn.carbon.foundation.color.containerBackground
+import com.gabrieldrn.carbon.foundation.color.layerBackground
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 
 @Composable
@@ -51,7 +51,7 @@ fun SettingsScreen(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .containerBackground()
+            .layerBackground()
             .verticalScroll(state = rememberScrollState())
             .padding(WindowInsets.navigationBars.asPaddingValues())
     ) {
@@ -59,7 +59,7 @@ fun SettingsScreen(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .containerBackground()
+                    .layerBackground()
                     .padding(SpacingScale.spacing05)
             ) {
                 BasicText(
