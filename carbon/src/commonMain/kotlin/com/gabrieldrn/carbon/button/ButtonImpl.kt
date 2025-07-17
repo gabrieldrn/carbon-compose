@@ -37,6 +37,7 @@ import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredSize
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
@@ -56,20 +57,24 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.foundation.motion.Motion
-import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 
 internal val buttonTransitionSpec = tween<Float>(
     durationMillis = Motion.Duration.fast01,
     easing = Motion.Entrance.productiveEasing
 )
 
-private fun Modifier.requiredButtonSize(buttonSize: ButtonSize, isIconButton: Boolean) =
-    this
-        .requiredSize(
-            width = if (isIconButton) SpacingScale.spacing09 else Dp.Unspecified,
-            height = if (isIconButton) SpacingScale.spacing09 else buttonSize.heightDp()
-        )
-        .width(IntrinsicSize.Max)
+private fun Modifier.requiredButtonSize(buttonSize: ButtonSize, isIconButton: Boolean): Modifier =
+    this then if (isIconButton) {
+        Modifier.size(buttonSize.heightDp())
+    } else {
+        Modifier
+            .requiredSize(
+                width = Dp.Unspecified,
+                height = buttonSize.heightDp()
+            )
+            .width(IntrinsicSize.Max)
+    }
+
 
 private fun AnimatedContentTransitionScope<ButtonScope>.getContentTransition() =
     if (initialState.isEnabled != targetState.isEnabled) {

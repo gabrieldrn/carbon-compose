@@ -104,8 +104,8 @@ public final class com/gabrieldrn/carbon/button/ButtonType : java/lang/Enum {
 }
 
 public final class com/gabrieldrn/carbon/button/IconButtonKt {
-	public static final fun IconButton (Landroidx/compose/ui/graphics/painter/Painter;Lcom/gabrieldrn/carbon/tooltip/TooltipParameters;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Landroidx/compose/ui/Modifier;Lcom/gabrieldrn/carbon/button/ButtonType;ZLandroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;II)V
-	public static final fun IconButton (Landroidx/compose/ui/graphics/painter/Painter;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Lcom/gabrieldrn/carbon/button/ButtonType;ZLandroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;II)V
+	public static final fun IconButton (Landroidx/compose/ui/graphics/painter/Painter;Lcom/gabrieldrn/carbon/tooltip/TooltipParameters;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Landroidx/compose/ui/Modifier;Lcom/gabrieldrn/carbon/button/ButtonType;Lcom/gabrieldrn/carbon/button/ButtonSize;ZLandroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;II)V
+	public static final fun IconButton (Landroidx/compose/ui/graphics/painter/Painter;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Lcom/gabrieldrn/carbon/button/ButtonType;Lcom/gabrieldrn/carbon/button/ButtonSize;ZLandroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;II)V
 }
 
 public final class com/gabrieldrn/carbon/checkbox/CheckboxKt {
