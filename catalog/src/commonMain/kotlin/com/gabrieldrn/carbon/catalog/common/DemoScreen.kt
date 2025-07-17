@@ -17,6 +17,7 @@
 package com.gabrieldrn.carbon.catalog.common
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.IntrinsicSize
@@ -41,9 +42,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
+import com.gabrieldrn.carbon.CarbonDesignSystem
 import com.gabrieldrn.carbon.dropdown.base.DropdownOption
 import com.gabrieldrn.carbon.foundation.color.CarbonLayer
 import com.gabrieldrn.carbon.foundation.color.Layer
+import com.gabrieldrn.carbon.foundation.color.LocalCarbonInlineTheme
 import com.gabrieldrn.carbon.foundation.color.layerBackground
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 import com.gabrieldrn.carbon.notification.CalloutNotification
@@ -70,7 +73,7 @@ fun DemoScreen(
     displayLayerParameter: Boolean = true,
     demoParametersContent: (@Composable ColumnScope.(TabItem) -> Unit)? = null,
 ) {
-    var layer by rememberSaveable { mutableStateOf(Layer.Layer00) }
+    var demoLayer by rememberSaveable { mutableStateOf(Layer.Layer00) }
     var variant by rememberSaveable(stateSaver = TabItem.Saver) { mutableStateOf(defaultVariant) }
 
     val hasParametersContent = rememberSaveable(demoParametersContent, displayLayerParameter) {
@@ -79,68 +82,108 @@ fun DemoScreen(
 
     Column(
         modifier = modifier
-            .fillMaxSize()
-            .layerBackground()
-            .verticalScroll(state = rememberScrollState())
             .padding(WindowInsets.navigationBars.asPaddingValues())
-            .padding(horizontal = SpacingScale.spacing05)
-            .padding(top = SpacingScale.spacing03, bottom = SpacingScale.spacing05),
-        verticalArrangement = Arrangement.spacedBy(SpacingScale.spacing05)
     ) {
+        VariantsTabList(
+            variants = variants,
+            selectedVariant = variant,
+            onVariantSelected = { variant = it },
+        )
 
         Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .then(
-                    if (!hasParametersContent) {
-                        Modifier.weight(1f)
-                    } else {
-                        Modifier
-                    }
-                )
+                .fillMaxSize()
+                .layerBackground()
+                .verticalScroll(state = rememberScrollState())
+                .padding(horizontal = SpacingScale.spacing05)
+                .padding(top = SpacingScale.spacing03, bottom = SpacingScale.spacing05),
+            verticalArrangement = Arrangement.spacedBy(SpacingScale.spacing05)
         ) {
-            TabList(
-                tabs = variants,
-                selectedTab = variant,
-                onTabSelected = { variant = it },
+            DemoVariantContent(
+                variant = variant,
+                layer = demoLayer,
+                hasParametersContent = hasParametersContent,
+                demoContent = demoContent,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .then(
+                        if (!hasParametersContent) {
+                            Modifier.weight(1f)
+                        } else {
+                            Modifier
+                        }
+                    )
             )
 
-            CarbonLayer(layer = layer) {
-                Column(
-                    modifier = Modifier
-                        .then(
-                            if (hasParametersContent) {
-                                Modifier
-                                    .fillMaxWidth()
-                                    .heightIn(min = 200.dp)
-                            } else {
-                                Modifier
-                                    .width(IntrinsicSize.Max)
-                                    .align(Alignment.CenterHorizontally)
-                            }
-                        )
-                        .layerBackground()
-                        .contentPadding(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center,
-                    content = {
-                        demoContent(variant)
-                    }
+            if (displayVariantsWIPNotification) {
+                WIPNotification()
+            }
+
+            if (hasParametersContent) {
+                ParametersLayout(
+                    layers = layers,
+                    selectedLayer = demoLayer,
+                    displayLayerParameter = displayLayerParameter,
+                    onLayerSelected = { demoLayer = it },
+                    content = { demoParametersContent?.invoke(this, variant) }
                 )
             }
         }
+    }
+}
 
-        if (displayVariantsWIPNotification) {
-            WIPNotification()
+@Composable
+private fun VariantsTabList(
+    variants: List<TabItem>,
+    selectedVariant: TabItem,
+    onVariantSelected: (TabItem) -> Unit,
+) {
+    val inlineTheme = LocalCarbonInlineTheme.current
+    CarbonDesignSystem(inlineTheme) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .layerBackground()
+        ) {
+            TabList(
+                tabs = variants,
+                selectedTab = selectedVariant,
+                onTabSelected = onVariantSelected,
+            )
         }
+    }
+}
 
-        if (hasParametersContent) {
-            ParametersLayout(
-                layers = layers,
-                selectedLayer = layer,
-                displayLayerParameter = displayLayerParameter,
-                onLayerSelected = { layer = it },
-                content = { demoParametersContent?.invoke(this, variant) }
+@Composable
+private fun DemoVariantContent(
+    variant: TabItem,
+    layer: Layer,
+    hasParametersContent: Boolean,
+    demoContent: @Composable ColumnScope.(TabItem) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    Column(modifier = modifier) {
+        CarbonLayer(layer = layer) {
+            Column(
+                modifier = Modifier
+                    .then(
+                        if (hasParametersContent) {
+                            Modifier
+                                .fillMaxWidth()
+                                .heightIn(min = 200.dp)
+                        } else {
+                            Modifier
+                                .width(IntrinsicSize.Max)
+                                .align(Alignment.CenterHorizontally)
+                        }
+                    )
+                    .layerBackground()
+                    .contentPadding(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center,
+                content = {
+                    demoContent(variant)
+                }
             )
         }
     }
@@ -155,7 +198,7 @@ fun DemoScreen(
     displayLayerParameter: Boolean = true,
     demoParametersContent: (@Composable ColumnScope.() -> Unit)? = null
 ) {
-    var layer by rememberSaveable { mutableStateOf(Layer.Layer00) }
+    var demoLayer by rememberSaveable { mutableStateOf(Layer.Layer00) }
 
     val hasParametersContent = rememberSaveable(demoParametersContent, displayLayerParameter) {
         demoParametersContent != null || displayLayerParameter
@@ -170,7 +213,7 @@ fun DemoScreen(
             .padding(SpacingScale.spacing05),
         verticalArrangement = Arrangement.spacedBy(SpacingScale.spacing05)
     ) {
-        CarbonLayer(layer = layer) {
+        CarbonLayer(layer = demoLayer) {
             Column(
                 modifier = Modifier
                     .then(
@@ -200,9 +243,9 @@ fun DemoScreen(
         if (hasParametersContent) {
             ParametersLayout(
                 layers = layers,
-                selectedLayer = layer,
+                selectedLayer = demoLayer,
                 displayLayerParameter = displayLayerParameter,
-                onLayerSelected = { layer = it },
+                onLayerSelected = { demoLayer = it },
                 content = { demoParametersContent?.invoke(this) }
             )
         }
@@ -216,10 +259,12 @@ private fun ParametersLayout(
     displayLayerParameter: Boolean,
     onLayerSelected: (Layer) -> Unit,
     content: @Composable ColumnScope.() -> Unit?,
+    modifier: Modifier = Modifier
 ) {
     CarbonLayer {
         Column(
-            modifier = Modifier
+            modifier = modifier
+                .fillMaxWidth()
                 .layerBackground()
                 .padding(SpacingScale.spacing05),
             verticalArrangement = Arrangement.spacedBy(SpacingScale.spacing04)

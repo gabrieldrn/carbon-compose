@@ -171,6 +171,7 @@ internal fun <K : Any> BaseDropdown(
 
     if (isInlined) {
         Row(
+            modifier = modifier,
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
