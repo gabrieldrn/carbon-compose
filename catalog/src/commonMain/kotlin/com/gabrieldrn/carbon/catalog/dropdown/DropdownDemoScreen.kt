@@ -93,7 +93,7 @@ internal fun DropdownDemoScreen(
         val fieldWidthIn by rememberSaveable(isInlined) {
             mutableStateOf(
                 if (isInlined) 120.dp to 250.dp
-                else Dp.Unspecified to Dp.Unspecified
+                else Dp.Unspecified to 400.dp
             )
         }
 

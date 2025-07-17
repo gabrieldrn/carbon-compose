@@ -16,7 +16,6 @@
 
 package com.gabrieldrn.carbon.catalog.dropdown
 
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -68,7 +67,7 @@ fun DefaultDemoDropdown(
         isInlined = isInlined,
         minFieldWidth = minFieldWidth,
         maxFieldWidth = maxFieldWidth,
-        modifier = modifier.fillMaxWidth()
+        modifier = modifier
     )
 }
 
