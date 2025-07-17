@@ -43,6 +43,7 @@ import com.gabrieldrn.carbon.tooltip.TooltipParameters
  * @param onClick Callback invoked when the button is clicked.
  * @param modifier The modifier to be applied to the button.
  * @param buttonType A [ButtonType] that defines the button's type.
+ * @param buttonSize A [ButtonSize] that defines the button's size.
  * @param isEnabled Whether the button is enabled or disabled.
  * @param interactionSource The [MutableInteractionSource] that keeps track of the button's state.
  *
@@ -54,13 +55,14 @@ public fun IconButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     buttonType: ButtonType = ButtonType.Primary,
+    buttonSize: ButtonSize = ButtonSize.LargeProductive,
     isEnabled: Boolean = true,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
 ) {
     ButtonRowImpl(
         onClick = onClick,
         buttonType = buttonType,
-        buttonSize = ButtonSize.LargeProductive,
+        buttonSize = buttonSize,
         isEnabled = isEnabled,
         modifier = modifier,
         isIconButton = true,
@@ -70,7 +72,14 @@ public fun IconButton(
             painter = iconPainter,
             scope = buttonScope,
             modifier = Modifier
-                .padding(start = SpacingScale.spacing05, top = SpacingScale.spacing05)
+                .weight(1f)
+                .padding(
+                    top = when (buttonSize) {
+                        ButtonSize.Small -> SpacingScale.spacing03
+                        ButtonSize.Medium -> SpacingScale.spacing04
+                        else -> SpacingScale.spacing05
+                    }
+                )
                 .size(SpacingScale.spacing05)
         )
     }
@@ -96,6 +105,7 @@ public fun IconButton(
  * @param modifier The modifier to be applied to the button.
  * @param tooltipModifier The modifier to be applied to the tooltip.
  * @param buttonType A [ButtonType] that defines the button's type.
+ * @param buttonSize A [ButtonSize] that defines the button's size.
  * @param isEnabled Whether the button is enabled or disabled.
  * @param interactionSource The [MutableInteractionSource] that keeps track of the button's state.
  *
@@ -110,6 +120,7 @@ public fun IconButton(
     modifier: Modifier = Modifier,
     tooltipModifier: Modifier = Modifier,
     buttonType: ButtonType = ButtonType.Primary,
+    buttonSize: ButtonSize = ButtonSize.LargeProductive,
     isEnabled: Boolean = true,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
 ) {
@@ -123,6 +134,7 @@ public fun IconButton(
             onClick = onClick,
             modifier = modifier,
             buttonType = buttonType,
+            buttonSize = buttonSize,
             isEnabled = isEnabled,
             interactionSource = interactionSource
         )

@@ -34,7 +34,6 @@ import androidx.compose.ui.test.isEnabled
 import androidx.compose.ui.test.isFocusable
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.runComposeUiTest
-import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.icons.closeIcon
 import kotlin.test.Test
 
@@ -42,9 +41,12 @@ class IconButtonTest {
 
     @Test
     fun iconButton_validateLayout() = runComposeUiTest {
+        var buttonSize by mutableStateOf(ButtonSize.Small)
+
         setContent {
             IconButton(
                 iconPainter = rememberVectorPainter(closeIcon),
+                buttonSize = buttonSize,
                 onClick = {},
                 modifier = Modifier.testTag("IconButton")
             )
@@ -52,8 +54,15 @@ class IconButtonTest {
 
         onNodeWithTag("IconButton")
             .assertExists()
-            .assertWidthIsEqualTo(48.dp)
-            .assertHeightIsEqualTo(48.dp)
+
+        ButtonSize.entries.forEach { size ->
+            buttonSize = size
+
+            val dpSize = size.heightDp()
+            onNodeWithTag("IconButton")
+                .assertWidthIsEqualTo(dpSize)
+                .assertHeightIsEqualTo(dpSize)
+        }
     }
 
     @Test
