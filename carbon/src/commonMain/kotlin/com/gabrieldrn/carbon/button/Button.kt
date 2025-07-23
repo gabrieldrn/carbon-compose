@@ -75,7 +75,7 @@ public fun Button(
     buttonSize: ButtonSize = ButtonSize.LargeProductive,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
 ) {
-    ButtonRowImpl(
+    ButtonLayout(
         onClick = onClick,
         buttonType = buttonType,
         buttonSize = buttonSize,
