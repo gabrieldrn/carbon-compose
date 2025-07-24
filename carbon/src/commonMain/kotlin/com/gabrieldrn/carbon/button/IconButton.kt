@@ -59,7 +59,7 @@ public fun IconButton(
     isEnabled: Boolean = true,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
 ) {
-    ButtonRowImpl(
+    ButtonLayout(
         onClick = onClick,
         buttonType = buttonType,
         buttonSize = buttonSize,

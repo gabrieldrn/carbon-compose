@@ -16,9 +16,7 @@
 
 package com.gabrieldrn.carbon.notification
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -32,22 +30,22 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
-import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.button.ButtonFocusIndication
+import com.gabrieldrn.carbon.button.ButtonIcon
+import com.gabrieldrn.carbon.button.ButtonLayout
+import com.gabrieldrn.carbon.button.ButtonSize
 import com.gabrieldrn.carbon.button.ButtonType
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 import com.gabrieldrn.carbon.icons.CheckmarkFilledIcon
@@ -130,7 +128,13 @@ internal fun NotificationContainer(
             if (displayCloseButton) {
                 CloseButton(
                     onClick = onClose,
-                    isHighContrast = highContrast
+                    isHighContrast = highContrast,
+                    // Rendering issue with contour, avoids displaying the button behind it.
+                    modifier = if (!isFloating) {
+                        Modifier.padding(top = 1.dp, end = 1.dp)
+                    } else {
+                        Modifier
+                    }
                 )
             } else {
                 Spacer(modifier = Modifier.width(SpacingScale.spacing05))
@@ -171,39 +175,42 @@ internal fun NotificationScope.FlowTextContent(
 }
 
 @Composable
-private fun NotificationScope.CloseButton(
+private fun CloseButton(
     onClick: () -> Unit,
     isHighContrast: Boolean,
     modifier: Modifier = Modifier,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
 ) {
     val theme = Carbon.theme
-    val indication = remember(theme, isHighContrast) {
-        ButtonFocusIndication(
-            theme = theme,
-            buttonType = ButtonType.Ghost,
-            useInverseColor = isHighContrast
-        )
-    }
 
-    Box(
-        modifier = modifier
-            .clickable(
-                interactionSource = interactionSource,
-                indication = indication,
-                onClick = onClick,
-                role = Role.Button
+    ButtonLayout(
+        onClick = onClick,
+        buttonType = ButtonType.Ghost,
+        buttonSize = ButtonSize.LargeProductive,
+        isEnabled = true,
+        isIconButton = true,
+        theme = theme,
+        interactionSource = interactionSource,
+        indication = remember(theme, isHighContrast) {
+            ButtonFocusIndication(
+                theme = theme,
+                buttonType = ButtonType.Ghost,
+                useInverseColor = isHighContrast
             )
-            .padding(SpacingScale.spacing05)
-            .testTag(NotificationTestTags.CLOSE_BUTTON)
-    ) {
-        Image(
-            painter = rememberVectorPainter(closeIcon),
-            contentDescription = "Close button",
-            colorFilter = ColorFilter.tint(colors.closeIconColor),
-            modifier = Modifier.size(iconSize).align(Alignment.Center),
-        )
-    }
+        },
+        content = { buttonScope ->
+            ButtonIcon(
+                painter = rememberVectorPainter(closeIcon),
+                scope = buttonScope,
+                contentDescription = "Close notification",
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(SpacingScale.spacing05)
+                    .size(SpacingScale.spacing05)
+            )
+        },
+        modifier = modifier.testTag(NotificationTestTags.CLOSE_BUTTON)
+    )
 }
 
 @Composable

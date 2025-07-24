@@ -21,7 +21,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.animateScrollBy
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -41,16 +41,21 @@ import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.layout.boundsInParent
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.positionInParent
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
+import com.gabrieldrn.carbon.button.ButtonSize
 import com.gabrieldrn.carbon.button.ButtonType
 import com.gabrieldrn.carbon.button.IconButton
+import com.gabrieldrn.carbon.button.heightDp
 import com.gabrieldrn.carbon.foundation.color.containerColor
 import com.gabrieldrn.carbon.icons.chevronLeftIcon
 import com.gabrieldrn.carbon.icons.chevronRightIcon
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+
+private const val SCROLL_DISTANCE_RATIO = .8f
 
 /**
  * # Tabs
@@ -76,13 +81,23 @@ public fun TabList(
     modifier: Modifier = Modifier,
     variant: TabVariant = TabVariant.Line
 ) {
+    val density = LocalDensity.current
     val selectedIndex = tabs.indexOf(selectedTab)
     val scrollState = rememberScrollState()
     val colors = TabColors.colors(variant)
     val scope = rememberCoroutineScope()
     var visibleRowWidth by remember { mutableStateOf(0) }
+    val buttonSize = remember(variant) {
+        when (variant) {
+            TabVariant.Line -> ButtonSize.Medium
+            TabVariant.Contained -> ButtonSize.LargeProductive
+        }
+    }
+    val buttonSizePx = remember(density, buttonSize) {
+        with(density) { buttonSize.heightDp().toPx() }
+    }
 
-    Box(modifier = modifier) {
+    BoxWithConstraints(modifier = modifier) {
         Row(
             modifier = Modifier
                 .horizontalScroll(scrollState)
@@ -110,6 +125,7 @@ public fun TabList(
                     onClick = {
                         scope.scrollToTab(
                             scrollState = scrollState,
+                            buttonSizePx = buttonSizePx,
                             visibleRowWidth = visibleRowWidth,
                             tabXStart = tabXStart,
                             tabXEnd = tabXEnd
@@ -121,35 +137,79 @@ public fun TabList(
         }
 
         if (scrollState.canScrollBackward) {
-            Row(Modifier.align(Alignment.CenterStart)) {
-                IconButton(
-                    modifier = Modifier
-                        .height(variant.height)
-                        .background(colors.scrollButtonBackground),
-                    iconPainter = rememberVectorPainter(chevronLeftIcon),
-                    buttonType = ButtonType.Ghost,
-                    onClick = { scope.launch { scrollState.animateScrollBy(-SCROLL_DISTANCE) } }
-                )
-                if (variant == TabVariant.Line) {
-                    FadingEdge(height = variant.height)
-                }
-            }
+            LeftScrollButton(
+                buttonSize = buttonSize,
+                variant = variant,
+                colors = colors,
+                onClick = {
+                    scope.launch {
+                        scrollState.animateScrollBy(
+                            -this@BoxWithConstraints.maxWidth.value * SCROLL_DISTANCE_RATIO
+                        )
+                    }
+                },
+                modifier = Modifier.align(Alignment.CenterStart)
+            )
         }
         if (scrollState.canScrollForward) {
-            Row(Modifier.align(Alignment.CenterEnd)) {
-                if (variant == TabVariant.Line) {
-                    FadingEdge(height = variant.height, inverse = true)
-                }
-                IconButton(
-                    modifier = Modifier
-                        .height(variant.height)
-                        .background(colors.scrollButtonBackground),
-                    iconPainter = rememberVectorPainter(chevronRightIcon),
-                    buttonType = ButtonType.Ghost,
-                    onClick = { scope.launch { scrollState.animateScrollBy(SCROLL_DISTANCE) } }
-                )
-            }
+            RightScrollButton(
+                buttonSize = buttonSize,
+                variant = variant,
+                colors = colors,
+                onClick = {
+                    scope.launch {
+                        scrollState.animateScrollBy(
+                            this@BoxWithConstraints.maxWidth.value * SCROLL_DISTANCE_RATIO
+                        )
+                    }
+                },
+                modifier = Modifier.align(Alignment.CenterEnd)
+            )
         }
+    }
+}
+
+@Composable
+private fun LeftScrollButton(
+    buttonSize: ButtonSize,
+    variant: TabVariant,
+    colors: TabColors,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Row(modifier = modifier) {
+        IconButton(
+            iconPainter = rememberVectorPainter(chevronLeftIcon),
+            buttonType = ButtonType.Ghost,
+            buttonSize = buttonSize,
+            onClick = onClick,
+            modifier = Modifier.background(colors.scrollButtonBackground)
+        )
+        if (variant == TabVariant.Line) {
+            FadingEdge(height = variant.height)
+        }
+    }
+}
+
+@Composable
+private fun RightScrollButton(
+    buttonSize: ButtonSize,
+    variant: TabVariant,
+    colors: TabColors,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Row(modifier = modifier) {
+        if (variant == TabVariant.Line) {
+            FadingEdge(height = variant.height, inverse = true)
+        }
+        IconButton(
+            iconPainter = rememberVectorPainter(chevronRightIcon),
+            buttonType = ButtonType.Ghost,
+            buttonSize = buttonSize,
+            onClick = onClick,
+            modifier = Modifier.background(colors.scrollButtonBackground)
+        )
     }
 }
 
@@ -171,20 +231,13 @@ private fun FadingEdge(height: Dp, inverse: Boolean = false) {
 
 private fun CoroutineScope.scrollToTab(
     scrollState: ScrollState,
+    buttonSizePx: Float,
     visibleRowWidth: Int,
     tabXStart: Int,
     tabXEnd: Int
 ) {
-    val backButtonOffset = if (scrollState.canScrollBackward) {
-        SCROLL_DISTANCE
-    } else {
-        0f
-    }
-    val forwardButtonOffset = if (scrollState.canScrollForward) {
-        SCROLL_DISTANCE
-    } else {
-        0f
-    }
+    val backButtonOffset = if (scrollState.canScrollBackward) buttonSizePx else 0f
+    val forwardButtonOffset = if (scrollState.canScrollForward) buttonSizePx else 0f
 
     // TabList is currently showing:
     val visibleStart = scrollState.value + backButtonOffset
@@ -207,5 +260,3 @@ private fun CoroutineScope.scrollToTab(
         }
     }
 }
-
-private const val SCROLL_DISTANCE = 100f

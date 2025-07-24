@@ -25,6 +25,7 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.Indication
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -56,6 +57,7 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
+import com.gabrieldrn.carbon.foundation.color.Theme
 import com.gabrieldrn.carbon.foundation.motion.Motion
 
 internal val buttonTransitionSpec = tween<Float>(
@@ -93,19 +95,21 @@ internal data class ButtonScope(
 )
 
 @Composable
-internal fun ButtonRowImpl(
+internal fun ButtonLayout(
     onClick: () -> Unit,
     buttonType: ButtonType,
     buttonSize: ButtonSize,
     isEnabled: Boolean,
     modifier: Modifier = Modifier,
     isIconButton: Boolean = false,
+    theme: Theme = Carbon.theme,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    indication: Indication = remember(theme, buttonType) {
+        ButtonFocusIndication(theme, buttonType)
+    },
     content: @Composable RowScope.(ButtonScope) -> Unit,
 ) {
-    val theme = Carbon.theme
     val colors = ButtonColors.colors(buttonType, isIconButton)
-    val indication = remember(theme, buttonType) { ButtonFocusIndication(theme, buttonType) }
 
     val containerColor = remember(colors) { Animatable(colors.containerColor) }
 
@@ -214,10 +218,11 @@ internal fun ButtonIcon(
     painter: Painter,
     scope: ButtonScope,
     modifier: Modifier = Modifier,
+    contentDescription: String? = null
 ) {
     Image(
         painter = painter,
-        contentDescription = null,
+        contentDescription = contentDescription,
         colorFilter = ColorFilter.tint(
             when {
                 !scope.isEnabled -> scope.colors.iconDisabledColor
