@@ -1021,6 +1021,7 @@ public final class com/gabrieldrn/carbon/notification/CalloutNotificationKt {
 public final class com/gabrieldrn/carbon/notification/ComposableSingletons$NotificationCommonKt {
 	public static final field INSTANCE Lcom/gabrieldrn/carbon/notification/ComposableSingletons$NotificationCommonKt;
 	public fun <init> ()V
+	public final fun getLambda$-1169366303$carbon ()Lkotlin/jvm/functions/Function4;
 	public final fun getLambda$162559929$carbon ()Lkotlin/jvm/functions/Function3;
 }
 
