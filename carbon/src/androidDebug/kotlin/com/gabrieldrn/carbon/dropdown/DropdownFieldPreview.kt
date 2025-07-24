@@ -38,7 +38,7 @@ import com.gabrieldrn.carbon.dropdown.base.DropdownSize
 import com.gabrieldrn.carbon.dropdown.base.DropdownStateIcon
 import com.gabrieldrn.carbon.foundation.color.CarbonLayer
 import com.gabrieldrn.carbon.foundation.color.Layer
-import com.gabrieldrn.carbon.foundation.color.containerColor
+import com.gabrieldrn.carbon.foundation.color.layerBackgroundColor
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 
 private class DropdownLayerPreviewParameterProvider : PreviewParameterProvider<Layer> {
@@ -81,7 +81,7 @@ private fun DropdownFieldPreview(
                 DropdownStateIcon(state = state)
             },
             modifier = Modifier
-                .background(color = Carbon.theme.containerColor(Carbon.layer))
+                .background(color = Carbon.theme.layerBackgroundColor(Carbon.layer))
                 .padding(SpacingScale.spacing03)
         )
     }
