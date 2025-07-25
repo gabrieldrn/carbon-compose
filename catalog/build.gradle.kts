@@ -31,9 +31,11 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
             implementation(compose.components.resources)
 
-            implementation(libs.androidx.navigation.compose)
+            implementation(libs.compose.navigation)
+
             implementation(libs.koin)
             implementation(libs.koin.compose)
+
             implementation(libs.settings)
             implementation(libs.settings.noArg)
             implementation(libs.settings.coroutines)
