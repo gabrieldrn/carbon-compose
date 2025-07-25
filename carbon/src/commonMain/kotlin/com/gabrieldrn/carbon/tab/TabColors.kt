@@ -26,10 +26,10 @@ import com.gabrieldrn.carbon.foundation.color.Layer
 import com.gabrieldrn.carbon.foundation.color.Theme
 import com.gabrieldrn.carbon.foundation.color.borderStrongColor
 import com.gabrieldrn.carbon.foundation.color.borderSubtleColor
-import com.gabrieldrn.carbon.foundation.color.containerColor
 import com.gabrieldrn.carbon.foundation.color.layerAccentActiveColor
 import com.gabrieldrn.carbon.foundation.color.layerAccentColor
 import com.gabrieldrn.carbon.foundation.color.layerAccentHoverColor
+import com.gabrieldrn.carbon.foundation.color.layerBackgroundColor
 import com.gabrieldrn.carbon.foundation.color.layerColor
 
 /**
@@ -66,7 +66,7 @@ internal class TabColors private constructor(
 
     private val bottomBorderHover = theme.borderStrongColor(layer)
 
-    private val scrollButtonBackgroundLine = theme.containerColor(layer)
+    private val scrollButtonBackgroundLine = theme.layerBackgroundColor(layer)
 
     private val scrollButtonBackgroundContained = theme.layerAccentColor(layer)
 

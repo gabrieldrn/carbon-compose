@@ -49,7 +49,7 @@ import com.gabrieldrn.carbon.button.ButtonSize
 import com.gabrieldrn.carbon.button.ButtonType
 import com.gabrieldrn.carbon.button.IconButton
 import com.gabrieldrn.carbon.button.heightDp
-import com.gabrieldrn.carbon.foundation.color.containerColor
+import com.gabrieldrn.carbon.foundation.color.layerBackgroundColor
 import com.gabrieldrn.carbon.icons.chevronLeftIcon
 import com.gabrieldrn.carbon.icons.chevronRightIcon
 import kotlinx.coroutines.CoroutineScope
@@ -215,7 +215,7 @@ private fun RightScrollButton(
 
 @Composable
 private fun FadingEdge(height: Dp, inverse: Boolean = false) {
-    val containerColor = Carbon.theme.containerColor(Carbon.layer)
+    val containerColor = Carbon.theme.layerBackgroundColor(Carbon.layer)
     val brush = if (inverse) {
         Brush.horizontalGradient(0f to Color.Transparent, 1f to containerColor)
     } else {
