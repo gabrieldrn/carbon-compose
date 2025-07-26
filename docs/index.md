@@ -53,7 +53,7 @@ List of the currently supported components:
 |--------------------|:-----------:|:------:|:------------:|:---------:|
 | Accordion          |      ✅      |   ✅    |      ✅       |     ✅     |
 | AI label           |             |        |              |           |
-| Breadcrumb         |             |        |              |           |
+| Breadcrumb         |      ✅      |   ✅    |      ✅       |     ✅     |
 | Button             |      ✅      |   ✅    |      ✅       |     ✅     |
 | Checkbox           |      ✅      |   ✅    |      ✅       |     ✅     |
 | Code snippet       |             |        |              |           |
@@ -71,7 +71,7 @@ List of the currently supported components:
 | Menu               |             |        |              |           |
 | Menu buttons       |             |        |              |           |
 | Modal              |             |        |              |           |
-| Notification       |     🟡      |   🟡   |      🟡      |    🟡     |
+| Notification       |      ✅      |   ✅    |      ✅       |     ✅     |
 | Number input       |             |        |              |           |
 | Pagination         |             |        |              |           |
 | Popover            |             |        |              |           |

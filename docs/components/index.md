@@ -21,6 +21,7 @@
 
 - [Accordion](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.accordion/-accordion.html)
 - [Button](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.button/-button.html)
+- [Breadcrumb](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.breadcrumb/-breadcrumb.html)
 - [Icon button](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.button/-icon-button.html)
 - [Checkbox](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.checkbox/-checkbox.html)
 - ContentSwitcher
@@ -33,8 +34,11 @@
     - [Default loading](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.loading/-loading.html)
     - [Small loading](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.loading/-small-loading.html)
 - Notification
+    - [Actionable inline notification](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.notification/-actionable-inline-notification.html)
+    - [Actionable toast notification](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.notification/-actionable-toast-notification.html)
     - [Callout notification](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.notification/-callout-notification.html)
     - [Inline notification](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.notification/-inline-notification.html)
+    - [Toast notification](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.notification/-toast-notification.html)
 - Progress bar
     - [Default progress bar](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.progressbar/-progress-bar.html)
     - [Indeterminate progress bar](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.progressbar/-indeterminate-progress-bar.html)

@@ -8,8 +8,8 @@
 
 # Carbon | Compose Multiplatform
 
-[![Kotlin](https://img.shields.io/badge/2.1.10-blue?logo=kotlin&logoColor=white&color=7F52FF)](http://kotlinlang.org)
-[![Compose Multiplatform](https://img.shields.io/badge/1.7.3-green?logo=jetpackcompose&logoColor=white&color=4284F3)](https://github.com/JetBrains/compose-multiplatform)
+[![Kotlin](https://img.shields.io/badge/2.2.0-blue?logo=kotlin&logoColor=white&color=7F52FF)](http://kotlinlang.org)
+[![Compose Multiplatform](https://img.shields.io/badge/1.8.2-green?logo=jetpackcompose&logoColor=white&color=4284F3)](https://github.com/JetBrains/compose-multiplatform)
 
 [![CI | compile & tests](https://github.com/gabrieldrn/carbon-compose/actions/workflows/ci-lib-workflow.yml/badge.svg)](https://github.com/gabrieldrn/carbon-compose/actions/workflows/ci-lib-workflow.yml)
 
