@@ -19,6 +19,7 @@ package com.gabrieldrn.carbon.button
 import androidx.compose.animation.Animatable
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedContentTransitionScope
+import androidx.compose.animation.ContentTransform
 import androidx.compose.animation.core.snap
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
@@ -30,7 +31,6 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsHoveredAsState
-import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
@@ -60,10 +60,29 @@ import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.foundation.color.Theme
 import com.gabrieldrn.carbon.foundation.motion.Motion
 
-internal val buttonTransitionSpec = tween<Float>(
+private val buttonTransitionSpec = tween<Float>(
     durationMillis = Motion.Duration.fast01,
     easing = Motion.Entrance.productiveEasing
 )
+
+private val buttonAnimationSpec = tween<Color>(
+    durationMillis = Motion.Duration.fast01,
+    easing = Motion.Entrance.productiveEasing
+)
+
+private val contentTransformEnterTransition: ContentTransform =
+    fadeIn(snap(), initialAlpha = 1f) togetherWith fadeOut(snap(), targetAlpha = 1f)
+
+private val contentTransformExitTransition: ContentTransform = buttonTransitionSpec.let { spec ->
+    fadeIn(spec, initialAlpha = 1f) togetherWith fadeOut(spec, targetAlpha = 1f)
+}
+
+private fun AnimatedContentTransitionScope<ButtonScope>.getContentTransition() =
+    if (initialState.isEnabled != targetState.isEnabled) {
+        contentTransformEnterTransition
+    } else {
+        contentTransformExitTransition
+    }
 
 private fun Modifier.requiredButtonSize(buttonSize: ButtonSize, isIconButton: Boolean): Modifier =
     this then if (isIconButton) {
@@ -75,16 +94,6 @@ private fun Modifier.requiredButtonSize(buttonSize: ButtonSize, isIconButton: Bo
                 height = buttonSize.heightDp()
             )
             .width(IntrinsicSize.Max)
-    }
-
-
-private fun AnimatedContentTransitionScope<ButtonScope>.getContentTransition() =
-    if (initialState.isEnabled != targetState.isEnabled) {
-        fadeIn(snap(), initialAlpha = 1f) togetherWith
-            fadeOut(snap(), targetAlpha = 1f)
-    } else {
-        fadeIn(buttonTransitionSpec, initialAlpha = 1f) togetherWith
-            fadeOut(buttonTransitionSpec, targetAlpha = 1f)
     }
 
 internal data class ButtonScope(
@@ -113,19 +122,14 @@ internal fun ButtonLayout(
 
     val containerColor = remember(colors) { Animatable(colors.containerColor) }
 
-    val buttonAnimationSpec = tween<Color>(
-        durationMillis = Motion.Duration.fast01,
-        easing = Motion.Entrance.productiveEasing
+    val isPressed by rememberIsButtonPressed(
+        interactionSource = interactionSource,
+        buttonColors = colors,
+        containerColorAnimatable = containerColor
     )
 
-    val isPressed by interactionSource.collectIsPressedAsState()
     val isHovered by interactionSource.collectIsHoveredAsState()
 
-    // FIXME On mobile target, the animation seems to be delayed and a simple click is immediately
-    //  cancelling the animation. This is not the case on desktop and wasm targets.
-    // Note: The container color animation could have been implemented in the indication, but it
-    // would have required to pass the enabled state to the indication as a constructor argument,
-    // which is not ideal as it would cause extra recompositions.
     LaunchedEffect(isEnabled, isPressed, isHovered, colors) {
         containerColor.animateTo(
             targetValue = when {
