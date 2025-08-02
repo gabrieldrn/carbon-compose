@@ -21,17 +21,19 @@ import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
+import com.gabrieldrn.carbon.popover.PopoverCaretTipAlignment
+import com.gabrieldrn.carbon.popover.PopoverPlacement
 
 internal fun PaddingValues.getTooltipContentPaddingByPosition(
-    placement: TooltipPlacement,
-    alignment: TooltipAlignment,
+    placement: PopoverPlacement,
+    alignment: PopoverCaretTipAlignment,
     layoutDirection: LayoutDirection,
 ): Dp = when (placement) {
-    TooltipPlacement.Top,
-    TooltipPlacement.Bottom -> calculateStartPadding(layoutDirection)
+    PopoverPlacement.Top,
+    PopoverPlacement.Bottom -> calculateStartPadding(layoutDirection)
     else -> when (alignment) {
-        TooltipAlignment.Start -> calculateTopPadding()
-        TooltipAlignment.Center -> 0.dp
-        TooltipAlignment.End -> calculateBottomPadding()
+        PopoverCaretTipAlignment.Start -> calculateTopPadding()
+        PopoverCaretTipAlignment.Center -> 0.dp
+        PopoverCaretTipAlignment.End -> calculateBottomPadding()
     }
 }

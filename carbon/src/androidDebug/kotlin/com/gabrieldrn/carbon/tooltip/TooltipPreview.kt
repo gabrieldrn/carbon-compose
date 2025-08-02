@@ -31,11 +31,12 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.CarbonDesignSystem
 import com.gabrieldrn.carbon.button.Button
+import com.gabrieldrn.carbon.popover.PopoverPlacement
 
 private class TooltipPlacementPreviewParameterProvider :
-    PreviewParameterProvider<TooltipPlacement> {
-    override val values: Sequence<TooltipPlacement>
-        get() = TooltipPlacement.entries.asSequence()
+    PreviewParameterProvider<PopoverPlacement> {
+    override val values: Sequence<PopoverPlacement>
+        get() = PopoverPlacement.entries.asSequence()
 }
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -43,7 +44,7 @@ private class TooltipPlacementPreviewParameterProvider :
 @Composable
 private fun TooltipPreview(
     @PreviewParameter(TooltipPlacementPreviewParameterProvider::class)
-    placement: TooltipPlacement,
+    placement: PopoverPlacement,
 ) {
     CarbonDesignSystem {
         Box(

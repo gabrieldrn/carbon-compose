@@ -14,36 +14,39 @@
  * limitations under the License.
  */
 
-package com.gabrieldrn.carbon.tooltip
+package com.gabrieldrn.carbon.popover
 
 /**
- * The placement of the tooltip relative to the UI trigger.
+ * The placement of the popover relative to the UI trigger, regardless if the popover has a caret
+ * tip or not. However, when using a caret tip, the trigger button and caret tip will be vertically
+ * centered with each other.
  *
- * From tooltip placement
- * [documentation](https://carbondesignsystem.com/components/tooltip/usage/#placement).
+ * From popover placement
+ * [documentation 1](https://carbondesignsystem.com/components/popover/usage/#no-tip),
+ * [documentation 2](https://carbondesignsystem.com/components/popover/usage/#caret-tip)
  */
-public enum class TooltipPlacement {
+public enum class PopoverPlacement {
 
     // Auto: Requires a significant amount of work to implement. Impossible to implement with
     // Compose's popup (check Tooltip component KDoc).
 
     /**
-     * Places the tooltip to the right of the UI trigger.
+     * Places the popover to the right of the UI trigger.
      */
     Right,
 
     /**
-     * Places the tooltip to the left of the UI trigger.
+     * Places the popover to the left of the UI trigger.
      */
     Left,
 
     /**
-     * Places the tooltip below the UI trigger.
+     * Places the popover below the UI trigger.
      */
     Bottom,
 
     /**
-     * Places the tooltip above the UI trigger.
+     * Places the popover above the UI trigger.
      */
     Top
 }

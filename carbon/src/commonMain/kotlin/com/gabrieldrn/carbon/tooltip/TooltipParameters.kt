@@ -16,6 +16,9 @@
 
 package com.gabrieldrn.carbon.tooltip
 
+import com.gabrieldrn.carbon.popover.PopoverCaretTipAlignment
+import com.gabrieldrn.carbon.popover.PopoverPlacement
+
 /**
  * Parameters for the tooltip component.
  *
@@ -24,13 +27,13 @@ package com.gabrieldrn.carbon.tooltip
  * Note that the tooltip width is limited to a maximum width depending on this parameter and the
  * text might be truncated if it exceeds the maximum width.
  * @param placement Placement of the tooltip relative to the UI trigger. Defaults to
- * [TooltipPlacement.Top].
+ * [com.gabrieldrn.carbon.popover.PopoverPlacement.Top].
  * @param alignment Alignment of the tooltip relative to the UI trigger. Defaults to
- * [TooltipAlignment.Center].
+ * [com.gabrieldrn.carbon.popover.PopoverCaretTipAlignment.Center].
  */
 public data class TooltipParameters(
     val text: String,
     val singleLine: Boolean = false,
-    val placement: TooltipPlacement = TooltipPlacement.Top,
-    val alignment: TooltipAlignment = TooltipAlignment.Center,
+    val placement: PopoverPlacement = PopoverPlacement.Top,
+    val alignment: PopoverCaretTipAlignment = PopoverCaretTipAlignment.Center,
 )

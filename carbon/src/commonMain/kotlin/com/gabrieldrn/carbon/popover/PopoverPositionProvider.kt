@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.gabrieldrn.carbon.tooltip
+package com.gabrieldrn.carbon.popover
 
 import androidx.annotation.VisibleForTesting
 import androidx.compose.foundation.layout.PaddingValues
@@ -26,14 +26,14 @@ import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.window.PopupPositionProvider
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
+import com.gabrieldrn.carbon.tooltip.getTooltipContentPaddingByPosition
 
-internal class TooltipPositionProvider
+internal class PopoverPositionProvider
 @VisibleForTesting(otherwise = VisibleForTesting.Companion.PACKAGE_PRIVATE) constructor(
-    private val placement: TooltipPlacement,
-    private val alignment: TooltipAlignment,
+    private val placement: PopoverPlacement,
+    private val alignment: PopoverCaretTipAlignment,
     private val caretSize: Dp,
     private val tooltipContentPaddingValues: PaddingValues,
-    private val isSingleLine: Boolean,
     density: Density,
 ) : PopupPositionProvider {
 
@@ -71,55 +71,61 @@ internal class TooltipPositionProvider
             val uiTriggerHalfWidth = anchorBounds.width / 2
 
             return when (alignment) {
-                TooltipAlignment.Start -> anchorBounds.left +
-                    -edgeToCaretTipOffset +
-                    uiTriggerHalfWidth
-                TooltipAlignment.Center -> anchorBounds.left +
-                    (anchorBounds.width - popupContentSize.width) / 2
-                TooltipAlignment.End -> anchorBounds.right -
-                    popupContentSize.width +
-                    edgeToCaretTipOffset -
-                    uiTriggerHalfWidth
+                PopoverCaretTipAlignment.Start ->
+                    anchorBounds.left + -edgeToCaretTipOffset + uiTriggerHalfWidth
+
+                PopoverCaretTipAlignment.Center ->
+                    anchorBounds.left + (anchorBounds.width - popupContentSize.width) / 2
+
+                PopoverCaretTipAlignment.End ->
+                    anchorBounds.right -
+                        popupContentSize.width +
+                        edgeToCaretTipOffset -
+                        uiTriggerHalfWidth
             }
         }
 
         fun verticalYOffset(): Int {
             val uiTriggerHalfHeight = anchorBounds.height / 2
 
-            return if (isSingleLine) {
-                anchorBounds.top + (anchorBounds.height - popupContentSize.height) / 2
+            val adjustedAlignment = if (popupContentSize.height < anchorBounds.height) {
+                PopoverCaretTipAlignment.Center
             } else {
-                when (alignment) {
-                    TooltipAlignment.Start -> anchorBounds.top +
-                        -edgeToCaretTipOffset +
-                        uiTriggerHalfHeight
-                    TooltipAlignment.Center -> anchorBounds.top +
-                        (anchorBounds.height - popupContentSize.height) / 2
-                    TooltipAlignment.End -> anchorBounds.bottom -
+                alignment
+            }
+
+            return when (adjustedAlignment) {
+                PopoverCaretTipAlignment.Start ->
+                    anchorBounds.top + -edgeToCaretTipOffset + uiTriggerHalfHeight
+
+                PopoverCaretTipAlignment.Center ->
+                    anchorBounds.top + (anchorBounds.height - popupContentSize.height) / 2
+
+                PopoverCaretTipAlignment.End ->
+                    anchorBounds.bottom -
                         popupContentSize.height +
                         edgeToCaretTipOffset -
                         uiTriggerHalfHeight
-                }
             }
         }
 
         return when (placement) {
-            TooltipPlacement.Right -> IntOffset(
+            PopoverPlacement.Right -> IntOffset(
                 x = anchorBounds.right + popupPadding,
                 y = verticalYOffset()
             )
 
-            TooltipPlacement.Left -> IntOffset(
+            PopoverPlacement.Left -> IntOffset(
                 x = anchorBounds.left - popupContentSize.width - popupPadding,
                 y = verticalYOffset()
             )
 
-            TooltipPlacement.Bottom -> IntOffset(
+            PopoverPlacement.Bottom -> IntOffset(
                 x = horizontalXOffset(),
                 y = anchorBounds.bottom + popupPadding
             )
 
-            TooltipPlacement.Top -> IntOffset(
+            PopoverPlacement.Top -> IntOffset(
                 x = horizontalXOffset(),
                 y = anchorBounds.top - popupContentSize.height - popupPadding
             )
