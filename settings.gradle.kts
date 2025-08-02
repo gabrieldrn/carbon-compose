@@ -22,9 +22,10 @@ rootProject.name = "Carbon"
 
 include(
     ":catalog",
+    ":carbon-pro",
     ":carbon",
     ":carbon:common",
     ":carbon:test",
     ":code-gen",
-    "doc-parser",
+    ":doc-parser",
 )

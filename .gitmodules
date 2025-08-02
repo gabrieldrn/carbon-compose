@@ -1,0 +1,3 @@
+[submodule "carbon-pro"]
+	path = carbon-pro
+	url = https://github.com/gabrieldrn/carbon-compose-pro.git
