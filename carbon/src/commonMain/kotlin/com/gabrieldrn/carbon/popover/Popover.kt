@@ -46,7 +46,6 @@ private val popoverMargin = SpacingScale.spacing02
 
 /**
  * TODO Doc - move from tooltip to here
- * TODO Maybe rename to "PopoverBox"
  *
  * Implementation has only the caret tip.
  * TODO No tip
@@ -54,7 +53,7 @@ private val popoverMargin = SpacingScale.spacing02
  */
 @ExperimentalFoundationApi
 @Composable
-public fun Popover(
+public fun PopoverBox(
     modifier: Modifier = Modifier,
     alignment: PopoverCaretTipAlignment = PopoverCaretTipAlignment.Center,
     placement: PopoverPlacement = PopoverPlacement.Top,
@@ -65,7 +64,7 @@ public fun Popover(
     popoverContent: @Composable BoxScope.() -> Unit,
     content: @Composable () -> Unit
 ) {
-    PopoverInternal(
+    PopoverBoxInternal(
         modifier = modifier,
         alignment = alignment,
         placement = placement,
@@ -79,7 +78,7 @@ public fun Popover(
 
 @ExperimentalFoundationApi
 @Composable
-internal fun PopoverInternal(
+internal fun PopoverBoxInternal(
     modifier: Modifier = Modifier,
     state: BasicTooltipState = rememberBasicTooltipState(),
     alignment: PopoverCaretTipAlignment = PopoverCaretTipAlignment.Center,

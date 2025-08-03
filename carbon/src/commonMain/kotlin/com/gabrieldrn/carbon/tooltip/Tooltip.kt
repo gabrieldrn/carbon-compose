@@ -30,8 +30,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
+import com.gabrieldrn.carbon.popover.PopoverBoxInternal
 import com.gabrieldrn.carbon.popover.PopoverCaretTipAlignment
-import com.gabrieldrn.carbon.popover.PopoverInternal
 import com.gabrieldrn.carbon.popover.PopoverPlacement
 
 private val tooltipSingleLineMaxWidth = 208.dp
@@ -208,7 +208,7 @@ internal fun TooltipBox(
         isSingleLine = singleLine
     )
 
-    PopoverInternal(
+    PopoverBoxInternal(
         modifier = modifier,
         state = state,
         alignment = alignment,
