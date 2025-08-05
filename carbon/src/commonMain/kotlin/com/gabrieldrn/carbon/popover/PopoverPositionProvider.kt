@@ -26,7 +26,6 @@ import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.window.PopupPositionProvider
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
-import com.gabrieldrn.carbon.tooltip.getTooltipContentPaddingByPosition
 
 internal class PopoverPositionProvider
 @VisibleForTesting(otherwise = VisibleForTesting.Companion.PACKAGE_PRIVATE) constructor(
@@ -51,7 +50,7 @@ internal class PopoverPositionProvider
             .getTooltipContentPaddingByPosition(
                 placement = placement,
                 alignment = alignment,
-                layoutDirection = LayoutDirection.Ltr // Assuming LTR for simplicity
+                layoutDirection = LayoutDirection.Ltr // Same for Rtl
             )
             .roundToPx()
     }

@@ -14,15 +14,13 @@
  * limitations under the License.
  */
 
-package com.gabrieldrn.carbon.tooltip
+package com.gabrieldrn.carbon.popover
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
-import com.gabrieldrn.carbon.popover.PopoverCaretTipAlignment
-import com.gabrieldrn.carbon.popover.PopoverPlacement
 
 internal fun PaddingValues.getTooltipContentPaddingByPosition(
     placement: PopoverPlacement,

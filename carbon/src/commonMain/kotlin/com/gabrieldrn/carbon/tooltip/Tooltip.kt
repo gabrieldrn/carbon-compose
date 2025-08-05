@@ -21,6 +21,7 @@ import androidx.compose.foundation.BasicTooltipState
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberBasicTooltipState
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
@@ -213,7 +214,6 @@ internal fun TooltipBox(
         state = state,
         alignment = alignment,
         placement = placement,
-        popoverContentPaddingValues = tooltipContentPaddingValues,
         popoverShape = shape,
         popoverBackgroundColorProvider = { Carbon.theme.backgroundInverse },
         popoverMaxWidth = if (singleLine) tooltipSingleLineMaxWidth else tooltipMultiLineMaxWidth,
@@ -224,6 +224,7 @@ internal fun TooltipBox(
                 style = Carbon.typography.body01.copy(color = Carbon.theme.textInverse),
                 maxLines = if (singleLine) 1 else Int.MAX_VALUE,
                 overflow = TextOverflow.Ellipsis,
+                modifier = Modifier.padding(tooltipContentPaddingValues)
             )
         },
         content = content

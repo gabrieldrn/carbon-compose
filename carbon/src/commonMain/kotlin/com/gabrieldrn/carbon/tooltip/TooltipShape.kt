@@ -23,20 +23,20 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.popover.PopoverCaretTipAlignment
 import com.gabrieldrn.carbon.popover.PopoverPlacement
-import com.gabrieldrn.carbon.popover.PopoverShape
+import com.gabrieldrn.carbon.popover.PopoverWithCaretShape
 
 internal class TooltipShape(
     placement: PopoverPlacement,
     alignment: PopoverCaretTipAlignment,
     tooltipContentPaddingValues: PaddingValues,
     isSingleLine: Boolean
-) : PopoverShape(
+) : PopoverWithCaretShape(
     placement = placement,
     alignment = alignment,
     popoverContentPaddingValues = tooltipContentPaddingValues
 ) {
 
-    override val caretSize: Dp = if (isSingleLine) singleSizeCaretSize else PopoverShape.caretSize
+    override val caretSize: Dp = if (isSingleLine) singleSizeCaretSize else PopoverWithCaretShape.caretSize
 
     companion object {
         private val singleSizeCaretSize = 6.dp

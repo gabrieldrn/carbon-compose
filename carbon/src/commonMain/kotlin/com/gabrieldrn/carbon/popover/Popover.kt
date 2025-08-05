@@ -43,6 +43,7 @@ import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 import kotlinx.coroutines.launch
 
 private val popoverMargin = SpacingScale.spacing02
+private val popoverContentPaddingValues: PaddingValues = PaddingValues(SpacingScale.spacing05)
 
 /**
  * TODO Doc - move from tooltip to here
@@ -53,7 +54,7 @@ private val popoverMargin = SpacingScale.spacing02
  */
 @ExperimentalFoundationApi
 @Composable
-public fun PopoverBox(
+public fun PopoverCaretTipBox(
     modifier: Modifier = Modifier,
     alignment: PopoverCaretTipAlignment = PopoverCaretTipAlignment.Center,
     placement: PopoverPlacement = PopoverPlacement.Top,
@@ -83,15 +84,14 @@ internal fun PopoverBoxInternal(
     state: BasicTooltipState = rememberBasicTooltipState(),
     alignment: PopoverCaretTipAlignment = PopoverCaretTipAlignment.Center,
     placement: PopoverPlacement = PopoverPlacement.Top,
-    popoverContentPaddingValues: PaddingValues = PaddingValues(SpacingScale.spacing05),
-    popoverShape: PopoverShape =
+    popoverShape: PopoverWithCaretShape =
         rememberPopupShape(
             placement = placement,
             alignment = alignment,
             tooltipContentPaddingValues = popoverContentPaddingValues,
         ),
     popoverBackgroundColorProvider: @Composable () -> Color =
-        { Carbon.theme.layerBackgroundColor() },
+        { Carbon.theme.layerBackgroundColor(Carbon.layer) },
     popoverMinWidth: Dp = Dp.Unspecified,
     popoverMaxWidth: Dp = Dp.Unspecified,
     uiTriggerMutableInteractionSource: MutableInteractionSource =
@@ -102,7 +102,7 @@ internal fun PopoverBoxInternal(
     val density = LocalDensity.current
 
     val positionProvider = remember(
-        placement, alignment, popoverShape.caretSize, popoverContentPaddingValues, density
+        placement, alignment, popoverShape.caretSize, density
     ) {
         PopoverPositionProvider(
             placement = placement,
@@ -137,8 +137,7 @@ internal fun PopoverBoxInternal(
                             color = popoverBackgroundColorProvider(),
                             shape = popoverShape
                         )
-                        .widthIn(min = popoverMinWidth, max = popoverMaxWidth)
-                        .padding(popoverContentPaddingValues),
+                        .widthIn(min = popoverMinWidth, max = popoverMaxWidth),
                     content = popoverContent
                 )
             }
