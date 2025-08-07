@@ -36,8 +36,8 @@ import com.gabrieldrn.carbon.catalog.common.DemoScreen
 import com.gabrieldrn.carbon.catalog.ic_cognitive
 import com.gabrieldrn.carbon.dropdown.Dropdown
 import com.gabrieldrn.carbon.dropdown.base.toDropdownOptions
-import com.gabrieldrn.carbon.popover.PopoverCaretTipAlignment
-import com.gabrieldrn.carbon.popover.PopoverPlacement
+import com.gabrieldrn.carbon.popover.carettip.PopoverCaretTipAlignment
+import com.gabrieldrn.carbon.popover.carettip.PopoverCaretTipPlacement
 import com.gabrieldrn.carbon.toggle.Toggle
 import com.gabrieldrn.carbon.tooltip.TooltipParameters
 import org.jetbrains.compose.resources.painterResource
@@ -54,7 +54,7 @@ fun TooltipDemoScreen(modifier: Modifier = Modifier) {
         mutableStateOf(UITriggerOption.Button)
     }
     var popoverPlacement by rememberSaveable {
-        mutableStateOf(PopoverPlacement.Top)
+        mutableStateOf(PopoverCaretTipPlacement.Top)
     }
     var caretTipAlignment by rememberSaveable {
         mutableStateOf(PopoverCaretTipAlignment.Center)
@@ -116,7 +116,7 @@ fun TooltipDemoScreen(modifier: Modifier = Modifier) {
             Dropdown(
                 placeholder = "Choose option",
                 label = "Tooltip placement",
-                options = PopoverPlacement.entries.toDropdownOptions(),
+                options = PopoverCaretTipPlacement.entries.toDropdownOptions(),
                 selectedOption = popoverPlacement,
                 onOptionSelected = { popoverPlacement = it }
             )

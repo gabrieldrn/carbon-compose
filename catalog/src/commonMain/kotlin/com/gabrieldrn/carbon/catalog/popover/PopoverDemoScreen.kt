@@ -26,6 +26,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -44,12 +45,27 @@ import com.gabrieldrn.carbon.dropdown.Dropdown
 import com.gabrieldrn.carbon.dropdown.base.toDropdownOptions
 import com.gabrieldrn.carbon.foundation.color.borderSubtleColor
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
-import com.gabrieldrn.carbon.popover.PopoverCaretTipAlignment
-import com.gabrieldrn.carbon.popover.PopoverCaretTipBox
+import com.gabrieldrn.carbon.popover.PopoverAlignment
+import com.gabrieldrn.carbon.popover.PopoverBox
 import com.gabrieldrn.carbon.popover.PopoverPlacement
+import com.gabrieldrn.carbon.popover.carettip.PopoverCaretTipAlignment
+import com.gabrieldrn.carbon.popover.carettip.PopoverCaretTipBox
+import com.gabrieldrn.carbon.popover.carettip.PopoverCaretTipPlacement
+import com.gabrieldrn.carbon.tab.TabItem
 import com.gabrieldrn.carbon.tag.ReadOnlyTag
 import com.gabrieldrn.carbon.tag.TagType
 import org.jetbrains.compose.resources.painterResource
+
+private enum class PopoverVariant(val label: String) {
+    NoTip("No tip"),
+    CaretTip("Caret tip");
+
+    companion object {
+        fun fromLabel(label: String) = entries.first { it.label == label }
+    }
+}
+
+private val variants = PopoverVariant.entries.map { TabItem(it.label) }
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -58,45 +74,97 @@ fun PopoverDemoScreen(modifier: Modifier = Modifier) {
         MutableInteractionSource()
     }
 
-    var popoverPlacement by rememberSaveable {
+    var popoverNoTipPlacement by rememberSaveable {
         mutableStateOf(PopoverPlacement.Bottom)
     }
-    var caretTipAlignment by rememberSaveable {
+    var popoverNoTipAlignment by rememberSaveable {
+        mutableStateOf(PopoverAlignment.Start)
+    }
+
+    var popoverCaretTipPlacement by rememberSaveable {
+        mutableStateOf(PopoverCaretTipPlacement.Bottom)
+    }
+    var popoverCaretTipAlignment by rememberSaveable {
         mutableStateOf(PopoverCaretTipAlignment.Center)
+    }
+
+
+    val uiTrigger: @Composable () -> Unit = {
+        IconButton(
+            iconPainter = painterResource(Res.drawable.ic_cognitive),
+            onClick = {},
+            isEnabled = true,
+            interactionSource = interactionSource
+        )
     }
 
     DemoScreen(
         modifier = modifier,
-        demoParametersContent = {
-            Dropdown(
-                placeholder = "Choose option",
-                label = "Tooltip placement",
-                options = PopoverPlacement.entries.toDropdownOptions(),
-                selectedOption = popoverPlacement,
-                onOptionSelected = { popoverPlacement = it }
-            )
+        variants = variants,
+        demoParametersContent = { variantTab ->
 
-            Dropdown(
-                placeholder = "Choose option",
-                label = "Tooltip alignment",
-                options = PopoverCaretTipAlignment.entries.toDropdownOptions(),
-                selectedOption = caretTipAlignment,
-                onOptionSelected = { caretTipAlignment = it }
-            )
+            when (PopoverVariant.fromLabel(variantTab.label)) {
+                PopoverVariant.CaretTip -> {
+                    Dropdown(
+                        placeholder = "Choose option",
+                        label = "Tooltip placement",
+                        options = PopoverCaretTipPlacement.entries.toDropdownOptions(),
+                        selectedOption = popoverCaretTipPlacement,
+                        onOptionSelected = { popoverCaretTipPlacement = it }
+                    )
+
+                    Dropdown(
+                        placeholder = "Choose option",
+                        label = "Tooltip alignment",
+                        options = PopoverCaretTipAlignment.entries.toDropdownOptions(),
+                        selectedOption = popoverCaretTipAlignment,
+                        onOptionSelected = { popoverCaretTipAlignment = it }
+                    )
+                }
+
+                PopoverVariant.NoTip -> {
+                    Dropdown(
+                        placeholder = "Choose option",
+                        label = "Tooltip placement",
+                        options = PopoverPlacement.entries.toDropdownOptions(),
+                        selectedOption = popoverNoTipPlacement,
+                        onOptionSelected = { popoverNoTipPlacement = it }
+                    )
+
+                    Dropdown(
+                        placeholder = "Choose option",
+                        label = "Tooltip alignment",
+                        options = PopoverAlignment.entries.toDropdownOptions(),
+                        selectedOption = popoverNoTipAlignment,
+                        onOptionSelected = { popoverNoTipAlignment = it }
+                    )
+                }
+            }
         },
-        demoContent = {
-            PopoverCaretTipBox(
-                placement = popoverPlacement,
-                alignment = caretTipAlignment,
-                popoverMaxWith = 350.dp,
-                uiTriggerMutableInteractionSource = interactionSource,
-                popoverContent = { PopoverContent() }
-            ) {
-                IconButton(
-                    iconPainter = painterResource(Res.drawable.ic_cognitive),
-                    onClick = {},
-                    isEnabled = true,
-                    interactionSource = interactionSource
+        demoContent = { variantTab ->
+            when (PopoverVariant.fromLabel(variantTab.label)) {
+                PopoverVariant.CaretTip -> PopoverCaretTipBox(
+                    placement = popoverCaretTipPlacement,
+                    alignment = popoverCaretTipAlignment,
+                    popoverMaxWith = 350.dp,
+                    uiTriggerMutableInteractionSource = interactionSource,
+                    popoverContent = {
+                        PopoverContent(
+                            smallContent = popoverCaretTipPlacement == PopoverCaretTipPlacement.Top
+                        )
+                    },
+                    content = uiTrigger
+                )
+
+                PopoverVariant.NoTip -> PopoverBox(
+                    placement = popoverNoTipPlacement,
+                    alignment = popoverNoTipAlignment,
+                    popoverContent = {
+                        PopoverContent(
+                            smallContent = popoverNoTipPlacement == PopoverPlacement.Top
+                        )
+                    },
+                    content = uiTrigger
                 )
             }
         }
@@ -104,8 +172,15 @@ fun PopoverDemoScreen(modifier: Modifier = Modifier) {
 }
 
 @Composable
-private fun PopoverContent(modifier: Modifier = Modifier) {
-    Column(modifier = modifier.padding(vertical = SpacingScale.spacing05)) {
+private fun PopoverContent(
+    modifier: Modifier = Modifier,
+    smallContent: Boolean = false,
+) {
+    Column(
+        modifier = modifier
+            .width(300.dp)
+            .padding(vertical = SpacingScale.spacing05)
+    ) {
         BasicText(
             text = "INBOUND SOLAR PARTICLE EVENT",
             style = Carbon.typography.headingCompact01.copy(
@@ -141,45 +216,46 @@ private fun PopoverContent(modifier: Modifier = Modifier) {
             )
         }
 
-
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = SpacingScale.spacing05)
-                .height(1.dp)
-                .background(Carbon.theme.borderSubtleColor(Carbon.layer))
-        )
-
-        val data = remember {
-            mapOf(
-                "Target:" to "Mars",
-                "Source:" to "Solar Flare, Class M8.9 from Active Region 3901.",
-                "Type:" to "Coronal Mass Ejection + Solar Energetic Particle.",
-                "Event time:" to "Flare peak detected 2025-Aug-01 at 09:16 UTC.",
-                "ETA:" to "Shock front arrival estimated for 2025-Aug-03 at 14:00 UTC (± 4 hours)."
-            )
-        }
-
-        data.forEach {
-            Row(
+        if (!smallContent) {
+            Box(
                 modifier = Modifier
-                    .padding(top = SpacingScale.spacing02)
-                    .padding(horizontal = SpacingScale.spacing05)
-            ) {
-                BasicText(
-                    text = it.key,
-                    style = Carbon.typography.bodyCompact01.copy(
-                        color = Carbon.theme.textHelper,
-                    ),
-                    modifier = Modifier.weight(.8f)
+                    .fillMaxWidth()
+                    .padding(vertical = SpacingScale.spacing05)
+                    .height(1.dp)
+                    .background(Carbon.theme.borderSubtleColor(Carbon.layer))
+            )
+
+            val data = remember {
+                mapOf(
+                    "Target:" to "Mars",
+                    "Source:" to "Solar Flare, Class M8.9 from Active Region 3901.",
+                    "Type:" to "Coronal Mass Ejection + Solar Energetic Particle.",
+                    "Event time:" to "Flare peak detected 2025-Aug-01 at 09:16 UTC.",
+                    "ETA:" to "Shock front estimated for 2025-Aug-03 at 14:00 UTC (± 4 hours)."
                 )
-                BasicText(
-                    text = it.value,
-                    style = Carbon.typography.bodyCompact01.copy(
-                        color = Carbon.theme.textPrimary,
-                    ),
-                    modifier = Modifier.weight(1.2f)
-                )
+            }
+
+            data.forEach {
+                Row(
+                    modifier = Modifier
+                        .padding(top = SpacingScale.spacing02)
+                        .padding(horizontal = SpacingScale.spacing05)
+                ) {
+                    BasicText(
+                        text = it.key,
+                        style = Carbon.typography.bodyCompact01.copy(
+                            color = Carbon.theme.textHelper,
+                        ),
+                        modifier = Modifier.weight(.8f)
+                    )
+                    BasicText(
+                        text = it.value,
+                        style = Carbon.typography.bodyCompact01.copy(
+                            color = Carbon.theme.textPrimary,
+                        ),
+                        modifier = Modifier.weight(1.2f)
+                    )
+                }
             }
         }
     }
