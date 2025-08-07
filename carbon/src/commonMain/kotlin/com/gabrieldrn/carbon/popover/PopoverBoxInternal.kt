@@ -34,8 +34,8 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.window.PopupPositionProvider
 import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.foundation.color.CarbonLayer
 import com.gabrieldrn.carbon.foundation.color.layerBackgroundColor
@@ -43,53 +43,15 @@ import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 import kotlinx.coroutines.launch
 
 private val popoverMargin = SpacingScale.spacing02
-private val popoverContentPaddingValues: PaddingValues = PaddingValues(SpacingScale.spacing05)
-
-/**
- * TODO Doc - move from tooltip to here
- *
- * Implementation has only the caret tip.
- * TODO No tip
- * TODO Tab tip
- */
-@ExperimentalFoundationApi
-@Composable
-public fun PopoverCaretTipBox(
-    modifier: Modifier = Modifier,
-    alignment: PopoverCaretTipAlignment = PopoverCaretTipAlignment.Center,
-    placement: PopoverPlacement = PopoverPlacement.Top,
-    popoverMinWith: Dp = Dp.Unspecified,
-    popoverMaxWith: Dp = Dp.Unspecified,
-    uiTriggerMutableInteractionSource: MutableInteractionSource =
-        remember { MutableInteractionSource() },
-    popoverContent: @Composable BoxScope.() -> Unit,
-    content: @Composable () -> Unit
-) {
-    PopoverBoxInternal(
-        modifier = modifier,
-        alignment = alignment,
-        placement = placement,
-        popoverMinWidth = popoverMinWith,
-        popoverMaxWidth = popoverMaxWith,
-        uiTriggerMutableInteractionSource = uiTriggerMutableInteractionSource,
-        popoverContent = popoverContent,
-        content = content
-    )
-}
+internal val popoverContentPaddingValues: PaddingValues = PaddingValues(SpacingScale.spacing05)
 
 @ExperimentalFoundationApi
 @Composable
 internal fun PopoverBoxInternal(
+    popoverShape: PopoverShape,
+    positionProvider: PopupPositionProvider,
     modifier: Modifier = Modifier,
     state: BasicTooltipState = rememberBasicTooltipState(),
-    alignment: PopoverCaretTipAlignment = PopoverCaretTipAlignment.Center,
-    placement: PopoverPlacement = PopoverPlacement.Top,
-    popoverShape: PopoverWithCaretShape =
-        rememberPopupShape(
-            placement = placement,
-            alignment = alignment,
-            tooltipContentPaddingValues = popoverContentPaddingValues,
-        ),
     popoverBackgroundColorProvider: @Composable () -> Color =
         { Carbon.theme.layerBackgroundColor(Carbon.layer) },
     popoverMinWidth: Dp = Dp.Unspecified,
@@ -99,20 +61,6 @@ internal fun PopoverBoxInternal(
     popoverContent: @Composable BoxScope.() -> Unit,
     content: @Composable () -> Unit
 ) {
-    val density = LocalDensity.current
-
-    val positionProvider = remember(
-        placement, alignment, popoverShape.caretSize, density
-    ) {
-        PopoverPositionProvider(
-            placement = placement,
-            alignment = alignment,
-            caretSize = popoverShape.caretSize,
-            tooltipContentPaddingValues = popoverContentPaddingValues,
-            density = density,
-        )
-    }
-
     LaunchedEffect(uiTriggerMutableInteractionSource, state) {
         var focusSource: FocusInteraction? = null
         uiTriggerMutableInteractionSource.interactions.collect {
@@ -132,7 +80,7 @@ internal fun PopoverBoxInternal(
             CarbonLayer {
                 Box(
                     modifier = Modifier
-                        .padding(popoverShape.caretSize + popoverMargin)
+                        .padding(popoverShape.tipSize + popoverMargin)
                         .background(
                             color = popoverBackgroundColorProvider(),
                             shape = popoverShape
@@ -144,7 +92,7 @@ internal fun PopoverBoxInternal(
         },
         state = state,
         modifier = modifier,
-        focusable = false,
+        focusable = true,
         content = content
     )
 }

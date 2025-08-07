@@ -24,6 +24,9 @@ import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.LayoutDirection
 import com.gabrieldrn.carbon.forEachParameter
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
+import com.gabrieldrn.carbon.popover.carettip.PopoverCaretTipAlignment
+import com.gabrieldrn.carbon.popover.carettip.PopoverCaretTipPlacement
+import com.gabrieldrn.carbon.popover.carettip.PopoverCaretTipPositionProvider
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -42,40 +45,40 @@ class PopoverPositionProviderTest {
 
     @Suppress("MaxLineLength")
     private val expectedResults = mapOf(
-        Triple(PopoverPlacement.Right, PopoverCaretTipAlignment.Start, true) to IntOffset(786, 584),
-        Triple(PopoverPlacement.Right, PopoverCaretTipAlignment.Start, false) to IntOffset(786, 634),
-        Triple(PopoverPlacement.Right, PopoverCaretTipAlignment.Center, true) to IntOffset(786, 584),
-        Triple(PopoverPlacement.Right, PopoverCaretTipAlignment.Center, false) to IntOffset(786, 603),
-        Triple(PopoverPlacement.Right, PopoverCaretTipAlignment.End, true) to IntOffset(786, 584),
-        Triple(PopoverPlacement.Right, PopoverCaretTipAlignment.End, false) to IntOffset(786, 572),
-        Triple(PopoverPlacement.Left, PopoverCaretTipAlignment.Start, true) to IntOffset(-45, 584),
-        Triple(PopoverPlacement.Left, PopoverCaretTipAlignment.Start, false) to IntOffset(415, 634),
-        Triple(PopoverPlacement.Left, PopoverCaretTipAlignment.Center, true) to IntOffset(-45, 584),
-        Triple(PopoverPlacement.Left, PopoverCaretTipAlignment.Center, false) to IntOffset(415, 603),
-        Triple(PopoverPlacement.Left, PopoverCaretTipAlignment.End, true) to IntOffset(-45, 584),
-        Triple(PopoverPlacement.Left, PopoverCaretTipAlignment.End, false) to IntOffset(415, 572),
-        Triple(PopoverPlacement.Bottom, PopoverCaretTipAlignment.Start, true) to IntOffset(612, 724),
-        Triple(PopoverPlacement.Bottom, PopoverCaretTipAlignment.Start, false) to IntOffset(612, 724),
-        Triple(PopoverPlacement.Bottom, PopoverCaretTipAlignment.Center, true) to IntOffset(371, 724),
-        Triple(PopoverPlacement.Bottom, PopoverCaretTipAlignment.Center, false) to IntOffset(600, 724),
-        Triple(PopoverPlacement.Bottom, PopoverCaretTipAlignment.End, true) to IntOffset(129, 724),
-        Triple(PopoverPlacement.Bottom, PopoverCaretTipAlignment.End, false) to IntOffset(589, 724),
-        Triple(PopoverPlacement.Top, PopoverCaretTipAlignment.Start, true) to IntOffset(612, 445),
-        Triple(PopoverPlacement.Top, PopoverCaretTipAlignment.Start, false) to IntOffset(612, 482),
-        Triple(PopoverPlacement.Top, PopoverCaretTipAlignment.Center, true) to IntOffset(371, 445),
-        Triple(PopoverPlacement.Top, PopoverCaretTipAlignment.Center, false) to IntOffset(600, 482),
-        Triple(PopoverPlacement.Top, PopoverCaretTipAlignment.End, true) to IntOffset(129, 445),
-        Triple(PopoverPlacement.Top, PopoverCaretTipAlignment.End, false) to IntOffset(589, 482)
+        Triple(PopoverCaretTipPlacement.Right, PopoverCaretTipAlignment.Start, true) to IntOffset(786, 584),
+        Triple(PopoverCaretTipPlacement.Right, PopoverCaretTipAlignment.Start, false) to IntOffset(786, 634),
+        Triple(PopoverCaretTipPlacement.Right, PopoverCaretTipAlignment.Center, true) to IntOffset(786, 584),
+        Triple(PopoverCaretTipPlacement.Right, PopoverCaretTipAlignment.Center, false) to IntOffset(786, 603),
+        Triple(PopoverCaretTipPlacement.Right, PopoverCaretTipAlignment.End, true) to IntOffset(786, 584),
+        Triple(PopoverCaretTipPlacement.Right, PopoverCaretTipAlignment.End, false) to IntOffset(786, 572),
+        Triple(PopoverCaretTipPlacement.Left, PopoverCaretTipAlignment.Start, true) to IntOffset(-45, 584),
+        Triple(PopoverCaretTipPlacement.Left, PopoverCaretTipAlignment.Start, false) to IntOffset(415, 634),
+        Triple(PopoverCaretTipPlacement.Left, PopoverCaretTipAlignment.Center, true) to IntOffset(-45, 584),
+        Triple(PopoverCaretTipPlacement.Left, PopoverCaretTipAlignment.Center, false) to IntOffset(415, 603),
+        Triple(PopoverCaretTipPlacement.Left, PopoverCaretTipAlignment.End, true) to IntOffset(-45, 584),
+        Triple(PopoverCaretTipPlacement.Left, PopoverCaretTipAlignment.End, false) to IntOffset(415, 572),
+        Triple(PopoverCaretTipPlacement.Bottom, PopoverCaretTipAlignment.Start, true) to IntOffset(612, 724),
+        Triple(PopoverCaretTipPlacement.Bottom, PopoverCaretTipAlignment.Start, false) to IntOffset(612, 724),
+        Triple(PopoverCaretTipPlacement.Bottom, PopoverCaretTipAlignment.Center, true) to IntOffset(371, 724),
+        Triple(PopoverCaretTipPlacement.Bottom, PopoverCaretTipAlignment.Center, false) to IntOffset(600, 724),
+        Triple(PopoverCaretTipPlacement.Bottom, PopoverCaretTipAlignment.End, true) to IntOffset(129, 724),
+        Triple(PopoverCaretTipPlacement.Bottom, PopoverCaretTipAlignment.End, false) to IntOffset(589, 724),
+        Triple(PopoverCaretTipPlacement.Top, PopoverCaretTipAlignment.Start, true) to IntOffset(612, 445),
+        Triple(PopoverCaretTipPlacement.Top, PopoverCaretTipAlignment.Start, false) to IntOffset(612, 482),
+        Triple(PopoverCaretTipPlacement.Top, PopoverCaretTipAlignment.Center, true) to IntOffset(371, 445),
+        Triple(PopoverCaretTipPlacement.Top, PopoverCaretTipAlignment.Center, false) to IntOffset(600, 482),
+        Triple(PopoverCaretTipPlacement.Top, PopoverCaretTipAlignment.End, true) to IntOffset(129, 445),
+        Triple(PopoverCaretTipPlacement.Top, PopoverCaretTipAlignment.End, false) to IntOffset(589, 482)
     )
 
     @Test
     fun positionProvider_returnsCorrectPosition() {
         forEachParameter(
-            PopoverPlacement.entries.toTypedArray(),
+            PopoverCaretTipPlacement.entries.toTypedArray(),
             PopoverCaretTipAlignment.entries.toTypedArray(),
             arrayOf(true, false),
         ) { placement, alignment, isSmall ->
-            val provider = PopoverPositionProvider(
+            val provider = PopoverCaretTipPositionProvider(
                 placement,
                 alignment,
                 caretSize,

@@ -21,31 +21,35 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.gabrieldrn.carbon.popover.PopoverCaretTipAlignment
-import com.gabrieldrn.carbon.popover.PopoverPlacement
-import com.gabrieldrn.carbon.popover.PopoverWithCaretShape
+import com.gabrieldrn.carbon.popover.carettip.PopoverCaretTipAlignment
+import com.gabrieldrn.carbon.popover.carettip.PopoverCaretTipPlacement
+import com.gabrieldrn.carbon.popover.carettip.PopoverCaretTipShape
 
 internal class TooltipShape(
-    placement: PopoverPlacement,
+    placement: PopoverCaretTipPlacement,
     alignment: PopoverCaretTipAlignment,
     tooltipContentPaddingValues: PaddingValues,
     isSingleLine: Boolean
-) : PopoverWithCaretShape(
+) : PopoverCaretTipShape(
     placement = placement,
     alignment = alignment,
     popoverContentPaddingValues = tooltipContentPaddingValues
 ) {
 
-    override val caretSize: Dp = if (isSingleLine) singleSizeCaretSize else PopoverWithCaretShape.caretSize
+    override val tipSize: Dp = if (isSingleLine) {
+        singleLineCaretTipSize
+    } else {
+        caretTipSize
+    }
 
-    companion object {
-        private val singleSizeCaretSize = 6.dp
+    internal companion object {
+        private val singleLineCaretTipSize = 6.dp
     }
 }
 
 @Composable
 internal fun rememberTooltipShape(
-    placement: PopoverPlacement,
+    placement: PopoverCaretTipPlacement,
     alignment: PopoverCaretTipAlignment,
     tooltipContentPaddingValues: PaddingValues,
     isSingleLine: Boolean

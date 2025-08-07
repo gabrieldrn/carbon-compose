@@ -20,19 +20,14 @@ package com.gabrieldrn.carbon.popover
  * The alignment of the popover relative to the UI trigger.
  *
  * From popover alignment
- * [documentation](https://carbondesignsystem.com/components/popover/usage/#caret-tip).
+ * [documentation](https://carbondesignsystem.com/components/popover/usage/#no-tip).
  */
-public enum class PopoverCaretTipAlignment {
+public enum class PopoverAlignment {
 
     /**
      * Positions the popover container the start of the UI trigger.
      */
     Start,
-
-    /**
-     * Positions the popover container to the center of the UI trigger.
-     */
-    Center,
 
     /**
      * Positions the popover container to the end of the UI trigger.

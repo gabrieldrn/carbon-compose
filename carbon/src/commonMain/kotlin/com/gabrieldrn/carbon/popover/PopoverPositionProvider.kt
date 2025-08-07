@@ -17,9 +17,10 @@
 package com.gabrieldrn.carbon.popover
 
 import androidx.annotation.VisibleForTesting
-import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Density
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.IntRect
 import androidx.compose.ui.unit.IntSize
@@ -28,36 +29,19 @@ import androidx.compose.ui.window.PopupPositionProvider
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 
 internal class PopoverPositionProvider
-@VisibleForTesting(otherwise = VisibleForTesting.Companion.PACKAGE_PRIVATE) constructor(
+@VisibleForTesting(otherwise = VisibleForTesting.PACKAGE_PRIVATE) constructor(
     private val placement: PopoverPlacement,
-    private val alignment: PopoverCaretTipAlignment,
-    private val caretSize: Dp,
-    private val tooltipContentPaddingValues: PaddingValues,
+    private val alignment: PopoverAlignment,
     density: Density,
 ) : PopupPositionProvider {
-
-    private val caretSizeInt = with(density) {
-        caretSize.roundToPx()
-    }
 
     // Spacing around the actual popup. This allows to draw the caret.
     private val popupPadding = with(density) {
         SpacingScale.spacing02.roundToPx()
     }
 
-    private val contentPadding = with(density) {
-        tooltipContentPaddingValues
-            .getTooltipContentPaddingByPosition(
-                placement = placement,
-                alignment = alignment,
-                layoutDirection = LayoutDirection.Ltr // Same for Rtl
-            )
-            .roundToPx()
-    }
-
     // Distance between the edge of the content (excluding the margin around) and the caret tip.
-    private val edgeToCaretTipOffset =
-        popupPadding + contentPadding + 2 * caretSizeInt
+    private val edgeToCaretTipOffset = 0
 
     override fun calculatePosition(
         anchorBounds: IntRect,
@@ -67,44 +51,28 @@ internal class PopoverPositionProvider
     ): IntOffset {
 
         fun horizontalXOffset(): Int {
-            val uiTriggerHalfWidth = anchorBounds.width / 2
-
             return when (alignment) {
-                PopoverCaretTipAlignment.Start ->
-                    anchorBounds.left + -edgeToCaretTipOffset + uiTriggerHalfWidth
+                PopoverAlignment.Start ->
+                    anchorBounds.left + -edgeToCaretTipOffset - popupPadding
 
-                PopoverCaretTipAlignment.Center ->
-                    anchorBounds.left + (anchorBounds.width - popupContentSize.width) / 2
-
-                PopoverCaretTipAlignment.End ->
+                PopoverAlignment.End ->
                     anchorBounds.right -
                         popupContentSize.width +
-                        edgeToCaretTipOffset -
-                        uiTriggerHalfWidth
+                        edgeToCaretTipOffset +
+                        popupPadding
             }
         }
 
         fun verticalYOffset(): Int {
-            val uiTriggerHalfHeight = anchorBounds.height / 2
+            return when (alignment) {
+                PopoverAlignment.Start ->
+                    anchorBounds.top + -edgeToCaretTipOffset - popupPadding
 
-            val adjustedAlignment = if (popupContentSize.height < anchorBounds.height) {
-                PopoverCaretTipAlignment.Center
-            } else {
-                alignment
-            }
-
-            return when (adjustedAlignment) {
-                PopoverCaretTipAlignment.Start ->
-                    anchorBounds.top + -edgeToCaretTipOffset + uiTriggerHalfHeight
-
-                PopoverCaretTipAlignment.Center ->
-                    anchorBounds.top + (anchorBounds.height - popupContentSize.height) / 2
-
-                PopoverCaretTipAlignment.End ->
+                PopoverAlignment.End ->
                     anchorBounds.bottom -
                         popupContentSize.height +
-                        edgeToCaretTipOffset -
-                        uiTriggerHalfHeight
+                        edgeToCaretTipOffset +
+                        popupPadding
             }
         }
 
@@ -129,5 +97,21 @@ internal class PopoverPositionProvider
                 y = anchorBounds.top - popupContentSize.height - popupPadding
             )
         }
+    }
+}
+
+@Composable
+internal fun rememberPopoverPositionProvider(
+    alignment: PopoverAlignment,
+    placement: PopoverPlacement,
+): PopoverPositionProvider {
+    val density = LocalDensity.current
+
+    return remember(placement, alignment, density) {
+        PopoverPositionProvider(
+            placement = placement,
+            alignment = alignment,
+            density = density,
+        )
     }
 }

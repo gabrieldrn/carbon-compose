@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.gabrieldrn.carbon.popover
+package com.gabrieldrn.carbon.popover.carettip
 
 /**
  * The placement of the popover relative to the UI trigger, regardless if the popover has a caret
@@ -22,9 +22,9 @@ package com.gabrieldrn.carbon.popover
  * centered with each other.
  *
  * From popover placement
- * [documentation](https://carbondesignsystem.com/components/popover/usage/#no-tip).
+ * [documentation](https://carbondesignsystem.com/components/popover/usage/#caret-tip).
  */
-public enum class PopoverPlacement {
+public enum class PopoverCaretTipPlacement {
 
     /**
      * Places the popover to the right of the UI trigger.

@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 
-package com.gabrieldrn.carbon.popover
+package com.gabrieldrn.carbon.popover.carettip
 
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.geometry.CornerRadius
@@ -26,29 +25,30 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.geometry.toRect
 import androidx.compose.ui.graphics.Outline
 import androidx.compose.ui.graphics.Path
-import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
+import com.gabrieldrn.carbon.popover.PopoverShape
+import com.gabrieldrn.carbon.popover.getPopoverContentPaddingByPosition
 
-internal open class PopoverWithCaretShape(
-    private val placement: PopoverPlacement,
+internal open class PopoverCaretTipShape(
+    private val placement: PopoverCaretTipPlacement,
     private val alignment: PopoverCaretTipAlignment,
     private val popoverContentPaddingValues: PaddingValues,
-) : Shape {
+) : PopoverShape() {
 
-    open val caretSize: Dp = Companion.caretSize
+    override val tipSize: Dp = caretTipSize
 
-    private fun Path.addTooltip(
+    private fun Path.addCaretTip(
         size: Size,
         layoutDirection: LayoutDirection,
         density: Density
     ) {
-        val caretSizePx = with(density) { caretSize.toPx() }
+        val caretSizePx = with(density) { tipSize.toPx() }
         val contentPadding = with(density) {
             popoverContentPaddingValues
-                .getTooltipContentPaddingByPosition(
+                .getPopoverContentPaddingByPosition(
                     placement = placement,
                     alignment = alignment,
                     layoutDirection = layoutDirection
@@ -73,22 +73,22 @@ internal open class PopoverWithCaretShape(
         }
 
         when (placement) {
-            PopoverPlacement.Right -> {
+            PopoverCaretTipPlacement.Right -> {
                 moveTo(0f, verticalCaretYPosition())
                 relativeLineTo(-caretSizePx, caretSizePx)
                 relativeLineTo(caretSizePx, caretSizePx)
             }
-            PopoverPlacement.Left -> {
+            PopoverCaretTipPlacement.Left -> {
                 moveTo(size.width, verticalCaretYPosition())
                 relativeLineTo(caretSizePx, caretSizePx)
                 relativeLineTo(-caretSizePx, caretSizePx)
             }
-            PopoverPlacement.Top -> {
+            PopoverCaretTipPlacement.Top -> {
                 moveTo(horizontalCaretXPosition(), size.height)
                 relativeLineTo(caretSizePx, caretSizePx)
                 relativeLineTo(caretSizePx, -caretSizePx)
             }
-            PopoverPlacement.Bottom -> {
+            PopoverCaretTipPlacement.Bottom -> {
                 moveTo(horizontalCaretXPosition(), 0f)
                 relativeLineTo(caretSizePx, -caretSizePx)
                 relativeLineTo(caretSizePx, caretSizePx)
@@ -108,16 +108,10 @@ internal open class PopoverWithCaretShape(
         return Outline.Generic(
             Path().apply {
                 addRoundRect(
-                    RoundRect(
-                        rect = size.toRect(),
-                        topLeft = cornerRadius,
-                        topRight = cornerRadius,
-                        bottomRight = cornerRadius,
-                        bottomLeft = cornerRadius
-                    )
+                    RoundRect(rect = size.toRect(), cornerRadius = cornerRadius)
                 )
 
-                addTooltip(
+                addCaretTip(
                     size = size,
                     layoutDirection = layoutDirection,
                     density = density
@@ -127,18 +121,17 @@ internal open class PopoverWithCaretShape(
     }
 
     internal companion object {
-        val cornerSize = CornerSize(2.dp)
-        val caretSize = 8.dp
+        val caretTipSize = 8.dp
     }
 }
 
 @Composable
-internal fun rememberPopupShape(
-    placement: PopoverPlacement,
+internal fun rememberPopoverCaretTipShape(
+    placement: PopoverCaretTipPlacement,
     alignment: PopoverCaretTipAlignment,
     tooltipContentPaddingValues: PaddingValues,
-): PopoverWithCaretShape = remember(
+): PopoverCaretTipShape = remember(
     placement, alignment, tooltipContentPaddingValues
 ) {
-    PopoverWithCaretShape(placement, alignment, tooltipContentPaddingValues)
+    PopoverCaretTipShape(placement, alignment, tooltipContentPaddingValues)
 }

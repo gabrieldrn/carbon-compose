@@ -32,8 +32,9 @@ import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 import com.gabrieldrn.carbon.popover.PopoverBoxInternal
-import com.gabrieldrn.carbon.popover.PopoverCaretTipAlignment
-import com.gabrieldrn.carbon.popover.PopoverPlacement
+import com.gabrieldrn.carbon.popover.carettip.PopoverCaretTipAlignment
+import com.gabrieldrn.carbon.popover.carettip.PopoverCaretTipPlacement
+import com.gabrieldrn.carbon.popover.carettip.rememberPopoverCaretTipPositionProvider
 
 private val tooltipSingleLineMaxWidth = 208.dp
 private val tooltipMultiLineMaxWidth = 288.dp
@@ -112,7 +113,7 @@ private val tooltipMultiLinePaddingValues = PaddingValues(SpacingScale.spacing05
  * Note that the tooltip width is limited to a maximum width depending on this parameter and the
  * text might be truncated if it exceeds the maximum width.
  * @param placement Placement of the tooltip relative to the UI trigger. Defaults to
- * [PopoverPlacement.Top].
+ * [PopoverCaretTipPlacement.Top].
  * @param alignment Alignment of the tooltip relative to the UI trigger. Defaults to
  * [PopoverCaretTipAlignment.Center].
  * @param uiTriggerMutableInteractionSource A shared [MutableInteractionSource] that will be used
@@ -126,7 +127,7 @@ public fun TooltipBox(
     tooltipText: String,
     modifier: Modifier = Modifier,
     singleLine: Boolean = false,
-    placement: PopoverPlacement = PopoverPlacement.Top,
+    placement: PopoverCaretTipPlacement = PopoverCaretTipPlacement.Top,
     alignment: PopoverCaretTipAlignment = PopoverCaretTipAlignment.Center,
     uiTriggerMutableInteractionSource: MutableInteractionSource =
         remember { MutableInteractionSource() },
@@ -191,7 +192,7 @@ internal fun TooltipBox(
     modifier: Modifier = Modifier,
     state: BasicTooltipState = rememberBasicTooltipState(),
     singleLine: Boolean = false,
-    placement: PopoverPlacement = PopoverPlacement.Top,
+    placement: PopoverCaretTipPlacement = PopoverCaretTipPlacement.Top,
     alignment: PopoverCaretTipAlignment = PopoverCaretTipAlignment.Center,
     uiTriggerMutableInteractionSource: MutableInteractionSource =
         remember { MutableInteractionSource() },
@@ -210,11 +211,15 @@ internal fun TooltipBox(
     )
 
     PopoverBoxInternal(
+        popoverShape = shape,
+        positionProvider = rememberPopoverCaretTipPositionProvider(
+            caretSize = shape.tipSize,
+            alignment = alignment,
+            placement = placement,
+            contentPaddingValues = tooltipContentPaddingValues
+        ),
         modifier = modifier,
         state = state,
-        alignment = alignment,
-        placement = placement,
-        popoverShape = shape,
         popoverBackgroundColorProvider = { Carbon.theme.backgroundInverse },
         popoverMaxWidth = if (singleLine) tooltipSingleLineMaxWidth else tooltipMultiLineMaxWidth,
         uiTriggerMutableInteractionSource = uiTriggerMutableInteractionSource,
