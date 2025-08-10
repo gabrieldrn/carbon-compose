@@ -33,8 +33,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.PopupPositionProvider
 import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.foundation.color.CarbonLayer
@@ -44,6 +46,7 @@ import kotlinx.coroutines.launch
 
 private val popoverMargin = SpacingScale.spacing02
 internal val popoverContentPaddingValues: PaddingValues = PaddingValues(SpacingScale.spacing05)
+private val popoverDefaultElevation = 4.dp
 
 @ExperimentalFoundationApi
 @Composable
@@ -56,6 +59,7 @@ internal fun PopoverBoxInternal(
         { Carbon.theme.layerBackgroundColor(Carbon.layer) },
     popoverMinWidth: Dp = Dp.Unspecified,
     popoverMaxWidth: Dp = Dp.Unspecified,
+    popoverElevation: Dp = popoverDefaultElevation,
     uiTriggerMutableInteractionSource: MutableInteractionSource =
         remember { MutableInteractionSource() },
     popoverContent: @Composable BoxScope.() -> Unit,
@@ -81,6 +85,7 @@ internal fun PopoverBoxInternal(
                 Box(
                     modifier = Modifier
                         .padding(popoverShape.tipSize + popoverMargin)
+                        .shadow(elevation = popoverElevation, shape = popoverShape)
                         .background(
                             color = popoverBackgroundColorProvider(),
                             shape = popoverShape

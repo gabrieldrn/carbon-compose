@@ -222,6 +222,7 @@ internal fun TooltipBox(
         state = state,
         popoverBackgroundColorProvider = { Carbon.theme.backgroundInverse },
         popoverMaxWidth = if (singleLine) tooltipSingleLineMaxWidth else tooltipMultiLineMaxWidth,
+        popoverElevation = 0.dp,
         uiTriggerMutableInteractionSource = uiTriggerMutableInteractionSource,
         popoverContent = {
             BasicText(
