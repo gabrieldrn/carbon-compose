@@ -32,7 +32,7 @@ import androidx.compose.ui.unit.Dp
 @ExperimentalFoundationApi
 @Composable
 public fun PopoverBox(
-    modifier: Modifier = Modifier.Companion,
+    modifier: Modifier = Modifier,
     alignment: PopoverAlignment = PopoverAlignment.Start,
     placement: PopoverPlacement = PopoverPlacement.Top,
     popoverMinWith: Dp = Dp.Unspecified,

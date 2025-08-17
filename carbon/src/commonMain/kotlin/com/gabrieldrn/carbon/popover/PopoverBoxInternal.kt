@@ -44,7 +44,6 @@ import com.gabrieldrn.carbon.foundation.color.layerBackgroundColor
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 import kotlinx.coroutines.launch
 
-private val popoverMargin = SpacingScale.spacing02
 internal val popoverContentPaddingValues: PaddingValues = PaddingValues(SpacingScale.spacing05)
 private val popoverDefaultElevation = 4.dp
 
@@ -60,6 +59,7 @@ internal fun PopoverBoxInternal(
     popoverMinWidth: Dp = Dp.Unspecified,
     popoverMaxWidth: Dp = Dp.Unspecified,
     popoverElevation: Dp = popoverDefaultElevation,
+    popoverMargin: Dp = SpacingScale.spacing02,
     uiTriggerMutableInteractionSource: MutableInteractionSource =
         remember { MutableInteractionSource() },
     popoverContent: @Composable BoxScope.() -> Unit,

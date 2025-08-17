@@ -38,7 +38,7 @@ import com.gabrieldrn.carbon.popover.popoverContentPaddingValues
 @ExperimentalFoundationApi
 @Composable
 public fun PopoverCaretTipBox(
-    modifier: Modifier = Modifier.Companion,
+    modifier: Modifier = Modifier,
     state: BasicTooltipState = rememberBasicTooltipState(),
     alignment: PopoverCaretTipAlignment = PopoverCaretTipAlignment.Center,
     placement: PopoverCaretTipPlacement = PopoverCaretTipPlacement.Top,
