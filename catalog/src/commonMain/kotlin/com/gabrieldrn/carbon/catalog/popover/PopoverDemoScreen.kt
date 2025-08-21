@@ -38,6 +38,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.button.IconButton
+import com.gabrieldrn.carbon.button.IconButtonWithPopover
 import com.gabrieldrn.carbon.catalog.Res
 import com.gabrieldrn.carbon.catalog.common.DemoScreen
 import com.gabrieldrn.carbon.catalog.ic_cognitive
@@ -58,7 +59,8 @@ import org.jetbrains.compose.resources.painterResource
 
 private enum class PopoverVariant(val label: String) {
     NoTip("No tip"),
-    CaretTip("Caret tip");
+    CaretTip("Caret tip"),
+    TabTip("Tab tip");
 
     companion object {
         fun fromLabel(label: String) = entries.first { it.label == label }
@@ -88,6 +90,9 @@ fun PopoverDemoScreen(modifier: Modifier = Modifier) {
         mutableStateOf(PopoverCaretTipAlignment.Center)
     }
 
+    var popoverTabTipAlignment by rememberSaveable {
+        mutableStateOf(PopoverAlignment.Start)
+    }
 
     val uiTrigger: @Composable () -> Unit = {
         IconButton(
@@ -102,7 +107,6 @@ fun PopoverDemoScreen(modifier: Modifier = Modifier) {
         modifier = modifier,
         variants = variants,
         demoParametersContent = { variantTab ->
-
             when (PopoverVariant.fromLabel(variantTab.label)) {
                 PopoverVariant.CaretTip -> {
                     Dropdown(
@@ -139,6 +143,15 @@ fun PopoverDemoScreen(modifier: Modifier = Modifier) {
                         onOptionSelected = { popoverNoTipAlignment = it }
                     )
                 }
+
+                PopoverVariant.TabTip ->
+                    Dropdown(
+                        placeholder = "Choose option",
+                        label = "Tooltip alignment",
+                        options = PopoverAlignment.entries.toDropdownOptions(),
+                        selectedOption = popoverTabTipAlignment,
+                        onOptionSelected = { popoverTabTipAlignment = it }
+                    )
             }
         },
         demoContent = { variantTab ->
@@ -166,6 +179,14 @@ fun PopoverDemoScreen(modifier: Modifier = Modifier) {
                     },
                     content = uiTrigger
                 )
+
+                PopoverVariant.TabTip -> IconButtonWithPopover(
+                    iconPainter = painterResource(Res.drawable.ic_cognitive),
+                    popoverAlignment = popoverTabTipAlignment,
+                    onClick = {}
+                ) {
+                    PopoverContent(smallContent = false)
+                }
             }
         }
     )

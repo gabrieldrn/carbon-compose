@@ -17,14 +17,28 @@
 package com.gabrieldrn.carbon.button
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberBasicTooltipState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
+import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
+import com.gabrieldrn.carbon.popover.PopoverAlignment
+import com.gabrieldrn.carbon.popover.PopoverBoxInternal
+import com.gabrieldrn.carbon.popover.tabtip.rememberPopoverTabTipShape
+import com.gabrieldrn.carbon.popover.tabtip.rememberPopoverTapTipPositionProvider
 import com.gabrieldrn.carbon.tooltip.TooltipBox
 import com.gabrieldrn.carbon.tooltip.TooltipParameters
 
@@ -128,6 +142,83 @@ public fun IconButton(
         parameters = tooltipParameters,
         uiTriggerMutableInteractionSource = interactionSource,
         modifier = tooltipModifier
+    ) {
+        IconButton(
+            iconPainter = iconPainter,
+            onClick = onClick,
+            modifier = modifier,
+            buttonType = buttonType,
+            buttonSize = buttonSize,
+            isEnabled = isEnabled,
+            interactionSource = interactionSource
+        )
+    }
+}
+
+@ExperimentalFoundationApi
+@Composable
+public fun IconButtonWithPopover(
+    iconPainter: Painter,
+    popoverAlignment: PopoverAlignment,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    popoverMinWidth: Dp = Dp.Unspecified,
+    popoverMaxWidth: Dp = Dp.Unspecified,
+    buttonType: ButtonType = ButtonType.Primary,
+    buttonSize: ButtonSize = ButtonSize.LargeProductive,
+    isEnabled: Boolean = true,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    popoverContent: @Composable BoxScope.() -> Unit
+) {
+    val popoverShape = rememberPopoverTabTipShape(
+        alignment = popoverAlignment,
+        buttonSize = buttonSize
+    )
+    val positionProvider = rememberPopoverTapTipPositionProvider(
+        buttonSize = buttonSize,
+        alignment = popoverAlignment
+    )
+
+    PopoverBoxInternal(
+        popoverShape = popoverShape,
+        positionProvider = positionProvider,
+        modifier = modifier,
+        state = rememberBasicTooltipState(isPersistent = true),
+        popoverMinWidth = popoverMinWidth,
+        popoverMaxWidth = popoverMaxWidth,
+        popoverMargin = 0.dp,
+        uiTriggerMutableInteractionSource = interactionSource,
+        popoverContent = {
+            val padding = remember(buttonSize) {
+                when (buttonSize) {
+                    ButtonSize.Small -> SpacingScale.spacing03
+                    ButtonSize.Medium -> SpacingScale.spacing04
+                    else -> SpacingScale.spacing05
+                }
+            }
+
+            Column {
+                Image(
+                    painter = iconPainter,
+                    contentDescription = null,
+                    colorFilter = ColorFilter.tint(Carbon.theme.iconPrimary),
+                    modifier = Modifier
+                        .padding(padding)
+                        .size(SpacingScale.spacing05)
+                        .align(
+                            if (popoverAlignment == PopoverAlignment.End) {
+                                Alignment.End
+                            } else {
+                                Alignment.Start
+                            }
+                        )
+                )
+
+                Box {
+                    popoverContent()
+                }
+            }
+        },
     ) {
         IconButton(
             iconPainter = iconPainter,
