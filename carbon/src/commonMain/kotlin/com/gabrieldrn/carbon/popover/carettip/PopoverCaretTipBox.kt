@@ -16,13 +16,9 @@
 
 package com.gabrieldrn.carbon.popover.carettip
 
-import androidx.compose.foundation.BasicTooltipState
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.BoxScope
-import androidx.compose.foundation.rememberBasicTooltipState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import com.gabrieldrn.carbon.popover.PopoverBoxInternal
@@ -38,14 +34,13 @@ import com.gabrieldrn.carbon.popover.popoverContentPaddingValues
 @ExperimentalFoundationApi
 @Composable
 public fun PopoverCaretTipBox(
+    isVisible: Boolean,
     modifier: Modifier = Modifier,
-    state: BasicTooltipState = rememberBasicTooltipState(),
     alignment: PopoverCaretTipAlignment = PopoverCaretTipAlignment.Center,
     placement: PopoverCaretTipPlacement = PopoverCaretTipPlacement.Top,
     popoverMinWith: Dp = Dp.Unspecified,
     popoverMaxWith: Dp = Dp.Unspecified,
-    uiTriggerMutableInteractionSource: MutableInteractionSource =
-        remember { MutableInteractionSource() },
+    onDismissRequest: (() -> Unit)? = null,
     popoverContent: @Composable BoxScope.() -> Unit,
     content: @Composable () -> Unit
 ) {
@@ -56,6 +51,7 @@ public fun PopoverCaretTipBox(
     )
 
     PopoverBoxInternal(
+        isVisible = isVisible,
         popoverShape = popoverShape,
         positionProvider = rememberPopoverCaretTipPositionProvider(
             caretSize = popoverShape.tipSize,
@@ -64,10 +60,9 @@ public fun PopoverCaretTipBox(
             contentPaddingValues = popoverContentPaddingValues
         ),
         modifier = modifier,
-        state = state,
         popoverMinWidth = popoverMinWith,
         popoverMaxWidth = popoverMaxWith,
-        uiTriggerMutableInteractionSource = uiTriggerMutableInteractionSource,
+        onDismissRequest = onDismissRequest,
         popoverContent = popoverContent,
         content = content
     )

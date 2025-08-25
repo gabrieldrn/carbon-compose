@@ -17,11 +17,8 @@
 package com.gabrieldrn.carbon.popover
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.BoxScope
-import androidx.compose.foundation.rememberBasicTooltipState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 
@@ -32,13 +29,13 @@ import androidx.compose.ui.unit.Dp
 @ExperimentalFoundationApi
 @Composable
 public fun PopoverBox(
+    isVisible: Boolean,
     modifier: Modifier = Modifier,
     alignment: PopoverAlignment = PopoverAlignment.Start,
     placement: PopoverPlacement = PopoverPlacement.Top,
     popoverMinWith: Dp = Dp.Unspecified,
     popoverMaxWith: Dp = Dp.Unspecified,
-    uiTriggerMutableInteractionSource: MutableInteractionSource =
-        remember { MutableInteractionSource() },
+    onDismissRequest: (() -> Unit)? = null,
     popoverContent: @Composable BoxScope.() -> Unit,
     content: @Composable () -> Unit
 ) {
@@ -46,15 +43,15 @@ public fun PopoverBox(
 
     PopoverBoxInternal(
         popoverShape = popoverShape,
+        isVisible = isVisible,
         positionProvider = rememberPopoverPositionProvider(
             alignment = alignment,
             placement = placement,
         ),
         modifier = modifier,
-        state = rememberBasicTooltipState(isPersistent = true),
         popoverMinWidth = popoverMinWith,
         popoverMaxWidth = popoverMaxWith,
-        uiTriggerMutableInteractionSource = uiTriggerMutableInteractionSource,
+        onDismissRequest = onDismissRequest,
         popoverContent = popoverContent,
         content = content
     )

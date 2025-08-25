@@ -65,7 +65,10 @@ internal open class PopoverTabTipShape(
 
                 addRoundRect(
                     RoundRect(
-                        rect = size.toRect().translate(translateX = 0f, translateY = tabSizePx),
+                        rect = size
+                            .copy(height = size.height - tabSizePx)
+                            .toRect()
+                            .translate(translateX = 0f, translateY = tabSizePx),
                         topLeft = if (alignment == PopoverAlignment.Start) {
                             CornerRadius.Zero
                         } else {

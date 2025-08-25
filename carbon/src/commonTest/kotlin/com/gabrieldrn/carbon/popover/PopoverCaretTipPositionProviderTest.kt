@@ -30,7 +30,7 @@ import com.gabrieldrn.carbon.popover.carettip.PopoverCaretTipPositionProvider
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class PopoverPositionProviderTest {
+class PopoverCaretTipPositionProviderTest {
 
     private val density = Density(1f)
     private val anchorBounds = IntRect(499, 576, 782, 720)
@@ -46,17 +46,17 @@ class PopoverPositionProviderTest {
     @Suppress("MaxLineLength")
     private val expectedResults = mapOf(
         Triple(PopoverCaretTipPlacement.Right, PopoverCaretTipAlignment.Start, true) to IntOffset(786, 584),
-        Triple(PopoverCaretTipPlacement.Right, PopoverCaretTipAlignment.Start, false) to IntOffset(786, 634),
+        Triple(PopoverCaretTipPlacement.Right, PopoverCaretTipAlignment.Start, false) to IntOffset(786, 603),
         Triple(PopoverCaretTipPlacement.Right, PopoverCaretTipAlignment.Center, true) to IntOffset(786, 584),
         Triple(PopoverCaretTipPlacement.Right, PopoverCaretTipAlignment.Center, false) to IntOffset(786, 603),
         Triple(PopoverCaretTipPlacement.Right, PopoverCaretTipAlignment.End, true) to IntOffset(786, 584),
-        Triple(PopoverCaretTipPlacement.Right, PopoverCaretTipAlignment.End, false) to IntOffset(786, 572),
+        Triple(PopoverCaretTipPlacement.Right, PopoverCaretTipAlignment.End, false) to IntOffset(786, 603),
         Triple(PopoverCaretTipPlacement.Left, PopoverCaretTipAlignment.Start, true) to IntOffset(-45, 584),
-        Triple(PopoverCaretTipPlacement.Left, PopoverCaretTipAlignment.Start, false) to IntOffset(415, 634),
+        Triple(PopoverCaretTipPlacement.Left, PopoverCaretTipAlignment.Start, false) to IntOffset(415, 603),
         Triple(PopoverCaretTipPlacement.Left, PopoverCaretTipAlignment.Center, true) to IntOffset(-45, 584),
         Triple(PopoverCaretTipPlacement.Left, PopoverCaretTipAlignment.Center, false) to IntOffset(415, 603),
         Triple(PopoverCaretTipPlacement.Left, PopoverCaretTipAlignment.End, true) to IntOffset(-45, 584),
-        Triple(PopoverCaretTipPlacement.Left, PopoverCaretTipAlignment.End, false) to IntOffset(415, 572),
+        Triple(PopoverCaretTipPlacement.Left, PopoverCaretTipAlignment.End, false) to IntOffset(415, 603),
         Triple(PopoverCaretTipPlacement.Bottom, PopoverCaretTipAlignment.Start, true) to IntOffset(612, 724),
         Triple(PopoverCaretTipPlacement.Bottom, PopoverCaretTipAlignment.Start, false) to IntOffset(612, 724),
         Triple(PopoverCaretTipPlacement.Bottom, PopoverCaretTipAlignment.Center, true) to IntOffset(371, 724),
@@ -72,7 +72,7 @@ class PopoverPositionProviderTest {
     )
 
     @Test
-    fun positionProvider_returnsCorrectPosition() {
+    fun caretTipPositionProvider_returnsCorrectPosition() {
         forEachParameter(
             PopoverCaretTipPlacement.entries.toTypedArray(),
             PopoverCaretTipAlignment.entries.toTypedArray(),

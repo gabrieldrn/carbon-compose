@@ -24,9 +24,11 @@ import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.rememberBasicTooltipState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
@@ -179,15 +181,17 @@ public fun IconButtonWithPopover(
         alignment = popoverAlignment
     )
 
+    var isVisible by remember { mutableStateOf(false) }
+
     PopoverBoxInternal(
+        isVisible = isVisible,
         popoverShape = popoverShape,
         positionProvider = positionProvider,
         modifier = modifier,
-        state = rememberBasicTooltipState(isPersistent = true),
         popoverMinWidth = popoverMinWidth,
         popoverMaxWidth = popoverMaxWidth,
         popoverMargin = 0.dp,
-        uiTriggerMutableInteractionSource = interactionSource,
+        onDismissRequest = { isVisible = false },
         popoverContent = {
             val padding = remember(buttonSize) {
                 when (buttonSize) {
@@ -222,7 +226,10 @@ public fun IconButtonWithPopover(
     ) {
         IconButton(
             iconPainter = iconPainter,
-            onClick = onClick,
+            onClick = {
+                isVisible = true
+                onClick()
+            },
             modifier = modifier,
             buttonType = buttonType,
             buttonSize = buttonSize,

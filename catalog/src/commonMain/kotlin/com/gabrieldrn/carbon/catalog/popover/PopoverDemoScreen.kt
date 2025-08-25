@@ -29,6 +29,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -94,10 +95,12 @@ fun PopoverDemoScreen(modifier: Modifier = Modifier) {
         mutableStateOf(PopoverAlignment.Start)
     }
 
+    var isPopoverVisible by remember { mutableStateOf(false) }
+
     val uiTrigger: @Composable () -> Unit = {
         IconButton(
             iconPainter = painterResource(Res.drawable.ic_cognitive),
-            onClick = {},
+            onClick = { isPopoverVisible = true },
             isEnabled = true,
             interactionSource = interactionSource
         )
@@ -155,21 +158,28 @@ fun PopoverDemoScreen(modifier: Modifier = Modifier) {
             }
         },
         demoContent = { variantTab ->
+
+            LaunchedEffect(variantTab) {
+                isPopoverVisible = false
+            }
+
             when (PopoverVariant.fromLabel(variantTab.label)) {
                 PopoverVariant.CaretTip -> PopoverCaretTipBox(
+                    isVisible = isPopoverVisible,
                     placement = popoverCaretTipPlacement,
                     alignment = popoverCaretTipAlignment,
                     popoverMaxWith = 350.dp,
-                    uiTriggerMutableInteractionSource = interactionSource,
                     popoverContent = {
                         PopoverContent(
                             smallContent = popoverCaretTipPlacement == PopoverCaretTipPlacement.Top
                         )
                     },
+                    onDismissRequest = { isPopoverVisible = false },
                     content = uiTrigger
                 )
 
                 PopoverVariant.NoTip -> PopoverBox(
+                    isVisible = isPopoverVisible,
                     placement = popoverNoTipPlacement,
                     alignment = popoverNoTipAlignment,
                     popoverContent = {
@@ -177,6 +187,7 @@ fun PopoverDemoScreen(modifier: Modifier = Modifier) {
                             smallContent = popoverNoTipPlacement == PopoverPlacement.Top
                         )
                     },
+                    onDismissRequest = { isPopoverVisible = false },
                     content = uiTrigger
                 )
 
