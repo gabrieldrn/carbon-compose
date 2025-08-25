@@ -19,22 +19,27 @@ package com.gabrieldrn.carbon.tooltip
 import androidx.compose.foundation.BasicTooltipBox
 import androidx.compose.foundation.BasicTooltipState
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.MutatePriority
+import androidx.compose.foundation.background
+import androidx.compose.foundation.interaction.FocusInteraction
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberBasicTooltipState
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
-import com.gabrieldrn.carbon.popover.PopoverBoxInternal
 import com.gabrieldrn.carbon.popover.carettip.PopoverCaretTipAlignment
 import com.gabrieldrn.carbon.popover.carettip.PopoverCaretTipPlacement
 import com.gabrieldrn.carbon.popover.carettip.rememberPopoverCaretTipPositionProvider
+import kotlinx.coroutines.launch
 
 private val tooltipSingleLineMaxWidth = 208.dp
 private val tooltipMultiLineMaxWidth = 288.dp
@@ -43,6 +48,7 @@ private val tooltipSingleLinePaddingValues = PaddingValues(
     vertical = SpacingScale.spacing01
 )
 private val tooltipMultiLinePaddingValues = PaddingValues(SpacingScale.spacing05)
+private val tooltipMargin = SpacingScale.spacing02
 
 /**
  * # Tooltip (`TooltipBox`)
@@ -210,8 +216,21 @@ internal fun TooltipBox(
         isSingleLine = singleLine
     )
 
-    PopoverBoxInternal(
-        popoverShape = shape,
+    LaunchedEffect(uiTriggerMutableInteractionSource, state) {
+        var focusSource: FocusInteraction? = null
+        uiTriggerMutableInteractionSource.interactions.collect {
+            if (it is FocusInteraction.Focus) {
+                focusSource = it
+                launch { state.show(MutatePriority.UserInput) }
+            } else if (it is FocusInteraction.Unfocus && it.focus == focusSource) {
+                focusSource = null
+                launch { state.dismiss() }
+            }
+        }
+    }
+
+    BasicTooltipBox(
+        state = state,
         positionProvider = rememberPopoverCaretTipPositionProvider(
             caretSize = shape.tipSize,
             alignment = alignment,
@@ -219,18 +238,24 @@ internal fun TooltipBox(
             contentPaddingValues = tooltipContentPaddingValues
         ),
         modifier = modifier,
-        state = state,
-        popoverBackgroundColorProvider = { Carbon.theme.backgroundInverse },
-        popoverMaxWidth = if (singleLine) tooltipSingleLineMaxWidth else tooltipMultiLineMaxWidth,
-        popoverElevation = 0.dp,
-        uiTriggerMutableInteractionSource = uiTriggerMutableInteractionSource,
-        popoverContent = {
+        tooltip = {
             BasicText(
                 text = tooltipText,
                 style = Carbon.typography.body01.copy(color = Carbon.theme.textInverse),
                 maxLines = if (singleLine) 1 else Int.MAX_VALUE,
                 overflow = TextOverflow.Ellipsis,
-                modifier = Modifier.padding(tooltipContentPaddingValues)
+                modifier = Modifier
+                    .padding(shape.tipSize + tooltipMargin)
+                    .background(
+                        color = Carbon.theme.backgroundInverse,
+                        shape = shape
+                    )
+                    .widthIn(
+                        max =
+                            if (singleLine) tooltipSingleLineMaxWidth
+                            else tooltipMultiLineMaxWidth
+                    )
+                    .padding(tooltipContentPaddingValues)
             )
         },
         content = content
