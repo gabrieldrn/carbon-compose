@@ -29,7 +29,7 @@ import androidx.compose.ui.window.PopupPositionProvider
 import com.gabrieldrn.carbon.button.ButtonSize
 import com.gabrieldrn.carbon.popover.PopoverAlignment
 
-internal class PopoverTapTipPositionProvider
+internal class PopoverTabTipPositionProvider
 @VisibleForTesting(otherwise = VisibleForTesting.PACKAGE_PRIVATE) constructor(
     private val iconButtonSize: ButtonSize,
     private val alignment: PopoverAlignment,
@@ -54,14 +54,14 @@ internal class PopoverTapTipPositionProvider
 }
 
 @Composable
-internal fun rememberPopoverTapTipPositionProvider(
+internal fun rememberPopoverTabTipPositionProvider(
     buttonSize: ButtonSize,
     alignment: PopoverAlignment,
-): PopoverTapTipPositionProvider {
+): PopoverTabTipPositionProvider {
     val density = LocalDensity.current
 
     return remember(buttonSize, alignment, density) {
-        PopoverTapTipPositionProvider(
+        PopoverTabTipPositionProvider(
             iconButtonSize = buttonSize,
             alignment = alignment,
             density = density,

@@ -60,7 +60,7 @@ inline fun <reified A : Any, reified B : Any, reified C : Any> forEachParameter(
     aValues.forEach { a ->
         bValues.forEach { b ->
             cValues.forEach { c ->
-                Logger.d("$aTypeName: $a, $bTypeName: $b, $cTypeName: $c")
+//                Logger.d("$aTypeName: $a, $bTypeName: $b, $cTypeName: $c")
                 block(a, b, c)
             }
         }

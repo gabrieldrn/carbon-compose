@@ -39,8 +39,8 @@ import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 import com.gabrieldrn.carbon.popover.PopoverAlignment
 import com.gabrieldrn.carbon.popover.PopoverBoxInternal
+import com.gabrieldrn.carbon.popover.tabtip.rememberPopoverTabTipPositionProvider
 import com.gabrieldrn.carbon.popover.tabtip.rememberPopoverTabTipShape
-import com.gabrieldrn.carbon.popover.tabtip.rememberPopoverTapTipPositionProvider
 import com.gabrieldrn.carbon.tooltip.TooltipBox
 import com.gabrieldrn.carbon.tooltip.TooltipParameters
 
@@ -176,7 +176,7 @@ public fun IconButtonWithPopover(
         alignment = popoverAlignment,
         buttonSize = buttonSize
     )
-    val positionProvider = rememberPopoverTapTipPositionProvider(
+    val positionProvider = rememberPopoverTabTipPositionProvider(
         buttonSize = buttonSize,
         alignment = popoverAlignment
     )
