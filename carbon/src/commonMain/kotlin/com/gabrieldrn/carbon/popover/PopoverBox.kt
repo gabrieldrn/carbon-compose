@@ -23,8 +23,31 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 
 /**
- * No-tip implementation.
- * TODO Doc
+ * # Popover - No tip
+ *
+ * Composable wrapping a [content] (generally a ui trigger) to display a Popover without a tip when
+ * [isVisible] is true.
+ *
+ * Popovers without a tip can be used for a wide variety of different use cases. No tip popovers are
+ * typically used when the trigger button has a visually defined down state.
+ *
+ * ## ⚠️ Placement limitations
+ *
+ * Due to limitations from Compose, the Popover may be misplaced or misaligned if the current UI
+ * window is not big enough to fit it. This is especially the case for hand-held devices. Please
+ * keep this in mind when using this component.
+ *
+ * From [Popover documentation](https://carbondesignsystem.com/components/popover/usage/#no-tip)
+ *
+ * @param isVisible Whether the popover is visible or not.
+ * @param modifier The modifier to be applied to the whole component.
+ * @param alignment The alignment of the popover relative to the UI trigger.
+ * @param placement The placement of the popover relative to the UI trigger.
+ * @param popoverMinWidth Minimum width of the displayed popover.
+ * @param popoverMaxWidth Maximum width of the displayed popover.
+ * @param onDismissRequest Executes when the user clicks outside of the popup.
+ * @param popoverContent The content to be displayed inside the popup.
+ * @param content The composable that the popover will anchor to.
  */
 @ExperimentalFoundationApi
 @Composable
@@ -33,8 +56,8 @@ public fun PopoverBox(
     modifier: Modifier = Modifier,
     alignment: PopoverAlignment = PopoverAlignment.Start,
     placement: PopoverPlacement = PopoverPlacement.Top,
-    popoverMinWith: Dp = Dp.Unspecified,
-    popoverMaxWith: Dp = Dp.Unspecified,
+    popoverMinWidth: Dp = Dp.Unspecified,
+    popoverMaxWidth: Dp = Dp.Unspecified,
     onDismissRequest: (() -> Unit)? = null,
     popoverContent: @Composable BoxScope.() -> Unit,
     content: @Composable () -> Unit
@@ -49,8 +72,8 @@ public fun PopoverBox(
             placement = placement,
         ),
         modifier = modifier,
-        popoverMinWidth = popoverMinWith,
-        popoverMaxWidth = popoverMaxWith,
+        popoverMinWidth = popoverMinWidth,
+        popoverMaxWidth = popoverMaxWidth,
         onDismissRequest = onDismissRequest,
         popoverContent = popoverContent,
         content = content

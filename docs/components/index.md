@@ -39,6 +39,10 @@
     - [Callout notification](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.notification/-callout-notification.html)
     - [Inline notification](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.notification/-inline-notification.html)
     - [Toast notification](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.notification/-toast-notification.html)
+- Popover
+    - (No tip) [Popover box](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.popover/-popover-box.html)
+    - (Caret tip) [Caret tip popover](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.popover.carettip/-popover-caret-tip-box.html)
+    - (Tab tip) [Icon button with popover](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.button/-icon-button-with-popover.html)
 - Progress bar
     - [Default progress bar](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.progressbar/-progress-bar.html)
     - [Indeterminate progress bar](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.progressbar/-indeterminate-progress-bar.html)

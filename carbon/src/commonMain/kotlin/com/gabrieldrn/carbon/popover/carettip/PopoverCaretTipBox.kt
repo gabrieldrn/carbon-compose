@@ -25,11 +25,32 @@ import com.gabrieldrn.carbon.popover.PopoverBoxInternal
 import com.gabrieldrn.carbon.popover.popoverContentPaddingValues
 
 /**
- * TODO Doc - move from tooltip to here
+ * # Popover - Caret tip
  *
- * Implementation has only the caret tip.
- * TODO No tip
- * TODO Tab tip
+ * Composable wrapping a [content] (generally a ui trigger) to display a Popover with a caret tip
+ * when [isVisible] is true.
+ *
+ * A popover with a caret tip helps to show the relationship between the popover and where it was
+ * triggered from. A caret tip is typically used when the trigger button does not have a visually
+ * defined down state and for icon buttons.
+ *
+ * ## ⚠️ Placement limitations
+ *
+ * Due to limitations from Compose, the Popover may be misplaced or misaligned if the current UI
+ * window is not big enough to fit it. This is especially the case for hand-held devices. Please
+ * keep this in mind when using this component.
+ *
+ * From [Popover documentation](https://carbondesignsystem.com/components/popover/usage/#caret-tip)
+ *
+ * @param isVisible Whether the popover is visible or not.
+ * @param modifier The modifier to be applied to the whole component.
+ * @param alignment The alignment of the popover relative to the UI trigger.
+ * @param placement The placement of the popover relative to the UI trigger.
+ * @param popoverMinWidth Minimum width of the displayed popover.
+ * @param popoverMaxWidth Maximum width of the displayed popover.
+ * @param onDismissRequest Executes when the user clicks outside of the popup.
+ * @param popoverContent The content to be displayed inside the popup.
+ * @param content The composable that the popover will anchor to.
  */
 @ExperimentalFoundationApi
 @Composable
@@ -38,8 +59,8 @@ public fun PopoverCaretTipBox(
     modifier: Modifier = Modifier,
     alignment: PopoverCaretTipAlignment = PopoverCaretTipAlignment.Center,
     placement: PopoverCaretTipPlacement = PopoverCaretTipPlacement.Top,
-    popoverMinWith: Dp = Dp.Unspecified,
-    popoverMaxWith: Dp = Dp.Unspecified,
+    popoverMinWidth: Dp = Dp.Unspecified,
+    popoverMaxWidth: Dp = Dp.Unspecified,
     onDismissRequest: (() -> Unit)? = null,
     popoverContent: @Composable BoxScope.() -> Unit,
     content: @Composable () -> Unit
@@ -60,8 +81,8 @@ public fun PopoverCaretTipBox(
             contentPaddingValues = popoverContentPaddingValues
         ),
         modifier = modifier,
-        popoverMinWidth = popoverMinWith,
-        popoverMaxWidth = popoverMaxWith,
+        popoverMinWidth = popoverMinWidth,
+        popoverMaxWidth = popoverMaxWidth,
         onDismissRequest = onDismissRequest,
         popoverContent = popoverContent,
         content = content

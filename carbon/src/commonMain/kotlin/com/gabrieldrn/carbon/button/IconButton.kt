@@ -53,7 +53,7 @@ import com.gabrieldrn.carbon.tooltip.TooltipParameters
  * take the form of a primary, secondary, tertiary, or ghost variant but most commonly will be
  * styled as primary or ghost buttons.
  *
- * (From [Button documentation](https://carbondesignsystem.com/components/button/usage/))
+ * From [Button documentation](https://carbondesignsystem.com/components/button/usage/)
  *
  * @param iconPainter Icon painter to be displayed in the button.
  * @param onClick Callback invoked when the button is clicked.
@@ -102,7 +102,8 @@ public fun IconButton(
 }
 
 /**
- * # Icon button
+ * # Icon button with Tooltip
+ *
  * Buttons are used to initialize an action. Button labels express what action will occur when the
  * user interacts with it.
  *
@@ -113,7 +114,7 @@ public fun IconButton(
  * This variant of the icon button uses Carbon's [TooltipBox] to display a tooltip when the user
  * hovers over or focuses it.
  *
- * (From [Button documentation](https://carbondesignsystem.com/components/button/usage/))
+ * From [Button documentation](https://carbondesignsystem.com/components/button/usage/)
  *
  * @param iconPainter Icon painter to be displayed in the button.
  * @param tooltipParameters Parameters to configure the tooltip.
@@ -157,6 +158,40 @@ public fun IconButton(
     }
 }
 
+/**
+ * # Icon button with Popover (Tab tip Popover)
+ *
+ * Buttons are used to initialize an action. Button labels express what action will occur when the
+ * user interacts with it.
+ *
+ * Icon buttons allow users to take actions, and make choices, with a single tap. Icon buttons can
+ * take the form of a primary, secondary, tertiary, or ghost variant but most commonly will be
+ * styled as primary or ghost buttons.
+ *
+ * This variant of the icon button is wrapped by and displays a Popover when the user click on it.
+ * The popover is of the "tab tip" variant.
+ *
+ * ## ⚠️ Placement limitations
+ *
+ * Due to limitations from Compose, the Popover may be misplaced or misaligned if the current UI
+ * window is not big enough to fit it. This is especially the case for hand-held devices. Please
+ * keep this in mind when using this component.
+ *
+ * From [Button documentation](https://carbondesignsystem.com/components/button/usage/),
+ * [Popover documentation](https://carbondesignsystem.com/components/popover/usage/#tab-tip)
+ *
+ * @param iconPainter Icon painter to be displayed in the button.
+ * @param popoverAlignment The alignment of the popover relative to this icon button.
+ * @param onClick Callback invoked when the button is clicked.
+ * @param modifier The modifier to be applied to the button.
+ * @param popoverMinWidth Minimum width of the displayed popover.
+ * @param popoverMaxWidth Maximum width of the displayed popover.
+ * @param buttonType A [ButtonType] that defines the button's type.
+ * @param buttonSize A [ButtonSize] that defines the button's size.
+ * @param isEnabled Whether the button is enabled or disabled.
+ * @param interactionSource The [MutableInteractionSource] that keeps track of the button's state.
+ * @param popoverContent The content to be displayed inside the popup.
+ */
 @ExperimentalFoundationApi
 @Composable
 public fun IconButtonWithPopover(

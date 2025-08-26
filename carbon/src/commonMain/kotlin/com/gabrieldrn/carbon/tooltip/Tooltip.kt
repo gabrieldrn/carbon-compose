@@ -102,14 +102,10 @@ private val tooltipMargin = SpacingScale.spacing02
  * ## Automatic placement
  *
  * Carbon's documentation states that Tooltips have an automatic placement: "tooltips can detect the
- * edges of the browser to be placed in view so the container does not get cutoff". However, as this
- * implementation of the Tooltip is using Compose's Popup component under the hood, it is not
- * possible to implement such a behaviour because the tooltip popup shape must be determined by its
- * placement, which, in the case of an automatic one, have to be determined by the position provider
- * during its pass in `calculatePosition`, which, if reused to recalculate the shape inside the
- * compose scope, might cause undesired results or errors with the framework.
- *
- * **TL;DR**: Automatic placement is not supported.
+ * edges of the browser to be placed in view so the container does not get cutoff". However, this is
+ * currently not possible with the foundation elements of Compose as it would require to make
+ * multiple layout passes and sacrifice performance. As a result, it is up to consuming projects to
+ * decide the placement of tooltips.
  *
  * From [Tooltip documentation](https://carbondesignsystem.com/components/tooltip/usage/)
  *

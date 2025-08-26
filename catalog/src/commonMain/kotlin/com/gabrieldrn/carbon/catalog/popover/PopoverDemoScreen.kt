@@ -168,7 +168,7 @@ fun PopoverDemoScreen(modifier: Modifier = Modifier) {
                     isVisible = isPopoverVisible,
                     placement = popoverCaretTipPlacement,
                     alignment = popoverCaretTipAlignment,
-                    popoverMaxWith = 350.dp,
+                    popoverMaxWidth = 350.dp,
                     popoverContent = {
                         PopoverContent(
                             smallContent = popoverCaretTipPlacement == PopoverCaretTipPlacement.Top

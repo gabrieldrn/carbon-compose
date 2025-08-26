@@ -106,6 +106,7 @@ public final class com/gabrieldrn/carbon/button/ButtonType : java/lang/Enum {
 public final class com/gabrieldrn/carbon/button/IconButtonKt {
 	public static final fun IconButton (Landroidx/compose/ui/graphics/painter/Painter;Lcom/gabrieldrn/carbon/tooltip/TooltipParameters;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Landroidx/compose/ui/Modifier;Lcom/gabrieldrn/carbon/button/ButtonType;Lcom/gabrieldrn/carbon/button/ButtonSize;ZLandroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;II)V
 	public static final fun IconButton (Landroidx/compose/ui/graphics/painter/Painter;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Lcom/gabrieldrn/carbon/button/ButtonType;Lcom/gabrieldrn/carbon/button/ButtonSize;ZLandroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;II)V
+	public static final fun IconButtonWithPopover-Bvae7ek (Landroidx/compose/ui/graphics/painter/Painter;Lcom/gabrieldrn/carbon/popover/PopoverAlignment;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;FFLcom/gabrieldrn/carbon/button/ButtonType;Lcom/gabrieldrn/carbon/button/ButtonSize;ZLandroidx/compose/foundation/interaction/MutableInteractionSource;Lkotlin/jvm/functions/Function3;Landroidx/compose/runtime/Composer;III)V
 }
 
 public final class com/gabrieldrn/carbon/checkbox/CheckboxKt {
@@ -1045,6 +1046,51 @@ public final class com/gabrieldrn/carbon/notification/ToastNotificationKt {
 	public static final fun ToastNotification (Ljava/lang/String;Ljava/lang/String;Lcom/gabrieldrn/carbon/notification/NotificationStatus;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;ZLjava/lang/String;Landroidx/compose/runtime/Composer;II)V
 }
 
+public final class com/gabrieldrn/carbon/popover/PopoverAlignment : java/lang/Enum {
+	public static final field End Lcom/gabrieldrn/carbon/popover/PopoverAlignment;
+	public static final field Start Lcom/gabrieldrn/carbon/popover/PopoverAlignment;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/gabrieldrn/carbon/popover/PopoverAlignment;
+	public static fun values ()[Lcom/gabrieldrn/carbon/popover/PopoverAlignment;
+}
+
+public final class com/gabrieldrn/carbon/popover/PopoverBoxKt {
+	public static final fun PopoverBox-oKE7A98 (ZLandroidx/compose/ui/Modifier;Lcom/gabrieldrn/carbon/popover/PopoverAlignment;Lcom/gabrieldrn/carbon/popover/PopoverPlacement;FFLkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function2;Landroidx/compose/runtime/Composer;II)V
+}
+
+public final class com/gabrieldrn/carbon/popover/PopoverPlacement : java/lang/Enum {
+	public static final field Bottom Lcom/gabrieldrn/carbon/popover/PopoverPlacement;
+	public static final field Left Lcom/gabrieldrn/carbon/popover/PopoverPlacement;
+	public static final field Right Lcom/gabrieldrn/carbon/popover/PopoverPlacement;
+	public static final field Top Lcom/gabrieldrn/carbon/popover/PopoverPlacement;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/gabrieldrn/carbon/popover/PopoverPlacement;
+	public static fun values ()[Lcom/gabrieldrn/carbon/popover/PopoverPlacement;
+}
+
+public final class com/gabrieldrn/carbon/popover/carettip/PopoverCaretTipAlignment : java/lang/Enum {
+	public static final field Center Lcom/gabrieldrn/carbon/popover/carettip/PopoverCaretTipAlignment;
+	public static final field End Lcom/gabrieldrn/carbon/popover/carettip/PopoverCaretTipAlignment;
+	public static final field Start Lcom/gabrieldrn/carbon/popover/carettip/PopoverCaretTipAlignment;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/gabrieldrn/carbon/popover/carettip/PopoverCaretTipAlignment;
+	public static fun values ()[Lcom/gabrieldrn/carbon/popover/carettip/PopoverCaretTipAlignment;
+}
+
+public final class com/gabrieldrn/carbon/popover/carettip/PopoverCaretTipBoxKt {
+	public static final fun PopoverCaretTipBox-oKE7A98 (ZLandroidx/compose/ui/Modifier;Lcom/gabrieldrn/carbon/popover/carettip/PopoverCaretTipAlignment;Lcom/gabrieldrn/carbon/popover/carettip/PopoverCaretTipPlacement;FFLkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function2;Landroidx/compose/runtime/Composer;II)V
+}
+
+public final class com/gabrieldrn/carbon/popover/carettip/PopoverCaretTipPlacement : java/lang/Enum {
+	public static final field Bottom Lcom/gabrieldrn/carbon/popover/carettip/PopoverCaretTipPlacement;
+	public static final field Left Lcom/gabrieldrn/carbon/popover/carettip/PopoverCaretTipPlacement;
+	public static final field Right Lcom/gabrieldrn/carbon/popover/carettip/PopoverCaretTipPlacement;
+	public static final field Top Lcom/gabrieldrn/carbon/popover/carettip/PopoverCaretTipPlacement;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/gabrieldrn/carbon/popover/carettip/PopoverCaretTipPlacement;
+	public static fun values ()[Lcom/gabrieldrn/carbon/popover/carettip/PopoverCaretTipPlacement;
+}
+
 public final class com/gabrieldrn/carbon/progressbar/ProgressBarKt {
 	public static final fun IndeterminateProgressBar (Landroidx/compose/ui/Modifier;Ljava/lang/String;Ljava/lang/String;ZZLcom/gabrieldrn/carbon/progressbar/ProgressBarState;Lcom/gabrieldrn/carbon/progressbar/ProgressBarSize;Landroidx/compose/runtime/Composer;II)V
 	public static final fun ProgressBar (FLandroidx/compose/ui/Modifier;Ljava/lang/String;Ljava/lang/String;ZZLcom/gabrieldrn/carbon/progressbar/ProgressBarState;Lcom/gabrieldrn/carbon/progressbar/ProgressBarSize;Landroidx/compose/runtime/Composer;II)V
@@ -1171,47 +1217,28 @@ public final class com/gabrieldrn/carbon/toggle/ToggleKt {
 	public static final fun Toggle (ZLkotlin/jvm/functions/Function1;Landroidx/compose/ui/Modifier;Ljava/lang/String;Ljava/lang/String;ZZLandroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;II)V
 }
 
-public final class com/gabrieldrn/carbon/tooltip/TooltipAlignment : java/lang/Enum {
-	public static final field Center Lcom/gabrieldrn/carbon/tooltip/TooltipAlignment;
-	public static final field End Lcom/gabrieldrn/carbon/tooltip/TooltipAlignment;
-	public static final field Start Lcom/gabrieldrn/carbon/tooltip/TooltipAlignment;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
-	public static fun valueOf (Ljava/lang/String;)Lcom/gabrieldrn/carbon/tooltip/TooltipAlignment;
-	public static fun values ()[Lcom/gabrieldrn/carbon/tooltip/TooltipAlignment;
-}
-
 public final class com/gabrieldrn/carbon/tooltip/TooltipKt {
 	public static final fun TooltipBox (Lcom/gabrieldrn/carbon/tooltip/TooltipParameters;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/ui/Modifier;Lkotlin/jvm/functions/Function2;Landroidx/compose/runtime/Composer;II)V
-	public static final fun TooltipBox (Ljava/lang/String;Landroidx/compose/ui/Modifier;ZLcom/gabrieldrn/carbon/tooltip/TooltipPlacement;Lcom/gabrieldrn/carbon/tooltip/TooltipAlignment;Landroidx/compose/foundation/interaction/MutableInteractionSource;Lkotlin/jvm/functions/Function2;Landroidx/compose/runtime/Composer;II)V
+	public static final fun TooltipBox (Ljava/lang/String;Landroidx/compose/ui/Modifier;ZLcom/gabrieldrn/carbon/popover/carettip/PopoverCaretTipPlacement;Lcom/gabrieldrn/carbon/popover/carettip/PopoverCaretTipAlignment;Landroidx/compose/foundation/interaction/MutableInteractionSource;Lkotlin/jvm/functions/Function2;Landroidx/compose/runtime/Composer;II)V
 }
 
 public final class com/gabrieldrn/carbon/tooltip/TooltipParameters {
 	public static final field $stable I
-	public fun <init> (Ljava/lang/String;ZLcom/gabrieldrn/carbon/tooltip/TooltipPlacement;Lcom/gabrieldrn/carbon/tooltip/TooltipAlignment;)V
-	public synthetic fun <init> (Ljava/lang/String;ZLcom/gabrieldrn/carbon/tooltip/TooltipPlacement;Lcom/gabrieldrn/carbon/tooltip/TooltipAlignment;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;ZLcom/gabrieldrn/carbon/popover/carettip/PopoverCaretTipPlacement;Lcom/gabrieldrn/carbon/popover/carettip/PopoverCaretTipAlignment;)V
+	public synthetic fun <init> (Ljava/lang/String;ZLcom/gabrieldrn/carbon/popover/carettip/PopoverCaretTipPlacement;Lcom/gabrieldrn/carbon/popover/carettip/PopoverCaretTipAlignment;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
 	public final fun component2 ()Z
-	public final fun component3 ()Lcom/gabrieldrn/carbon/tooltip/TooltipPlacement;
-	public final fun component4 ()Lcom/gabrieldrn/carbon/tooltip/TooltipAlignment;
-	public final fun copy (Ljava/lang/String;ZLcom/gabrieldrn/carbon/tooltip/TooltipPlacement;Lcom/gabrieldrn/carbon/tooltip/TooltipAlignment;)Lcom/gabrieldrn/carbon/tooltip/TooltipParameters;
-	public static synthetic fun copy$default (Lcom/gabrieldrn/carbon/tooltip/TooltipParameters;Ljava/lang/String;ZLcom/gabrieldrn/carbon/tooltip/TooltipPlacement;Lcom/gabrieldrn/carbon/tooltip/TooltipAlignment;ILjava/lang/Object;)Lcom/gabrieldrn/carbon/tooltip/TooltipParameters;
+	public final fun component3 ()Lcom/gabrieldrn/carbon/popover/carettip/PopoverCaretTipPlacement;
+	public final fun component4 ()Lcom/gabrieldrn/carbon/popover/carettip/PopoverCaretTipAlignment;
+	public final fun copy (Ljava/lang/String;ZLcom/gabrieldrn/carbon/popover/carettip/PopoverCaretTipPlacement;Lcom/gabrieldrn/carbon/popover/carettip/PopoverCaretTipAlignment;)Lcom/gabrieldrn/carbon/tooltip/TooltipParameters;
+	public static synthetic fun copy$default (Lcom/gabrieldrn/carbon/tooltip/TooltipParameters;Ljava/lang/String;ZLcom/gabrieldrn/carbon/popover/carettip/PopoverCaretTipPlacement;Lcom/gabrieldrn/carbon/popover/carettip/PopoverCaretTipAlignment;ILjava/lang/Object;)Lcom/gabrieldrn/carbon/tooltip/TooltipParameters;
 	public fun equals (Ljava/lang/Object;)Z
-	public final fun getAlignment ()Lcom/gabrieldrn/carbon/tooltip/TooltipAlignment;
-	public final fun getPlacement ()Lcom/gabrieldrn/carbon/tooltip/TooltipPlacement;
+	public final fun getAlignment ()Lcom/gabrieldrn/carbon/popover/carettip/PopoverCaretTipAlignment;
+	public final fun getPlacement ()Lcom/gabrieldrn/carbon/popover/carettip/PopoverCaretTipPlacement;
 	public final fun getSingleLine ()Z
 	public final fun getText ()Ljava/lang/String;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
-}
-
-public final class com/gabrieldrn/carbon/tooltip/TooltipPlacement : java/lang/Enum {
-	public static final field Bottom Lcom/gabrieldrn/carbon/tooltip/TooltipPlacement;
-	public static final field Left Lcom/gabrieldrn/carbon/tooltip/TooltipPlacement;
-	public static final field Right Lcom/gabrieldrn/carbon/tooltip/TooltipPlacement;
-	public static final field Top Lcom/gabrieldrn/carbon/tooltip/TooltipPlacement;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
-	public static fun valueOf (Ljava/lang/String;)Lcom/gabrieldrn/carbon/tooltip/TooltipPlacement;
-	public static fun values ()[Lcom/gabrieldrn/carbon/tooltip/TooltipPlacement;
 }
 
 public final class com/gabrieldrn/carbon/uishell/ComposableSingletons$UIShellHeaderKt {
