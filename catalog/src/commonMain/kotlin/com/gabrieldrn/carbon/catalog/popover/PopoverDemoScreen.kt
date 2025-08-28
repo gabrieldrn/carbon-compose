@@ -35,15 +35,19 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
+import com.gabrieldrn.carbon.button.ButtonSize
 import com.gabrieldrn.carbon.button.IconButton
 import com.gabrieldrn.carbon.button.IconButtonWithPopover
 import com.gabrieldrn.carbon.catalog.Res
+import com.gabrieldrn.carbon.catalog.buttons.getSizeSpecification
 import com.gabrieldrn.carbon.catalog.common.DemoScreen
 import com.gabrieldrn.carbon.catalog.ic_cognitive
 import com.gabrieldrn.carbon.dropdown.Dropdown
+import com.gabrieldrn.carbon.dropdown.base.DropdownInteractiveState
 import com.gabrieldrn.carbon.dropdown.base.toDropdownOptions
 import com.gabrieldrn.carbon.foundation.color.borderSubtleColor
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
@@ -94,6 +98,8 @@ fun PopoverDemoScreen(modifier: Modifier = Modifier) {
     var popoverTabTipAlignment by rememberSaveable {
         mutableStateOf(PopoverAlignment.Start)
     }
+
+    var buttonSize by rememberSaveable { mutableStateOf(ButtonSize.LargeProductive) }
 
     var isPopoverVisible by remember { mutableStateOf(false) }
 
@@ -147,7 +153,7 @@ fun PopoverDemoScreen(modifier: Modifier = Modifier) {
                     )
                 }
 
-                PopoverVariant.TabTip ->
+                PopoverVariant.TabTip -> {
                     Dropdown(
                         placeholder = "Choose option",
                         label = "Tooltip alignment",
@@ -155,6 +161,18 @@ fun PopoverDemoScreen(modifier: Modifier = Modifier) {
                         selectedOption = popoverTabTipAlignment,
                         onOptionSelected = { popoverTabTipAlignment = it }
                     )
+
+                    Dropdown(
+                        label = "Button size",
+                        placeholder = "Choose option",
+                        options = ButtonSize.entries.toDropdownOptions(),
+                        selectedOption = buttonSize,
+                        state = getSizeSpecification(buttonSize)
+                            ?.let(DropdownInteractiveState::Warning)
+                            ?: DropdownInteractiveState.Enabled,
+                        onOptionSelected = { buttonSize = it },
+                    )
+                }
             }
         },
         demoContent = { variantTab ->
@@ -193,8 +211,18 @@ fun PopoverDemoScreen(modifier: Modifier = Modifier) {
 
                 PopoverVariant.TabTip -> IconButtonWithPopover(
                     iconPainter = painterResource(Res.drawable.ic_cognitive),
+                    isPopoverVisible = isPopoverVisible,
                     popoverAlignment = popoverTabTipAlignment,
-                    onClick = {}
+                    buttonSize = buttonSize,
+                    onClick = { isPopoverVisible = true },
+                    onDismissRequest = { isPopoverVisible = false },
+                    modifier = Modifier.align(
+                        if (popoverTabTipAlignment == PopoverAlignment.Start) {
+                            Alignment.Start
+                        } else {
+                            Alignment.End
+                        }
+                    )
                 ) {
                     PopoverContent(smallContent = false)
                 }

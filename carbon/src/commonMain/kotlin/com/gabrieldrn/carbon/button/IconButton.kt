@@ -25,10 +25,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
@@ -181,6 +178,7 @@ public fun IconButton(
  * [Popover documentation](https://carbondesignsystem.com/components/popover/usage/#tab-tip)
  *
  * @param iconPainter Icon painter to be displayed in the button.
+ * @param isPopoverVisible Whether the popover is visible or not.
  * @param popoverAlignment The alignment of the popover relative to this icon button.
  * @param onClick Callback invoked when the button is clicked.
  * @param modifier The modifier to be applied to the button.
@@ -190,12 +188,14 @@ public fun IconButton(
  * @param buttonSize A [ButtonSize] that defines the button's size.
  * @param isEnabled Whether the button is enabled or disabled.
  * @param interactionSource The [MutableInteractionSource] that keeps track of the button's state.
+ * @param onDismissRequest Executes when the user clicks outside of the popup.
  * @param popoverContent The content to be displayed inside the popup.
  */
 @ExperimentalFoundationApi
 @Composable
 public fun IconButtonWithPopover(
     iconPainter: Painter,
+    isPopoverVisible: Boolean,
     popoverAlignment: PopoverAlignment,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
@@ -205,6 +205,7 @@ public fun IconButtonWithPopover(
     buttonSize: ButtonSize = ButtonSize.LargeProductive,
     isEnabled: Boolean = true,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    onDismissRequest: (() -> Unit)? = null,
     popoverContent: @Composable BoxScope.() -> Unit
 ) {
     val popoverShape = rememberPopoverTabTipShape(
@@ -216,17 +217,15 @@ public fun IconButtonWithPopover(
         alignment = popoverAlignment
     )
 
-    var isVisible by remember { mutableStateOf(false) }
-
     PopoverBoxInternal(
-        isVisible = isVisible,
+        isVisible = isPopoverVisible,
         popoverShape = popoverShape,
         positionProvider = positionProvider,
         modifier = modifier,
         popoverMinWidth = popoverMinWidth,
         popoverMaxWidth = popoverMaxWidth,
         popoverMargin = 0.dp,
-        onDismissRequest = { isVisible = false },
+        onDismissRequest = onDismissRequest,
         popoverContent = {
             val padding = remember(buttonSize) {
                 when (buttonSize) {
@@ -237,13 +236,9 @@ public fun IconButtonWithPopover(
             }
 
             Column {
-                Image(
-                    painter = iconPainter,
-                    contentDescription = null,
-                    colorFilter = ColorFilter.tint(Carbon.theme.iconPrimary),
+                Box(
                     modifier = Modifier
-                        .padding(padding)
-                        .size(SpacingScale.spacing05)
+                        .size(buttonSize.heightDp())
                         .align(
                             if (popoverAlignment == PopoverAlignment.End) {
                                 Alignment.End
@@ -251,7 +246,17 @@ public fun IconButtonWithPopover(
                                 Alignment.Start
                             }
                         )
-                )
+                ) {
+                    Image(
+                        painter = iconPainter,
+                        contentDescription = null,
+                        colorFilter = ColorFilter.tint(Carbon.theme.iconPrimary),
+                        modifier = Modifier
+                            .padding(top = padding)
+                            .size(SpacingScale.spacing05)
+                            .align(Alignment.TopCenter)
+                    )
+                }
 
                 Box {
                     popoverContent()
@@ -261,10 +266,7 @@ public fun IconButtonWithPopover(
     ) {
         IconButton(
             iconPainter = iconPainter,
-            onClick = {
-                isVisible = true
-                onClick()
-            },
+            onClick = onClick,
             modifier = modifier,
             buttonType = buttonType,
             buttonSize = buttonSize,
