@@ -32,10 +32,12 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.PopupProperties
 import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 import com.gabrieldrn.carbon.popover.PopoverAlignment
 import com.gabrieldrn.carbon.popover.PopoverBoxInternal
+import com.gabrieldrn.carbon.popover.popoverDefaultProperties
 import com.gabrieldrn.carbon.popover.tabtip.rememberPopoverTabTipPositionProvider
 import com.gabrieldrn.carbon.popover.tabtip.rememberPopoverTabTipShape
 import com.gabrieldrn.carbon.tooltip.TooltipBox
@@ -184,6 +186,8 @@ public fun IconButton(
  * @param modifier The modifier to be applied to the button.
  * @param popoverMinWidth Minimum width of the displayed popover.
  * @param popoverMaxWidth Maximum width of the displayed popover.
+ * @param popoverPopupProperties [PopupProperties] for further customization of the underlying
+ * popup's behavior.
  * @param buttonType A [ButtonType] that defines the button's type.
  * @param buttonSize A [ButtonSize] that defines the button's size.
  * @param isEnabled Whether the button is enabled or disabled.
@@ -191,7 +195,6 @@ public fun IconButton(
  * @param onDismissRequest Executes when the user clicks outside of the popup.
  * @param popoverContent The content to be displayed inside the popup.
  */
-@ExperimentalFoundationApi
 @Composable
 public fun IconButtonWithPopover(
     iconPainter: Painter,
@@ -201,6 +204,7 @@ public fun IconButtonWithPopover(
     modifier: Modifier = Modifier,
     popoverMinWidth: Dp = Dp.Unspecified,
     popoverMaxWidth: Dp = Dp.Unspecified,
+    popoverPopupProperties: PopupProperties = popoverDefaultProperties,
     buttonType: ButtonType = ButtonType.Primary,
     buttonSize: ButtonSize = ButtonSize.LargeProductive,
     isEnabled: Boolean = true,
@@ -225,6 +229,7 @@ public fun IconButtonWithPopover(
         popoverMinWidth = popoverMinWidth,
         popoverMaxWidth = popoverMaxWidth,
         popoverMargin = 0.dp,
+        popoverPopupProperties = popoverPopupProperties,
         onDismissRequest = onDismissRequest,
         popoverContent = {
             val padding = remember(buttonSize) {

@@ -16,7 +16,6 @@
 
 package com.gabrieldrn.carbon.catalog.popover
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
@@ -74,7 +73,6 @@ private enum class PopoverVariant(val label: String) {
 
 private val variants = PopoverVariant.entries.map { TabItem(it.label) }
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun PopoverDemoScreen(modifier: Modifier = Modifier) {
     val interactionSource = remember {

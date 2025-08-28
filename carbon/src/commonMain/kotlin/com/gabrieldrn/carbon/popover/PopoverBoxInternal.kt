@@ -16,7 +16,6 @@
 
 package com.gabrieldrn.carbon.popover
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
@@ -38,9 +37,9 @@ import com.gabrieldrn.carbon.foundation.color.layerBackgroundColor
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 
 internal val popoverContentPaddingValues: PaddingValues = PaddingValues(SpacingScale.spacing05)
+internal val popoverDefaultProperties = PopupProperties(focusable = true)
 private val popoverDefaultElevation = 4.dp
 
-@ExperimentalFoundationApi
 @Composable
 internal fun PopoverBoxInternal(
     popoverShape: PopoverShape,
@@ -53,6 +52,7 @@ internal fun PopoverBoxInternal(
     popoverMaxWidth: Dp = Dp.Unspecified,
     popoverElevation: Dp = popoverDefaultElevation,
     popoverMargin: Dp = SpacingScale.spacing02,
+    popoverPopupProperties: PopupProperties = popoverDefaultProperties,
     onDismissRequest: (() -> Unit)? = null,
     popoverContent: @Composable BoxScope.() -> Unit,
     content: @Composable () -> Unit
@@ -62,7 +62,7 @@ internal fun PopoverBoxInternal(
             Popup(
                 popupPositionProvider = positionProvider,
                 onDismissRequest = onDismissRequest,
-                properties = PopupProperties(focusable = true)
+                properties = popoverPopupProperties
             ) {
                 CarbonLayer {
                     Box(

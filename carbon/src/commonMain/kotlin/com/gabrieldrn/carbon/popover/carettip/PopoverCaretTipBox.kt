@@ -16,13 +16,14 @@
 
 package com.gabrieldrn.carbon.popover.carettip
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.window.PopupProperties
 import com.gabrieldrn.carbon.popover.PopoverBoxInternal
 import com.gabrieldrn.carbon.popover.popoverContentPaddingValues
+import com.gabrieldrn.carbon.popover.popoverDefaultProperties
 
 /**
  * # Popover - Caret tip
@@ -48,11 +49,12 @@ import com.gabrieldrn.carbon.popover.popoverContentPaddingValues
  * @param placement The placement of the popover relative to the UI trigger.
  * @param popoverMinWidth Minimum width of the displayed popover.
  * @param popoverMaxWidth Maximum width of the displayed popover.
+ * @param popoverPopupProperties [PopupProperties] for further customization of the underlying
+ * popup's behavior.
  * @param onDismissRequest Executes when the user clicks outside of the popup.
  * @param popoverContent The content to be displayed inside the popup.
  * @param content The composable that the popover will anchor to.
  */
-@ExperimentalFoundationApi
 @Composable
 public fun PopoverCaretTipBox(
     isVisible: Boolean,
@@ -61,6 +63,7 @@ public fun PopoverCaretTipBox(
     placement: PopoverCaretTipPlacement = PopoverCaretTipPlacement.Top,
     popoverMinWidth: Dp = Dp.Unspecified,
     popoverMaxWidth: Dp = Dp.Unspecified,
+    popoverPopupProperties: PopupProperties = popoverDefaultProperties,
     onDismissRequest: (() -> Unit)? = null,
     popoverContent: @Composable BoxScope.() -> Unit,
     content: @Composable () -> Unit
@@ -84,6 +87,7 @@ public fun PopoverCaretTipBox(
         popoverMinWidth = popoverMinWidth,
         popoverMaxWidth = popoverMaxWidth,
         onDismissRequest = onDismissRequest,
+        popoverPopupProperties = popoverPopupProperties,
         popoverContent = popoverContent,
         content = content
     )
