@@ -14,28 +14,23 @@
  * limitations under the License.
  */
 
-package com.gabrieldrn.carbon.tooltip
+package com.gabrieldrn.carbon.popover
 
 /**
- * The alignment of the tooltip relative to the UI trigger.
+ * The alignment of the popover relative to the UI trigger.
  *
- * From tooltip alignment
- * [documentation](https://carbondesignsystem.com/components/tooltip/usage/#alignment).
+ * From popover alignment
+ * [documentation](https://carbondesignsystem.com/components/popover/usage/#no-tip).
  */
-public enum class TooltipAlignment {
+public enum class PopoverAlignment {
 
     /**
-     * Positions the tooltip container the start of the UI trigger.
+     * Positions the popover container the start of the UI trigger.
      */
     Start,
 
     /**
-     * Positions the tooltip container to the center of the UI trigger.
-     */
-    Center,
-
-    /**
-     * Positions the tooltip container to the end of the UI trigger.
+     * Positions the popover container to the end of the UI trigger.
      */
     End
 }

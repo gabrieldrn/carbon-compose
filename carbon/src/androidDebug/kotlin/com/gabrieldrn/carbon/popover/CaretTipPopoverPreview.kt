@@ -14,58 +14,68 @@
  * limitations under the License.
  */
 
-package com.gabrieldrn.carbon.tooltip
+package com.gabrieldrn.carbon.popover
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.rememberBasicTooltipState
+import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
+import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.CarbonDesignSystem
 import com.gabrieldrn.carbon.button.Button
+import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
+import com.gabrieldrn.carbon.popover.carettip.PopoverCaretTipAlignment
+import com.gabrieldrn.carbon.popover.carettip.PopoverCaretTipBox
 import com.gabrieldrn.carbon.popover.carettip.PopoverCaretTipPlacement
 
-private class TooltipPlacementPreviewParameterProvider :
-    PreviewParameterProvider<PopoverCaretTipPlacement> {
-    override val values: Sequence<PopoverCaretTipPlacement>
-        get() = PopoverCaretTipPlacement.entries.asSequence()
+private class CaretTipPopoverPreviewParameterProvider :
+    PreviewParameterProvider<Pair<PopoverCaretTipAlignment, PopoverCaretTipPlacement>> {
+    override val values = sequence {
+        PopoverCaretTipAlignment.entries.forEach { alignment ->
+            PopoverCaretTipPlacement.entries.forEach { placement ->
+                yield(alignment to placement)
+            }
+        }
+    }
 }
 
 @OptIn(ExperimentalFoundationApi::class)
 @Preview
 @Composable
-private fun TooltipPreview(
-    @PreviewParameter(TooltipPlacementPreviewParameterProvider::class)
-    placement: PopoverCaretTipPlacement,
+private fun CaretTipPopoverPreview(
+    @PreviewParameter(CaretTipPopoverPreviewParameterProvider::class)
+    params: Pair<PopoverCaretTipAlignment, PopoverCaretTipPlacement>
 ) {
     CarbonDesignSystem {
         Box(
             modifier = Modifier.size(400.dp),
             contentAlignment = Alignment.Center
         ) {
-            val uiTriggerMutableInteractionSource = remember { MutableInteractionSource() }
+            val (alignment, placement) = params
 
-            TooltipBox(
-                tooltipText = placement.name,
-                uiTriggerMutableInteractionSource = uiTriggerMutableInteractionSource,
-                state = rememberBasicTooltipState(
-                    initialIsVisible = true,
-                    isPersistent = true
-                ),
-                placement = placement
+            PopoverCaretTipBox(
+                isVisible = true,
+                alignment = alignment,
+                placement = placement,
+                popoverContent = {
+                    BasicText(
+                        text = "Hi,\nthere!",
+                        style = Carbon.typography.body01,
+                        modifier = Modifier.padding(SpacingScale.spacing04)
+                    )
+                }
             ) {
                 Button(
-                    label = "Hover me",
+                    label = "Click me",
                     onClick = { /* No-op */ },
-                    interactionSource = uiTriggerMutableInteractionSource
                 )
             }
         }

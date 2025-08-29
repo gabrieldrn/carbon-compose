@@ -5,7 +5,7 @@
     <ID>CyclomaticComplexMethod:ContentSwitcher.kt$@Composable private fun ContentSwitcherButton( index: Int, selectedOptionIndex: Int, content: Any, isEnabled: Boolean, componentSize: ContentSwitcherSize, colors: ContentSwitcherColors, interactionSource: MutableInteractionSource, onClick: () -> Unit, modifier: Modifier = Modifier, contentDescription: String? = null, )</ID>
     <ID>CognitiveComplexMethod:DropdownPopupContent.kt$@Composable internal fun &lt;K : Any> DropdownPopupContent( options: Map&lt;K, DropdownOption>, selectedOption: K?, colors: DropdownColors, componentHeight: Dp, onOptionClicked: (K) -> Unit, modifier: Modifier = Modifier, )</ID>
     <ID>TooManyFunctions:ContextualTokens.kt$com.gabrieldrn.carbon.foundation.color.ContextualTokens.kt</ID>
-    <ID>CyclomaticComplexMethod:TooltipShape.kt$TooltipShape$private fun Path.addTooltip( size: Size, layoutDirection: LayoutDirection, density: Density )</ID>
+    <ID>CyclomaticComplexMethod:PopoverCaretTipShape.kt$PopoverCaretTipShape$private fun Path.addCaretTip( size: Size, layoutDirection: LayoutDirection, density: Density )</ID>
   </ManuallySuppressedIssues>
   <CurrentIssues>
     <ID>UndocumentedPublicFunction:UIShellHeader.kt$@ExperimentalCarbonApi @Composable public fun UiShellHeader( headerName: String, modifier: Modifier = Modifier, menuIconPainter: Painter? = null, actions: @Composable RowScope.() -> Unit = {}, onMenuIconPressed: () -> Unit = {}, windowInsets: WindowInsets = WindowInsets.statusBars.only(WindowInsetsSides.Top), inlineTheme: Theme = LocalCarbonInlineTheme.current, )</ID>

@@ -36,10 +36,10 @@ import com.gabrieldrn.carbon.catalog.common.DemoScreen
 import com.gabrieldrn.carbon.catalog.ic_cognitive
 import com.gabrieldrn.carbon.dropdown.Dropdown
 import com.gabrieldrn.carbon.dropdown.base.toDropdownOptions
+import com.gabrieldrn.carbon.popover.carettip.PopoverCaretTipAlignment
+import com.gabrieldrn.carbon.popover.carettip.PopoverCaretTipPlacement
 import com.gabrieldrn.carbon.toggle.Toggle
-import com.gabrieldrn.carbon.tooltip.TooltipAlignment
 import com.gabrieldrn.carbon.tooltip.TooltipParameters
-import com.gabrieldrn.carbon.tooltip.TooltipPlacement
 import org.jetbrains.compose.resources.painterResource
 
 private enum class UITriggerOption { Button, IconButton }
@@ -53,17 +53,17 @@ fun TooltipDemoScreen(modifier: Modifier = Modifier) {
     var uiTrigger by rememberSaveable {
         mutableStateOf(UITriggerOption.Button)
     }
-    var tooltipPlacement by rememberSaveable {
-        mutableStateOf(TooltipPlacement.Top)
+    var popoverPlacement by rememberSaveable {
+        mutableStateOf(PopoverCaretTipPlacement.Top)
     }
-    var tooltipAlignment by rememberSaveable {
-        mutableStateOf(TooltipAlignment.Center)
+    var caretTipAlignment by rememberSaveable {
+        mutableStateOf(PopoverCaretTipAlignment.Center)
     }
     var singleLine by rememberSaveable {
         mutableStateOf(true)
     }
 
-    val tooltipParameters = remember(singleLine, tooltipPlacement, tooltipAlignment) {
+    val tooltipParameters = remember(singleLine, popoverPlacement, caretTipAlignment) {
         TooltipParameters(
             text = if (singleLine) {
                 "To be, or not to be..."
@@ -76,8 +76,8 @@ fun TooltipDemoScreen(modifier: Modifier = Modifier) {
                 """.trimIndent()
             },
             singleLine = singleLine,
-            placement = tooltipPlacement,
-            alignment = tooltipAlignment
+            placement = popoverPlacement,
+            alignment = caretTipAlignment
         )
     }
 
@@ -116,17 +116,17 @@ fun TooltipDemoScreen(modifier: Modifier = Modifier) {
             Dropdown(
                 placeholder = "Choose option",
                 label = "Tooltip placement",
-                options = TooltipPlacement.entries.toDropdownOptions(),
-                selectedOption = tooltipPlacement,
-                onOptionSelected = { tooltipPlacement = it }
+                options = PopoverCaretTipPlacement.entries.toDropdownOptions(),
+                selectedOption = popoverPlacement,
+                onOptionSelected = { popoverPlacement = it }
             )
 
             Dropdown(
                 placeholder = "Choose option",
                 label = "Tooltip alignment",
-                options = TooltipAlignment.entries.toDropdownOptions(),
-                selectedOption = tooltipAlignment,
-                onOptionSelected = { tooltipAlignment = it }
+                options = PopoverCaretTipAlignment.entries.toDropdownOptions(),
+                selectedOption = caretTipAlignment,
+                onOptionSelected = { caretTipAlignment = it }
             )
 
             Toggle(

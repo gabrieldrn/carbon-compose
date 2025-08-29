@@ -14,10 +14,13 @@
  * limitations under the License.
  */
 
-package com.gabrieldrn.carbon.tooltip
+package com.gabrieldrn.carbon.popover.carettip
 
 import androidx.annotation.VisibleForTesting
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntOffset
@@ -26,14 +29,14 @@ import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.window.PopupPositionProvider
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
+import com.gabrieldrn.carbon.popover.getPopoverContentPaddingByPosition
 
-internal class TooltipPositionProvider
-@VisibleForTesting(otherwise = VisibleForTesting.Companion.PACKAGE_PRIVATE) constructor(
-    private val placement: TooltipPlacement,
-    private val alignment: TooltipAlignment,
+internal class PopoverCaretTipPositionProvider
+@VisibleForTesting(otherwise = VisibleForTesting.PACKAGE_PRIVATE) constructor(
+    private val placement: PopoverCaretTipPlacement,
+    private val alignment: PopoverCaretTipAlignment,
     private val caretSize: Dp,
-    private val tooltipContentPaddingValues: PaddingValues,
-    private val isSingleLine: Boolean,
+    private val contentPaddingValues: PaddingValues,
     density: Density,
 ) : PopupPositionProvider {
 
@@ -47,11 +50,11 @@ internal class TooltipPositionProvider
     }
 
     private val contentPadding = with(density) {
-        tooltipContentPaddingValues
-            .getTooltipContentPaddingByPosition(
+        contentPaddingValues
+            .getPopoverContentPaddingByPosition(
                 placement = placement,
                 alignment = alignment,
-                layoutDirection = LayoutDirection.Ltr // Assuming LTR for simplicity
+                layoutDirection = LayoutDirection.Ltr // Same for Rtl
             )
             .roundToPx()
     }
@@ -71,58 +74,84 @@ internal class TooltipPositionProvider
             val uiTriggerHalfWidth = anchorBounds.width / 2
 
             return when (alignment) {
-                TooltipAlignment.Start -> anchorBounds.left +
-                    -edgeToCaretTipOffset +
-                    uiTriggerHalfWidth
-                TooltipAlignment.Center -> anchorBounds.left +
-                    (anchorBounds.width - popupContentSize.width) / 2
-                TooltipAlignment.End -> anchorBounds.right -
-                    popupContentSize.width +
-                    edgeToCaretTipOffset -
-                    uiTriggerHalfWidth
+                PopoverCaretTipAlignment.Start ->
+                    anchorBounds.left + -edgeToCaretTipOffset + uiTriggerHalfWidth
+
+                PopoverCaretTipAlignment.Center ->
+                    anchorBounds.left + (anchorBounds.width - popupContentSize.width) / 2
+
+                PopoverCaretTipAlignment.End ->
+                    anchorBounds.right -
+                        popupContentSize.width +
+                        edgeToCaretTipOffset -
+                        uiTriggerHalfWidth
             }
         }
 
         fun verticalYOffset(): Int {
             val uiTriggerHalfHeight = anchorBounds.height / 2
 
-            return if (isSingleLine) {
-                anchorBounds.top + (anchorBounds.height - popupContentSize.height) / 2
+            val adjustedAlignment = if (popupContentSize.height < anchorBounds.height) {
+                PopoverCaretTipAlignment.Center
             } else {
-                when (alignment) {
-                    TooltipAlignment.Start -> anchorBounds.top +
-                        -edgeToCaretTipOffset +
-                        uiTriggerHalfHeight
-                    TooltipAlignment.Center -> anchorBounds.top +
-                        (anchorBounds.height - popupContentSize.height) / 2
-                    TooltipAlignment.End -> anchorBounds.bottom -
+                alignment
+            }
+
+            return when (adjustedAlignment) {
+                PopoverCaretTipAlignment.Start ->
+                    anchorBounds.top + -edgeToCaretTipOffset + uiTriggerHalfHeight
+
+                PopoverCaretTipAlignment.Center ->
+                    anchorBounds.top + (anchorBounds.height - popupContentSize.height) / 2
+
+                PopoverCaretTipAlignment.End ->
+                    anchorBounds.bottom -
                         popupContentSize.height +
                         edgeToCaretTipOffset -
                         uiTriggerHalfHeight
-                }
             }
         }
 
         return when (placement) {
-            TooltipPlacement.Right -> IntOffset(
+            PopoverCaretTipPlacement.Right -> IntOffset(
                 x = anchorBounds.right + popupPadding,
                 y = verticalYOffset()
             )
 
-            TooltipPlacement.Left -> IntOffset(
+            PopoverCaretTipPlacement.Left -> IntOffset(
                 x = anchorBounds.left - popupContentSize.width - popupPadding,
                 y = verticalYOffset()
             )
 
-            TooltipPlacement.Bottom -> IntOffset(
+            PopoverCaretTipPlacement.Bottom -> IntOffset(
                 x = horizontalXOffset(),
                 y = anchorBounds.bottom + popupPadding
             )
 
-            TooltipPlacement.Top -> IntOffset(
+            PopoverCaretTipPlacement.Top -> IntOffset(
                 x = horizontalXOffset(),
                 y = anchorBounds.top - popupContentSize.height - popupPadding
             )
         }
+    }
+}
+
+@Composable
+internal fun rememberPopoverCaretTipPositionProvider(
+    caretSize: Dp,
+    alignment: PopoverCaretTipAlignment,
+    placement: PopoverCaretTipPlacement,
+    contentPaddingValues: PaddingValues
+): PopoverCaretTipPositionProvider {
+    val density = LocalDensity.current
+
+    return remember(placement, alignment, caretSize, density) {
+        PopoverCaretTipPositionProvider(
+            placement = placement,
+            alignment = alignment,
+            caretSize = caretSize,
+            contentPaddingValues = contentPaddingValues,
+            density = density,
+        )
     }
 }

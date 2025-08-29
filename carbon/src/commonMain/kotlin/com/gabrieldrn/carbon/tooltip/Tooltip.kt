@@ -32,11 +32,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
+import com.gabrieldrn.carbon.popover.carettip.PopoverCaretTipAlignment
+import com.gabrieldrn.carbon.popover.carettip.PopoverCaretTipPlacement
+import com.gabrieldrn.carbon.popover.carettip.rememberPopoverCaretTipPositionProvider
 import kotlinx.coroutines.launch
 
 private val tooltipSingleLineMaxWidth = 208.dp
@@ -62,8 +64,8 @@ private val tooltipMargin = SpacingScale.spacing02
  * As stated by the documentation of Carbon's Tooltip component, tooltips must be triggered by a
  * hover or focus interaction. This composable supports the hover interaction by default, as it's
  * using [BasicTooltipBox] as the underlying implementation but does not support the focus
- * interaction. However, [TooltipBox] supports it when provided a shared [MutableInteractionSource],
- * to itself and to the UI trigger simultaneously:
+ * interaction. However, [TooltipBox] supports it when a shared [MutableInteractionSource] is
+ * provided to both the UI trigger and itself:
  * ```kotlin
  * val uiTriggerMutableInteractionSource = remember { MutableInteractionSource() }
  *
@@ -100,14 +102,10 @@ private val tooltipMargin = SpacingScale.spacing02
  * ## Automatic placement
  *
  * Carbon's documentation states that Tooltips have an automatic placement: "tooltips can detect the
- * edges of the browser to be placed in view so the container does not get cutoff". However, as this
- * implementation of the Tooltip is using Compose's Popup component under the hood, it is not
- * possible to implement such a behaviour because the tooltip popup shape must be determined by its
- * placement, which, in the case of an automatic one, have to be determined by the position provider
- * during its pass in `calculatePosition`, which, if reused to recalculate the shape inside the
- * compose scope, might cause undesired results or errors with the framework.
- *
- * **TL;DR**: Automatic placement is not supported.
+ * edges of the browser to be placed in view so the container does not get cutoff". However, this is
+ * currently not possible with the foundation elements of Compose as it would require to make
+ * multiple layout passes and sacrifice performance. As a result, it is up to consuming projects to
+ * decide the placement of tooltips.
  *
  * From [Tooltip documentation](https://carbondesignsystem.com/components/tooltip/usage/)
  *
@@ -117,9 +115,9 @@ private val tooltipMargin = SpacingScale.spacing02
  * Note that the tooltip width is limited to a maximum width depending on this parameter and the
  * text might be truncated if it exceeds the maximum width.
  * @param placement Placement of the tooltip relative to the UI trigger. Defaults to
- * [TooltipPlacement.Top].
+ * [PopoverCaretTipPlacement.Top].
  * @param alignment Alignment of the tooltip relative to the UI trigger. Defaults to
- * [TooltipAlignment.Center].
+ * [PopoverCaretTipAlignment.Center].
  * @param uiTriggerMutableInteractionSource A shared [MutableInteractionSource] that will be used
  * to track the focus interactions of the UI trigger.
  * @param content UI trigger content that will be wrapped by the tooltip. This is typically a button
@@ -131,8 +129,8 @@ public fun TooltipBox(
     tooltipText: String,
     modifier: Modifier = Modifier,
     singleLine: Boolean = false,
-    placement: TooltipPlacement = TooltipPlacement.Top,
-    alignment: TooltipAlignment = TooltipAlignment.Center,
+    placement: PopoverCaretTipPlacement = PopoverCaretTipPlacement.Top,
+    alignment: PopoverCaretTipAlignment = PopoverCaretTipAlignment.Center,
     uiTriggerMutableInteractionSource: MutableInteractionSource =
         remember { MutableInteractionSource() },
     content: @Composable () -> Unit
@@ -196,14 +194,12 @@ internal fun TooltipBox(
     modifier: Modifier = Modifier,
     state: BasicTooltipState = rememberBasicTooltipState(),
     singleLine: Boolean = false,
-    placement: TooltipPlacement = TooltipPlacement.Top,
-    alignment: TooltipAlignment = TooltipAlignment.Center,
+    placement: PopoverCaretTipPlacement = PopoverCaretTipPlacement.Top,
+    alignment: PopoverCaretTipAlignment = PopoverCaretTipAlignment.Center,
     uiTriggerMutableInteractionSource: MutableInteractionSource =
         remember { MutableInteractionSource() },
     content: @Composable () -> Unit
 ) {
-    val density = LocalDensity.current
-
     val tooltipContentPaddingValues: PaddingValues = remember(singleLine) {
         if (singleLine) tooltipSingleLinePaddingValues
         else tooltipMultiLinePaddingValues
@@ -215,19 +211,6 @@ internal fun TooltipBox(
         tooltipContentPaddingValues = tooltipContentPaddingValues,
         isSingleLine = singleLine
     )
-
-    val tooltipPositionProvider = remember(
-        placement, alignment, shape.caretSize, tooltipContentPaddingValues, singleLine, density
-    ) {
-        TooltipPositionProvider(
-            placement = placement,
-            alignment = alignment,
-            caretSize = shape.caretSize,
-            tooltipContentPaddingValues = tooltipContentPaddingValues,
-            isSingleLine = singleLine,
-            density = density,
-        )
-    }
 
     LaunchedEffect(uiTriggerMutableInteractionSource, state) {
         var focusSource: FocusInteraction? = null
@@ -243,45 +226,34 @@ internal fun TooltipBox(
     }
 
     BasicTooltipBox(
-        positionProvider = tooltipPositionProvider,
+        state = state,
+        positionProvider = rememberPopoverCaretTipPositionProvider(
+            caretSize = shape.tipSize,
+            alignment = alignment,
+            placement = placement,
+            contentPaddingValues = tooltipContentPaddingValues
+        ),
+        modifier = modifier,
         tooltip = {
-            SingleLineTooltipPopup(
+            BasicText(
                 text = tooltipText,
-                singleLine = singleLine,
-                shape = shape,
-                contentPaddingValues = tooltipContentPaddingValues,
+                style = Carbon.typography.body01.copy(color = Carbon.theme.textInverse),
+                maxLines = if (singleLine) 1 else Int.MAX_VALUE,
+                overflow = TextOverflow.Ellipsis,
+                modifier = Modifier
+                    .padding(shape.tipSize + tooltipMargin)
+                    .background(
+                        color = Carbon.theme.backgroundInverse,
+                        shape = shape
+                    )
+                    .widthIn(
+                        max =
+                            if (singleLine) tooltipSingleLineMaxWidth
+                            else tooltipMultiLineMaxWidth
+                    )
+                    .padding(tooltipContentPaddingValues)
             )
         },
-        state = state,
-        modifier = modifier,
-        focusable = false
-    ) {
-        content()
-    }
-}
-
-@Composable
-private fun SingleLineTooltipPopup(
-    text: String,
-    singleLine: Boolean,
-    shape: TooltipShape,
-    contentPaddingValues: PaddingValues,
-    modifier: Modifier = Modifier,
-) {
-    BasicText(
-        text = text,
-        style = Carbon.typography.body01.copy(color = Carbon.theme.textInverse),
-        maxLines = if (singleLine) 1 else Int.MAX_VALUE,
-        overflow = TextOverflow.Ellipsis,
-        modifier = modifier
-            .padding(shape.caretSize + tooltipMargin)
-            .background(
-                color = Carbon.theme.backgroundInverse,
-                shape = shape
-            )
-            .widthIn(
-                max = if (singleLine) tooltipSingleLineMaxWidth else tooltipMultiLineMaxWidth
-            )
-            .padding(contentPaddingValues),
+        content = content
     )
 }

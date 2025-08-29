@@ -38,6 +38,7 @@ fun main() = application {
             size = DpSize(width = 900.dp, height = 800.dp),
             position = WindowPosition.Aligned(Alignment.Center)
         ),
+        alwaysOnTop = true,
         icon = painterResource(Res.drawable.ic_carbon),
         title = "Carbon catalog",
     ) {

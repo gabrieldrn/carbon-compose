@@ -27,6 +27,7 @@ import com.gabrieldrn.carbon.catalog.dropdown.DropdownDemoScreen
 import com.gabrieldrn.carbon.catalog.dropdown.DropdownVariant
 import com.gabrieldrn.carbon.catalog.loading.LoadingDemoScreen
 import com.gabrieldrn.carbon.catalog.notification.NotificationDemoScreen
+import com.gabrieldrn.carbon.catalog.popover.PopoverDemoScreen
 import com.gabrieldrn.carbon.catalog.progressbar.ProgressBarDemoScreen
 import com.gabrieldrn.carbon.catalog.radiobutton.RadioButtonDemoScreen
 import com.gabrieldrn.carbon.catalog.settings.SettingsScreen
@@ -130,6 +131,12 @@ enum class Destination(
     ),
     NumberInput("Number input"),
     Pagination("Pagination"),
+    Popover(
+        title = "Popover",
+        illustration = Res.drawable.tile_popover,
+        route = "popover",
+        content = { modifier -> PopoverDemoScreen(modifier = modifier) }
+    ),
     ProgressBar(
         title = "Progress bar",
         illustration = Res.drawable.tile_progress_bar,

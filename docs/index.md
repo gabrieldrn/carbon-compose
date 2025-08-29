@@ -74,7 +74,7 @@ List of the currently supported components:
 | Notification       |      ✅      |   ✅    |      ✅       |     ✅     |
 | Number input       |             |        |              |           |
 | Pagination         |             |        |              |           |
-| Popover            |             |        |              |           |
+| Popover            |      ✅      |   ✅    |      ✅       |     ✅     |
 | Progress bar       |      ✅      |   ✅    |      ✅       |     ✅     |
 | Progress indicator |             |        |              |           |
 | Radio button       |      ✅      |   ✅    |      ✅       |     ✅     |

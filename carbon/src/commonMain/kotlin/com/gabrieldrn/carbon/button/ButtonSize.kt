@@ -78,29 +78,34 @@ internal val ButtonSize.isExtraLarge
 /**
  * Returns the padding values to be applied around a button of this size.
  */
-internal fun ButtonSize.getContainerPaddings(isIconButton: Boolean) = when {
-    isIconButton -> PaddingValues()
-    this == ButtonSize.Small -> PaddingValues(
-        start = SpacingScale.spacing05,
-        top = 7.dp,
-        bottom = 7.dp
-    )
-    this == ButtonSize.Medium -> PaddingValues(
-        start = SpacingScale.spacing05,
-        top = 11.dp,
-        bottom = 11.dp
-    )
-    this == ButtonSize.LargeProductive || this == ButtonSize.LargeExpressive -> PaddingValues(
-        start = SpacingScale.spacing05,
-        top = 14.dp,
-        bottom = 14.dp
-    )
-    else -> PaddingValues(
-        start = SpacingScale.spacing05,
-        top = SpacingScale.spacing05,
-        bottom = SpacingScale.spacing05
-    )
-}
+internal fun ButtonSize.getContainerPaddings(isIconButton: Boolean) =
+    when {
+        isIconButton -> PaddingValues()
+
+        this == ButtonSize.Small -> PaddingValues(
+            start = SpacingScale.spacing05,
+            top = 7.dp,
+            bottom = 7.dp
+        )
+
+        this == ButtonSize.Medium -> PaddingValues(
+            start = SpacingScale.spacing05,
+            top = 11.dp,
+            bottom = 11.dp
+        )
+
+        this == ButtonSize.LargeProductive || this == ButtonSize.LargeExpressive -> PaddingValues(
+            start = SpacingScale.spacing05,
+            top = 14.dp,
+            bottom = 14.dp
+        )
+
+        else -> PaddingValues(
+            start = SpacingScale.spacing05,
+            top = SpacingScale.spacing05,
+            bottom = SpacingScale.spacing05
+        )
+    }
 
 
 /**
