@@ -16,7 +16,6 @@
 
 package com.gabrieldrn.carbon.popover
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -52,7 +51,6 @@ import androidx.compose.ui.window.PopupProperties
  * @param popoverContent The content to be displayed inside the popup.
  * @param content The composable that the popover will anchor to.
  */
-@ExperimentalFoundationApi
 @Composable
 public fun PopoverBox(
     isVisible: Boolean,

@@ -229,6 +229,9 @@ fun PopoverDemoScreen(modifier: Modifier = Modifier) {
     )
 }
 
+private const val LABEL_WEIGHT = .8f
+private const val VALUE_WEIGHT = 1.2f
+
 @Composable
 private fun PopoverContent(
     modifier: Modifier = Modifier,
@@ -304,14 +307,14 @@ private fun PopoverContent(
                         style = Carbon.typography.bodyCompact01.copy(
                             color = Carbon.theme.textHelper,
                         ),
-                        modifier = Modifier.weight(.8f)
+                        modifier = Modifier.weight(LABEL_WEIGHT)
                     )
                     BasicText(
                         text = it.value,
                         style = Carbon.typography.bodyCompact01.copy(
                             color = Carbon.theme.textPrimary,
                         ),
-                        modifier = Modifier.weight(1.2f)
+                        modifier = Modifier.weight(VALUE_WEIGHT)
                     )
                 }
             }
