@@ -18,7 +18,7 @@ package com.gabrieldrn.carbon.textinput
 
 import androidx.compose.foundation.interaction.Interaction
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.sizeIn
+import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.runtime.Composable
@@ -28,6 +28,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.referentialEqualityPolicy
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.platform.testTag
@@ -36,7 +37,6 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.button.ButtonType
 import com.gabrieldrn.carbon.button.IconButton
@@ -122,45 +122,46 @@ public fun PasswordInput(
         mutableStateOf(typography.bodyCompact01.copy(color = fieldTextColor))
     }
 
-    TextInputRoot(
-        state = state,
-        label = label,
-        helperText = helperText,
-        colors = colors,
-        field = {
-            TextInputField(
-                value = value,
-                onValueChange = onValueChange,
-                placeholderText = placeholderText,
-                helperText = helperText,
-                state = state,
-                theme = theme,
-                colors = colors,
-                fieldTextStyle = fieldTextStyle,
-                keyboardOptions = keyboardOptions,
-                keyboardActions = keyboardActions,
-                singleLine = true,
-                maxLines = 1,
-                minLines = 1,
-                visualTransformation = if (passwordHidden) {
-                    PasswordVisualTransformation()
-                } else {
-                    VisualTransformation.None
-                },
-                interactionSource = interactionSource,
-                trailingIcon = {
-                    HidePasswordButton(
-                        theme = theme,
-                        passwordHidden = passwordHidden,
-                        icon = icon,
-                        state = state,
-                        onPasswordHiddenChange = onPasswordHiddenChange
-                    )
-                },
-                modifier = Modifier.sizeIn(maxHeight = TEXT_INPUT_HEIGHT_LARGE_DP.dp)
-            )
+    BasicTextField(
+        value = value,
+        onValueChange = onValueChange,
+        modifier = modifier,
+        enabled = state != TextInputState.Disabled,
+        readOnly = state == TextInputState.ReadOnly,
+        textStyle = fieldTextStyle,
+        keyboardOptions = keyboardOptions,
+        keyboardActions = keyboardActions,
+        singleLine = true,
+        maxLines = 1,
+        minLines = 1,
+        visualTransformation = if (passwordHidden) {
+            PasswordVisualTransformation()
+        } else {
+            VisualTransformation.None
         },
-        modifier = modifier
+        interactionSource = interactionSource,
+        cursorBrush = SolidColor(colors.fieldTextColor(state = state).value),
+        decorationBox = decorator(
+            label = label,
+            value = value,
+            placeholderText = placeholderText,
+            helperText = helperText,
+            state = state,
+            theme = theme,
+            colors = colors,
+            singleLine = true,
+            interactionSource = interactionSource,
+            counter = null,
+            trailingIcon = {
+                HidePasswordButton(
+                    theme = theme,
+                    passwordHidden = passwordHidden,
+                    icon = icon,
+                    state = state,
+                    onPasswordHiddenChange = onPasswordHiddenChange
+                )
+            }
+        )
     )
 }
 
