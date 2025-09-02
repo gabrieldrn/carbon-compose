@@ -39,6 +39,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.composed
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.testTag
@@ -122,32 +125,34 @@ public fun TextInput(
         mutableStateOf(typography.bodyCompact01.copy(color = fieldTextColor))
     }
 
-    TextInputRoot(
-        state = state,
-        label = label,
-        helperText = helperText,
-        colors = colors,
-        field = {
-            TextInputField(
-                value = value,
-                onValueChange = onValueChange,
-                placeholderText = placeholderText,
-                helperText = helperText,
-                state = state,
-                theme = theme,
-                colors = colors,
-                fieldTextStyle = fieldTextStyle,
-                keyboardOptions = keyboardOptions,
-                keyboardActions = keyboardActions,
-                singleLine = true,
-                maxLines = 1,
-                minLines = 1,
-                visualTransformation = visualTransformation,
-                interactionSource = interactionSource,
-                modifier = Modifier.sizeIn(maxHeight = TEXT_INPUT_HEIGHT_LARGE_DP.dp)
-            )
-        },
-        modifier = modifier
+    BasicTextField(
+        value = value,
+        onValueChange = onValueChange,
+        modifier = modifier,
+        enabled = state != TextInputState.Disabled,
+        readOnly = state == TextInputState.ReadOnly,
+        textStyle = fieldTextStyle,
+        keyboardOptions = keyboardOptions,
+        keyboardActions = keyboardActions,
+        singleLine = true,
+        maxLines = 1,
+        minLines = 1,
+        visualTransformation = visualTransformation,
+        interactionSource = interactionSource,
+        cursorBrush = SolidColor(colors.fieldTextColor(state = state).value),
+        decorationBox = decorator(
+            label = label,
+            value = value,
+            placeholderText = placeholderText,
+            helperText = helperText,
+            state = state,
+            theme = theme,
+            colors = colors,
+            singleLine = true,
+            interactionSource = interactionSource,
+            counter = null,
+            trailingIcon = null
+        )
     )
 }
 
@@ -297,6 +302,117 @@ internal fun TextInputField(
     }
 }
 
+internal fun Modifier.textInputBackground(
+    state: TextInputState,
+    colors: TextInputColors,
+) = this then composed {
+    val backgroundColor by colors.fieldBackgroundColor(state = state)
+    val borderColor by colors.fieldBorderColor(state = state)
+    drawBehind {
+        drawRect(backgroundColor)
+        drawRect(borderColor, topLeft = Offset.Zero.copy(y = size.height - 1.dp.toPx()))
+    }
+}
+
+@Composable
+internal fun decorator(
+    label: String,
+    value: String,
+    placeholderText: String,
+    helperText: String,
+    state: TextInputState,
+    theme: Theme,
+    colors: TextInputColors,
+    singleLine: Boolean,
+    interactionSource: MutableInteractionSource,
+    counter: Pair<Int, Int>?,
+    trailingIcon: @Composable (() -> Unit)?
+): @Composable (@Composable () -> Unit) -> Unit = { innerTextField ->
+    Column(
+        modifier = Modifier.semantics(mergeDescendants = true) {
+            stateDescription = helperText
+        }
+    ) {
+        Row(
+            modifier = Modifier
+                .padding(bottom = SpacingScale.spacing03)
+        ) {
+            Text(
+                text = label,
+                style = Carbon.typography.label01,
+                color = colors.labelTextColor(state = state).value,
+                maxLines = 1,
+                modifier = Modifier
+                    .weight(1f)
+                    .testTag(TextInputTestTags.LABEL)
+            )
+
+            if (counter != null) {
+                Text(
+                    text = "${counter.first}/${counter.second}",
+                    style = Carbon.typography.label01,
+                    color = colors.labelTextColor(state = state).value,
+                    maxLines = 1,
+                    modifier = Modifier.testTag(TextInputTestTags.COUNTER)
+                )
+            }
+        }
+
+        Box(
+            modifier = Modifier
+                .sizeIn(maxHeight = TEXT_INPUT_HEIGHT_LARGE_DP.dp)
+                .indication(
+                    interactionSource = interactionSource,
+                    indication = FocusIndication(Carbon.theme)
+                )
+                .textInputBackground(state, colors)
+                .then(
+                    if (state == TextInputState.Error) {
+                        Modifier.border(
+                            width = SpacingScale.spacing01,
+                            color = theme.supportError
+                        )
+                    } else {
+                        Modifier
+                    }
+                )
+                .then(
+                    when (state) {
+                        TextInputState.Disabled -> Modifier.semantics { disabled() }
+                        TextInputState.ReadOnly -> Modifier.readOnly(
+                            role = null,
+                            interactionSource = interactionSource,
+                            mergeDescendants = true
+                        )
+                        else -> Modifier
+                    }
+                )
+                .testTag(TextInputTestTags.FIELD)
+        ) {
+            FieldContent(
+                singleLine = singleLine,
+                value = value,
+                placeholderText = placeholderText,
+                colors = colors,
+                innerTextField = innerTextField,
+                state = state,
+                trailingIcon = trailingIcon,
+            )
+        }
+
+        if (helperText.isNotEmpty()) {
+            Text(
+                text = helperText,
+                style = Carbon.typography.helperText01,
+                color = colors.helperTextColor(state = state).value,
+                modifier = Modifier
+                    .padding(top = SpacingScale.spacing02)
+                    .testTag(TextInputTestTags.HELPER_TEXT)
+            )
+        }
+    }
+}
+
 @Composable
 private fun FieldContent(
     singleLine: Boolean,
@@ -331,6 +447,7 @@ private fun FieldContent(
             contentAlignment = Alignment.CenterStart
         ) {
             innerTextField()
+
             if (value.isEmpty()) {
                 Text(
                     text = placeholderText,
