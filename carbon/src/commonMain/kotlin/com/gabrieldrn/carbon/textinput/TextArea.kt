@@ -17,7 +17,7 @@
 package com.gabrieldrn.carbon.textinput
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.sizeIn
+import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.runtime.Composable
@@ -25,8 +25,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
 
 /**
@@ -97,32 +97,33 @@ public fun TextArea(
         mutableStateOf(typography.bodyCompact01.copy(color = fieldTextColor))
     }
 
-    TextInputRoot(
-        state = state,
-        label = label,
-        helperText = helperText,
-        colors = colors,
-        counter = counter,
-        field = {
-            TextInputField(
-                value = value,
-                onValueChange = onValueChange,
-                placeholderText = placeholderText,
-                helperText = helperText,
-                state = state,
-                theme = theme,
-                colors = colors,
-                fieldTextStyle = fieldTextStyle,
-                keyboardOptions = keyboardOptions,
-                keyboardActions = keyboardActions,
-                singleLine = false,
-                maxLines = maxLines,
-                minLines = minLines,
-                visualTransformation = visualTransformation,
-                interactionSource = interactionSource,
-                modifier = Modifier.sizeIn(minHeight = TEXT_INPUT_HEIGHT_LARGE_DP.dp)
-            )
-        },
-        modifier = modifier
+    BasicTextField(
+        value = value,
+        onValueChange = onValueChange,
+        modifier = modifier,
+        enabled = state != TextInputState.Disabled,
+        readOnly = state == TextInputState.ReadOnly,
+        textStyle = fieldTextStyle,
+        keyboardOptions = keyboardOptions,
+        keyboardActions = keyboardActions,
+        singleLine = false,
+        maxLines = maxLines,
+        minLines = minLines,
+        visualTransformation = visualTransformation,
+        interactionSource = interactionSource,
+        cursorBrush = SolidColor(colors.fieldTextColor(state = state).value),
+        decorationBox = decorator(
+            label = label,
+            value = value,
+            placeholderText = placeholderText,
+            helperText = helperText,
+            state = state,
+            theme = theme,
+            colors = colors,
+            singleLine = false,
+            interactionSource = interactionSource,
+            counter = counter,
+            trailingIcon = null
+        )
     )
 }
