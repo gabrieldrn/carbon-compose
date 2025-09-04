@@ -30,8 +30,6 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.runComposeUiTest
 import com.gabrieldrn.carbon.CarbonDesignSystem
-import com.gabrieldrn.carbon.PARAMTRZD_DEPRECATION_MESSAGE
-import com.gabrieldrn.carbon.PARAMTRZD_DEPRECATION_REPLACE
 import com.gabrieldrn.carbon.icons.viewIcon
 import com.gabrieldrn.carbon.icons.viewOffIcon
 import com.gabrieldrn.carbon.test.semantics.assertHasImageVector
@@ -153,33 +151,16 @@ class PasswordInputTest {
         }
     }
 
-    @Suppress("NestedBlockDepth")
-    @Deprecated(
-        message = PARAMTRZD_DEPRECATION_MESSAGE,
-        level = DeprecationLevel.WARNING,
-        replaceWith = ReplaceWith(PARAMTRZD_DEPRECATION_REPLACE)
-    )
     private fun forEachParameter(
         testBlock: (String, Boolean, String, String, TextInputState) -> Unit
-    ) {
-        listOf("", examplePassword).forEach { value ->
-            listOf(true, false).forEach { passwordHidden ->
-                listOf("", "Placeholder").forEach { placeholderText ->
-                    listOf("", "Helper").forEach { helperText ->
-                        TextInputState.entries.forEach { state ->
-                            testBlock(
-                                value,
-                                passwordHidden,
-                                placeholderText,
-                                helperText,
-                                state,
-                            )
-                        }
-                    }
-                }
-            }
-        }
-    }
+    ) = com.gabrieldrn.carbon.forEachParameter(
+        arrayOf("", examplePassword),
+        arrayOf(true, false),
+        arrayOf("", "Placeholder"),
+        arrayOf("", "Helper"),
+        TextInputState.entries.toTypedArray(),
+        testBlock
+    )
 
     companion object {
         const val examplePassword = "S0mePa55word%"
