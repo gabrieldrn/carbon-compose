@@ -23,9 +23,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import com.gabrieldrn.carbon.button.Button
 import com.gabrieldrn.carbon.button.IconButton
 import com.gabrieldrn.carbon.catalog.Res
@@ -63,6 +66,8 @@ fun TextInputDemoScreen(modifier: Modifier = Modifier) {
     var text by rememberSaveable { mutableStateOf("") }
     var passwordHidden by rememberSaveable { mutableStateOf(true) }
 
+    val focusRequester = remember { FocusRequester() }
+
     DemoScreen(
         variants = textInputVariants,
         demoContent = { variantTabItem ->
@@ -83,6 +88,7 @@ fun TextInputDemoScreen(modifier: Modifier = Modifier) {
                     onPasswordHiddenChange = { passwordHidden = it },
                     helperText = textInputState.name,
                     state = textInputState,
+                    modifier = Modifier.focusRequester(focusRequester)
                 )
                 TextInputVariant.TextArea -> TextArea(
                     label = "Text area",
@@ -91,7 +97,8 @@ fun TextInputDemoScreen(modifier: Modifier = Modifier) {
                     placeholderText = "Placeholder",
                     helperText = textInputState.name,
                     state = textInputState,
-                    maxLines = 5
+                    maxLines = 5,
+                    modifier = Modifier.focusRequester(focusRequester)
                 )
                 else -> TextInput(
                     label = "Text input",
@@ -100,6 +107,7 @@ fun TextInputDemoScreen(modifier: Modifier = Modifier) {
                     placeholderText = "Placeholder",
                     helperText = textInputState.name,
                     state = textInputState,
+                    modifier = Modifier.focusRequester(focusRequester)
                 )
             }
         },
@@ -128,6 +136,11 @@ fun TextInputDemoScreen(modifier: Modifier = Modifier) {
                     modifier = Modifier.padding(start = SpacingScale.spacing03)
                 )
             }
+
+            Button(
+                label = "Request focus",
+                onClick = { focusRequester.requestFocus() }
+            )
         },
         modifier = modifier
     )
