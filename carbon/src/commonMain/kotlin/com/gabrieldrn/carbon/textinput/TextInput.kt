@@ -22,8 +22,6 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.text.BasicTextField
@@ -33,6 +31,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
@@ -52,13 +51,18 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
+import com.gabrieldrn.carbon.CarbonDesignSystem
 import com.gabrieldrn.carbon.common.semantics.readOnly
+import com.gabrieldrn.carbon.common.tooling.loremIpsum
 import com.gabrieldrn.carbon.foundation.color.Theme
 import com.gabrieldrn.carbon.foundation.interaction.FocusIndication
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 import com.gabrieldrn.carbon.foundation.text.Text
 import com.gabrieldrn.carbon.icons.WarningAltFilledIcon
 import com.gabrieldrn.carbon.icons.WarningFilledIcon
+import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.jetbrains.compose.ui.tooling.preview.PreviewParameter
+import org.jetbrains.compose.ui.tooling.preview.PreviewParameterProvider
 
 internal const val TEXT_INPUT_HEIGHT_LARGE_DP = 48
 
@@ -289,13 +293,6 @@ private fun FieldContent(
             )
             .padding(
                 vertical = 11.dp.takeIf { !singleLine } ?: 0.dp
-            )
-            .then(
-                if (singleLine) {
-                    Modifier.fillMaxSize()
-                } else {
-                    Modifier.fillMaxWidth()
-                }
             ),
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -349,5 +346,51 @@ private fun StateIcon(
             innerTint = Color.Black
         )
         else -> {}
+    }
+}
+
+internal class TextInputStatePreviewParameterProvider : PreviewParameterProvider<TextInputState> {
+    override val values: Sequence<TextInputState>
+        get() = TextInputState.entries.asSequence()
+}
+
+@Preview
+@Composable
+private fun EmptyTextInputPreview(
+) {
+    var text by remember {
+        mutableStateOf("")
+    }
+
+    CarbonDesignSystem {
+        TextInput(
+            label = "Label",
+            value = text,
+            onValueChange = { text = it },
+            modifier = Modifier.padding(SpacingScale.spacing03),
+            placeholderText = "Placeholder",
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun TextInputPreview(
+    @PreviewParameter(TextInputStatePreviewParameterProvider::class) state: TextInputState
+) {
+    var text by remember {
+        mutableStateOf(loremIpsum)
+    }
+
+    CarbonDesignSystem {
+        TextInput(
+            label = "Label",
+            value = text,
+            onValueChange = { text = it },
+            modifier = Modifier.padding(SpacingScale.spacing03),
+            placeholderText = "Placeholder",
+            helperText = state.name,
+            state = state,
+        )
     }
 }

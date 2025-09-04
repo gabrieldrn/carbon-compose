@@ -17,6 +17,7 @@
 package com.gabrieldrn.carbon.textinput
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -24,10 +25,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.input.VisualTransformation
 import com.gabrieldrn.carbon.Carbon
+import com.gabrieldrn.carbon.CarbonDesignSystem
+import com.gabrieldrn.carbon.common.tooling.loremIpsum
+import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
+import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.jetbrains.compose.ui.tooling.preview.PreviewParameter
 
 /**
  * # Text area
@@ -126,4 +133,69 @@ public fun TextArea(
             trailingIcon = null
         )
     )
+}
+
+
+@Preview
+@Composable
+private fun EmptyTextAreaPreview(
+) {
+    var text by remember {
+        mutableStateOf("")
+    }
+
+    CarbonDesignSystem {
+        TextArea(
+            label = "Label",
+            value = text,
+            onValueChange = { text = it },
+            modifier = Modifier.padding(SpacingScale.spacing03),
+            placeholderText = "Placeholder",
+            maxLines = 7
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun TextAreaPreview(
+    @PreviewParameter(TextInputStatePreviewParameterProvider::class) state: TextInputState
+) {
+    var text by remember {
+        mutableStateOf(loremIpsum)
+    }
+
+    CarbonDesignSystem {
+        TextArea(
+            label = "Label",
+            value = text,
+            onValueChange = { text = it },
+            modifier = Modifier.padding(SpacingScale.spacing03),
+            placeholderText = "Placeholder",
+            helperText = state.name,
+            state = state,
+            maxLines = 7
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun TextAreaCounterPreview() {
+    var text by remember {
+        mutableStateOf(loremIpsum)
+    }
+
+    CarbonDesignSystem {
+        TextArea(
+            label = "Label",
+            value = text,
+            onValueChange = { text = it },
+            modifier = Modifier.padding(SpacingScale.spacing03),
+            placeholderText = "Placeholder",
+            helperText = "With counter",
+            counter = text.split(" ").size to 100,
+            maxLines = 7
+        )
+    }
 }
