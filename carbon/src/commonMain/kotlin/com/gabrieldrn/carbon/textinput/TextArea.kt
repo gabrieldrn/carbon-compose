@@ -17,17 +17,24 @@
 package com.gabrieldrn.carbon.textinput
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.sizeIn
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
+import com.gabrieldrn.carbon.CarbonDesignSystem
+import com.gabrieldrn.carbon.common.tooling.loremIpsum
+import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
+import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.jetbrains.compose.ui.tooling.preview.PreviewParameter
 
 /**
  * # Text area
@@ -55,20 +62,21 @@ import com.gabrieldrn.carbon.Carbon
  * @param counter Word/character counter values to be displayed next to the label. The first value
  * is the current count and the second value is the maximum value.
  * @param keyboardOptions software keyboard options that contains configuration such as
- * [KeyboardType] and [ImeAction].
+ * [androidx.compose.ui.text.input.KeyboardType] and [androidx.compose.ui.text.input.ImeAction].
  * @param keyboardActions when the input service emits an IME action, the corresponding callback
  * is called. Note that this IME action may be different from what you specified in
  * [KeyboardOptions.imeAction].
  * @param maxLines the maximum height in terms of maximum number of visible lines. It is required
- * that 1 <= [minLines] <= [maxLines]. This parameter is ignored when [singleLine] is true.
+ * that 1 <= [minLines] <= [maxLines].
  * @param minLines the minimum height in terms of minimum number of visible lines. It is required
- * that 1 <= [minLines] <= [maxLines]. This parameter is ignored when [singleLine] is true.
+ * that 1 <= [minLines] <= [maxLines].
  * @param visualTransformation The visual transformation filter for changing the visual
  * representation of the input. By default no visual transformation is applied.
  * @param interactionSource the [MutableInteractionSource] representing the stream of
- * [Interaction]s for this TextField. You can create and pass in your own remembered
- * [MutableInteractionSource] if you want to observe [Interaction]s and customize the
- * appearance / behavior of this TextField in different [Interaction]s.
+ * [androidx.compose.foundation.interaction.Interaction]s for this TextField. You can create and
+ * pass in your own remembered [MutableInteractionSource] if you want to observe
+ * [androidx.compose.foundation.interaction.Interaction]s and customize the appearance / behavior of
+ * this TextField in different [androidx.compose.foundation.interaction.Interaction]s.
  */
 @Composable
 public fun TextArea(
@@ -96,32 +104,98 @@ public fun TextArea(
         mutableStateOf(typography.bodyCompact01.copy(color = fieldTextColor))
     }
 
-    TextInputRoot(
-        state = state,
-        label = label,
-        helperText = helperText,
-        colors = colors,
-        counter = counter,
-        field = {
-            TextInputField(
-                value = value,
-                onValueChange = onValueChange,
-                placeholderText = placeholderText,
-                helperText = helperText,
-                state = state,
-                theme = theme,
-                colors = colors,
-                fieldTextStyle = fieldTextStyle,
-                keyboardOptions = keyboardOptions,
-                keyboardActions = keyboardActions,
-                singleLine = false,
-                maxLines = maxLines,
-                minLines = minLines,
-                visualTransformation = visualTransformation,
-                interactionSource = interactionSource,
-                modifier = Modifier.sizeIn(minHeight = TEXT_INPUT_HEIGHT_LARGE_DP.dp)
-            )
-        },
-        modifier = modifier
+    BasicTextField(
+        value = value,
+        onValueChange = onValueChange,
+        modifier = modifier,
+        enabled = state != TextInputState.Disabled,
+        readOnly = state == TextInputState.ReadOnly,
+        textStyle = fieldTextStyle,
+        keyboardOptions = keyboardOptions,
+        keyboardActions = keyboardActions,
+        singleLine = false,
+        maxLines = maxLines,
+        minLines = minLines,
+        visualTransformation = visualTransformation,
+        interactionSource = interactionSource,
+        cursorBrush = SolidColor(colors.fieldTextColor(state = state).value),
+        decorationBox = decorator(
+            label = label,
+            value = value,
+            placeholderText = placeholderText,
+            helperText = helperText,
+            state = state,
+            theme = theme,
+            colors = colors,
+            singleLine = false,
+            interactionSource = interactionSource,
+            counter = counter,
+            trailingIcon = null
+        )
     )
+}
+
+
+@Preview
+@Composable
+private fun EmptyTextAreaPreview(
+) {
+    var text by remember {
+        mutableStateOf("")
+    }
+
+    CarbonDesignSystem {
+        TextArea(
+            label = "Label",
+            value = text,
+            onValueChange = { text = it },
+            modifier = Modifier.padding(SpacingScale.spacing03),
+            placeholderText = "Placeholder",
+            maxLines = 7
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun TextAreaPreview(
+    @PreviewParameter(TextInputStatePreviewParameterProvider::class) state: TextInputState
+) {
+    var text by remember {
+        mutableStateOf(loremIpsum)
+    }
+
+    CarbonDesignSystem {
+        TextArea(
+            label = "Label",
+            value = text,
+            onValueChange = { text = it },
+            modifier = Modifier.padding(SpacingScale.spacing03),
+            placeholderText = "Placeholder",
+            helperText = state.name,
+            state = state,
+            maxLines = 7
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun TextAreaCounterPreview() {
+    var text by remember {
+        mutableStateOf(loremIpsum)
+    }
+
+    CarbonDesignSystem {
+        TextArea(
+            label = "Label",
+            value = text,
+            onValueChange = { text = it },
+            modifier = Modifier.padding(SpacingScale.spacing03),
+            placeholderText = "Placeholder",
+            helperText = "With counter",
+            counter = text.split(" ").size to 100,
+            maxLines = 7
+        )
+    }
 }
