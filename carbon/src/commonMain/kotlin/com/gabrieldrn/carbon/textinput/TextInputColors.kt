@@ -38,8 +38,11 @@ internal class TextInputColors private constructor(
     fun fieldBorderColor(state: TextInputState): State<Color> =
         rememberUpdatedState(
             newValue =
-                if (state == TextInputState.ReadOnly) theme.borderSubtleColor(layer)
-                else theme.borderStrongColor(layer)
+                when (state) {
+                    TextInputState.Disabled -> Color.Transparent
+                    TextInputState.ReadOnly -> theme.borderSubtleColor(layer)
+                    else -> theme.borderStrongColor(layer)
+                }
         )
 
     @Composable
