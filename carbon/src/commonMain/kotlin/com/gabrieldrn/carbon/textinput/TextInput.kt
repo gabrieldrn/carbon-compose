@@ -24,6 +24,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.sizeIn
+import androidx.compose.foundation.text.BasicText
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -201,30 +202,34 @@ internal fun decorator(
     counter: Pair<Int, Int>?,
     trailingIcon: @Composable (() -> Unit)?
 ): @Composable (@Composable () -> Unit) -> Unit = { innerTextField ->
+    val labelColor by colors.labelTextColor(state = state)
+    val counterColor by colors.labelTextColor(state = state)
+    val helperColor by colors.helperTextColor(state = state)
+
     Column(
         modifier = Modifier.semantics(mergeDescendants = true) {
             stateDescription = helperText
         }
     ) {
         Row(
-            modifier = Modifier
-                .padding(bottom = SpacingScale.spacing03)
+            modifier = Modifier.padding(bottom = SpacingScale.spacing03),
+            verticalAlignment = Alignment.Bottom
         ) {
-            Text(
+            BasicText(
                 text = label,
                 style = Carbon.typography.label01,
-                color = colors.labelTextColor(state = state).value,
-                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                color = { labelColor },
                 modifier = Modifier
                     .weight(1f)
                     .testTag(TextInputTestTags.LABEL)
             )
 
             if (counter != null) {
-                Text(
+                BasicText(
                     text = "${counter.first}/${counter.second}",
                     style = Carbon.typography.label01,
-                    color = colors.labelTextColor(state = state).value,
+                    color = { counterColor },
                     maxLines = 1,
                     modifier = Modifier.testTag(TextInputTestTags.COUNTER)
                 )
@@ -261,10 +266,10 @@ internal fun decorator(
         )
 
         if (helperText.isNotEmpty()) {
-            Text(
+            BasicText(
                 text = helperText,
                 style = Carbon.typography.helperText01,
-                color = colors.helperTextColor(state = state).value,
+                color = { helperColor },
                 modifier = Modifier
                     .padding(top = SpacingScale.spacing02)
                     .testTag(TextInputTestTags.HELPER_TEXT)
@@ -356,8 +361,7 @@ internal class TextInputStatePreviewParameterProvider : PreviewParameterProvider
 
 @Preview
 @Composable
-private fun EmptyTextInputPreview(
-) {
+private fun EmptyTextInputPreview() {
     var text by remember {
         mutableStateOf("")
     }

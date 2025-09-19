@@ -135,7 +135,6 @@ public fun TextArea(
     )
 }
 
-
 @Preview
 @Composable
 private fun EmptyTextAreaPreview(

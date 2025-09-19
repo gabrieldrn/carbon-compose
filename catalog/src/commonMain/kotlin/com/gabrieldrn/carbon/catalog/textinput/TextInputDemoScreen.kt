@@ -44,6 +44,7 @@ import com.gabrieldrn.carbon.textinput.PasswordInput
 import com.gabrieldrn.carbon.textinput.TextArea
 import com.gabrieldrn.carbon.textinput.TextInput
 import com.gabrieldrn.carbon.textinput.TextInputState
+import com.gabrieldrn.carbon.toggle.Toggle
 import org.jetbrains.compose.resources.painterResource
 
 private val textInputStateOptions = TextInputState.entries.toDropdownOptions()
@@ -65,6 +66,7 @@ fun TextInputDemoScreen(modifier: Modifier = Modifier) {
     var textInputState by rememberSaveable { mutableStateOf(TextInputState.Enabled) }
     var text by rememberSaveable { mutableStateOf("") }
     var passwordHidden by rememberSaveable { mutableStateOf(true) }
+    var useCounter by rememberSaveable { mutableStateOf(false) }
 
     val focusRequester = remember { FocusRequester() }
 
@@ -90,8 +92,28 @@ fun TextInputDemoScreen(modifier: Modifier = Modifier) {
                     state = textInputState,
                     modifier = Modifier.focusRequester(focusRequester)
                 )
-                TextInputVariant.TextArea -> TextArea(
-                    label = "Text area",
+                TextInputVariant.TextArea if useCounter -> {
+                    val limit = 1000
+                    val counter by remember(text) {
+                        mutableStateOf(text.count() to limit)
+                    }
+
+                    TextArea(
+                        label = "Text area ",
+                        value = text,
+                        onValueChange = {
+                            if (it.count() <= limit) { text = it }
+                        },
+                        placeholderText = "Placeholder",
+                        helperText = textInputState.name,
+                        state = textInputState,
+                        maxLines = 5,
+                        counter = counter,
+                        modifier = Modifier.focusRequester(focusRequester)
+                    )
+                }
+                TextInputVariant.TextArea if !useCounter -> TextArea(
+                    label = "Text area ",
                     value = text,
                     onValueChange = { text = it },
                     placeholderText = "Placeholder",
@@ -137,9 +159,17 @@ fun TextInputDemoScreen(modifier: Modifier = Modifier) {
                 )
             }
 
+            Toggle(
+                isToggled = useCounter,
+                onToggleChange = { useCounter = it },
+                label = "Use character counter",
+                isEnabled = variant == TextInputVariant.TextArea
+            )
+
             Button(
                 label = "Request focus",
-                onClick = { focusRequester.requestFocus() }
+                onClick = { focusRequester.requestFocus() },
+                modifier = Modifier.padding(top = SpacingScale.spacing03)
             )
         },
         modifier = modifier
