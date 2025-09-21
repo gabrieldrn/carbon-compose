@@ -1,13 +1,13 @@
 [versions]
 # region Build + build-logic
-androidGradlePlugin = "8.9.0"
-kotlin = "2.2.0"
+androidGradlePlugin = "8.9.3"
+kotlin = "2.2.20"
 binaryCompatibilityValidator = "0.18.1"
 # endregion
 # region Libraries
-compose = "1.8.2"
-composeNavigation = "2.9.0-rc01"
-composeHotReload = "1.0.0-beta06"
+compose = "1.9.0"
+composeNavigation = "2.9.0"
+composeHotReload = "1.0.0-beta08"
 androidxActivity = "1.10.1"
 androidxAppcompat = "1.7.0"
 # Individual AndroidX compose libraries version usage is based on the Compose version used by
