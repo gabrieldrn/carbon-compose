@@ -42,12 +42,20 @@ import com.gabrieldrn.carbon.foundation.color.layerBackground
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
+// TODO By step
+// TODO Change input min height to 40dp for web+desktop targets, keep existing for accessbility
+// TODO Focus
+// TODO Demo
+// TODO KDoc
+// TODO GH pages
 @Composable
 public fun Slider(
     value: Float,
+    startLabel: String,
+    endLabel: String,
     onValueChange: (Float) -> Unit,
     modifier: Modifier = Modifier,
-    sliderRange: ClosedFloatingPointRange<Float> = 0f..1f
+    sliderRange: ClosedFloatingPointRange<Float> = 0f..1f,
 ) {
     val adjustedValue by remember(value, sliderRange) {
         mutableStateOf(value.coerceIn(sliderRange))
@@ -66,7 +74,7 @@ public fun Slider(
     ) {
 
         BasicText(
-            text = sliderRange.start.toString(),
+            text = startLabel,
             style = Carbon.typography.bodyCompact01,
             color = { rangeLabelColor }
         )
@@ -81,7 +89,9 @@ public fun Slider(
                     detectTapGestures(
                         onPress = { offset ->
                             val linearlyMappedPosition =
-                                offset.x.map(from = widthRange, to = sliderRange)
+                                offset.x
+                                    .map(from = widthRange, to = sliderRange)
+                                    .coerceIn(sliderRange)
 
                             onValueChange(linearlyMappedPosition)
                         }
@@ -91,7 +101,9 @@ public fun Slider(
                     val widthRange = 0f..size.width.toFloat()
                     detectDragGestures { change, _ ->
                         val linearlyMappedPosition =
-                            change.position.x.map(from = widthRange, to = sliderRange)
+                            change.position.x
+                                .map(from = widthRange, to = sliderRange)
+                                .coerceIn(sliderRange)
 
                         onValueChange(linearlyMappedPosition)
                     }
@@ -119,7 +131,7 @@ public fun Slider(
         }
 
         BasicText(
-            text = sliderRange.endInclusive.toString(),
+            text = endLabel,
             style = Carbon.typography.bodyCompact01,
             color = { rangeLabelColor }
         )
@@ -145,6 +157,7 @@ public fun Slider(
  * @param to Targeted range.
  * @return The value converted with the targeted range.
  */
+// Nice to see you again old friend
 private fun Float.map(
     from: ClosedFloatingPointRange<Float>,
     to: ClosedFloatingPointRange<Float>
@@ -167,7 +180,30 @@ private fun SliderPreview() {
 
         Slider(
             value = value,
+            startLabel = "0",
+            endLabel = "1",
             onValueChange = { value = it },
+            modifier = Modifier
+                .layerBackground()
+                .padding(16.dp)
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun SliderCustomRangePreview() {
+    CarbonDesignSystem {
+        var value by remember {
+            mutableStateOf(120f)
+        }
+
+        Slider(
+            value = value,
+            startLabel = "50",
+            endLabel = "200",
+            onValueChange = { value = it },
+            sliderRange = 50f..200f,
             modifier = Modifier
                 .layerBackground()
                 .padding(16.dp)

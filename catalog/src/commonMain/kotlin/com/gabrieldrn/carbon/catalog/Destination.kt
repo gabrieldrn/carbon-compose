@@ -31,6 +31,7 @@ import com.gabrieldrn.carbon.catalog.popover.PopoverDemoScreen
 import com.gabrieldrn.carbon.catalog.progressbar.ProgressBarDemoScreen
 import com.gabrieldrn.carbon.catalog.radiobutton.RadioButtonDemoScreen
 import com.gabrieldrn.carbon.catalog.settings.SettingsScreen
+import com.gabrieldrn.carbon.catalog.slider.SliderDemoScreen
 import com.gabrieldrn.carbon.catalog.tab.TabListDemoScreen
 import com.gabrieldrn.carbon.catalog.tag.TagDemoScreen
 import com.gabrieldrn.carbon.catalog.textinput.TextInputDemoScreen
@@ -153,7 +154,12 @@ enum class Destination(
     ),
     Search("Search"),
     Select("Select"),
-    Slider("Slider"),
+    Slider(
+        title = "Slider",
+        illustration = null,
+        route = "slider",
+        content = { modifier -> SliderDemoScreen(modifier = modifier) }
+    ),
     StructuredList("Structured list"),
     Tabs(
         title = "Tabs",
