@@ -156,7 +156,7 @@ enum class Destination(
     Select("Select"),
     Slider(
         title = "Slider",
-        illustration = null,
+        illustration = Res.drawable.tile_slider,
         route = "slider",
         content = { modifier -> SliderDemoScreen(modifier = modifier) }
     ),
