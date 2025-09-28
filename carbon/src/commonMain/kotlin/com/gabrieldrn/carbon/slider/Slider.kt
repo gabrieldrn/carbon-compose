@@ -16,12 +16,22 @@
 
 package com.gabrieldrn.carbon.slider
 
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.hoverable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsHoveredAsState
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -30,10 +40,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.CarbonDesignSystem
@@ -42,8 +55,11 @@ import com.gabrieldrn.carbon.foundation.color.layerBackground
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
+private val handleSize = 14.dp
+private val handleActiveSize = 20.dp
+private val handleActiveScaleRatio = handleActiveSize / handleSize
+
 // TODO By step
-// TODO Change input min height to 40dp for web+desktop targets, keep existing for accessbility
 // TODO Focus
 // TODO Demo
 // TODO KDoc
@@ -57,21 +73,11 @@ public fun Slider(
     modifier: Modifier = Modifier,
     sliderRange: ClosedFloatingPointRange<Float> = 0f..1f,
 ) {
-    val adjustedValue by remember(value, sliderRange) {
-        mutableStateOf(value.coerceIn(sliderRange))
-    }
-
-    val fraction =
-        (adjustedValue - sliderRange.start) / (sliderRange.endInclusive - sliderRange.start)
-
-    val rangeLabelColor = Carbon.theme.textPrimary
-    val trackColor = Carbon.theme.borderSubtleColor(Carbon.layer)
-    val filledTrackColor = Carbon.theme.borderInverse
-
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier.fillMaxWidth()
     ) {
+        val rangeLabelColor = Carbon.theme.textPrimary
 
         BasicText(
             text = startLabel,
@@ -79,11 +85,14 @@ public fun Slider(
             color = { rangeLabelColor }
         )
 
-        Canvas(
+        var isPressed by remember { mutableStateOf(false) }
+
+        BoxWithConstraints(
             modifier = Modifier
                 .weight(1f)
+                .height(handleSize)
                 .padding(horizontal = SpacingScale.spacing04)
-                .pointerHoverIcon(icon = PointerIcon.Hand)
+                .pointerHoverIcon(icon = PointerIcon.Hand, overrideDescendants = true)
                 .pointerInput(Unit) {
                     val widthRange = 0f..size.width.toFloat()
                     detectTapGestures(
@@ -99,34 +108,71 @@ public fun Slider(
                 }
                 .pointerInput(Unit) {
                     val widthRange = 0f..size.width.toFloat()
-                    detectDragGestures { change, _ ->
-                        val linearlyMappedPosition =
-                            change.position.x
-                                .map(from = widthRange, to = sliderRange)
-                                .coerceIn(sliderRange)
+                    detectDragGestures(
+                        onDragStart = { _ -> isPressed = true},
+                        onDragEnd = { isPressed = false },
+                        onDragCancel = { isPressed = false },
+                        onDrag = { change, _ ->
+                            val linearlyMappedPosition =
+                                change.position.x
+                                    .map(from = widthRange, to = sliderRange)
+                                    .coerceIn(sliderRange)
 
-                        onValueChange(linearlyMappedPosition)
-                    }
+                            onValueChange(linearlyMappedPosition)
+                        }
+                    )
                 }
         ) {
-            drawLine(
-                color = trackColor,
-                start = Offset(x = 0f, y = size.height / 2),
-                end = Offset(x = size.width, y = size.height / 2),
-                strokeWidth = 2.dp.toPx()
+            val handleInteractionSource = remember { MutableInteractionSource() }
+
+            val adjustedValue by remember(value, sliderRange) {
+                mutableStateOf(value.coerceIn(sliderRange))
+            }
+
+            val fraction =
+                (adjustedValue - sliderRange.start) / (sliderRange.endInclusive - sliderRange.start)
+
+            val trackColor = Carbon.theme.borderSubtleColor(Carbon.layer)
+            val filledTrackColor = Carbon.theme.borderInverse
+
+            val isHovered by handleInteractionSource.collectIsHoveredAsState()
+            val scaleFactor by animateFloatAsState(
+                if (isHovered || isPressed) handleActiveScaleRatio else 1f
             )
 
-            drawLine(
-                color = filledTrackColor,
-                start = Offset(x = 0f, y = size.height / 2),
-                end = Offset(x = size.width * fraction, y = size.height / 2),
-                strokeWidth = 2.dp.toPx()
-            )
+            Canvas(modifier = Modifier.fillMaxSize()) {
+                drawLine(
+                    color = trackColor,
+                    start = Offset(x = 0f, y = size.height / 2),
+                    end = Offset(x = size.width, y = size.height / 2),
+                    strokeWidth = 2.dp.toPx()
+                )
 
-            drawCircle(
-                color = filledTrackColor,
-                radius = 7.dp.toPx(),
-                center = Offset(x = size.width * fraction, y = size.height / 2)
+                drawLine(
+                    color = filledTrackColor,
+                    start = Offset(x = 0f, y = size.height / 2),
+                    end = Offset(x = size.width * fraction, y = size.height / 2),
+                    strokeWidth = 2.dp.toPx()
+                )
+            }
+
+            Box(
+                modifier = Modifier
+                    .size(handleSize)
+                    .offset {
+                        IntOffset(
+                            x = (maxWidth * fraction - SpacingScale.spacing04 / 2).roundToPx(),
+                            y = 0
+                        )
+                    }
+                    .hoverable(interactionSource = handleInteractionSource)
+                    .graphicsLayer {
+                        scaleX = scaleFactor
+                        scaleY = scaleFactor
+                    }
+                    .drawBehind {
+                        drawCircle(filledTrackColor)
+                    }
             )
         }
 
