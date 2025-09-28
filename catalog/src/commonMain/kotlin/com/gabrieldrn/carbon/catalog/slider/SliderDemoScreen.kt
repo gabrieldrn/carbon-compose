@@ -39,6 +39,7 @@ fun SliderDemoScreen(modifier: Modifier = Modifier) {
                 startLabel = "0",
                 endLabel = "1",
                 onValueChange = { sliderValue = it },
+                label = "Label"
             )
         },
         modifier = modifier

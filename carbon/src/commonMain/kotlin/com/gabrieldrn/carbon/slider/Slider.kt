@@ -25,6 +25,7 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -71,116 +72,139 @@ public fun Slider(
     endLabel: String,
     onValueChange: (Float) -> Unit,
     modifier: Modifier = Modifier,
+    label: String = "",
     sliderRange: ClosedFloatingPointRange<Float> = 0f..1f,
 ) {
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = modifier.fillMaxWidth()
-    ) {
-        val rangeLabelColor = Carbon.theme.textPrimary
+    Column(modifier = modifier.fillMaxWidth()) {
+        if (label.isNotEmpty()) {
+            val labelColor = Carbon.theme.textSecondary
 
-        BasicText(
-            text = startLabel,
-            style = Carbon.typography.bodyCompact01,
-            color = { rangeLabelColor }
-        )
-
-        var isPressed by remember { mutableStateOf(false) }
-
-        BoxWithConstraints(
-            modifier = Modifier
-                .weight(1f)
-                .height(handleSize)
-                .padding(horizontal = SpacingScale.spacing04)
-                .pointerHoverIcon(icon = PointerIcon.Hand, overrideDescendants = true)
-                .pointerInput(Unit) {
-                    val widthRange = 0f..size.width.toFloat()
-                    detectTapGestures(
-                        onPress = { offset ->
-                            val linearlyMappedPosition =
-                                offset.x
-                                    .map(from = widthRange, to = sliderRange)
-                                    .coerceIn(sliderRange)
-
-                            onValueChange(linearlyMappedPosition)
-                        }
-                    )
-                }
-                .pointerInput(Unit) {
-                    val widthRange = 0f..size.width.toFloat()
-                    detectDragGestures(
-                        onDragStart = { _ -> isPressed = true},
-                        onDragEnd = { isPressed = false },
-                        onDragCancel = { isPressed = false },
-                        onDrag = { change, _ ->
-                            val linearlyMappedPosition =
-                                change.position.x
-                                    .map(from = widthRange, to = sliderRange)
-                                    .coerceIn(sliderRange)
-
-                            onValueChange(linearlyMappedPosition)
-                        }
-                    )
-                }
-        ) {
-            val handleInteractionSource = remember { MutableInteractionSource() }
-
-            val adjustedValue by remember(value, sliderRange) {
-                mutableStateOf(value.coerceIn(sliderRange))
-            }
-
-            val fraction =
-                (adjustedValue - sliderRange.start) / (sliderRange.endInclusive - sliderRange.start)
-
-            val trackColor = Carbon.theme.borderSubtleColor(Carbon.layer)
-            val filledTrackColor = Carbon.theme.borderInverse
-
-            val isHovered by handleInteractionSource.collectIsHoveredAsState()
-            val scaleFactor by animateFloatAsState(
-                if (isHovered || isPressed) handleActiveScaleRatio else 1f
-            )
-
-            Canvas(modifier = Modifier.fillMaxSize()) {
-                drawLine(
-                    color = trackColor,
-                    start = Offset(x = 0f, y = size.height / 2),
-                    end = Offset(x = size.width, y = size.height / 2),
-                    strokeWidth = 2.dp.toPx()
-                )
-
-                drawLine(
-                    color = filledTrackColor,
-                    start = Offset(x = 0f, y = size.height / 2),
-                    end = Offset(x = size.width * fraction, y = size.height / 2),
-                    strokeWidth = 2.dp.toPx()
-                )
-            }
-
-            Box(
-                modifier = Modifier
-                    .size(handleSize)
-                    .offset {
-                        IntOffset(
-                            x = (maxWidth * fraction - SpacingScale.spacing04 / 2).roundToPx(),
-                            y = 0
-                        )
-                    }
-                    .hoverable(interactionSource = handleInteractionSource)
-                    .graphicsLayer {
-                        scaleX = scaleFactor
-                        scaleY = scaleFactor
-                    }
-                    .drawBehind {
-                        drawCircle(filledTrackColor)
-                    }
+            BasicText(
+                text = label,
+                style = Carbon.typography.bodyCompact01,
+                color = { labelColor },
+                modifier = Modifier.padding(bottom = SpacingScale.spacing03)
             )
         }
 
-        BasicText(
-            text = endLabel,
-            style = Carbon.typography.bodyCompact01,
-            color = { rangeLabelColor }
-        )
+        Row(verticalAlignment = Alignment.CenterVertically,) {
+            val rangeLabelColor = Carbon.theme.textPrimary
+
+            BasicText(
+                text = startLabel,
+                style = Carbon.typography.bodyCompact01,
+                color = { rangeLabelColor }
+            )
+
+            var isPressed by remember { mutableStateOf(false) }
+
+            BoxWithConstraints(
+                modifier = Modifier
+                    .weight(1f)
+                    .height(handleSize)
+                    .padding(horizontal = SpacingScale.spacing04)
+                    .pointerHoverIcon(icon = PointerIcon.Hand, overrideDescendants = true)
+                    .pointerInput(Unit) {
+                        val widthRange = 0f..size.width.toFloat()
+                        detectTapGestures(
+                            onPress = { offset ->
+                                val linearlyMappedPosition =
+                                    offset.x
+                                        .map(from = widthRange, to = sliderRange)
+                                        .coerceIn(sliderRange)
+
+                                onValueChange(linearlyMappedPosition)
+                            }
+                        )
+                    }
+                    .pointerInput(Unit) {
+                        val widthRange = 0f..size.width.toFloat()
+                        detectDragGestures(
+                            onDragStart = { _ -> isPressed = true},
+                            onDragEnd = { isPressed = false },
+                            onDragCancel = { isPressed = false },
+                            onDrag = { change, _ ->
+                                val linearlyMappedPosition =
+                                    change.position.x
+                                        .map(from = widthRange, to = sliderRange)
+                                        .coerceIn(sliderRange)
+
+                                onValueChange(linearlyMappedPosition)
+                            }
+                        )
+                    }
+            ) {
+                val handleInteractionSource = remember { MutableInteractionSource() }
+
+                val adjustedValue by remember(value, sliderRange) {
+                    mutableStateOf(value.coerceIn(sliderRange))
+                }
+
+                val fraction =
+                    (adjustedValue - sliderRange.start) /
+                        (sliderRange.endInclusive - sliderRange.start)
+
+                val trackColor = Carbon.theme.borderSubtleColor(Carbon.layer)
+                val filledTrackColor = Carbon.theme.borderInverse
+
+                val isHovered by handleInteractionSource.collectIsHoveredAsState()
+                val scaleFactor by animateFloatAsState(
+                    if (isHovered || isPressed) handleActiveScaleRatio else 1f
+                )
+
+                Canvas(modifier = Modifier.fillMaxSize()) {
+                    val halfWidth = size.width * .5f
+                    val halfHeight = size.height * .5f
+
+                    drawLine(
+                        color = trackColor,
+                        start = Offset(x = 0f, y = halfHeight),
+                        end = Offset(x = size.width, y = halfHeight),
+                        strokeWidth = 2.dp.toPx()
+                    )
+
+                    drawLine(
+                        color = trackColor,
+                        start = Offset(x = halfWidth, y = 0f),
+                        end = Offset(x = halfWidth, y = 4.dp.toPx()),
+                        strokeWidth = 2.dp.toPx()
+                    )
+
+                    drawLine(
+                        color = filledTrackColor,
+                        start = Offset(x = 0f, y = halfHeight),
+                        end = Offset(x = size.width * fraction, y = halfHeight),
+                        strokeWidth = 2.dp.toPx()
+                    )
+                }
+
+                Box(
+                    modifier = Modifier
+                        .size(handleSize)
+                        .offset {
+                            IntOffset(
+                                x = (maxWidth * fraction - SpacingScale.spacing04 * .5f)
+                                    .roundToPx(),
+                                y = 0
+                            )
+                        }
+                        .hoverable(interactionSource = handleInteractionSource)
+                        .graphicsLayer {
+                            scaleX = scaleFactor
+                            scaleY = scaleFactor
+                        }
+                        .drawBehind {
+                            drawCircle(filledTrackColor)
+                        }
+                )
+            }
+
+            BasicText(
+                text = endLabel,
+                style = Carbon.typography.bodyCompact01,
+                color = { rangeLabelColor }
+            )
+        }
     }
 }
 
@@ -221,7 +245,7 @@ private val ClosedFloatingPointRange<Float>.distance: Float get() = endInclusive
 private fun SliderPreview() {
     CarbonDesignSystem {
         var value by remember {
-            mutableStateOf(.5f)
+            mutableStateOf(.25f)
         }
 
         Slider(
