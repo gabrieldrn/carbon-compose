@@ -60,6 +60,7 @@ private val handleSize = 14.dp
 private val handleActiveSize = 20.dp
 private val handleActiveScaleRatio = handleActiveSize / handleSize
 
+// TODO onValueChangeFinished
 // TODO By step
 // TODO Focus
 // TODO Demo
@@ -87,16 +88,24 @@ public fun Slider(
             )
         }
 
-        Row(verticalAlignment = Alignment.CenterVertically,) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+
             val rangeLabelColor = Carbon.theme.textPrimary
+
+            val sliderState = rememberSliderState(
+                value = value,
+                valueRange = sliderRange,
+            )
+
+            sliderState.onValueChange = onValueChange
+
+            var isPressed by remember { mutableStateOf(false) }
 
             BasicText(
                 text = startLabel,
                 style = Carbon.typography.bodyCompact01,
                 color = { rangeLabelColor }
             )
-
-            var isPressed by remember { mutableStateOf(false) }
 
             BoxWithConstraints(
                 modifier = Modifier
@@ -105,44 +114,25 @@ public fun Slider(
                     .padding(horizontal = SpacingScale.spacing04)
                     .pointerHoverIcon(icon = PointerIcon.Hand, overrideDescendants = true)
                     .pointerInput(Unit) {
-                        val widthRange = 0f..size.width.toFloat()
                         detectTapGestures(
-                            onPress = { offset ->
-                                val linearlyMappedPosition =
-                                    offset.x
-                                        .map(from = widthRange, to = sliderRange)
-                                        .coerceIn(sliderRange)
-
-                                onValueChange(linearlyMappedPosition)
+                            onPress = {
+                                isPressed = true
+                                sliderState.update(it)
+                                awaitRelease()
+                                isPressed = false
                             }
                         )
                     }
                     .pointerInput(Unit) {
-                        val widthRange = 0f..size.width.toFloat()
                         detectDragGestures(
-                            onDragStart = { _ -> isPressed = true},
+                            onDragStart = { _ -> isPressed = true },
                             onDragEnd = { isPressed = false },
                             onDragCancel = { isPressed = false },
-                            onDrag = { change, _ ->
-                                val linearlyMappedPosition =
-                                    change.position.x
-                                        .map(from = widthRange, to = sliderRange)
-                                        .coerceIn(sliderRange)
-
-                                onValueChange(linearlyMappedPosition)
-                            }
+                            onDrag = { change, _ -> sliderState.update(change.position) }
                         )
                     }
             ) {
                 val handleInteractionSource = remember { MutableInteractionSource() }
-
-                val adjustedValue by remember(value, sliderRange) {
-                    mutableStateOf(value.coerceIn(sliderRange))
-                }
-
-                val fraction =
-                    (adjustedValue - sliderRange.start) /
-                        (sliderRange.endInclusive - sliderRange.start)
 
                 val trackColor = Carbon.theme.borderSubtleColor(Carbon.layer)
                 val filledTrackColor = Carbon.theme.borderInverse
@@ -173,9 +163,11 @@ public fun Slider(
                     drawLine(
                         color = filledTrackColor,
                         start = Offset(x = 0f, y = halfHeight),
-                        end = Offset(x = size.width * fraction, y = halfHeight),
+                        end = Offset(x = size.width * sliderState.valueAsFraction, y = halfHeight),
                         strokeWidth = 2.dp.toPx()
                     )
+
+                    sliderState.updateTotalWidth(size.width)
                 }
 
                 Box(
@@ -183,7 +175,10 @@ public fun Slider(
                         .size(handleSize)
                         .offset {
                             IntOffset(
-                                x = (maxWidth * fraction - SpacingScale.spacing04 * .5f)
+                                x = (
+                                    maxWidth * sliderState.valueAsFraction -
+                                        SpacingScale.spacing04 * .5f
+                                    )
                                     .roundToPx(),
                                 y = 0
                             )
@@ -207,38 +202,6 @@ public fun Slider(
         }
     }
 }
-
-/**
- * Linearly maps a number that falls inside [from] to [to].
- *
- * Example:
- *
- * ```
- *  0.0    P1 = 250     500.0
- * A|---------x---------|
- * B|---------x---------|
- *  0.0    P2 = 0.5     1.0
- * ```
- *
- * Given a range A [[0.0; 500.0]] and a range B [[0.0;1.0]], if P1 = 250 then P2 = 0.5.
- *
- * @receiver The value to be mapped to the targeted range.
- * @param from Initial range of the receiver.
- * @param to Targeted range.
- * @return The value converted with the targeted range.
- */
-// Nice to see you again old friend
-private fun Float.map(
-    from: ClosedFloatingPointRange<Float>,
-    to: ClosedFloatingPointRange<Float>
-): Float =
-    // ratio = (value - from.start) / (from.end - from.start)
-    to.start + (this - from.start) / from.distance * to.distance
-
-/**
- * Distance between the first and last value (end - start).
- */
-private val ClosedFloatingPointRange<Float>.distance: Float get() = endInclusive - start
 
 @Preview
 @Composable
