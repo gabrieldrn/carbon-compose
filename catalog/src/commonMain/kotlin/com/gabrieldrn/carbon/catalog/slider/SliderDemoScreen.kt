@@ -18,6 +18,7 @@ package com.gabrieldrn.carbon.catalog.slider
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -25,6 +26,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.catalog.common.DemoScreen
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
@@ -45,7 +47,8 @@ fun SliderDemoScreen(modifier: Modifier = Modifier) {
                     startLabel = "0",
                     endLabel = "1",
                     onValueChange = { sliderValue = it },
-                    label = "Label"
+                    label = "Label",
+                    modifier = Modifier.widthIn(max = 300.dp)
                 )
                 BasicText(
                     text = sliderValue.toString(),

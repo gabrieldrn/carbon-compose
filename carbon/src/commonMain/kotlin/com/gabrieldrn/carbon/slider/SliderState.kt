@@ -17,7 +17,6 @@
 package com.gabrieldrn.carbon.slider
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.saveable.listSaver
@@ -32,7 +31,7 @@ internal class SliderState(
 
     private var adjustedValue by mutableFloatStateOf(value)
     private var totalWidth by mutableFloatStateOf(0f)
-    private val widthRange by derivedStateOf { 0f..totalWidth } // FIXME Good effect?
+    private var widthRange = 0f..totalWidth
 
     /**
      * Distance between the first and last value (end - start).
@@ -57,6 +56,7 @@ internal class SliderState(
 
     fun updateTotalWidth(newWidth: Float) {
         totalWidth = newWidth
+        widthRange = 0f..newWidth
     }
 
     /**

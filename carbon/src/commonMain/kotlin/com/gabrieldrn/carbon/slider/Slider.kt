@@ -28,7 +28,6 @@ import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
@@ -76,7 +75,7 @@ public fun Slider(
     label: String = "",
     sliderRange: ClosedFloatingPointRange<Float> = 0f..1f,
 ) {
-    Column(modifier = modifier.fillMaxWidth()) {
+    Column(modifier = modifier) {
         if (label.isNotEmpty()) {
             val labelColor = Carbon.theme.textSecondary
 
@@ -91,6 +90,7 @@ public fun Slider(
         Row(verticalAlignment = Alignment.CenterVertically) {
 
             val rangeLabelColor = Carbon.theme.textPrimary
+            val padding = SpacingScale.spacing04
 
             val sliderState = rememberSliderState(
                 value = value,
@@ -111,7 +111,7 @@ public fun Slider(
                 modifier = Modifier
                     .weight(1f)
                     .height(handleSize)
-                    .padding(horizontal = SpacingScale.spacing04)
+                    .padding(horizontal = padding)
                     .pointerHoverIcon(icon = PointerIcon.Hand, overrideDescendants = true)
                     .pointerInput(Unit) {
                         detectTapGestures(
@@ -175,10 +175,7 @@ public fun Slider(
                         .size(handleSize)
                         .offset {
                             IntOffset(
-                                x = (
-                                    maxWidth * sliderState.valueAsFraction -
-                                        SpacingScale.spacing04 * .5f
-                                    )
+                                x = (maxWidth * sliderState.valueAsFraction - padding * .5f)
                                     .roundToPx(),
                                 y = 0
                             )
