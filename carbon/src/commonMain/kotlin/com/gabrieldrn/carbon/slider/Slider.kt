@@ -16,6 +16,7 @@
 
 package com.gabrieldrn.carbon.slider
 
+import androidx.annotation.FloatRange
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.gestures.detectDragGestures
@@ -60,7 +61,6 @@ private val handleActiveSize = 20.dp
 private val handleActiveScaleRatio = handleActiveSize / handleSize
 
 // TODO onValueChangeFinished
-// TODO By step
 // TODO Focus
 // TODO Demo
 // TODO KDoc
@@ -74,6 +74,7 @@ public fun Slider(
     modifier: Modifier = Modifier,
     label: String = "",
     sliderRange: ClosedFloatingPointRange<Float> = 0f..1f,
+    @FloatRange(from = 0.0) steps: Float = 0f,
 ) {
     Column(modifier = modifier) {
         if (label.isNotEmpty()) {
@@ -94,6 +95,7 @@ public fun Slider(
 
             val sliderState = rememberSliderState(
                 value = value,
+                steps = steps,
                 valueRange = sliderRange,
             )
 
@@ -113,7 +115,7 @@ public fun Slider(
                     .height(handleSize)
                     .padding(horizontal = padding)
                     .pointerHoverIcon(icon = PointerIcon.Hand, overrideDescendants = true)
-                    .pointerInput(Unit) {
+                    .pointerInput(sliderState) {
                         detectTapGestures(
                             onPress = {
                                 isPressed = true
@@ -123,7 +125,7 @@ public fun Slider(
                             }
                         )
                     }
-                    .pointerInput(Unit) {
+                    .pointerInput(sliderState) {
                         detectDragGestures(
                             onDragStart = { _ -> isPressed = true },
                             onDragEnd = { isPressed = false },
@@ -167,7 +169,7 @@ public fun Slider(
                         strokeWidth = 2.dp.toPx()
                     )
 
-                    sliderState.updateTotalWidth(size.width)
+                    sliderState.updateWidth(size.width)
                 }
 
                 Box(
@@ -213,6 +215,28 @@ private fun SliderPreview() {
             startLabel = "0",
             endLabel = "1",
             onValueChange = { value = it },
+            modifier = Modifier
+                .layerBackground()
+                .padding(16.dp)
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun SliderWithStepsPreview() {
+    CarbonDesignSystem {
+        var value by remember {
+            mutableStateOf(0f)
+        }
+
+        Slider(
+            value = value,
+            startLabel = "0",
+            endLabel = "1",
+            onValueChange = { value = it },
+            sliderRange = 0f..2f,
+            steps = 1f,
             modifier = Modifier
                 .layerBackground()
                 .padding(16.dp)

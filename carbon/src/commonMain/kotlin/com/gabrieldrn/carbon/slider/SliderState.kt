@@ -16,6 +16,7 @@
 
 package com.gabrieldrn.carbon.slider
 
+import androidx.annotation.FloatRange
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
@@ -23,22 +24,34 @@ import androidx.compose.runtime.saveable.listSaver
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.geometry.Offset
+import com.gabrieldrn.carbon.common.math.map
+import kotlin.math.abs
 
+// Use MutatorMutex if this state needs to become public
 internal class SliderState(
     value: Float,
+    @param:FloatRange(from = 0.0) val steps: Float,
     private val valueRange: ClosedFloatingPointRange<Float>,
 ) {
-
     private var adjustedValue by mutableFloatStateOf(value)
     private var totalWidth by mutableFloatStateOf(0f)
     private var widthRange = 0f..totalWidth
+    private val divisions =
+        if (steps > 0f) {
+            generateSequence(valueRange.start) { previous ->
+                if (previous.isInfinite() || previous >= valueRange.endInclusive) {
+                    null
+                } else {
+                    val next = previous + steps
+                    if (next > valueRange.endInclusive) valueRange.endInclusive else next
+                }
+            }
+                .toList()
+        } else {
+            listOf()
+        }
 
-    /**
-     * Distance between the first and last value (end - start).
-     */
-    private val ClosedFloatingPointRange<Float>.distance: Float get() = endInclusive - start
-
-    val value: Float
+    val value: Float // <- FIXME Can't be updated by the user
         get() = adjustedValue
 
     val valueAsFraction: Float
@@ -46,55 +59,35 @@ internal class SliderState(
 
     var onValueChange: ((Float) -> Unit)? = null
 
+    private fun Float.getNearestDivision(): Float =
+        divisions.minByOrNull { abs(it - this) } ?: this
+
     fun update(inputOffset: Offset) {
+        // FIXME Optimize to only dispatch value when it's different
         adjustedValue = inputOffset.x
             .map(from = widthRange, to = valueRange)
+            .getNearestDivision()
             .coerceIn(valueRange)
 
         onValueChange?.invoke(adjustedValue)
     }
 
-    fun updateTotalWidth(newWidth: Float) {
+    fun updateWidth(newWidth: Float) {
+        if (newWidth == totalWidth) return
         totalWidth = newWidth
         widthRange = 0f..newWidth
     }
 
-    /**
-     * Linearly maps a number that falls inside [from] to [to].
-     *
-     * Example:
-     *
-     * ```
-     *  0.0    P1 = 250     500.0
-     * A|---------x---------|
-     * B|---------x---------|
-     *  0.0    P2 = 0.5     1.0
-     * ```
-     *
-     * Given a range A [[0.0; 500.0]] and a range B [[0.0;1.0]], if P1 = 250 then P2 = 0.5.
-     *
-     * @receiver The value to be mapped to the targeted range.
-     * @param from Initial range of the receiver.
-     * @param to Targeted range.
-     * @return The value converted with the targeted range.
-     */
-    // Nice to see you again old friend
-    private fun Float.map(
-        from: ClosedFloatingPointRange<Float>,
-        to: ClosedFloatingPointRange<Float>
-    ): Float =
-        // ratio = (value - from.start) / (from.end - from.start)
-        to.start + (this - from.start) / from.distance * to.distance
-
     companion object {
 
-        fun Saver(
+        fun Saver( // <- FIXME May not be useful if the state stays internal
             valueRange: ClosedFloatingPointRange<Float>
         ) = listSaver(
-            save = { listOf(it.adjustedValue) },
+            save = { listOf(it.adjustedValue, it.steps) },
             restore = {
                 SliderState(
-                    value = it[0],
+                    value = it[0] as Float,
+                    steps = it[1] as Float,
                     valueRange = valueRange
                 )
             }
@@ -105,7 +98,8 @@ internal class SliderState(
 @Composable
 internal fun rememberSliderState(
     value: Float = 0f,
+    steps: Float = 0f,
     valueRange: ClosedFloatingPointRange<Float> = 0f..1f,
-) = rememberSaveable(valueRange, saver = SliderState.Saver(valueRange)) {
-    SliderState(value, valueRange)
+) = rememberSaveable(valueRange, steps, saver = SliderState.Saver(valueRange)) {
+    SliderState(value, steps, valueRange)
 }

@@ -22,6 +22,7 @@ import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -31,12 +32,21 @@ import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.catalog.common.DemoScreen
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 import com.gabrieldrn.carbon.slider.Slider
+import com.gabrieldrn.carbon.textinput.TextInput
+import com.gabrieldrn.carbon.textinput.TextInputState
 
 @Composable
 fun SliderDemoScreen(modifier: Modifier = Modifier) {
 
     var sliderValue by rememberSaveable {
-        mutableStateOf(.5f)
+        mutableFloatStateOf(0f)
+    }
+
+    var stepsStringValue by rememberSaveable {
+        mutableStateOf("0.0")
+    }
+    var steps by rememberSaveable {
+        mutableFloatStateOf(0f)
     }
 
     DemoScreen(
@@ -47,8 +57,9 @@ fun SliderDemoScreen(modifier: Modifier = Modifier) {
                     startLabel = "0",
                     endLabel = "1",
                     onValueChange = { sliderValue = it },
+                    modifier = Modifier.widthIn(max = 300.dp),
                     label = "Label",
-                    modifier = Modifier.widthIn(max = 300.dp)
+                    steps = steps,
                 )
                 BasicText(
                     text = sliderValue.toString(),
@@ -56,6 +67,32 @@ fun SliderDemoScreen(modifier: Modifier = Modifier) {
                     modifier = Modifier.padding(top = SpacingScale.spacing03)
                 )
             }
+        },
+        demoParametersContent = {
+            var stepsInputState by rememberSaveable {
+                mutableStateOf(TextInputState.Enabled)
+            }
+
+            TextInput(
+                label = "Steps",
+                value = stepsStringValue,
+                onValueChange = {
+                    try {
+                        steps = it.toFloat()
+                        stepsInputState = TextInputState.Enabled
+                    } catch (nfe: NumberFormatException) {
+                        stepsInputState = TextInputState.Error
+                    }
+                    stepsStringValue = it
+                },
+                state = stepsInputState,
+                helperText =
+                    if (stepsInputState == TextInputState.Error) {
+                        "Invalid number format"
+                    } else {
+                        ""
+                    }
+            )
         },
         modifier = modifier
     )
