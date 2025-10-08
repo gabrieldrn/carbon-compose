@@ -99,6 +99,7 @@ public fun Slider(
                 valueRange = sliderRange,
             )
 
+            sliderState.value = value
             sliderState.onValueChange = onValueChange
 
             var isPressed by remember { mutableStateOf(false) }

@@ -33,7 +33,8 @@ internal class SliderState(
     @param:FloatRange(from = 0.0) val steps: Float,
     private val valueRange: ClosedFloatingPointRange<Float>,
 ) {
-    private var adjustedValue by mutableFloatStateOf(value)
+
+    private var scaledValue by mutableFloatStateOf(value)
     private var totalWidth by mutableFloatStateOf(0f)
     private var widthRange = 0f..totalWidth
     private val divisions =
@@ -51,11 +52,16 @@ internal class SliderState(
             listOf()
         }
 
-    val value: Float // <- FIXME Can't be updated by the user
-        get() = adjustedValue
+    var value: Float
+        get() = scaledValue
+        set(newValue) {
+            if (newValue != scaledValue) {
+                scaledValue = newValue.coerceIn(valueRange)
+            }
+        }
 
     val valueAsFraction: Float
-        get() = (adjustedValue - valueRange.start) / (valueRange.endInclusive - valueRange.start)
+        get() = (scaledValue - valueRange.start) / (valueRange.endInclusive - valueRange.start)
 
     var onValueChange: ((Float) -> Unit)? = null
 
@@ -63,13 +69,12 @@ internal class SliderState(
         divisions.minByOrNull { abs(it - this) } ?: this
 
     fun update(inputOffset: Offset) {
-        // FIXME Optimize to only dispatch value when it's different
-        adjustedValue = inputOffset.x
+        val newScaledValue = inputOffset.x
             .map(from = widthRange, to = valueRange)
             .getNearestDivision()
             .coerceIn(valueRange)
-
-        onValueChange?.invoke(adjustedValue)
+        scaledValue = newScaledValue
+        onValueChange?.invoke(newScaledValue)
     }
 
     fun updateWidth(newWidth: Float) {
@@ -83,7 +88,7 @@ internal class SliderState(
         fun Saver( // <- FIXME May not be useful if the state stays internal
             valueRange: ClosedFloatingPointRange<Float>
         ) = listSaver(
-            save = { listOf(it.adjustedValue, it.steps) },
+            save = { listOf(it.scaledValue, it.steps) },
             restore = {
                 SliderState(
                     value = it[0] as Float,
