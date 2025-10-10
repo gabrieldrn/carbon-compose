@@ -60,7 +60,6 @@ private val handleSize = 14.dp
 private val handleActiveSize = 20.dp
 private val handleActiveScaleRatio = handleActiveSize / handleSize
 
-// TODO onValueChangeFinished
 // TODO Focus
 // TODO Demo
 // TODO KDoc
@@ -73,6 +72,7 @@ public fun Slider(
     onValueChange: (Float) -> Unit,
     modifier: Modifier = Modifier,
     label: String = "",
+    onValueChangeFinished: () -> Unit = {},
     sliderRange: ClosedFloatingPointRange<Float> = 0f..1f,
     @FloatRange(from = 0.0) steps: Float = 0f,
 ) {
@@ -124,14 +124,21 @@ public fun Slider(
                                 sliderState.update(it)
                                 awaitRelease()
                                 isPressed = false
+                                onValueChangeFinished()
                             }
                         )
                     }
                     .pointerInput(sliderState) {
                         detectDragGestures(
                             onDragStart = { _ -> isDragging = true; isPressed = false },
-                            onDragEnd = { isDragging = false },
-                            onDragCancel = { isDragging = false },
+                            onDragEnd = {
+                                isDragging = false
+                                onValueChangeFinished()
+                            },
+                            onDragCancel = {
+                                isDragging = false
+                                onValueChangeFinished()
+                            },
                             onDrag = { change, _ -> sliderState.update(change.position) }
                         )
                     }
