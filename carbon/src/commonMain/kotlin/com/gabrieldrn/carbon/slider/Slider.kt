@@ -103,6 +103,7 @@ public fun Slider(
             sliderState.onValueChange = onValueChange
 
             var isPressed by remember { mutableStateOf(false) }
+            var isDragging by remember { mutableStateOf(false) }
 
             BasicText(
                 text = startLabel,
@@ -115,7 +116,7 @@ public fun Slider(
                     .weight(1f)
                     .height(handleSize)
                     .padding(horizontal = padding)
-                    .pointerHoverIcon(icon = PointerIcon.Hand, overrideDescendants = true)
+                    .pointerHoverIcon(icon = PointerIcon.Hand)
                     .pointerInput(sliderState) {
                         detectTapGestures(
                             onPress = {
@@ -128,9 +129,9 @@ public fun Slider(
                     }
                     .pointerInput(sliderState) {
                         detectDragGestures(
-                            onDragStart = { _ -> isPressed = true },
-                            onDragEnd = { isPressed = false },
-                            onDragCancel = { isPressed = false },
+                            onDragStart = { _ -> isDragging = true; isPressed = false },
+                            onDragEnd = { isDragging = false },
+                            onDragCancel = { isDragging = false },
                             onDrag = { change, _ -> sliderState.update(change.position) }
                         )
                     }
@@ -142,7 +143,7 @@ public fun Slider(
 
                 val isHovered by handleInteractionSource.collectIsHoveredAsState()
                 val scaleFactor by animateFloatAsState(
-                    if (isHovered || isPressed) handleActiveScaleRatio else 1f
+                    if (isHovered || isPressed || isDragging) handleActiveScaleRatio else 1f
                 )
 
                 Canvas(modifier = Modifier.fillMaxSize()) {
