@@ -19,10 +19,12 @@ package com.gabrieldrn.carbon.slider
 import androidx.annotation.FloatRange
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.focusable
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.hoverable
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -44,11 +46,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.input.key.Key
+import androidx.compose.ui.input.key.KeyEventType
+import androidx.compose.ui.input.key.key
+import androidx.compose.ui.input.key.onKeyEvent
+import androidx.compose.ui.input.key.type
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
+import co.touchlab.kermit.Logger
 import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.CarbonDesignSystem
 import com.gabrieldrn.carbon.foundation.color.borderSubtleColor
@@ -60,7 +68,7 @@ private val handleSize = 14.dp
 private val handleActiveSize = 20.dp
 private val handleActiveScaleRatio = handleActiveSize / handleSize
 
-// TODO Focus
+// TODO Animated focus indication
 // TODO Demo
 // TODO KDoc
 // TODO GH pages
@@ -72,9 +80,10 @@ public fun Slider(
     onValueChange: (Float) -> Unit,
     modifier: Modifier = Modifier,
     label: String = "",
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     onValueChangeFinished: () -> Unit = {},
     sliderRange: ClosedFloatingPointRange<Float> = 0f..1f,
-    @FloatRange(from = 0.0) steps: Float = 0f,
+    @FloatRange(from = 0.0) steps: Float = 0.1f,
 ) {
     Column(modifier = modifier) {
         if (label.isNotEmpty()) {
@@ -102,6 +111,7 @@ public fun Slider(
             sliderState.value = value
             sliderState.onValueChange = onValueChange
 
+            val isFocused by interactionSource.collectIsFocusedAsState()
             var isPressed by remember { mutableStateOf(false) }
             var isDragging by remember { mutableStateOf(false) }
 
@@ -116,6 +126,22 @@ public fun Slider(
                     .weight(1f)
                     .height(handleSize)
                     .padding(horizontal = padding)
+                    .focusable(interactionSource = interactionSource)
+                    .onKeyEvent {
+                        when (it.key) {
+                            Key.DirectionLeft if it.type == KeyEventType.KeyDown -> {
+                                Logger.d("Left")
+                                sliderState.value -= steps
+                                true
+                            }
+                            Key.DirectionRight if it.type == KeyEventType.KeyDown -> {
+                                Logger.d("right")
+                                sliderState.value += steps
+                                true
+                            }
+                            else -> false
+                        }
+                    }
                     .pointerHoverIcon(icon = PointerIcon.Hand)
                     .pointerInput(sliderState) {
                         detectTapGestures(
@@ -139,7 +165,9 @@ public fun Slider(
                                 isDragging = false
                                 onValueChangeFinished()
                             },
-                            onDrag = { change, _ -> sliderState.update(change.position) }
+                            onDrag = { change, _ ->
+                                sliderState.update(change.position)
+                            }
                         )
                     }
             ) {
@@ -150,7 +178,8 @@ public fun Slider(
 
                 val isHovered by handleInteractionSource.collectIsHoveredAsState()
                 val scaleFactor by animateFloatAsState(
-                    if (isHovered || isPressed || isDragging) handleActiveScaleRatio else 1f
+                    if (isHovered || isFocused || isPressed || isDragging) handleActiveScaleRatio
+                    else 1f
                 )
 
                 Canvas(modifier = Modifier.fillMaxSize()) {

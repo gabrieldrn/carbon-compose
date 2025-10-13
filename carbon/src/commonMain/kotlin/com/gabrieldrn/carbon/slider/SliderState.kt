@@ -57,6 +57,7 @@ internal class SliderState(
         set(newValue) {
             if (newValue != scaledValue) {
                 scaledValue = newValue.coerceIn(valueRange)
+                onValueChange?.invoke(scaledValue)
             }
         }
 

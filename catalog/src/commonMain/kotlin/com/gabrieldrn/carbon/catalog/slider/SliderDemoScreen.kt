@@ -43,10 +43,10 @@ fun SliderDemoScreen(modifier: Modifier = Modifier) {
     }
 
     var stepsStringValue by rememberSaveable {
-        mutableStateOf("0.0")
+        mutableStateOf("0.1")
     }
     var steps by rememberSaveable {
-        mutableFloatStateOf(0f)
+        mutableFloatStateOf(0.1f)
     }
 
     DemoScreen(
