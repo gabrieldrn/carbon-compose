@@ -17,6 +17,7 @@
 package com.gabrieldrn.carbon.slider
 
 import androidx.annotation.FloatRange
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.focusable
@@ -26,6 +27,7 @@ import androidx.compose.foundation.hoverable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.interaction.collectIsHoveredAsState
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
@@ -45,7 +47,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.graphics.drawscope.inset
+import androidx.compose.ui.graphics.drawscope.scale
 import androidx.compose.ui.input.key.Key
 import androidx.compose.ui.input.key.KeyEventType
 import androidx.compose.ui.input.key.key
@@ -54,12 +59,14 @@ import androidx.compose.ui.input.key.type
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import co.touchlab.kermit.Logger
 import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.CarbonDesignSystem
 import com.gabrieldrn.carbon.foundation.color.borderSubtleColor
+import com.gabrieldrn.carbon.foundation.color.color
 import com.gabrieldrn.carbon.foundation.color.layerBackground
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -174,12 +181,12 @@ public fun Slider(
                 val handleInteractionSource = remember { MutableInteractionSource() }
 
                 val trackColor = Carbon.theme.borderSubtleColor(Carbon.layer)
-                val filledTrackColor = Carbon.theme.borderInverse
 
                 val isHovered by handleInteractionSource.collectIsHoveredAsState()
-                val scaleFactor by animateFloatAsState(
-                    if (isHovered || isFocused || isPressed || isDragging) handleActiveScaleRatio
-                    else 1f
+
+                val filledTrackColor by animateColorAsState(
+                    if (isFocused) Carbon.theme.focus
+                    else Carbon.theme.borderInverse
                 )
 
                 Canvas(modifier = Modifier.fillMaxSize()) {
@@ -210,9 +217,10 @@ public fun Slider(
                     sliderState.updateWidth(size.width)
                 }
 
-                Box(
+                Handle(
+                    isActive = isHovered || isFocused || isPressed || isDragging,
+                    color = filledTrackColor,
                     modifier = Modifier
-                        .size(handleSize)
                         .offset {
                             IntOffset(
                                 x = (maxWidth * sliderState.valueAsFraction - padding * .5f)
@@ -221,13 +229,6 @@ public fun Slider(
                             )
                         }
                         .hoverable(interactionSource = handleInteractionSource)
-                        .graphicsLayer {
-                            scaleX = scaleFactor
-                            scaleY = scaleFactor
-                        }
-                        .drawBehind {
-                            drawCircle(filledTrackColor)
-                        }
                 )
             }
 
@@ -235,6 +236,68 @@ public fun Slider(
                 text = endLabel,
                 style = Carbon.typography.bodyCompact01,
                 color = { rangeLabelColor }
+            )
+        }
+    }
+}
+
+private val innerRingStrokeWidth = 1.5.dp
+
+@Composable
+private fun Handle(
+    isActive: Boolean,
+    color: Color,
+    modifier: Modifier = Modifier
+) {
+    //background-color: var(--cds-interactive, #0f62fe);
+    //  box-shadow: inset 0 0 0 2px var(--cds-interactive, #0f62fe), inset 0 0 0 3px var(--cds-layer);
+    //  transform: scale(1.4286);
+
+    val density = LocalDensity.current
+    val layerColor = Carbon.layer.color
+
+    val scaleFactor by animateFloatAsState(if (isActive) handleActiveScaleRatio else 1f)
+    val innerRingWidth by animateFloatAsState(
+        with(density) { if (isActive) innerRingStrokeWidth.toPx() else 0.dp.toPx() }
+    )
+
+    Box(
+        modifier = modifier
+            .size(handleSize)
+            .drawBehind {
+                // Handle
+                scale(scaleFactor) {
+                    drawCircle(color = color)
+                }
+
+                // Inner focus ring
+                inset(innerRingStrokeWidth.toPx() * .5f) {
+                    drawCircle(
+                        color = if (innerRingWidth == 0f) Color.Transparent else layerColor,
+                        style = Stroke(innerRingWidth)
+                    )
+                }
+            }
+    )
+}
+
+@Preview
+@Composable
+private fun SliderHandlePreview() {
+    CarbonDesignSystem {
+        Row(
+            modifier = Modifier.size(100.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceEvenly
+        ) {
+            Handle(
+                isActive = true,
+                color = Carbon.theme.focus
+            )
+
+            Handle(
+                isActive = false,
+                color = Carbon.theme.focus
             )
         }
     }

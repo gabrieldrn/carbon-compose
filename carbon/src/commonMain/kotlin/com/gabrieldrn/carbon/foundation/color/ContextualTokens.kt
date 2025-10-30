@@ -16,7 +16,18 @@
 
 package com.gabrieldrn.carbon.foundation.color
 
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.graphics.Color
+import com.gabrieldrn.carbon.Carbon
+
+/**
+ * Returns the contextual `layer` color token corresponding to the layer ([this]) it is placed on.
+ */
+public val Layer.color: Color
+    @Composable
+    @ReadOnlyComposable
+    get() = Carbon.theme.layerColor(this)
 
 /**
  * Returns the contextual `layer-background` color token corresponding to the [layer] it is placed
