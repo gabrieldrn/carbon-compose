@@ -62,7 +62,6 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
-import co.touchlab.kermit.Logger
 import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.CarbonDesignSystem
 import com.gabrieldrn.carbon.foundation.color.borderSubtleColor
@@ -137,12 +136,10 @@ public fun Slider(
                     .onKeyEvent {
                         when (it.key) {
                             Key.DirectionLeft if it.type == KeyEventType.KeyDown -> {
-                                Logger.d("Left")
                                 sliderState.value -= steps
                                 true
                             }
                             Key.DirectionRight if it.type == KeyEventType.KeyDown -> {
-                                Logger.d("right")
                                 sliderState.value += steps
                                 true
                             }
@@ -218,7 +215,8 @@ public fun Slider(
                 }
 
                 Handle(
-                    isActive = isHovered || isFocused || isPressed || isDragging,
+                    isActive = isPressed || isDragging || isFocused,
+                    isHovered = isHovered,
                     color = filledTrackColor,
                     modifier = Modifier
                         .offset {
@@ -246,17 +244,16 @@ private val innerRingStrokeWidth = 1.5.dp
 @Composable
 private fun Handle(
     isActive: Boolean,
+    isHovered: Boolean,
     color: Color,
     modifier: Modifier = Modifier
 ) {
-    //background-color: var(--cds-interactive, #0f62fe);
-    //  box-shadow: inset 0 0 0 2px var(--cds-interactive, #0f62fe), inset 0 0 0 3px var(--cds-layer);
-    //  transform: scale(1.4286);
-
     val density = LocalDensity.current
     val layerColor = Carbon.layer.color
 
-    val scaleFactor by animateFloatAsState(if (isActive) handleActiveScaleRatio else 1f)
+    val scaleFactor by animateFloatAsState(
+        if (isActive || isHovered) handleActiveScaleRatio else 1f
+    )
     val innerRingWidth by animateFloatAsState(
         with(density) { if (isActive) innerRingStrokeWidth.toPx() else 0.dp.toPx() }
     )
@@ -292,11 +289,19 @@ private fun SliderHandlePreview() {
         ) {
             Handle(
                 isActive = true,
+                isHovered = true,
                 color = Carbon.theme.focus
             )
 
             Handle(
                 isActive = false,
+                isHovered = true,
+                color = Carbon.theme.focus
+            )
+
+            Handle(
+                isActive = false,
+                isHovered = false,
                 color = Carbon.theme.focus
             )
         }
