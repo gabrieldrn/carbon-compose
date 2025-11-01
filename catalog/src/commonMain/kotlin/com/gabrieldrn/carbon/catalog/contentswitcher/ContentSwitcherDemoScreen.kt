@@ -16,33 +16,23 @@
 
 package com.gabrieldrn.carbon.catalog.contentswitcher
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextAlign
-import com.gabrieldrn.carbon.Carbon
-import com.gabrieldrn.carbon.button.IconButton
 import com.gabrieldrn.carbon.catalog.Res
 import com.gabrieldrn.carbon.catalog.common.DemoScreen
+import com.gabrieldrn.carbon.catalog.common.IntSelector
 import com.gabrieldrn.carbon.catalog.content_switcher_demo_opt1_description
 import com.gabrieldrn.carbon.catalog.content_switcher_demo_opt2_description
 import com.gabrieldrn.carbon.catalog.content_switcher_demo_opt3_description
 import com.gabrieldrn.carbon.catalog.content_switcher_demo_opt4_description
-import com.gabrieldrn.carbon.catalog.ic_add
 import com.gabrieldrn.carbon.catalog.ic_bicycle
 import com.gabrieldrn.carbon.catalog.ic_bus
 import com.gabrieldrn.carbon.catalog.ic_sailboat_offshore
-import com.gabrieldrn.carbon.catalog.ic_subtract
 import com.gabrieldrn.carbon.catalog.ic_train
 import com.gabrieldrn.carbon.contentswitcher.ContentSwitcher
 import com.gabrieldrn.carbon.contentswitcher.ContentSwitcherSize
@@ -50,7 +40,6 @@ import com.gabrieldrn.carbon.contentswitcher.IconContentSwitcher
 import com.gabrieldrn.carbon.dropdown.Dropdown
 import com.gabrieldrn.carbon.dropdown.base.DropdownInteractiveState
 import com.gabrieldrn.carbon.dropdown.base.toDropdownOptions
-import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 import com.gabrieldrn.carbon.tab.TabItem
 import com.gabrieldrn.carbon.toggle.Toggle
 import org.jetbrains.compose.resources.painterResource
@@ -81,9 +70,11 @@ fun ContentSwitcherDemoScreen(modifier: Modifier = Modifier) {
         modifier = modifier,
         variants = contentSwitcherVariants,
         demoParametersContent = {
-            ExtraOptionsSelector(
-                extraOptions = extraOptions,
-                onExtraOptionsChange = { extraOptions = it }
+            IntSelector(
+                label = "Extra Options",
+                value = extraOptions,
+                valueRange = EXTRA_OPTIONS_MIN..EXTRA_OPTIONS_MAX,
+                onValueChanged = { extraOptions = it }
             )
 
             Dropdown(
@@ -199,61 +190,4 @@ private fun DemoIconContentSwitcher(
         size = size,
         modifier = modifier
     )
-}
-
-@Composable
-private fun ExtraOptionsSelector(
-    extraOptions: Int,
-    onExtraOptionsChange: (Int) -> Unit,
-    modifier: Modifier = Modifier
-) {
-    Column(modifier = modifier) {
-
-        BasicText(
-            text = "Extra options",
-            style = Carbon.typography.label01.copy(color = Carbon.theme.textSecondary),
-        )
-
-        Row(
-            modifier = Modifier.padding(top = SpacingScale.spacing04),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            val lessButtonEnabled by remember(extraOptions) {
-                mutableStateOf(extraOptions > EXTRA_OPTIONS_MIN)
-            }
-            val moreButtonEnabled by remember(extraOptions) {
-                mutableStateOf(extraOptions < EXTRA_OPTIONS_MAX)
-            }
-
-            IconButton(
-                iconPainter = painterResource(Res.drawable.ic_subtract),
-                onClick = {
-                    onExtraOptionsChange(
-                        extraOptions.minus(1).coerceAtLeast(EXTRA_OPTIONS_MIN)
-                    )
-                },
-                isEnabled = lessButtonEnabled
-            )
-
-            BasicText(
-                text = extraOptions.toString(),
-                style = Carbon.typography.body01
-                    .copy(
-                        color = Carbon.theme.textPrimary,
-                        textAlign = TextAlign.Center
-                    ),
-                modifier = Modifier.width(SpacingScale.spacing09)
-            )
-
-            IconButton(
-                iconPainter = painterResource(Res.drawable.ic_add),
-                onClick = {
-                    onExtraOptionsChange(
-                        extraOptions.plus(1).coerceAtMost(EXTRA_OPTIONS_MAX)
-                    )
-                },
-                isEnabled = moreButtonEnabled
-            )
-        }
-    }
 }

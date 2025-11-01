@@ -74,9 +74,7 @@ private val handleSize = 14.dp
 private val handleActiveSize = 20.dp
 private val handleActiveScaleRatio = handleActiveSize / handleSize
 
-// TODO Tests
-// TODO Demo
-// TODO KDoc
+// TODO UI Tests
 // TODO GH pages
 @Composable
 public fun Slider(
