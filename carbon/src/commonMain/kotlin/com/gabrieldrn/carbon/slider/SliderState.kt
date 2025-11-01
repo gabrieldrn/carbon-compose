@@ -24,14 +24,21 @@ import androidx.compose.ui.geometry.Offset
 import com.gabrieldrn.carbon.common.math.map
 import kotlin.math.abs
 
-// Use MutatorMutex + offer remember (saveable) function if this state needs to become public
+// Use MutatorMutex + offer remember (saveable) function if this class needs to become public
+/**
+ * State of the [Slider].
+ *
+ * @param value Initial value of the [Slider].
+ * @param steps Intermediate steps in the range, must be a positive value.
+ * @param valueRange Range of values that the slider can take.
+ */
 internal class SliderState(
     value: Float,
     @param:FloatRange(from = 0.0) val steps: Float,
     private val valueRange: ClosedFloatingPointRange<Float>,
 ) {
 
-    private var scaledValue by mutableFloatStateOf(value)
+    private var scaledValue by mutableFloatStateOf(value.coerceIn(valueRange))
     private var totalWidth by mutableFloatStateOf(0f)
     private var widthRange = 0f..totalWidth
     private val divisions =
@@ -49,6 +56,9 @@ internal class SliderState(
             listOf()
         }
 
+    /**
+     * Current scaled value of the [Slider].
+     */
     var value: Float
         get() = scaledValue
         set(newValue) {
@@ -58,14 +68,23 @@ internal class SliderState(
             }
         }
 
+    /**
+     * The scaled value of the [Slider] expressed as a fraction of the total range.
+     */
     val valueAsFraction: Float
         get() = (scaledValue - valueRange.start) / (valueRange.endInclusive - valueRange.start)
 
+    /**
+     * Callback triggered when the scaled value changes.
+     */
     var onValueChange: ((Float) -> Unit)? = null
 
     private fun Float.getNearestDivision(): Float =
         divisions.minByOrNull { abs(it - this) } ?: this
 
+    /**
+     * Update the state based on the given input offset.
+     */
     fun update(inputOffset: Offset) {
         val newScaledValue = inputOffset.x
             .map(from = widthRange, to = valueRange)
@@ -75,6 +94,10 @@ internal class SliderState(
         onValueChange?.invoke(newScaledValue)
     }
 
+    /**
+     * Updates the state with the total width of the slider, adjusting the internal range
+     * accordingly.
+     */
     fun updateWidth(newWidth: Float) {
         if (newWidth == totalWidth) return
         totalWidth = newWidth
