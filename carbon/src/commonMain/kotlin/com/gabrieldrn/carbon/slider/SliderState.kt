@@ -17,17 +17,14 @@
 package com.gabrieldrn.carbon.slider
 
 import androidx.annotation.FloatRange
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
-import androidx.compose.runtime.saveable.listSaver
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.geometry.Offset
 import com.gabrieldrn.carbon.common.math.map
 import kotlin.math.abs
 
-// Use MutatorMutex if this state needs to become public
+// Use MutatorMutex + offer remember (saveable) function if this state needs to become public
 internal class SliderState(
     value: Float,
     @param:FloatRange(from = 0.0) val steps: Float,
@@ -83,29 +80,4 @@ internal class SliderState(
         totalWidth = newWidth
         widthRange = 0f..newWidth
     }
-
-    companion object {
-
-        fun Saver( // <- FIXME May not be useful if the state stays internal
-            valueRange: ClosedFloatingPointRange<Float>
-        ) = listSaver(
-            save = { listOf(it.scaledValue, it.steps) },
-            restore = {
-                SliderState(
-                    value = it[0] as Float,
-                    steps = it[1] as Float,
-                    valueRange = valueRange
-                )
-            }
-        )
-    }
-}
-
-@Composable
-internal fun rememberSliderState(
-    value: Float = 0f,
-    steps: Float = 0f,
-    valueRange: ClosedFloatingPointRange<Float> = 0f..1f,
-) = rememberSaveable(valueRange, steps, saver = SliderState.Saver(valueRange)) {
-    SliderState(value, steps, valueRange)
 }

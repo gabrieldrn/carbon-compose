@@ -74,7 +74,7 @@ private val handleSize = 14.dp
 private val handleActiveSize = 20.dp
 private val handleActiveScaleRatio = handleActiveSize / handleSize
 
-// TODO Animated focus indication
+// TODO Tests
 // TODO Demo
 // TODO KDoc
 // TODO GH pages
@@ -108,11 +108,9 @@ public fun Slider(
             val rangeLabelColor = Carbon.theme.textPrimary
             val padding = SpacingScale.spacing04
 
-            val sliderState = rememberSliderState(
-                value = value,
-                steps = steps,
-                valueRange = sliderRange,
-            )
+            val sliderState = remember(sliderRange, steps) {
+                SliderState(value, steps, sliderRange)
+            }
 
             sliderState.value = value
             sliderState.onValueChange = onValueChange
