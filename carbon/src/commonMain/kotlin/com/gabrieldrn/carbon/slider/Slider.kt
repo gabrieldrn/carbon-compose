@@ -60,6 +60,7 @@ import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
@@ -74,7 +75,6 @@ private val handleSize = 14.dp
 private val handleActiveSize = 20.dp
 private val handleActiveScaleRatio = handleActiveSize / handleSize
 
-// TODO UI Tests
 // TODO GH pages
 @Composable
 public fun Slider(
@@ -97,7 +97,9 @@ public fun Slider(
                 text = label,
                 style = Carbon.typography.bodyCompact01,
                 color = { labelColor },
-                modifier = Modifier.padding(bottom = SpacingScale.spacing03)
+                modifier = Modifier
+                    .padding(bottom = SpacingScale.spacing03)
+                    .testTag(SliderTestTags.LABEL)
             )
         }
 
@@ -120,7 +122,8 @@ public fun Slider(
             BasicText(
                 text = startLabel,
                 style = Carbon.typography.bodyCompact01,
-                color = { rangeLabelColor }
+                color = { rangeLabelColor },
+                modifier = Modifier.testTag(SliderTestTags.START_LABEL)
             )
 
             BoxWithConstraints(
@@ -170,6 +173,7 @@ public fun Slider(
                             }
                         )
                     }
+                    .testTag(SliderTestTags.TRACK_CONTAINER)
             ) {
                 val handleInteractionSource = remember { MutableInteractionSource() }
 
@@ -182,7 +186,11 @@ public fun Slider(
                     else Carbon.theme.borderInverse
                 )
 
-                Canvas(modifier = Modifier.fillMaxSize()) {
+                Canvas(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .testTag(SliderTestTags.TRACK)
+                ) {
                     val halfWidth = size.width * .5f
                     val halfHeight = size.height * .5f
 
@@ -223,13 +231,15 @@ public fun Slider(
                             )
                         }
                         .hoverable(interactionSource = handleInteractionSource)
+                        .testTag(SliderTestTags.HANDLE)
                 )
             }
 
             BasicText(
                 text = endLabel,
                 style = Carbon.typography.bodyCompact01,
-                color = { rangeLabelColor }
+                color = { rangeLabelColor },
+                modifier = Modifier.testTag(SliderTestTags.END_LABEL)
             )
         }
     }
