@@ -53,7 +53,7 @@ fun IntSelector(
 
         Row(
             modifier = Modifier.padding(top = SpacingScale.spacing04),
-            verticalAlignment = Alignment.Companion.CenterVertically
+            verticalAlignment = Alignment.CenterVertically
         ) {
             val lessButtonEnabled by remember(value) {
                 mutableStateOf(value > valueRange.first)
@@ -69,7 +69,8 @@ fun IntSelector(
                         value.minus(1).coerceAtLeast(valueRange.first)
                     )
                 },
-                isEnabled = lessButtonEnabled
+                isEnabled = lessButtonEnabled,
+                contentDescription = "Decrease"
             )
 
             BasicText(
@@ -89,7 +90,8 @@ fun IntSelector(
                         value.plus(1).coerceAtMost(valueRange.last)
                     )
                 },
-                isEnabled = moreButtonEnabled
+                isEnabled = moreButtonEnabled,
+                contentDescription = "Increase"
             )
         }
     }

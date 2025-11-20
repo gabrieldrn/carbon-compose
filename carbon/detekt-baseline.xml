@@ -8,6 +8,6 @@
     <ID>CyclomaticComplexMethod:PopoverCaretTipShape.kt$PopoverCaretTipShape$private fun Path.addCaretTip( size: Size, layoutDirection: LayoutDirection, density: Density )</ID>
   </ManuallySuppressedIssues>
   <CurrentIssues>
-    <ID>UndocumentedPublicFunction:UIShellHeader.kt$@ExperimentalCarbonApi @Composable public fun UiShellHeader( headerName: String, modifier: Modifier = Modifier, menuIconPainter: Painter? = null, actions: @Composable RowScope.() -> Unit = {}, onMenuIconPressed: () -> Unit = {}, windowInsets: WindowInsets = WindowInsets.statusBars.only(WindowInsetsSides.Top), inlineTheme: Theme = LocalCarbonInlineTheme.current, )</ID>
+    <ID>UndocumentedPublicFunction:UIShellHeader.kt$@ExperimentalCarbonApi @Composable public fun UiShellHeader( headerName: String, modifier: Modifier = Modifier, menuIconPainter: Painter? = null, menuIconContentDescription: String? = null, actions: @Composable RowScope.() -> Unit = {}, onMenuIconPressed: () -> Unit = {}, windowInsets: WindowInsets = WindowInsets.statusBars.only(WindowInsetsSides.Top), inlineTheme: Theme = LocalCarbonInlineTheme.current, )</ID>
   </CurrentIssues>
 </SmellBaseline>

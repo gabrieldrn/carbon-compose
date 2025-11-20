@@ -99,7 +99,8 @@ fun ButtonDemoScreen(modifier: Modifier = Modifier) {
                     iconPainter = icon,
                     isEnabled = isEnabled,
                     buttonType = buttonType,
-                    buttonSize = buttonSize
+                    buttonSize = buttonSize,
+                    contentDescription = "Icon button"
                 )
             }
         }
