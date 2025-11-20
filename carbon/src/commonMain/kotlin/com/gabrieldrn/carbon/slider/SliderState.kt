@@ -41,7 +41,7 @@ internal class SliderState(
     private var scaledValue by mutableFloatStateOf(value.coerceIn(valueRange))
     private var totalWidth by mutableFloatStateOf(0f)
     private var widthRange = 0f..totalWidth
-    private val divisions =
+    internal val divisions =
         if (steps > 0f) {
             generateSequence(valueRange.start) { previous ->
                 if (previous.isInfinite() || previous >= valueRange.endInclusive) {
@@ -79,17 +79,20 @@ internal class SliderState(
      */
     var onValueChange: ((Float) -> Unit)? = null
 
-    private fun Float.getNearestDivision(): Float =
-        divisions.minByOrNull { abs(it - this) } ?: this
+    internal fun getNearestDivision(value: Float): Float =
+        value
+            .coerceIn(valueRange)
+            .let { coerced -> divisions.minByOrNull { abs(it - coerced) } ?: coerced }
 
     /**
      * Update the state based on the given input offset.
      */
     fun update(inputOffset: Offset) {
-        val newScaledValue = inputOffset.x
-            .map(from = widthRange, to = valueRange)
-            .getNearestDivision()
-            .coerceIn(valueRange)
+        val newScaledValue = getNearestDivision(
+            inputOffset.x
+                .coerceIn(widthRange)
+                .map(from = widthRange, to = valueRange)
+        )
         scaledValue = newScaledValue
         onValueChange?.invoke(newScaledValue)
     }

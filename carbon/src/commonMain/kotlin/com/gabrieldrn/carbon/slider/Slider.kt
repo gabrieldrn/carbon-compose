@@ -37,6 +37,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.progressSemantics
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -61,8 +62,14 @@ import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.setProgress
+import androidx.compose.ui.semantics.stateDescription
+import androidx.compose.ui.semantics.testTag
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
+import co.touchlab.kermit.Logger
 import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.CarbonDesignSystem
 import com.gabrieldrn.carbon.foundation.color.borderSubtleColor
@@ -70,12 +77,44 @@ import com.gabrieldrn.carbon.foundation.color.color
 import com.gabrieldrn.carbon.foundation.color.layerBackground
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import kotlin.math.round
 
 private val handleSize = 14.dp
 private val handleActiveSize = 20.dp
 private val handleActiveScaleRatio = handleActiveSize / handleSize
 
 // TODO GH pages
+/**
+ * # Slider - Default
+ *
+ * Sliders provide a visual indication of adjustable content, where the user can increase or
+ * decrease the value by moving the handle along a horizontal track.
+ *
+ * **Disclaimer**: Due to layout complexities - and lack of guidance from Carbon documentation - for
+ * narrow widths like mobile targets, text inputs could not be directly integrated into the Slider
+ * component. You may wrap the Slider with text input components yourself if this functionality is
+ * desired.
+ *
+ * (From [Slider documentation](https://carbondesignsystem.com/components/slider/usage/))
+ *
+ * @param value The current value of the slider.
+ * @param startLabel The label displayed at the start of the slider.
+ * @param endLabel The label displayed at the end of the slider.
+ * @param onValueChange Callback invoked when the slider value changes.
+ * @param modifier The modifier to be applied to the slider.
+ * @param label A label to be displayed above the slider.
+ * @param interactionSource The [MutableInteractionSource] representing the stream of
+ * [androidx.compose.foundation.interaction.Interaction]s for this slider. You can create and pass
+ * in your own `remember`ed instance to observe
+ * [androidx.compose.foundation.interaction.Interaction]s and customize the appearance and behavior
+ * of this slider in different states.
+ * @param onValueChangeFinished Callback invoked when the user has finished interacting with the
+ * slider.
+ * @param sliderRange The range of values that the slider can take.
+ * @param steps The step value of the slider.
+ * @param stateDescription A lambda that returns the state description of the slider for
+ * accessibility services based on the current value.
+ */
 @Composable
 public fun Slider(
     value: Float,
@@ -88,8 +127,25 @@ public fun Slider(
     onValueChangeFinished: () -> Unit = {},
     sliderRange: ClosedFloatingPointRange<Float> = 0f..1f,
     @FloatRange(from = 0.0) steps: Float = 0.1f,
+    stateDescription: (Float) -> String = { (round(it * 10) / 10).toString() }
 ) {
-    Column(modifier = modifier) {
+    val sliderState = remember(sliderRange, steps) {
+        SliderState(value, steps, sliderRange)
+    }
+
+    sliderState.value = value
+    sliderState.onValueChange = onValueChange
+
+    Column(
+        modifier = modifier
+            .sliderSemantics(
+                sliderRange = sliderRange,
+                steps = steps,
+                sliderState = sliderState,
+                stateDescription = stateDescription,
+                onValueChangeFinished = onValueChangeFinished
+            )
+    ) {
         if (label.isNotEmpty()) {
             val labelColor = Carbon.theme.textSecondary
 
@@ -108,13 +164,6 @@ public fun Slider(
             val rangeLabelColor = Carbon.theme.textPrimary
             val padding = SpacingScale.spacing04
 
-            val sliderState = remember(sliderRange, steps) {
-                SliderState(value, steps, sliderRange)
-            }
-
-            sliderState.value = value
-            sliderState.onValueChange = onValueChange
-
             val isFocused by interactionSource.collectIsFocusedAsState()
             var isPressed by remember { mutableStateOf(false) }
             var isDragging by remember { mutableStateOf(false) }
@@ -123,7 +172,10 @@ public fun Slider(
                 text = startLabel,
                 style = Carbon.typography.bodyCompact01,
                 color = { rangeLabelColor },
-                modifier = Modifier.testTag(SliderTestTags.START_LABEL)
+                modifier = Modifier
+                    .clearAndSetSemantics {
+                        testTag = SliderTestTags.START_LABEL
+                    }
             )
 
             BoxWithConstraints(
@@ -239,11 +291,58 @@ public fun Slider(
                 text = endLabel,
                 style = Carbon.typography.bodyCompact01,
                 color = { rangeLabelColor },
-                modifier = Modifier.testTag(SliderTestTags.END_LABEL)
+                modifier = Modifier
+                    .clearAndSetSemantics {
+                        testTag = SliderTestTags.END_LABEL
+                    }
             )
         }
     }
 }
+
+private fun Modifier.sliderSemantics(
+    sliderRange: ClosedFloatingPointRange<Float>,
+    steps: Float,
+    sliderState: SliderState,
+    stateDescription: (Float) -> String,
+    onValueChangeFinished: () -> Unit,
+): Modifier =
+    this.semantics(mergeDescendants = true) {
+        this.stateDescription = stateDescription(sliderState.value)
+        setProgress(
+            action = { newValue ->
+                Logger.d("Requested new value: $newValue")
+                val adjustedValue =
+                    if (steps > 0f) {
+                        with(sliderState) {
+                            val divIndex = divisions.indexOf(this.value)
+
+                            divisions[
+                                when {
+                                    newValue > this.value -> divIndex + 1
+                                    newValue < this.value -> divIndex - 1
+                                    else -> divIndex
+                                }
+                                    .coerceIn(0..divisions.lastIndex)
+                            ]
+                        }
+                    } else {
+                        newValue
+                    }
+
+                if (adjustedValue != sliderState.value) {
+                    sliderState.value = adjustedValue
+                    onValueChangeFinished()
+                    true
+                } else {
+                    false
+                }
+            }
+        )
+    }.progressSemantics(
+        value = sliderState.value,
+        valueRange = sliderRange,
+    )
 
 private val innerRingStrokeWidth = 1.5.dp
 

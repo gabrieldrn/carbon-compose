@@ -17,10 +17,10 @@
 package com.gabrieldrn.carbon.slider
 
 internal object SliderTestTags {
-    const val END_LABEL = "carbon_slider_label"
+    const val END_LABEL = "carbon_slider_end_label"
     const val HANDLE = "carbon_slider_handle"
     const val LABEL = "carbon_slider_label"
-    const val START_LABEL = "carbon_slider_label"
+    const val START_LABEL = "carbon_slider_start_label"
     const val TRACK = "carbon_slider_track"
     const val TRACK_CONTAINER = "carbon_slider_track_container"
 }

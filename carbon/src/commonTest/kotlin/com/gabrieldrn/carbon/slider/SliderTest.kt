@@ -50,10 +50,14 @@ class SliderTest {
 
         onNodeWithTag("slider").assertIsDisplayed()
         onNodeWithTag(SliderTestTags.LABEL).assertDoesNotExist()
-        onNodeWithTag(SliderTestTags.START_LABEL).assertIsDisplayed()
-        onNodeWithTag(SliderTestTags.END_LABEL).assertIsDisplayed()
-        onNodeWithTag(SliderTestTags.TRACK).assertIsDisplayed()
-        onNodeWithTag(SliderTestTags.HANDLE).assertIsDisplayed()
+        onNodeWithTag(SliderTestTags.START_LABEL, useUnmergedTree = true)
+            .assertIsDisplayed()
+        onNodeWithTag(SliderTestTags.END_LABEL, useUnmergedTree = true)
+            .assertIsDisplayed()
+        onNodeWithTag(SliderTestTags.TRACK, useUnmergedTree = true)
+            .assertIsDisplayed()
+        onNodeWithTag(SliderTestTags.HANDLE, useUnmergedTree = true)
+            .assertIsDisplayed()
     }
 
     @Test
@@ -72,12 +76,14 @@ class SliderTest {
             }
         }
 
-        val trackWidth = onNodeWithTag(SliderTestTags.TRACK)
+        val trackWidth = onNodeWithTag(SliderTestTags.TRACK, useUnmergedTree = true)
             .fetchSemanticsNode()
             .layoutInfo
             .width
 
-        onNodeWithTag(SliderTestTags.HANDLE).performTouchInput {
+        val handle = onNodeWithTag(SliderTestTags.HANDLE, useUnmergedTree = true)
+
+        handle.performTouchInput {
             val oneStepX = trackWidth / 10f
             swipeRight(startX = centerX, endX = oneStepX)
         }
@@ -85,7 +91,7 @@ class SliderTest {
 
         value = 0f
 
-        onNodeWithTag(SliderTestTags.HANDLE).performTouchInput {
+        handle.performTouchInput {
             swipeRight(startX = centerX, endX = trackWidth.toFloat())
         }
         assertEquals(100f, value)
@@ -107,12 +113,12 @@ class SliderTest {
             }
         }
 
-        val trackWidth = onNodeWithTag(SliderTestTags.TRACK)
+        val trackWidth = onNodeWithTag(SliderTestTags.TRACK, useUnmergedTree = true)
             .fetchSemanticsNode()
             .layoutInfo
             .width
 
-        onNodeWithTag(SliderTestTags.HANDLE).performTouchInput {
+        onNodeWithTag(SliderTestTags.HANDLE, useUnmergedTree = true).performTouchInput {
             down(center.copy(x = trackWidth / 10f))
         }
         assertEquals(10f, value)
