@@ -80,7 +80,7 @@ List of the currently supported components:
 | Radio button       |      ✅      |   ✅    |      ✅       |     ✅     |
 | Search             |             |        |              |           |
 | Select             |             |        |              |           |
-| Slider             |             |        |              |           |
+| Slider             |     🟡      |   🟡   |      🟡      |    🟡     |
 | Structured list    |             |        |              |           |
 | Tabs               |     🟡      |   🟡   |      🟡      |    🟡     |
 | Tags               |     🟡      |   🟡   |      🟡      |    🟡     |

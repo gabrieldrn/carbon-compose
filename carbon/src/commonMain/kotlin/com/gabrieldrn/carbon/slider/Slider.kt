@@ -83,7 +83,6 @@ private val handleSize = 14.dp
 private val handleActiveSize = 20.dp
 private val handleActiveScaleRatio = handleActiveSize / handleSize
 
-// TODO GH pages
 /**
  * # Slider - Default
  *

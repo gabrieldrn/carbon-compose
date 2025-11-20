@@ -47,6 +47,8 @@
     - [Default progress bar](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.progressbar/-progress-bar.html)
     - [Indeterminate progress bar](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.progressbar/-indeterminate-progress-bar.html)
 - [Radio button](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.radiobutton/-radio-button.html)
+- Slider
+    - [Default slider](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.slider/-slider.html)
 - Tag
     - [Read-only tag](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.tag/-read-only-tag.html.html)
 - Text input
