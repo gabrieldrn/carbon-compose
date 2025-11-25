@@ -19,81 +19,119 @@ package com.gabrieldrn.carbon.slider
 import androidx.compose.ui.geometry.Offset
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 class SliderStateTest {
 
     @Test
-    fun `Given initial value When slider is created Then value is set correctly`() {
-        val sliderState = SliderState(value = 0.5f, steps = 0.1f, valueRange = 0f..1f)
-        assertEquals(0.5f, sliderState.value)
+    fun givenValidParameters_whenConstructed_thenCreatesInstance() {
+        val state = SliderState(value = 50f, steps = 4, valueRange = 0f..100f)
+        assertEquals(50f, state.value)
+        assertEquals(4, state.steps)
+        assertEquals(0f..100f, state.valueRange)
     }
 
     @Test
-    fun `Given initial value out of range When slider is created Then value is clamped correctly`() {
-        val sliderState = SliderState(value = 0f, steps = 1f, valueRange = 1f..10f)
-        assertEquals(1f, sliderState.value)
+    fun givenValueOutsideRange_whenConstructed_thenValueIsCoerced() {
+        val state = SliderState(value = 150f, steps = 4, valueRange = 0f..100f)
+        assertEquals(100f, state.value)
     }
 
     @Test
-    fun `Given value out of range When value is set Then value is clamped within range`() {
-        val sliderState = SliderState(value = 0.5f, steps = 0.1f, valueRange = 0f..1f)
-        sliderState.value = 1.5f
-        assertEquals(1f, sliderState.value)
-
-        sliderState.value = -0.5f
-        assertEquals(0f, sliderState.value)
+    fun givenStateWithCallback_whenValueIsSet_thenValueIsUpdatedAndCallbackIsInvoked() {
+        var onValueChangeCalled = false
+        val state = SliderState(value = 50f, steps = 4, valueRange = 0f..100f)
+        state.onValueChange = {
+            onValueChangeCalled = true
+            assertEquals(75f, it)
+        }
+        state.value = 75f
+        assertEquals(75f, state.value)
+        assertTrue(onValueChangeCalled)
     }
 
     @Test
-    fun `Given slider state When valueAsFraction is calculated Then result is correct`() {
-        val sliderState = SliderState(value = 0.5f, steps = 0.1f, valueRange = 0f..1f)
-        assertEquals(0.5f, sliderState.valueAsFraction)
+    fun givenStateWithCallback_whenValueIsSetToSameValue_thenCallbackIsNotInvoked() {
+        var onValueChangeCalled = false
+        val state = SliderState(value = 50f, steps = 4, valueRange = 0f..100f)
+        state.onValueChange = { onValueChangeCalled = true }
+        state.value = 50f
+        assertFalse(onValueChangeCalled)
     }
 
     @Test
-    fun `Given slider width When offset is updated Then value is set based on input`() {
-        val sliderState = SliderState(value = 0.5f, steps = 0.1f, valueRange = 0f..1f)
-        sliderState.updateWidth(100f)
-
-        sliderState.update(Offset(50f, 0f))
-        assertEquals(0.5f, sliderState.value)
-
-        sliderState.update(Offset(100f, 0f))
-        assertEquals(1f, sliderState.value)
-
-        sliderState.update(Offset(0f, 0f))
-        assertEquals(0f, sliderState.value)
+    fun givenState_whenValueAsFractionIsAccessed_thenReturnsCorrectFraction() {
+        val state = SliderState(value = 50f, steps = 4, valueRange = 0f..100f)
+        assertEquals(0.5f, state.valueAsFraction)
     }
 
     @Test
-    fun `Given slider with steps When offset is updated Then value snaps to nearest division`() {
-        val sliderState = SliderState(value = 0.45f, steps = 0.1f, valueRange = 0f..1f)
-        sliderState.updateWidth(100f)
-
-        sliderState.update(Offset(47f, 0f)) // Close to 0.5
-        assertEquals(0.5f, sliderState.value)
-
-        sliderState.update(Offset(22f, 0f)) // Close to 0.2
-        assertEquals(0.2f, sliderState.value)
+    fun givenStateWithDifferentRange_whenValueAsFractionIsAccessed_thenReturnsCorrectFraction() {
+        val state = SliderState(value = 100f, steps = 4, valueRange = 50f..150f)
+        assertEquals(0.5f, state.valueAsFraction)
     }
 
     @Test
-    fun `Given slider width When width is updated Then range is adjusted`() {
-        val sliderState = SliderState(value = 0.5f, steps = 0.1f, valueRange = 0f..1f)
-        sliderState.updateWidth(200f)
-
-        sliderState.update(Offset(100f, 0f))
-        assertEquals(0.5f, sliderState.value)
+    fun givenStateWithSteps_whenGetNearestDivisionIsCalled_thenReturnsNearestDivision() {
+        val state = SliderState(value = 0f, steps = 4, valueRange = 0f..100f)
+        // (100-0)/(4+1) = 20. Divisions at 0, 20, 40, 60, 80, 100
+        assertEquals(20f, state.getNearestDivision(23f))
+        assertEquals(40f, state.getNearestDivision(38f))
+        assertEquals(100f, state.getNearestDivision(100f))
     }
 
     @Test
-    fun `Given value change listener When value changes Then listener is triggered`() {
-        var callbackTriggered = false
-        val sliderState = SliderState(value = 0.5f, steps = 0.1f, valueRange = 0f..1f)
-        sliderState.onValueChange = { callbackTriggered = true }
+    fun givenStateWithZeroSteps_whenGetNearestDivisionIsCalled_thenReturnsCoercedValue() {
+        val state = SliderState(value = 0f, steps = 0, valueRange = 0f..100f)
+        assertEquals(23f, state.getNearestDivision(23f))
+        assertEquals(38f, state.getNearestDivision(38f))
+        assertEquals(100f, state.getNearestDivision(110f))
+    }
 
-        sliderState.value = 0.6f
-        assertTrue(callbackTriggered)
+    @Test
+    fun givenStateWithRangeNotStartingAtZero_whenGetNearestDivisionIsCalled_thenReturnsCorrectDivision() {
+        val state = SliderState(value = 50f, steps = 4, valueRange = 50f..150f)
+        // Expected step size: (150 - 50) / (4 + 1) = 20.
+        // Expected divisions: 50, 70, 90, 110, 130, 150.
+        // For input 74f, nearest is 70f.
+        assertEquals(70f, state.getNearestDivision(74f))
+    }
+
+    @Test
+    fun givenStateWithSteps_whenUpdateIsCalled_thenValueSnapsToNearestDivision() {
+        val state = SliderState(value = 0f, steps = 4, valueRange = 0f..100f)
+        state.updateWidth(200f)
+        state.update(Offset(x = 46f, y = 0f))
+        assertEquals(20f, state.value)
+    }
+
+    @Test
+    fun givenStateWithZeroSteps_whenUpdateIsCalled_thenValueIsUpdated() {
+        val state = SliderState(value = 0f, steps = 0, valueRange = 0f..100f)
+        state.updateWidth(200f)
+        state.update(Offset(x = 50f, y = 0f))
+        assertEquals(25f, state.value)
+    }
+
+    @Test
+    fun givenStateWithCallback_whenUpdateIsCalled_thenOnValueChangeIsInvoked() {
+        var onValueChangeCalled = false
+        val state = SliderState(value = 0f, steps = 4, valueRange = 0f..100f)
+        state.updateWidth(200f)
+        state.onValueChange = {
+            onValueChangeCalled = true
+            assertEquals(20f, it)
+        }
+        state.update(Offset(x = 46f, y = 0f))
+        assertTrue(onValueChangeCalled)
+    }
+
+    @Test
+    fun givenState_whenUpdateWidthIsCalled_thenPixelToValueMappingIsUpdated() {
+        val state = SliderState(value = 0f, steps = 0, valueRange = 0f..100f)
+        state.updateWidth(300f)
+        state.update(Offset(x = 150f, y = 0f))
+        assertEquals(50f, state.value)
     }
 }

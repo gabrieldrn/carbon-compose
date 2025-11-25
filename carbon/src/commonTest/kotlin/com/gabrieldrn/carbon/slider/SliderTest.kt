@@ -21,8 +21,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.semantics.ProgressBarRangeInfo
+import androidx.compose.ui.semantics.SemanticsActions
+import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.assertValueEquals
+import androidx.compose.ui.test.hasProgressBarRangeInfo
 import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.performSemanticsAction
 import androidx.compose.ui.test.performTouchInput
 import androidx.compose.ui.test.runComposeUiTest
 import androidx.compose.ui.test.swipeRight
@@ -40,7 +46,7 @@ class SliderTest {
                     value = 10f,
                     startLabel = "0",
                     endLabel = "100",
-                    steps = 10f,
+                    steps = 10,
                     sliderRange = 0f..100f,
                     onValueChange = {},
                     modifier = Modifier.testTag("slider")
@@ -69,7 +75,7 @@ class SliderTest {
                     value = value,
                     startLabel = "0",
                     endLabel = "100",
-                    steps = 10f,
+                    steps = 10,
                     sliderRange = 0f..100f,
                     onValueChange = { value = it },
                 )
@@ -106,9 +112,10 @@ class SliderTest {
                     value = value,
                     startLabel = "0",
                     endLabel = "100",
-                    steps = 10f,
+                    steps = 10,
                     sliderRange = 0f..100f,
                     onValueChange = { value = it },
+                    modifier = Modifier.testTag("slider")
                 )
             }
         }
@@ -122,5 +129,38 @@ class SliderTest {
             down(center.copy(x = trackWidth / 10f))
         }
         assertEquals(10f, value)
+    }
+
+    @Test
+    fun slider_accessibility_validateStateDescription() = runComposeUiTest {
+        var value by mutableStateOf(50f)
+        setContent {
+            CarbonDesignSystem {
+                Slider(
+                    value = value,
+                    startLabel = "0",
+                    endLabel = "100",
+                    steps = 9,
+                    sliderRange = 0f..100f,
+                    onValueChange = { value = it },
+                    modifier = Modifier.testTag("slider")
+                )
+            }
+        }
+
+        onNodeWithTag("slider").run {
+            assertValueEquals("50.0")
+            performSemanticsAction(SemanticsActions.SetProgress) { it(70f) }
+            assertValueEquals("70.0")
+            assert(
+                hasProgressBarRangeInfo(
+                    ProgressBarRangeInfo(
+                        range = 0f..100f,
+                        current = 70f,
+                        steps = 9
+                    )
+                )
+            )
+        }
     }
 }

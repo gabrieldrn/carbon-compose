@@ -16,7 +16,7 @@
 
 package com.gabrieldrn.carbon.slider
 
-import androidx.annotation.FloatRange
+import androidx.annotation.IntRange
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.Canvas
@@ -125,7 +125,7 @@ public fun Slider(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     onValueChangeFinished: () -> Unit = {},
     sliderRange: ClosedFloatingPointRange<Float> = 0f..1f,
-    @FloatRange(from = 0.0) steps: Float = 0.1f,
+    @IntRange(from = 0) steps: Int = 0,
     stateDescription: (Float) -> String = { (round(it * 10) / 10).toString() }
 ) {
     val sliderState = remember(sliderRange, steps) {
@@ -138,8 +138,6 @@ public fun Slider(
     Column(
         modifier = modifier
             .sliderSemantics(
-                sliderRange = sliderRange,
-                steps = steps,
                 sliderState = sliderState,
                 stateDescription = stateDescription,
                 onValueChangeFinished = onValueChangeFinished
@@ -300,8 +298,6 @@ public fun Slider(
 }
 
 private fun Modifier.sliderSemantics(
-    sliderRange: ClosedFloatingPointRange<Float>,
-    steps: Float,
     sliderState: SliderState,
     stateDescription: (Float) -> String,
     onValueChangeFinished: () -> Unit,
@@ -312,19 +308,8 @@ private fun Modifier.sliderSemantics(
             action = { newValue ->
                 Logger.d("Requested new value: $newValue")
                 val adjustedValue =
-                    if (steps > 0f) {
-                        with(sliderState) {
-                            val divIndex = divisions.indexOf(this.value)
-
-                            divisions[
-                                when {
-                                    newValue > this.value -> divIndex + 1
-                                    newValue < this.value -> divIndex - 1
-                                    else -> divIndex
-                                }
-                                    .coerceIn(0..divisions.lastIndex)
-                            ]
-                        }
+                    if (sliderState.steps > 0) {
+                        sliderState.getNearestDivision(newValue)
                     } else {
                         newValue
                     }
@@ -340,7 +325,8 @@ private fun Modifier.sliderSemantics(
         )
     }.progressSemantics(
         value = sliderState.value,
-        valueRange = sliderRange,
+        valueRange = sliderState.valueRange,
+        steps = sliderState.steps
     )
 
 private val innerRingStrokeWidth = 1.5.dp
@@ -446,7 +432,7 @@ private fun SliderWithStepsPreview() {
             endLabel = "1",
             onValueChange = { value = it },
             sliderRange = 0f..2f,
-            steps = 1f,
+            steps = 1,
             modifier = Modifier
                 .layerBackground()
                 .padding(16.dp)

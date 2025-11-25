@@ -41,7 +41,7 @@ import com.gabrieldrn.carbon.textinput.TextInput
 import com.gabrieldrn.carbon.textinput.TextInputState
 
 private val initialRange = 0..10
-private const val initialSteps = 1
+private const val initialSteps = 9
 
 @Composable
 fun SliderDemoScreen(modifier: Modifier = Modifier) {
@@ -66,7 +66,7 @@ fun SliderDemoScreen(modifier: Modifier = Modifier) {
         mutableStateOf(initialSteps.toString())
     }
     var steps by rememberSaveable {
-        mutableFloatStateOf(initialSteps.toFloat())
+        mutableIntStateOf(initialSteps)
     }
 
     DemoScreen(
@@ -82,6 +82,7 @@ fun SliderDemoScreen(modifier: Modifier = Modifier) {
                     sliderRange = sliderRange,
                     steps = steps,
                 )
+
                 BasicText(
                     text = sliderValue.toString(),
                     style = Carbon.typography.body01.copy(color = Carbon.theme.textPrimary),
@@ -119,7 +120,7 @@ fun SliderDemoScreen(modifier: Modifier = Modifier) {
                 value = stepsStringValue,
                 onValueChange = {
                     try {
-                        steps = it.toFloat()
+                        steps = it.toInt()
                         stepsInputState = TextInputState.Enabled
                     } catch (nfe: NumberFormatException) {
                         stepsInputState = TextInputState.Error

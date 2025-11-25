@@ -16,7 +16,7 @@
 
 package com.gabrieldrn.carbon.slider
 
-import androidx.annotation.FloatRange
+import androidx.annotation.IntRange
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.setValue
@@ -34,20 +34,21 @@ import kotlin.math.abs
  */
 internal class SliderState(
     value: Float,
-    @param:FloatRange(from = 0.0) val steps: Float,
-    private val valueRange: ClosedFloatingPointRange<Float>,
+    @param:IntRange(from = 0) val steps: Int,
+    val valueRange: ClosedFloatingPointRange<Float>,
 ) {
-
     private var scaledValue by mutableFloatStateOf(value.coerceIn(valueRange))
     private var totalWidth by mutableFloatStateOf(0f)
     private var widthRange = 0f..totalWidth
-    internal val divisions =
-        if (steps > 0f) {
+    private val divisions =
+        if (steps > 0) {
+            val range = valueRange.endInclusive - valueRange.start
+            val div = if (range > 0) range / (steps + 1) else 0f
             generateSequence(valueRange.start) { previous ->
                 if (previous.isInfinite() || previous >= valueRange.endInclusive) {
                     null
                 } else {
-                    val next = previous + steps
+                    val next = previous + div
                     if (next > valueRange.endInclusive) valueRange.endInclusive else next
                 }
             }
