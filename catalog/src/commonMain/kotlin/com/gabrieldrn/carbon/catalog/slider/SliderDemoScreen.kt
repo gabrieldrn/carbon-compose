@@ -40,8 +40,8 @@ import com.gabrieldrn.carbon.slider.Slider
 import com.gabrieldrn.carbon.textinput.TextInput
 import com.gabrieldrn.carbon.textinput.TextInputState
 
+private const val INITIAL_STEPS = 9
 private val initialRange = 0..10
-private const val initialSteps = 9
 
 @Composable
 fun SliderDemoScreen(modifier: Modifier = Modifier) {
@@ -63,10 +63,10 @@ fun SliderDemoScreen(modifier: Modifier = Modifier) {
     }
 
     var stepsStringValue by rememberSaveable {
-        mutableStateOf(initialSteps.toString())
+        mutableStateOf(INITIAL_STEPS.toString())
     }
     var steps by rememberSaveable {
-        mutableIntStateOf(initialSteps)
+        mutableIntStateOf(INITIAL_STEPS)
     }
 
     DemoScreen(
