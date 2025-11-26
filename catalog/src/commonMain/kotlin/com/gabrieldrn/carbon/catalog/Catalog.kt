@@ -109,6 +109,7 @@ fun Catalog(
                     } else {
                         null
                     },
+                    menuIconContentDescription = "Navigate up",
                     actions = {
                         if (currentScreen != Destination.Settings) {
                             IconButton(

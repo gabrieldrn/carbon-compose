@@ -61,7 +61,9 @@ import com.gabrieldrn.carbon.tooltip.TooltipParameters
  * @param buttonSize A [ButtonSize] that defines the button's size.
  * @param isEnabled Whether the button is enabled or disabled.
  * @param interactionSource The [MutableInteractionSource] that keeps track of the button's state.
- *
+ * @param contentDescription Text used by accessibility services to describe what this button and
+ * its icon represents. This should always be provided and be localized, such as by using
+ * [org.jetbrains.compose.resources.stringResource] or similar.
  * @see [Button]
  */
 @Composable
@@ -73,6 +75,7 @@ public fun IconButton(
     buttonSize: ButtonSize = ButtonSize.LargeProductive,
     isEnabled: Boolean = true,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    contentDescription: String? = null
 ) {
     ButtonLayout(
         onClick = onClick,
@@ -86,6 +89,7 @@ public fun IconButton(
         ButtonIcon(
             painter = iconPainter,
             scope = buttonScope,
+            contentDescription = contentDescription,
             modifier = Modifier
                 .weight(1f)
                 .padding(

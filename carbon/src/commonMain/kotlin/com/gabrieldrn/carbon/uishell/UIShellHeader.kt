@@ -54,6 +54,7 @@ public fun UiShellHeader(
     headerName: String,
     modifier: Modifier = Modifier,
     menuIconPainter: Painter? = null,
+    menuIconContentDescription: String? = null,
     actions: @Composable RowScope.() -> Unit = {},
     onMenuIconPressed: () -> Unit = {},
     windowInsets: WindowInsets = WindowInsets.statusBars.only(WindowInsetsSides.Top),
@@ -80,6 +81,7 @@ public fun UiShellHeader(
                         onClick = onMenuIconPressed,
                         iconPainter = menuIconPainter,
                         buttonType = ButtonType.Ghost,
+                        contentDescription = menuIconContentDescription
                     )
                     Spacer(modifier = Modifier.width(SpacingScale.spacing03))
                 } else {

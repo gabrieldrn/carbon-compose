@@ -105,7 +105,7 @@ public final class com/gabrieldrn/carbon/button/ButtonType : java/lang/Enum {
 
 public final class com/gabrieldrn/carbon/button/IconButtonKt {
 	public static final fun IconButton (Landroidx/compose/ui/graphics/painter/Painter;Lcom/gabrieldrn/carbon/tooltip/TooltipParameters;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Landroidx/compose/ui/Modifier;Lcom/gabrieldrn/carbon/button/ButtonType;Lcom/gabrieldrn/carbon/button/ButtonSize;ZLandroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;II)V
-	public static final fun IconButton (Landroidx/compose/ui/graphics/painter/Painter;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Lcom/gabrieldrn/carbon/button/ButtonType;Lcom/gabrieldrn/carbon/button/ButtonSize;ZLandroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;II)V
+	public static final fun IconButton (Landroidx/compose/ui/graphics/painter/Painter;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Lcom/gabrieldrn/carbon/button/ButtonType;Lcom/gabrieldrn/carbon/button/ButtonSize;ZLandroidx/compose/foundation/interaction/MutableInteractionSource;Ljava/lang/String;Landroidx/compose/runtime/Composer;II)V
 	public static final fun IconButtonWithPopover-rcagYwc (Landroidx/compose/ui/graphics/painter/Painter;ZLcom/gabrieldrn/carbon/popover/PopoverAlignment;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;FFLandroidx/compose/ui/window/PopupProperties;Lcom/gabrieldrn/carbon/button/ButtonType;Lcom/gabrieldrn/carbon/button/ButtonSize;ZLandroidx/compose/foundation/interaction/MutableInteractionSource;Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function3;Landroidx/compose/runtime/Composer;III)V
 }
 
@@ -283,6 +283,7 @@ public final class com/gabrieldrn/carbon/foundation/color/ContextualTokensKt {
 	public static synthetic fun containerColor$default (Lcom/gabrieldrn/carbon/foundation/color/Theme;Lcom/gabrieldrn/carbon/foundation/color/Layer;ILjava/lang/Object;)J
 	public static final fun fieldColor (Lcom/gabrieldrn/carbon/foundation/color/Theme;Lcom/gabrieldrn/carbon/foundation/color/Layer;)J
 	public static synthetic fun fieldColor$default (Lcom/gabrieldrn/carbon/foundation/color/Theme;Lcom/gabrieldrn/carbon/foundation/color/Layer;ILjava/lang/Object;)J
+	public static final fun getColor (Lcom/gabrieldrn/carbon/foundation/color/Layer;Landroidx/compose/runtime/Composer;I)J
 	public static final fun layerAccentActiveColor (Lcom/gabrieldrn/carbon/foundation/color/Theme;Lcom/gabrieldrn/carbon/foundation/color/Layer;)J
 	public static synthetic fun layerAccentActiveColor$default (Lcom/gabrieldrn/carbon/foundation/color/Theme;Lcom/gabrieldrn/carbon/foundation/color/Layer;ILjava/lang/Object;)J
 	public static final fun layerAccentColor (Lcom/gabrieldrn/carbon/foundation/color/Theme;Lcom/gabrieldrn/carbon/foundation/color/Layer;)J
@@ -1117,6 +1118,19 @@ public final class com/gabrieldrn/carbon/radiobutton/RadioButtonKt {
 	public static final fun RadioButton (ZLjava/lang/String;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Lcom/gabrieldrn/carbon/common/selectable/SelectableInteractiveState;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;II)V
 }
 
+public final class com/gabrieldrn/carbon/slider/ComposableSingletons$SliderKt {
+	public static final field INSTANCE Lcom/gabrieldrn/carbon/slider/ComposableSingletons$SliderKt;
+	public fun <init> ()V
+	public final fun getLambda$-1467671942$carbon ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$1101052361$carbon ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$1828943697$carbon ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$1936335567$carbon ()Lkotlin/jvm/functions/Function2;
+}
+
+public final class com/gabrieldrn/carbon/slider/SliderKt {
+	public static final fun Slider (FLjava/lang/String;Ljava/lang/String;Lkotlin/jvm/functions/Function1;Landroidx/compose/ui/Modifier;Ljava/lang/String;Landroidx/compose/foundation/interaction/MutableInteractionSource;Lkotlin/jvm/functions/Function0;Lkotlin/ranges/ClosedFloatingPointRange;ILkotlin/jvm/functions/Function1;Landroidx/compose/runtime/Composer;III)V
+}
+
 public final class com/gabrieldrn/carbon/tab/TabItem {
 	public static final field $stable I
 	public static final field Companion Lcom/gabrieldrn/carbon/tab/TabItem$Companion;
@@ -1244,10 +1258,10 @@ public final class com/gabrieldrn/carbon/tooltip/TooltipParameters {
 public final class com/gabrieldrn/carbon/uishell/ComposableSingletons$UIShellHeaderKt {
 	public static final field INSTANCE Lcom/gabrieldrn/carbon/uishell/ComposableSingletons$UIShellHeaderKt;
 	public fun <init> ()V
-	public final fun getLambda$259921001$carbon ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$1204618348$carbon ()Lkotlin/jvm/functions/Function3;
 }
 
 public final class com/gabrieldrn/carbon/uishell/UIShellHeaderKt {
-	public static final fun UiShellHeader (Ljava/lang/String;Landroidx/compose/ui/Modifier;Landroidx/compose/ui/graphics/painter/Painter;Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function0;Landroidx/compose/foundation/layout/WindowInsets;Lcom/gabrieldrn/carbon/foundation/color/Theme;Landroidx/compose/runtime/Composer;II)V
+	public static final fun UiShellHeader (Ljava/lang/String;Landroidx/compose/ui/Modifier;Landroidx/compose/ui/graphics/painter/Painter;Ljava/lang/String;Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function0;Landroidx/compose/foundation/layout/WindowInsets;Lcom/gabrieldrn/carbon/foundation/color/Theme;Landroidx/compose/runtime/Composer;II)V
 }
 
