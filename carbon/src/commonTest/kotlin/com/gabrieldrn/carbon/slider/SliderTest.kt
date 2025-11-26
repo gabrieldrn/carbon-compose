@@ -75,7 +75,7 @@ class SliderTest {
                     value = value,
                     startLabel = "0",
                     endLabel = "100",
-                    steps = 10,
+                    steps = 9,
                     sliderRange = 0f..100f,
                     onValueChange = { value = it },
                 )
@@ -112,7 +112,7 @@ class SliderTest {
                     value = value,
                     startLabel = "0",
                     endLabel = "100",
-                    steps = 10,
+                    steps = 9,
                     sliderRange = 0f..100f,
                     onValueChange = { value = it },
                     modifier = Modifier.testTag("slider")

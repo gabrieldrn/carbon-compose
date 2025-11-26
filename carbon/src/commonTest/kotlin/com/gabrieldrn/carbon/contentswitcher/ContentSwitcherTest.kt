@@ -27,7 +27,6 @@ import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.test.ComposeUiTest
 import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.assert
-import androidx.compose.ui.test.assertAll
 import androidx.compose.ui.test.assertAny
 import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.assertHeightIsEqualTo
@@ -45,12 +44,12 @@ import androidx.compose.ui.test.isNotEnabled
 import androidx.compose.ui.test.isNotFocusable
 import androidx.compose.ui.test.isSelectable
 import androidx.compose.ui.test.onAllNodesWithTag
+import androidx.compose.ui.test.onChildAt
 import androidx.compose.ui.test.onChildren
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.runComposeUiTest
-import com.gabrieldrn.carbon.PARAMTRZD_DEPRECATION_MESSAGE
-import com.gabrieldrn.carbon.PARAMTRZD_DEPRECATION_REPLACE
+import com.gabrieldrn.carbon.forEachParameter
 import com.gabrieldrn.carbon.icons.checkmarkFilledIcon
 import com.gabrieldrn.carbon.icons.closeIcon
 import com.gabrieldrn.carbon.icons.viewIcon
@@ -136,7 +135,13 @@ class ContentSwitcherTest {
     fun contentSwitcher_default_validateLayout() = runComposeUiTest {
         setupDefaultContentSwitcher()
 
-        forEachParameter {
+        forEachParameter(
+            ContentSwitcherSize.entries.toTypedArray(),
+            arrayOf(true, false)
+        ) { size, isEnabled ->
+            _size = size
+            _isEnabled = isEnabled
+
             validateCommonLayout()
 
             onAllNodesWithTag(ContentSwitcherTestTags.BUTTON_CONTENT_ROOT, useUnmergedTree = true)
@@ -144,10 +149,10 @@ class ContentSwitcherTest {
                 .toList()
                 .forEachIndexed { index, node ->
                     node
+                        .onChildAt(0)
+                        .onChildAt(0)
                         .assertIsDisplayed()
-                        .onChildren()
-                        .assertCountEquals(1)
-                        .assertAll(
+                        .assert(
                             hasTestTag(ContentSwitcherTestTags.BUTTON_TEXT) and
                                 hasText(stringOptions[index])
                         )
@@ -159,7 +164,13 @@ class ContentSwitcherTest {
     fun contentSwitcher_icon_validateLayout() = runComposeUiTest {
         setupIconContentSwitcher()
 
-        forEachParameter {
+        forEachParameter(
+            ContentSwitcherSize.entries.toTypedArray(),
+            arrayOf(true, false)
+        ) { size, isEnabled ->
+            _size = size
+            _isEnabled = isEnabled
+
             validateCommonLayout()
 
             onAllNodesWithTag(ContentSwitcherTestTags.BUTTON_CONTENT_ROOT, useUnmergedTree = true)
@@ -167,10 +178,10 @@ class ContentSwitcherTest {
                 .toList()
                 .forEachIndexed { index, node ->
                     node
+                        .onChildAt(0)
+                        .onChildAt(0)
                         .assertIsDisplayed()
-                        .onChildren()
-                        .assertCountEquals(1)
-                        .assertAll(
+                        .assert(
                             hasTestTag(ContentSwitcherTestTags.BUTTON_IMAGE) and
                                 hasContentDescription(iconVectorOptions[index].name)
                         )
@@ -223,8 +234,9 @@ class ContentSwitcherTest {
                         //  those interactions are working as expected but not on Android platform.
 
                         if (isIconVariant) {
-                            onChildren()
-                                .assertAny(hasContentDescription(iconVectorOptions[index].name))
+                            onChildAt(0)
+                                .onChildAt(0)
+                                .assert(hasContentDescription(iconVectorOptions[index].name))
                         }
                     }
                 }
@@ -232,37 +244,50 @@ class ContentSwitcherTest {
 
         runComposeUiTest {
             setupDefaultContentSwitcher()
-            forEachParameter { runGesturesAssertions() }
-        }
-        runComposeUiTest {
-            setupDefaultContentSwitcher()
-            forEachParameter { runAccessibilityAssertions(isIconVariant = false) }
-        }
-        runComposeUiTest {
-            setupIconContentSwitcher()
-            forEachParameter { runGesturesAssertions() }
-        }
-        runComposeUiTest {
-            setupIconContentSwitcher()
-            forEachParameter { runAccessibilityAssertions(isIconVariant = true) }
-        }
-    }
-
-    @Deprecated(
-        message = PARAMTRZD_DEPRECATION_MESSAGE,
-        level = DeprecationLevel.WARNING,
-        replaceWith = ReplaceWith(PARAMTRZD_DEPRECATION_REPLACE)
-    )
-    private fun forEachParameter(
-        testBlock: () -> Unit
-    ) {
-        ContentSwitcherSize.entries.forEach { size ->
-            listOf(true, false).forEach { isEnabled ->
-                println("Running test with size = $size and isEnabled = $isEnabled")
+            forEachParameter(
+                ContentSwitcherSize.entries.toTypedArray(),
+                arrayOf(true, false)
+            ) { size, isEnabled ->
                 _size = size
                 _isEnabled = isEnabled
 
-                testBlock()
+                runGesturesAssertions()
+            }
+        }
+        runComposeUiTest {
+            setupDefaultContentSwitcher()
+            forEachParameter(
+                ContentSwitcherSize.entries.toTypedArray(),
+                arrayOf(true, false)
+            ) { size, isEnabled ->
+                _size = size
+                _isEnabled = isEnabled
+
+                runAccessibilityAssertions(isIconVariant = false)
+            }
+        }
+        runComposeUiTest {
+            setupIconContentSwitcher()
+            forEachParameter(
+                ContentSwitcherSize.entries.toTypedArray(),
+                arrayOf(true, false)
+            ) { size, isEnabled ->
+                _size = size
+                _isEnabled = isEnabled
+
+                runGesturesAssertions()
+            }
+        }
+        runComposeUiTest {
+            setupIconContentSwitcher()
+            forEachParameter(
+                ContentSwitcherSize.entries.toTypedArray(),
+                arrayOf(true, false)
+            ) { size, isEnabled ->
+                _size = size
+                _isEnabled = isEnabled
+
+                runAccessibilityAssertions(isIconVariant = true)
             }
         }
     }
