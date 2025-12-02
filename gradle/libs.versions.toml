@@ -19,6 +19,7 @@ androidxEspresso = "3.6.1"
 androidxTestExtJunit = "1.2.1"
 kotlinxCoroutinesSwing = "1.10.2"
 kotlinxSerializationJson = "1.8.1"
+kotlinxDatetime = "0.7.1"
 
 # Community libraries
 kotlinPoet = "2.2.0"
@@ -45,6 +46,7 @@ kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotl
 kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
 kotlinx-coroutines-swing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "kotlinxCoroutinesSwing" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
+kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDatetime" }
 kotlinPoet = { module = "com.squareup:kotlinpoet", version.ref = "kotlinPoet" }
 timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
 touchlab-kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
