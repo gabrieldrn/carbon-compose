@@ -44,6 +44,7 @@ import com.gabrieldrn.carbon.button.ButtonType
 import com.gabrieldrn.carbon.button.IconButton
 import com.gabrieldrn.carbon.carbon_datepicker_calendar_loadNextMonth_description
 import com.gabrieldrn.carbon.carbon_datepicker_calendar_loadPreviousMonth_description
+import com.gabrieldrn.carbon.foundation.color.CarbonLayer
 import com.gabrieldrn.carbon.foundation.color.layerBackground
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 import com.gabrieldrn.carbon.icons.chevronLeftIcon
@@ -71,6 +72,8 @@ import kotlin.time.ExperimentalTime
 private const val CALENDAR_WEEKS = 6
 private val DAYS_IN_WEEK = DayOfWeek.entries.count()
 
+private val menuWidth = 288.dp
+
 private val DayOfWeek.dayNumber
     get() = when (this) {
         DayOfWeek.SUNDAY -> 0
@@ -92,7 +95,7 @@ internal data class MonthDay(
     val isOutOfMonth: Boolean,
 )
 
-private fun getCalendarMatrix(yearMonth: YearMonth): CalendarMenuData {
+internal fun getCalendarMenuData(yearMonth: YearMonth): CalendarMenuData {
     val firstDayCurrentMonth = yearMonth.firstDay
     val previousMonth = yearMonth.minus(1, DateTimeUnit.MONTH)
     val nextMonth = yearMonth.plus(1, DateTimeUnit.MONTH)
@@ -152,6 +155,10 @@ internal fun CalendarMenu(
         monthName(MonthNames.ENGLISH_FULL); char(' '); year()
     }
 ) {
+    val regularTextStyle = Carbon.typography.bodyCompact01.copy(
+        color = Carbon.theme.textPrimary
+    )
+
     val outOfMonthTextStyle = Carbon.typography.bodyCompact01.copy(
         color = Carbon.theme.textSecondary
     )
@@ -161,73 +168,79 @@ internal fun CalendarMenu(
         fontWeight = FontWeight.SemiBold
     )
 
-    Column(
-        modifier = modifier
-            .layerBackground()
-            .padding(SpacingScale.spacing02)
-            .requiredWidth(SpacingScale.spacing12 * 3),
-        verticalArrangement = Arrangement.spacedBy(SpacingScale.spacing02)
-    ) {
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            IconButton(
-                iconPainter = rememberVectorPainter(chevronLeftIcon),
-                buttonType = ButtonType.Ghost,
-                buttonSize = ButtonSize.Medium,
-                contentDescription = stringResource(
-                    Res.string.carbon_datepicker_calendar_loadPreviousMonth_description
-                ),
-                onClick = onLoadPreviousMonth
-            )
-
-            BasicText(
-                text = calendar.yearMonth.format(titleYearMonthFormat),
-                style = Carbon.typography.headingCompact01.copy(textAlign = TextAlign.Center),
-                modifier = Modifier.weight(1f),
-            )
-
-            IconButton(
-                iconPainter = rememberVectorPainter(chevronRightIcon),
-                buttonType = ButtonType.Ghost,
-                buttonSize = ButtonSize.Medium,
-                contentDescription = stringResource(
-                    Res.string.carbon_datepicker_calendar_loadNextMonth_description
-                ),
-                onClick = onLoadNextMonth
-            )
-        }
-
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.height(SpacingScale.spacing08)
+    CarbonLayer {
+        Column(
+            modifier = modifier
+                .layerBackground()
+                .padding(SpacingScale.spacing02)
+                .requiredWidth(menuWidth),
+            verticalArrangement = Arrangement.spacedBy(SpacingScale.spacing02)
         ) {
-            with(daysOfWeekNames.names) { listOf(last()) + dropLast(1) }.forEach { dayName ->
-                Box(
-                    contentAlignment = Alignment.Center,
-                    modifier = Modifier
-                        .weight(1f)
-                ) {
-                    BasicText(
-                        text = dayName,
-                        style = Carbon.typography.bodyCompact01,
-                    )
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                IconButton(
+                    iconPainter = rememberVectorPainter(chevronLeftIcon),
+                    buttonType = ButtonType.Ghost,
+                    buttonSize = ButtonSize.Medium,
+                    contentDescription = stringResource(
+                        Res.string.carbon_datepicker_calendar_loadPreviousMonth_description
+                    ),
+                    onClick = onLoadPreviousMonth
+                )
+
+                BasicText(
+                    text = calendar.yearMonth.format(titleYearMonthFormat),
+                    style = Carbon.typography.headingCompact01.copy(
+                        color = Carbon.theme.textPrimary,
+                        textAlign = TextAlign.Center
+                    ),
+                    modifier = Modifier.weight(1f),
+                )
+
+                IconButton(
+                    iconPainter = rememberVectorPainter(chevronRightIcon),
+                    buttonType = ButtonType.Ghost,
+                    buttonSize = ButtonSize.Medium,
+                    contentDescription = stringResource(
+                        Res.string.carbon_datepicker_calendar_loadNextMonth_description
+                    ),
+                    onClick = onLoadNextMonth
+                )
+            }
+
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.height(SpacingScale.spacing08)
+            ) {
+                with(daysOfWeekNames.names) { listOf(last()) + dropLast(1) }.forEach { dayName ->
+                    Box(
+                        contentAlignment = Alignment.Center,
+                        modifier = Modifier
+                            .weight(1f)
+                    ) {
+                        BasicText(
+                            text = dayName,
+                            style = regularTextStyle,
+                        )
+                    }
                 }
             }
-        }
 
-        Column {
-            calendar.daysMatrix.forEach { week ->
-                Row(
-                    modifier = Modifier.height(SpacingScale.spacing08),
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    week.forEach { day ->
-                        CalendarDayItem(
-                            day = day,
-                            selectedDate = selectedDate,
-                            outOfMonthTextStyle = outOfMonthTextStyle,
-                            selectedDayTextStyle = selectedDayTextStyle,
-                            modifier = Modifier.fillMaxHeight().weight(1f)
-                        )
+            Column {
+                calendar.daysMatrix.forEach { week ->
+                    Row(
+                        modifier = Modifier.height(SpacingScale.spacing08),
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        week.forEach { day ->
+                            CalendarDayItem(
+                                day = day,
+                                selectedDate = selectedDate,
+                                regularTextStyle = regularTextStyle,
+                                outOfMonthTextStyle = outOfMonthTextStyle,
+                                selectedDayTextStyle = selectedDayTextStyle,
+                                modifier = Modifier.fillMaxHeight().weight(1f)
+                            )
+                        }
                     }
                 }
             }
@@ -239,6 +252,7 @@ internal fun CalendarMenu(
 private fun CalendarDayItem(
     day: MonthDay,
     selectedDate: LocalDate?,
+    regularTextStyle: TextStyle,
     outOfMonthTextStyle: TextStyle,
     selectedDayTextStyle: TextStyle,
     modifier: Modifier = Modifier
@@ -255,7 +269,7 @@ private fun CalendarDayItem(
             style = when {
                 day.isOutOfMonth -> outOfMonthTextStyle
                 isSelectedDay -> selectedDayTextStyle
-                else -> Carbon.typography.bodyCompact01
+                else -> regularTextStyle
             },
         )
 
@@ -282,7 +296,7 @@ private fun CalendarMenuPreview() {
                 .date
         }
 
-        val calendar = remember { getCalendarMatrix(today.yearMonth) }
+        val calendar = remember { getCalendarMenuData(today.yearMonth) }
 
         CalendarMenu(
             calendar = calendar,
