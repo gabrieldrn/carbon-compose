@@ -42,15 +42,8 @@ import com.gabrieldrn.carbon.Res
 import com.gabrieldrn.carbon.button.ButtonSize
 import com.gabrieldrn.carbon.button.ButtonType
 import com.gabrieldrn.carbon.button.IconButton
-import com.gabrieldrn.carbon.carbon_datepicker_calendar_friday_label
 import com.gabrieldrn.carbon.carbon_datepicker_calendar_loadNextMonth_description
 import com.gabrieldrn.carbon.carbon_datepicker_calendar_loadPreviousMonth_description
-import com.gabrieldrn.carbon.carbon_datepicker_calendar_monday_label
-import com.gabrieldrn.carbon.carbon_datepicker_calendar_saturday_label
-import com.gabrieldrn.carbon.carbon_datepicker_calendar_sunday_label
-import com.gabrieldrn.carbon.carbon_datepicker_calendar_thursday_label
-import com.gabrieldrn.carbon.carbon_datepicker_calendar_tuesday_label
-import com.gabrieldrn.carbon.carbon_datepicker_calendar_wednesday_label
 import com.gabrieldrn.carbon.foundation.color.layerBackground
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 import com.gabrieldrn.carbon.icons.chevronLeftIcon
@@ -62,6 +55,7 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.YearMonth
 import kotlinx.datetime.format
 import kotlinx.datetime.format.DateTimeFormat
+import kotlinx.datetime.format.DayOfWeekNames
 import kotlinx.datetime.format.MonthNames
 import kotlinx.datetime.format.char
 import kotlinx.datetime.minus
@@ -76,16 +70,6 @@ import kotlin.time.ExperimentalTime
 
 private const val CALENDAR_WEEKS = 6
 private val DAYS_IN_WEEK = DayOfWeek.entries.count()
-
-private val daysOfWeekLetters = listOf(
-    Res.string.carbon_datepicker_calendar_sunday_label,
-    Res.string.carbon_datepicker_calendar_monday_label,
-    Res.string.carbon_datepicker_calendar_tuesday_label,
-    Res.string.carbon_datepicker_calendar_wednesday_label,
-    Res.string.carbon_datepicker_calendar_thursday_label,
-    Res.string.carbon_datepicker_calendar_friday_label,
-    Res.string.carbon_datepicker_calendar_saturday_label,
-)
 
 private val DayOfWeek.dayNumber
     get() = when (this) {
@@ -163,6 +147,7 @@ internal fun CalendarMenu(
     onLoadPreviousMonth: () -> Unit,
     onLoadNextMonth: () -> Unit,
     modifier: Modifier = Modifier,
+    daysOfWeekNames: DayOfWeekNames = DayOfWeekNames.ENGLISH_ABBREVIATED,
     titleYearMonthFormat: DateTimeFormat<YearMonth> = YearMonth.Format {
         monthName(MonthNames.ENGLISH_FULL); char(' '); year()
     }
@@ -215,14 +200,14 @@ internal fun CalendarMenu(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.height(SpacingScale.spacing08)
         ) {
-            daysOfWeekLetters.forEach { dayOfWeekLetterRes ->
+            with(daysOfWeekNames.names) { listOf(last()) + dropLast(1) }.forEach { dayName ->
                 Box(
                     contentAlignment = Alignment.Center,
                     modifier = Modifier
                         .weight(1f)
                 ) {
                     BasicText(
-                        text = stringResource(dayOfWeekLetterRes),
+                        text = dayName,
                         style = Carbon.typography.bodyCompact01,
                     )
                 }

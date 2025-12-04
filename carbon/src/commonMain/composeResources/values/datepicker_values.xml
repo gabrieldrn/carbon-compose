@@ -15,14 +15,6 @@
   -->
 
 <resources>
-    <string name="carbon_datepicker_calendar_sunday_label">S</string>
-    <string name="carbon_datepicker_calendar_monday_label">M</string>
-    <string name="carbon_datepicker_calendar_tuesday_label">T</string>
-    <string name="carbon_datepicker_calendar_wednesday_label">W</string>
-    <string name="carbon_datepicker_calendar_thursday_label">T</string>
-    <string name="carbon_datepicker_calendar_friday_label">F</string>
-    <string name="carbon_datepicker_calendar_saturday_label">S</string>
-
     <string name="carbon_datepicker_calendar_loadPreviousMonth_description">Load previous month</string>
     <string name="carbon_datepicker_calendar_loadNextMonth_description">Load next month</string>
 </resources>
