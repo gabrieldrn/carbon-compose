@@ -32,6 +32,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -54,9 +55,24 @@ import com.gabrieldrn.carbon.foundation.color.layerBackground
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 import com.gabrieldrn.carbon.icons.chevronLeftIcon
 import com.gabrieldrn.carbon.icons.chevronRightIcon
+import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.DayOfWeek
+import kotlinx.datetime.LocalDate
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.YearMonth
+import kotlinx.datetime.format
+import kotlinx.datetime.format.DateTimeFormat
+import kotlinx.datetime.format.MonthNames
+import kotlinx.datetime.format.char
+import kotlinx.datetime.minus
+import kotlinx.datetime.onDay
+import kotlinx.datetime.plus
+import kotlinx.datetime.toLocalDateTime
+import kotlinx.datetime.yearMonth
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import kotlin.time.Clock
+import kotlin.time.ExperimentalTime
 
 private const val CALENDAR_WEEKS = 6
 private val DAYS_IN_WEEK = DayOfWeek.entries.count()
@@ -82,67 +98,84 @@ private val DayOfWeek.dayNumber
         DayOfWeek.SATURDAY -> 6
     }
 
-internal data class MonthDay(
-    val number: Int,
-    val isOutOfMonth: Boolean,
-    val isSelected: Boolean
+internal data class CalendarMenuData(
+    val yearMonth: YearMonth,
+    val daysMatrix: List<List<MonthDay>>
 )
 
-private fun getCalendarMatrix(
-    firstDayOfWeek: DayOfWeek,
-    previousMonthLastDay: Int,
-    monthSelectedDay: Int?,
-    monthLastDay: Int
-): List<List<MonthDay>> {
-    val prevMonthDays = firstDayOfWeek.dayNumber
-    var prevMonthDaysCount = prevMonthDays
+internal data class MonthDay(
+    val localDate: LocalDate,
+    val isOutOfMonth: Boolean,
+)
+
+private fun getCalendarMatrix(yearMonth: YearMonth): CalendarMenuData {
+    val firstDayCurrentMonth = yearMonth.firstDay
+    val previousMonth = yearMonth.minus(1, DateTimeUnit.MONTH)
+    val nextMonth = yearMonth.plus(1, DateTimeUnit.MONTH)
+    val previousMonthLastDay = previousMonth
+        .numberOfDays
+
+    var prevMonthDaysCount = firstDayCurrentMonth.dayOfWeek.dayNumber
 
     var monthDayCount = 1
     var nextMonthDayCount = 1
 
-    return buildList {
+    val matrix = buildList {
         repeat(CALENDAR_WEEKS) {
             buildList {
                 repeat(DAYS_IN_WEEK) {
-                    when {
-                        prevMonthDaysCount > 0 -> add(
-                            MonthDay(
-                                number = previousMonthLastDay - prevMonthDaysCount-- + 1,
+                    add(
+                        when {
+                            prevMonthDaysCount > 0 -> MonthDay(
+                                localDate = previousMonth
+                                    .onDay(previousMonthLastDay - prevMonthDaysCount-- + 1),
                                 isOutOfMonth = true,
-                                isSelected = false
                             )
-                        )
-                        monthDayCount <= monthLastDay -> {
-                            add(
-                                MonthDay(
-                                    number = monthDayCount,
-                                    isOutOfMonth = false,
-                                    isSelected = monthDayCount == monthSelectedDay
-                                )
+
+                            monthDayCount <= yearMonth.numberOfDays -> MonthDay(
+                                localDate = yearMonth
+                                    .onDay(monthDayCount++),
+                                isOutOfMonth = false,
                             )
-                            monthDayCount++
+
+                            else -> MonthDay(
+                                localDate = nextMonth
+                                    .onDay(nextMonthDayCount++),
+                                isOutOfMonth = true,
+                            )
                         }
-                        else -> add(
-                            MonthDay(
-                                number = nextMonthDayCount++,
-                                isOutOfMonth = true,
-                                isSelected = false
-                            )
-                        )
-                    }
+                    )
                 }
             }.let(::add)
         }
     }
+
+    return CalendarMenuData(
+        yearMonth = yearMonth,
+        daysMatrix = matrix
+    )
 }
 
 @Composable
 internal fun CalendarMenu(
-    calendar: List<List<MonthDay>>,
+    calendar: CalendarMenuData,
+    selectedDate: LocalDate?,
     onLoadPreviousMonth: () -> Unit,
     onLoadNextMonth: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    titleYearMonthFormat: DateTimeFormat<YearMonth> = YearMonth.Format {
+        monthName(MonthNames.ENGLISH_FULL); char(' '); year()
+    }
 ) {
+    val outOfMonthTextStyle = Carbon.typography.bodyCompact01.copy(
+        color = Carbon.theme.textSecondary
+    )
+
+    val selectedDayTextStyle = Carbon.typography.bodyCompact01.copy(
+        color = Carbon.theme.linkPrimary,
+        fontWeight = FontWeight.SemiBold
+    )
+
     Column(
         modifier = modifier
             .layerBackground()
@@ -162,7 +195,7 @@ internal fun CalendarMenu(
             )
 
             BasicText(
-                text = "January 1970",
+                text = calendar.yearMonth.format(titleYearMonthFormat),
                 style = Carbon.typography.headingCompact01.copy(textAlign = TextAlign.Center),
                 modifier = Modifier.weight(1f),
             )
@@ -196,47 +229,20 @@ internal fun CalendarMenu(
             }
         }
 
-        val outOfMonthTextStyle = Carbon.typography.bodyCompact01.copy(
-            color = Carbon.theme.textSecondary
-        )
-
-        val selectedDayTextStyle = Carbon.typography.bodyCompact01.copy(
-            color = Carbon.theme.linkPrimary,
-            fontWeight = FontWeight.SemiBold
-        )
-
         Column {
-            calendar.forEach { week ->
+            calendar.daysMatrix.forEach { week ->
                 Row(
                     modifier = Modifier.height(SpacingScale.spacing08),
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
                     week.forEach { day ->
-                        Box(
-                            contentAlignment = Alignment.Center,
-                            modifier = Modifier
-                                .fillMaxHeight()
-                                .weight(1f)
-                        ) {
-                            BasicText(
-                                text = day.number.toString(),
-                                style = when {
-                                    day.isOutOfMonth -> outOfMonthTextStyle
-                                    day.isSelected -> selectedDayTextStyle
-                                    else -> Carbon.typography.bodyCompact01
-                                },
-                            )
-
-                            if (day.isSelected) {
-                                Box(
-                                    modifier = Modifier
-                                        .padding(bottom = 8.dp)
-                                        .size(4.dp)
-                                        .background(Carbon.theme.linkPrimary)
-                                        .align(Alignment.BottomCenter)
-                                )
-                            }
-                        }
+                        CalendarDayItem(
+                            day = day,
+                            selectedDate = selectedDate,
+                            outOfMonthTextStyle = outOfMonthTextStyle,
+                            selectedDayTextStyle = selectedDayTextStyle,
+                            modifier = Modifier.fillMaxHeight().weight(1f)
+                        )
                     }
                 }
             }
@@ -244,20 +250,58 @@ internal fun CalendarMenu(
     }
 }
 
+@Composable
+private fun CalendarDayItem(
+    day: MonthDay,
+    selectedDate: LocalDate?,
+    outOfMonthTextStyle: TextStyle,
+    selectedDayTextStyle: TextStyle,
+    modifier: Modifier = Modifier
+) {
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = modifier
+    ) {
+        val isSelectedDay = remember(day, selectedDate) {
+            day.localDate == selectedDate
+        }
+        BasicText(
+            text = day.localDate.day.toString(),
+            style = when {
+                day.isOutOfMonth -> outOfMonthTextStyle
+                isSelectedDay -> selectedDayTextStyle
+                else -> Carbon.typography.bodyCompact01
+            },
+        )
+
+        if (isSelectedDay) {
+            Box(
+                modifier = Modifier
+                    .padding(bottom = 8.dp)
+                    .size(4.dp)
+                    .background(Carbon.theme.linkPrimary)
+                    .align(Alignment.BottomCenter)
+            )
+        }
+    }
+}
+
+@OptIn(ExperimentalTime::class)
 @Preview
 @Composable
 private fun CalendarMenuPreview() {
     CarbonDesignSystem {
-        val calendar = remember {
-            getCalendarMatrix(
-                firstDayOfWeek = DayOfWeek.THURSDAY,
-                previousMonthLastDay = 31,
-                monthSelectedDay = 7,
-                monthLastDay = 31
-            )
+        val today = remember {
+            Clock.System.now()
+                .toLocalDateTime(TimeZone.currentSystemDefault())
+                .date
         }
+
+        val calendar = remember { getCalendarMatrix(today.yearMonth) }
+
         CalendarMenu(
             calendar = calendar,
+            selectedDate = today,
             onLoadPreviousMonth = {},
             onLoadNextMonth = {},
         )
