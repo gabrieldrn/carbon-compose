@@ -16,12 +16,16 @@
 
 package com.gabrieldrn.carbon.datepicker
 
+import androidx.compose.foundation.Indication
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredWidth
@@ -47,10 +51,10 @@ import com.gabrieldrn.carbon.carbon_datepicker_calendar_loadNextMonth_descriptio
 import com.gabrieldrn.carbon.carbon_datepicker_calendar_loadPreviousMonth_description
 import com.gabrieldrn.carbon.foundation.color.CarbonLayer
 import com.gabrieldrn.carbon.foundation.color.layerBackground
+import com.gabrieldrn.carbon.foundation.interaction.FocusIndication
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 import com.gabrieldrn.carbon.icons.chevronLeftIcon
 import com.gabrieldrn.carbon.icons.chevronRightIcon
-import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.DayOfWeek
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
@@ -60,9 +64,9 @@ import kotlinx.datetime.format.DateTimeFormat
 import kotlinx.datetime.format.DayOfWeekNames
 import kotlinx.datetime.format.MonthNames
 import kotlinx.datetime.format.char
-import kotlinx.datetime.minus
+import kotlinx.datetime.minusMonth
 import kotlinx.datetime.onDay
-import kotlinx.datetime.plus
+import kotlinx.datetime.plusMonth
 import kotlinx.datetime.toLocalDateTime
 import kotlinx.datetime.yearMonth
 import org.jetbrains.compose.resources.stringResource
@@ -100,10 +104,9 @@ internal data class MonthDay(
 
 internal fun getCalendarMenuData(yearMonth: YearMonth): CalendarMenuData {
     val firstDayCurrentMonth = yearMonth.firstDay
-    val previousMonth = yearMonth.minus(1, DateTimeUnit.MONTH)
-    val nextMonth = yearMonth.plus(1, DateTimeUnit.MONTH)
-    val previousMonthLastDay = previousMonth
-        .numberOfDays
+    val previousMonth = yearMonth.minusMonth()
+    val nextMonth = yearMonth.plusMonth()
+    val previousMonthLastDay = previousMonth.numberOfDays
 
     var prevMonthDaysCount = firstDayCurrentMonth.dayOfWeek.dayNumber
 
@@ -150,10 +153,11 @@ internal fun getCalendarMenuData(yearMonth: YearMonth): CalendarMenuData {
 internal fun CalendarMenu(
     calendar: CalendarMenuData,
     selectedDate: LocalDate?,
+    onDayClicked: (LocalDate) -> Unit,
     onLoadPreviousMonth: () -> Unit,
     onLoadNextMonth: () -> Unit,
     modifier: Modifier = Modifier,
-    daysOfWeekNames: DayOfWeekNames = DayOfWeekNames.ENGLISH_ABBREVIATED,
+    dayOfWeekNames: DayOfWeekNames = DayOfWeekNames.ENGLISH_ABBREVIATED,
     titleYearMonthFormat: DateTimeFormat<YearMonth> = YearMonth.Format {
         monthName(MonthNames.ENGLISH_FULL); char(' '); year()
     }
@@ -171,6 +175,14 @@ internal fun CalendarMenu(
         fontWeight = FontWeight.SemiBold
     )
 
+    val theme = Carbon.theme
+
+    val dayItemIndication = remember(theme) { FocusIndication(theme) }
+
+    val rotatedDayOfWeekNames = remember(dayOfWeekNames) {
+        with(dayOfWeekNames.names) { listOf(last()) + dropLast(1) }
+    }
+
     CarbonLayer {
         Column(
             modifier = modifier
@@ -179,7 +191,7 @@ internal fun CalendarMenu(
                 .requiredWidth(menuWidth),
             verticalArrangement = Arrangement.spacedBy(SpacingScale.spacing02)
         ) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
+            Box(modifier = Modifier.fillMaxWidth().height(SpacingScale.spacing09)) {
                 IconButton(
                     iconPainter = rememberVectorPainter(chevronLeftIcon),
                     buttonType = ButtonType.Ghost,
@@ -190,15 +202,6 @@ internal fun CalendarMenu(
                     onClick = onLoadPreviousMonth
                 )
 
-                BasicText(
-                    text = calendar.yearMonth.format(titleYearMonthFormat),
-                    style = Carbon.typography.headingCompact01.copy(
-                        color = Carbon.theme.textPrimary,
-                        textAlign = TextAlign.Center
-                    ),
-                    modifier = Modifier.weight(1f),
-                )
-
                 IconButton(
                     iconPainter = rememberVectorPainter(chevronRightIcon),
                     buttonType = ButtonType.Ghost,
@@ -206,7 +209,19 @@ internal fun CalendarMenu(
                     contentDescription = stringResource(
                         Res.string.carbon_datepicker_calendar_loadNextMonth_description
                     ),
-                    onClick = onLoadNextMonth
+                    onClick = onLoadNextMonth,
+                    modifier = Modifier.align(Alignment.CenterEnd)
+                )
+
+                BasicText(
+                    text = calendar.yearMonth.format(titleYearMonthFormat),
+                    style = Carbon.typography.headingCompact01.copy(
+                        color = Carbon.theme.textPrimary,
+                        textAlign = TextAlign.Center
+                    ),
+                    modifier = Modifier
+                        .align(Alignment.Center)
+                        .padding(horizontal = SpacingScale.spacing09),
                 )
             }
 
@@ -214,11 +229,10 @@ internal fun CalendarMenu(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.height(SpacingScale.spacing08)
             ) {
-                with(daysOfWeekNames.names) { listOf(last()) + dropLast(1) }.forEach { dayName ->
+                rotatedDayOfWeekNames.forEach { dayName ->
                     Box(
                         contentAlignment = Alignment.Center,
-                        modifier = Modifier
-                            .weight(1f)
+                        modifier = Modifier.weight(1f)
                     ) {
                         BasicText(
                             text = dayName,
@@ -236,11 +250,14 @@ internal fun CalendarMenu(
                     ) {
                         week.forEach { day ->
                             CalendarDayItem(
-                                day = day,
-                                selectedDate = selectedDate,
+                                day = day.localDate.day.toString(),
+                                isSelected = day.localDate == selectedDate,
+                                isOutOfMonth = day.isOutOfMonth,
                                 regularTextStyle = regularTextStyle,
                                 outOfMonthTextStyle = outOfMonthTextStyle,
                                 selectedDayTextStyle = selectedDayTextStyle,
+                                indication = dayItemIndication,
+                                onClick = { onDayClicked(day.localDate) },
                                 modifier = Modifier.fillMaxHeight().weight(1f)
                             )
                         }
@@ -253,30 +270,36 @@ internal fun CalendarMenu(
 
 @Composable
 private fun CalendarDayItem(
-    day: MonthDay,
-    selectedDate: LocalDate?,
+    day: String,
+    isSelected: Boolean,
+    isOutOfMonth: Boolean,
     regularTextStyle: TextStyle,
     outOfMonthTextStyle: TextStyle,
     selectedDayTextStyle: TextStyle,
+    indication: Indication,
+    onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Box(
         contentAlignment = Alignment.Center,
         modifier = modifier
+            .clickable(
+                onClick = onClick,
+                enabled = !isOutOfMonth,
+                interactionSource = remember { MutableInteractionSource() },
+                indication = indication
+            )
     ) {
-        val isSelectedDay = remember(day, selectedDate) {
-            day.localDate == selectedDate
-        }
         BasicText(
-            text = day.localDate.day.toString(),
+            text = day,
             style = when {
-                day.isOutOfMonth -> outOfMonthTextStyle
-                isSelectedDay -> selectedDayTextStyle
+                isOutOfMonth -> outOfMonthTextStyle
+                isSelected -> selectedDayTextStyle
                 else -> regularTextStyle
             },
         )
 
-        if (isSelectedDay) {
+        if (isSelected) {
             Box(
                 modifier = Modifier
                     .padding(bottom = 8.dp)
@@ -304,6 +327,7 @@ private fun CalendarMenuPreview() {
         CalendarMenu(
             calendar = calendar,
             selectedDate = today,
+            onDayClicked = {},
             onLoadPreviousMonth = {},
             onLoadNextMonth = {},
         )
