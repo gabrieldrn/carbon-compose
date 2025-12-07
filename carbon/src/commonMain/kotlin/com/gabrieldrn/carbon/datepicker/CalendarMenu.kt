@@ -28,6 +28,7 @@ import androidx.compose.foundation.layout.requiredWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -85,11 +86,13 @@ private val DayOfWeek.dayNumber
         DayOfWeek.SATURDAY -> 6
     }
 
+@Stable
 internal data class CalendarMenuData(
     val yearMonth: YearMonth,
     val daysMatrix: List<List<MonthDay>>
 )
 
+@Stable
 internal data class MonthDay(
     val localDate: LocalDate,
     val isOutOfMonth: Boolean,
