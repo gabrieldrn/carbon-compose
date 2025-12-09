@@ -23,6 +23,7 @@ import com.gabrieldrn.carbon.catalog.breadcrumb.BreadcrumbDemoScreen
 import com.gabrieldrn.carbon.catalog.buttons.ButtonDemoScreen
 import com.gabrieldrn.carbon.catalog.checkbox.CheckboxDemoScreen
 import com.gabrieldrn.carbon.catalog.contentswitcher.ContentSwitcherDemoScreen
+import com.gabrieldrn.carbon.catalog.datepicker.DatePickerDemoScreen
 import com.gabrieldrn.carbon.catalog.dropdown.DropdownDemoScreen
 import com.gabrieldrn.carbon.catalog.dropdown.DropdownVariant
 import com.gabrieldrn.carbon.catalog.loading.LoadingDemoScreen
@@ -89,7 +90,11 @@ enum class Destination(
         content = { modifier -> ContentSwitcherDemoScreen(modifier = modifier) }
     ),
     DataTable("Data table"),
-    DatePicker("Date picker"),
+    DatePicker(
+        "Date picker",
+        route = "datepicker",
+        content = { modifier -> DatePickerDemoScreen(modifier = modifier) }
+    ),
     Dropdown(
         title = "Dropdown",
         illustration = Res.drawable.tile_dropdown,

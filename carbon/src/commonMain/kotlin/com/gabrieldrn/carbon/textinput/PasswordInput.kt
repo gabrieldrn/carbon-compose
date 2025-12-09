@@ -147,7 +147,7 @@ public fun PasswordInput(
         },
         interactionSource = interactionSource,
         cursorBrush = SolidColor(colors.fieldTextColor(state = state).value),
-        decorationBox = decorator(
+        decorationBox = inputDecorator(
             label = label,
             value = value,
             placeholderText = placeholderText,

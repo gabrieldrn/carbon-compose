@@ -28,8 +28,8 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.requiredWidth
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
@@ -74,10 +74,10 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
 
+internal val calendarMenuWidth = 288.dp
+
 private const val CALENDAR_WEEKS = 6
 private val DAYS_IN_WEEK = DayOfWeek.entries.count()
-
-private val menuWidth = 288.dp
 
 private val DayOfWeek.dayNumber
     get() = when (this) {
@@ -186,9 +186,9 @@ internal fun CalendarMenu(
     CarbonLayer {
         Column(
             modifier = modifier
+                .width(calendarMenuWidth)
                 .layerBackground()
-                .padding(SpacingScale.spacing02)
-                .requiredWidth(menuWidth),
+                .padding(SpacingScale.spacing02),
             verticalArrangement = Arrangement.spacedBy(SpacingScale.spacing02)
         ) {
             Box(modifier = Modifier.fillMaxWidth().height(SpacingScale.spacing09)) {
