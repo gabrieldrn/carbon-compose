@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-@file:OptIn(ExperimentalTime::class)
-
 package com.gabrieldrn.carbon.datepicker
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -35,7 +33,6 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.disabled
 import androidx.compose.ui.semantics.requestFocus
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.IntRect
 import androidx.compose.ui.unit.IntSize
@@ -61,8 +58,10 @@ import kotlinx.datetime.yearMonth
 import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
 
+@ExperimentalTime
 @Composable
 public fun CalendarDatePicker(
+    datePickerState: SingleDatePickerState,
     label: String,
     value: String,
     expanded: Boolean,
@@ -72,10 +71,9 @@ public fun CalendarDatePicker(
     modifier: Modifier = Modifier,
     placeholderText: String = "",
     helperText: String = "",
-    state: TextInputState = TextInputState.Enabled,
+    inputState: TextInputState = TextInputState.Enabled,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
-    visualTransformation: VisualTransformation = VisualTransformation.None,
     dayOfWeekNames: DayOfWeekNames = DayOfWeekNames.ENGLISH_ABBREVIATED,
     titleYearMonthFormat: DateTimeFormat<YearMonth> = YearMonth.Format {
         monthName(MonthNames.ENGLISH_FULL); char(' '); year()
@@ -86,12 +84,14 @@ public fun CalendarDatePicker(
     val typography = Carbon.typography
     val colors = TextInputColors.colors()
 
-    val fieldTextColor by colors.fieldTextColor(state = state)
+    datePickerState.onUpdateFieldCallback = onValueChange
+
+    val fieldTextColor by colors.fieldTextColor(state = inputState)
     val fieldTextStyle by remember(fieldTextColor) {
         mutableStateOf(typography.bodyCompact01.copy(color = fieldTextColor))
     }
 
-    var today by remember {
+    val today by remember {
         mutableStateOf(
             Clock.System.now()
                 .toLocalDateTime(TimeZone.currentSystemDefault())
@@ -107,11 +107,11 @@ public fun CalendarDatePicker(
 
     BasicTextField(
         value = value,
-        onValueChange = onValueChange,
+        onValueChange = datePickerState::updateFieldValue,
         modifier = modifier
             .width(calendarMenuWidth)
             .then(
-                when (state) {
+                when (inputState) {
                     TextInputState.Enabled,
                     TextInputState.Warning,
                     TextInputState.Error -> Modifier
@@ -132,23 +132,22 @@ public fun CalendarDatePicker(
                     )
                 }
             ),
-        enabled = state != TextInputState.Disabled,
-        readOnly = state == TextInputState.ReadOnly,
+        enabled = inputState != TextInputState.Disabled,
+        readOnly = inputState == TextInputState.ReadOnly,
         textStyle = fieldTextStyle,
         keyboardOptions = keyboardOptions,
         keyboardActions = keyboardActions,
         singleLine = true,
         maxLines = 1,
         minLines = 1,
-        visualTransformation = visualTransformation,
         interactionSource = interactionSource,
-        cursorBrush = SolidColor(colors.fieldTextColor(state = state).value),
+        cursorBrush = SolidColor(colors.fieldTextColor(state = inputState).value),
         decorationBox = inputDecorator(
             label = label,
             value = value,
             placeholderText = placeholderText,
             helperText = helperText,
-            state = state,
+            state = inputState,
             theme = theme,
             colors = colors,
             singleLine = true,
@@ -174,8 +173,8 @@ public fun CalendarDatePicker(
                     ) {
                         CalendarMenu(
                             calendar = calendar,
-                            selectedDate = today,
-                            onDayClicked = { today = it },
+                            selectedDate = datePickerState.selectedDate,
+                            onDayClicked = { datePickerState.selectedDate = it },
                             onLoadPreviousMonth = {
                                 calendarYearMonth = calendarYearMonth.minusMonth()
                             },

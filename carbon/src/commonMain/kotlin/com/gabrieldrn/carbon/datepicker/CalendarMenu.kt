@@ -199,7 +199,8 @@ internal fun CalendarMenu(
                     contentDescription = stringResource(
                         Res.string.carbon_datepicker_calendar_loadPreviousMonth_description
                     ),
-                    onClick = onLoadPreviousMonth
+                    onClick = onLoadPreviousMonth,
+                    modifier = Modifier.align(Alignment.CenterStart)
                 )
 
                 IconButton(
@@ -311,7 +312,7 @@ private fun CalendarDayItem(
     }
 }
 
-@OptIn(ExperimentalTime::class)
+@ExperimentalTime
 @Preview
 @Composable
 private fun CalendarMenuPreview() {

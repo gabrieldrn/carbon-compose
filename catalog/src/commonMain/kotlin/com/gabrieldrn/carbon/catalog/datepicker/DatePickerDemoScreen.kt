@@ -24,20 +24,39 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import com.gabrieldrn.carbon.catalog.common.DemoScreen
 import com.gabrieldrn.carbon.datepicker.CalendarDatePicker
+import com.gabrieldrn.carbon.datepicker.SingleDatePickerState
+import com.gabrieldrn.carbon.textinput.TextInputState
+import kotlin.time.ExperimentalTime
 
+@OptIn(ExperimentalTime::class)
 @Composable
 fun DatePickerDemoScreen(
     modifier: Modifier = Modifier
 ) {
     var isExpanded by remember { mutableStateOf(false) }
+    var fieldValue by remember { mutableStateOf("") }
+    val pickerState = remember { SingleDatePickerState() }
+    val inputState by remember(pickerState.isFieldValueInvalid) {
+        mutableStateOf(
+            if (pickerState.isFieldValueInvalid)  {
+                TextInputState.Error
+            } else {
+                TextInputState.Enabled
+            }
+        )
+    }
 
     DemoScreen(
         demoContent = {
             CalendarDatePicker(
+                datePickerState = pickerState,
                 label = "Label",
-                value = "",
+                value = fieldValue,
                 expanded = isExpanded,
-                onValueChange = {},
+                placeholderText = "yyyy/mm/dd",
+                helperText = "year/month/day",
+                inputState = inputState,
+                onValueChange = { fieldValue = it },
                 onExpandedChange = { isExpanded = it },
                 onDismissRequest = { isExpanded = false },
             )
