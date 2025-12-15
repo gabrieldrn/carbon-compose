@@ -64,7 +64,7 @@ import kotlin.time.ExperimentalTime
 @ExperimentalTime
 @Composable
 public fun CalendarDatePicker(
-    datePickerState: SingleDatePickerState,
+    datePickerState: CalendarDatePickerState,
     label: String,
     value: String,
     expanded: Boolean,
