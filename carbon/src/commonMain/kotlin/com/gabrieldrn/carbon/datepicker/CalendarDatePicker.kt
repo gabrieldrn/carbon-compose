@@ -44,6 +44,7 @@ import androidx.compose.ui.window.PopupPositionProvider
 import androidx.compose.ui.window.PopupProperties
 import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.common.semantics.readOnly
+import com.gabrieldrn.carbon.icons.CalendarIcon
 import com.gabrieldrn.carbon.textinput.TextInputColors
 import com.gabrieldrn.carbon.textinput.TextInputState
 import com.gabrieldrn.carbon.textinput.TextInputState.Companion.isEnabled
@@ -61,6 +62,9 @@ import kotlinx.datetime.yearMonth
 import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
 
+// TODO UI tests
+// TODO KDoc
+// TODO GH Pages documentation + mention usage of kotlinx.datetime
 @ExperimentalTime
 @Composable
 public fun CalendarDatePicker(
@@ -165,6 +169,7 @@ public fun CalendarDatePicker(
             interactionSource = interactionSource,
             counter = null,
             trailingIcon = null,
+            stateIcon = { CalendarIcon() },
             popup = {
                 if (expanded) {
                     Popup(
