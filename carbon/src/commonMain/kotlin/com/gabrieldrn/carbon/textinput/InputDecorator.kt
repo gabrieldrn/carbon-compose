@@ -61,6 +61,7 @@ internal fun inputDecorator(
     interactionSource: MutableInteractionSource,
     counter: Pair<Int, Int>?,
     trailingIcon: @Composable (() -> Unit)?,
+    stateIcon: @Composable () -> Unit = { InputStateIcon(state = state) },
     popup: (@Composable () -> Unit)? = null,
 ): @Composable (@Composable () -> Unit) -> Unit = { innerTextField ->
     Column(
@@ -101,6 +102,7 @@ internal fun inputDecorator(
                 colors = colors,
                 innerTextField = innerTextField,
                 state = state,
+                stateIcon = stateIcon,
                 trailingIcon = trailingIcon,
                 modifier = Modifier
                     .indication(
@@ -181,8 +183,9 @@ private fun FieldContent(
     colors: TextInputColors,
     state: TextInputState,
     innerTextField: @Composable () -> Unit,
+    stateIcon: @Composable () -> Unit,
+    trailingIcon: @Composable (() -> Unit)?,
     modifier: Modifier = Modifier,
-    trailingIcon: @Composable (() -> Unit)? = null
 ) {
     Row(
         modifier = modifier
@@ -214,8 +217,7 @@ private fun FieldContent(
             }
         }
 
-        StateIcon(
-            state = state,
+        Box(
             modifier = Modifier
                 .then(
                     if (singleLine) {
@@ -224,14 +226,16 @@ private fun FieldContent(
                         Modifier.align(Alignment.Top)
                     }
                 )
-        )
+        ) {
+            stateIcon()
+        }
 
         trailingIcon?.invoke()
     }
 }
 
 @Composable
-private fun StateIcon(
+internal fun InputStateIcon(
     state: TextInputState,
     modifier: Modifier = Modifier
 ) {
