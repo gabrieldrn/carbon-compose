@@ -17,11 +17,13 @@
 package com.gabrieldrn.carbon.datepicker
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.PressInteraction
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -44,6 +46,7 @@ import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.common.semantics.readOnly
 import com.gabrieldrn.carbon.textinput.TextInputColors
 import com.gabrieldrn.carbon.textinput.TextInputState
+import com.gabrieldrn.carbon.textinput.TextInputState.Companion.isEnabled
 import com.gabrieldrn.carbon.textinput.inputDecorator
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.YearMonth
@@ -104,6 +107,14 @@ public fun CalendarDatePicker(
     }
 
     val calendar = remember(calendarYearMonth) { getCalendarMenuData(calendarYearMonth) }
+
+    LaunchedEffect(interactionSource) {
+        interactionSource.interactions.collect { interaction ->
+            if (interaction is PressInteraction.Press && inputState.isEnabled) {
+                onExpandedChange(true)
+            }
+        }
+    }
 
     BasicTextField(
         value = value,

@@ -61,5 +61,8 @@ public enum class TextInputState {
 
         internal val TextInputState.isFocusable: Boolean
             get() = this != Disabled
+
+        internal val TextInputState.isEnabled: Boolean
+            get() = this != ReadOnly || this != Disabled
     }
 }
