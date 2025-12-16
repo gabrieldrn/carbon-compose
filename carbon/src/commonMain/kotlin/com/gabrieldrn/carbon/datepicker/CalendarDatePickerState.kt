@@ -23,47 +23,83 @@ import androidx.compose.runtime.saveable.Saver
 import androidx.compose.runtime.saveable.listSaver
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import com.gabrieldrn.carbon.datepicker.CalendarDatePickerStateImpl.Companion.Saver
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.format.DateTimeFormat
 import kotlinx.datetime.format.char
 
-// TODO KDoc
+/**
+ * A state holder for the Calendar Date Picker to observe the selected date and synchronize it with
+ * a text field.
+ */
 public interface CalendarDatePickerState {
+
+    /**
+     * The currently selected [LocalDate], or `null` if no date is selected.
+     */
     public var selectedDate: LocalDate?
-    public var onUpdateFieldCallback: ((String) -> Unit)?
+
+    /**
+     * A callback invoked by the state to update the text field value, usually when the selected
+     * date changes.
+     *
+     * This is typically set by the UI component (e.g., a DatePicker text field) to receive updates
+     * when the [selectedDate] changes programmatically or via calendar interaction.
+     * The argument is the formatted date string or the raw input string.
+     */
+    public var updateFieldCallback: ((String) -> Unit)?
+
+    /**
+     * Processes a new string value input (e.g., from a text field).
+     *
+     * @param newValue The raw string input to process.
+     */
     public fun updateFieldValue(newValue: String)
 }
 
 // TODO Unit tests
+/**
+ * Creates a [CalendarDatePickerState] that is remembered across compositions.
+ *
+ * @param initialSelectedDate The initial [LocalDate] to be selected, or `null` if no date is
+ * selected.
+ * @param dateFormat The [DateTimeFormat] used to parse and format the date string. Defaults to
+ * `yyyy/MM/dd`.
+ * @param confirmDateChange Callback invoked to confirm if a date change is allowed. Return `true`
+ * to allow the change, `false` otherwise.
+ * @param onFieldValidation Callback invoked when the state tries to parse the field value or
+ * format the [CalendarDatePickerState.selectedDate] when one of them is changed. Returns `true`
+ * when successful, `false` otherwise.
+ */
 @Composable
 public fun rememberCalendarDatePickerState(
     initialSelectedDate: LocalDate? = null,
     dateFormat: DateTimeFormat<LocalDate> = LocalDate.Format {
         year(); char('/'); monthNumber(); char('/'); day()
     },
-    confirmValueChange: (LocalDate?) -> Boolean = { true },
-    onFieldValidityChanged: (Boolean) -> Unit
+    confirmDateChange: (LocalDate?) -> Boolean = { true },
+    onFieldValidation: (Boolean) -> Unit
 ): CalendarDatePickerState =
     rememberSaveable(
         saver = CalendarDatePickerStateImpl.Saver(
             dateFormat = dateFormat,
-            confirmValueChange = confirmValueChange,
-            onFieldValidityChanged = onFieldValidityChanged
+            confirmValueChange = confirmDateChange,
+            onFieldValidation = onFieldValidation
         )
     ) {
         CalendarDatePickerStateImpl(
             initialSelectedDate = initialSelectedDate,
             dateFormat = dateFormat,
-            confirmValueChange = confirmValueChange,
-            onFieldValidityChanged = onFieldValidityChanged
+            confirmDateChange = confirmDateChange,
+            onFieldValidation = onFieldValidation
         )
     }
 
 private class CalendarDatePickerStateImpl(
     initialSelectedDate: LocalDate?,
     val dateFormat: DateTimeFormat<LocalDate>,
-    val confirmValueChange: (LocalDate?) -> Boolean,
-    val onFieldValidityChanged: (Boolean) -> Unit
+    val confirmDateChange: (LocalDate?) -> Boolean,
+    val onFieldValidation: (Boolean) -> Unit
 ) : CalendarDatePickerState {
 
     private var _selectedDate by mutableStateOf(initialSelectedDate)
@@ -71,49 +107,58 @@ private class CalendarDatePickerStateImpl(
     override var selectedDate: LocalDate?
         get() = _selectedDate
         set(value) {
-            if (confirmValueChange(value)) {
+            if (confirmDateChange(value)) {
                 if (value == null) {
-                    onUpdateFieldCallback?.invoke("")
-                    onFieldValidityChanged(true)
+                    updateFieldCallback?.invoke("")
+                    onFieldValidation(true)
                 } else {
                     try {
-                        onUpdateFieldCallback?.invoke(dateFormat.format(value))
-                        onFieldValidityChanged(true)
+                        updateFieldCallback?.invoke(dateFormat.format(value))
+                        onFieldValidation(true)
                     } catch (_: IllegalArgumentException) {
-                        onFieldValidityChanged(false)
+                        onFieldValidation(false)
                     }
                 }
                 _selectedDate = value
             }
         }
 
-    override var onUpdateFieldCallback: ((String) -> Unit)? = null
+    override var updateFieldCallback: ((String) -> Unit)? = null
 
     override fun updateFieldValue(newValue: String) {
         try {
             dateFormat.parse(newValue)
-                .takeIf(confirmValueChange)
+                .takeIf(confirmDateChange)
                 .let { _selectedDate = it }
-            onFieldValidityChanged(true)
+            onFieldValidation(true)
         } catch (_: IllegalArgumentException) {
-            onFieldValidityChanged(false)
+            onFieldValidation(false)
         }
-        onUpdateFieldCallback?.invoke(newValue)
+        updateFieldCallback?.invoke(newValue)
     }
 
     companion object {
+
+        /**
+         * Default [Saver] implementation for [CalendarDatePickerStateImpl].
+         *
+         * @param dateFormat The [DateTimeFormat] used to parse and format the date string.
+         * @param confirmValueChange Callback invoked to confirm if a date change is allowed.
+         * @param onFieldValidation Callback invoked when the state tries to parse the field value
+         * or format the [CalendarDatePickerState.selectedDate] when one of them is changed.
+         */
         fun Saver(
             dateFormat: DateTimeFormat<LocalDate>,
             confirmValueChange: (LocalDate?) -> Boolean,
-            onFieldValidityChanged: (Boolean) -> Unit
+            onFieldValidation: (Boolean) -> Unit
         ): Saver<CalendarDatePickerState, *> = listSaver(
             save = { listOf(it.selectedDate) },
             restore = {
                 CalendarDatePickerStateImpl(
                     initialSelectedDate = it.first(),
                     dateFormat = dateFormat,
-                    confirmValueChange = confirmValueChange,
-                    onFieldValidityChanged = onFieldValidityChanged
+                    confirmDateChange = confirmValueChange,
+                    onFieldValidation = onFieldValidation
                 )
             }
         )

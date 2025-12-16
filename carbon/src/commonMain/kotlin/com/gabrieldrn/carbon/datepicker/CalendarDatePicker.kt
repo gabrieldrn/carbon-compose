@@ -63,8 +63,50 @@ import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
 
 // TODO UI tests
-// TODO KDoc
 // TODO GH Pages documentation + mention usage of kotlinx.datetime
+/**
+ * # Date picker - Calendar - Single date
+ *
+ * Calendar pickers default to showing today’s date when opened and only one month is shown at a
+ * time. Calendar pickers allow users to navigate through months and years, however they work best
+ * when used for recent or near future dates. If a user needs to input a far distant or future date
+ * consider having the calendar default open to a more convenient day.
+ *
+ * ## About the variant
+ * In a single date picker a user has the option to either manually input a date in the text field
+ * or select one specific date from the menu calendar. It requires a day, month, and year to be
+ * selected.
+ *
+ * @param datePickerState A [CalendarDatePickerState] that is used to control the state of the
+ * date picker.
+ * @param label Text that informs the user about the content they need to type in the field.
+ * @param value The input [String] text to be shown in the text input.
+ * @param expanded Whether the calendar menu is currently expanded.
+ * @param onValueChange Callback triggered when the input service updates the text. An updated text
+ * comes as a parameter of the callback.
+ * @param onExpandedChange Callback triggered when the expanded state of the calendar menu should be
+ * changed.
+ * @param onDismissRequest Callback triggered when the calendar menu should be dismissed.
+ * @param modifier Optional [Modifier] for this text input.
+ * @param placeholderText Optional text that provides hints or examples of what to type.
+ * @param helperText Optional helper text is pertinent information that assists the user in
+ * correctly completing a field. It is often used to explain the correct data format.
+ * @param inputState The interactive state of the text input.
+ * @param keyboardOptions Software keyboard options that contains configuration such as
+ * [androidx.compose.ui.text.input.KeyboardType] and [androidx.compose.ui.text.input.ImeAction].
+ * @param keyboardActions when the input service emits an IME action, the corresponding callback
+ * is called. Note that this IME action may be different from what you specified in
+ * [KeyboardOptions.imeAction].
+ * @param dayOfWeekNames Object providing the names of the days of the week to be displayed in the
+ * calendar.
+ * @param titleYearMonthFormat The [DateTimeFormat] used to format the year and month in the
+ * calendar title.
+ * @param interactionSource The [MutableInteractionSource] representing the stream of
+ * [androidx.compose.foundation.interaction.Interaction]s for this TextField. You can create and
+ * pass in your own remembered [MutableInteractionSource] if you want to observe
+ * [androidx.compose.foundation.interaction.Interaction]s and customize the appearance / behavior of
+ * this TextField in different [androidx.compose.foundation.interaction.Interaction]s.
+ */
 @ExperimentalTime
 @Composable
 public fun CalendarDatePicker(
@@ -91,7 +133,7 @@ public fun CalendarDatePicker(
     val typography = Carbon.typography
     val colors = TextInputColors.colors()
 
-    datePickerState.onUpdateFieldCallback = onValueChange
+    datePickerState.updateFieldCallback = onValueChange
 
     val fieldTextColor by colors.fieldTextColor(state = inputState)
     val fieldTextStyle by remember(fieldTextColor) {

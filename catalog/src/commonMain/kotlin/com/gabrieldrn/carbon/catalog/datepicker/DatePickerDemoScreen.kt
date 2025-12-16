@@ -44,7 +44,7 @@ fun DatePickerDemoScreen(
     }
     val pickerState = rememberCalendarDatePickerState(
         dateFormat = dateFormat,
-        onFieldValidityChanged = {
+        onFieldValidation = {
             inputState = if (it) TextInputState.Enabled else TextInputState.Error
         }
     )
