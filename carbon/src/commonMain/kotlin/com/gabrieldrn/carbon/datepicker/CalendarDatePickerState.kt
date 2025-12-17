@@ -17,6 +17,7 @@
 package com.gabrieldrn.carbon.datepicker
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.Saver
@@ -32,6 +33,7 @@ import kotlinx.datetime.format.char
  * A state holder for the Calendar Date Picker to observe the selected date and synchronize it with
  * a text field.
  */
+@Stable
 public interface CalendarDatePickerState {
 
     /**
@@ -57,7 +59,6 @@ public interface CalendarDatePickerState {
     public fun updateFieldValue(newValue: String)
 }
 
-// TODO Unit tests
 /**
  * Creates a [CalendarDatePickerState] that is remembered across compositions.
  *
@@ -95,6 +96,7 @@ public fun rememberCalendarDatePickerState(
         )
     }
 
+@Stable
 private class CalendarDatePickerStateImpl(
     initialSelectedDate: LocalDate?,
     val dateFormat: DateTimeFormat<LocalDate>,
