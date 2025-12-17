@@ -37,6 +37,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -200,7 +201,9 @@ internal fun CalendarMenu(
                         Res.string.carbon_datepicker_calendar_loadPreviousMonth_description
                     ),
                     onClick = onLoadPreviousMonth,
-                    modifier = Modifier.align(Alignment.CenterStart)
+                    modifier = Modifier
+                        .align(Alignment.CenterStart)
+                        .testTag(CalendarDatePickerTestTags.CALENDAR_PREVIOUS_BUTTON)
                 )
 
                 IconButton(
@@ -211,7 +214,9 @@ internal fun CalendarMenu(
                         Res.string.carbon_datepicker_calendar_loadNextMonth_description
                     ),
                     onClick = onLoadNextMonth,
-                    modifier = Modifier.align(Alignment.CenterEnd)
+                    modifier = Modifier
+                        .align(Alignment.CenterEnd)
+                        .testTag(CalendarDatePickerTestTags.CALENDAR_NEXT_BUTTON)
                 )
 
                 BasicText(
@@ -222,7 +227,8 @@ internal fun CalendarMenu(
                     ),
                     modifier = Modifier
                         .align(Alignment.Center)
-                        .padding(horizontal = SpacingScale.spacing09),
+                        .padding(horizontal = SpacingScale.spacing09)
+                        .testTag(CalendarDatePickerTestTags.CALENDAR_TITLE),
                 )
             }
 
@@ -259,7 +265,13 @@ internal fun CalendarMenu(
                                 selectedDayTextStyle = selectedDayTextStyle,
                                 indication = dayItemIndication,
                                 onClick = { onDayClicked(day.localDate) },
-                                modifier = Modifier.fillMaxHeight().weight(1f)
+                                modifier = Modifier
+                                    .fillMaxHeight()
+                                    .weight(1f)
+                                    .testTag(
+                                        CalendarDatePickerTestTags.CALENDAR_DAY_ITEM +
+                                            "_${day.localDate}"
+                                    )
                             )
                         }
                     }

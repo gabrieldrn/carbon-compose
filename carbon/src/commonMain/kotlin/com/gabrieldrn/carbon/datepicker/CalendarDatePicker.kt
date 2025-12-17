@@ -31,6 +31,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusEvent
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.disabled
 import androidx.compose.ui.semantics.requestFocus
@@ -62,7 +63,6 @@ import kotlinx.datetime.yearMonth
 import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
 
-// TODO UI tests
 // TODO GH Pages documentation + mention usage of kotlinx.datetime
 /**
  * # Date picker - Calendar - Single date
@@ -166,6 +166,7 @@ public fun CalendarDatePicker(
         value = value,
         onValueChange = datePickerState::updateFieldValue,
         modifier = modifier
+            .testTag(CalendarDatePickerTestTags.TEXT_FIELD)
             .width(calendarMenuWidth)
             .then(
                 when (inputState) {
@@ -240,7 +241,8 @@ public fun CalendarDatePicker(
                                 calendarYearMonth = calendarYearMonth.plusMonth()
                             },
                             dayOfWeekNames = dayOfWeekNames,
-                            titleYearMonthFormat = titleYearMonthFormat
+                            titleYearMonthFormat = titleYearMonthFormat,
+                            modifier = Modifier.testTag(CalendarDatePickerTestTags.CALENDAR_MENU)
                         )
                     }
                 }

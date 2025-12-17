@@ -131,7 +131,7 @@ private class CalendarDatePickerStateImpl(
         try {
             dateFormat.parse(newValue)
                 .takeIf(confirmDateChange)
-                .let { _selectedDate = it }
+                ?.let { _selectedDate = it }
             onFieldValidation(true)
         } catch (_: IllegalArgumentException) {
             onFieldValidation(false)
