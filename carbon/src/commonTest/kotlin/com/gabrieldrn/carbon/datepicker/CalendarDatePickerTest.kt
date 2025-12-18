@@ -134,7 +134,7 @@ class CalendarDatePickerTest {
                     onFieldValidation = {}
                 )
                 CalendarDatePicker(
-                    datePickerState = datePickerState!!,
+                    datePickerState = datePickerState,
                     label = "Select date",
                     value = fieldValue,
                     expanded = expanded,
@@ -163,7 +163,7 @@ class CalendarDatePickerTest {
 
         // Verify date was selected
         assertNotNull(datePickerState?.selectedDate)
-        assertEquals(today, datePickerState?.selectedDate)
+        assertEquals(today, datePickerState.selectedDate)
     }
 
     @Test
@@ -254,7 +254,7 @@ class CalendarDatePickerTest {
                     onFieldValidation = { fieldValidationResult = it }
                 )
                 CalendarDatePicker(
-                    datePickerState = datePickerState!!,
+                    datePickerState = datePickerState,
                     label = "Select date",
                     value = fieldValue,
                     expanded = false,
@@ -293,7 +293,7 @@ class CalendarDatePickerTest {
                     onFieldValidation = { fieldValidationResult = it }
                 )
                 CalendarDatePicker(
-                    datePickerState = datePickerState!!,
+                    datePickerState = datePickerState,
                     label = "Select date",
                     value = fieldValue,
                     expanded = false,
@@ -331,9 +331,9 @@ class CalendarDatePickerTest {
                     confirmDateChange = { true },
                     onFieldValidation = {}
                 )
-                fieldValue = datePickerState!!.selectedDate?.let { dateFormat.format(it) } ?: ""
+                fieldValue = datePickerState.selectedDate?.let { dateFormat.format(it) } ?: ""
                 CalendarDatePicker(
-                    datePickerState = datePickerState!!,
+                    datePickerState = datePickerState,
                     label = "Select date",
                     value = fieldValue,
                     expanded = false,
@@ -389,9 +389,9 @@ class CalendarDatePickerTest {
                     confirmDateChange = { false }, // Never confirm date changes
                     onFieldValidation = {}
                 )
-                fieldValue = datePickerState!!.selectedDate?.let { dateFormat.format(it) } ?: ""
+                fieldValue = datePickerState.selectedDate?.let { dateFormat.format(it) } ?: ""
                 CalendarDatePicker(
-                    datePickerState = datePickerState!!,
+                    datePickerState = datePickerState,
                     label = "Select date",
                     value = fieldValue,
                     expanded = false,
@@ -426,9 +426,9 @@ class CalendarDatePickerTest {
                     confirmDateChange = { true },
                     onFieldValidation = {}
                 )
-                fieldValue = datePickerState!!.selectedDate?.let { dateFormat.format(it) } ?: ""
+                fieldValue = datePickerState.selectedDate?.let { dateFormat.format(it) } ?: ""
                 CalendarDatePicker(
-                    datePickerState = datePickerState!!,
+                    datePickerState = datePickerState,
                     label = "Select date",
                     value = fieldValue,
                     expanded = false,
@@ -501,5 +501,68 @@ class CalendarDatePickerTest {
         onNodeWithTag(CalendarDatePickerTestTags.TEXT_FIELD)
             .assertExists()
             .assertIsDisplayed()
+    }
+
+    @Test
+    fun calendarDatePicker_whenDateEntered_validateCalendarMonthUpdates() = runComposeUiTest {
+        var expanded by mutableStateOf(false)
+        var datePickerState: CalendarDatePickerState? = null
+        var fieldValue by mutableStateOf("")
+
+        setContent {
+            CarbonDesignSystem {
+                datePickerState = rememberCalendarDatePickerState(
+                    initialSelectedDate = LocalDate(2024, 1, 15), // January
+                    dateFormat = dateFormat,
+                    confirmDateChange = { true },
+                    onFieldValidation = {}
+                )
+                CalendarDatePicker(
+                    datePickerState = datePickerState,
+                    label = "Select date",
+                    value = fieldValue,
+                    expanded = expanded,
+                    onValueChange = { fieldValue = it },
+                    onExpandedChange = { expanded = it },
+                    onDismissRequest = { expanded = false },
+                )
+            }
+        }
+
+        // Open calendar to verify it shows January initially
+        expanded = true
+        waitForIdle()
+
+        // Verify January 15 is in the calendar
+        val january15Tag =
+            "${CalendarDatePickerTestTags.CALENDAR_DAY_ITEM}_${LocalDate(2024, 1, 15)}"
+        onNodeWithTag(january15Tag, useUnmergedTree = true)
+            .assertExists()
+
+        // Enter a date in a different month (June)
+        runOnIdle {
+            datePickerState?.updateFieldValue("2024/06/20")
+        }
+        waitForIdle()
+
+        // Verify the date was updated
+        assertEquals(LocalDate(2024, 6, 20), datePickerState?.selectedDate)
+        assertEquals("2024/06/20", fieldValue)
+
+        // Close and reopen calendar to verify it now shows June
+        expanded = false
+        waitForIdle()
+        expanded = true
+        waitForIdle()
+
+        // Verify June 20 is now in the calendar
+        val june20Tag =
+            "${CalendarDatePickerTestTags.CALENDAR_DAY_ITEM}_${LocalDate(2024, 6, 20)}"
+        onNodeWithTag(june20Tag, useUnmergedTree = true)
+            .assertExists()
+
+        // Verify January 15 is no longer in the calendar (different month)
+        onNodeWithTag(january15Tag, useUnmergedTree = true)
+            .assertDoesNotExist()
     }
 }

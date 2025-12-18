@@ -140,19 +140,19 @@ public fun CalendarDatePicker(
         mutableStateOf(typography.bodyCompact01.copy(color = fieldTextColor))
     }
 
-    val today by remember {
+    var calendarYearMonth by remember(datePickerState.selectedDate) {
         mutableStateOf(
-            Clock.System.now()
-                .toLocalDateTime(TimeZone.currentSystemDefault())
-                .date
+            (datePickerState.selectedDate
+                ?: Clock.System.now()
+                    .toLocalDateTime(TimeZone.currentSystemDefault())
+                    .date
+                ).yearMonth
         )
     }
 
-    var calendarYearMonth by remember {
-        mutableStateOf(today.yearMonth)
+    val calendar = remember(calendarYearMonth) {
+        getCalendarMenuData(calendarYearMonth)
     }
-
-    val calendar = remember(calendarYearMonth) { getCalendarMenuData(calendarYearMonth) }
 
     LaunchedEffect(interactionSource) {
         interactionSource.interactions.collect { interaction ->
