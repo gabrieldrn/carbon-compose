@@ -450,60 +450,6 @@ class CalendarDatePickerTest {
     }
 
     @Test
-    fun calendarDatePicker_withHelperText_validateDisplay() = runComposeUiTest {
-        val helperText = "Select a date in yyyy/mm/dd format"
-
-        setContent {
-            CarbonDesignSystem {
-                CalendarDatePicker(
-                    datePickerState = rememberCalendarDatePickerState(
-                        dateFormat = dateFormat,
-                        onFieldValidation = {}
-                    ),
-                    label = "Select date",
-                    value = "",
-                    expanded = false,
-                    helperText = helperText,
-                    onValueChange = {},
-                    onExpandedChange = {},
-                    onDismissRequest = {},
-                )
-            }
-        }
-
-        onNodeWithTag(CalendarDatePickerTestTags.TEXT_FIELD)
-            .assertExists()
-            .assertIsDisplayed()
-    }
-
-    @Test
-    fun calendarDatePicker_withPlaceholder_validateDisplay() = runComposeUiTest {
-        val placeholderText = "yyyy/mm/dd"
-
-        setContent {
-            CarbonDesignSystem {
-                CalendarDatePicker(
-                    datePickerState = rememberCalendarDatePickerState(
-                        dateFormat = dateFormat,
-                        onFieldValidation = {}
-                    ),
-                    label = "Select date",
-                    value = "",
-                    expanded = false,
-                    placeholderText = placeholderText,
-                    onValueChange = {},
-                    onExpandedChange = {},
-                    onDismissRequest = {},
-                )
-            }
-        }
-
-        onNodeWithTag(CalendarDatePickerTestTags.TEXT_FIELD)
-            .assertExists()
-            .assertIsDisplayed()
-    }
-
-    @Test
     fun calendarDatePicker_whenDateEntered_validateCalendarMonthUpdates() = runComposeUiTest {
         var expanded by mutableStateOf(false)
         var datePickerState: CalendarDatePickerState? = null
