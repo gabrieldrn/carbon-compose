@@ -70,7 +70,7 @@ public interface CalendarDatePickerState {
  * to allow the change, `false` otherwise.
  * @param onFieldValidation Callback invoked when the state tries to parse the field value or
  * format the [CalendarDatePickerState.selectedDate] when one of them is changed. Returns `true`
- * when successful, `false` otherwise.
+ * when successful, `false` otherwise, or `null` is the field is empty.
  */
 @Composable
 public fun rememberCalendarDatePickerState(
@@ -79,7 +79,7 @@ public fun rememberCalendarDatePickerState(
         year(); char('/'); monthNumber(); char('/'); day()
     },
     confirmDateChange: (LocalDate?) -> Boolean = { true },
-    onFieldValidation: (Boolean) -> Unit
+    onFieldValidation: (Boolean?) -> Unit
 ): CalendarDatePickerState =
     rememberSaveable(
         saver = CalendarDatePickerStateImpl.Saver(
@@ -101,7 +101,7 @@ private class CalendarDatePickerStateImpl(
     initialSelectedDate: LocalDate?,
     val dateFormat: DateTimeFormat<LocalDate>,
     val confirmDateChange: (LocalDate?) -> Boolean,
-    val onFieldValidation: (Boolean) -> Unit
+    val onFieldValidation: (Boolean?) -> Unit
 ) : CalendarDatePickerState {
 
     private var _selectedDate by mutableStateOf(initialSelectedDate)
@@ -128,13 +128,18 @@ private class CalendarDatePickerStateImpl(
     override var updateFieldCallback: ((String) -> Unit)? = null
 
     override fun updateFieldValue(newValue: String) {
-        try {
-            dateFormat.parse(newValue)
-                .takeIf(confirmDateChange)
-                ?.let { _selectedDate = it }
-            onFieldValidation(true)
-        } catch (_: IllegalArgumentException) {
-            onFieldValidation(false)
+        if (newValue.isBlank()) {
+            onFieldValidation(null)
+            _selectedDate = null
+        } else {
+            try {
+                dateFormat.parse(newValue)
+                    .takeIf(confirmDateChange)
+                    ?.let { _selectedDate = it }
+                onFieldValidation(true)
+            } catch (_: IllegalArgumentException) {
+                onFieldValidation(false)
+            }
         }
         updateFieldCallback?.invoke(newValue)
     }
@@ -152,7 +157,7 @@ private class CalendarDatePickerStateImpl(
         fun Saver(
             dateFormat: DateTimeFormat<LocalDate>,
             confirmValueChange: (LocalDate?) -> Boolean,
-            onFieldValidation: (Boolean) -> Unit
+            onFieldValidation: (Boolean?) -> Unit
         ): Saver<CalendarDatePickerState, *> = listSaver(
             save = { listOf(it.selectedDate) },
             restore = {
