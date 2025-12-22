@@ -17,13 +17,11 @@
 package com.gabrieldrn.carbon.datepicker
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.interaction.PressInteraction
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -35,6 +33,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.disabled
 import androidx.compose.ui.semantics.requestFocus
+import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.IntRect
@@ -45,10 +44,10 @@ import androidx.compose.ui.window.PopupPositionProvider
 import androidx.compose.ui.window.PopupProperties
 import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.common.semantics.readOnly
-import com.gabrieldrn.carbon.icons.CalendarIcon
+import com.gabrieldrn.carbon.icons.calendarIcon
+import com.gabrieldrn.carbon.textinput.ClickableTrailingIcon
 import com.gabrieldrn.carbon.textinput.TextInputColors
 import com.gabrieldrn.carbon.textinput.TextInputState
-import com.gabrieldrn.carbon.textinput.TextInputState.Companion.isEnabled
 import com.gabrieldrn.carbon.textinput.inputDecorator
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.YearMonth
@@ -154,14 +153,6 @@ public fun CalendarDatePicker(
         getCalendarMenuData(calendarYearMonth)
     }
 
-    LaunchedEffect(interactionSource) {
-        interactionSource.interactions.collect { interaction ->
-            if (interaction is PressInteraction.Press && inputState.isEnabled) {
-                onExpandedChange(true)
-            }
-        }
-    }
-
     BasicTextField(
         value = value,
         onValueChange = datePickerState::updateFieldValue,
@@ -182,7 +173,10 @@ public fun CalendarDatePicker(
                                 true
                             }
                         }
-                    TextInputState.Disabled -> Modifier.semantics { disabled() }
+                    TextInputState.Disabled -> Modifier.semantics {
+                        role = Role.ValuePicker
+                        disabled()
+                    }
                     TextInputState.ReadOnly -> Modifier.readOnly(
                         role = Role.ValuePicker,
                         interactionSource = interactionSource,
@@ -211,8 +205,15 @@ public fun CalendarDatePicker(
             singleLine = true,
             interactionSource = interactionSource,
             counter = null,
-            trailingIcon = null,
-            stateIcon = { CalendarIcon() },
+            trailingIcon = {
+                ClickableTrailingIcon(
+                    icon = calendarIcon,
+                    isEnabled = inputState != TextInputState.Disabled &&
+                        inputState != TextInputState.ReadOnly,
+                    onClick = { onExpandedChange(true) }
+                )
+            },
+            stateIcon = {},
             popup = {
                 if (expanded) {
                     Popup(

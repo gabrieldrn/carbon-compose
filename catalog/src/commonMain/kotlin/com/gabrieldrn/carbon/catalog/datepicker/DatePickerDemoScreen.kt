@@ -16,7 +16,10 @@
 
 package com.gabrieldrn.carbon.catalog.datepicker
 
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -36,6 +39,8 @@ import com.gabrieldrn.carbon.datepicker.CalendarDatePicker
 import com.gabrieldrn.carbon.datepicker.rememberCalendarDatePickerState
 import com.gabrieldrn.carbon.dropdown.Dropdown
 import com.gabrieldrn.carbon.dropdown.base.toDropdownOptions
+import com.gabrieldrn.carbon.foundation.color.CarbonLayer
+import com.gabrieldrn.carbon.foundation.color.layerBackground
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 import com.gabrieldrn.carbon.tag.ReadOnlyTag
 import com.gabrieldrn.carbon.tag.TagSize
@@ -105,32 +110,60 @@ fun DatePickerDemoScreen(
                 onOptionSelected = { inputState = it }
             )
 
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(
-                    text = "Field value",
-                    style = Carbon.typography.body01.copy(color = Carbon.theme.textPrimary),
-                    modifier = Modifier.padding(end = SpacingScale.spacing03)
-                )
+            Text(
+                text = "Field state",
+                style = Carbon.typography.heading01.copy(color = Carbon.theme.textPrimary),
+            )
 
-                when (isFieldValid) {
-                    true -> ReadOnlyTag(
-                        text = "OK",
-                        type = TagType.Green,
-                        icon = { painterResource(Res.drawable.ic_checkmark_filled) },
-                        size = TagSize.Small
-                    )
-                    false -> ReadOnlyTag(
-                        text = "ERROR",
-                        type = TagType.Red,
-                        icon = { painterResource(Res.drawable.ic_warning_filled) },
-                        size = TagSize.Small
-                    )
-                    null -> ReadOnlyTag(
-                        text = "EMPTY",
-                        type = TagType.Gray,
-                        icon = { painterResource(Res.drawable.ic_unknown_filled) },
-                        size = TagSize.Small
-                    )
+            CarbonLayer {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .layerBackground()
+                        .padding(SpacingScale.spacing05),
+                    verticalArrangement = Arrangement.spacedBy(SpacingScale.spacing03)
+                ) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Text(
+                            text = "Latest field validation event",
+                            style = Carbon.typography.body01.copy(color = Carbon.theme.textHelper),
+                            modifier = Modifier.padding(end = SpacingScale.spacing03)
+                        )
+
+                        when (isFieldValid) {
+                            true -> ReadOnlyTag(
+                                text = "OK",
+                                type = TagType.Green,
+                                icon = { painterResource(Res.drawable.ic_checkmark_filled) },
+                                size = TagSize.Small
+                            )
+                            false -> ReadOnlyTag(
+                                text = "ERROR",
+                                type = TagType.Red,
+                                icon = { painterResource(Res.drawable.ic_warning_filled) },
+                                size = TagSize.Small
+                            )
+                            null -> ReadOnlyTag(
+                                text = "EMPTY",
+                                type = TagType.Gray,
+                                icon = { painterResource(Res.drawable.ic_unknown_filled) },
+                                size = TagSize.Small
+                            )
+                        }
+                    }
+
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Text(
+                            text = "Selected date",
+                            style = Carbon.typography.body01.copy(color = Carbon.theme.textHelper),
+                            modifier = Modifier.padding(end = SpacingScale.spacing03)
+                        )
+
+                        Text(
+                            text = pickerState.selectedDate.toString().uppercase(),
+                            style = Carbon.typography.code02.copy(color = Carbon.theme.textPrimary)
+                        )
+                    }
                 }
             }
         },
