@@ -31,6 +31,8 @@ class CalendarDatePickerStateImplTest {
         year(); char('/'); monthNumber(); char('/'); day()
     }
 
+    private val today = LocalDate(2024, 12, 22)
+
     @Test
     fun givenInitialDate_whenStateIsCreated_thenSelectedDateIsInitialized() = runComposeUiTest {
         // Given
@@ -40,6 +42,7 @@ class CalendarDatePickerStateImplTest {
         // When
         setContent {
             state = rememberCalendarDatePickerState(
+                today = today,
                 initialSelectedDate = initialDate,
                 dateFormat = dateFormat,
                 onFieldValidation = {}
@@ -56,6 +59,7 @@ class CalendarDatePickerStateImplTest {
         var state: CalendarDatePickerState? = null
         setContent {
             state = rememberCalendarDatePickerState(
+                today = today,
                 confirmDateChange = { true },
                 dateFormat = dateFormat,
                 onFieldValidation = {}
@@ -83,6 +87,7 @@ class CalendarDatePickerStateImplTest {
             var state: CalendarDatePickerState? = null
             setContent {
                 state = rememberCalendarDatePickerState(
+                    today = today,
                     initialSelectedDate = initialDate,
                     confirmDateChange = { false },
                     dateFormat = dateFormat,
@@ -109,6 +114,7 @@ class CalendarDatePickerStateImplTest {
         var state: CalendarDatePickerState? = null
         setContent {
             state = rememberCalendarDatePickerState(
+                today = today,
                 initialSelectedDate = LocalDate(2024, 1, 1),
                 confirmDateChange = { true },
                 dateFormat = dateFormat,
@@ -136,6 +142,7 @@ class CalendarDatePickerStateImplTest {
             var state: CalendarDatePickerState? = null
             setContent {
                 state = rememberCalendarDatePickerState(
+                    today = today,
                     confirmDateChange = { true },
                     dateFormat = dateFormat,
                     onFieldValidation = { validationResult = it }
@@ -165,6 +172,7 @@ class CalendarDatePickerStateImplTest {
             var state: CalendarDatePickerState? = null
             setContent {
                 state = rememberCalendarDatePickerState(
+                    today = today,
                     confirmDateChange = { false },
                     dateFormat = dateFormat,
                     onFieldValidation = { validationResult = it }
@@ -193,6 +201,7 @@ class CalendarDatePickerStateImplTest {
             var state: CalendarDatePickerState? = null
             setContent {
                 state = rememberCalendarDatePickerState(
+                    today = today,
                     confirmDateChange = { true },
                     dateFormat = dateFormat,
                     onFieldValidation = { validationResult = it }
@@ -211,5 +220,35 @@ class CalendarDatePickerStateImplTest {
             assertNull(state?.selectedDate)
             assertFalse(validationResult ?: true)
             assertEquals(invalidDateString, fieldUpdate)
+        }
+
+    @Test
+    fun givenBlankFieldValue_whenUpdateFieldValueIsCalled_thenValidationReturnsNull() =
+        runComposeUiTest {
+            // Given
+            var validationResult: Boolean? = true // Initialize with non-null
+            var state: CalendarDatePickerState? = null
+            setContent {
+                state = rememberCalendarDatePickerState(
+                    today = today,
+                    initialSelectedDate = LocalDate(2024, 1, 1),
+                    confirmDateChange = { true },
+                    dateFormat = dateFormat,
+                    onFieldValidation = { validationResult = it }
+                )
+            }
+            val blankString = "   "
+            var fieldUpdate: String? = null
+            state?.updateFieldCallback = { fieldUpdate = it }
+
+            // When
+            runOnIdle {
+                state?.updateFieldValue(blankString)
+            }
+
+            // Then
+            assertNull(state?.selectedDate)
+            assertNull(validationResult)
+            assertEquals(blankString, fieldUpdate)
         }
 }

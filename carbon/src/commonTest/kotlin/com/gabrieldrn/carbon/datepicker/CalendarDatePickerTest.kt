@@ -35,15 +35,16 @@ import kotlinx.datetime.format.char
 import kotlinx.datetime.toLocalDateTime
 import kotlin.test.Test
 import kotlin.test.assertEquals
-import kotlin.test.assertFalse
+import kotlin.test.assertNotEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
-import kotlin.test.assertTrue
 import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
 
 @OptIn(ExperimentalTime::class)
 class CalendarDatePickerTest {
+
+    private val today = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date
 
     private val dateFormat = LocalDate.Format {
         year(); char('/'); monthNumber(); char('/'); day()
@@ -55,6 +56,7 @@ class CalendarDatePickerTest {
             CarbonDesignSystem {
                 CalendarDatePicker(
                     datePickerState = rememberCalendarDatePickerState(
+                        today = today,
                         dateFormat = dateFormat,
                         onFieldValidation = {}
                     ),
@@ -81,6 +83,7 @@ class CalendarDatePickerTest {
             CarbonDesignSystem {
                 CalendarDatePicker(
                     datePickerState = rememberCalendarDatePickerState(
+                        today = today,
                         dateFormat = dateFormat,
                         onFieldValidation = {}
                     ),
@@ -128,6 +131,7 @@ class CalendarDatePickerTest {
         setContent {
             CarbonDesignSystem {
                 datePickerState = rememberCalendarDatePickerState(
+                    today = today,
                     initialSelectedDate = null,
                     dateFormat = dateFormat,
                     confirmDateChange = { true },
@@ -174,6 +178,7 @@ class CalendarDatePickerTest {
             CarbonDesignSystem {
                 CalendarDatePicker(
                     datePickerState = rememberCalendarDatePickerState(
+                        today = today,
                         dateFormat = dateFormat,
                         onFieldValidation = {}
                     ),
@@ -211,6 +216,7 @@ class CalendarDatePickerTest {
             CarbonDesignSystem {
                 CalendarDatePicker(
                     datePickerState = rememberCalendarDatePickerState(
+                        today = today,
                         dateFormat = dateFormat,
                         onFieldValidation = {}
                     ),
@@ -248,6 +254,7 @@ class CalendarDatePickerTest {
         setContent {
             CarbonDesignSystem {
                 datePickerState = rememberCalendarDatePickerState(
+                    today = today,
                     initialSelectedDate = null,
                     dateFormat = dateFormat,
                     confirmDateChange = { true },
@@ -273,7 +280,10 @@ class CalendarDatePickerTest {
 
         waitForIdle()
 
-        assertTrue(fieldValidationResult == true, "Valid date should be parsed successfully")
+        assertEquals(
+            fieldValidationResult,
+            true,
+            "Valid date should be parsed successfully")
         assertEquals(LocalDate(2024, 6, 15), datePickerState?.selectedDate)
         assertEquals(validDateString, fieldValue)
     }
@@ -287,6 +297,7 @@ class CalendarDatePickerTest {
         setContent {
             CarbonDesignSystem {
                 datePickerState = rememberCalendarDatePickerState(
+                    today = today,
                     initialSelectedDate = null,
                     dateFormat = dateFormat,
                     confirmDateChange = { true },
@@ -312,9 +323,19 @@ class CalendarDatePickerTest {
 
         waitForIdle()
 
-        assertFalse(fieldValidationResult == true, "Invalid date should fail validation")
-        assertNull(datePickerState?.selectedDate, "Selected date should remain null for invalid input")
-        assertEquals(invalidDateString, fieldValue, "Field value should still be updated")
+        assertNotEquals(
+            fieldValidationResult,
+            true,
+            "Invalid date should fail validation"
+        )
+        assertNull(
+            datePickerState?.selectedDate,
+            "Selected date should remain null for invalid input"
+        )
+        assertEquals(
+            invalidDateString,
+            fieldValue,
+            "Field value should still be updated")
     }
 
     @Test
@@ -326,6 +347,7 @@ class CalendarDatePickerTest {
         setContent {
             CarbonDesignSystem {
                 datePickerState = rememberCalendarDatePickerState(
+                    today = today,
                     initialSelectedDate = initialDate,
                     dateFormat = dateFormat,
                     confirmDateChange = { true },
@@ -356,6 +378,7 @@ class CalendarDatePickerTest {
             CarbonDesignSystem {
                 CalendarDatePicker(
                     datePickerState = rememberCalendarDatePickerState(
+                        today = today,
                         dateFormat = dateFormat,
                         onFieldValidation = {}
                     ),
@@ -384,6 +407,7 @@ class CalendarDatePickerTest {
         setContent {
             CarbonDesignSystem {
                 datePickerState = rememberCalendarDatePickerState(
+                    today = today,
                     initialSelectedDate = initialDate,
                     dateFormat = dateFormat,
                     confirmDateChange = { false }, // Never confirm date changes
@@ -421,6 +445,7 @@ class CalendarDatePickerTest {
         setContent {
             CarbonDesignSystem {
                 datePickerState = rememberCalendarDatePickerState(
+                    today = today,
                     initialSelectedDate = initialDate,
                     dateFormat = dateFormat,
                     confirmDateChange = { true },
@@ -458,6 +483,7 @@ class CalendarDatePickerTest {
         setContent {
             CarbonDesignSystem {
                 datePickerState = rememberCalendarDatePickerState(
+                    today = today,
                     initialSelectedDate = LocalDate(2024, 1, 15), // January
                     dateFormat = dateFormat,
                     confirmDateChange = { true },

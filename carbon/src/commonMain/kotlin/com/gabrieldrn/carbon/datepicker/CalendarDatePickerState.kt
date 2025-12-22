@@ -37,6 +37,11 @@ import kotlinx.datetime.format.char
 public interface CalendarDatePickerState {
 
     /**
+     * The current day represented by a [LocalDate].
+     */
+    public val today: LocalDate
+
+    /**
      * The currently selected [LocalDate], or `null` if no date is selected.
      */
     public var selectedDate: LocalDate?
@@ -62,6 +67,7 @@ public interface CalendarDatePickerState {
 /**
  * Creates a [CalendarDatePickerState] that is remembered across compositions.
  *
+ * @param today The current day represented by a [LocalDate].
  * @param initialSelectedDate The initial [LocalDate] to be selected, or `null` if no date is
  * selected.
  * @param dateFormat The [DateTimeFormat] used to parse and format the date string. Defaults to
@@ -74,6 +80,7 @@ public interface CalendarDatePickerState {
  */
 @Composable
 public fun rememberCalendarDatePickerState(
+    today: LocalDate,
     initialSelectedDate: LocalDate? = null,
     dateFormat: DateTimeFormat<LocalDate> = LocalDate.Format {
         year(); char('/'); monthNumber(); char('/'); day()
@@ -89,6 +96,7 @@ public fun rememberCalendarDatePickerState(
         )
     ) {
         CalendarDatePickerStateImpl(
+            today = today,
             initialSelectedDate = initialSelectedDate,
             dateFormat = dateFormat,
             confirmDateChange = confirmDateChange,
@@ -99,6 +107,7 @@ public fun rememberCalendarDatePickerState(
 @Stable
 private class CalendarDatePickerStateImpl(
     initialSelectedDate: LocalDate?,
+    override val today: LocalDate,
     val dateFormat: DateTimeFormat<LocalDate>,
     val confirmDateChange: (LocalDate?) -> Boolean,
     val onFieldValidation: (Boolean?) -> Unit
@@ -159,10 +168,11 @@ private class CalendarDatePickerStateImpl(
             confirmValueChange: (LocalDate?) -> Boolean,
             onFieldValidation: (Boolean?) -> Unit
         ): Saver<CalendarDatePickerState, *> = listSaver(
-            save = { listOf(it.selectedDate) },
+            save = { listOf(it.today, it.selectedDate) },
             restore = {
                 CalendarDatePickerStateImpl(
-                    initialSelectedDate = it.first(),
+                    today = it[0]!!,
+                    initialSelectedDate = it[1],
                     dateFormat = dateFormat,
                     confirmDateChange = confirmValueChange,
                     onFieldValidation = onFieldValidation

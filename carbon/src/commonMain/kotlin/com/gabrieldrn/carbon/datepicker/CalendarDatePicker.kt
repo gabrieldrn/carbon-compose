@@ -49,7 +49,6 @@ import com.gabrieldrn.carbon.textinput.ClickableTrailingIcon
 import com.gabrieldrn.carbon.textinput.TextInputColors
 import com.gabrieldrn.carbon.textinput.TextInputState
 import com.gabrieldrn.carbon.textinput.inputDecorator
-import kotlinx.datetime.TimeZone
 import kotlinx.datetime.YearMonth
 import kotlinx.datetime.format.DateTimeFormat
 import kotlinx.datetime.format.DayOfWeekNames
@@ -57,10 +56,7 @@ import kotlinx.datetime.format.MonthNames
 import kotlinx.datetime.format.char
 import kotlinx.datetime.minusMonth
 import kotlinx.datetime.plusMonth
-import kotlinx.datetime.toLocalDateTime
 import kotlinx.datetime.yearMonth
-import kotlin.time.Clock
-import kotlin.time.ExperimentalTime
 
 // TODO GH Pages documentation + mention usage of kotlinx.datetime
 /**
@@ -106,7 +102,6 @@ import kotlin.time.ExperimentalTime
  * [androidx.compose.foundation.interaction.Interaction]s and customize the appearance / behavior of
  * this TextField in different [androidx.compose.foundation.interaction.Interaction]s.
  */
-@ExperimentalTime
 @Composable
 public fun CalendarDatePicker(
     datePickerState: CalendarDatePickerState,
@@ -140,13 +135,7 @@ public fun CalendarDatePicker(
     }
 
     var calendarYearMonth by remember(datePickerState.selectedDate) {
-        mutableStateOf(
-            (datePickerState.selectedDate
-                ?: Clock.System.now()
-                    .toLocalDateTime(TimeZone.currentSystemDefault())
-                    .date
-                ).yearMonth
-        )
+        mutableStateOf((datePickerState.selectedDate ?: datePickerState.today).yearMonth)
     }
 
     val calendar = remember(calendarYearMonth) {
@@ -233,6 +222,7 @@ public fun CalendarDatePicker(
                     ) {
                         CalendarMenu(
                             calendar = calendar,
+                            today = datePickerState.today,
                             selectedDate = datePickerState.selectedDate,
                             onDayClicked = { datePickerState.selectedDate = it },
                             onLoadPreviousMonth = {

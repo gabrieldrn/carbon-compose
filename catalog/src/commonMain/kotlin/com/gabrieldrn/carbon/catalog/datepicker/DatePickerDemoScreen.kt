@@ -47,8 +47,11 @@ import com.gabrieldrn.carbon.tag.TagSize
 import com.gabrieldrn.carbon.tag.TagType
 import com.gabrieldrn.carbon.textinput.TextInputState
 import kotlinx.datetime.LocalDate
+import kotlinx.datetime.TimeZone
 import kotlinx.datetime.format.char
+import kotlinx.datetime.toLocalDateTime
 import org.jetbrains.compose.resources.painterResource
+import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
 
 private val textInputStateOptions = TextInputState.entries.toDropdownOptions()
@@ -68,6 +71,7 @@ fun DatePickerDemoScreen(
     }
 
     val pickerState = rememberCalendarDatePickerState(
+        today = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date,
         dateFormat = dateFormat,
         onFieldValidation = { isFieldValid = it }
     )
@@ -103,7 +107,7 @@ fun DatePickerDemoScreen(
         },
         demoParametersContent = {
             Dropdown(
-                label = "State",
+                label = "Input state",
                 placeholder = "Choose an option",
                 options = textInputStateOptions,
                 selectedOption = inputState,
@@ -111,7 +115,7 @@ fun DatePickerDemoScreen(
             )
 
             Text(
-                text = "Field state",
+                text = "Picker state data",
                 style = Carbon.typography.heading01.copy(color = Carbon.theme.textPrimary),
             )
 

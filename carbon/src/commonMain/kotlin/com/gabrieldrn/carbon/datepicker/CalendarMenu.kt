@@ -36,6 +36,7 @@ import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.TextStyle
@@ -56,9 +57,9 @@ import com.gabrieldrn.carbon.foundation.interaction.FocusIndication
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 import com.gabrieldrn.carbon.icons.chevronLeftIcon
 import com.gabrieldrn.carbon.icons.chevronRightIcon
+import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.DayOfWeek
 import kotlinx.datetime.LocalDate
-import kotlinx.datetime.TimeZone
 import kotlinx.datetime.YearMonth
 import kotlinx.datetime.format
 import kotlinx.datetime.format.DateTimeFormat
@@ -67,13 +68,11 @@ import kotlinx.datetime.format.MonthNames
 import kotlinx.datetime.format.char
 import kotlinx.datetime.minusMonth
 import kotlinx.datetime.onDay
+import kotlinx.datetime.plus
 import kotlinx.datetime.plusMonth
-import kotlinx.datetime.toLocalDateTime
 import kotlinx.datetime.yearMonth
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
-import kotlin.time.Clock
-import kotlin.time.ExperimentalTime
 
 internal val calendarMenuWidth = 288.dp
 
@@ -103,7 +102,9 @@ internal data class MonthDay(
     val isOutOfMonth: Boolean,
 )
 
-internal fun getCalendarMenuData(yearMonth: YearMonth): CalendarMenuData {
+internal fun getCalendarMenuData(
+    yearMonth: YearMonth
+): CalendarMenuData {
     val firstDayCurrentMonth = yearMonth.firstDay
     val previousMonth = yearMonth.minusMonth()
     val nextMonth = yearMonth.plusMonth()
@@ -153,6 +154,7 @@ internal fun getCalendarMenuData(yearMonth: YearMonth): CalendarMenuData {
 @Composable
 internal fun CalendarMenu(
     calendar: CalendarMenuData,
+    today: LocalDate,
     selectedDate: LocalDate?,
     onDayClicked: (LocalDate) -> Unit,
     onLoadPreviousMonth: () -> Unit,
@@ -171,8 +173,13 @@ internal fun CalendarMenu(
         color = Carbon.theme.textSecondary
     )
 
-    val selectedDayTextStyle = Carbon.typography.bodyCompact01.copy(
+    val todayDayTextStyle = Carbon.typography.bodyCompact01.copy(
         color = Carbon.theme.linkPrimary,
+        fontWeight = FontWeight.SemiBold
+    )
+
+    val selectedDayTextStyle = Carbon.typography.bodyCompact01.copy(
+        color = Carbon.theme.textOnColor,
         fontWeight = FontWeight.SemiBold
     )
 
@@ -258,10 +265,12 @@ internal fun CalendarMenu(
                         week.forEach { day ->
                             CalendarDayItem(
                                 day = day.localDate.day.toString(),
+                                isToday = day.localDate == today,
                                 isSelected = day.localDate == selectedDate,
                                 isOutOfMonth = day.isOutOfMonth,
                                 regularTextStyle = regularTextStyle,
                                 outOfMonthTextStyle = outOfMonthTextStyle,
+                                todayDayTextStyle = todayDayTextStyle,
                                 selectedDayTextStyle = selectedDayTextStyle,
                                 indication = dayItemIndication,
                                 onClick = { onDayClicked(day.localDate) },
@@ -284,10 +293,12 @@ internal fun CalendarMenu(
 @Composable
 private fun CalendarDayItem(
     day: String,
+    isToday: Boolean,
     isSelected: Boolean,
     isOutOfMonth: Boolean,
     regularTextStyle: TextStyle,
     outOfMonthTextStyle: TextStyle,
+    todayDayTextStyle: TextStyle,
     selectedDayTextStyle: TextStyle,
     indication: Indication,
     onClick: () -> Unit,
@@ -302,17 +313,19 @@ private fun CalendarDayItem(
                 interactionSource = remember { MutableInteractionSource() },
                 indication = indication
             )
+            .background(if (isSelected) Carbon.theme.backgroundBrand else Color.Transparent)
     ) {
         BasicText(
             text = day,
             style = when {
-                isOutOfMonth -> outOfMonthTextStyle
                 isSelected -> selectedDayTextStyle
+                isToday -> todayDayTextStyle
+                isOutOfMonth -> outOfMonthTextStyle
                 else -> regularTextStyle
             },
         )
 
-        if (isSelected) {
+        if (isToday && !isSelected) {
             Box(
                 modifier = Modifier
                     .padding(bottom = 8.dp)
@@ -324,22 +337,20 @@ private fun CalendarDayItem(
     }
 }
 
-@ExperimentalTime
 @Preview
 @Composable
 private fun CalendarMenuPreview() {
     CarbonDesignSystem {
         val today = remember {
-            Clock.System.now()
-                .toLocalDateTime(TimeZone.currentSystemDefault())
-                .date
+            LocalDate(2025, 12, 1)
         }
 
         val calendar = remember { getCalendarMenuData(today.yearMonth) }
 
         CalendarMenu(
+            today = today,
             calendar = calendar,
-            selectedDate = today,
+            selectedDate = today.plus(1, DateTimeUnit.DAY),
             onDayClicked = {},
             onLoadPreviousMonth = {},
             onLoadNextMonth = {},
