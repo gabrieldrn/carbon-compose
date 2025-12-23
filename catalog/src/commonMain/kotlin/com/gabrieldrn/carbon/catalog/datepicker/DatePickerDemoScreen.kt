@@ -21,7 +21,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Text
+import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -121,7 +121,7 @@ fun DatePickerDemoScreen(
                 onOptionSelected = { inputState = it }
             )
 
-            Text(
+            BasicText(
                 text = "Picker state data",
                 style = Carbon.typography.heading01.copy(color = Carbon.theme.textPrimary),
             )
@@ -135,7 +135,7 @@ fun DatePickerDemoScreen(
                     verticalArrangement = Arrangement.spacedBy(SpacingScale.spacing03)
                 ) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        Text(
+                        BasicText(
                             text = "Latest field validation event",
                             style = Carbon.typography.body01.copy(color = Carbon.theme.textHelper),
                             modifier = Modifier.padding(end = SpacingScale.spacing03)
@@ -164,13 +164,13 @@ fun DatePickerDemoScreen(
                     }
 
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        Text(
+                        BasicText(
                             text = "Selected date",
                             style = Carbon.typography.body01.copy(color = Carbon.theme.textHelper),
                             modifier = Modifier.padding(end = SpacingScale.spacing03)
                         )
 
-                        Text(
+                        BasicText(
                             text = pickerState.selectedDate.toString().uppercase(),
                             style = Carbon.typography.code02.copy(color = Carbon.theme.textPrimary)
                         )

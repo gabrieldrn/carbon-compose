@@ -54,8 +54,7 @@ class CalendarDatePickerTest {
                 CalendarDatePicker(
                     datePickerState = rememberCalendarDatePickerState(
                         today = today,
-                        dateFormat = dateFormat,
-                        onFieldValidation = {}
+                        dateFormat = dateFormat
                     ),
                     label = "Select date",
                     value = "",
@@ -81,8 +80,7 @@ class CalendarDatePickerTest {
                 CalendarDatePicker(
                     datePickerState = rememberCalendarDatePickerState(
                         today = today,
-                        dateFormat = dateFormat,
-                        onFieldValidation = {}
+                        dateFormat = dateFormat
                     ),
                     label = "Select date",
                     value = "",
@@ -131,8 +129,7 @@ class CalendarDatePickerTest {
                     today = today,
                     initialSelectedDate = null,
                     dateFormat = dateFormat,
-                    selectableDates = { true },
-                    onFieldValidation = {}
+                    selectableDates = { true }
                 )
                 CalendarDatePicker(
                     datePickerState = datePickerState,
@@ -173,8 +170,7 @@ class CalendarDatePickerTest {
                 CalendarDatePicker(
                     datePickerState = rememberCalendarDatePickerState(
                         today = today,
-                        dateFormat = dateFormat,
-                        onFieldValidation = {}
+                        dateFormat = dateFormat
                     ),
                     label = "Select date",
                     value = "",
@@ -211,8 +207,7 @@ class CalendarDatePickerTest {
                 CalendarDatePicker(
                     datePickerState = rememberCalendarDatePickerState(
                         today = today,
-                        dateFormat = dateFormat,
-                        onFieldValidation = {}
+                        dateFormat = dateFormat
                     ),
                     label = "Select date",
                     value = "",
@@ -344,8 +339,7 @@ class CalendarDatePickerTest {
                     today = today,
                     initialSelectedDate = initialDate,
                     dateFormat = dateFormat,
-                    selectableDates = { true },
-                    onFieldValidation = {}
+                    selectableDates = { true }
                 )
                 fieldValue = datePickerState.selectedDate?.let { dateFormat.format(it) } ?: ""
                 CalendarDatePicker(
@@ -373,8 +367,7 @@ class CalendarDatePickerTest {
                 CalendarDatePicker(
                     datePickerState = rememberCalendarDatePickerState(
                         today = today,
-                        dateFormat = dateFormat,
-                        onFieldValidation = {}
+                        dateFormat = dateFormat
                     ),
                     label = "Select date",
                     value = "",
@@ -404,8 +397,7 @@ class CalendarDatePickerTest {
                     today = today,
                     initialSelectedDate = initialDate,
                     dateFormat = dateFormat,
-                    selectableDates = { false }, // Never confirm date changes
-                    onFieldValidation = {}
+                    selectableDates = { false } // Never confirm date changes
                 )
                 fieldValue = datePickerState.selectedDate?.let { dateFormat.format(it) } ?: ""
                 CalendarDatePicker(
@@ -442,8 +434,7 @@ class CalendarDatePickerTest {
                     today = today,
                     initialSelectedDate = initialDate,
                     dateFormat = dateFormat,
-                    selectableDates = { true },
-                    onFieldValidation = {}
+                    selectableDates = { true }
                 )
                 fieldValue = datePickerState.selectedDate?.let { dateFormat.format(it) } ?: ""
                 CalendarDatePicker(
@@ -480,8 +471,7 @@ class CalendarDatePickerTest {
                     today = today,
                     initialSelectedDate = LocalDate(2024, 1, 15), // January
                     dateFormat = dateFormat,
-                    selectableDates = { true },
-                    onFieldValidation = {}
+                    selectableDates = { true }
                 )
                 CalendarDatePicker(
                     datePickerState = datePickerState,
@@ -544,8 +534,7 @@ class CalendarDatePickerTest {
                     today = today,
                     initialSelectedDate = null,
                     dateFormat = dateFormat,
-                    selectableDates = { true },
-                    onFieldValidation = {}
+                    selectableDates = { true }
                 )
                 CalendarDatePicker(
                     datePickerState = datePickerState,
@@ -594,8 +583,7 @@ class CalendarDatePickerTest {
                 CalendarDatePicker(
                     datePickerState = rememberCalendarDatePickerState(
                         today = today,
-                        dateFormat = dateFormat,
-                        onFieldValidation = {}
+                        dateFormat = dateFormat
                     ),
                     label = "Select date",
                     value = "",
@@ -634,8 +622,7 @@ class CalendarDatePickerTest {
                 CalendarDatePicker(
                     datePickerState = rememberCalendarDatePickerState(
                         today = today,
-                        dateFormat = dateFormat,
-                        onFieldValidation = {}
+                        dateFormat = dateFormat
                     ),
                     label = "Select date",
                     value = "",
@@ -673,8 +660,7 @@ class CalendarDatePickerTest {
                 CalendarDatePicker(
                     datePickerState = rememberCalendarDatePickerState(
                         today = today,
-                        dateFormat = dateFormat,
-                        onFieldValidation = {}
+                        dateFormat = dateFormat
                     ),
                     label = "Select date",
                     value = "",
@@ -713,8 +699,7 @@ class CalendarDatePickerTest {
                 CalendarDatePicker(
                     datePickerState = rememberCalendarDatePickerState(
                         today = today,
-                        dateFormat = dateFormat,
-                        onFieldValidation = {}
+                        dateFormat = dateFormat
                     ),
                     label = "Select date",
                     value = "",
@@ -767,8 +752,7 @@ class CalendarDatePickerTest {
                     today = today,
                     initialSelectedDate = null,
                     dateFormat = dateFormat,
-                    selectableDates = { date -> date != disabledDate },
-                    onFieldValidation = {}
+                    selectableDates = { date -> date != disabledDate }
                 )
                 CalendarDatePicker(
                     datePickerState = datePickerState,
@@ -825,8 +809,7 @@ class CalendarDatePickerTest {
                     today = today,
                     initialSelectedDate = null,
                     dateFormat = dateFormat,
-                    selectableDates = { date -> date != disabledDate },
-                    onFieldValidation = {}
+                    selectableDates = { date -> date != disabledDate }
                 )
                 CalendarDatePicker(
                     datePickerState = datePickerState,
@@ -881,8 +864,7 @@ class CalendarDatePickerTest {
                     today = today,
                     initialSelectedDate = null,
                     dateFormat = dateFormat,
-                    selectableDates = { date -> date !in disabledDates },
-                    onFieldValidation = {}
+                    selectableDates = { date -> date !in disabledDates }
                 )
                 CalendarDatePicker(
                     datePickerState = datePickerState,
@@ -928,8 +910,7 @@ class CalendarDatePickerTest {
                     today = today,
                     initialSelectedDate = null,
                     dateFormat = dateFormat,
-                    selectableDates = { date -> date <= today },
-                    onFieldValidation = {}
+                    selectableDates = { date -> date <= today }
                 )
                 CalendarDatePicker(
                     datePickerState = datePickerState,
@@ -980,8 +961,7 @@ class CalendarDatePickerTest {
                     today = today,
                     initialSelectedDate = null,
                     dateFormat = dateFormat,
-                    selectableDates = { date -> date > today },
-                    onFieldValidation = {}
+                    selectableDates = { date -> date > today }
                 )
                 CalendarDatePicker(
                     datePickerState = datePickerState,

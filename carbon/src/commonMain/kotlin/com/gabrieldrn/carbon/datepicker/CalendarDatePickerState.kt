@@ -125,7 +125,7 @@ public fun rememberCalendarDatePickerState(
         year(); char('/'); monthNumber(); char('/'); day()
     },
     selectableDates: SelectableDates = SelectableDates { true },
-    onFieldValidation: (Boolean?) -> Unit
+    onFieldValidation: (Boolean?) -> Unit = {}
 ): CalendarDatePickerState =
     rememberSaveable(
         saver = CalendarDatePickerStateImpl.Saver(

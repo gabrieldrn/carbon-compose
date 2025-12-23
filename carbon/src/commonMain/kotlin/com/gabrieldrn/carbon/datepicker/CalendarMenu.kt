@@ -367,7 +367,6 @@ private fun CalendarMenuPreview() {
         val pickerState = rememberCalendarDatePickerState(
             today = today,
             selectableDates = { it != today.plus(1, DateTimeUnit.DAY) },
-            onFieldValidation = {}
         )
 
         pickerState.selectedDate = today.plus(2, DateTimeUnit.DAY)
