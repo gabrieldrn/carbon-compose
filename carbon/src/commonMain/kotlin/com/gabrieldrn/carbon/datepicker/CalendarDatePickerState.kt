@@ -37,6 +37,14 @@ import kotlinx.datetime.format.char
 public interface CalendarDatePickerState {
 
     /**
+     * Determines which dates are selectable in the calendar.
+     *
+     * This interface allows customization of which dates can be selected by the user.
+     * For example, you can disable weekends, past dates, or specific dates.
+     */
+    public val selectableDates: SelectableDates
+
+    /**
      * The current day represented by a [LocalDate].
      */
     public val today: LocalDate
@@ -65,6 +73,37 @@ public interface CalendarDatePickerState {
 }
 
 /**
+ * A functional interface to determine which dates are selectable in the calendar.
+ *
+ * This allows you to customize which dates can be selected by the user. Common use cases include:
+ * - Disabling past dates
+ * - Disabling future dates
+ * - Disabling weekends
+ * - Disabling specific dates (e.g., holidays)
+ *
+ * Example:
+ * ```kotlin
+ * // Only allow future dates
+ * SelectableDates { date -> date > today }
+ *
+ * // Only allow weekdays
+ * SelectableDates { date ->
+ *     date.dayOfWeek != DayOfWeek.SATURDAY && date.dayOfWeek != DayOfWeek.SUNDAY
+ * }
+ * ```
+ */
+public fun interface SelectableDates {
+
+    /**
+     * Determines if the given [date] is selectable.
+     *
+     * @param date The date to check.
+     * @return `true` if the date is selectable, `false` otherwise.
+     */
+    public fun isSelectable(date: LocalDate): Boolean
+}
+
+/**
  * Creates a [CalendarDatePickerState] that is remembered across compositions.
  *
  * @param today The current day represented by a [LocalDate].
@@ -72,11 +111,11 @@ public interface CalendarDatePickerState {
  * selected.
  * @param dateFormat The [DateTimeFormat] used to parse and format the date string. Defaults to
  * `yyyy/MM/dd`.
- * @param confirmDateChange Callback invoked to confirm if a date change is allowed. Return `true`
- * to allow the change, `false` otherwise.
+ * @param selectableDates A [SelectableDates] instance that determines which dates are selectable.
+ * Defaults to all dates being selectable.
  * @param onFieldValidation Callback invoked when the state tries to parse the field value or
  * format the [CalendarDatePickerState.selectedDate] when one of them is changed. Returns `true`
- * when successful, `false` otherwise, or `null` is the field is empty.
+ * when successful, `false` otherwise, or `null` if the field is empty.
  */
 @Composable
 public fun rememberCalendarDatePickerState(
@@ -85,13 +124,13 @@ public fun rememberCalendarDatePickerState(
     dateFormat: DateTimeFormat<LocalDate> = LocalDate.Format {
         year(); char('/'); monthNumber(); char('/'); day()
     },
-    confirmDateChange: (LocalDate?) -> Boolean = { true },
+    selectableDates: SelectableDates = SelectableDates { true },
     onFieldValidation: (Boolean?) -> Unit
 ): CalendarDatePickerState =
     rememberSaveable(
         saver = CalendarDatePickerStateImpl.Saver(
             dateFormat = dateFormat,
-            confirmValueChange = confirmDateChange,
+            selectableDates = selectableDates,
             onFieldValidation = onFieldValidation
         )
     ) {
@@ -99,7 +138,7 @@ public fun rememberCalendarDatePickerState(
             today = today,
             initialSelectedDate = initialSelectedDate,
             dateFormat = dateFormat,
-            confirmDateChange = confirmDateChange,
+            selectableDates = selectableDates,
             onFieldValidation = onFieldValidation
         )
     }
@@ -109,7 +148,7 @@ private class CalendarDatePickerStateImpl(
     initialSelectedDate: LocalDate?,
     override val today: LocalDate,
     val dateFormat: DateTimeFormat<LocalDate>,
-    val confirmDateChange: (LocalDate?) -> Boolean,
+    override val selectableDates: SelectableDates,
     val onFieldValidation: (Boolean?) -> Unit
 ) : CalendarDatePickerState {
 
@@ -118,19 +157,20 @@ private class CalendarDatePickerStateImpl(
     override var selectedDate: LocalDate?
         get() = _selectedDate
         set(value) {
-            if (confirmDateChange(value)) {
-                if (value == null) {
+            when {
+                value == null -> {
                     updateFieldCallback?.invoke("")
-                    onFieldValidation(true)
-                } else {
-                    try {
-                        updateFieldCallback?.invoke(dateFormat.format(value))
-                        onFieldValidation(true)
-                    } catch (_: IllegalArgumentException) {
-                        onFieldValidation(false)
-                    }
+                    onFieldValidation(null)
+                    _selectedDate = null
                 }
-                _selectedDate = value
+                !selectableDates.isSelectable(value) -> onFieldValidation(false)
+                else -> try {
+                    updateFieldCallback?.invoke(dateFormat.format(value))
+                    onFieldValidation(true)
+                    _selectedDate = value
+                } catch (_: IllegalArgumentException) {
+                    onFieldValidation(false)
+                }
             }
         }
 
@@ -143,7 +183,7 @@ private class CalendarDatePickerStateImpl(
         } else {
             try {
                 dateFormat.parse(newValue)
-                    .takeIf(confirmDateChange)
+                    .takeIf(selectableDates::isSelectable)
                     ?.let { _selectedDate = it }
                 onFieldValidation(true)
             } catch (_: IllegalArgumentException) {
@@ -159,13 +199,14 @@ private class CalendarDatePickerStateImpl(
          * Default [Saver] implementation for [CalendarDatePickerStateImpl].
          *
          * @param dateFormat The [DateTimeFormat] used to parse and format the date string.
-         * @param confirmValueChange Callback invoked to confirm if a date change is allowed.
+         * @param selectableDates A [SelectableDates] instance that determines which dates are
+         * selectable.
          * @param onFieldValidation Callback invoked when the state tries to parse the field value
          * or format the [CalendarDatePickerState.selectedDate] when one of them is changed.
          */
         fun Saver(
             dateFormat: DateTimeFormat<LocalDate>,
-            confirmValueChange: (LocalDate?) -> Boolean,
+            selectableDates: SelectableDates,
             onFieldValidation: (Boolean?) -> Unit
         ): Saver<CalendarDatePickerState, *> = listSaver(
             save = { listOf(it.today, it.selectedDate) },
@@ -174,7 +215,7 @@ private class CalendarDatePickerStateImpl(
                     today = it[0]!!,
                     initialSelectedDate = it[1],
                     dateFormat = dateFormat,
-                    confirmDateChange = confirmValueChange,
+                    selectableDates = selectableDates,
                     onFieldValidation = onFieldValidation
                 )
             }

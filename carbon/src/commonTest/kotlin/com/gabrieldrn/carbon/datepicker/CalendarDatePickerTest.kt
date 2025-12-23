@@ -29,22 +29,19 @@ import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.runComposeUiTest
 import com.gabrieldrn.carbon.CarbonDesignSystem
 import com.gabrieldrn.carbon.textinput.TextInputState
+import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.LocalDate
-import kotlinx.datetime.TimeZone
 import kotlinx.datetime.format.char
-import kotlinx.datetime.toLocalDateTime
+import kotlinx.datetime.plus
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
-import kotlin.time.Clock
-import kotlin.time.ExperimentalTime
 
-@OptIn(ExperimentalTime::class)
 class CalendarDatePickerTest {
 
-    private val today = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date
+    private val today = LocalDate(2025, 1, 1)
 
     private val dateFormat = LocalDate.Format {
         year(); char('/'); monthNumber(); char('/'); day()
@@ -134,7 +131,7 @@ class CalendarDatePickerTest {
                     today = today,
                     initialSelectedDate = null,
                     dateFormat = dateFormat,
-                    confirmDateChange = { true },
+                    selectableDates = { true },
                     onFieldValidation = {}
                 )
                 CalendarDatePicker(
@@ -153,9 +150,6 @@ class CalendarDatePickerTest {
 
         // Get current month/year to create a valid date tag
 
-        val today = Clock.System.now()
-            .toLocalDateTime(TimeZone.currentSystemDefault())
-            .date
         val dayTag = "${CalendarDatePickerTestTags.CALENDAR_DAY_ITEM}_$today"
 
         // Try to find and click a day in current month
@@ -257,7 +251,7 @@ class CalendarDatePickerTest {
                     today = today,
                     initialSelectedDate = null,
                     dateFormat = dateFormat,
-                    confirmDateChange = { true },
+                    selectableDates = { true },
                     onFieldValidation = { fieldValidationResult = it }
                 )
                 CalendarDatePicker(
@@ -300,7 +294,7 @@ class CalendarDatePickerTest {
                     today = today,
                     initialSelectedDate = null,
                     dateFormat = dateFormat,
-                    confirmDateChange = { true },
+                    selectableDates = { true },
                     onFieldValidation = { fieldValidationResult = it }
                 )
                 CalendarDatePicker(
@@ -350,7 +344,7 @@ class CalendarDatePickerTest {
                     today = today,
                     initialSelectedDate = initialDate,
                     dateFormat = dateFormat,
-                    confirmDateChange = { true },
+                    selectableDates = { true },
                     onFieldValidation = {}
                 )
                 fieldValue = datePickerState.selectedDate?.let { dateFormat.format(it) } ?: ""
@@ -410,7 +404,7 @@ class CalendarDatePickerTest {
                     today = today,
                     initialSelectedDate = initialDate,
                     dateFormat = dateFormat,
-                    confirmDateChange = { false }, // Never confirm date changes
+                    selectableDates = { false }, // Never confirm date changes
                     onFieldValidation = {}
                 )
                 fieldValue = datePickerState.selectedDate?.let { dateFormat.format(it) } ?: ""
@@ -448,7 +442,7 @@ class CalendarDatePickerTest {
                     today = today,
                     initialSelectedDate = initialDate,
                     dateFormat = dateFormat,
-                    confirmDateChange = { true },
+                    selectableDates = { true },
                     onFieldValidation = {}
                 )
                 fieldValue = datePickerState.selectedDate?.let { dateFormat.format(it) } ?: ""
@@ -486,7 +480,7 @@ class CalendarDatePickerTest {
                     today = today,
                     initialSelectedDate = LocalDate(2024, 1, 15), // January
                     dateFormat = dateFormat,
-                    confirmDateChange = { true },
+                    selectableDates = { true },
                     onFieldValidation = {}
                 )
                 CalendarDatePicker(
@@ -536,5 +530,493 @@ class CalendarDatePickerTest {
         // Verify January 15 is no longer in the calendar (different month)
         onNodeWithTag(january15Tag, useUnmergedTree = true)
             .assertDoesNotExist()
+    }
+
+    @Test
+    fun calendarDatePicker_whenDaySelected_menuCloses() = runComposeUiTest {
+        var expanded by mutableStateOf(false)
+        var datePickerState: CalendarDatePickerState? = null
+        var fieldValue by mutableStateOf("")
+
+        setContent {
+            CarbonDesignSystem {
+                datePickerState = rememberCalendarDatePickerState(
+                    today = today,
+                    initialSelectedDate = null,
+                    dateFormat = dateFormat,
+                    selectableDates = { true },
+                    onFieldValidation = {}
+                )
+                CalendarDatePicker(
+                    datePickerState = datePickerState,
+                    label = "Select date",
+                    value = fieldValue,
+                    expanded = expanded,
+                    onValueChange = { fieldValue = it },
+                    onExpandedChange = { expanded = it },
+                    onDismissRequest = { expanded = false },
+                )
+            }
+        }
+
+        // Open the calendar menu
+        expanded = true
+        waitForIdle()
+
+        // Verify calendar menu is visible
+        onNodeWithTag(CalendarDatePickerTestTags.CALENDAR_MENU)
+            .assertExists()
+            .assertIsDisplayed()
+
+        // Click on a day (today)
+        val dayTag = "${CalendarDatePickerTestTags.CALENDAR_DAY_ITEM}_$today"
+        onNodeWithTag(dayTag, useUnmergedTree = true)
+            .assertExists()
+            .performClick()
+
+        waitForIdle()
+
+        // Verify date was selected
+        assertNotNull(datePickerState)
+        assertEquals(today, datePickerState.selectedDate)
+
+        // Verify calendar menu is now closed
+        onNodeWithTag(CalendarDatePickerTestTags.CALENDAR_MENU)
+            .assertDoesNotExist()
+    }
+
+    @Test
+    fun calendarDatePicker_calendarIconClick_expandsMenu() = runComposeUiTest {
+        var expanded by mutableStateOf(false)
+
+        setContent {
+            CarbonDesignSystem {
+                CalendarDatePicker(
+                    datePickerState = rememberCalendarDatePickerState(
+                        today = today,
+                        dateFormat = dateFormat,
+                        onFieldValidation = {}
+                    ),
+                    label = "Select date",
+                    value = "",
+                    expanded = expanded,
+                    onValueChange = {},
+                    onExpandedChange = { expanded = it },
+                    onDismissRequest = { expanded = false },
+                )
+            }
+        }
+
+        // Verify calendar menu is not visible initially
+        onNodeWithTag(CalendarDatePickerTestTags.CALENDAR_MENU)
+            .assertDoesNotExist()
+
+        // Click the calendar icon
+        onNodeWithTag(com.gabrieldrn.carbon.textinput.TextInputTestTags.CLICKABLE_TRAILING_ICON)
+            .assertExists()
+            .assertHasClickAction()
+            .performClick()
+
+        waitForIdle()
+
+        // Verify calendar menu is now visible
+        onNodeWithTag(CalendarDatePickerTestTags.CALENDAR_MENU)
+            .assertExists()
+            .assertIsDisplayed()
+    }
+
+    @Test
+    fun calendarDatePicker_calendarIconWhenDisabled_isNotClickable() = runComposeUiTest {
+        var expanded by mutableStateOf(false)
+
+        setContent {
+            CarbonDesignSystem {
+                CalendarDatePicker(
+                    datePickerState = rememberCalendarDatePickerState(
+                        today = today,
+                        dateFormat = dateFormat,
+                        onFieldValidation = {}
+                    ),
+                    label = "Select date",
+                    value = "",
+                    expanded = expanded,
+                    inputState = TextInputState.Disabled,
+                    onValueChange = {},
+                    onExpandedChange = { expanded = it },
+                    onDismissRequest = { expanded = false },
+                )
+            }
+        }
+
+        // Calendar icon should exist but be disabled
+        onNodeWithTag(com.gabrieldrn.carbon.textinput.TextInputTestTags.CLICKABLE_TRAILING_ICON)
+            .assertExists()
+            .assertIsNotEnabled()
+
+        // Perform click (should not expand the menu)
+        onNodeWithTag(com.gabrieldrn.carbon.textinput.TextInputTestTags.CLICKABLE_TRAILING_ICON)
+            .performClick()
+
+        waitForIdle()
+
+        // Verify calendar menu is still not visible
+        onNodeWithTag(CalendarDatePickerTestTags.CALENDAR_MENU)
+            .assertDoesNotExist()
+    }
+
+    @Test
+    fun calendarDatePicker_calendarIconWhenReadOnly_isNotClickable() = runComposeUiTest {
+        var expanded by mutableStateOf(false)
+
+        setContent {
+            CarbonDesignSystem {
+                CalendarDatePicker(
+                    datePickerState = rememberCalendarDatePickerState(
+                        today = today,
+                        dateFormat = dateFormat,
+                        onFieldValidation = {}
+                    ),
+                    label = "Select date",
+                    value = "",
+                    expanded = expanded,
+                    inputState = TextInputState.ReadOnly,
+                    onValueChange = {},
+                    onExpandedChange = { expanded = it },
+                    onDismissRequest = { expanded = false },
+                )
+            }
+        }
+
+        // Calendar icon should exist but be disabled
+        onNodeWithTag(com.gabrieldrn.carbon.textinput.TextInputTestTags.CLICKABLE_TRAILING_ICON)
+            .assertExists()
+            .assertIsNotEnabled()
+
+        // Perform click (should not expand the menu)
+        onNodeWithTag(com.gabrieldrn.carbon.textinput.TextInputTestTags.CLICKABLE_TRAILING_ICON)
+            .performClick()
+
+        waitForIdle()
+
+        // Verify calendar menu is still not visible
+        onNodeWithTag(CalendarDatePickerTestTags.CALENDAR_MENU)
+            .assertDoesNotExist()
+    }
+
+    @Test
+    fun calendarDatePicker_calendarIconWhenEnabled_isClickable() = runComposeUiTest {
+        var expanded by mutableStateOf(false)
+        var inputState by mutableStateOf(TextInputState.Enabled)
+
+        setContent {
+            CarbonDesignSystem {
+                CalendarDatePicker(
+                    datePickerState = rememberCalendarDatePickerState(
+                        today = today,
+                        dateFormat = dateFormat,
+                        onFieldValidation = {}
+                    ),
+                    label = "Select date",
+                    value = "",
+                    expanded = expanded,
+                    inputState = inputState,
+                    onValueChange = {},
+                    onExpandedChange = { expanded = it },
+                    onDismissRequest = { expanded = false },
+                )
+            }
+        }
+
+        // Test with different enabled states (Warning and Error should still be clickable)
+        listOf(
+            TextInputState.Enabled,
+            TextInputState.Warning,
+            TextInputState.Error
+        ).forEach { state ->
+            inputState = state
+            expanded = false
+            waitForIdle()
+
+            // Calendar icon should be clickable
+            onNodeWithTag(com.gabrieldrn.carbon.textinput.TextInputTestTags.CLICKABLE_TRAILING_ICON)
+                .assertExists()
+                .assertHasClickAction()
+                .performClick()
+
+            waitForIdle()
+
+            // Verify calendar menu is visible
+            onNodeWithTag(CalendarDatePickerTestTags.CALENDAR_MENU)
+                .assertExists()
+                .assertIsDisplayed()
+        }
+    }
+
+    @Test
+    fun calendarDatePicker_selectableDates_disabledDateIsNotClickable() = runComposeUiTest {
+        var expanded by mutableStateOf(false)
+        var datePickerState: CalendarDatePickerState? = null
+        var fieldValue by mutableStateOf("")
+
+        // Define a date that will be disabled
+        val disabledDate = today.plus(1, DateTimeUnit.DAY)
+
+        setContent {
+            CarbonDesignSystem {
+                datePickerState = rememberCalendarDatePickerState(
+                    today = today,
+                    initialSelectedDate = null,
+                    dateFormat = dateFormat,
+                    selectableDates = { date -> date != disabledDate },
+                    onFieldValidation = {}
+                )
+                CalendarDatePicker(
+                    datePickerState = datePickerState,
+                    label = "Select date",
+                    value = fieldValue,
+                    expanded = expanded,
+                    onValueChange = { fieldValue = it },
+                    onExpandedChange = { expanded = it },
+                    onDismissRequest = { expanded = false },
+                )
+            }
+        }
+
+        // Open the calendar menu
+        expanded = true
+        waitForIdle()
+
+        // Verify calendar menu is visible
+        onNodeWithTag(CalendarDatePickerTestTags.CALENDAR_MENU)
+            .assertExists()
+            .assertIsDisplayed()
+
+        // Try to click on the disabled date
+        val disabledDayTag = "${CalendarDatePickerTestTags.CALENDAR_DAY_ITEM}_$disabledDate"
+        onNodeWithTag(disabledDayTag, useUnmergedTree = true)
+            .assertExists()
+            .assertIsNotEnabled()
+            .performClick()
+
+        waitForIdle()
+
+        // Verify date was NOT selected
+        assertNull(datePickerState?.selectedDate)
+
+        // Verify calendar menu is still open (because date was not selected)
+        onNodeWithTag(CalendarDatePickerTestTags.CALENDAR_MENU)
+            .assertExists()
+            .assertIsDisplayed()
+    }
+
+    @Test
+    fun calendarDatePicker_selectableDates_enabledDateIsClickable() = runComposeUiTest {
+        var expanded by mutableStateOf(false)
+        var datePickerState: CalendarDatePickerState? = null
+        var fieldValue by mutableStateOf("")
+
+        // Define a date that will be disabled
+        val disabledDate = today.plus(1, DateTimeUnit.DAY)
+        val enabledDate = today.plus(2, DateTimeUnit.DAY)
+
+        setContent {
+            CarbonDesignSystem {
+                datePickerState = rememberCalendarDatePickerState(
+                    today = today,
+                    initialSelectedDate = null,
+                    dateFormat = dateFormat,
+                    selectableDates = { date -> date != disabledDate },
+                    onFieldValidation = {}
+                )
+                CalendarDatePicker(
+                    datePickerState = datePickerState,
+                    label = "Select date",
+                    value = fieldValue,
+                    expanded = expanded,
+                    onValueChange = { fieldValue = it },
+                    onExpandedChange = { expanded = it },
+                    onDismissRequest = { expanded = false },
+                )
+            }
+        }
+
+        // Open the calendar menu
+        expanded = true
+        waitForIdle()
+
+        // Click on an enabled date
+        val enabledDayTag = "${CalendarDatePickerTestTags.CALENDAR_DAY_ITEM}_$enabledDate"
+        onNodeWithTag(enabledDayTag, useUnmergedTree = true)
+            .assertExists()
+            .assertHasClickAction()
+            .performClick()
+
+        waitForIdle()
+
+        // Verify date was selected
+        assertNotNull(datePickerState)
+        assertEquals(enabledDate, datePickerState.selectedDate)
+
+        // Verify calendar menu is now closed
+        onNodeWithTag(CalendarDatePickerTestTags.CALENDAR_MENU)
+            .assertDoesNotExist()
+    }
+
+    @Test
+    fun calendarDatePicker_selectableDates_multipleDatesDisabled() = runComposeUiTest {
+        var expanded by mutableStateOf(false)
+        var datePickerState: CalendarDatePickerState? = null
+        var fieldValue by mutableStateOf("")
+
+        // Define multiple dates that will be disabled
+        val disabledDates = listOf(
+            today.plus(1, DateTimeUnit.DAY),
+            today.plus(3, DateTimeUnit.DAY),
+            today.plus(5, DateTimeUnit.DAY)
+        )
+
+        setContent {
+            CarbonDesignSystem {
+                datePickerState = rememberCalendarDatePickerState(
+                    today = today,
+                    initialSelectedDate = null,
+                    dateFormat = dateFormat,
+                    selectableDates = { date -> date !in disabledDates },
+                    onFieldValidation = {}
+                )
+                CalendarDatePicker(
+                    datePickerState = datePickerState,
+                    label = "Select date",
+                    value = fieldValue,
+                    expanded = expanded,
+                    onValueChange = { fieldValue = it },
+                    onExpandedChange = { expanded = it },
+                    onDismissRequest = { expanded = false },
+                )
+            }
+        }
+
+        // Open the calendar menu
+        expanded = true
+        waitForIdle()
+
+        // Verify each disabled date is not clickable
+        disabledDates.forEach { disabledDate ->
+            val disabledDayTag = "${CalendarDatePickerTestTags.CALENDAR_DAY_ITEM}_$disabledDate"
+            onNodeWithTag(disabledDayTag, useUnmergedTree = true)
+                .assertExists()
+                .assertIsNotEnabled()
+        }
+
+        // Verify an enabled date is clickable
+        val enabledDate = today.plus(2, DateTimeUnit.DAY)
+        val enabledDayTag = "${CalendarDatePickerTestTags.CALENDAR_DAY_ITEM}_$enabledDate"
+        onNodeWithTag(enabledDayTag, useUnmergedTree = true)
+            .assertExists()
+            .assertHasClickAction()
+    }
+
+    @Test
+    fun calendarDatePicker_selectableDates_onlyPastDatesEnabled() = runComposeUiTest {
+        var expanded by mutableStateOf(false)
+        var datePickerState: CalendarDatePickerState? = null
+        var fieldValue by mutableStateOf("")
+
+        setContent {
+            CarbonDesignSystem {
+                datePickerState = rememberCalendarDatePickerState(
+                    today = today,
+                    initialSelectedDate = null,
+                    dateFormat = dateFormat,
+                    selectableDates = { date -> date <= today },
+                    onFieldValidation = {}
+                )
+                CalendarDatePicker(
+                    datePickerState = datePickerState,
+                    label = "Select date",
+                    value = fieldValue,
+                    expanded = expanded,
+                    onValueChange = { fieldValue = it },
+                    onExpandedChange = { expanded = it },
+                    onDismissRequest = { expanded = false },
+                )
+            }
+        }
+
+        // Open the calendar menu
+        expanded = true
+        waitForIdle()
+
+        // Verify future date is not clickable
+        val futureDate = today.plus(1, DateTimeUnit.DAY)
+        val futureDayTag = "${CalendarDatePickerTestTags.CALENDAR_DAY_ITEM}_$futureDate"
+        onNodeWithTag(futureDayTag, useUnmergedTree = true)
+            .assertExists()
+            .assertIsNotEnabled()
+
+        // Verify today is clickable
+        val todayDayTag = "${CalendarDatePickerTestTags.CALENDAR_DAY_ITEM}_$today"
+        onNodeWithTag(todayDayTag, useUnmergedTree = true)
+            .assertExists()
+            .assertHasClickAction()
+            .performClick()
+
+        waitForIdle()
+
+        // Verify today was selected
+        assertNotNull(datePickerState)
+        assertEquals(today, datePickerState.selectedDate)
+    }
+
+    @Test
+    fun calendarDatePicker_selectableDates_onlyFutureDatesEnabled() = runComposeUiTest {
+        var expanded by mutableStateOf(false)
+        var datePickerState: CalendarDatePickerState? = null
+        var fieldValue by mutableStateOf("")
+
+        setContent {
+            CarbonDesignSystem {
+                datePickerState = rememberCalendarDatePickerState(
+                    today = today,
+                    initialSelectedDate = null,
+                    dateFormat = dateFormat,
+                    selectableDates = { date -> date > today },
+                    onFieldValidation = {}
+                )
+                CalendarDatePicker(
+                    datePickerState = datePickerState,
+                    label = "Select date",
+                    value = fieldValue,
+                    expanded = expanded,
+                    onValueChange = { fieldValue = it },
+                    onExpandedChange = { expanded = it },
+                    onDismissRequest = { expanded = false },
+                )
+            }
+        }
+
+        // Open the calendar menu
+        expanded = true
+        waitForIdle()
+
+        // Verify today is not clickable
+        val todayDayTag = "${CalendarDatePickerTestTags.CALENDAR_DAY_ITEM}_$today"
+        onNodeWithTag(todayDayTag, useUnmergedTree = true)
+            .assertExists()
+            .assertIsNotEnabled()
+
+        // Verify future date is clickable
+        val futureDate = today.plus(1, DateTimeUnit.DAY)
+        val futureDayTag = "${CalendarDatePickerTestTags.CALENDAR_DAY_ITEM}_$futureDate"
+        onNodeWithTag(futureDayTag, useUnmergedTree = true)
+            .assertExists()
+            .assertHasClickAction()
+            .performClick()
+
+        waitForIdle()
+
+        // Verify future date was selected
+        assertNotNull(datePickerState)
+        assertEquals(futureDate, datePickerState.selectedDate)
     }
 }

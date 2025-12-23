@@ -222,9 +222,11 @@ public fun CalendarDatePicker(
                     ) {
                         CalendarMenu(
                             calendar = calendar,
-                            today = datePickerState.today,
-                            selectedDate = datePickerState.selectedDate,
-                            onDayClicked = { datePickerState.selectedDate = it },
+                            datePickerState = datePickerState,
+                            onDayClicked = {
+                                datePickerState.selectedDate = it
+                                onExpandedChange(false)
+                            },
                             onLoadPreviousMonth = {
                                 calendarYearMonth = calendarYearMonth.minusMonth()
                             },

@@ -60,7 +60,7 @@ class CalendarDatePickerStateImplTest {
         setContent {
             state = rememberCalendarDatePickerState(
                 today = today,
-                confirmDateChange = { true },
+                selectableDates = { true },
                 dateFormat = dateFormat,
                 onFieldValidation = {}
             )
@@ -84,23 +84,23 @@ class CalendarDatePickerStateImplTest {
         runComposeUiTest {
             // Given
             val initialDate = LocalDate(2024, 1, 1)
+            val disabledDate = LocalDate(2024, 2, 2)
             var state: CalendarDatePickerState? = null
             setContent {
                 state = rememberCalendarDatePickerState(
                     today = today,
                     initialSelectedDate = initialDate,
-                    confirmDateChange = { false },
+                    selectableDates = { it != disabledDate },
                     dateFormat = dateFormat,
                     onFieldValidation = {}
                 )
             }
-            val newDate = LocalDate(2024, 2, 2)
             var fieldUpdate: String? = null
             state?.updateFieldCallback = { fieldUpdate = it }
 
             // When
             runOnIdle {
-                state?.selectedDate = newDate
+                state?.selectedDate = disabledDate
             }
 
             // Then
@@ -116,7 +116,7 @@ class CalendarDatePickerStateImplTest {
             state = rememberCalendarDatePickerState(
                 today = today,
                 initialSelectedDate = LocalDate(2024, 1, 1),
-                confirmDateChange = { true },
+                selectableDates = { true },
                 dateFormat = dateFormat,
                 onFieldValidation = {}
             )
@@ -143,7 +143,7 @@ class CalendarDatePickerStateImplTest {
             setContent {
                 state = rememberCalendarDatePickerState(
                     today = today,
-                    confirmDateChange = { true },
+                    selectableDates = { true },
                     dateFormat = dateFormat,
                     onFieldValidation = { validationResult = it }
                 )
@@ -173,7 +173,7 @@ class CalendarDatePickerStateImplTest {
             setContent {
                 state = rememberCalendarDatePickerState(
                     today = today,
-                    confirmDateChange = { false },
+                    selectableDates = { false },
                     dateFormat = dateFormat,
                     onFieldValidation = { validationResult = it }
                 )
@@ -202,7 +202,7 @@ class CalendarDatePickerStateImplTest {
             setContent {
                 state = rememberCalendarDatePickerState(
                     today = today,
-                    confirmDateChange = { true },
+                    selectableDates = { true },
                     dateFormat = dateFormat,
                     onFieldValidation = { validationResult = it }
                 )
@@ -232,7 +232,7 @@ class CalendarDatePickerStateImplTest {
                 state = rememberCalendarDatePickerState(
                     today = today,
                     initialSelectedDate = LocalDate(2024, 1, 1),
-                    confirmDateChange = { true },
+                    selectableDates = { true },
                     dateFormat = dateFormat,
                     onFieldValidation = { validationResult = it }
                 )

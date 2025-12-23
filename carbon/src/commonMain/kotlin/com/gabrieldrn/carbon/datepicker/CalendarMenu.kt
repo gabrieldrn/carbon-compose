@@ -20,6 +20,7 @@ import androidx.compose.foundation.Indication
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -33,11 +34,14 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
+import androidx.compose.ui.input.pointer.PointerIcon
+import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -53,6 +57,7 @@ import com.gabrieldrn.carbon.carbon_datepicker_calendar_loadNextMonth_descriptio
 import com.gabrieldrn.carbon.carbon_datepicker_calendar_loadPreviousMonth_description
 import com.gabrieldrn.carbon.foundation.color.CarbonLayer
 import com.gabrieldrn.carbon.foundation.color.layerBackground
+import com.gabrieldrn.carbon.foundation.color.layerHoverColor
 import com.gabrieldrn.carbon.foundation.interaction.FocusIndication
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 import com.gabrieldrn.carbon.icons.chevronLeftIcon
@@ -102,9 +107,7 @@ internal data class MonthDay(
     val isOutOfMonth: Boolean,
 )
 
-internal fun getCalendarMenuData(
-    yearMonth: YearMonth
-): CalendarMenuData {
+internal fun getCalendarMenuData(yearMonth: YearMonth): CalendarMenuData {
     val firstDayCurrentMonth = yearMonth.firstDay
     val previousMonth = yearMonth.minusMonth()
     val nextMonth = yearMonth.plusMonth()
@@ -154,8 +157,7 @@ internal fun getCalendarMenuData(
 @Composable
 internal fun CalendarMenu(
     calendar: CalendarMenuData,
-    today: LocalDate,
-    selectedDate: LocalDate?,
+    datePickerState: CalendarDatePickerState,
     onDayClicked: (LocalDate) -> Unit,
     onLoadPreviousMonth: () -> Unit,
     onLoadNextMonth: () -> Unit,
@@ -165,25 +167,23 @@ internal fun CalendarMenu(
         monthName(MonthNames.ENGLISH_FULL); char(' '); year()
     }
 ) {
-    val regularTextStyle = Carbon.typography.bodyCompact01.copy(
-        color = Carbon.theme.textPrimary
-    )
-
-    val outOfMonthTextStyle = Carbon.typography.bodyCompact01.copy(
-        color = Carbon.theme.textSecondary
-    )
-
-    val todayDayTextStyle = Carbon.typography.bodyCompact01.copy(
-        color = Carbon.theme.linkPrimary,
-        fontWeight = FontWeight.SemiBold
-    )
-
-    val selectedDayTextStyle = Carbon.typography.bodyCompact01.copy(
-        color = Carbon.theme.textOnColor,
-        fontWeight = FontWeight.SemiBold
-    )
-
     val theme = Carbon.theme
+
+    val regularTextStyle = Carbon.typography.bodyCompact01.copy(color = theme.textPrimary)
+
+    val outOfMonthTextStyle = regularTextStyle.copy(color = theme.textSecondary)
+
+    val todayDayTextStyle = regularTextStyle.copy(
+        color = theme.linkPrimary,
+        fontWeight = FontWeight.SemiBold
+    )
+
+    val disabledDayTextStyle = regularTextStyle.copy(color = theme.textDisabled)
+
+    val selectedDayTextStyle = regularTextStyle.copy(
+        color = theme.textOnColor,
+        fontWeight = FontWeight.SemiBold
+    )
 
     val dayItemIndication = remember(theme) { FocusIndication(theme) }
 
@@ -265,10 +265,13 @@ internal fun CalendarMenu(
                         week.forEach { day ->
                             CalendarDayItem(
                                 day = day.localDate.day.toString(),
-                                isToday = day.localDate == today,
-                                isSelected = day.localDate == selectedDate,
+                                isEnabled = datePickerState.selectableDates
+                                    .isSelectable(day.localDate),
+                                isToday = day.localDate == datePickerState.today,
+                                isSelected = day.localDate == datePickerState.selectedDate,
                                 isOutOfMonth = day.isOutOfMonth,
                                 regularTextStyle = regularTextStyle,
+                                disabledDayTextStyle = disabledDayTextStyle,
                                 outOfMonthTextStyle = outOfMonthTextStyle,
                                 todayDayTextStyle = todayDayTextStyle,
                                 selectedDayTextStyle = selectedDayTextStyle,
@@ -293,31 +296,45 @@ internal fun CalendarMenu(
 @Composable
 private fun CalendarDayItem(
     day: String,
+    isEnabled: Boolean,
     isToday: Boolean,
     isSelected: Boolean,
     isOutOfMonth: Boolean,
     regularTextStyle: TextStyle,
+    disabledDayTextStyle: TextStyle,
     outOfMonthTextStyle: TextStyle,
     todayDayTextStyle: TextStyle,
     selectedDayTextStyle: TextStyle,
     indication: Indication,
     onClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 ) {
+    val isHovered by interactionSource.collectIsHoveredAsState()
+
     Box(
         contentAlignment = Alignment.Center,
         modifier = modifier
             .clickable(
                 onClick = onClick,
-                enabled = !isOutOfMonth,
-                interactionSource = remember { MutableInteractionSource() },
+                enabled = !isOutOfMonth && isEnabled,
+                interactionSource = interactionSource,
                 indication = indication
             )
-            .background(if (isSelected) Carbon.theme.backgroundBrand else Color.Transparent)
+            .pointerHoverIcon(PointerIcon.Hand)
+            .background(
+                when {
+                    isSelected -> Carbon.theme.backgroundBrand
+                    isHovered -> Carbon.theme.layerHoverColor(Carbon.layer)
+                    else -> Color.Transparent
+                }
+            )
     ) {
         BasicText(
             text = day,
             style = when {
+                !isEnabled && isToday -> todayDayTextStyle.merge(disabledDayTextStyle)
+                !isEnabled -> disabledDayTextStyle
                 isSelected -> selectedDayTextStyle
                 isToday -> todayDayTextStyle
                 isOutOfMonth -> outOfMonthTextStyle
@@ -347,10 +364,17 @@ private fun CalendarMenuPreview() {
 
         val calendar = remember { getCalendarMenuData(today.yearMonth) }
 
-        CalendarMenu(
+        val pickerState = rememberCalendarDatePickerState(
             today = today,
+            selectableDates = { it != today.plus(1, DateTimeUnit.DAY) },
+            onFieldValidation = {}
+        )
+
+        pickerState.selectedDate = today.plus(2, DateTimeUnit.DAY)
+
+        CalendarMenu(
             calendar = calendar,
-            selectedDate = today.plus(1, DateTimeUnit.DAY),
+            datePickerState = pickerState,
             onDayClicked = {},
             onLoadPreviousMonth = {},
             onLoadNextMonth = {},

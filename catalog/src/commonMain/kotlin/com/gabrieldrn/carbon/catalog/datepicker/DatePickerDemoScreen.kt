@@ -46,9 +46,11 @@ import com.gabrieldrn.carbon.tag.ReadOnlyTag
 import com.gabrieldrn.carbon.tag.TagSize
 import com.gabrieldrn.carbon.tag.TagType
 import com.gabrieldrn.carbon.textinput.TextInputState
+import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.format.char
+import kotlinx.datetime.plus
 import kotlinx.datetime.toLocalDateTime
 import org.jetbrains.compose.resources.painterResource
 import kotlin.time.Clock
@@ -70,9 +72,14 @@ fun DatePickerDemoScreen(
         }
     }
 
+    val today = remember {
+        Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date
+    }
+
     val pickerState = rememberCalendarDatePickerState(
-        today = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date,
+        today = today,
         dateFormat = dateFormat,
+        selectableDates = { it != today.plus(1, DateTimeUnit.DAY) },
         onFieldValidation = { isFieldValid = it }
     )
 
