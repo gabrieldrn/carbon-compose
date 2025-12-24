@@ -20,12 +20,15 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.key.Key
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.test.assertHasClickAction
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performKeyInput
+import androidx.compose.ui.test.pressKey
 import androidx.compose.ui.test.runComposeUiTest
 import com.gabrieldrn.carbon.CarbonDesignSystem
 import com.gabrieldrn.carbon.textinput.TextInputState
@@ -998,5 +1001,49 @@ class CalendarDatePickerTest {
         // Verify future date was selected
         assertNotNull(datePickerState)
         assertEquals(futureDate, datePickerState.selectedDate)
+    }
+
+    @Test
+    fun calendarDatePicker_escapeKey_dismissesCalendarMenu() = runComposeUiTest {
+        var expanded by mutableStateOf(false)
+
+        setContent {
+            CarbonDesignSystem {
+                CalendarDatePicker(
+                    datePickerState = rememberCalendarDatePickerState(
+                        today = today,
+                        dateFormat = dateFormat,
+                        onFieldValidation = {}
+                    ),
+                    label = "Select date",
+                    value = "",
+                    expanded = expanded,
+                    onValueChange = {},
+                    onExpandedChange = { expanded = it },
+                    onDismissRequest = { expanded = false },
+                )
+            }
+        }
+
+        // Open the calendar menu
+        expanded = true
+        waitForIdle()
+
+        // Verify calendar menu is visible
+        onNodeWithTag(CalendarDatePickerTestTags.CALENDAR_MENU)
+            .assertExists()
+            .assertIsDisplayed()
+
+        // Press Escape key on the calendar menu
+        onNodeWithTag(CalendarDatePickerTestTags.CALENDAR_MENU)
+            .performKeyInput {
+                pressKey(Key.Escape)
+            }
+
+        waitForIdle()
+
+        // Verify calendar menu is now dismissed
+        onNodeWithTag(CalendarDatePickerTestTags.CALENDAR_MENU)
+            .assertDoesNotExist()
     }
 }
