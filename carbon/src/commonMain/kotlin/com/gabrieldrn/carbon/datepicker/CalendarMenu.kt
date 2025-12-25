@@ -38,10 +38,18 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusDirection
+import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
+import androidx.compose.ui.input.key.Key
+import androidx.compose.ui.input.key.KeyEventType
+import androidx.compose.ui.input.key.key
+import androidx.compose.ui.input.key.onPreviewKeyEvent
+import androidx.compose.ui.input.key.type
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -104,8 +112,20 @@ internal data class CalendarMenuData(
 @Stable
 internal data class MonthDay(
     val localDate: LocalDate,
-    val isOutOfMonth: Boolean,
+    val isOutOfMonth: Boolean
 )
+
+private fun Modifier.menuKeyboardNavigation(
+    focusManager: FocusManager,
+) = onPreviewKeyEvent {
+    if (it.type == KeyEventType.KeyDown) when (it.key) {
+        Key.DirectionLeft -> focusManager.moveFocus(FocusDirection.Previous)
+        Key.DirectionRight -> focusManager.moveFocus(FocusDirection.Next)
+        Key.DirectionUp -> focusManager.moveFocus(FocusDirection.Up)
+        Key.DirectionDown -> focusManager.moveFocus(FocusDirection.Down)
+        else -> false
+    } else false
+}
 
 internal fun getCalendarMenuData(yearMonth: YearMonth): CalendarMenuData {
     val firstDayCurrentMonth = yearMonth.firstDay
@@ -168,6 +188,7 @@ internal fun CalendarMenu(
     }
 ) {
     val theme = Carbon.theme
+    val focusManager = LocalFocusManager.current
 
     val regularTextStyle = Carbon.typography.bodyCompact01.copy(color = theme.textPrimary)
 
@@ -278,6 +299,7 @@ internal fun CalendarMenu(
                                 indication = dayItemIndication,
                                 onClick = { onDayClicked(day.localDate) },
                                 modifier = Modifier
+                                    .menuKeyboardNavigation(focusManager = focusManager)
                                     .fillMaxHeight()
                                     .weight(1f)
                                     .testTag(

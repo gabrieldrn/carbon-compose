@@ -24,11 +24,13 @@ import androidx.compose.ui.input.key.Key
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.test.assertHasClickAction
 import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.assertIsFocused
 import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performKeyInput
 import androidx.compose.ui.test.pressKey
+import androidx.compose.ui.test.requestFocus
 import androidx.compose.ui.test.runComposeUiTest
 import com.gabrieldrn.carbon.CarbonDesignSystem
 import com.gabrieldrn.carbon.textinput.TextInputState
@@ -1045,5 +1047,299 @@ class CalendarDatePickerTest {
         // Verify calendar menu is now dismissed
         onNodeWithTag(CalendarDatePickerTestTags.CALENDAR_MENU)
             .assertDoesNotExist()
+    }
+
+    @Test
+    fun calendarDatePicker_arrowRightKey_movesFocusToNextDay() = runComposeUiTest {
+        var expanded by mutableStateOf(false)
+        var datePickerState: CalendarDatePickerState
+
+        val nextDay = today.plus(1, DateTimeUnit.DAY)
+
+        setContent {
+            CarbonDesignSystem {
+                datePickerState = rememberCalendarDatePickerState(
+                    today = today,
+                    dateFormat = dateFormat,
+                    onFieldValidation = {}
+                )
+                CalendarDatePicker(
+                    datePickerState = datePickerState,
+                    label = "Select date",
+                    value = "",
+                    expanded = expanded,
+                    onValueChange = {},
+                    onExpandedChange = { expanded = it },
+                    onDismissRequest = { expanded = false },
+                )
+            }
+        }
+
+        // Open the calendar menu
+        expanded = true
+        waitForIdle()
+
+        // Get today's date tag
+        val todayTag = "${CalendarDatePickerTestTags.CALENDAR_DAY_ITEM}_$today"
+        val nextDayTag = "${CalendarDatePickerTestTags.CALENDAR_DAY_ITEM}_$nextDay"
+
+        // Focus on today
+        onNodeWithTag(todayTag, useUnmergedTree = true)
+            .assertExists()
+            .requestFocus()
+            .performKeyInput {
+                pressKey(Key.DirectionRight)
+            }
+
+        onNodeWithTag(nextDayTag, useUnmergedTree = false)
+            .assertIsFocused()
+    }
+
+    @Test
+    fun calendarDatePicker_arrowLeftKey_movesFocusToPreviousDay() = runComposeUiTest {
+        var expanded by mutableStateOf(false)
+        var datePickerState: CalendarDatePickerState
+
+        // Use a future date to ensure there's a previous day
+        val futureDate = today.plus(3, DateTimeUnit.DAY)
+        val previousDay = today.plus(2, DateTimeUnit.DAY)
+
+        setContent {
+            CarbonDesignSystem {
+                datePickerState = rememberCalendarDatePickerState(
+                    today = today,
+                    dateFormat = dateFormat,
+                    onFieldValidation = {}
+                )
+                CalendarDatePicker(
+                    datePickerState = datePickerState,
+                    label = "Select date",
+                    value = "",
+                    expanded = expanded,
+                    onValueChange = {},
+                    onExpandedChange = { expanded = it },
+                    onDismissRequest = { expanded = false },
+                )
+            }
+        }
+
+        // Open the calendar menu
+        expanded = true
+        waitForIdle()
+
+        // Get tags for current and previous day
+        val futureDateTag = "${CalendarDatePickerTestTags.CALENDAR_DAY_ITEM}_$futureDate"
+        val previousDayTag = "${CalendarDatePickerTestTags.CALENDAR_DAY_ITEM}_$previousDay"
+
+        // Focus on future date
+        onNodeWithTag(futureDateTag, useUnmergedTree = true)
+            .assertExists()
+            .requestFocus()
+            .performKeyInput {
+                pressKey(Key.DirectionLeft)
+            }
+
+        onNodeWithTag(previousDayTag, useUnmergedTree = false)
+            .assertIsFocused()
+    }
+
+    @Test
+    fun calendarDatePicker_arrowDownKey_movesFocusToSameDayNextWeek() = runComposeUiTest {
+        var expanded by mutableStateOf(false)
+        var datePickerState: CalendarDatePickerState
+
+        val nextWeekDay = today.plus(7, DateTimeUnit.DAY)
+
+        setContent {
+            CarbonDesignSystem {
+                datePickerState = rememberCalendarDatePickerState(
+                    today = today,
+                    dateFormat = dateFormat,
+                    onFieldValidation = {}
+                )
+                CalendarDatePicker(
+                    datePickerState = datePickerState,
+                    label = "Select date",
+                    value = "",
+                    expanded = expanded,
+                    onValueChange = {},
+                    onExpandedChange = { expanded = it },
+                    onDismissRequest = { expanded = false },
+                )
+            }
+        }
+
+        // Open the calendar menu
+        expanded = true
+        waitForIdle()
+
+        // Get tags for today and next week
+        val todayTag = "${CalendarDatePickerTestTags.CALENDAR_DAY_ITEM}_$today"
+        val nextWeekTag = "${CalendarDatePickerTestTags.CALENDAR_DAY_ITEM}_$nextWeekDay"
+
+        // Focus on today
+        onNodeWithTag(todayTag, useUnmergedTree = true)
+            .assertExists()
+            .requestFocus()
+            .performKeyInput {
+                pressKey(Key.DirectionDown)
+            }
+
+        onNodeWithTag(nextWeekTag, useUnmergedTree = false)
+            .assertIsFocused()
+    }
+
+    @Test
+    fun calendarDatePicker_arrowUpKey_movesFocusToSameDayPreviousWeek() = runComposeUiTest {
+        var expanded by mutableStateOf(false)
+        var datePickerState: CalendarDatePickerState
+
+        // Use a date in the second week to ensure there's a week above
+        val futureDate = today.plus(10, DateTimeUnit.DAY)
+        val previousWeekDay = today.plus(3, DateTimeUnit.DAY)
+
+        setContent {
+            CarbonDesignSystem {
+                datePickerState = rememberCalendarDatePickerState(
+                    today = today,
+                    dateFormat = dateFormat,
+                    onFieldValidation = {}
+                )
+                CalendarDatePicker(
+                    datePickerState = datePickerState,
+                    label = "Select date",
+                    value = "",
+                    expanded = expanded,
+                    onValueChange = {},
+                    onExpandedChange = { expanded = it },
+                    onDismissRequest = { expanded = false },
+                )
+            }
+        }
+
+        // Open the calendar menu
+        expanded = true
+        waitForIdle()
+
+        // Get tags for current date and previous week
+        val futureDateTag = "${CalendarDatePickerTestTags.CALENDAR_DAY_ITEM}_$futureDate"
+        val previousWeekTag = "${CalendarDatePickerTestTags.CALENDAR_DAY_ITEM}_$previousWeekDay"
+
+        // Focus on future date
+        onNodeWithTag(futureDateTag, useUnmergedTree = true)
+            .assertExists()
+            .requestFocus()
+            .performKeyInput {
+                pressKey(Key.DirectionUp)
+            }
+
+        onNodeWithTag(previousWeekTag, useUnmergedTree = false)
+            .assertIsFocused()
+    }
+
+    @Test
+    fun calendarDatePicker_arrowKeys_navigationOnDisabledDate() = runComposeUiTest {
+        var expanded by mutableStateOf(false)
+        var datePickerState: CalendarDatePickerState
+
+        // Disable some dates
+        val disabledDate = today.plus(1, DateTimeUnit.DAY)
+        val nextEnabledDate = today.plus(2, DateTimeUnit.DAY)
+
+        setContent {
+            CarbonDesignSystem {
+                datePickerState = rememberCalendarDatePickerState(
+                    today = today,
+                    dateFormat = dateFormat,
+                    selectableDates = SelectableDates { date ->
+                        date != disabledDate
+                    },
+                    onFieldValidation = {}
+                )
+                CalendarDatePicker(
+                    datePickerState = datePickerState,
+                    label = "Select date",
+                    value = "",
+                    expanded = expanded,
+                    onValueChange = {},
+                    onExpandedChange = { expanded = it },
+                    onDismissRequest = { expanded = false },
+                )
+            }
+        }
+
+        // Open the calendar menu
+        expanded = true
+        waitForIdle()
+
+        // Get tags
+        val todayDateTag = "${CalendarDatePickerTestTags.CALENDAR_DAY_ITEM}_$today"
+        val nextEnabledDateTag = "${CalendarDatePickerTestTags.CALENDAR_DAY_ITEM}_$nextEnabledDate"
+
+        // Even though the date is disabled, keyboard navigation should still work
+        // (focus can move to disabled items, they just can't be clicked)
+        onNodeWithTag(todayDateTag, useUnmergedTree = true)
+            .requestFocus()
+            .performKeyInput {
+                pressKey(Key.DirectionRight)
+            }
+
+        onNodeWithTag(nextEnabledDateTag, useUnmergedTree = false)
+            .assertIsFocused()
+    }
+
+    @Test
+    fun calendarDatePicker_multipleArrowKeys_sequentialNavigation() = runComposeUiTest {
+        var expanded by mutableStateOf(false)
+        var datePickerState: CalendarDatePickerState
+
+        // Calculate the expected final position after:
+        // Right x2, Down x1, Left x1
+        // Starting from today: +2 days, +7 days, -1 day = +8 days
+        val expectedFinalDate = today.plus(8, DateTimeUnit.DAY)
+
+        setContent {
+            CarbonDesignSystem {
+                datePickerState = rememberCalendarDatePickerState(
+                    today = today,
+                    dateFormat = dateFormat,
+                    onFieldValidation = {}
+                )
+                CalendarDatePicker(
+                    datePickerState = datePickerState,
+                    label = "Select date",
+                    value = "",
+                    expanded = expanded,
+                    onValueChange = {},
+                    onExpandedChange = { expanded = it },
+                    onDismissRequest = { expanded = false },
+                )
+            }
+        }
+
+        // Open the calendar menu
+        expanded = true
+        waitForIdle()
+
+        // Get tags
+        val todayTag = "${CalendarDatePickerTestTags.CALENDAR_DAY_ITEM}_$today"
+        val finalDateTag = "${CalendarDatePickerTestTags.CALENDAR_DAY_ITEM}_$expectedFinalDate"
+
+        // Focus on today and perform multiple arrow key presses
+        onNodeWithTag(todayTag, useUnmergedTree = true)
+            .assertExists()
+            .requestFocus()
+            .performKeyInput {
+                // Navigate right twice
+                pressKey(Key.DirectionRight)
+                pressKey(Key.DirectionRight)
+                // Navigate down once (moves 7 days forward in the grid)
+                pressKey(Key.DirectionDown)
+                // Navigate left once
+                pressKey(Key.DirectionLeft)
+            }
+
+        onNodeWithTag(finalDateTag, useUnmergedTree = false)
+            .assertIsFocused()
     }
 }
