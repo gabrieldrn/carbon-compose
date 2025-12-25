@@ -339,7 +339,7 @@ private fun CalendarDayItem(
         modifier = modifier
             .clickable(
                 onClick = onClick,
-                enabled = !isOutOfMonth && isEnabled,
+                enabled = isEnabled,
                 interactionSource = interactionSource,
                 indication = indication
             )
