@@ -38,9 +38,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.dropShadow
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.graphics.shadow.Shadow
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.input.key.Key
 import androidx.compose.ui.input.key.KeyEventType
@@ -54,6 +57,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.CarbonDesignSystem
@@ -216,6 +220,15 @@ internal fun CalendarMenu(
         Column(
             modifier = modifier
                 .width(calendarMenuWidth)
+                .dropShadow(
+                    shape = RectangleShape,
+                    shadow = Shadow(
+                        radius = 3.dp,
+                        spread = 0.dp,
+                        color = Color.Black.copy(alpha = .2f),
+                        offset = DpOffset(0.dp, 2.dp)
+                    )
+                )
                 .layerBackground()
                 .padding(SpacingScale.spacing02),
             verticalArrangement = Arrangement.spacedBy(SpacingScale.spacing02)
@@ -399,6 +412,7 @@ private fun CalendarMenuPreview() {
             onDayClicked = {},
             onLoadPreviousMonth = {},
             onLoadNextMonth = {},
+            modifier = Modifier.padding(SpacingScale.spacing04)
         )
     }
 }
