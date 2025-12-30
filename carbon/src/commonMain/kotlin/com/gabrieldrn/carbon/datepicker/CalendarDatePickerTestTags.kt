@@ -17,11 +17,14 @@
 package com.gabrieldrn.carbon.datepicker
 
 internal object CalendarDatePickerTestTags {
-    const val TEXT_FIELD = "carbon_calendar_date_picker_text_field"
-    const val CALENDAR_ICON = "carbon_calendar_date_picker_calendar_icon"
-    const val CALENDAR_MENU = "carbon_calendar_date_picker_calendar_menu"
-    const val CALENDAR_TITLE = "carbon_calendar_date_picker_calendar_title"
-    const val CALENDAR_PREVIOUS_BUTTON = "carbon_calendar_date_picker_previous_button"
-    const val CALENDAR_NEXT_BUTTON = "carbon_calendar_date_picker_next_button"
-    const val CALENDAR_DAY_ITEM = "carbon_calendar_date_picker_day_item"
+    const val TEXT_FIELD = "carbon_calendardatepicker_text_field"
+    const val MENU = "carbon_calendardatepicker_menu"
+    const val MENU_MONTH = "carbon_calendardatepicker_menu_month"
+    const val MENU_YEAR = "carbon_calendardatepicker_menu_year"
+    const val MENU_DEFAULT_YEARMONTH_SELECTOR = "carbon_calendardatepicker_menu_default_ymselector"
+    const val MENU_PREV_MONTH_BUTTON = "carbon_calendardatepicker_menu_prev_month_button"
+    const val MENU_NEXT_MONTH_BUTTON = "carbon_calendardatepicker_menu_next_month_button"
+    const val MENU_PREV_YEAR_BUTTON = "carbon_calendardatepicker_menu_prev_year_button"
+    const val MENU_NEXT_YEAR_BUTTON = "carbon_calendardatepicker_menu_next_year_button"
+    const val MENU_DAY_ITEM = "carbon_calendardatepicker_day_item"
 }

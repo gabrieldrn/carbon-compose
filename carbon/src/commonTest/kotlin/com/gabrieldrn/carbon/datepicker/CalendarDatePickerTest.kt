@@ -26,6 +26,7 @@ import androidx.compose.ui.test.assertHasClickAction
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsFocused
 import androidx.compose.ui.test.assertIsNotEnabled
+import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performKeyInput
@@ -72,7 +73,7 @@ class CalendarDatePickerTest {
             }
         }
 
-        onNodeWithTag(CalendarDatePickerTestTags.CALENDAR_MENU)
+        onNodeWithTag(CalendarDatePickerTestTags.MENU)
             .assertDoesNotExist()
     }
 
@@ -97,26 +98,36 @@ class CalendarDatePickerTest {
             }
         }
 
-        onNodeWithTag(CalendarDatePickerTestTags.CALENDAR_MENU)
+        onNodeWithTag(CalendarDatePickerTestTags.MENU)
             .assertDoesNotExist()
 
         expanded = true
         waitForIdle()
 
-        onNodeWithTag(CalendarDatePickerTestTags.CALENDAR_MENU)
+        onNodeWithTag(CalendarDatePickerTestTags.MENU)
             .assertExists()
             .assertIsDisplayed()
 
-        onNodeWithTag(CalendarDatePickerTestTags.CALENDAR_TITLE)
-            .assertExists()
-            .assertIsDisplayed()
+//        onNodeWithTag(CalendarDatePickerTestTags.CALENDAR_TITLE)
+//            .assertExists()
+//            .assertIsDisplayed()
 
-        onNodeWithTag(CalendarDatePickerTestTags.CALENDAR_PREVIOUS_BUTTON)
+        onNodeWithTag(CalendarDatePickerTestTags.MENU_PREV_MONTH_BUTTON)
             .assertExists()
             .assertIsDisplayed()
             .assertHasClickAction()
 
-        onNodeWithTag(CalendarDatePickerTestTags.CALENDAR_NEXT_BUTTON)
+        onNodeWithTag(CalendarDatePickerTestTags.MENU_NEXT_MONTH_BUTTON)
+            .assertExists()
+            .assertIsDisplayed()
+            .assertHasClickAction()
+
+        onNodeWithTag(CalendarDatePickerTestTags.MENU_PREV_YEAR_BUTTON)
+            .assertExists()
+            .assertIsDisplayed()
+            .assertHasClickAction()
+
+        onNodeWithTag(CalendarDatePickerTestTags.MENU_NEXT_YEAR_BUTTON)
             .assertExists()
             .assertIsDisplayed()
             .assertHasClickAction()
@@ -152,7 +163,7 @@ class CalendarDatePickerTest {
 
         // Get current month/year to create a valid date tag
 
-        val dayTag = "${CalendarDatePickerTestTags.CALENDAR_DAY_ITEM}_$today"
+        val dayTag = "${CalendarDatePickerTestTags.MENU_DAY_ITEM}_$today"
 
         // Try to find and click a day in current month
         onNodeWithTag(dayTag, useUnmergedTree = true)
@@ -190,17 +201,14 @@ class CalendarDatePickerTest {
         expanded = true
         waitForIdle()
 
-        // Verify previous button exists and click it
-        onNodeWithTag(CalendarDatePickerTestTags.CALENDAR_PREVIOUS_BUTTON)
+        onNodeWithTag(CalendarDatePickerTestTags.MENU_PREV_MONTH_BUTTON)
             .assertExists()
             .performClick()
 
         waitForIdle()
 
-        // Calendar should still be displayed after navigation
-        onNodeWithTag(CalendarDatePickerTestTags.CALENDAR_MENU)
-            .assertExists()
-            .assertIsDisplayed()
+        onNodeWithTag(CalendarDatePickerTestTags.MENU_MONTH)
+            .assertTextEquals("December")
     }
 
     @Test
@@ -226,17 +234,82 @@ class CalendarDatePickerTest {
 
         expanded = true
 
-        // Verify next button exists and click it
-        onNodeWithTag(CalendarDatePickerTestTags.CALENDAR_NEXT_BUTTON)
+        onNodeWithTag(CalendarDatePickerTestTags.MENU_NEXT_MONTH_BUTTON)
             .assertExists()
             .performClick()
 
         waitForIdle()
 
-        // Calendar should still be displayed after navigation
-        onNodeWithTag(CalendarDatePickerTestTags.CALENDAR_MENU)
+        onNodeWithTag(CalendarDatePickerTestTags.MENU_MONTH)
+            .assertTextEquals("February")
+    }
+
+
+    @Test
+    fun calendarDatePicker_navigateToPreviousYear_validateYearChange() = runComposeUiTest {
+        var expanded by mutableStateOf(false)
+
+        setContent {
+            CarbonDesignSystem {
+                CalendarDatePicker(
+                    datePickerState = rememberCalendarDatePickerState(
+                        today = today,
+                        dateFormat = dateFormat
+                    ),
+                    label = "Select date",
+                    value = "",
+                    expanded = expanded,
+                    onValueChange = {},
+                    onExpandedChange = { expanded = it },
+                    onDismissRequest = { expanded = false },
+                )
+            }
+        }
+
+        expanded = true
+        waitForIdle()
+
+        onNodeWithTag(CalendarDatePickerTestTags.MENU_PREV_YEAR_BUTTON)
             .assertExists()
-            .assertIsDisplayed()
+            .performClick()
+
+        waitForIdle()
+
+        onNodeWithTag(CalendarDatePickerTestTags.MENU_YEAR)
+            .assertTextEquals("2024")
+    }
+
+    @Test
+    fun calendarDatePicker_navigateToNextYear_validateYearChange() = runComposeUiTest {
+        var expanded by mutableStateOf(false)
+
+        setContent {
+            CarbonDesignSystem {
+                CalendarDatePicker(
+                    datePickerState = rememberCalendarDatePickerState(
+                        today = today,
+                        dateFormat = dateFormat
+                    ),
+                    label = "Select date",
+                    value = "",
+                    expanded = expanded,
+                    onValueChange = {},
+                    onExpandedChange = { expanded = it },
+                    onDismissRequest = { expanded = false },
+                )
+            }
+        }
+
+        expanded = true
+
+        onNodeWithTag(CalendarDatePickerTestTags.MENU_NEXT_YEAR_BUTTON)
+            .assertExists()
+            .performClick()
+
+        waitForIdle()
+
+        onNodeWithTag(CalendarDatePickerTestTags.MENU_YEAR)
+            .assertTextEquals("2026")
     }
 
     @Test
@@ -496,7 +569,7 @@ class CalendarDatePickerTest {
 
         // Verify January 15 is in the calendar
         val january15Tag =
-            "${CalendarDatePickerTestTags.CALENDAR_DAY_ITEM}_${LocalDate(2024, 1, 15)}"
+            "${CalendarDatePickerTestTags.MENU_DAY_ITEM}_${LocalDate(2024, 1, 15)}"
         onNodeWithTag(january15Tag, useUnmergedTree = true)
             .assertExists()
 
@@ -518,7 +591,7 @@ class CalendarDatePickerTest {
 
         // Verify June 20 is now in the calendar
         val june20Tag =
-            "${CalendarDatePickerTestTags.CALENDAR_DAY_ITEM}_${LocalDate(2024, 6, 20)}"
+            "${CalendarDatePickerTestTags.MENU_DAY_ITEM}_${LocalDate(2024, 6, 20)}"
         onNodeWithTag(june20Tag, useUnmergedTree = true)
             .assertExists()
 
@@ -558,12 +631,12 @@ class CalendarDatePickerTest {
         waitForIdle()
 
         // Verify calendar menu is visible
-        onNodeWithTag(CalendarDatePickerTestTags.CALENDAR_MENU)
+        onNodeWithTag(CalendarDatePickerTestTags.MENU)
             .assertExists()
             .assertIsDisplayed()
 
         // Click on a day (today)
-        val dayTag = "${CalendarDatePickerTestTags.CALENDAR_DAY_ITEM}_$today"
+        val dayTag = "${CalendarDatePickerTestTags.MENU_DAY_ITEM}_$today"
         onNodeWithTag(dayTag, useUnmergedTree = true)
             .assertExists()
             .performClick()
@@ -575,7 +648,7 @@ class CalendarDatePickerTest {
         assertEquals(today, datePickerState.selectedDate)
 
         // Verify calendar menu is now closed
-        onNodeWithTag(CalendarDatePickerTestTags.CALENDAR_MENU)
+        onNodeWithTag(CalendarDatePickerTestTags.MENU)
             .assertDoesNotExist()
     }
 
@@ -601,7 +674,7 @@ class CalendarDatePickerTest {
         }
 
         // Verify calendar menu is not visible initially
-        onNodeWithTag(CalendarDatePickerTestTags.CALENDAR_MENU)
+        onNodeWithTag(CalendarDatePickerTestTags.MENU)
             .assertDoesNotExist()
 
         // Click the calendar icon
@@ -613,7 +686,7 @@ class CalendarDatePickerTest {
         waitForIdle()
 
         // Verify calendar menu is now visible
-        onNodeWithTag(CalendarDatePickerTestTags.CALENDAR_MENU)
+        onNodeWithTag(CalendarDatePickerTestTags.MENU)
             .assertExists()
             .assertIsDisplayed()
     }
@@ -652,7 +725,7 @@ class CalendarDatePickerTest {
         waitForIdle()
 
         // Verify calendar menu is still not visible
-        onNodeWithTag(CalendarDatePickerTestTags.CALENDAR_MENU)
+        onNodeWithTag(CalendarDatePickerTestTags.MENU)
             .assertDoesNotExist()
     }
 
@@ -690,7 +763,7 @@ class CalendarDatePickerTest {
         waitForIdle()
 
         // Verify calendar menu is still not visible
-        onNodeWithTag(CalendarDatePickerTestTags.CALENDAR_MENU)
+        onNodeWithTag(CalendarDatePickerTestTags.MENU)
             .assertDoesNotExist()
     }
 
@@ -736,7 +809,7 @@ class CalendarDatePickerTest {
             waitForIdle()
 
             // Verify calendar menu is visible
-            onNodeWithTag(CalendarDatePickerTestTags.CALENDAR_MENU)
+            onNodeWithTag(CalendarDatePickerTestTags.MENU)
                 .assertExists()
                 .assertIsDisplayed()
         }
@@ -776,12 +849,12 @@ class CalendarDatePickerTest {
         waitForIdle()
 
         // Verify calendar menu is visible
-        onNodeWithTag(CalendarDatePickerTestTags.CALENDAR_MENU)
+        onNodeWithTag(CalendarDatePickerTestTags.MENU)
             .assertExists()
             .assertIsDisplayed()
 
         // Try to click on the disabled date
-        val disabledDayTag = "${CalendarDatePickerTestTags.CALENDAR_DAY_ITEM}_$disabledDate"
+        val disabledDayTag = "${CalendarDatePickerTestTags.MENU_DAY_ITEM}_$disabledDate"
         onNodeWithTag(disabledDayTag, useUnmergedTree = true)
             .assertExists()
             .assertIsNotEnabled()
@@ -793,7 +866,7 @@ class CalendarDatePickerTest {
         assertNull(datePickerState?.selectedDate)
 
         // Verify calendar menu is still open (because date was not selected)
-        onNodeWithTag(CalendarDatePickerTestTags.CALENDAR_MENU)
+        onNodeWithTag(CalendarDatePickerTestTags.MENU)
             .assertExists()
             .assertIsDisplayed()
     }
@@ -833,7 +906,7 @@ class CalendarDatePickerTest {
         waitForIdle()
 
         // Click on an enabled date
-        val enabledDayTag = "${CalendarDatePickerTestTags.CALENDAR_DAY_ITEM}_$enabledDate"
+        val enabledDayTag = "${CalendarDatePickerTestTags.MENU_DAY_ITEM}_$enabledDate"
         onNodeWithTag(enabledDayTag, useUnmergedTree = true)
             .assertExists()
             .assertHasClickAction()
@@ -846,7 +919,7 @@ class CalendarDatePickerTest {
         assertEquals(enabledDate, datePickerState.selectedDate)
 
         // Verify calendar menu is now closed
-        onNodeWithTag(CalendarDatePickerTestTags.CALENDAR_MENU)
+        onNodeWithTag(CalendarDatePickerTestTags.MENU)
             .assertDoesNotExist()
     }
 
@@ -889,7 +962,7 @@ class CalendarDatePickerTest {
 
         // Verify each disabled date is not clickable
         disabledDates.forEach { disabledDate ->
-            val disabledDayTag = "${CalendarDatePickerTestTags.CALENDAR_DAY_ITEM}_$disabledDate"
+            val disabledDayTag = "${CalendarDatePickerTestTags.MENU_DAY_ITEM}_$disabledDate"
             onNodeWithTag(disabledDayTag, useUnmergedTree = true)
                 .assertExists()
                 .assertIsNotEnabled()
@@ -897,7 +970,7 @@ class CalendarDatePickerTest {
 
         // Verify an enabled date is clickable
         val enabledDate = today.plus(2, DateTimeUnit.DAY)
-        val enabledDayTag = "${CalendarDatePickerTestTags.CALENDAR_DAY_ITEM}_$enabledDate"
+        val enabledDayTag = "${CalendarDatePickerTestTags.MENU_DAY_ITEM}_$enabledDate"
         onNodeWithTag(enabledDayTag, useUnmergedTree = true)
             .assertExists()
             .assertHasClickAction()
@@ -935,13 +1008,13 @@ class CalendarDatePickerTest {
 
         // Verify future date is not clickable
         val futureDate = today.plus(1, DateTimeUnit.DAY)
-        val futureDayTag = "${CalendarDatePickerTestTags.CALENDAR_DAY_ITEM}_$futureDate"
+        val futureDayTag = "${CalendarDatePickerTestTags.MENU_DAY_ITEM}_$futureDate"
         onNodeWithTag(futureDayTag, useUnmergedTree = true)
             .assertExists()
             .assertIsNotEnabled()
 
         // Verify today is clickable
-        val todayDayTag = "${CalendarDatePickerTestTags.CALENDAR_DAY_ITEM}_$today"
+        val todayDayTag = "${CalendarDatePickerTestTags.MENU_DAY_ITEM}_$today"
         onNodeWithTag(todayDayTag, useUnmergedTree = true)
             .assertExists()
             .assertHasClickAction()
@@ -985,14 +1058,14 @@ class CalendarDatePickerTest {
         waitForIdle()
 
         // Verify today is not clickable
-        val todayDayTag = "${CalendarDatePickerTestTags.CALENDAR_DAY_ITEM}_$today"
+        val todayDayTag = "${CalendarDatePickerTestTags.MENU_DAY_ITEM}_$today"
         onNodeWithTag(todayDayTag, useUnmergedTree = true)
             .assertExists()
             .assertIsNotEnabled()
 
         // Verify future date is clickable
         val futureDate = today.plus(1, DateTimeUnit.DAY)
-        val futureDayTag = "${CalendarDatePickerTestTags.CALENDAR_DAY_ITEM}_$futureDate"
+        val futureDayTag = "${CalendarDatePickerTestTags.MENU_DAY_ITEM}_$futureDate"
         onNodeWithTag(futureDayTag, useUnmergedTree = true)
             .assertExists()
             .assertHasClickAction()
@@ -1032,12 +1105,12 @@ class CalendarDatePickerTest {
         waitForIdle()
 
         // Verify calendar menu is visible
-        onNodeWithTag(CalendarDatePickerTestTags.CALENDAR_MENU)
+        onNodeWithTag(CalendarDatePickerTestTags.MENU)
             .assertExists()
             .assertIsDisplayed()
 
         // Press Escape key on the calendar menu
-        onNodeWithTag(CalendarDatePickerTestTags.CALENDAR_MENU)
+        onNodeWithTag(CalendarDatePickerTestTags.MENU)
             .performKeyInput {
                 pressKey(Key.Escape)
             }
@@ -1045,7 +1118,7 @@ class CalendarDatePickerTest {
         waitForIdle()
 
         // Verify calendar menu is now dismissed
-        onNodeWithTag(CalendarDatePickerTestTags.CALENDAR_MENU)
+        onNodeWithTag(CalendarDatePickerTestTags.MENU)
             .assertDoesNotExist()
     }
 
@@ -1080,8 +1153,8 @@ class CalendarDatePickerTest {
         waitForIdle()
 
         // Get today's date tag
-        val todayTag = "${CalendarDatePickerTestTags.CALENDAR_DAY_ITEM}_$today"
-        val nextDayTag = "${CalendarDatePickerTestTags.CALENDAR_DAY_ITEM}_$nextDay"
+        val todayTag = "${CalendarDatePickerTestTags.MENU_DAY_ITEM}_$today"
+        val nextDayTag = "${CalendarDatePickerTestTags.MENU_DAY_ITEM}_$nextDay"
 
         // Focus on today
         onNodeWithTag(todayTag, useUnmergedTree = true)
@@ -1128,8 +1201,8 @@ class CalendarDatePickerTest {
         waitForIdle()
 
         // Get tags for current and previous day
-        val futureDateTag = "${CalendarDatePickerTestTags.CALENDAR_DAY_ITEM}_$futureDate"
-        val previousDayTag = "${CalendarDatePickerTestTags.CALENDAR_DAY_ITEM}_$previousDay"
+        val futureDateTag = "${CalendarDatePickerTestTags.MENU_DAY_ITEM}_$futureDate"
+        val previousDayTag = "${CalendarDatePickerTestTags.MENU_DAY_ITEM}_$previousDay"
 
         // Focus on future date
         onNodeWithTag(futureDateTag, useUnmergedTree = true)
@@ -1174,8 +1247,8 @@ class CalendarDatePickerTest {
         waitForIdle()
 
         // Get tags for today and next week
-        val todayTag = "${CalendarDatePickerTestTags.CALENDAR_DAY_ITEM}_$today"
-        val nextWeekTag = "${CalendarDatePickerTestTags.CALENDAR_DAY_ITEM}_$nextWeekDay"
+        val todayTag = "${CalendarDatePickerTestTags.MENU_DAY_ITEM}_$today"
+        val nextWeekTag = "${CalendarDatePickerTestTags.MENU_DAY_ITEM}_$nextWeekDay"
 
         // Focus on today
         onNodeWithTag(todayTag, useUnmergedTree = true)
@@ -1222,8 +1295,8 @@ class CalendarDatePickerTest {
         waitForIdle()
 
         // Get tags for current date and previous week
-        val futureDateTag = "${CalendarDatePickerTestTags.CALENDAR_DAY_ITEM}_$futureDate"
-        val previousWeekTag = "${CalendarDatePickerTestTags.CALENDAR_DAY_ITEM}_$previousWeekDay"
+        val futureDateTag = "${CalendarDatePickerTestTags.MENU_DAY_ITEM}_$futureDate"
+        val previousWeekTag = "${CalendarDatePickerTestTags.MENU_DAY_ITEM}_$previousWeekDay"
 
         // Focus on future date
         onNodeWithTag(futureDateTag, useUnmergedTree = true)
@@ -1273,8 +1346,8 @@ class CalendarDatePickerTest {
         waitForIdle()
 
         // Get tags
-        val todayDateTag = "${CalendarDatePickerTestTags.CALENDAR_DAY_ITEM}_$today"
-        val nextEnabledDateTag = "${CalendarDatePickerTestTags.CALENDAR_DAY_ITEM}_$nextEnabledDate"
+        val todayDateTag = "${CalendarDatePickerTestTags.MENU_DAY_ITEM}_$today"
+        val nextEnabledDateTag = "${CalendarDatePickerTestTags.MENU_DAY_ITEM}_$nextEnabledDate"
 
         // Even though the date is disabled, keyboard navigation should still work
         // (focus can move to disabled items, they just can't be clicked)
@@ -1322,8 +1395,8 @@ class CalendarDatePickerTest {
         waitForIdle()
 
         // Get tags
-        val todayTag = "${CalendarDatePickerTestTags.CALENDAR_DAY_ITEM}_$today"
-        val finalDateTag = "${CalendarDatePickerTestTags.CALENDAR_DAY_ITEM}_$expectedFinalDate"
+        val todayTag = "${CalendarDatePickerTestTags.MENU_DAY_ITEM}_$today"
+        val finalDateTag = "${CalendarDatePickerTestTags.MENU_DAY_ITEM}_$expectedFinalDate"
 
         // Focus on today and perform multiple arrow key presses
         onNodeWithTag(todayTag, useUnmergedTree = true)

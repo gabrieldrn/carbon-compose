@@ -53,9 +53,10 @@ import kotlinx.datetime.YearMonth
 import kotlinx.datetime.format.DateTimeFormat
 import kotlinx.datetime.format.DayOfWeekNames
 import kotlinx.datetime.format.MonthNames
-import kotlinx.datetime.format.char
 import kotlinx.datetime.minusMonth
+import kotlinx.datetime.minusYear
 import kotlinx.datetime.plusMonth
+import kotlinx.datetime.plusYear
 import kotlinx.datetime.yearMonth
 
 // TODO GH Pages documentation + mention usage of kotlinx.datetime
@@ -94,8 +95,8 @@ import kotlinx.datetime.yearMonth
  * [KeyboardOptions.imeAction].
  * @param dayOfWeekNames Object providing the names of the days of the week to be displayed in the
  * calendar.
- * @param titleYearMonthFormat The [DateTimeFormat] used to format the year and month in the
- * calendar title.
+ * @param yearFormat The [DateTimeFormat] used to format the displayed year in the calendar.
+ * @param monthFormat The [DateTimeFormat] used to format the displayed month in the calendar.
  * @param interactionSource The [MutableInteractionSource] representing the stream of
  * [androidx.compose.foundation.interaction.Interaction]s for this TextField. You can create and
  * pass in your own remembered [MutableInteractionSource] if you want to observe
@@ -118,8 +119,11 @@ public fun CalendarDatePicker(
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
     dayOfWeekNames: DayOfWeekNames = DayOfWeekNames.ENGLISH_ABBREVIATED,
-    titleYearMonthFormat: DateTimeFormat<YearMonth> = YearMonth.Format {
-        monthName(MonthNames.ENGLISH_FULL); char(' '); year()
+    yearFormat: DateTimeFormat<YearMonth> = YearMonth.Format {
+        year()
+    },
+    monthFormat: DateTimeFormat<YearMonth> = YearMonth.Format {
+        monthName(MonthNames.ENGLISH_FULL)
     },
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 ) {
@@ -233,9 +237,16 @@ public fun CalendarDatePicker(
                             onLoadNextMonth = {
                                 calendarYearMonth = calendarYearMonth.plusMonth()
                             },
+                            onLoadPreviousYear = {
+                                calendarYearMonth = calendarYearMonth.minusYear()
+                            },
+                            onLoadNextYear = {
+                                calendarYearMonth = calendarYearMonth.plusYear()
+                            },
                             dayOfWeekNames = dayOfWeekNames,
-                            titleYearMonthFormat = titleYearMonthFormat,
-                            modifier = Modifier.testTag(CalendarDatePickerTestTags.CALENDAR_MENU)
+                            yearFormat = yearFormat,
+                            monthFormat = monthFormat,
+                            modifier = Modifier.testTag(CalendarDatePickerTestTags.MENU)
                         )
                     }
                 }

@@ -17,4 +17,6 @@
 <resources>
     <string name="carbon_datepicker_calendar_loadPreviousMonth_description">Load previous month</string>
     <string name="carbon_datepicker_calendar_loadNextMonth_description">Load next month</string>
+    <string name="carbon_datepicker_calendar_loadPreviousYear_description">Load previous year</string>
+    <string name="carbon_datepicker_calendar_loadNextYear_description">Load next year</string>
 </resources>
