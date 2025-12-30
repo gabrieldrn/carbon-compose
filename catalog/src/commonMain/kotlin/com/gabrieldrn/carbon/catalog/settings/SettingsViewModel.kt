@@ -19,6 +19,7 @@ package com.gabrieldrn.carbon.catalog.settings
 import com.gabrieldrn.carbon.catalog.common.ViewModel
 import com.gabrieldrn.carbon.catalog.settings.data.SettingsRepository
 import com.gabrieldrn.carbon.catalog.theme.CarbonTheme
+import com.gabrieldrn.carbon.foundation.misc.Adaptation
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
@@ -29,25 +30,29 @@ class SettingsViewModel(
 ) : ViewModel() {
 
     val uiState: StateFlow<UIState> = with(settingsRepository) {
-        lightThemeFlow
-            .combine(darkThemeFlow, ::UIState)
+        combine(lightThemeFlow, darkThemeFlow, adaptationFlow, ::UIState)
             .stateIn(
                 scope = this@SettingsViewModel,
                 started = SharingStarted.WhileSubscribed(),
-                initialValue = UIState(lightTheme, darkTheme)
+                initialValue = UIState(lightTheme, darkTheme, adaptation)
             )
     }
 
     fun setLightTheme(lightTheme: CarbonTheme.LightTheme) {
-        settingsRepository.setLightTheme(lightTheme)
+        settingsRepository.lightTheme = lightTheme
     }
 
     fun setDarkTheme(darkTheme: CarbonTheme.DarkTheme) {
-        settingsRepository.setDarkTheme(darkTheme)
+        settingsRepository.darkTheme = darkTheme
+    }
+
+    fun setAdaptation(adaptation: Adaptation) {
+        settingsRepository.adaptation = adaptation
     }
 
     data class UIState(
         val lightTheme: CarbonTheme.LightTheme,
-        val darkTheme: CarbonTheme.DarkTheme
+        val darkTheme: CarbonTheme.DarkTheme,
+        val adaptation: Adaptation
     )
 }
