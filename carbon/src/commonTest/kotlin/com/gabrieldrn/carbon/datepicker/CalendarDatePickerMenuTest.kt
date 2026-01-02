@@ -20,6 +20,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.input.key.Key
+import androidx.compose.ui.test.ComposeUiTest
 import androidx.compose.ui.test.assertHasClickAction
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsFocused
@@ -31,47 +32,101 @@ import androidx.compose.ui.test.performKeyInput
 import androidx.compose.ui.test.pressKey
 import androidx.compose.ui.test.requestFocus
 import androidx.compose.ui.test.runComposeUiTest
+import co.touchlab.kermit.Logger
 import com.gabrieldrn.carbon.CarbonDesignSystem
+import com.gabrieldrn.carbon.foundation.misc.Adaptation
 import com.gabrieldrn.carbon.textinput.TextInputState
 import com.gabrieldrn.carbon.textinput.TextInputTestTags
 import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.format.char
 import kotlinx.datetime.plus
+import kotlin.coroutines.CoroutineContext
+import kotlin.coroutines.EmptyCoroutineContext
+import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
+import kotlin.time.Duration
+import kotlin.time.Duration.Companion.seconds
 
 class CalendarDatePickerMenuTest {
 
-    private val today = LocalDate(2025, 1, 1)
+    private var adaptation by mutableStateOf(Adaptation.None)
+    lateinit var datePickerState: CalendarDatePickerState
+    private var today by mutableStateOf(LocalDate(2025, 1, 1))
+    private var initialSelectedDate: LocalDate? by mutableStateOf(null)
+    private var dateFormat by mutableStateOf(
+        LocalDate.Format {
+            year(); char('/'); monthNumber(); char('/'); day()
+        }
+    )
+    private var selectableDates by mutableStateOf(SelectableDates { true })
+    private var onFieldValidation by mutableStateOf<(Boolean?) -> Unit>({})
+    private var expanded by mutableStateOf(false)
+    private var fieldValue by mutableStateOf("")
+    private var inputState by mutableStateOf(TextInputState.Enabled)
 
-    private val dateFormat = LocalDate.Format {
-        year(); char('/'); monthNumber(); char('/'); day()
+    @BeforeTest
+    fun setup() {
+        adaptation = Adaptation.None
+        today = LocalDate(2025, 1, 1)
+        initialSelectedDate = null
+        dateFormat = LocalDate.Format {
+            year(); char('/'); monthNumber(); char('/'); day()
+        }
+        selectableDates = SelectableDates { true }
+        onFieldValidation = {}
+        expanded = false
+        fieldValue = ""
     }
 
-
-    @Test
-    fun calendarDatePickerMenu_whenExpanded_validateCalendarMenuIsDisplayed() = runComposeUiTest {
-        var expanded by mutableStateOf(false)
-
+    private fun ComposeUiTest.setupUi() {
         setContent {
-            CarbonDesignSystem {
+            CarbonDesignSystem(adaptation = adaptation) {
+                datePickerState = rememberCalendarDatePickerState(
+                    today = today,
+                    initialSelectedDate = initialSelectedDate,
+                    dateFormat = dateFormat,
+                    selectableDates = selectableDates,
+                    onFieldValidation = onFieldValidation
+                )
                 CalendarDatePicker(
-                    datePickerState = rememberCalendarDatePickerState(
-                        today = today,
-                        dateFormat = dateFormat
-                    ),
+                    datePickerState = datePickerState,
                     label = "Select date",
-                    value = "",
+                    value = fieldValue,
                     expanded = expanded,
-                    onValueChange = {},
+                    inputState = inputState,
+                    onValueChange = { fieldValue = it },
                     onExpandedChange = { expanded = it },
                     onDismissRequest = { expanded = false },
                 )
             }
         }
+    }
+
+    private fun runWithAdaptation(
+        effectContext: CoroutineContext = EmptyCoroutineContext,
+        runTestContext: CoroutineContext = EmptyCoroutineContext,
+        testTimeout: Duration = 60.seconds,
+        block: suspend ComposeUiTest.() -> Unit,
+    ) {
+        Adaptation.entries.forEach {
+            Logger.d("Applying adaptation $it")
+            adaptation = it
+            runComposeUiTest(
+                effectContext = effectContext,
+                runTestContext = runTestContext,
+                testTimeout = testTimeout,
+                block = block,
+            )
+        }
+    }
+
+    @Test
+    fun calendarDatePickerMenu_whenExpanded_validateCalendarMenuIsDisplayed() = runWithAdaptation {
+        setupUi()
 
         onNodeWithTag(CalendarDatePickerTestTags.MENU)
             .assertDoesNotExist()
@@ -79,13 +134,28 @@ class CalendarDatePickerMenuTest {
         expanded = true
         waitForIdle()
 
+        onNodeWithTag(
+            when (adaptation) {
+                Adaptation.None ->
+                    CalendarDatePickerTestTags.MENU_DEFAULT_YEARMONTH_SELECTOR
+                Adaptation.Touchscreens ->
+                    CalendarDatePickerTestTags.MENU_TOUCHSCREEN_YEARMONTH_SELECTOR
+            }
+        )
+            .assertExists()
+            .assertIsDisplayed()
+
         onNodeWithTag(CalendarDatePickerTestTags.MENU)
             .assertExists()
             .assertIsDisplayed()
 
-//        onNodeWithTag(CalendarDatePickerTestTags.CALENDAR_TITLE)
-//            .assertExists()
-//            .assertIsDisplayed()
+        onNodeWithTag(CalendarDatePickerTestTags.MENU_MONTH)
+            .assertExists()
+            .assertIsDisplayed()
+
+        onNodeWithTag(CalendarDatePickerTestTags.MENU_YEAR)
+            .assertExists()
+            .assertIsDisplayed()
 
         onNodeWithTag(CalendarDatePickerTestTags.MENU_PREV_MONTH_BUTTON)
             .assertExists()
@@ -109,30 +179,8 @@ class CalendarDatePickerMenuTest {
     }
 
     @Test
-    fun calendarDatePickerMenu_whenDayClicked_validateDateSelection() = runComposeUiTest {
-        var expanded by mutableStateOf(false)
-        var datePickerState: CalendarDatePickerState? = null
-        var fieldValue by mutableStateOf("")
-
-        setContent {
-            CarbonDesignSystem {
-                datePickerState = rememberCalendarDatePickerState(
-                    today = today,
-                    initialSelectedDate = null,
-                    dateFormat = dateFormat,
-                    selectableDates = { true }
-                )
-                CalendarDatePicker(
-                    datePickerState = datePickerState,
-                    label = "Select date",
-                    value = fieldValue,
-                    expanded = expanded,
-                    onValueChange = { fieldValue = it },
-                    onExpandedChange = { expanded = it },
-                    onDismissRequest = { expanded = false },
-                )
-            }
-        }
+    fun calendarDatePickerMenu_whenDayClicked_validateDateSelection() = runWithAdaptation {
+        setupUi()
 
         expanded = true
 
@@ -148,30 +196,13 @@ class CalendarDatePickerMenuTest {
         waitForIdle()
 
         // Verify date was selected
-        assertNotNull(datePickerState?.selectedDate)
+        assertNotNull(datePickerState.selectedDate)
         assertEquals(today, datePickerState.selectedDate)
     }
 
     @Test
-    fun calendarDatePickerMenu_navigateToPreviousMonth_validateMonthChange() = runComposeUiTest {
-        var expanded by mutableStateOf(false)
-
-        setContent {
-            CarbonDesignSystem {
-                CalendarDatePicker(
-                    datePickerState = rememberCalendarDatePickerState(
-                        today = today,
-                        dateFormat = dateFormat
-                    ),
-                    label = "Select date",
-                    value = "",
-                    expanded = expanded,
-                    onValueChange = {},
-                    onExpandedChange = { expanded = it },
-                    onDismissRequest = { expanded = false },
-                )
-            }
-        }
+    fun calendarDatePickerMenu_navigateToPreviousMonth_validateMonthChange() = runWithAdaptation {
+        setupUi()
 
         expanded = true
         waitForIdle()
@@ -187,25 +218,8 @@ class CalendarDatePickerMenuTest {
     }
 
     @Test
-    fun calendarDatePickerMenu_navigateToNextMonth_validateMonthChange() = runComposeUiTest {
-        var expanded by mutableStateOf(false)
-
-        setContent {
-            CarbonDesignSystem {
-                CalendarDatePicker(
-                    datePickerState = rememberCalendarDatePickerState(
-                        today = today,
-                        dateFormat = dateFormat
-                    ),
-                    label = "Select date",
-                    value = "",
-                    expanded = expanded,
-                    onValueChange = {},
-                    onExpandedChange = { expanded = it },
-                    onDismissRequest = { expanded = false },
-                )
-            }
-        }
+    fun calendarDatePickerMenu_navigateToNextMonth_validateMonthChange() = runWithAdaptation {
+        setupUi()
 
         expanded = true
 
@@ -220,25 +234,8 @@ class CalendarDatePickerMenuTest {
     }
 
     @Test
-    fun calendarDatePickerMenu_navigateToPreviousYear_validateYearChange() = runComposeUiTest {
-        var expanded by mutableStateOf(false)
-
-        setContent {
-            CarbonDesignSystem {
-                CalendarDatePicker(
-                    datePickerState = rememberCalendarDatePickerState(
-                        today = today,
-                        dateFormat = dateFormat
-                    ),
-                    label = "Select date",
-                    value = "",
-                    expanded = expanded,
-                    onValueChange = {},
-                    onExpandedChange = { expanded = it },
-                    onDismissRequest = { expanded = false },
-                )
-            }
-        }
+    fun calendarDatePickerMenu_navigateToPreviousYear_validateYearChange() = runWithAdaptation {
+        setupUi()
 
         expanded = true
         waitForIdle()
@@ -254,25 +251,8 @@ class CalendarDatePickerMenuTest {
     }
 
     @Test
-    fun calendarDatePickerMenu_navigateToNextYear_validateYearChange() = runComposeUiTest {
-        var expanded by mutableStateOf(false)
-
-        setContent {
-            CarbonDesignSystem {
-                CalendarDatePicker(
-                    datePickerState = rememberCalendarDatePickerState(
-                        today = today,
-                        dateFormat = dateFormat
-                    ),
-                    label = "Select date",
-                    value = "",
-                    expanded = expanded,
-                    onValueChange = {},
-                    onExpandedChange = { expanded = it },
-                    onDismissRequest = { expanded = false },
-                )
-            }
-        }
+    fun calendarDatePickerMenu_navigateToNextYear_validateYearChange() = runWithAdaptation {
+        setupUi()
 
         expanded = true
 
@@ -287,30 +267,10 @@ class CalendarDatePickerMenuTest {
     }
 
     @Test
-    fun calendarDatePickerMenu_whenDateEntered_validateCalendarMonthUpdates() = runComposeUiTest {
-        var expanded by mutableStateOf(false)
-        var datePickerState: CalendarDatePickerState? = null
-        var fieldValue by mutableStateOf("")
+    fun calendarDatePickerMenu_whenDateEntered_validateCalendarMonthUpdates() = runWithAdaptation {
+        initialSelectedDate = LocalDate(2024, 1, 15)
 
-        setContent {
-            CarbonDesignSystem {
-                datePickerState = rememberCalendarDatePickerState(
-                    today = today,
-                    initialSelectedDate = LocalDate(2024, 1, 15), // January
-                    dateFormat = dateFormat,
-                    selectableDates = { true }
-                )
-                CalendarDatePicker(
-                    datePickerState = datePickerState,
-                    label = "Select date",
-                    value = fieldValue,
-                    expanded = expanded,
-                    onValueChange = { fieldValue = it },
-                    onExpandedChange = { expanded = it },
-                    onDismissRequest = { expanded = false },
-                )
-            }
-        }
+        setupUi()
 
         // Open calendar to verify it shows January initially
         expanded = true
@@ -323,13 +283,11 @@ class CalendarDatePickerMenuTest {
             .assertExists()
 
         // Enter a date in a different month (June)
-        runOnIdle {
-            datePickerState?.updateFieldValue("2024/06/20")
-        }
+        runOnIdle { datePickerState.updateFieldValue("2024/06/20") }
         waitForIdle()
 
         // Verify the date was updated
-        assertEquals(LocalDate(2024, 6, 20), datePickerState?.selectedDate)
+        assertEquals(LocalDate(2024, 6, 20), datePickerState.selectedDate)
         assertEquals("2024/06/20", fieldValue)
 
         // Close and reopen calendar to verify it now shows June
@@ -351,30 +309,8 @@ class CalendarDatePickerMenuTest {
 
 
     @Test
-    fun calendarDatePickerMenu_whenDaySelected_menuCloses() = runComposeUiTest {
-        var expanded by mutableStateOf(false)
-        var datePickerState: CalendarDatePickerState? = null
-        var fieldValue by mutableStateOf("")
-
-        setContent {
-            CarbonDesignSystem {
-                datePickerState = rememberCalendarDatePickerState(
-                    today = today,
-                    initialSelectedDate = null,
-                    dateFormat = dateFormat,
-                    selectableDates = { true }
-                )
-                CalendarDatePicker(
-                    datePickerState = datePickerState,
-                    label = "Select date",
-                    value = fieldValue,
-                    expanded = expanded,
-                    onValueChange = { fieldValue = it },
-                    onExpandedChange = { expanded = it },
-                    onDismissRequest = { expanded = false },
-                )
-            }
-        }
+    fun calendarDatePickerMenu_whenDaySelected_menuCloses() = runWithAdaptation {
+        setupUi()
 
         // Open the calendar menu
         expanded = true
@@ -403,25 +339,8 @@ class CalendarDatePickerMenuTest {
     }
 
     @Test
-    fun calendarDatePickerMenu_calendarIconClick_expandsMenu() = runComposeUiTest {
-        var expanded by mutableStateOf(false)
-
-        setContent {
-            CarbonDesignSystem {
-                CalendarDatePicker(
-                    datePickerState = rememberCalendarDatePickerState(
-                        today = today,
-                        dateFormat = dateFormat
-                    ),
-                    label = "Select date",
-                    value = "",
-                    expanded = expanded,
-                    onValueChange = {},
-                    onExpandedChange = { expanded = it },
-                    onDismissRequest = { expanded = false },
-                )
-            }
-        }
+    fun calendarDatePickerMenu_calendarIconClick_expandsMenu() = runWithAdaptation {
+        setupUi()
 
         // Verify calendar menu is not visible initially
         onNodeWithTag(CalendarDatePickerTestTags.MENU)
@@ -442,26 +361,33 @@ class CalendarDatePickerMenuTest {
     }
 
     @Test
-    fun calendarDatePickerMenu_calendarIconWhenDisabled_isNotClickable() = runComposeUiTest {
-        var expanded by mutableStateOf(false)
+    fun calendarDatePickerMenu_calendarIconWhenDisabled_isNotClickable() =
+        runWithAdaptation {
+            inputState = TextInputState.Disabled
 
-        setContent {
-            CarbonDesignSystem {
-                CalendarDatePicker(
-                    datePickerState = rememberCalendarDatePickerState(
-                        today = today,
-                        dateFormat = dateFormat
-                    ),
-                    label = "Select date",
-                    value = "",
-                    expanded = expanded,
-                    inputState = TextInputState.Disabled,
-                    onValueChange = {},
-                    onExpandedChange = { expanded = it },
-                    onDismissRequest = { expanded = false },
-                )
-            }
+            setupUi()
+
+            // Calendar icon should exist but be disabled
+            onNodeWithTag(TextInputTestTags.CLICKABLE_TRAILING_ICON)
+                .assertExists()
+                .assertIsNotEnabled()
+
+            // Perform click (should not expand the menu)
+            onNodeWithTag(TextInputTestTags.CLICKABLE_TRAILING_ICON)
+                .performClick()
+
+            waitForIdle()
+
+            // Verify calendar menu is still not visible
+            onNodeWithTag(CalendarDatePickerTestTags.MENU)
+                .assertDoesNotExist()
         }
+
+    @Test
+    fun calendarDatePickerMenu_calendarIconWhenReadOnly_isNotClickable() = runWithAdaptation {
+        inputState = TextInputState.ReadOnly
+
+        setupUi()
 
         // Calendar icon should exist but be disabled
         onNodeWithTag(TextInputTestTags.CLICKABLE_TRAILING_ICON)
@@ -480,65 +406,8 @@ class CalendarDatePickerMenuTest {
     }
 
     @Test
-    fun calendarDatePickerMenu_calendarIconWhenReadOnly_isNotClickable() = runComposeUiTest {
-        var expanded by mutableStateOf(false)
-
-        setContent {
-            CarbonDesignSystem {
-                CalendarDatePicker(
-                    datePickerState = rememberCalendarDatePickerState(
-                        today = today,
-                        dateFormat = dateFormat
-                    ),
-                    label = "Select date",
-                    value = "",
-                    expanded = expanded,
-                    inputState = TextInputState.ReadOnly,
-                    onValueChange = {},
-                    onExpandedChange = { expanded = it },
-                    onDismissRequest = { expanded = false },
-                )
-            }
-        }
-
-        // Calendar icon should exist but be disabled
-        onNodeWithTag(TextInputTestTags.CLICKABLE_TRAILING_ICON)
-            .assertExists()
-            .assertIsNotEnabled()
-
-        // Perform click (should not expand the menu)
-        onNodeWithTag(TextInputTestTags.CLICKABLE_TRAILING_ICON)
-            .performClick()
-
-        waitForIdle()
-
-        // Verify calendar menu is still not visible
-        onNodeWithTag(CalendarDatePickerTestTags.MENU)
-            .assertDoesNotExist()
-    }
-
-    @Test
-    fun calendarDatePickerMenu_calendarIconWhenEnabled_isClickable() = runComposeUiTest {
-        var expanded by mutableStateOf(false)
-        var inputState by mutableStateOf(TextInputState.Enabled)
-
-        setContent {
-            CarbonDesignSystem {
-                CalendarDatePicker(
-                    datePickerState = rememberCalendarDatePickerState(
-                        today = today,
-                        dateFormat = dateFormat
-                    ),
-                    label = "Select date",
-                    value = "",
-                    expanded = expanded,
-                    inputState = inputState,
-                    onValueChange = {},
-                    onExpandedChange = { expanded = it },
-                    onDismissRequest = { expanded = false },
-                )
-            }
-        }
+    fun calendarDatePickerMenu_calendarIconWhenEnabled_isClickable() = runWithAdaptation {
+        setupUi()
 
         // Test with different enabled states (Warning and Error should still be clickable)
         listOf(
@@ -566,33 +435,13 @@ class CalendarDatePickerMenuTest {
     }
 
     @Test
-    fun calendarDatePickerMenu_selectableDates_disabledDateIsNotClickable() = runComposeUiTest {
-        var expanded by mutableStateOf(false)
-        var datePickerState: CalendarDatePickerState? = null
-        var fieldValue by mutableStateOf("")
-
+    fun calendarDatePickerMenu_selectableDates_disabledDateIsNotClickable() = runWithAdaptation {
         // Define a date that will be disabled
         val disabledDate = today.plus(1, DateTimeUnit.DAY)
 
-        setContent {
-            CarbonDesignSystem {
-                datePickerState = rememberCalendarDatePickerState(
-                    today = today,
-                    initialSelectedDate = null,
-                    dateFormat = dateFormat,
-                    selectableDates = { date -> date != disabledDate }
-                )
-                CalendarDatePicker(
-                    datePickerState = datePickerState,
-                    label = "Select date",
-                    value = fieldValue,
-                    expanded = expanded,
-                    onValueChange = { fieldValue = it },
-                    onExpandedChange = { expanded = it },
-                    onDismissRequest = { expanded = false },
-                )
-            }
-        }
+        selectableDates = SelectableDates { date -> date != disabledDate }
+
+        setupUi()
 
         // Open the calendar menu
         expanded = true
@@ -613,7 +462,7 @@ class CalendarDatePickerMenuTest {
         waitForIdle()
 
         // Verify date was NOT selected
-        assertNull(datePickerState?.selectedDate)
+        assertNull(datePickerState.selectedDate)
 
         // Verify calendar menu is still open (because date was not selected)
         onNodeWithTag(CalendarDatePickerTestTags.MENU)
@@ -622,34 +471,14 @@ class CalendarDatePickerMenuTest {
     }
 
     @Test
-    fun calendarDatePickerMenu_selectableDates_enabledDateIsClickable() = runComposeUiTest {
-        var expanded by mutableStateOf(false)
-        var datePickerState: CalendarDatePickerState? = null
-        var fieldValue by mutableStateOf("")
-
+    fun calendarDatePickerMenu_selectableDates_enabledDateIsClickable() = runWithAdaptation {
         // Define a date that will be disabled
         val disabledDate = today.plus(1, DateTimeUnit.DAY)
         val enabledDate = today.plus(2, DateTimeUnit.DAY)
 
-        setContent {
-            CarbonDesignSystem {
-                datePickerState = rememberCalendarDatePickerState(
-                    today = today,
-                    initialSelectedDate = null,
-                    dateFormat = dateFormat,
-                    selectableDates = { date -> date != disabledDate }
-                )
-                CalendarDatePicker(
-                    datePickerState = datePickerState,
-                    label = "Select date",
-                    value = fieldValue,
-                    expanded = expanded,
-                    onValueChange = { fieldValue = it },
-                    onExpandedChange = { expanded = it },
-                    onDismissRequest = { expanded = false },
-                )
-            }
-        }
+        selectableDates = SelectableDates { date -> date != disabledDate }
+
+        setupUi()
 
         // Open the calendar menu
         expanded = true
@@ -674,11 +503,7 @@ class CalendarDatePickerMenuTest {
     }
 
     @Test
-    fun calendarDatePickerMenu_selectableDates_multipleDatesDisabled() = runComposeUiTest {
-        var expanded by mutableStateOf(false)
-        var datePickerState: CalendarDatePickerState? = null
-        var fieldValue by mutableStateOf("")
-
+    fun calendarDatePickerMenu_selectableDates_multipleDatesDisabled() = runWithAdaptation {
         // Define multiple dates that will be disabled
         val disabledDates = listOf(
             today.plus(1, DateTimeUnit.DAY),
@@ -686,25 +511,9 @@ class CalendarDatePickerMenuTest {
             today.plus(5, DateTimeUnit.DAY)
         )
 
-        setContent {
-            CarbonDesignSystem {
-                datePickerState = rememberCalendarDatePickerState(
-                    today = today,
-                    initialSelectedDate = null,
-                    dateFormat = dateFormat,
-                    selectableDates = { date -> date !in disabledDates }
-                )
-                CalendarDatePicker(
-                    datePickerState = datePickerState,
-                    label = "Select date",
-                    value = fieldValue,
-                    expanded = expanded,
-                    onValueChange = { fieldValue = it },
-                    onExpandedChange = { expanded = it },
-                    onDismissRequest = { expanded = false },
-                )
-            }
-        }
+        selectableDates = SelectableDates { date -> date !in disabledDates }
+
+        setupUi()
 
         // Open the calendar menu
         expanded = true
@@ -727,30 +536,10 @@ class CalendarDatePickerMenuTest {
     }
 
     @Test
-    fun calendarDatePickerMenu_selectableDates_onlyPastDatesEnabled() = runComposeUiTest {
-        var expanded by mutableStateOf(false)
-        var datePickerState: CalendarDatePickerState? = null
-        var fieldValue by mutableStateOf("")
+    fun calendarDatePickerMenu_selectableDates_onlyPastDatesEnabled() = runWithAdaptation {
+        selectableDates = SelectableDates { date -> date <= today }
 
-        setContent {
-            CarbonDesignSystem {
-                datePickerState = rememberCalendarDatePickerState(
-                    today = today,
-                    initialSelectedDate = null,
-                    dateFormat = dateFormat,
-                    selectableDates = { date -> date <= today }
-                )
-                CalendarDatePicker(
-                    datePickerState = datePickerState,
-                    label = "Select date",
-                    value = fieldValue,
-                    expanded = expanded,
-                    onValueChange = { fieldValue = it },
-                    onExpandedChange = { expanded = it },
-                    onDismissRequest = { expanded = false },
-                )
-            }
-        }
+        setupUi()
 
         // Open the calendar menu
         expanded = true
@@ -778,30 +567,10 @@ class CalendarDatePickerMenuTest {
     }
 
     @Test
-    fun calendarDatePickerMenu_selectableDates_onlyFutureDatesEnabled() = runComposeUiTest {
-        var expanded by mutableStateOf(false)
-        var datePickerState: CalendarDatePickerState? = null
-        var fieldValue by mutableStateOf("")
+    fun calendarDatePickerMenu_selectableDates_onlyFutureDatesEnabled() = runWithAdaptation {
+        selectableDates = SelectableDates { date -> date > today }
 
-        setContent {
-            CarbonDesignSystem {
-                datePickerState = rememberCalendarDatePickerState(
-                    today = today,
-                    initialSelectedDate = null,
-                    dateFormat = dateFormat,
-                    selectableDates = { date -> date > today }
-                )
-                CalendarDatePicker(
-                    datePickerState = datePickerState,
-                    label = "Select date",
-                    value = fieldValue,
-                    expanded = expanded,
-                    onValueChange = { fieldValue = it },
-                    onExpandedChange = { expanded = it },
-                    onDismissRequest = { expanded = false },
-                )
-            }
-        }
+        setupUi()
 
         // Open the calendar menu
         expanded = true
@@ -829,26 +598,8 @@ class CalendarDatePickerMenuTest {
     }
 
     @Test
-    fun calendarDatePickerMenu_escapeKey_dismissesCalendarMenu() = runComposeUiTest {
-        var expanded by mutableStateOf(false)
-
-        setContent {
-            CarbonDesignSystem {
-                CalendarDatePicker(
-                    datePickerState = rememberCalendarDatePickerState(
-                        today = today,
-                        dateFormat = dateFormat,
-                        onFieldValidation = {}
-                    ),
-                    label = "Select date",
-                    value = "",
-                    expanded = expanded,
-                    onValueChange = {},
-                    onExpandedChange = { expanded = it },
-                    onDismissRequest = { expanded = false },
-                )
-            }
-        }
+    fun calendarDatePickerMenu_escapeKey_dismissesCalendarMenu() = runWithAdaptation {
+        setupUi()
 
         // Open the calendar menu
         expanded = true
@@ -873,30 +624,10 @@ class CalendarDatePickerMenuTest {
     }
 
     @Test
-    fun calendarDatePickerMenu_arrowRightKey_movesFocusToNextDay() = runComposeUiTest {
-        var expanded by mutableStateOf(false)
-        var datePickerState: CalendarDatePickerState
-
+    fun calendarDatePickerMenu_arrowRightKey_movesFocusToNextDay() = runWithAdaptation {
         val nextDay = today.plus(1, DateTimeUnit.DAY)
 
-        setContent {
-            CarbonDesignSystem {
-                datePickerState = rememberCalendarDatePickerState(
-                    today = today,
-                    dateFormat = dateFormat,
-                    onFieldValidation = {}
-                )
-                CalendarDatePicker(
-                    datePickerState = datePickerState,
-                    label = "Select date",
-                    value = "",
-                    expanded = expanded,
-                    onValueChange = {},
-                    onExpandedChange = { expanded = it },
-                    onDismissRequest = { expanded = false },
-                )
-            }
-        }
+        setupUi()
 
         // Open the calendar menu
         expanded = true
@@ -919,32 +650,12 @@ class CalendarDatePickerMenuTest {
     }
 
     @Test
-    fun calendarDatePickerMenu_arrowLeftKey_movesFocusToPreviousDay() = runComposeUiTest {
-        var expanded by mutableStateOf(false)
-        var datePickerState: CalendarDatePickerState
-
+    fun calendarDatePickerMenu_arrowLeftKey_movesFocusToPreviousDay() = runWithAdaptation {
         // Use a future date to ensure there's a previous day
         val futureDate = today.plus(3, DateTimeUnit.DAY)
         val previousDay = today.plus(2, DateTimeUnit.DAY)
 
-        setContent {
-            CarbonDesignSystem {
-                datePickerState = rememberCalendarDatePickerState(
-                    today = today,
-                    dateFormat = dateFormat,
-                    onFieldValidation = {}
-                )
-                CalendarDatePicker(
-                    datePickerState = datePickerState,
-                    label = "Select date",
-                    value = "",
-                    expanded = expanded,
-                    onValueChange = {},
-                    onExpandedChange = { expanded = it },
-                    onDismissRequest = { expanded = false },
-                )
-            }
-        }
+        setupUi()
 
         // Open the calendar menu
         expanded = true
@@ -967,30 +678,10 @@ class CalendarDatePickerMenuTest {
     }
 
     @Test
-    fun calendarDatePickerMenu_arrowDownKey_movesFocusToSameDayNextWeek() = runComposeUiTest {
-        var expanded by mutableStateOf(false)
-        var datePickerState: CalendarDatePickerState
-
+    fun calendarDatePickerMenu_arrowDownKey_movesFocusToSameDayNextWeek() = runWithAdaptation {
         val nextWeekDay = today.plus(7, DateTimeUnit.DAY)
 
-        setContent {
-            CarbonDesignSystem {
-                datePickerState = rememberCalendarDatePickerState(
-                    today = today,
-                    dateFormat = dateFormat,
-                    onFieldValidation = {}
-                )
-                CalendarDatePicker(
-                    datePickerState = datePickerState,
-                    label = "Select date",
-                    value = "",
-                    expanded = expanded,
-                    onValueChange = {},
-                    onExpandedChange = { expanded = it },
-                    onDismissRequest = { expanded = false },
-                )
-            }
-        }
+        setupUi()
 
         // Open the calendar menu
         expanded = true
@@ -1013,32 +704,12 @@ class CalendarDatePickerMenuTest {
     }
 
     @Test
-    fun calendarDatePickerMenu_arrowUpKey_movesFocusToSameDayPreviousWeek() = runComposeUiTest {
-        var expanded by mutableStateOf(false)
-        var datePickerState: CalendarDatePickerState
-
+    fun calendarDatePickerMenu_arrowUpKey_movesFocusToSameDayPreviousWeek() = runWithAdaptation {
         // Use a date in the second week to ensure there's a week above
         val futureDate = today.plus(10, DateTimeUnit.DAY)
         val previousWeekDay = today.plus(3, DateTimeUnit.DAY)
 
-        setContent {
-            CarbonDesignSystem {
-                datePickerState = rememberCalendarDatePickerState(
-                    today = today,
-                    dateFormat = dateFormat,
-                    onFieldValidation = {}
-                )
-                CalendarDatePicker(
-                    datePickerState = datePickerState,
-                    label = "Select date",
-                    value = "",
-                    expanded = expanded,
-                    onValueChange = {},
-                    onExpandedChange = { expanded = it },
-                    onDismissRequest = { expanded = false },
-                )
-            }
-        }
+        setupUi()
 
         // Open the calendar menu
         expanded = true
@@ -1061,35 +732,14 @@ class CalendarDatePickerMenuTest {
     }
 
     @Test
-    fun calendarDatePickerMenu_arrowKeys_navigationOnDisabledDate() = runComposeUiTest {
-        var expanded by mutableStateOf(false)
-        var datePickerState: CalendarDatePickerState
-
+    fun calendarDatePickerMenu_arrowKeys_navigationOnDisabledDate() = runWithAdaptation {
         // Disable some dates
         val disabledDate = today.plus(1, DateTimeUnit.DAY)
         val nextEnabledDate = today.plus(2, DateTimeUnit.DAY)
 
-        setContent {
-            CarbonDesignSystem {
-                datePickerState = rememberCalendarDatePickerState(
-                    today = today,
-                    dateFormat = dateFormat,
-                    selectableDates = SelectableDates { date ->
-                        date != disabledDate
-                    },
-                    onFieldValidation = {}
-                )
-                CalendarDatePicker(
-                    datePickerState = datePickerState,
-                    label = "Select date",
-                    value = "",
-                    expanded = expanded,
-                    onValueChange = {},
-                    onExpandedChange = { expanded = it },
-                    onDismissRequest = { expanded = false },
-                )
-            }
-        }
+        selectableDates = SelectableDates { date -> date != disabledDate }
+
+        setupUi()
 
         // Open the calendar menu
         expanded = true
@@ -1112,33 +762,13 @@ class CalendarDatePickerMenuTest {
     }
 
     @Test
-    fun calendarDatePickerMenu_multipleArrowKeys_sequentialNavigation() = runComposeUiTest {
-        var expanded by mutableStateOf(false)
-        var datePickerState: CalendarDatePickerState
-
+    fun calendarDatePickerMenu_multipleArrowKeys_sequentialNavigation() = runWithAdaptation {
         // Calculate the expected final position after:
         // Right x2, Down x1, Left x1
         // Starting from today: +2 days, +7 days, -1 day = +8 days
         val expectedFinalDate = today.plus(8, DateTimeUnit.DAY)
 
-        setContent {
-            CarbonDesignSystem {
-                datePickerState = rememberCalendarDatePickerState(
-                    today = today,
-                    dateFormat = dateFormat,
-                    onFieldValidation = {}
-                )
-                CalendarDatePicker(
-                    datePickerState = datePickerState,
-                    label = "Select date",
-                    value = "",
-                    expanded = expanded,
-                    onValueChange = {},
-                    onExpandedChange = { expanded = it },
-                    onDismissRequest = { expanded = false },
-                )
-            }
-        }
+        setupUi()
 
         // Open the calendar menu
         expanded = true

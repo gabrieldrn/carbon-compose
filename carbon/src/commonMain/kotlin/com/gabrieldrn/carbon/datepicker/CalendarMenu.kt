@@ -82,6 +82,8 @@ import com.gabrieldrn.carbon.foundation.color.CarbonLayer
 import com.gabrieldrn.carbon.foundation.color.layerBackground
 import com.gabrieldrn.carbon.foundation.color.layerHoverColor
 import com.gabrieldrn.carbon.foundation.interaction.FocusIndication
+import com.gabrieldrn.carbon.foundation.misc.Adaptation
+import com.gabrieldrn.carbon.foundation.misc.LocalCarbonAdaptation
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 import com.gabrieldrn.carbon.icons.chevronLeftIcon
 import com.gabrieldrn.carbon.icons.chevronRightIcon
@@ -208,6 +210,7 @@ internal fun CalendarMenu(
 ) {
     val theme = Carbon.theme
     val focusManager = LocalFocusManager.current
+    val adaptation = LocalCarbonAdaptation.current
 
     val regularTextStyle = Carbon.typography.bodyCompact01.copy(color = theme.textPrimary)
 
@@ -248,18 +251,33 @@ internal fun CalendarMenu(
                 .padding(SpacingScale.spacing02),
             verticalArrangement = Arrangement.spacedBy(SpacingScale.spacing02)
         ) {
-            DefaultYearMonthSelector(
-                calendar = calendar,
-                yearFormat = yearFormat,
-                monthFormat = monthFormat,
-                onLoadPreviousMonth = onLoadPreviousMonth,
-                onLoadNextMonth = onLoadNextMonth,
-                onLoadPreviousYear = onLoadPreviousYear,
-                onLoadNextYear = onLoadNextYear,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .testTag(CalendarDatePickerTestTags.MENU_DEFAULT_YEARMONTH_SELECTOR)
-            )
+            if (adaptation == Adaptation.Touchscreens) {
+                TouchscreenYearMonthSelector(
+                    calendar = calendar,
+                    yearFormat = yearFormat,
+                    monthFormat = monthFormat,
+                    onLoadPreviousMonth = onLoadPreviousMonth,
+                    onLoadNextMonth = onLoadNextMonth,
+                    onLoadPreviousYear = onLoadPreviousYear,
+                    onLoadNextYear = onLoadNextYear,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .testTag(CalendarDatePickerTestTags.MENU_TOUCHSCREEN_YEARMONTH_SELECTOR)
+                )
+            } else {
+                DefaultYearMonthSelector(
+                    calendar = calendar,
+                    yearFormat = yearFormat,
+                    monthFormat = monthFormat,
+                    onLoadPreviousMonth = onLoadPreviousMonth,
+                    onLoadNextMonth = onLoadNextMonth,
+                    onLoadPreviousYear = onLoadPreviousYear,
+                    onLoadNextYear = onLoadNextYear,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .testTag(CalendarDatePickerTestTags.MENU_DEFAULT_YEARMONTH_SELECTOR)
+                )
+            }
 
             Row(
                 verticalAlignment = Alignment.CenterVertically,
@@ -465,6 +483,101 @@ private fun DefaultYearMonthSelector(
 }
 
 @Composable
+private fun TouchscreenYearMonthSelector(
+    calendar: CalendarMenuData,
+    yearFormat: DateTimeFormat<YearMonth>,
+    monthFormat: DateTimeFormat<YearMonth>,
+    onLoadPreviousMonth: () -> Unit,
+    onLoadNextMonth: () -> Unit,
+    onLoadPreviousYear: () -> Unit,
+    onLoadNextYear: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    @Composable
+    fun ValueSelector(
+        value: String,
+        loadPrevDescription: String,
+        loadNextDescription: String,
+        loadPrevTestTag: String,
+        loadNextTestTag: String,
+        valueTestTag: String,
+        onLoadPrev: () -> Unit,
+        onLoadNext: () -> Unit,
+        modifier: Modifier = Modifier
+    ) {
+        Box(
+            modifier = modifier
+                .fillMaxWidth()
+                .height(IntrinsicSize.Min)
+        ) {
+            IconButton(
+                iconPainter = rememberVectorPainter(chevronLeftIcon),
+                buttonType = ButtonType.Ghost,
+                buttonSize = ButtonSize.Medium,
+                contentDescription = loadPrevDescription,
+                onClick = onLoadPrev,
+                modifier = Modifier
+                    .align(Alignment.CenterStart)
+                    .testTag(loadPrevTestTag)
+            )
+
+            IconButton(
+                iconPainter = rememberVectorPainter(chevronRightIcon),
+                buttonType = ButtonType.Ghost,
+                buttonSize = ButtonSize.Medium,
+                contentDescription = loadNextDescription,
+                onClick = onLoadNext,
+                modifier = Modifier
+                    .align(Alignment.CenterEnd)
+                    .testTag(loadNextTestTag)
+            )
+
+            BasicText(
+                text = value,
+                style = Carbon.typography.headingCompact01.copy(
+                    color = Carbon.theme.textPrimary,
+                    textAlign = TextAlign.Center
+                ),
+                modifier = Modifier
+                    .align(Alignment.Center)
+                    .testTag(valueTestTag)
+            )
+        }
+    }
+
+    Column(modifier = modifier) {
+        ValueSelector(
+            value = calendar.yearMonth.format(yearFormat),
+            loadPrevDescription = stringResource(
+                Res.string.carbon_datepicker_calendar_loadPreviousYear_description
+            ),
+            loadNextDescription = stringResource(
+                Res.string.carbon_datepicker_calendar_loadNextYear_description
+            ),
+            loadPrevTestTag = CalendarDatePickerTestTags.MENU_PREV_YEAR_BUTTON,
+            loadNextTestTag = CalendarDatePickerTestTags.MENU_NEXT_YEAR_BUTTON,
+            valueTestTag = CalendarDatePickerTestTags.MENU_YEAR,
+            onLoadPrev = onLoadPreviousYear,
+            onLoadNext = onLoadNextYear,
+        )
+        ValueSelector(
+            value = calendar.yearMonth.format(monthFormat),
+            loadPrevDescription = stringResource(
+                Res.string.carbon_datepicker_calendar_loadPreviousMonth_description
+            ),
+            loadNextDescription = stringResource(
+                Res.string.carbon_datepicker_calendar_loadNextMonth_description
+            ),
+            loadPrevTestTag = CalendarDatePickerTestTags.MENU_PREV_MONTH_BUTTON,
+            loadNextTestTag = CalendarDatePickerTestTags.MENU_NEXT_MONTH_BUTTON,
+            valueTestTag = CalendarDatePickerTestTags.MENU_MONTH,
+            onLoadPrev = onLoadPreviousMonth,
+            onLoadNext = onLoadNextMonth,
+        )
+    }
+}
+
+@Composable
 private fun CalendarDayItem(
     day: String,
     isEnabled: Boolean,
@@ -529,6 +642,36 @@ private fun CalendarDayItem(
 @Composable
 private fun CalendarMenuPreview() {
     CarbonDesignSystem {
+        val today = remember {
+            LocalDate(2025, 12, 1)
+        }
+
+        val calendar = remember { getCalendarMenuData(today.yearMonth) }
+
+        val pickerState = rememberCalendarDatePickerState(
+            today = today,
+            selectableDates = { it != today.plus(1, DateTimeUnit.DAY) },
+        )
+
+        pickerState.selectedDate = today.plus(2, DateTimeUnit.DAY)
+
+        CalendarMenu(
+            calendar = calendar,
+            datePickerState = pickerState,
+            onDayClicked = {},
+            onLoadPreviousMonth = {},
+            onLoadNextMonth = {},
+            onLoadPreviousYear = {},
+            onLoadNextYear = {},
+            modifier = Modifier.padding(SpacingScale.spacing04)
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun TouchscreenCalendarMenuPreview() {
+    CarbonDesignSystem(adaptation = Adaptation.Touchscreens) {
         val today = remember {
             LocalDate(2025, 12, 1)
         }

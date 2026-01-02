@@ -92,6 +92,7 @@ public interface CalendarDatePickerState {
  * }
  * ```
  */
+@Stable
 public fun interface SelectableDates {
 
     /**
@@ -128,6 +129,10 @@ public fun rememberCalendarDatePickerState(
     onFieldValidation: (Boolean?) -> Unit = {}
 ): CalendarDatePickerState =
     rememberSaveable(
+        today,
+        dateFormat,
+        selectableDates,
+        onFieldValidation,
         saver = CalendarDatePickerStateImpl.Saver(
             dateFormat = dateFormat,
             selectableDates = selectableDates,

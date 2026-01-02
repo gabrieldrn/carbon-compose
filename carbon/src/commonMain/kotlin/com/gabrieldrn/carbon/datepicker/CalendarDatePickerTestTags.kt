@@ -22,6 +22,7 @@ internal object CalendarDatePickerTestTags {
     const val MENU_MONTH = "carbon_calendardatepicker_menu_month"
     const val MENU_YEAR = "carbon_calendardatepicker_menu_year"
     const val MENU_DEFAULT_YEARMONTH_SELECTOR = "carbon_calendardatepicker_menu_default_ymselector"
+    const val MENU_TOUCHSCREEN_YEARMONTH_SELECTOR = "carbon_calendardatepicker_menu_ts_ymselector"
     const val MENU_PREV_MONTH_BUTTON = "carbon_calendardatepicker_menu_prev_month_button"
     const val MENU_NEXT_MONTH_BUTTON = "carbon_calendardatepicker_menu_next_month_button"
     const val MENU_PREV_YEAR_BUTTON = "carbon_calendardatepicker_menu_prev_year_button"
