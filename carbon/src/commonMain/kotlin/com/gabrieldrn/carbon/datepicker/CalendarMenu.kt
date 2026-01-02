@@ -345,9 +345,6 @@ private fun DefaultYearMonthSelector(
     onLoadNextYear: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val theme = Carbon.theme
-    val isInPreview = LocalInspectionMode.current
-
     Box(
         modifier = modifier
             .height(IntrinsicSize.Min)
@@ -396,88 +393,106 @@ private fun DefaultYearMonthSelector(
                 modifier = Modifier.testTag(CalendarDatePickerTestTags.MENU_MONTH)
             )
 
-            val yearSelectorInteractionSource = remember { MutableInteractionSource() }
-            val isYearSelectorHovered by yearSelectorInteractionSource.collectIsHoveredAsState()
+            DefaultYearSelector(
+                calendar = calendar,
+                yearFormat = yearFormat,
+                onLoadNextYear = onLoadNextYear,
+                onLoadPreviousYear = onLoadPreviousYear
+            )
+        }
+    }
+}
 
-            Row(
-                modifier = Modifier.hoverable(interactionSource = yearSelectorInteractionSource),
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically
+@Composable
+private fun DefaultYearSelector(
+    calendar: CalendarMenuData,
+    yearFormat: DateTimeFormat<YearMonth>,
+    onLoadNextYear: () -> Unit,
+    onLoadPreviousYear: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    val theme = Carbon.theme
+    val isInPreview = LocalInspectionMode.current
+    val yearSelectorInteractionSource = remember { MutableInteractionSource() }
+    val isYearSelectorHovered by yearSelectorInteractionSource.collectIsHoveredAsState()
+
+    Row(
+        modifier = modifier.hoverable(interactionSource = yearSelectorInteractionSource),
+        horizontalArrangement = Arrangement.Center,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        BasicText(
+            text = calendar.yearMonth.format(yearFormat),
+            style = Carbon.typography.headingCompact01.copy(
+                color = Carbon.theme.textPrimary,
+                textAlign = TextAlign.Center
+            ),
+            modifier = Modifier
+                .padding(start = SpacingScale.spacing03)
+                .testTag(CalendarDatePickerTestTags.MENU_YEAR)
+        )
+
+        Column(
+            modifier = Modifier
+                .padding(start = SpacingScale.spacing02)
+                .graphicsLayer {
+                    alpha = if (isYearSelectorHovered || isInPreview) 1f else 0f
+                }
+        ) {
+            @Composable
+            fun CaretButton(
+                icon: ImageVector,
+                onClick: () -> Unit,
+                contentDescription: String,
+                modifier: Modifier = Modifier,
+                interactionSource: MutableInteractionSource =
+                    remember { MutableInteractionSource() },
             ) {
-                BasicText(
-                    text = calendar.yearMonth.format(yearFormat),
-                    style = Carbon.typography.headingCompact01.copy(
-                        color = Carbon.theme.textPrimary,
-                        textAlign = TextAlign.Center
-                    ),
-                    modifier = Modifier
-                        .padding(start = SpacingScale.spacing03)
-                        .testTag(CalendarDatePickerTestTags.MENU_YEAR)
-                )
-
-                Column(
-                    modifier = Modifier
-                        .padding(start = SpacingScale.spacing02)
-                        .graphicsLayer {
-                            alpha = if (isYearSelectorHovered || isInPreview) 1f else 0f
+                val isHovered by interactionSource.collectIsHoveredAsState()
+                Box(
+                    modifier = modifier
+                        .pointerHoverIcon(PointerIcon.Hand)
+                        .clickable(
+                            interactionSource = interactionSource,
+                            indication = null,
+                            onClick = onClick
+                        )
+                        .width(16.dp)
+                        .padding(vertical = SpacingScale.spacing01)
+                        .semantics(mergeDescendants = true) {
+                            this.contentDescription = contentDescription
                         }
                 ) {
-                    @Composable
-                    fun CaretButton(
-                        icon: ImageVector,
-                        onClick: () -> Unit,
-                        contentDescription: String,
-                        modifier: Modifier = Modifier,
-                        interactionSource: MutableInteractionSource =
-                            remember { MutableInteractionSource() },
-                    ) {
-                        val isHovered by interactionSource.collectIsHoveredAsState()
-                        Box(
-                            modifier = modifier
-                                .pointerHoverIcon(PointerIcon.Hand)
-                                .clickable(
-                                    interactionSource = interactionSource,
-                                    indication = null,
-                                    onClick = onClick
-                                )
-                                .width(16.dp)
-                                .padding(vertical = SpacingScale.spacing01)
-                                .semantics(mergeDescendants = true) {
-                                    this.contentDescription = contentDescription
-                                }
-                        ) {
-                            Image(
-                                painter = rememberVectorPainter(icon),
-                                colorFilter = ColorFilter.tint(
-                                    if (isHovered) theme.buttonColors.buttonPrimary
-                                    else theme.iconPrimary
-                                ),
-                                contentDescription = null
-                            )
-                        }
-                    }
-
-                    CaretButton(
-                        icon = CaretIncreaseYear,
-                        onClick = onLoadNextYear,
-                        contentDescription = stringResource(
-                            Res.string.carbon_datepicker_calendar_loadNextYear_description
+                    Image(
+                        painter = rememberVectorPainter(icon),
+                        colorFilter = ColorFilter.tint(
+                            if (isHovered) theme.buttonColors.buttonPrimary
+                            else theme.iconPrimary
                         ),
-                        modifier = Modifier
-                            .testTag(CalendarDatePickerTestTags.MENU_NEXT_YEAR_BUTTON)
-                    )
-
-                    CaretButton(
-                        icon = CaretDecreaseYear,
-                        onClick = onLoadPreviousYear,
-                        contentDescription = stringResource(
-                            Res.string.carbon_datepicker_calendar_loadPreviousYear_description
-                        ),
-                        modifier = Modifier
-                            .testTag(CalendarDatePickerTestTags.MENU_PREV_YEAR_BUTTON)
+                        contentDescription = null
                     )
                 }
             }
+
+            CaretButton(
+                icon = CaretIncreaseYear,
+                onClick = onLoadNextYear,
+                contentDescription = stringResource(
+                    Res.string.carbon_datepicker_calendar_loadNextYear_description
+                ),
+                modifier = Modifier
+                    .testTag(CalendarDatePickerTestTags.MENU_NEXT_YEAR_BUTTON)
+            )
+
+            CaretButton(
+                icon = CaretDecreaseYear,
+                onClick = onLoadPreviousYear,
+                contentDescription = stringResource(
+                    Res.string.carbon_datepicker_calendar_loadPreviousYear_description
+                ),
+                modifier = Modifier
+                    .testTag(CalendarDatePickerTestTags.MENU_PREV_YEAR_BUTTON)
+            )
         }
     }
 }
