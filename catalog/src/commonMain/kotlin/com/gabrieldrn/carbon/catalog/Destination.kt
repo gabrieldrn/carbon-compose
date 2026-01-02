@@ -84,14 +84,15 @@ enum class Destination(
     ),
     CodeSnippet("Code snippet"),
     ContentSwitcher(
-        "Content switcher",
+        title = "Content switcher",
         illustration = Res.drawable.tile_content_switcher,
         route = "contentswitcher",
         content = { modifier -> ContentSwitcherDemoScreen(modifier = modifier) }
     ),
     DataTable("Data table"),
     DatePicker(
-        "Date picker",
+        title = "Date picker",
+        illustration = Res.drawable.tile_date_picker,
         route = "datepicker",
         content = { modifier -> DatePickerDemoScreen(modifier = modifier) }
     ),
