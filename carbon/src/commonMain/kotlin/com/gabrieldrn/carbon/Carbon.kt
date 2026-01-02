@@ -84,7 +84,8 @@ public fun CarbonDesignSystem(
 }
 
 /**
- * Convenience class to provide quick access to Carbon themes and layer.
+ * Convenience class to provide quick access to Carbon themes, layers, typography, and adaptation
+ * mode.
  */
 public object Carbon {
 
@@ -119,4 +120,12 @@ public object Carbon {
         @Composable
         @ReadOnlyComposable
         get() = LocalCarbonTypography.current
+
+    /**
+     * Current UI adaptation mode in current composition.
+     */
+    public val adaptation: Adaptation
+        @Composable
+        @ReadOnlyComposable
+        get() = LocalCarbonAdaptation.current
 }

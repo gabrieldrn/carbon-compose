@@ -43,7 +43,7 @@ public enum class Adaptation {
  * Composition local that exposes the current [Adaptation] for Carbon components.
  *
  * Default value is [Adaptation.None]. Provide a different value with:
- * `CompositionLocalProvider(LocalCarbonAdaptation provides Adaptation.Handheld) { ... }`
+ * `CompositionLocalProvider(LocalCarbonAdaptation provides Adaptation.Touchscreens) { ... }`
  */
 public val LocalCarbonAdaptation: ProvidableCompositionLocal<Adaptation> =
     staticCompositionLocalOf { Adaptation.None }
