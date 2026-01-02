@@ -60,7 +60,7 @@ List of the currently supported components:
 | Contained list     |             |        |              |           |
 | Content switcher   |      ✅      |   ✅    |      ✅       |     ✅     |
 | Data table         |             |        |              |           |
-| Date picker        |             |        |              |           |
+| Date picker        |     🟡      |   🟡   |      🟡      |    🟡     |
 | Dropdown           |     🟡      |   🟡   |      🟡      |    🟡     |
 | File uploader      |             |        |              |           |
 | Form               |             |        |              |           |

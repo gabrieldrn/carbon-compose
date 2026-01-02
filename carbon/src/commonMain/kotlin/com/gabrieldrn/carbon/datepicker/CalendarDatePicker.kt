@@ -59,7 +59,6 @@ import kotlinx.datetime.plusMonth
 import kotlinx.datetime.plusYear
 import kotlinx.datetime.yearMonth
 
-// TODO GH Pages documentation + mention usage of kotlinx.datetime
 /**
  * # Date picker - Calendar - Single date
  *
@@ -72,6 +71,12 @@ import kotlinx.datetime.yearMonth
  * In a single date picker a user has the option to either manually input a date in the text field
  * or select one specific date from the menu calendar. It requires a day, month, and year to be
  * selected.
+ *
+ * ## Compose implementation
+ * This composable uses [kotlinx.datetime](https://github.com/Kotlin/kotlinx-datetime) for date
+ * handling and formatting.
+ *
+ * (From [Date picker documentation](https://carbondesignsystem.com/components/date-picker/usage/#calendar-pickers))
  *
  * @param datePickerState A [CalendarDatePickerState] that is used to control the state of the
  * date picker.
