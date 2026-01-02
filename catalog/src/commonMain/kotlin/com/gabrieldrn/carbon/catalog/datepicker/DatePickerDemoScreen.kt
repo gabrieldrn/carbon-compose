@@ -80,7 +80,7 @@ fun DatePickerDemoScreen(
         today = today,
         dateFormat = dateFormat,
         selectableDates = { it != today.plus(1, DateTimeUnit.DAY) },
-        onFieldValidation = { isFieldValid = it }
+        onFieldValidation = remember { { isFieldValid = it } }
     )
 
     var fieldValue by remember {

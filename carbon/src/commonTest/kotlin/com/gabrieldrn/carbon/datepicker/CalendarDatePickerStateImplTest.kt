@@ -16,6 +16,7 @@
 
 package com.gabrieldrn.carbon.datepicker
 
+import androidx.compose.runtime.remember
 import androidx.compose.ui.test.runComposeUiTest
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.format.char
@@ -141,7 +142,7 @@ class CalendarDatePickerStateImplTest {
                     today = today,
                     selectableDates = { true },
                     dateFormat = dateFormat,
-                    onFieldValidation = { validationResult = it }
+                    onFieldValidation = remember { { validationResult = it } }
                 )
             }
             val dateString = "2024/01/01"
@@ -171,7 +172,7 @@ class CalendarDatePickerStateImplTest {
                     today = today,
                     selectableDates = { false },
                     dateFormat = dateFormat,
-                    onFieldValidation = { validationResult = it }
+                    onFieldValidation = remember { { validationResult = it } }
                 )
             }
             val dateString = "2024/01/01"
@@ -200,7 +201,7 @@ class CalendarDatePickerStateImplTest {
                     today = today,
                     selectableDates = { true },
                     dateFormat = dateFormat,
-                    onFieldValidation = { validationResult = it }
+                    onFieldValidation = remember { { validationResult = it } }
                 )
             }
             val invalidDateString = "not a date"
@@ -230,7 +231,7 @@ class CalendarDatePickerStateImplTest {
                     initialSelectedDate = LocalDate(2024, 1, 1),
                     selectableDates = { true },
                     dateFormat = dateFormat,
-                    onFieldValidation = { validationResult = it }
+                    onFieldValidation = remember { { validationResult = it } }
                 )
             }
             val blankString = "   "

@@ -18,6 +18,7 @@ package com.gabrieldrn.carbon.datepicker
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
@@ -78,7 +79,7 @@ class CalendarDatePickerTest {
                     initialSelectedDate = null,
                     dateFormat = dateFormat,
                     selectableDates = { true },
-                    onFieldValidation = { fieldValidationResult = it }
+                    onFieldValidation = remember { { fieldValidationResult = it } }
                 )
                 CalendarDatePicker(
                     datePickerState = datePickerState,
@@ -94,9 +95,7 @@ class CalendarDatePickerTest {
 
         val validDateString = "2024/06/15"
 
-        runOnIdle {
-            datePickerState?.updateFieldValue(validDateString)
-        }
+        datePickerState?.updateFieldValue(validDateString)
 
         waitForIdle()
 
@@ -121,7 +120,7 @@ class CalendarDatePickerTest {
                     initialSelectedDate = null,
                     dateFormat = dateFormat,
                     selectableDates = { true },
-                    onFieldValidation = { fieldValidationResult = it }
+                    onFieldValidation = remember { { fieldValidationResult = it } }
                 )
                 CalendarDatePicker(
                     datePickerState = datePickerState,
