@@ -1,6 +1,7 @@
 public final class com/gabrieldrn/carbon/Carbon {
 	public static final field $stable I
 	public static final field INSTANCE Lcom/gabrieldrn/carbon/Carbon;
+	public final fun getAdaptation (Landroidx/compose/runtime/Composer;I)Lcom/gabrieldrn/carbon/foundation/misc/Adaptation;
 	public final fun getInlineTheme (Landroidx/compose/runtime/Composer;I)Lcom/gabrieldrn/carbon/foundation/color/Theme;
 	public final fun getLayer (Landroidx/compose/runtime/Composer;I)Lcom/gabrieldrn/carbon/foundation/color/Layer;
 	public final fun getTheme (Landroidx/compose/runtime/Composer;I)Lcom/gabrieldrn/carbon/foundation/color/Theme;
