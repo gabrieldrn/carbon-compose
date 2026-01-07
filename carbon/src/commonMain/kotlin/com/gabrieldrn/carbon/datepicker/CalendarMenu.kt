@@ -22,6 +22,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.hoverable
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -249,7 +250,6 @@ internal fun CalendarMenu(
                 )
                 .layerBackground()
                 .padding(SpacingScale.spacing02),
-            verticalArrangement = Arrangement.spacedBy(SpacingScale.spacing02)
         ) {
             if (adaptation == Adaptation.Touchscreens) {
                 TouchscreenYearMonthSelector(
@@ -432,11 +432,17 @@ private fun DefaultYearSelector(
                 .testTag(CalendarDatePickerTestTags.MENU_YEAR)
         )
 
+        val nextYearInteractionSource = remember { MutableInteractionSource() }
+        val prevYearInteractionSource = remember { MutableInteractionSource() }
+
+        val nextYearIsFocused by nextYearInteractionSource.collectIsFocusedAsState()
+        val prevYearIsFocused by prevYearInteractionSource.collectIsFocusedAsState()
+
         Column(
             modifier = Modifier
                 .padding(start = SpacingScale.spacing02)
                 .graphicsLayer {
-                    alpha = if (isYearSelectorHovered || isInPreview) 1f else 0f
+                    alpha = if (isYearSelectorHovered || nextYearIsFocused || prevYearIsFocused || isInPreview) 1f else 0f
                 }
         ) {
             @Composable
@@ -449,6 +455,8 @@ private fun DefaultYearSelector(
                     remember { MutableInteractionSource() },
             ) {
                 val isHovered by interactionSource.collectIsHoveredAsState()
+                val isFocused by interactionSource.collectIsFocusedAsState()
+
                 Box(
                     modifier = modifier
                         .pointerHoverIcon(PointerIcon.Hand)
@@ -466,7 +474,7 @@ private fun DefaultYearSelector(
                     Image(
                         painter = rememberVectorPainter(icon),
                         colorFilter = ColorFilter.tint(
-                            if (isHovered) theme.buttonColors.buttonPrimary
+                            if (isHovered || isFocused) theme.buttonColors.buttonPrimary
                             else theme.iconPrimary
                         ),
                         contentDescription = null
@@ -480,6 +488,7 @@ private fun DefaultYearSelector(
                 contentDescription = stringResource(
                     Res.string.carbon_datepicker_calendar_loadNextYear_description
                 ),
+                interactionSource = nextYearInteractionSource,
                 modifier = Modifier
                     .testTag(CalendarDatePickerTestTags.MENU_NEXT_YEAR_BUTTON)
             )
@@ -490,6 +499,7 @@ private fun DefaultYearSelector(
                 contentDescription = stringResource(
                     Res.string.carbon_datepicker_calendar_loadPreviousYear_description
                 ),
+                interactionSource = prevYearInteractionSource,
                 modifier = Modifier
                     .testTag(CalendarDatePickerTestTags.MENU_PREV_YEAR_BUTTON)
             )
