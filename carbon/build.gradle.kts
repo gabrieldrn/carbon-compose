@@ -83,6 +83,9 @@ compose.resources {
 }
 
 android {
+    compileOptions {
+        isCoreLibraryDesugaringEnabled = true
+    }
 
     namespace = "com.gabrieldrn.carbon"
 
@@ -97,5 +100,7 @@ android {
         androidTestImplementation(libs.kotlin.test)
         androidTestImplementation(libs.androidx.test.ext)
         androidTestImplementation(libs.androidx.test.espresso)
+
+        coreLibraryDesugaring(libs.desugaring.jdkLibs)
     }
 }

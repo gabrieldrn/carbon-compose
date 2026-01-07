@@ -1,5 +1,15 @@
 # Import Carbon library
 
+## Prerequisites
+
+### Android
+
+Carbon uses [`kotlinx.datetime`](https://github.com/Kotlin/kotlinx-datetime) for components working 
+with time and dates. Therefore, **if the project you are using Carbon with targets Android, you need 
+to enable [core library desugaring](https://developer.android.com/studio/write/java8-support#library-desugaring)**
+
+## Add Carbon to your dependencies
+
 To start using Carbon in your Compose app, add the dependency according to your dependencies declaration method:
 
 === "Version catalog"

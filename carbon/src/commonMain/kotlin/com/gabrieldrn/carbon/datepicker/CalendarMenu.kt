@@ -442,7 +442,12 @@ private fun DefaultYearSelector(
             modifier = Modifier
                 .padding(start = SpacingScale.spacing02)
                 .graphicsLayer {
-                    alpha = if (isYearSelectorHovered || nextYearIsFocused || prevYearIsFocused || isInPreview) 1f else 0f
+                    alpha =
+                        if (isYearSelectorHovered ||
+                            nextYearIsFocused ||
+                            prevYearIsFocused ||
+                            isInPreview
+                        ) 1f else 0f
                 }
         ) {
             @Composable

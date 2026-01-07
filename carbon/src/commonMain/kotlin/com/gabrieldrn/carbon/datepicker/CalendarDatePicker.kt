@@ -29,6 +29,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusEvent
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.input.key.Key
+import androidx.compose.ui.input.key.KeyEventType
+import androidx.compose.ui.input.key.key
+import androidx.compose.ui.input.key.onPreviewKeyEvent
+import androidx.compose.ui.input.key.type
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.disabled
@@ -251,7 +256,16 @@ public fun CalendarDatePicker(
                             dayOfWeekNames = dayOfWeekNames,
                             yearFormat = yearFormat,
                             monthFormat = monthFormat,
-                            modifier = Modifier.testTag(CalendarDatePickerTestTags.MENU)
+                            modifier = Modifier
+                                .onPreviewKeyEvent {
+                                    if (it.key == Key.Escape && it.type == KeyEventType.KeyDown) {
+                                        onDismissRequest()
+                                        true
+                                    } else {
+                                        false
+                                    }
+                                }
+                                .testTag(CalendarDatePickerTestTags.MENU)
                         )
                     }
                 }

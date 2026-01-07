@@ -64,10 +64,19 @@ android {
         versionCode = Configuration.versionCode
         versionName = Configuration.versionName
     }
+
+    compileOptions {
+        isCoreLibraryDesugaringEnabled = true
+    }
+
     buildTypes {
         release {
             signingConfig = signingConfigs.getByName("debug")
         }
+    }
+
+    dependencies {
+        coreLibraryDesugaring(libs.desugaring.jdkLibs)
     }
 }
 
