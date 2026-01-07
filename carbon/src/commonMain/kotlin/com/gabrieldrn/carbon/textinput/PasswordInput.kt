@@ -23,29 +23,18 @@ import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.referentialEqualityPolicy
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.SolidColor
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.rememberVectorPainter
-import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.CarbonDesignSystem
-import com.gabrieldrn.carbon.button.ButtonType
-import com.gabrieldrn.carbon.button.IconButton
-import com.gabrieldrn.carbon.common.semantics.imageVectorName
-import com.gabrieldrn.carbon.foundation.color.LocalCarbonTheme
-import com.gabrieldrn.carbon.foundation.color.Theme
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 import com.gabrieldrn.carbon.icons.viewIcon
 import com.gabrieldrn.carbon.icons.viewOffIcon
@@ -147,7 +136,7 @@ public fun PasswordInput(
         },
         interactionSource = interactionSource,
         cursorBrush = SolidColor(colors.fieldTextColor(state = state).value),
-        decorationBox = decorator(
+        decorationBox = inputDecorator(
             label = label,
             value = value,
             placeholderText = placeholderText,
@@ -159,48 +148,14 @@ public fun PasswordInput(
             interactionSource = interactionSource,
             counter = null,
             trailingIcon = {
-                HidePasswordButton(
-                    theme = theme,
-                    passwordHidden = passwordHidden,
+                ClickableTrailingIcon(
                     icon = icon,
-                    state = state,
-                    onPasswordHiddenChange = onPasswordHiddenChange
+                    isEnabled = state != TextInputState.Disabled,
+                    onClick = { onPasswordHiddenChange(!passwordHidden) }
                 )
             }
         )
     )
-}
-
-@Composable
-private fun HidePasswordButton(
-    theme: Theme,
-    passwordHidden: Boolean,
-    icon: ImageVector,
-    state: TextInputState,
-    onPasswordHiddenChange: (Boolean) -> Unit,
-    modifier: Modifier = Modifier
-) {
-    val hidePasswordButtonTheme by remember(theme) {
-        mutableStateOf(
-            value = theme.copy(
-                linkPrimary = theme.iconPrimary,
-                linkPrimaryHover = theme.iconPrimary
-            ),
-            policy = referentialEqualityPolicy()
-        )
-    }
-
-    CompositionLocalProvider(LocalCarbonTheme provides hidePasswordButtonTheme) {
-        IconButton(
-            iconPainter = rememberVectorPainter(icon),
-            buttonType = ButtonType.Ghost,
-            isEnabled = state != TextInputState.Disabled,
-            onClick = { onPasswordHiddenChange(!passwordHidden) },
-            modifier = modifier
-                .semantics { imageVectorName(icon.name) }
-                .testTag(TextInputTestTags.HIDE_PASSWORD_BUTTON)
-        )
-    }
 }
 
 @Preview

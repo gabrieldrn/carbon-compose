@@ -102,6 +102,15 @@ fun Catalog(
                     .fillMaxSize()
                     .layerBackground()
             ) {
+//                val headerString = remember(currentScreen) {
+//                    buildAnnotatedString {
+//                        append(currentScreen.title)
+//                        if (currentScreen == Destination.Home) {
+//                            append(' ')
+//                            appendInlineContent("version_tag", "")
+//                        }
+//                    }
+//                }
                 UiShellHeader(
                     headerName = currentScreen.title,
                     menuIconPainter = if (currentScreen != Destination.Home) {

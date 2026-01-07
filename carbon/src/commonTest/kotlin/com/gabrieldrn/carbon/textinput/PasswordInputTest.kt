@@ -97,7 +97,7 @@ class PasswordInputTest {
                 ).assertIsDisplayed()
             }
 
-            onNodeWithTag(TextInputTestTags.HIDE_PASSWORD_BUTTON, useUnmergedTree = true)
+            onNodeWithTag(TextInputTestTags.CLICKABLE_TRAILING_ICON, useUnmergedTree = true)
                 .assertIsDisplayed()
                 .run {
                     if (passwordHidden) {

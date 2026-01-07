@@ -28,6 +28,8 @@ import com.gabrieldrn.carbon.foundation.color.LocalCarbonLayer
 import com.gabrieldrn.carbon.foundation.color.LocalCarbonTheme
 import com.gabrieldrn.carbon.foundation.color.Theme
 import com.gabrieldrn.carbon.foundation.color.WhiteTheme
+import com.gabrieldrn.carbon.foundation.misc.Adaptation
+import com.gabrieldrn.carbon.foundation.misc.LocalCarbonAdaptation
 import com.gabrieldrn.carbon.foundation.text.CarbonTypography
 import com.gabrieldrn.carbon.foundation.text.LocalCarbonTypography
 import com.gabrieldrn.carbon.foundation.text.getIBMPlexMonoFamily
@@ -47,6 +49,7 @@ internal const val LOG_TAG = "CarbonDesignSystem"
  * @param uiShellInlineTheme The [Theme] to provide to the composition for UI Shell components.
  * Defaults to [theme].
  * @param layer The [Layer] token to apply to the composition.
+ * @param adaptation The [Adaptation] to apply to components.
  * @param content Your UI content.
  */
 @Composable
@@ -54,6 +57,7 @@ public fun CarbonDesignSystem(
     theme: Theme = if (isSystemInDarkTheme()) Gray100Theme else WhiteTheme,
     uiShellInlineTheme: Theme = theme,
     layer: Layer = Layer.Layer00,
+    adaptation: Adaptation = Adaptation.None,
     content: @Composable () -> Unit,
 ) {
     val ibmPlexSansFamily = getIBMPlexSansFamily()
@@ -73,18 +77,20 @@ public fun CarbonDesignSystem(
         LocalCarbonInlineTheme provides uiShellInlineTheme,
         LocalCarbonLayer provides layer,
         LocalCarbonTypography provides typography,
+        LocalCarbonAdaptation provides adaptation
     ) {
         content()
     }
 }
 
 /**
- * Convenience class to provite quick access to Carbon themes and layer.
+ * Convenience class to provide quick access to Carbon themes, layers, typography, and adaptation
+ * mode.
  */
 public object Carbon {
 
     /**
-     * Current Carbon theme in curent composition.
+     * Current Carbon theme in current composition.
      */
     public val theme: Theme
         @Composable
@@ -114,4 +120,12 @@ public object Carbon {
         @Composable
         @ReadOnlyComposable
         get() = LocalCarbonTypography.current
+
+    /**
+     * Current UI adaptation mode in current composition.
+     */
+    public val adaptation: Adaptation
+        @Composable
+        @ReadOnlyComposable
+        get() = LocalCarbonAdaptation.current
 }

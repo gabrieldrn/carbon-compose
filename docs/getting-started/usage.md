@@ -123,6 +123,32 @@ Box(
 ```
 [`fun Modifier.layerBackground()` :octicons-arrow-up-right-24:](https://gabrieldrn.github.io/carbon-compose/api/-carbon%20-compose/com.gabrieldrn.carbon.foundation.color/layer-background.html)
 
+### Adaptation
+
+!!! note
+    Adaptation modes are a non-official extension to Carbon. The Carbon Design System is not officially designed for mobile devices or touch-based interfaces.
+
+Carbon Compose supports UI adaptation modes to help components work across different device types and accessibility requirements, even though this goes beyond Carbon's official scope.
+
+The `CarbonDesignSystem` composable provides an `adaptation` argument that allows you to specify how components should adapt their behavior:
+
+```kotlin
+CarbonDesignSystem(
+    adaptation = Adaptation.Touchscreens
+) {
+    // Content
+}
+```
+
+[`enum Adaptation` :octicons-arrow-up-right-24:](https://gabrieldrn.github.io/carbon-compose/api/-carbon%20-compose/com.gabrieldrn.carbon.foundation.misc/-adaptation/index.html)
+
+#### Adaptation modes
+
+- **`Adaptation.None`**: The default mode with no special adaptations. This is suitable for desktop and web platforms that don't require accessibility-specific adjustments.
+- **`Adaptation.Touchscreens`**: Optimizes components for touch-based interactions on tablets and mobile devices, such as larger touch targets, adjusted spacing and alternative UI.
+
+Components within the composition tree can access the current adaptation mode through the `LocalCarbonAdaptation` composition local if they need to adjust their behavior accordingly.
+
 ### Typography
 
 Carbon was designed to work seamlessly with the [IBM Plex](https://www.ibm.com/plex/) font family. Carbon Compose 

@@ -17,6 +17,7 @@
 package com.gabrieldrn.carbon.catalog.settings.data
 
 import com.gabrieldrn.carbon.catalog.theme.CarbonTheme
+import com.gabrieldrn.carbon.foundation.misc.Adaptation
 import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.Settings
 import com.russhwolf.settings.coroutines.getStringFlow
@@ -30,17 +31,32 @@ class SettingsRepository {
     private val settings = Settings()
     private val observableSettings = settings.makeObservable()
 
-    val lightTheme
+    var lightTheme
         get() = settings.getString(
             SETTING_KEY_LIGHT_THEME,
             CarbonTheme.LightTheme.W.displayName
         ).let(CarbonTheme.LightTheme::fromDisplayName)
+        set(value) {
+            observableSettings.putString(SETTING_KEY_LIGHT_THEME, value.displayName)
+        }
 
-    val darkTheme
+    var darkTheme
         get() = settings.getString(
             SETTING_KEY_DARK_THEME,
             CarbonTheme.DarkTheme.G100.displayName
         ).let(CarbonTheme.DarkTheme::fromDisplayName)
+        set(value) {
+            observableSettings.putString(SETTING_KEY_DARK_THEME, value.displayName)
+        }
+
+    var adaptation
+        get() = settings.getString(
+            SETTING_KEY_ADAPTATION,
+            Adaptation.None.name
+        ).let(Adaptation::valueOf)
+        set(value) {
+            observableSettings.putString(SETTING_KEY_ADAPTATION, value.name)
+        }
 
     val lightThemeFlow: Flow<CarbonTheme.LightTheme> = observableSettings
         .getStringFlow(
@@ -56,16 +72,16 @@ class SettingsRepository {
         )
         .map(CarbonTheme.DarkTheme::fromDisplayName)
 
-    fun setLightTheme(lightTheme: CarbonTheme.LightTheme) {
-        observableSettings.putString(SETTING_KEY_LIGHT_THEME, lightTheme.displayName)
-    }
-
-    fun setDarkTheme(darkTheme: CarbonTheme.DarkTheme) {
-        observableSettings.putString(SETTING_KEY_DARK_THEME, darkTheme.displayName)
-    }
+    val adaptationFlow: Flow<Adaptation> = observableSettings
+        .getStringFlow(
+            key = SETTING_KEY_ADAPTATION,
+            defaultValue = Adaptation.None.name
+        )
+        .map(Adaptation::valueOf)
 
     companion object {
         private const val SETTING_KEY_LIGHT_THEME = "lightTheme"
         private const val SETTING_KEY_DARK_THEME = "darkTheme"
+        private const val SETTING_KEY_ADAPTATION = "adaptation"
     }
 }

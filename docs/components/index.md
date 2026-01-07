@@ -27,6 +27,8 @@
 - ContentSwitcher
   - [Default content switcher](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.contentswitcher/-content-switcher.html)
   - [Icon content switcher](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.contentswitcher/-icon-content-switcher.html)
+- Date picker
+  - [Single with calendar](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.datepicker/-calendar-date-picker.html)
 - Dropdown
     - [Default dropdown](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.dropdown/-dropdown.html)
     - [Multi-select dropdown](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.dropdown.multiselect/-multiselect-dropdown.html)

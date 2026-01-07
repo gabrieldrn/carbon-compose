@@ -39,6 +39,7 @@ fun CarbonCatalogTheme(
         } else {
             uiState.lightTheme.theme
         },
+        adaptation = uiState.adaptation,
         uiShellInlineTheme = Gray100Theme,
         content = content
     )
