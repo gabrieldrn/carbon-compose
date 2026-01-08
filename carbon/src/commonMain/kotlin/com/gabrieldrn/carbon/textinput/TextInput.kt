@@ -139,8 +139,7 @@ internal class TextInputStatePreviewParameterProvider : PreviewParameterProvider
 
 @Preview
 @Composable
-private fun EmptyTextInputPreview(
-) {
+private fun EmptyTextInputPreview() {
     var text by remember {
         mutableStateOf("")
     }

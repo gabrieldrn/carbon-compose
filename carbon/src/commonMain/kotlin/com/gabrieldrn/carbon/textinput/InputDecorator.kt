@@ -23,6 +23,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.sizeIn
+import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -64,6 +65,10 @@ internal fun inputDecorator(
     stateIcon: @Composable () -> Unit = { InputStateIcon(state = state) },
     popup: (@Composable () -> Unit)? = null,
 ): @Composable (@Composable () -> Unit) -> Unit = { innerTextField ->
+    val labelColor by colors.labelTextColor(state = state)
+    val counterColor by colors.labelTextColor(state = state)
+    val helperColor by colors.helperTextColor(state = state)
+
     Column(
         modifier = Modifier.semantics(mergeDescendants = true) {
             stateDescription = helperText
@@ -73,10 +78,10 @@ internal fun inputDecorator(
             modifier = Modifier
                 .padding(bottom = SpacingScale.spacing03)
         ) {
-            Text(
+            BasicText(
                 text = label,
                 style = Carbon.typography.label01,
-                color = colors.labelTextColor(state = state).value,
+                color = { labelColor },
                 maxLines = 1,
                 modifier = Modifier
                     .weight(1f)
@@ -84,10 +89,10 @@ internal fun inputDecorator(
             )
 
             if (counter != null) {
-                Text(
+                BasicText(
                     text = "${counter.first}/${counter.second}",
                     style = Carbon.typography.label01,
-                    color = colors.labelTextColor(state = state).value,
+                    color = { counterColor },
                     maxLines = 1,
                     modifier = Modifier.testTag(TextInputTestTags.COUNTER)
                 )
@@ -132,10 +137,10 @@ internal fun inputDecorator(
 
 
         if (helperText.isNotEmpty()) {
-            Text(
+            BasicText(
                 text = helperText,
                 style = Carbon.typography.helperText01,
-                color = colors.helperTextColor(state = state).value,
+                color = { helperColor },
                 modifier = Modifier
                     .padding(top = SpacingScale.spacing02)
                     .testTag(TextInputTestTags.HELPER_TEXT)
