@@ -18,10 +18,10 @@ package com.gabrieldrn.carbon
 
 object Configuration {
     const val majorVersion = 0
-    const val minorVersion = 6
-    const val patchVersion = 2
+    const val minorVersion = 7
+    const val patchVersion = 0
     const val versionName = "$majorVersion.$minorVersion.$patchVersion"
-    const val versionCode = 9
+    const val versionCode = 10
     const val snapshotVersionName = "$majorVersion.$minorVersion.${patchVersion + 1}-SNAPSHOT"
     const val artifactGroup = "io.github.gabrieldrn"
 
