@@ -1,0 +1,523 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>com.gabrieldrn.carbon.foundation.color</title>
+<link href="../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../styles/style.css" rel="Stylesheet">
+<link href="../../styles/main.css" rel="Stylesheet">
+<link href="../../styles/prism.css" rel="Stylesheet">
+<link href="../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../ui-kit/ui-kit.min.js" defer></script>
+<script type="text/javascript" src="../../scripts/symbol-parameters-wrapper_deferred.js" defer></script>
+<link href="../../images/carbon_docs_icon.png">
+<link href="../../styles/dokka-custom-styles.css" rel="Stylesheet">
+<link href="../../styles/dokka-custom-logo-styles.css" rel="Stylesheet"></head>
+<body>
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+<a class="library-name--link" href="../../index.html">
+                    Carbon Compose
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">v0.7.0
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector common-like" data-active="" data-filter=":carbon/commonMain">common</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option common-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":carbon/commonMain" data-filter=":carbon/commonMain">
+                                <span class="checkbox--icon"></span>
+                                common
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    Carbon Compose
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="package" id="content" pageids="carbon::com.gabrieldrn.carbon.foundation.color////PointingToDeclaration//-843392904">
+  <div class="breadcrumbs"><a href="../index.html">carbon</a><span class="delimiter">/</span><span class="current">com.gabrieldrn.carbon.foundation.color</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Package-level</span></span> <span><span>declarations</span></span></h1>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="TYPE">Types</button><button class="section-tab" data-togglable="FUNCTION,EXTENSION_FUNCTION">Functions</button><button class="section-tab" data-togglable="PROPERTY,EXTENSION_PROPERTY">Properties</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="1524079469%2FClasslikes%2F-843392904" anchor-label="Layer" id="1524079469%2FClasslikes%2F-843392904" data-filterable-set=":carbon/commonMain"></a>
+          <div class="table-row" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-layer/index.html"><span><span>Layer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1524079469%2FClasslikes%2F-843392904"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":carbon/commonMain"><div class="symbol monospace"><span class="token keyword">enum </span><a href="-layer/index.html">Layer</a> : <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="-layer/index.html">Layer</a><span class="token operator">&gt; </span></div><div class="brief "><p class="paragraph">Layering tokens are explicit tokens used to manually map the layering model onto components. Layering tokens come in predefined sets that coordinate with the different layer levels. For each layer that a component needs to lives on, a separate component variation must be built using the tokens from that layer set.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1670836725%2FClasslikes%2F-843392904" anchor-label="Theme" id="1670836725%2FClasslikes%2F-843392904" data-filterable-set=":carbon/commonMain"></a>
+          <div class="table-row" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-theme/index.html"><span><span>Theme</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1670836725%2FClasslikes%2F-843392904"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":carbon/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Immutable.html"><span class="token annotation builtin">Immutable</span></a></div></div><span class="token keyword">data </span><span class="token keyword">class </span><a href="-theme/index.html">Theme</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>background<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>backgroundActive<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>backgroundBrand<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>backgroundHover<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>backgroundInverse<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>backgroundInverseHover<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>backgroundSelected<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>backgroundSelectedHover<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>borderDisabled<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>borderInteractive<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>borderInverse<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>borderStrong01<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>borderStrong02<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>borderStrong03<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>borderSubtle00<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>borderSubtle01<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>borderSubtle02<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>borderSubtle03<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>borderSubtleSelected01<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>borderSubtleSelected02<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>borderSubtleSelected03<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>borderTile01<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>borderTile02<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>borderTile03<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>field01<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>field02<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>field03<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>fieldHover01<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>fieldHover02<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>fieldHover03<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>focus<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>focusInset<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>focusInverse<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>highlight<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>iconDisabled<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>iconInteractive<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>iconInverse<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>iconOnColor<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>iconOnColorDisabled<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>iconPrimary<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>iconSecondary<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>interactive<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>layer01<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>layer02<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>layer03<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>layerAccent01<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>layerAccent02<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>layerAccent03<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>layerAccentActive01<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>layerAccentActive02<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>layerAccentActive03<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>layerAccentHover01<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>layerAccentHover02<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>layerAccentHover03<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>layerActive01<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>layerActive02<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>layerActive03<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>layerBackground01<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>layerBackground02<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>layerBackground03<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>layerHover01<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>layerHover02<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>layerHover03<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>layerSelected01<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>layerSelected02<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>layerSelected03<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>layerSelectedDisabled<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>layerSelectedHover01<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>layerSelectedHover02<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>layerSelectedHover03<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>layerSelectedInverse<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>linkInverse<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>linkInverseActive<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>linkInverseHover<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>linkInverseVisited<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>linkPrimary<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>linkPrimaryHover<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>linkSecondary<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>linkVisited<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>overlay<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>shadow<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>skeletonBackground<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>skeletonElement<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>supportCautionMajor<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>supportCautionMinor<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>supportCautionUndefined<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>supportError<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>supportErrorInverse<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>supportInfo<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>supportInfoInverse<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>supportSuccess<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>supportSuccessInverse<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>supportWarning<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>supportWarningInverse<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>textDisabled<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>textError<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>textHelper<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>textInverse<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>textOnColor<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>textOnColorDisabled<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>textPlaceholder<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>textPrimary<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>textSecondary<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>toggleOff<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>aiColors<span class="token operator">: </span><a href="../com.gabrieldrn.carbon.foundation.color.ai/-ai-colors/index.html">AiColors</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>buttonColors<span class="token operator">: </span><a href="../com.gabrieldrn.carbon.foundation.color.button/-button-colors/index.html">ButtonColors</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>chatColors<span class="token operator">: </span><a href="../com.gabrieldrn.carbon.foundation.color.chat/-chat-colors/index.html">ChatColors</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>notificationColors<span class="token operator">: </span><a href="../com.gabrieldrn.carbon.foundation.color.notification/-notification-colors/index.html">NotificationColors</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>tagColors<span class="token operator">: </span><a href="../com.gabrieldrn.carbon.foundation.color.tag/-tag-colors/index.html">TagColors</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Themes are used to modify existing components to fit a specific visual style. By using Carbon’s tokens, developers can easily customize all of their components by changing a set of universal variables, eliminating the need to modify individual components.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="1942245537%2FProperties%2F-843392904" anchor-label="color" id="1942245537%2FProperties%2F-843392904" data-filterable-set=":carbon/commonMain"></a>
+          <div class="table-row" data-togglable="EXTENSION_PROPERTY" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="color.html"><span><span>color</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1942245537%2FProperties%2F-843392904"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":carbon/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@get:</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a></div><div class="block"><span class="token annotation builtin">@get:</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/ReadOnlyComposable.html"><span class="token annotation builtin">ReadOnlyComposable</span></a></div></div><span class="token keyword">val </span><a href="-layer/index.html">Layer</a><span class="token punctuation">.</span><a href="color.html">color</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></div><div class="brief "><p class="paragraph">Returns the contextual <code class="lang-kotlin">layer</code> color token corresponding to the layer (this) it is placed on.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="233243584%2FProperties%2F-843392904" anchor-label="Gray100Theme" id="233243584%2FProperties%2F-843392904" data-filterable-set=":carbon/commonMain"></a>
+          <div class="table-row" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-gray100-theme.html"><span><span>Gray100Theme</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="233243584%2FProperties%2F-843392904"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":carbon/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="-gray100-theme.html">Gray100Theme</a><span class="token operator">: </span><a href="-theme/index.html">Theme</a></div><div class="brief "><p class="paragraph">One of the default <i>light</i> themes available in Carbon.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1796396712%2FProperties%2F-843392904" anchor-label="Gray10Theme" id="-1796396712%2FProperties%2F-843392904" data-filterable-set=":carbon/commonMain"></a>
+          <div class="table-row" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-gray10-theme.html"><span><span>Gray10Theme</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1796396712%2FProperties%2F-843392904"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":carbon/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="-gray10-theme.html">Gray10Theme</a><span class="token operator">: </span><a href="-theme/index.html">Theme</a></div><div class="brief "><p class="paragraph">One of the default <i>light</i> themes available in Carbon.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-697358256%2FProperties%2F-843392904" anchor-label="Gray90Theme" id="-697358256%2FProperties%2F-843392904" data-filterable-set=":carbon/commonMain"></a>
+          <div class="table-row" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-gray90-theme.html"><span><span>Gray90Theme</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-697358256%2FProperties%2F-843392904"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":carbon/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="-gray90-theme.html">Gray90Theme</a><span class="token operator">: </span><a href="-theme/index.html">Theme</a></div><div class="brief "><p class="paragraph">One of the default <i>dark</i> themes available in Carbon.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1877775421%2FProperties%2F-843392904" anchor-label="LocalCarbonInlineTheme" id="-1877775421%2FProperties%2F-843392904" data-filterable-set=":carbon/commonMain"></a>
+          <div class="table-row" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-local-carbon-inline-theme.html"><span>Local</span><wbr><span>Carbon</span><wbr><span>Inline</span><wbr><span><span>Theme</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1877775421%2FProperties%2F-843392904"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":carbon/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="-local-carbon-inline-theme.html">LocalCarbonInlineTheme</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/ProvidableCompositionLocal.html">ProvidableCompositionLocal</a><span class="token operator">&lt;</span><a href="-theme/index.html">Theme</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">A <a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/package-summary.html">staticCompositionLocalOf</a> that provides a Carbon inline <a href="-theme/index.html">Theme</a>, usually used for components that need to be themed differently from the rest of the app, such as UI Shell components.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="833943746%2FProperties%2F-843392904" anchor-label="LocalCarbonLayer" id="833943746%2FProperties%2F-843392904" data-filterable-set=":carbon/commonMain"></a>
+          <div class="table-row" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-local-carbon-layer.html"><span>Local</span><wbr><span>Carbon</span><wbr><span><span>Layer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="833943746%2FProperties%2F-843392904"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":carbon/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="-local-carbon-layer.html">LocalCarbonLayer</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/ProvidableCompositionLocal.html">ProvidableCompositionLocal</a><span class="token operator">&lt;</span><a href="-layer/index.html">Layer</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">A <a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/package-summary.html">staticCompositionLocalOf</a> that provides a <a href="-layer/index.html">Layer</a> token. Layering tokens are explicit tokens used to manually map the layering model onto components.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="980701002%2FProperties%2F-843392904" anchor-label="LocalCarbonTheme" id="980701002%2FProperties%2F-843392904" data-filterable-set=":carbon/commonMain"></a>
+          <div class="table-row" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-local-carbon-theme.html"><span>Local</span><wbr><span>Carbon</span><wbr><span><span>Theme</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="980701002%2FProperties%2F-843392904"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":carbon/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="-local-carbon-theme.html">LocalCarbonTheme</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/ProvidableCompositionLocal.html">ProvidableCompositionLocal</a><span class="token operator">&lt;</span><a href="-theme/index.html">Theme</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">A <a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/package-summary.html">staticCompositionLocalOf</a> that provides the current Carbon <a href="-theme/index.html">Theme</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="128160123%2FProperties%2F-843392904" anchor-label="WhiteTheme" id="128160123%2FProperties%2F-843392904" data-filterable-set=":carbon/commonMain"></a>
+          <div class="table-row" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-white-theme.html"><span>White</span><wbr><span><span>Theme</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="128160123%2FProperties%2F-843392904"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":carbon/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="-white-theme.html">WhiteTheme</a><span class="token operator">: </span><a href="-theme/index.html">Theme</a></div><div class="brief "><p class="paragraph">One of the default <i>light</i> themes available in Carbon.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-873645161%2FFunctions%2F-843392904" anchor-label="borderStrongColor" id="-873645161%2FFunctions%2F-843392904" data-filterable-set=":carbon/commonMain"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="border-strong-color.html"><span>border</span><wbr><span>Strong</span><wbr><span><span>Color</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-873645161%2FFunctions%2F-843392904"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":carbon/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="-theme/index.html">Theme</a><span class="token punctuation">.</span><a href="border-strong-color.html"><span class="token function">borderStrongColor</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">layer<span class="token operator">: </span><a href="-layer/index.html">Layer</a><span class="token operator"> = </span>Layer.Layer00</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></div><div class="brief "><p class="paragraph">Returns the contextual <code class="lang-kotlin">border-strong</code> color token corresponding to the <a href="border-strong-color.html">layer</a> it is placed on.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="228115245%2FFunctions%2F-843392904" anchor-label="borderSubtleColor" id="228115245%2FFunctions%2F-843392904" data-filterable-set=":carbon/commonMain"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="border-subtle-color.html"><span>border</span><wbr><span>Subtle</span><wbr><span><span>Color</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="228115245%2FFunctions%2F-843392904"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":carbon/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="-theme/index.html">Theme</a><span class="token punctuation">.</span><a href="border-subtle-color.html"><span class="token function">borderSubtleColor</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">layer<span class="token operator">: </span><a href="-layer/index.html">Layer</a><span class="token operator"> = </span>Layer.Layer00</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></div><div class="brief "><p class="paragraph">Returns the contextual <code class="lang-kotlin">border-subtle</code> color token corresponding to the <a href="border-subtle-color.html">layer</a> it is placed on.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="937234490%2FFunctions%2F-843392904" anchor-label="CarbonLayer" id="937234490%2FFunctions%2F-843392904" data-filterable-set=":carbon/commonMain"></a>
+          <div class="table-row" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-carbon-layer.html"><span>Carbon</span><wbr><span><span>Layer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="937234490%2FFunctions%2F-843392904"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":carbon/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a></div></div><span class="token keyword">fun </span><a href="-carbon-layer.html"><span class="token function">CarbonLayer</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">content<span class="token operator">: </span><span><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a>&nbsp;</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Automatically provides an upper layer to the composition, based on the current layer.</p></div><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a></div></div><span class="token keyword">fun </span><a href="-carbon-layer.html"><span class="token function">CarbonLayer</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">layer<span class="token operator">: </span><a href="-layer/index.html">Layer</a><span class="token punctuation">, </span></span><span class="parameter ">content<span class="token operator">: </span><span><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a>&nbsp;</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Provides a <a href="-layer/index.html">Layer</a> to following composition.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1325230336%2FFunctions%2F-843392904" anchor-label="containerBackground" id="1325230336%2FFunctions%2F-843392904" data-filterable-set=":carbon/commonMain"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="container-background.html"><span>container</span><wbr><span><span>Background</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1325230336%2FFunctions%2F-843392904"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":carbon/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a><span class="token punctuation">.</span><a href="container-background.html"><span class="token function"><strike>containerBackground</strike></span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a></div><div class="brief "><p class="paragraph">Applies a background color to the modifier based on the current <a href="-layer/index.html">Layer</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1523171441%2FFunctions%2F-843392904" anchor-label="containerColor" id="1523171441%2FFunctions%2F-843392904" data-filterable-set=":carbon/commonMain"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="container-color.html"><span>container</span><wbr><span><span>Color</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1523171441%2FFunctions%2F-843392904"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":carbon/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="-theme/index.html">Theme</a><span class="token punctuation">.</span><a href="container-color.html"><span class="token function"><strike>containerColor</strike></span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">layer<span class="token operator">: </span><a href="-layer/index.html">Layer</a><span class="token operator"> = </span>Layer.Layer00</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></div><div class="brief "><p class="paragraph">Returns the container color based on a provided <a href="container-color.html">layer</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1045969110%2FFunctions%2F-843392904" anchor-label="fieldColor" id="-1045969110%2FFunctions%2F-843392904" data-filterable-set=":carbon/commonMain"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="field-color.html"><span>field</span><wbr><span><span>Color</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1045969110%2FFunctions%2F-843392904"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":carbon/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="-theme/index.html">Theme</a><span class="token punctuation">.</span><a href="field-color.html"><span class="token function">fieldColor</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">layer<span class="token operator">: </span><a href="-layer/index.html">Layer</a><span class="token operator"> = </span>Layer.Layer00</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></div><div class="brief "><p class="paragraph">Returns the contextual <code class="lang-kotlin">field</code> color token corresponding to the <a href="field-color.html">layer</a> it is placed on.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1396278865%2FFunctions%2F-843392904" anchor-label="layerAccentActiveColor" id="1396278865%2FFunctions%2F-843392904" data-filterable-set=":carbon/commonMain"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="layer-accent-active-color.html"><span>layer</span><wbr><span>Accent</span><wbr><span>Active</span><wbr><span><span>Color</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1396278865%2FFunctions%2F-843392904"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":carbon/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="-theme/index.html">Theme</a><span class="token punctuation">.</span><a href="layer-accent-active-color.html"><span class="token function">layerAccentActiveColor</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">layer<span class="token operator">: </span><a href="-layer/index.html">Layer</a><span class="token operator"> = </span>Layer.Layer00</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></div><div class="brief "><p class="paragraph">Returns the contextual <code class="lang-kotlin">layer-accent-active</code> color token corresponding to the <a href="layer-accent-active-color.html">layer</a> it is placed on.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1923526037%2FFunctions%2F-843392904" anchor-label="layerAccentColor" id="-1923526037%2FFunctions%2F-843392904" data-filterable-set=":carbon/commonMain"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="layer-accent-color.html"><span>layer</span><wbr><span>Accent</span><wbr><span><span>Color</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1923526037%2FFunctions%2F-843392904"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":carbon/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="-theme/index.html">Theme</a><span class="token punctuation">.</span><a href="layer-accent-color.html"><span class="token function">layerAccentColor</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">layer<span class="token operator">: </span><a href="-layer/index.html">Layer</a><span class="token operator"> = </span>Layer.Layer00</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></div><div class="brief "><p class="paragraph">Returns the contextual <code class="lang-kotlin">layer-accent</code> color token corresponding to the <a href="layer-accent-color.html">layer</a> it is placed on.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="637373109%2FFunctions%2F-843392904" anchor-label="layerAccentHoverColor" id="637373109%2FFunctions%2F-843392904" data-filterable-set=":carbon/commonMain"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="layer-accent-hover-color.html"><span>layer</span><wbr><span>Accent</span><wbr><span>Hover</span><wbr><span><span>Color</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="637373109%2FFunctions%2F-843392904"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":carbon/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="-theme/index.html">Theme</a><span class="token punctuation">.</span><a href="layer-accent-hover-color.html"><span class="token function">layerAccentHoverColor</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">layer<span class="token operator">: </span><a href="-layer/index.html">Layer</a><span class="token operator"> = </span>Layer.Layer00</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></div><div class="brief "><p class="paragraph">Returns the contextual <code class="lang-kotlin">layer-accent-hover</code> color token corresponding to the <a href="layer-accent-hover-color.html">layer</a> it is placed on.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1902229415%2FFunctions%2F-843392904" anchor-label="layerActiveColor" id="1902229415%2FFunctions%2F-843392904" data-filterable-set=":carbon/commonMain"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="layer-active-color.html"><span>layer</span><wbr><span>Active</span><wbr><span><span>Color</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1902229415%2FFunctions%2F-843392904"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":carbon/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="-theme/index.html">Theme</a><span class="token punctuation">.</span><a href="layer-active-color.html"><span class="token function">layerActiveColor</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">layer<span class="token operator">: </span><a href="-layer/index.html">Layer</a><span class="token operator"> = </span>Layer.Layer00</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></div><div class="brief "><p class="paragraph">Returns the contextual <code class="lang-kotlin">layer-active</code> color token corresponding to the <a href="layer-active-color.html">layer</a> it is placed on.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-957860048%2FFunctions%2F-843392904" anchor-label="layerBackground" id="-957860048%2FFunctions%2F-843392904" data-filterable-set=":carbon/commonMain"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="layer-background.html"><span>layer</span><wbr><span><span>Background</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-957860048%2FFunctions%2F-843392904"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":carbon/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a><span class="token punctuation">.</span><a href="layer-background.html"><span class="token function">layerBackground</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a></div><div class="brief "><p class="paragraph">Applies a background color to the modifier corresponding to the current <a href="-layer/index.html">Layer</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1498894415%2FFunctions%2F-843392904" anchor-label="layerBackgroundColor" id="1498894415%2FFunctions%2F-843392904" data-filterable-set=":carbon/commonMain"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="layer-background-color.html"><span>layer</span><wbr><span>Background</span><wbr><span><span>Color</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1498894415%2FFunctions%2F-843392904"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":carbon/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="-theme/index.html">Theme</a><span class="token punctuation">.</span><a href="layer-background-color.html"><span class="token function">layerBackgroundColor</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">layer<span class="token operator">: </span><a href="-layer/index.html">Layer</a><span class="token operator"> = </span>Layer.Layer00</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></div><div class="brief "><p class="paragraph">Returns the contextual <code class="lang-kotlin">layer-background</code> color token corresponding to the <a href="layer-background-color.html">layer</a> it is placed on.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1266762687%2FFunctions%2F-843392904" anchor-label="layerColor" id="-1266762687%2FFunctions%2F-843392904" data-filterable-set=":carbon/commonMain"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="layer-color.html"><span>layer</span><wbr><span><span>Color</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1266762687%2FFunctions%2F-843392904"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":carbon/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="-theme/index.html">Theme</a><span class="token punctuation">.</span><a href="layer-color.html"><span class="token function">layerColor</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">layer<span class="token operator">: </span><a href="-layer/index.html">Layer</a><span class="token operator"> = </span>Layer.Layer00</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></div><div class="brief "><p class="paragraph">Returns the contextual <code class="lang-kotlin">layer</code> color token corresponding to the <a href="layer-color.html">layer</a> it is placed on.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1207883423%2FFunctions%2F-843392904" anchor-label="layerHoverColor" id="1207883423%2FFunctions%2F-843392904" data-filterable-set=":carbon/commonMain"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="layer-hover-color.html"><span>layer</span><wbr><span>Hover</span><wbr><span><span>Color</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1207883423%2FFunctions%2F-843392904"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":carbon/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="-theme/index.html">Theme</a><span class="token punctuation">.</span><a href="layer-hover-color.html"><span class="token function">layerHoverColor</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">layer<span class="token operator">: </span><a href="-layer/index.html">Layer</a><span class="token operator"> = </span>Layer.Layer00</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></div><div class="brief "><p class="paragraph">Returns the contextual <code class="lang-kotlin">layer-hover</code> color token corresponding to the <a href="layer-hover-color.html">layer</a> it is placed on.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-178486852%2FFunctions%2F-843392904" anchor-label="layerSelectedColor" id="-178486852%2FFunctions%2F-843392904" data-filterable-set=":carbon/commonMain"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="layer-selected-color.html"><span>layer</span><wbr><span>Selected</span><wbr><span><span>Color</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-178486852%2FFunctions%2F-843392904"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":carbon/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="-theme/index.html">Theme</a><span class="token punctuation">.</span><a href="layer-selected-color.html"><span class="token function">layerSelectedColor</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">layer<span class="token operator">: </span><a href="-layer/index.html">Layer</a><span class="token operator"> = </span>Layer.Layer00</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></div><div class="brief "><p class="paragraph">Returns the contextual <code class="lang-kotlin">layer-selected</code> color token corresponding to the <a href="layer-selected-color.html">layer</a> it is placed on.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="98059780%2FFunctions%2F-843392904" anchor-label="layerSelectedHoverColor" id="98059780%2FFunctions%2F-843392904" data-filterable-set=":carbon/commonMain"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="layer-selected-hover-color.html"><span>layer</span><wbr><span>Selected</span><wbr><span>Hover</span><wbr><span><span>Color</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="98059780%2FFunctions%2F-843392904"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":carbon/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="-theme/index.html">Theme</a><span class="token punctuation">.</span><a href="layer-selected-hover-color.html"><span class="token function">layerSelectedHoverColor</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">layer<span class="token operator">: </span><a href="-layer/index.html">Layer</a><span class="token operator"> = </span>Layer.Layer00</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></div><div class="brief "><p class="paragraph">Returns the contextual <code class="lang-kotlin">layer-selected-hover</code> color token corresponding to the <a href="layer-selected-hover-color.html">layer</a> it is placed on.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2026 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

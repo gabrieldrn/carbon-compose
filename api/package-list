@@ -1,0 +1,54 @@
+$dokka.format:html-v1
+$dokka.linkExtension:html
+$dokka.location:com.gabrieldrn.carbon.accordion/AccordionSize/entries/#/PointingToDeclaration/carbon/com.gabrieldrn.carbon.accordion/-accordion-size/[wasm-js]entries.html
+$dokka.location:com.gabrieldrn.carbon.accordion/AccordionSize/valueOf/#kotlin.String/PointingToDeclaration/carbon/com.gabrieldrn.carbon.accordion/-accordion-size/[wasm-js]value-of.html
+$dokka.location:com.gabrieldrn.carbon.accordion/AccordionSize/values/#/PointingToDeclaration/carbon/com.gabrieldrn.carbon.accordion/-accordion-size/[wasm-js]values.html
+$dokka.location:com.gabrieldrn.carbon.button/ButtonSize/entries/#/PointingToDeclaration/carbon/com.gabrieldrn.carbon.button/-button-size/[wasm-js]entries.html
+$dokka.location:com.gabrieldrn.carbon.button/ButtonSize/valueOf/#kotlin.String/PointingToDeclaration/carbon/com.gabrieldrn.carbon.button/-button-size/[wasm-js]value-of.html
+$dokka.location:com.gabrieldrn.carbon.button/ButtonSize/values/#/PointingToDeclaration/carbon/com.gabrieldrn.carbon.button/-button-size/[wasm-js]values.html
+$dokka.location:com.gabrieldrn.carbon.contentswitcher/ContentSwitcherSize/entries/#/PointingToDeclaration/carbon/com.gabrieldrn.carbon.contentswitcher/-content-switcher-size/[wasm-js]entries.html
+$dokka.location:com.gabrieldrn.carbon.contentswitcher/ContentSwitcherSize/valueOf/#kotlin.String/PointingToDeclaration/carbon/com.gabrieldrn.carbon.contentswitcher/-content-switcher-size/[wasm-js]value-of.html
+$dokka.location:com.gabrieldrn.carbon.contentswitcher/ContentSwitcherSize/values/#/PointingToDeclaration/carbon/com.gabrieldrn.carbon.contentswitcher/-content-switcher-size/[wasm-js]values.html
+$dokka.location:com.gabrieldrn.carbon.dropdown.base/DropdownSize/entries/#/PointingToDeclaration/carbon/com.gabrieldrn.carbon.dropdown.base/-dropdown-size/[wasm-js]entries.html
+$dokka.location:com.gabrieldrn.carbon.dropdown.base/DropdownSize/valueOf/#kotlin.String/PointingToDeclaration/carbon/com.gabrieldrn.carbon.dropdown.base/-dropdown-size/[wasm-js]value-of.html
+$dokka.location:com.gabrieldrn.carbon.dropdown.base/DropdownSize/values/#/PointingToDeclaration/carbon/com.gabrieldrn.carbon.dropdown.base/-dropdown-size/[wasm-js]values.html
+module:carbon
+com.gabrieldrn.carbon
+com.gabrieldrn.carbon.accordion
+com.gabrieldrn.carbon.api
+com.gabrieldrn.carbon.breadcrumb
+com.gabrieldrn.carbon.button
+com.gabrieldrn.carbon.checkbox
+com.gabrieldrn.carbon.common.selectable
+com.gabrieldrn.carbon.contentswitcher
+com.gabrieldrn.carbon.datepicker
+com.gabrieldrn.carbon.dropdown
+com.gabrieldrn.carbon.dropdown.base
+com.gabrieldrn.carbon.dropdown.multiselect
+com.gabrieldrn.carbon.foundation.color
+com.gabrieldrn.carbon.foundation.color.ai
+com.gabrieldrn.carbon.foundation.color.button
+com.gabrieldrn.carbon.foundation.color.chat
+com.gabrieldrn.carbon.foundation.color.notification
+com.gabrieldrn.carbon.foundation.color.tag
+com.gabrieldrn.carbon.foundation.misc
+com.gabrieldrn.carbon.foundation.motion
+com.gabrieldrn.carbon.foundation.spacing
+com.gabrieldrn.carbon.foundation.text
+com.gabrieldrn.carbon.loading
+com.gabrieldrn.carbon.notification
+com.gabrieldrn.carbon.popover
+com.gabrieldrn.carbon.popover.carettip
+com.gabrieldrn.carbon.progressbar
+com.gabrieldrn.carbon.radiobutton
+com.gabrieldrn.carbon.slider
+com.gabrieldrn.carbon.tab
+com.gabrieldrn.carbon.tag
+com.gabrieldrn.carbon.textinput
+com.gabrieldrn.carbon.toggle
+com.gabrieldrn.carbon.tooltip
+com.gabrieldrn.carbon.uishell
+module:carbon-common
+com.gabrieldrn.carbon.common.semantics
+module:carbon-test
+com.gabrieldrn.carbon.test.semantics

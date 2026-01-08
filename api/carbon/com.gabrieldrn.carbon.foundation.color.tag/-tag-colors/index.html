@@ -1,0 +1,745 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>TagColors</title>
+<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../ui-kit/ui-kit.min.js" defer></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script>
+<link href="../../../images/carbon_docs_icon.png">
+<link href="../../../styles/dokka-custom-styles.css" rel="Stylesheet">
+<link href="../../../styles/dokka-custom-logo-styles.css" rel="Stylesheet"></head>
+<body>
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+<a class="library-name--link" href="../../../index.html">
+                    Carbon Compose
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">v0.7.0
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector common-like" data-active="" data-filter=":carbon/commonMain">common</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option common-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":carbon/commonMain" data-filter=":carbon/commonMain">
+                                <span class="checkbox--icon"></span>
+                                common
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    Carbon Compose
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="carbon::com.gabrieldrn.carbon.foundation.color.tag/TagColors///PointingToDeclaration//-843392904">
+  <div class="breadcrumbs"><a href="../../index.html">carbon</a><span class="delimiter">/</span><a href="../index.html">com.gabrieldrn.carbon.foundation.color.tag</a><span class="delimiter">/</span><span class="current">TagColors</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Tag</span><wbr><span><span>Colors</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":carbon/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Immutable.html"><span class="token annotation builtin">Immutable</span></a></div></div><span class="token keyword">data </span><span class="token keyword">class </span><a href="index.html">TagColors</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>tagBackgroundBlue<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>tagBackgroundCoolGray<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>tagBackgroundCyan<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>tagBackgroundGray<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>tagBackgroundGreen<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>tagBackgroundMagenta<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>tagBackgroundPurple<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>tagBackgroundRed<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>tagBackgroundTeal<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>tagBackgroundWarmGray<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>tagBorderBlue<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>tagBorderCoolGray<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>tagBorderCyan<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>tagBorderGray<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>tagBorderGreen<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>tagBorderMagenta<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>tagBorderPurple<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>tagBorderRed<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>tagBorderTeal<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>tagBorderWarmGray<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>tagColorBlue<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>tagColorCoolGray<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>tagColorCyan<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>tagColorGray<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>tagColorGreen<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>tagColorMagenta<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>tagColorPurple<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>tagColorRed<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>tagColorTeal<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>tagColorWarmGray<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>tagHoverBlue<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>tagHoverCoolGray<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>tagHoverCyan<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>tagHoverGray<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>tagHoverGreen<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>tagHoverMagenta<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>tagHoverPurple<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>tagHoverRed<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>tagHoverTeal<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>tagHoverWarmGray<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></span></span><span class="token punctuation">)</span></div><p class="paragraph">Color tokens for the Tag component.</p></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="-1175757882%2FConstructors%2F-843392904" anchor-label="TagColors" id="-1175757882%2FConstructors%2F-843392904" data-filterable-set=":carbon/commonMain"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-tag-colors.html"><span>Tag</span><wbr><span><span>Colors</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1175757882%2FConstructors%2F-843392904"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":carbon/commonMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">tagBackgroundBlue<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter ">tagBackgroundCoolGray<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter ">tagBackgroundCyan<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter ">tagBackgroundGray<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter ">tagBackgroundGreen<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter ">tagBackgroundMagenta<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter ">tagBackgroundPurple<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter ">tagBackgroundRed<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter ">tagBackgroundTeal<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter ">tagBackgroundWarmGray<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter ">tagBorderBlue<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter ">tagBorderCoolGray<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter ">tagBorderCyan<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter ">tagBorderGray<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter ">tagBorderGreen<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter ">tagBorderMagenta<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter ">tagBorderPurple<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter ">tagBorderRed<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter ">tagBorderTeal<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter ">tagBorderWarmGray<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter ">tagColorBlue<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter ">tagColorCoolGray<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter ">tagColorCyan<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter ">tagColorGray<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter ">tagColorGreen<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter ">tagColorMagenta<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter ">tagColorPurple<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter ">tagColorRed<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter ">tagColorTeal<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter ">tagColorWarmGray<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter ">tagHoverBlue<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter ">tagHoverCoolGray<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter ">tagHoverCyan<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter ">tagHoverGray<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter ">tagHoverGreen<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter ">tagHoverMagenta<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter ">tagHoverPurple<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter ">tagHoverRed<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter ">tagHoverTeal<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a><span class="token punctuation">, </span></span><span class="parameter ">tagHoverWarmGray<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="96008225%2FProperties%2F-843392904" anchor-label="tagBackgroundBlue" id="96008225%2FProperties%2F-843392904" data-filterable-set=":carbon/commonMain"></a>
+          <div class="table-row" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="tag-background-blue.html"><span>tag</span><wbr><span>Background</span><wbr><span><span>Blue</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="96008225%2FProperties%2F-843392904"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":carbon/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="tag-background-blue.html">tagBackgroundBlue</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1177949073%2FProperties%2F-843392904" anchor-label="tagBackgroundCoolGray" id="-1177949073%2FProperties%2F-843392904" data-filterable-set=":carbon/commonMain"></a>
+          <div class="table-row" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="tag-background-cool-gray.html"><span>tag</span><wbr><span>Background</span><wbr><span>Cool</span><wbr><span><span>Gray</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1177949073%2FProperties%2F-843392904"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":carbon/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="tag-background-cool-gray.html">tagBackgroundCoolGray</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-730760%2FProperties%2F-843392904" anchor-label="tagBackgroundCyan" id="-730760%2FProperties%2F-843392904" data-filterable-set=":carbon/commonMain"></a>
+          <div class="table-row" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="tag-background-cyan.html"><span>tag</span><wbr><span>Background</span><wbr><span><span>Cyan</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-730760%2FProperties%2F-843392904"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":carbon/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="tag-background-cyan.html">tagBackgroundCyan</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="601082424%2FProperties%2F-843392904" anchor-label="tagBackgroundGray" id="601082424%2FProperties%2F-843392904" data-filterable-set=":carbon/commonMain"></a>
+          <div class="table-row" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="tag-background-gray.html"><span>tag</span><wbr><span>Background</span><wbr><span><span>Gray</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="601082424%2FProperties%2F-843392904"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":carbon/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="tag-background-gray.html">tagBackgroundGray</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-206515620%2FProperties%2F-843392904" anchor-label="tagBackgroundGreen" id="-206515620%2FProperties%2F-843392904" data-filterable-set=":carbon/commonMain"></a>
+          <div class="table-row" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="tag-background-green.html"><span>tag</span><wbr><span>Background</span><wbr><span><span>Green</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-206515620%2FProperties%2F-843392904"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":carbon/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="tag-background-green.html">tagBackgroundGreen</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1564034806%2FProperties%2F-843392904" anchor-label="tagBackgroundMagenta" id="1564034806%2FProperties%2F-843392904" data-filterable-set=":carbon/commonMain"></a>
+          <div class="table-row" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="tag-background-magenta.html"><span>tag</span><wbr><span>Background</span><wbr><span><span>Magenta</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1564034806%2FProperties%2F-843392904"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":carbon/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="tag-background-magenta.html">tagBackgroundMagenta</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2088834177%2FProperties%2F-843392904" anchor-label="tagBackgroundPurple" id="-2088834177%2FProperties%2F-843392904" data-filterable-set=":carbon/commonMain"></a>
+          <div class="table-row" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="tag-background-purple.html"><span>tag</span><wbr><span>Background</span><wbr><span><span>Purple</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2088834177%2FProperties%2F-843392904"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":carbon/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="tag-background-purple.html">tagBackgroundPurple</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="962874638%2FProperties%2F-843392904" anchor-label="tagBackgroundRed" id="962874638%2FProperties%2F-843392904" data-filterable-set=":carbon/commonMain"></a>
+          <div class="table-row" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="tag-background-red.html"><span>tag</span><wbr><span>Background</span><wbr><span><span>Red</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="962874638%2FProperties%2F-843392904"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":carbon/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="tag-background-red.html">tagBackgroundRed</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-365179809%2FProperties%2F-843392904" anchor-label="tagBackgroundTeal" id="-365179809%2FProperties%2F-843392904" data-filterable-set=":carbon/commonMain"></a>
+          <div class="table-row" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="tag-background-teal.html"><span>tag</span><wbr><span>Background</span><wbr><span><span>Teal</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-365179809%2FProperties%2F-843392904"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":carbon/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="tag-background-teal.html">tagBackgroundTeal</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1533551283%2FProperties%2F-843392904" anchor-label="tagBackgroundWarmGray" id="1533551283%2FProperties%2F-843392904" data-filterable-set=":carbon/commonMain"></a>
+          <div class="table-row" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="tag-background-warm-gray.html"><span>tag</span><wbr><span>Background</span><wbr><span>Warm</span><wbr><span><span>Gray</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1533551283%2FProperties%2F-843392904"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":carbon/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="tag-background-warm-gray.html">tagBackgroundWarmGray</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="513460195%2FProperties%2F-843392904" anchor-label="tagBorderBlue" id="513460195%2FProperties%2F-843392904" data-filterable-set=":carbon/commonMain"></a>
+          <div class="table-row" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="tag-border-blue.html"><span>tag</span><wbr><span>Border</span><wbr><span><span>Blue</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="513460195%2FProperties%2F-843392904"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":carbon/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="tag-border-blue.html">tagBorderBlue</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-371586255%2FProperties%2F-843392904" anchor-label="tagBorderCoolGray" id="-371586255%2FProperties%2F-843392904" data-filterable-set=":carbon/commonMain"></a>
+          <div class="table-row" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="tag-border-cool-gray.html"><span>tag</span><wbr><span>Border</span><wbr><span>Cool</span><wbr><span><span>Gray</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-371586255%2FProperties%2F-843392904"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":carbon/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="tag-border-cool-gray.html">tagBorderCoolGray</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="416721210%2FProperties%2F-843392904" anchor-label="tagBorderCyan" id="416721210%2FProperties%2F-843392904" data-filterable-set=":carbon/commonMain"></a>
+          <div class="table-row" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="tag-border-cyan.html"><span>tag</span><wbr><span>Border</span><wbr><span><span>Cyan</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="416721210%2FProperties%2F-843392904"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":carbon/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="tag-border-cyan.html">tagBorderCyan</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1018534394%2FProperties%2F-843392904" anchor-label="tagBorderGray" id="1018534394%2FProperties%2F-843392904" data-filterable-set=":carbon/commonMain"></a>
+          <div class="table-row" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="tag-border-gray.html"><span>tag</span><wbr><span>Border</span><wbr><span><span>Gray</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1018534394%2FProperties%2F-843392904"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":carbon/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="tag-border-gray.html">tagBorderGray</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-150406438%2FProperties%2F-843392904" anchor-label="tagBorderGreen" id="-150406438%2FProperties%2F-843392904" data-filterable-set=":carbon/commonMain"></a>
+          <div class="table-row" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="tag-border-green.html"><span>tag</span><wbr><span>Border</span><wbr><span><span>Green</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-150406438%2FProperties%2F-843392904"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":carbon/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="tag-border-green.html">tagBorderGreen</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-349616140%2FProperties%2F-843392904" anchor-label="tagBorderMagenta" id="-349616140%2FProperties%2F-843392904" data-filterable-set=":carbon/commonMain"></a>
+          <div class="table-row" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="tag-border-magenta.html"><span>tag</span><wbr><span>Border</span><wbr><span><span>Magenta</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-349616140%2FProperties%2F-843392904"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":carbon/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="tag-border-magenta.html">tagBorderMagenta</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-349449535%2FProperties%2F-843392904" anchor-label="tagBorderPurple" id="-349449535%2FProperties%2F-843392904" data-filterable-set=":carbon/commonMain"></a>
+          <div class="table-row" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="tag-border-purple.html"><span>tag</span><wbr><span>Border</span><wbr><span><span>Purple</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-349449535%2FProperties%2F-843392904"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":carbon/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="tag-border-purple.html">tagBorderPurple</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1794605812%2FProperties%2F-843392904" anchor-label="tagBorderRed" id="-1794605812%2FProperties%2F-843392904" data-filterable-set=":carbon/commonMain"></a>
+          <div class="table-row" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="tag-border-red.html"><span>tag</span><wbr><span>Border</span><wbr><span><span>Red</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1794605812%2FProperties%2F-843392904"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":carbon/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="tag-border-red.html">tagBorderRed</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="52272161%2FProperties%2F-843392904" anchor-label="tagBorderTeal" id="52272161%2FProperties%2F-843392904" data-filterable-set=":carbon/commonMain"></a>
+          <div class="table-row" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="tag-border-teal.html"><span>tag</span><wbr><span>Border</span><wbr><span><span>Teal</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="52272161%2FProperties%2F-843392904"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":carbon/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="tag-border-teal.html">tagBorderTeal</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1955053195%2FProperties%2F-843392904" anchor-label="tagBorderWarmGray" id="-1955053195%2FProperties%2F-843392904" data-filterable-set=":carbon/commonMain"></a>
+          <div class="table-row" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="tag-border-warm-gray.html"><span>tag</span><wbr><span>Border</span><wbr><span>Warm</span><wbr><span><span>Gray</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1955053195%2FProperties%2F-843392904"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":carbon/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="tag-border-warm-gray.html">tagBorderWarmGray</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-587834764%2FProperties%2F-843392904" anchor-label="tagColorBlue" id="-587834764%2FProperties%2F-843392904" data-filterable-set=":carbon/commonMain"></a>
+          <div class="table-row" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="tag-color-blue.html"><span>tag</span><wbr><span>Color</span><wbr><span><span>Blue</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-587834764%2FProperties%2F-843392904"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":carbon/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="tag-color-blue.html">tagColorBlue</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="337112386%2FProperties%2F-843392904" anchor-label="tagColorCoolGray" id="337112386%2FProperties%2F-843392904" data-filterable-set=":carbon/commonMain"></a>
+          <div class="table-row" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="tag-color-cool-gray.html"><span>tag</span><wbr><span>Color</span><wbr><span>Cool</span><wbr><span><span>Gray</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="337112386%2FProperties%2F-843392904"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":carbon/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="tag-color-cool-gray.html">tagColorCoolGray</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-684573749%2FProperties%2F-843392904" anchor-label="tagColorCyan" id="-684573749%2FProperties%2F-843392904" data-filterable-set=":carbon/commonMain"></a>
+          <div class="table-row" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="tag-color-cyan.html"><span>tag</span><wbr><span>Color</span><wbr><span><span>Cyan</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-684573749%2FProperties%2F-843392904"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":carbon/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="tag-color-cyan.html">tagColorCyan</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-82760565%2FProperties%2F-843392904" anchor-label="tagColorGray" id="-82760565%2FProperties%2F-843392904" data-filterable-set=":carbon/commonMain"></a>
+          <div class="table-row" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="tag-color-gray.html"><span>tag</span><wbr><span>Color</span><wbr><span><span>Gray</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-82760565%2FProperties%2F-843392904"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":carbon/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="tag-color-gray.html">tagColorGray</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="69188201%2FProperties%2F-843392904" anchor-label="tagColorGreen" id="69188201%2FProperties%2F-843392904" data-filterable-set=":carbon/commonMain"></a>
+          <div class="table-row" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="tag-color-green.html"><span>tag</span><wbr><span>Color</span><wbr><span><span>Green</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="69188201%2FProperties%2F-843392904"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":carbon/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="tag-color-green.html">tagColorGreen</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="227434435%2FProperties%2F-843392904" anchor-label="tagColorMagenta" id="227434435%2FProperties%2F-843392904" data-filterable-set=":carbon/commonMain"></a>
+          <div class="table-row" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="tag-color-magenta.html"><span>tag</span><wbr><span>Color</span><wbr><span><span>Magenta</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="227434435%2FProperties%2F-843392904"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":carbon/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="tag-color-magenta.html">tagColorMagenta</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2131950318%2FProperties%2F-843392904" anchor-label="tagColorPurple" id="-2131950318%2FProperties%2F-843392904" data-filterable-set=":carbon/commonMain"></a>
+          <div class="table-row" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="tag-color-purple.html"><span>tag</span><wbr><span>Color</span><wbr><span><span>Purple</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2131950318%2FProperties%2F-843392904"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":carbon/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="tag-color-purple.html">tagColorPurple</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1217909851%2FProperties%2F-843392904" anchor-label="tagColorRed" id="1217909851%2FProperties%2F-843392904" data-filterable-set=":carbon/commonMain"></a>
+          <div class="table-row" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="tag-color-red.html"><span>tag</span><wbr><span>Color</span><wbr><span><span>Red</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1217909851%2FProperties%2F-843392904"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":carbon/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="tag-color-red.html">tagColorRed</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1049022798%2FProperties%2F-843392904" anchor-label="tagColorTeal" id="-1049022798%2FProperties%2F-843392904" data-filterable-set=":carbon/commonMain"></a>
+          <div class="table-row" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="tag-color-teal.html"><span>tag</span><wbr><span>Color</span><wbr><span><span>Teal</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1049022798%2FProperties%2F-843392904"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":carbon/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="tag-color-teal.html">tagColorTeal</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1246354554%2FProperties%2F-843392904" anchor-label="tagColorWarmGray" id="-1246354554%2FProperties%2F-843392904" data-filterable-set=":carbon/commonMain"></a>
+          <div class="table-row" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="tag-color-warm-gray.html"><span>tag</span><wbr><span>Color</span><wbr><span>Warm</span><wbr><span><span>Gray</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1246354554%2FProperties%2F-843392904"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":carbon/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="tag-color-warm-gray.html">tagColorWarmGray</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1889543365%2FProperties%2F-843392904" anchor-label="tagHoverBlue" id="-1889543365%2FProperties%2F-843392904" data-filterable-set=":carbon/commonMain"></a>
+          <div class="table-row" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="tag-hover-blue.html"><span>tag</span><wbr><span>Hover</span><wbr><span><span>Blue</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1889543365%2FProperties%2F-843392904"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":carbon/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="tag-hover-blue.html">tagHoverBlue</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2135575927%2FProperties%2F-843392904" anchor-label="tagHoverCoolGray" id="-2135575927%2FProperties%2F-843392904" data-filterable-set=":carbon/commonMain"></a>
+          <div class="table-row" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="tag-hover-cool-gray.html"><span>tag</span><wbr><span>Hover</span><wbr><span>Cool</span><wbr><span><span>Gray</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2135575927%2FProperties%2F-843392904"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":carbon/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="tag-hover-cool-gray.html">tagHoverCoolGray</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1986282350%2FProperties%2F-843392904" anchor-label="tagHoverCyan" id="-1986282350%2FProperties%2F-843392904" data-filterable-set=":carbon/commonMain"></a>
+          <div class="table-row" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="tag-hover-cyan.html"><span>tag</span><wbr><span>Hover</span><wbr><span><span>Cyan</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1986282350%2FProperties%2F-843392904"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":carbon/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="tag-hover-cyan.html">tagHoverCyan</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1384469166%2FProperties%2F-843392904" anchor-label="tagHoverGray" id="-1384469166%2FProperties%2F-843392904" data-filterable-set=":carbon/commonMain"></a>
+          <div class="table-row" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="tag-hover-gray.html"><span>tag</span><wbr><span>Hover</span><wbr><span><span>Gray</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1384469166%2FProperties%2F-843392904"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":carbon/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="tag-hover-gray.html">tagHoverGray</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1629072766%2FProperties%2F-843392904" anchor-label="tagHoverGreen" id="-1629072766%2FProperties%2F-843392904" data-filterable-set=":carbon/commonMain"></a>
+          <div class="table-row" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="tag-hover-green.html"><span>tag</span><wbr><span>Hover</span><wbr><span><span>Green</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1629072766%2FProperties%2F-843392904"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":carbon/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="tag-hover-green.html">tagHoverGreen</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="286217628%2FProperties%2F-843392904" anchor-label="tagHoverMagenta" id="286217628%2FProperties%2F-843392904" data-filterable-set=":carbon/commonMain"></a>
+          <div class="table-row" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="tag-hover-magenta.html"><span>tag</span><wbr><span>Hover</span><wbr><span><span>Magenta</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="286217628%2FProperties%2F-843392904"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":carbon/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="tag-hover-magenta.html">tagHoverMagenta</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1056534553%2FProperties%2F-843392904" anchor-label="tagHoverPurple" id="1056534553%2FProperties%2F-843392904" data-filterable-set=":carbon/commonMain"></a>
+          <div class="table-row" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="tag-hover-purple.html"><span>tag</span><wbr><span>Hover</span><wbr><span><span>Purple</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1056534553%2FProperties%2F-843392904"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":carbon/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="tag-hover-purple.html">tagHoverPurple</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2010669388%2FProperties%2F-843392904" anchor-label="tagHoverRed" id="-2010669388%2FProperties%2F-843392904" data-filterable-set=":carbon/commonMain"></a>
+          <div class="table-row" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="tag-hover-red.html"><span>tag</span><wbr><span>Hover</span><wbr><span><span>Red</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2010669388%2FProperties%2F-843392904"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":carbon/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="tag-hover-red.html">tagHoverRed</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1944235897%2FProperties%2F-843392904" anchor-label="tagHoverTeal" id="1944235897%2FProperties%2F-843392904" data-filterable-set=":carbon/commonMain"></a>
+          <div class="table-row" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="tag-hover-teal.html"><span>tag</span><wbr><span>Hover</span><wbr><span><span>Teal</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1944235897%2FProperties%2F-843392904"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":carbon/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="tag-hover-teal.html">tagHoverTeal</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="575924429%2FProperties%2F-843392904" anchor-label="tagHoverWarmGray" id="575924429%2FProperties%2F-843392904" data-filterable-set=":carbon/commonMain"></a>
+          <div class="table-row" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="tag-hover-warm-gray.html"><span>tag</span><wbr><span>Hover</span><wbr><span>Warm</span><wbr><span><span>Gray</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="575924429%2FProperties%2F-843392904"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":carbon/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="tag-hover-warm-gray.html">tagHoverWarmGray</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Color.html">Color</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2026 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

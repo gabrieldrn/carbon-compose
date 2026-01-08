@@ -1,0 +1,1263 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Carbon design system implementation with KMP and Compose Multiplatform.">
+      
+      
+        <meta name="author" content="Gabriel Derrien (gabrieldrn)">
+      
+      
+        <link rel="canonical" href="https://github.com/gabrieldrn/carbon-compose/getting-started/usage/">
+      
+      
+        <link rel="prev" href="../import-lib/">
+      
+      
+        <link rel="next" href="../../components/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Using Carbon - Carbon Compose</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:300,300i,400,400i,700,700i%7CIBM+Plex+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"IBM Plex Sans";--md-code-font:"IBM Plex Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#using-carbon" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Carbon Compose" class="md-header__button md-logo" aria-label="Carbon Compose" data-md-component="logo">
+      
+  <img src="../../assets/carbon_docs_icon.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Carbon Compose
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Using Carbon
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/gabrieldrn/carbon-compose" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    carbon-compose
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Overview
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../import-lib/" class="md-tabs__link">
+          
+  
+  
+  Getting started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../components/" class="md-tabs__link">
+          
+  
+  
+  Components
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../test-utils/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Test utilities
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../catalog/index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Catalog
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../api/index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  API Reference
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Carbon Compose" class="md-nav__button md-logo" aria-label="Carbon Compose" data-md-component="logo">
+      
+  <img src="../../assets/carbon_docs_icon.png" alt="logo">
+
+    </a>
+    Carbon Compose
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/gabrieldrn/carbon-compose" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    carbon-compose
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../import-lib/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Import Carbon
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Using Carbon
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Using Carbon
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#theming" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Theming
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Theming">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#applying-themes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Applying themes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Applying themes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#custom-themes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Custom themes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#layering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Layering
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Layering">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#local-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Local layer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#layer-container-color" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Layer Container Color
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adaptation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Adaptation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Adaptation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#adaptation-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Adaptation modes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#typography" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Typography
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#spacing-scale" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Spacing scale
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#motion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Motion
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Components
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Components
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Available components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../test-utils/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Test utilities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../catalog/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Catalog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#theming" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Theming
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Theming">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#applying-themes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Applying themes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Applying themes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#custom-themes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Custom themes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#layering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Layering
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Layering">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#local-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Local layer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#layer-container-color" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Layer Container Color
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adaptation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Adaptation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Adaptation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#adaptation-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Adaptation modes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#typography" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Typography
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#spacing-scale" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Spacing scale
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#motion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Motion
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="using-carbon">Using Carbon</h1>
+<h2 id="theming">Theming</h2>
+<p>To provide all the necessary resources (such as colors and typography) for creating a UI with Carbon, use the 
+<code>CarbonDesignSystem</code> root composable at the top of your Compose tree:</p>
+<p><div class="highlight"><pre><span></span><code><span class="n">setContent</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">CarbonDesignSystem</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// Your UI content</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<a href="https://gabrieldrn.github.io/carbon-compose/api/-carbon%20-compose/com.gabrieldrn.carbon/-carbon-design-system.html"><code>fun CarbonDesignSystem()</code> <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.25 15.5a.75.75 0 0 1-.75-.75V7.56L7.28 17.78a.749.749 0 0 1-1.275-.326.75.75 0 0 1 .215-.734L16.44 6.5H9.25a.75.75 0 0 1 0-1.5h9a.75.75 0 0 1 .75.75v9a.75.75 0 0 1-.75.75"/></svg></span></a></p>
+<p>This will apply the IBM Plex type family to components and set the <code>White</code> and <code>Grey 100</code> themes as the default light 
+and dark themes, respectively, depending on the theme setting of the current platform.</p>
+<h3 id="applying-themes">Applying themes</h3>
+<p>The Carbon design system provides a set of <a href="https://carbondesignsystem.com/elements/color/overview#themes">four themes</a> 
+to use in your app, <code>White</code>, <code>Grey 10</code>, <code>Grey 90</code> and <code>Grey 100</code>.</p>
+<p>You can apply these themes using the <code>theme</code> and <code>uiShellInlineTheme</code> arguments of <code>CarbonDesignSystem</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="n">CarbonDesignSystem</span><span class="p">(</span>
+<span class="w">    </span><span class="n">theme</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">WhiteTheme</span><span class="p">,</span>
+<span class="w">    </span><span class="n">uiShellInlineTheme</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Gray100Theme</span>
+<span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Content</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li>The <code>theme</code> argument specifies the main Carbon theme to use in regular screens. By default, the composable sets either
+  the <code>White</code> or <code>Grey 100</code> theme depending on the system's dark mode setting.</li>
+<li>The <code>uiShellInlineTheme</code> argument defines the 
+  <a href="https://carbondesignsystem.com/elements/color/usage#inline-theming">inline theming</a> used by Carbon UI shell 
+  components.</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>UI shell elements are still a work in progress. However, a UI shell header is available with limited implementation 
+and documentation.</p>
+</div>
+<h4 id="custom-themes">Custom themes</h4>
+<p>If needed, you can customize existing themes to your liking, or create new ones.</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">customTheme1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">WhiteTheme</span><span class="p">.</span><span class="na">copy</span><span class="p">(</span>
+<span class="w">    </span><span class="n">textPrimary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Color</span><span class="p">.</span><span class="na">Magenta</span>
+<span class="p">)</span>
+
+<span class="kd">val</span><span class="w"> </span><span class="nv">customTheme2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Theme</span><span class="p">(</span>
+<span class="w">    </span><span class="n">background</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Color</span><span class="p">.</span><span class="na">Black</span><span class="p">,</span>
+<span class="w">    </span><span class="p">...</span>
+<span class="p">)</span>
+
+<span class="nd">@Composable</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">MyCarbonApp</span><span class="p">(</span>
+<span class="w">    </span><span class="n">content</span><span class="p">:</span><span class="w"> </span><span class="nd">@Composable</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">Unit</span>
+<span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">CarbonDesignSystem</span><span class="p">(</span>
+<span class="w">        </span><span class="n">theme</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">isSystemInDarkTheme</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">customTheme1</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">customTheme2</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="n">uiShellInlineTheme</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Gray100Theme</span><span class="p">,</span>
+<span class="w">        </span><span class="n">content</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">content</span>
+<span class="w">    </span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="layering">Layering</h3>
+<p><code>CarbonDesignSystem</code> also offers a <code>layer</code> argument to <strong>globally</strong> set the 
+<a href="https://carbondesignsystem.com/elements/color/usage/#layering-tokens">layering token</a>, which maps the layering model 
+onto components in your content.</p>
+<div class="highlight"><pre><span></span><code><span class="n">CarbonDesignSystem</span><span class="p">(</span>
+<span class="w">    </span><span class="n">layer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Layer01</span>
+<span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Content</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>By setting this, all Carbon components will adjust their colors to follow the specified layer level.</p>
+<h4 id="local-layer">Local layer</h4>
+<p>Some parts of your UI may require a higher layer level. You can use the <code>CarbonLayer</code> composable to apply the next upper
+layer <strong>locally</strong> within your compose tree:</p>
+<p><div class="highlight"><pre><span></span><code><span class="n">CarbonDesignSystem</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Content on Layer 00</span>
+<span class="w">    </span><span class="n">CarbonLayer</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// Other content what will be on Layer 01</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<a href="https://gabrieldrn.github.io/carbon-compose/api/-carbon%20-compose/com.gabrieldrn.carbon.foundation.color/-carbon-layer.html"><code>fun CarbonLayer()</code> <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.25 15.5a.75.75 0 0 1-.75-.75V7.56L7.28 17.78a.749.749 0 0 1-1.275-.326.75.75 0 0 1 .215-.734L16.44 6.5H9.25a.75.75 0 0 1 0-1.5h9a.75.75 0 0 1 .75.75v9a.75.75 0 0 1-.75.75"/></svg></span></a></p>
+<h4 id="layer-container-color">Layer Container Color</h4>
+<p>When working with layers, the background should be adjusted to reflect the corresponding layer.</p>
+<p>Carbon Compose provides a <code>layerBackground</code> modifier that you can apply to any composable to automatically set the 
+appropriate background:</p>
+<p><div class="highlight"><pre><span></span><code><span class="n">Box</span><span class="p">(</span>
+<span class="w">    </span><span class="n">modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Modifier</span>
+<span class="w">        </span><span class="p">.</span><span class="na">fillMaxSize</span><span class="p">()</span>
+<span class="w">        </span><span class="p">.</span><span class="na">layerBackground</span><span class="p">()</span>
+<span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">Button</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre></div>
+<a href="https://gabrieldrn.github.io/carbon-compose/api/-carbon%20-compose/com.gabrieldrn.carbon.foundation.color/layer-background.html"><code>fun Modifier.layerBackground()</code> <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.25 15.5a.75.75 0 0 1-.75-.75V7.56L7.28 17.78a.749.749 0 0 1-1.275-.326.75.75 0 0 1 .215-.734L16.44 6.5H9.25a.75.75 0 0 1 0-1.5h9a.75.75 0 0 1 .75.75v9a.75.75 0 0 1-.75.75"/></svg></span></a></p>
+<h3 id="adaptation">Adaptation</h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Adaptation modes are a non-official extension to Carbon. The Carbon Design System is not officially designed for mobile devices or touch-based interfaces.</p>
+</div>
+<p>Carbon Compose supports UI adaptation modes to help components work across different device types and accessibility requirements, even though this goes beyond Carbon's official scope.</p>
+<p>The <code>CarbonDesignSystem</code> composable provides an <code>adaptation</code> argument that allows you to specify how components should adapt their behavior:</p>
+<div class="highlight"><pre><span></span><code><span class="n">CarbonDesignSystem</span><span class="p">(</span>
+<span class="w">    </span><span class="n">adaptation</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Adaptation</span><span class="p">.</span><span class="na">Touchscreens</span>
+<span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Content</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><a href="https://gabrieldrn.github.io/carbon-compose/api/-carbon%20-compose/com.gabrieldrn.carbon.foundation.misc/-adaptation/index.html"><code>enum Adaptation</code> <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.25 15.5a.75.75 0 0 1-.75-.75V7.56L7.28 17.78a.749.749 0 0 1-1.275-.326.75.75 0 0 1 .215-.734L16.44 6.5H9.25a.75.75 0 0 1 0-1.5h9a.75.75 0 0 1 .75.75v9a.75.75 0 0 1-.75.75"/></svg></span></a></p>
+<h4 id="adaptation-modes">Adaptation modes</h4>
+<ul>
+<li><strong><code>Adaptation.None</code></strong>: The default mode with no special adaptations. This is suitable for desktop and web platforms that don't require accessibility-specific adjustments.</li>
+<li><strong><code>Adaptation.Touchscreens</code></strong>: Optimizes components for touch-based interactions on tablets and mobile devices, such as larger touch targets, adjusted spacing and alternative UI.</li>
+</ul>
+<p>Components within the composition tree can access the current adaptation mode through the <code>LocalCarbonAdaptation</code> composition local if they need to adjust their behavior accordingly.</p>
+<h3 id="typography">Typography</h3>
+<p>Carbon was designed to work seamlessly with the <a href="https://www.ibm.com/plex/">IBM Plex</a> font family. Carbon Compose 
+includes and provides access to the <code>TextStyle</code>s that map to all the 
+<a href="https://carbondesignsystem.com/guidelines/typography/type-sets">type sets in Carbon</a>.</p>
+<p>You can use the <code>Carbon.typography</code> accessor to apply those styles to your texts:</p>
+<div class="highlight"><pre><span></span><code><span class="n">BasicText</span><span class="p">(</span>
+<span class="w">    </span><span class="n">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Lorem ipsum&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Carbon</span><span class="p">.</span><span class="na">typography</span><span class="p">.</span><span class="na">bodyCompact01</span>
+<span class="p">)</span>
+</code></pre></div>
+<p><a href="https://gabrieldrn.github.io/carbon-compose/api/-carbon%20-compose/com.gabrieldrn.carbon.foundation.text/-carbon-typography/index.html"><code>class CarbonTypography</code> <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.25 15.5a.75.75 0 0 1-.75-.75V7.56L7.28 17.78a.749.749 0 0 1-1.275-.326.75.75 0 0 1 .215-.734L16.44 6.5H9.25a.75.75 0 0 1 0-1.5h9a.75.75 0 0 1 .75.75v9a.75.75 0 0 1-.75.75"/></svg></span></a></p>
+<h3 id="spacing-scale">Spacing scale</h3>
+<p>Carbon Compose also provides a <a href="https://carbondesignsystem.com/guidelines/spacing/overview/">spacing scale</a>, as detailed
+by the spacing tokens. This scale is accessible through the <code>SpacingScale</code> singleton:</p>
+<div class="highlight"><pre><span></span><code><span class="n">Box</span><span class="p">(</span>
+<span class="w">    </span><span class="n">modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Modifier</span><span class="p">.</span><span class="na">padding</span><span class="p">(</span><span class="n">top</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SpacingScale</span><span class="p">.</span><span class="na">spacing03</span><span class="p">)</span>
+<span class="p">)</span>
+</code></pre></div>
+<p><a href="https://gabrieldrn.github.io/carbon-compose/api/-carbon%20-compose/com.gabrieldrn.carbon.foundation.spacing/-spacing-scale/index.html"><code>object SpacingScale</code> <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.25 15.5a.75.75 0 0 1-.75-.75V7.56L7.28 17.78a.749.749 0 0 1-1.275-.326.75.75 0 0 1 .215-.734L16.44 6.5H9.25a.75.75 0 0 1 0-1.5h9a.75.75 0 0 1 .75.75v9a.75.75 0 0 1-.75.75"/></svg></span></a></p>
+<h3 id="motion">Motion</h3>
+<p>Carbon provides <a href="https://carbondesignsystem.com/elements/motion/overview">motion guidelines</a> for its components:</p>
+<blockquote>
+<p>Carbon components have motion built in for microinteractions. However, the motion design of the overarching UI — that 
+is, how the components interact with each other and enter and exit the page itself — is up to each product team to 
+implement. (...)</p>
+</blockquote>
+<p>Just like the spacing scale, Carbon Compose provides ready-to-use constants and Bezier curves to implement motion into 
+your UI:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">specFloat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tween</span><span class="o">&lt;</span><span class="kt">Float</span><span class="o">&gt;</span><span class="p">(</span>
+<span class="w">    </span><span class="n">durationMillis</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Motion</span><span class="p">.</span><span class="na">Duration</span><span class="p">.</span><span class="na">moderate01</span><span class="p">,</span>
+<span class="w">    </span><span class="n">easing</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Motion</span><span class="p">.</span><span class="na">Standard</span><span class="p">.</span><span class="na">productiveEasing</span>
+<span class="p">)</span>
+
+<span class="kd">val</span><span class="w"> </span><span class="nv">rotation</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">transition</span><span class="p">.</span><span class="na">animateFloat</span><span class="p">(</span>
+<span class="w">    </span><span class="n">transitionSpec</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">specFloat</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Rotation&quot;</span>
+<span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nb">it</span><span class="p">)</span><span class="w"> </span><span class="m">180f</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="m">0f</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><a href="https://gabrieldrn.github.io/carbon-compose/api/-carbon%20-compose/com.gabrieldrn.carbon.foundation.motion/-motion/index.html"><code>object Motion</code> <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.25 15.5a.75.75 0 0 1-.75-.75V7.56L7.28 17.78a.749.749 0 0 1-1.275-.326.75.75 0 0 1 .215-.734L16.44 6.5H9.25a.75.75 0 0 1 0-1.5h9a.75.75 0 0 1 .75.75v9a.75.75 0 0 1-.75.75"/></svg></span></a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

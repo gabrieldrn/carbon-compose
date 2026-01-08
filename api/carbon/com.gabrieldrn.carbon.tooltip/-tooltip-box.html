@@ -1,0 +1,117 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>TooltipBox</title>
+<link href="../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../styles/style.css" rel="Stylesheet">
+<link href="../../styles/main.css" rel="Stylesheet">
+<link href="../../styles/prism.css" rel="Stylesheet">
+<link href="../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../ui-kit/ui-kit.min.js" defer></script>
+<script type="text/javascript" src="../../scripts/symbol-parameters-wrapper_deferred.js" defer></script>
+<link href="../../images/carbon_docs_icon.png">
+<link href="../../styles/dokka-custom-styles.css" rel="Stylesheet">
+<link href="../../styles/dokka-custom-logo-styles.css" rel="Stylesheet"></head>
+<body>
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+<a class="library-name--link" href="../../index.html">
+                    Carbon Compose
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">v0.7.0
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector common-like" data-active="" data-filter=":carbon/commonMain">common</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option common-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":carbon/commonMain" data-filter=":carbon/commonMain">
+                                <span class="checkbox--icon"></span>
+                                common
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    Carbon Compose
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="member" id="content" pageids="carbon::com.gabrieldrn.carbon.tooltip//TooltipBox/#kotlin.String#androidx.compose.ui.Modifier#kotlin.Boolean#com.gabrieldrn.carbon.popover.carettip.PopoverCaretTipPlacement#com.gabrieldrn.carbon.popover.carettip.PopoverCaretTipAlignment#androidx.compose.foundation.interaction.MutableInteractionSource#kotlin.Function0[kotlin.Unit]/PointingToDeclaration//-843392904">
+  <div class="breadcrumbs"><a href="../index.html">carbon</a><span class="delimiter">/</span><a href="index.html">com.gabrieldrn.carbon.tooltip</a><span class="delimiter">/</span><span class="current">TooltipBox</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Tooltip</span><wbr><span><span>Box</span></span></h1>
+  </div>
+  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":carbon/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a></div></div><span class="token keyword">fun </span><a href="-tooltip-box.html"><span class="token function">TooltipBox</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">tooltipText<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">modifier<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a><span class="token operator"> = </span>Modifier<span class="token punctuation">, </span></span><span class="parameter ">singleLine<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span><span class="token punctuation">, </span></span><span class="parameter ">placement<span class="token operator">: </span><a href="../com.gabrieldrn.carbon.popover.carettip/-popover-caret-tip-placement/index.html">PopoverCaretTipPlacement</a><span class="token operator"> = </span>PopoverCaretTipPlacement.Top<span class="token punctuation">, </span></span><span class="parameter ">alignment<span class="token operator">: </span><a href="../com.gabrieldrn.carbon.popover.carettip/-popover-caret-tip-alignment/index.html">PopoverCaretTipAlignment</a><span class="token operator"> = </span>PopoverCaretTipAlignment.Center<span class="token punctuation">, </span></span><span class="parameter ">uiTriggerMutableInteractionSource<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/foundation/interaction/MutableInteractionSource.html">MutableInteractionSource</a><span class="token operator"> = </span>remember { MutableInteractionSource() }<span class="token punctuation">, </span></span><span class="parameter ">content<span class="token operator">: </span><span><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a>&nbsp;</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span></div><h1 class="">Tooltip (<code class="lang-kotlin">TooltipBox</code>)</h1><p class="paragraph">Composable wrapping a UI trigger (e.g. a button) and displaying a tooltip when the user hovers over or focuses on the UI trigger.</p><p class="paragraph">Tooltips display additional information upon hover or focus that is contextual, helpful, and nonessential while providing the ability to communicate and give clarity to a user.</p><h2 class="">Focus interaction</h2><p class="paragraph">As stated by the documentation of Carbon's Tooltip component, tooltips must be triggered by a hover or focus interaction. This composable supports the hover interaction by default, as it's using <a href="https://developer.android.com/reference/kotlin/androidx/compose/foundation/package-summary.html">BasicTooltipBox</a> as the underlying implementation but does not support the focus interaction. However, <a href="-tooltip-box.html">TooltipBox</a> supports it when a shared <a href="https://developer.android.com/reference/kotlin/androidx/compose/foundation/interaction/MutableInteractionSource.html">MutableInteractionSource</a> is provided to both the UI trigger and itself:</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">val uiTriggerMutableInteractionSource = remember { MutableInteractionSource() }<br><br>TooltipBox(<br>    tooltipText = "To be, or not to be...",<br>    uiTriggerMutableInteractionSource = uiTriggerMutableInteractionSource,<br>) {<br>    MyUiTrigger(<br>        text = "Hover me",<br>        modifier = Modifier.clickable(<br>            interactionSource = uiTriggerMutableInteractionSource,<br>            indication = null,<br>            onClick = {}<br>        )<br>    )<br>}</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">Writing this for every UI trigger that needs the focus interaction can be cumbersome, but most common UI triggers from Carbon provides alternative APIs to ease its usage. For example, the <a href="../com.gabrieldrn.carbon.button/-button.html">com.gabrieldrn.carbon.button.Button</a> composable has an alt API requiring a <code class="lang-kotlin">tooltipParameters</code> parameter:</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">Button(<br>    label = "Hover me",<br>    tooltipParameters = TooltipParameters(<br>        text = "To be, or not to be..."<br>        singleLine = true,<br>    ),<br>    onClick = {}<br>)</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><h2 class="">Automatic placement</h2><p class="paragraph">Carbon's documentation states that Tooltips have an automatic placement: "tooltips can detect the edges of the browser to be placed in view so the container does not get cutoff". However, this is currently not possible with the foundation elements of Compose as it would require to make multiple layout passes and sacrifice performance. As a result, it is up to consuming projects to decide the placement of tooltips.</p><p class="paragraph">From <a href="https://carbondesignsystem.com/components/tooltip/usage/">Tooltip documentation</a></p><h4 class="">Parameters</h4><div class="table"><div class="table-row" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>tooltip</span><wbr><span><span>Text</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Text to display in the tooltip.</p></div></div></div></div><div class="table-row" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>modifier</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Default Modifier to be applied to the whole composable.</p></div></div></div></div><div class="table-row" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>single</span><wbr><span><span>Line</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Either the text in the tooltip should be displayed in a single line or not. Note that the tooltip width is limited to a maximum width depending on this parameter and the text might be truncated if it exceeds the maximum width.</p></div></div></div></div><div class="table-row" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>placement</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Placement of the tooltip relative to the UI trigger. Defaults to <a href="../com.gabrieldrn.carbon.popover.carettip/-popover-caret-tip-placement/-top/index.html">PopoverCaretTipPlacement.Top</a>.</p></div></div></div></div><div class="table-row" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>alignment</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Alignment of the tooltip relative to the UI trigger. Defaults to <a href="../com.gabrieldrn.carbon.popover.carettip/-popover-caret-tip-alignment/-center/index.html">PopoverCaretTipAlignment.Center</a>.</p></div></div></div></div><div class="table-row" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>ui</span><wbr><span>Trigger</span><wbr><span>Mutable</span><wbr><span>Interaction</span><wbr><span><span>Source</span></span></u></div></span></div><div><div class="title"><p class="paragraph">A shared <a href="https://developer.android.com/reference/kotlin/androidx/compose/foundation/interaction/MutableInteractionSource.html">MutableInteractionSource</a> that will be used to track the focus interactions of the UI trigger.</p></div></div></div></div><div class="table-row" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>content</span></span></u></div></span></div><div><div class="title"><p class="paragraph">UI trigger content that will be wrapped by the tooltip. This is typically a button or an icon that the user can hover over or long-press to see the tooltip.</p></div></div></div></div></div><hr><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a></div></div><span class="token keyword">fun </span><a href="-tooltip-box.html"><span class="token function">TooltipBox</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">parameters<span class="token operator">: </span><a href="-tooltip-parameters/index.html">TooltipParameters</a><span class="token punctuation">, </span></span><span class="parameter ">uiTriggerMutableInteractionSource<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/foundation/interaction/MutableInteractionSource.html">MutableInteractionSource</a><span class="token operator"> = </span>remember { MutableInteractionSource() }<span class="token punctuation">, </span></span><span class="parameter ">modifier<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a><span class="token operator"> = </span>Modifier<span class="token punctuation">, </span></span><span class="parameter ">content<span class="token operator">: </span><span><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a>&nbsp;</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span></div><h1 class="">Tooltip (<code class="lang-kotlin">TooltipBox</code>)</h1><p class="paragraph">Convenience composable for <a href="-tooltip-box.html">TooltipBox</a> that takes a <a href="-tooltip-parameters/index.html">TooltipParameters</a> object as a parameter.</p><p class="paragraph">Composable wrapping a UI trigger (e.g. a button) and displaying a tooltip when the user hovers over or focuses on the UI trigger.</p><p class="paragraph">Tooltips display additional information upon hover or focus that is contextual, helpful, and nonessential while providing the ability to communicate and give clarity to a user.</p><p class="paragraph">From <a href="https://carbondesignsystem.com/components/tooltip/usage/">Tooltip documentation</a></p><h4 class="">Parameters</h4><div class="table"><div class="table-row" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>parameters</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Object containing the required parameters for the tooltip.</p></div></div></div></div><div class="table-row" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>ui</span><wbr><span>Trigger</span><wbr><span>Mutable</span><wbr><span>Interaction</span><wbr><span><span>Source</span></span></u></div></span></div><div><div class="title"><p class="paragraph">A shared <a href="https://developer.android.com/reference/kotlin/androidx/compose/foundation/interaction/MutableInteractionSource.html">MutableInteractionSource</a> that will be used to track the focus interactions of the UI trigger.</p></div></div></div></div><div class="table-row" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>modifier</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Default Modifier to be applied to the whole composable.</p></div></div></div></div><div class="table-row" data-filterable-current=":carbon/commonMain" data-filterable-set=":carbon/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>content</span></span></u></div></span></div><div><div class="title"><p class="paragraph">UI trigger content that will be wrapped by the tooltip. This is typically a button or an icon that the user can hover over or long-press to see the tooltip.</p></div></div></div></div></div></div></div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2026 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
