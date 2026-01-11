@@ -16,11 +16,25 @@
 
 package com.gabrieldrn.carbon.popover
 
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.PopupProperties
+import com.gabrieldrn.carbon.Carbon
+import com.gabrieldrn.carbon.CarbonDesignSystem
+import com.gabrieldrn.carbon.button.Button
+import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
+import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.jetbrains.compose.ui.tooling.preview.PreviewParameter
+import org.jetbrains.compose.ui.tooling.preview.PreviewParameterProvider
 
 /**
  * # Popover - No tip
@@ -82,3 +96,53 @@ public fun PopoverBox(
         content = content
     )
 }
+
+// region Previews
+
+private class NoTipPopoverPreviewParameterProvider :
+    PreviewParameterProvider<Pair<PopoverAlignment, PopoverPlacement>> {
+    override val values = sequence {
+        PopoverAlignment.entries.forEach { alignment ->
+            PopoverPlacement.entries.forEach { placement ->
+                yield(alignment to placement)
+            }
+        }
+    }
+}
+
+@OptIn(ExperimentalFoundationApi::class)
+@Preview
+@Composable
+private fun NoTipPopoverPreview(
+    @PreviewParameter(NoTipPopoverPreviewParameterProvider::class)
+    params: Pair<PopoverAlignment, PopoverPlacement>
+) {
+    CarbonDesignSystem {
+        Box(
+            modifier = Modifier.size(400.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            val (alignment, placement) = params
+
+            PopoverBox(
+                isVisible = true,
+                alignment = alignment,
+                placement = placement,
+                popoverContent = {
+                    BasicText(
+                        text = "Hello",
+                        style = Carbon.typography.body01,
+                        modifier = Modifier.padding(SpacingScale.spacing04)
+                    )
+                }
+            ) {
+                Button(
+                    label = "Click me",
+                    onClick = { /* No-op */ },
+                )
+            }
+        }
+    }
+}
+
+// endregion

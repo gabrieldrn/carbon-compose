@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 Gabriel Derrien
+ * Copyright 2026 Gabriel Derrien
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,18 +14,15 @@
  * limitations under the License.
  */
 
-package com.gabrieldrn.carbon.uishell
+package com.gabrieldrn.carbon.notification
 
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
-import com.gabrieldrn.carbon.CarbonDesignSystem
+import org.jetbrains.compose.ui.tooling.preview.PreviewParameterProvider
 
-@Preview
-@Composable
-private fun UiShellHeaderPreview() {
-    CarbonDesignSystem {
-        UiShellHeader(
-            headerName = "Carbon Design System",
-        )
-    }
+internal class NotificationStatusParameterProvider : PreviewParameterProvider<NotificationStatus> {
+    override val values = sequenceOf(
+        NotificationStatus.Informational,
+        NotificationStatus.Success,
+        NotificationStatus.Warning,
+        NotificationStatus.Error
+    )
 }

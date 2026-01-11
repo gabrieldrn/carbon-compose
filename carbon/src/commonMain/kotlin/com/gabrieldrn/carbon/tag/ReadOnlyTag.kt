@@ -35,8 +35,12 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
+import com.gabrieldrn.carbon.CarbonDesignSystem
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 import com.gabrieldrn.carbon.foundation.text.Text
+import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.jetbrains.compose.ui.tooling.preview.PreviewParameter
+import org.jetbrains.compose.ui.tooling.preview.PreviewParameterProvider
 
 private val tagShape = RoundedCornerShape(100)
 private val tagIconSize = 16.dp
@@ -156,3 +160,26 @@ private fun TagIcon(
         )
     }
 }
+
+// region Previews
+
+private class TagTypePreviewParameterProvider: PreviewParameterProvider<TagType> {
+    override val values: Sequence<TagType> = TagType.entries.asSequence()
+}
+
+@Preview
+@Composable
+private fun TagPreview(
+    @PreviewParameter(TagTypePreviewParameterProvider::class)
+    tagType: TagType
+) {
+    CarbonDesignSystem {
+        ReadOnlyTag(
+            text = "Tag",
+            type = tagType,
+            modifier = Modifier.padding(SpacingScale.spacing02)
+        )
+    }
+}
+
+// endregion

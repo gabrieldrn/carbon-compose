@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 Gabriel Derrien
+ * Copyright 2026 Gabriel Derrien
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,19 +14,11 @@
  * limitations under the License.
  */
 
-package com.gabrieldrn.carbon.loading
+package com.gabrieldrn.carbon.common
 
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
+import com.gabrieldrn.carbon.foundation.color.Layer
+import org.jetbrains.compose.ui.tooling.preview.PreviewParameterProvider
 
-@Preview
-@Composable
-private fun LoadingSpinnerPreview() {
-    Loading()
-}
-
-@Preview
-@Composable
-private fun SmallLoadingSpinnerPreview() {
-    SmallLoading()
+internal class LayerPreviewParameterProvider : PreviewParameterProvider<Layer> {
+    override val values: Sequence<Layer> = Layer.entries.asSequence()
 }

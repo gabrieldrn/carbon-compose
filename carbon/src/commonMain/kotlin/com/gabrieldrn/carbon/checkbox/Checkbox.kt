@@ -25,11 +25,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.selection.triStateToggleable
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
@@ -41,13 +44,18 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
+import com.gabrieldrn.carbon.CarbonDesignSystem
+import com.gabrieldrn.carbon.common.InteractiveStatePreviewParameterProvider
 import com.gabrieldrn.carbon.common.selectable.ErrorContent
 import com.gabrieldrn.carbon.common.selectable.SelectableInteractiveState
 import com.gabrieldrn.carbon.common.selectable.WarningContent
 import com.gabrieldrn.carbon.common.semantics.readOnly
+import com.gabrieldrn.carbon.common.toLabel
 import com.gabrieldrn.carbon.foundation.interaction.ToggleableFocusIndication
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 import com.gabrieldrn.carbon.foundation.text.Text
+import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.jetbrains.compose.ui.tooling.preview.PreviewParameter
 
 private val checkboxBorderWidth = 1.dp
 private val checkboxCornerRadius = 2.dp
@@ -259,3 +267,96 @@ private fun CheckboxComponent(
         }
     }
 }
+
+// region Previews
+
+@Preview(
+    backgroundColor = 0xFFFFFFFF,
+    showBackground = true,
+    group = "Unselected state",
+)
+@Composable
+private fun CheckboxOffPreview(
+    @PreviewParameter(InteractiveStatePreviewParameterProvider::class)
+    interactiveState: SelectableInteractiveState
+) {
+    CarbonDesignSystem {
+        Checkbox(
+            state = ToggleableState.Off,
+            interactiveState = interactiveState,
+            label = "${interactiveState.toLabel()} unselected",
+            onClick = {},
+            modifier = Modifier.padding(SpacingScale.spacing03)
+        )
+    }
+}
+
+@Preview(
+    backgroundColor = 0xFFFFFFFF,
+    showBackground = true,
+    group = "Selected state",
+)
+@Composable
+private fun CheckboxOnPreview(
+    @PreviewParameter(InteractiveStatePreviewParameterProvider::class)
+    interactiveState: SelectableInteractiveState
+) {
+    CarbonDesignSystem {
+        Checkbox(
+            state = ToggleableState.On,
+            interactiveState = interactiveState,
+            label = "${interactiveState.toLabel()} selected",
+            onClick = {},
+            modifier = Modifier.padding(SpacingScale.spacing03)
+        )
+    }
+}
+
+@Preview(
+    backgroundColor = 0xFFFFFFFF,
+    showBackground = true,
+    group = "Indeterminate state",
+)
+@Composable
+private fun CheckboxIndeterminatePreview(
+    @PreviewParameter(InteractiveStatePreviewParameterProvider::class)
+    interactiveState: SelectableInteractiveState
+) {
+    CarbonDesignSystem {
+        Checkbox(
+            state = ToggleableState.Indeterminate,
+            interactiveState = interactiveState,
+            label = "${interactiveState.toLabel()} indeterminate",
+            onClick = {},
+            modifier = Modifier.padding(SpacingScale.spacing03)
+        )
+    }
+}
+
+@Preview(
+    backgroundColor = 0xFFFFFFFF,
+    showBackground = true,
+    group = "Focused state",
+)
+@Composable
+private fun CheckboxFocusPreview() {
+    CarbonDesignSystem {
+        val focusRequester = FocusRequester()
+
+        SideEffect {
+            focusRequester.requestFocus()
+        }
+
+        Checkbox(
+            state = ToggleableState.On,
+            interactiveState = SelectableInteractiveState.Default,
+            label = "Focused",
+            onClick = {},
+            modifier = Modifier
+                .padding(SpacingScale.spacing03)
+                .focusRequester(focusRequester)
+        )
+    }
+}
+
+// endregion

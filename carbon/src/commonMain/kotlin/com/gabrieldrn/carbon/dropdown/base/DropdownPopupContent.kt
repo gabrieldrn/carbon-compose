@@ -49,9 +49,14 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import co.touchlab.kermit.Logger
 import com.gabrieldrn.carbon.Carbon
+import com.gabrieldrn.carbon.CarbonDesignSystem
+import com.gabrieldrn.carbon.dropdown.DropdownStateParameterProvider
 import com.gabrieldrn.carbon.foundation.interaction.FocusIndication
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 import com.gabrieldrn.carbon.foundation.text.Text
+import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.jetbrains.compose.ui.tooling.preview.PreviewParameter
+import org.jetbrains.compose.ui.tooling.preview.PreviewParameterProvider
 
 private val checkmarkSize = 16.dp
 
@@ -231,3 +236,49 @@ internal fun DropdownMenuOptionDivider(
             .fillMaxWidth()
     )
 }
+
+// region
+
+internal class DropdownSizeParameterProvider : PreviewParameterProvider<DropdownSize> {
+    override val values: Sequence<DropdownSize>
+        get() = DropdownSize.entries.asSequence()
+}
+
+@Preview
+@Composable
+private fun DropdownPopupContentPreview(
+    @PreviewParameter(DropdownSizeParameterProvider::class) dropdownSize: DropdownSize,
+) {
+    val options: Map<Int, DropdownOption> = (0..4)
+        .associateWith { DropdownOption("Option $it") }
+        .toMutableMap()
+        .apply {
+            set(
+                1, DropdownOption(
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. " +
+                        "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris " +
+                        "nisi ut aliquip ex ea commodo consequat."
+                )
+            )
+            set(2, DropdownOption("Disabled", enabled = false))
+            set(
+                3, DropdownOption(
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. " +
+                        "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris " +
+                        "nisi ut aliquip ex ea commodo consequat."
+                )
+            )
+        }
+
+    CarbonDesignSystem {
+        DropdownPopupContent(
+            options = options,
+            selectedOption = 1,
+            colors = DropdownColors.colors(),
+            componentHeight = dropdownSize.dpSize(),
+            onOptionClicked = {},
+        )
+    }
+}
+
+// endregion

@@ -47,6 +47,7 @@ import com.gabrieldrn.carbon.foundation.color.LocalCarbonInlineTheme
 import com.gabrieldrn.carbon.foundation.color.LocalCarbonTheme
 import com.gabrieldrn.carbon.foundation.color.Theme
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @ExperimentalCarbonApi
 @Composable
@@ -109,3 +110,17 @@ public fun UiShellHeader(
         }
     }
 }
+
+// region Previews
+
+@Preview
+@Composable
+private fun UiShellHeaderPreview() {
+    CarbonDesignSystem {
+        UiShellHeader(
+            headerName = "Carbon Design System",
+        )
+    }
+}
+
+// endregion

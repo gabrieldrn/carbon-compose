@@ -19,7 +19,10 @@ package com.gabrieldrn.carbon.breadcrumb
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsHoveredAsState
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -33,8 +36,14 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
+import com.gabrieldrn.carbon.CarbonDesignSystem
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
+import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.jetbrains.compose.ui.tooling.preview.PreviewParameter
+import org.jetbrains.compose.ui.tooling.preview.PreviewParameterProvider
 
 /**
  * Represents a breadcrumb.
@@ -158,3 +167,47 @@ private fun Separator(
         modifier = modifier.clearAndSetSemantics {}
     )
 }
+
+// region Previews
+
+private val breadcrumbs = buildList {
+    repeat(3) {
+        add(Breadcrumb(label = "Breadcrumb ${it + 1}", isEnabled = it != 2))
+    }
+}
+
+private class BreadcrumbPreviewParameterProvider :
+    PreviewParameterProvider<Triple<BreadcrumbSize, Boolean, Dp>> {
+    override val values = sequence {
+        listOf(true, false).forEach { trailingSeparator ->
+            BreadcrumbSize.entries.forEach { size ->
+                listOf(Dp.Unspecified, 200.dp).forEach { width ->
+                    yield(Triple(size, trailingSeparator, width))
+                }
+            }
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun BreadcrumbPreview(
+    @PreviewParameter(BreadcrumbPreviewParameterProvider::class)
+    parameters: Triple<BreadcrumbSize, Boolean, Dp>
+) {
+    val (size, trailingSeparator, width) = parameters
+
+    CarbonDesignSystem {
+        Column(modifier = Modifier.fillMaxWidth()) {
+            Breadcrumb(
+                breadcrumbs = breadcrumbs,
+                onBreadcrumbClick = {},
+                displayTrailingSeparator = trailingSeparator,
+                size = size,
+                modifier = Modifier.width(width)
+            )
+        }
+    }
+}
+
+// endregion

@@ -24,17 +24,21 @@ import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.PopupProperties
 import com.gabrieldrn.carbon.Carbon
+import com.gabrieldrn.carbon.CarbonDesignSystem
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
+import com.gabrieldrn.carbon.icons.viewIcon
 import com.gabrieldrn.carbon.popover.PopoverAlignment
 import com.gabrieldrn.carbon.popover.PopoverBoxInternal
 import com.gabrieldrn.carbon.popover.popoverDefaultProperties
@@ -42,6 +46,9 @@ import com.gabrieldrn.carbon.popover.tabtip.rememberPopoverTabTipPositionProvide
 import com.gabrieldrn.carbon.popover.tabtip.rememberPopoverTabTipShape
 import com.gabrieldrn.carbon.tooltip.TooltipBox
 import com.gabrieldrn.carbon.tooltip.TooltipParameters
+import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.jetbrains.compose.ui.tooling.preview.PreviewParameter
+import org.jetbrains.compose.ui.tooling.preview.PreviewParameterProvider
 
 /**
  * # Icon button
@@ -284,3 +291,73 @@ public fun IconButtonWithPopover(
         )
     }
 }
+
+// region Previews
+
+private class IconButtonPreviewParameterProvider :
+    PreviewParameterProvider<ButtonType> {
+
+    override val values: Sequence<ButtonType>
+        get() = ButtonType.entries.asSequence()
+}
+
+@Preview(group = "Icon button")
+@Composable
+private fun IconButtonPreview(
+    @PreviewParameter(IconButtonPreviewParameterProvider::class)
+    buttonType: ButtonType,
+) {
+    CarbonDesignSystem {
+        Box(modifier = Modifier.padding(8.dp)) {
+            IconButton(
+                onClick = {},
+                buttonType = buttonType,
+                iconPainter = rememberVectorPainter(viewIcon),
+            )
+        }
+    }
+}
+
+private class IconButtonWithPopoverPreviewParameterProvider :
+    PreviewParameterProvider<Pair<ButtonSize, PopoverAlignment>> {
+    override val values = sequence {
+        ButtonSize.entries.forEach { buttonSize ->
+            PopoverAlignment.entries.forEach { alignment ->
+                yield(buttonSize to alignment)
+            }
+        }
+    }
+}
+
+@OptIn(ExperimentalFoundationApi::class)
+@Preview
+@Composable
+private fun IconButtonWithPopoverPreview(
+    @PreviewParameter(IconButtonWithPopoverPreviewParameterProvider::class)
+    params: Pair<ButtonSize, PopoverAlignment>
+) {
+    CarbonDesignSystem {
+        Box(
+            modifier = Modifier.size(400.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            val (buttonSize, alignment) = params
+
+            IconButtonWithPopover(
+                iconPainter = rememberVectorPainter(viewIcon),
+                isPopoverVisible = true,
+                onClick = {},
+                popoverAlignment = alignment,
+                buttonSize = buttonSize,
+            ) {
+                BasicText(
+                    text = "Hi,\nthere!",
+                    style = Carbon.typography.body01,
+                    modifier = Modifier.padding(SpacingScale.spacing04)
+                )
+            }
+        }
+    }
+}
+
+// endregion

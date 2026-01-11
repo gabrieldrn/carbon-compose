@@ -25,21 +25,29 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
+import com.gabrieldrn.carbon.CarbonDesignSystem
+import com.gabrieldrn.carbon.common.InteractiveStatePreviewParameterProvider
 import com.gabrieldrn.carbon.common.selectable.ErrorContent
 import com.gabrieldrn.carbon.common.selectable.SelectableInteractiveState
 import com.gabrieldrn.carbon.common.selectable.WarningContent
 import com.gabrieldrn.carbon.common.semantics.readOnly
+import com.gabrieldrn.carbon.common.toLabel
 import com.gabrieldrn.carbon.foundation.interaction.ToggleableFocusIndication
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 import com.gabrieldrn.carbon.foundation.text.Text
+import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.jetbrains.compose.ui.tooling.preview.PreviewParameter
 
 private val RadioButtonSize = 20.dp
 private val RadioButtonStrokeWidth = 1.dp
@@ -164,3 +172,74 @@ private fun RadioButtonComponent(
         )
     }
 }
+
+// region Previews
+
+@Preview(
+    backgroundColor = 0xFFFFFFFF,
+    showBackground = true,
+    group = "Unselected state",
+)
+@Composable
+private fun RadioButtonOffPreview(
+    @PreviewParameter(InteractiveStatePreviewParameterProvider::class)
+    interactiveState: SelectableInteractiveState
+) {
+    CarbonDesignSystem {
+        RadioButton(
+            selected = false,
+            interactiveState = interactiveState,
+            label = "${interactiveState.toLabel()} unselected",
+            onClick = {},
+            modifier = Modifier.padding(SpacingScale.spacing03)
+        )
+    }
+}
+
+@Preview(
+    backgroundColor = 0xFFFFFFFF,
+    showBackground = true,
+    group = "Selected state",
+)
+@Composable
+private fun RadioButtonOnPreview(
+    @PreviewParameter(InteractiveStatePreviewParameterProvider::class)
+    interactiveState: SelectableInteractiveState
+) {
+    CarbonDesignSystem {
+        RadioButton(
+            selected = true,
+            interactiveState = interactiveState,
+            label = "${interactiveState.toLabel()} selected",
+            onClick = {},
+            modifier = Modifier.padding(SpacingScale.spacing03)
+        )
+    }
+}
+
+@Preview(
+    backgroundColor = 0xFFFFFFFF,
+    showBackground = true,
+    group = "Focused state",
+)
+@Composable
+private fun RadioButtonFocusPreview() {
+    CarbonDesignSystem {
+        val focusRequester = FocusRequester()
+
+        SideEffect {
+            focusRequester.requestFocus()
+        }
+
+        RadioButton(
+            selected = false,
+            label = "Focused",
+            onClick = {},
+            modifier = Modifier
+                .padding(SpacingScale.spacing03)
+                .focusRequester(focusRequester)
+        )
+    }
+}
+
+// endregion

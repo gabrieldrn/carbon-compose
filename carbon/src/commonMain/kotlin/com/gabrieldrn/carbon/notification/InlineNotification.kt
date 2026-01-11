@@ -24,11 +24,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.AnnotatedString
+import com.gabrieldrn.carbon.CarbonDesignSystem
 import com.gabrieldrn.carbon.button.Button
 import com.gabrieldrn.carbon.button.ButtonSize
 import com.gabrieldrn.carbon.button.ButtonType
 import com.gabrieldrn.carbon.foundation.color.LocalCarbonTheme
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
+import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.jetbrains.compose.ui.tooling.preview.PreviewParameter
 
 /**
  * # Inline notification
@@ -134,3 +137,73 @@ public fun ActionableInlineNotification(
         }
     }
 }
+
+// region Previews
+
+@Preview(group = "Low contrast")
+@Composable
+private fun InlineNotificationPreview(
+    @PreviewParameter(NotificationStatusParameterProvider::class) status: NotificationStatus
+) {
+    CarbonDesignSystem {
+        InlineNotification(
+            title = "Callout Notification",
+            body = "Lorem ipsum dolor.",
+            status = status,
+            onClose = {}
+        )
+    }
+}
+
+@Preview(group = "High contrast")
+@Composable
+private fun InlineNotificationHighContrastPreview(
+    @PreviewParameter(NotificationStatusParameterProvider::class) status: NotificationStatus
+) {
+    CarbonDesignSystem {
+        InlineNotification(
+            title = "Callout Notification",
+            body = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            status = status,
+            onClose = {},
+            highContrast = true
+        )
+    }
+}
+
+@Preview(group = "Low contrast")
+@Composable
+private fun ActionableInlineNotificationPreview(
+    @PreviewParameter(NotificationStatusParameterProvider::class) status: NotificationStatus
+) {
+    CarbonDesignSystem {
+        ActionableInlineNotification(
+            title = "Callout Notification",
+            body = "Lorem ipsum dolor.",
+            actionLabel = "Action",
+            status = status,
+            onAction = {},
+            onClose = {}
+        )
+    }
+}
+
+@Preview(group = "High contrast")
+@Composable
+private fun ActionableInlineNotificationHighContrastPreview(
+    @PreviewParameter(NotificationStatusParameterProvider::class) status: NotificationStatus
+) {
+    CarbonDesignSystem {
+        ActionableInlineNotification(
+            title = "Callout Notification",
+            body = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            actionLabel = "Action",
+            status = status,
+            onAction = {},
+            onClose = {},
+            highContrast = true
+        )
+    }
+}
+
+// endregion

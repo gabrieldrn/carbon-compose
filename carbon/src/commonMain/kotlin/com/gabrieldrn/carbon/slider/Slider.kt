@@ -368,6 +368,8 @@ private fun Handle(
     )
 }
 
+// region Previews
+
 @Preview
 @Composable
 private fun SliderHandlePreview() {
@@ -460,3 +462,5 @@ private fun SliderCustomRangePreview() {
         )
     }
 }
+
+// endregion

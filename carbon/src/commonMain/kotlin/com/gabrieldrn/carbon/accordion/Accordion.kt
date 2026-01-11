@@ -51,11 +51,15 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
+import com.gabrieldrn.carbon.CarbonDesignSystem
 import com.gabrieldrn.carbon.common.molecules.AnimatedChevronDownIcon
 import com.gabrieldrn.carbon.foundation.color.layerHoverColor
 import com.gabrieldrn.carbon.foundation.interaction.FocusIndication
 import com.gabrieldrn.carbon.foundation.motion.Motion
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
+import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.jetbrains.compose.ui.tooling.preview.PreviewParameter
+import org.jetbrains.compose.ui.tooling.preview.PreviewParameterProvider
 
 private val ACCORDION_WIDTH_WIDER = 640.dp
 private val ACCORDION_WIDTH_NARROW = 420.dp
@@ -287,3 +291,50 @@ private fun Section(
         }
     }
 }
+
+// region Previews
+
+private val sections = listOf(
+    AccordionSection("Section 1", "This is the first section"),
+    AccordionSection("Section 2", "This is the second section"),
+    AccordionSection("Section 3", "This is the third section"),
+    AccordionSection("Section 4", "This is the third section", isEnabled = false)
+)
+
+private class AccordionSizePreviewParameterProvider : PreviewParameterProvider<AccordionSize> {
+    override val values: Sequence<AccordionSize>
+        get() = AccordionSize.entries.asSequence()
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun AccordionPreview(
+    @PreviewParameter(AccordionSizePreviewParameterProvider::class)
+    size: AccordionSize
+) {
+    CarbonDesignSystem {
+        Accordion(
+            sections = sections,
+            size = size,
+            modifier = Modifier.padding(SpacingScale.spacing05)
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun FlushedAccordionPreview(
+    @PreviewParameter(AccordionSizePreviewParameterProvider::class)
+    size: AccordionSize
+) {
+    CarbonDesignSystem {
+        Accordion(
+            sections = sections,
+            size = size,
+            flushAlignment = true,
+            modifier = Modifier.padding(SpacingScale.spacing05)
+        )
+    }
+}
+
+// endregion

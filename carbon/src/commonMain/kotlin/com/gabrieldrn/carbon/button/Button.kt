@@ -18,6 +18,7 @@ package com.gabrieldrn.carbon.button
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
@@ -28,11 +29,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
+import com.gabrieldrn.carbon.CarbonDesignSystem
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
+import com.gabrieldrn.carbon.icons.viewIcon
 import com.gabrieldrn.carbon.tooltip.TooltipBox
 import com.gabrieldrn.carbon.tooltip.TooltipParameters
+import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.jetbrains.compose.ui.tooling.preview.PreviewParameter
+import org.jetbrains.compose.ui.tooling.preview.PreviewParameterProvider
 
 /**
  * # Button
@@ -176,3 +183,36 @@ public fun Button(
         )
     }
 }
+
+// region Previews
+
+
+private class ButtonPreviewParameterProvider :
+    PreviewParameterProvider<Pair<ButtonType, ButtonSize>> {
+
+    override val values: Sequence<Pair<ButtonType, ButtonSize>>
+        get() = ButtonType.entries.flatMap { type ->
+            ButtonSize.entries.map { size -> type to size }
+        }.asSequence()
+}
+
+@Preview(group = "All")
+@Composable
+private fun ButtonPreview(
+    @PreviewParameter(ButtonPreviewParameterProvider::class)
+    combination: Pair<ButtonType, ButtonSize>,
+) {
+    CarbonDesignSystem {
+        Box(modifier = Modifier.padding(8.dp)) {
+            Button(
+                label = "${combination.first.name} - ${combination.second::class.simpleName}",
+                onClick = {},
+                buttonType = combination.first,
+                buttonSize = combination.second,
+                iconPainter = rememberVectorPainter(viewIcon),
+            )
+        }
+    }
+}
+
+// endregion
