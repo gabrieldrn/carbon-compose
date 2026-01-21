@@ -50,6 +50,8 @@ import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.CarbonDesignSystem
@@ -59,7 +61,6 @@ import com.gabrieldrn.carbon.common.semantics.readOnly
 import com.gabrieldrn.carbon.dropdown.base.DropdownInteractiveState.Companion.helperText
 import com.gabrieldrn.carbon.dropdown.base.DropdownInteractiveState.Companion.isFocusable
 import com.gabrieldrn.carbon.dropdown.domain.getChevronStartSpacing
-import com.gabrieldrn.carbon.foundation.color.CarbonLayer
 import com.gabrieldrn.carbon.foundation.color.Layer
 import com.gabrieldrn.carbon.foundation.color.layerBackgroundColor
 import com.gabrieldrn.carbon.foundation.input.onEnterKeyEvent
@@ -68,8 +69,6 @@ import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 import com.gabrieldrn.carbon.foundation.text.Text
 import com.gabrieldrn.carbon.icons.WarningAltFilledIcon
 import com.gabrieldrn.carbon.icons.WarningFilledIcon
-import org.jetbrains.compose.ui.tooling.preview.Preview
-import org.jetbrains.compose.ui.tooling.preview.PreviewParameter
 
 /**
  * Sets up a custom clickability for the dropdown field.

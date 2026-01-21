@@ -1,5 +1,5 @@
 /*
- * Copyright 2026 Gabriel Derrien
+ * Copyright 2024-2026 Gabriel Derrien
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,11 +14,22 @@
  * limitations under the License.
  */
 
-package com.gabrieldrn.carbon.common
+package com.gabrieldrn.carbon.android.catalog
 
-import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import com.gabrieldrn.carbon.foundation.color.Layer
+import android.app.Application
+import com.gabrieldrn.carbon.catalog.di.appModule
+import org.koin.core.context.startKoin
+import timber.log.Timber
 
-internal class LayerPreviewParameterProvider : PreviewParameterProvider<Layer> {
-    override val values: Sequence<Layer> = Layer.entries.asSequence()
+@Suppress("UndocumentedPublicClass")
+class CatalogApplication : Application() {
+
+    override fun onCreate() {
+        super.onCreate()
+        Timber.plant(Timber.DebugTree())
+
+        startKoin {
+            modules(appModule())
+        }
+    }
 }

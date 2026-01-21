@@ -36,6 +36,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.CarbonDesignSystem
@@ -45,9 +48,6 @@ import com.gabrieldrn.carbon.popover.carettip.PopoverCaretTipAlignment
 import com.gabrieldrn.carbon.popover.carettip.PopoverCaretTipPlacement
 import com.gabrieldrn.carbon.popover.carettip.rememberPopoverCaretTipPositionProvider
 import kotlinx.coroutines.launch
-import org.jetbrains.compose.ui.tooling.preview.Preview
-import org.jetbrains.compose.ui.tooling.preview.PreviewParameter
-import org.jetbrains.compose.ui.tooling.preview.PreviewParameterProvider
 
 private val tooltipSingleLineMaxWidth = 208.dp
 private val tooltipMultiLineMaxWidth = 288.dp

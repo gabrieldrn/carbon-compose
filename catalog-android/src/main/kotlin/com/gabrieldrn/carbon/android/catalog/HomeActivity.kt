@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 Gabriel Derrien
+ * Copyright 2024-2026 Gabriel Derrien
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.gabrieldrn.carbon.catalog
+package com.gabrieldrn.carbon.android.catalog
 
 import android.content.res.Configuration
 import android.graphics.Color
@@ -27,6 +27,8 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalConfiguration
+import com.gabrieldrn.carbon.catalog.Catalog
+import com.gabrieldrn.carbon.catalog.CatalogLayoutType
 
 @Suppress("UndocumentedPublicClass")
 class HomeActivity : AppCompatActivity() {

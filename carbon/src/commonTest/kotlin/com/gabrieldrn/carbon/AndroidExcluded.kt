@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 Gabriel Derrien
+ * Copyright 2026 Gabriel Derrien
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,22 +14,6 @@
  * limitations under the License.
  */
 
-package com.gabrieldrn.carbon.catalog
+package com.gabrieldrn.carbon
 
-import android.app.Application
-import com.gabrieldrn.carbon.catalog.di.appModule
-import org.koin.core.context.startKoin
-import timber.log.Timber
-
-@Suppress("UndocumentedPublicClass")
-class CatalogApplication : Application() {
-
-    override fun onCreate() {
-        super.onCreate()
-        Timber.plant(Timber.DebugTree())
-
-        startKoin {
-            modules(appModule())
-        }
-    }
-}
+annotation class AndroidExcluded

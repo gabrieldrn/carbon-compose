@@ -16,7 +16,7 @@
 
 package com.gabrieldrn.carbon.notification
 
-import org.jetbrains.compose.ui.tooling.preview.PreviewParameterProvider
+import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 
 internal class NotificationStatusParameterProvider : PreviewParameterProvider<NotificationStatus> {
     override val values = sequenceOf(

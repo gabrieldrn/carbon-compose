@@ -33,6 +33,7 @@ import androidx.compose.ui.test.pressKey
 import androidx.compose.ui.test.requestFocus
 import androidx.compose.ui.test.runComposeUiTest
 import co.touchlab.kermit.Logger
+import com.gabrieldrn.carbon.AndroidExcluded
 import com.gabrieldrn.carbon.CarbonDesignSystem
 import com.gabrieldrn.carbon.foundation.misc.Adaptation
 import com.gabrieldrn.carbon.textinput.TextInputState
@@ -43,43 +44,15 @@ import kotlinx.datetime.format.char
 import kotlinx.datetime.plus
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
+import kotlin.test.BeforeTest
+import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
-// FIXME The actual implementation for keyboard navigation on Android is empty due to an unknown
-//  situation where the focus doesn't work. Manually testing, to be working, the device must be in a
-//  "keyboard mode" for example when pressing the Tab key in an emulator before executing the tests.
-expect class CalendarDatePickerMenuTest {
-    fun calendarDatePickerMenu_whenExpanded_validateCalendarMenuIsDisplayed()
-    fun calendarDatePickerMenu_whenDayClicked_validateDateSelection()
-    fun calendarDatePickerMenu_navigateToPreviousMonth_validateMonthChange()
-    fun calendarDatePickerMenu_navigateToNextMonth_validateMonthChange()
-    fun calendarDatePickerMenu_navigateToPreviousYear_validateYearChange()
-    fun calendarDatePickerMenu_navigateToNextYear_validateYearChange()
-    fun calendarDatePickerMenu_whenDateEntered_validateCalendarMonthUpdates()
-    fun calendarDatePickerMenu_whenDaySelected_menuCloses()
-    fun calendarDatePickerMenu_calendarIconClick_expandsMenu()
-    fun calendarDatePickerMenu_calendarIconWhenDisabled_isNotClickable()
-    fun calendarDatePickerMenu_calendarIconWhenReadOnly_isNotClickable()
-    fun calendarDatePickerMenu_calendarIconWhenEnabled_isClickable()
-    fun calendarDatePickerMenu_selectableDates_disabledDateIsNotClickable()
-    fun calendarDatePickerMenu_selectableDates_enabledDateIsClickable()
-    fun calendarDatePickerMenu_selectableDates_multipleDatesDisabled()
-    fun calendarDatePickerMenu_selectableDates_onlyPastDatesEnabled()
-    fun calendarDatePickerMenu_selectableDates_onlyFutureDatesEnabled()
-    fun calendarDatePickerMenu_escapeKey_dismissesCalendarMenu()
-    fun calendarDatePickerMenu_arrowRightKey_movesFocusToNextDay()
-    fun calendarDatePickerMenu_arrowLeftKey_movesFocusToPreviousDay()
-    fun calendarDatePickerMenu_arrowDownKey_movesFocusToSameDayNextWeek()
-    fun calendarDatePickerMenu_arrowUpKey_movesFocusToSameDayPreviousWeek()
-    fun calendarDatePickerMenu_arrowKeys_navigationOnDisabledDate()
-    fun calendarDatePickerMenu_multipleArrowKeys_sequentialNavigation()
-}
-
-class CalendarDatePickerMenuTestCommonImpl() {
+class CalendarDatePickerMenuTest {
 
     private var adaptation by mutableStateOf(Adaptation.None)
     lateinit var datePickerState: CalendarDatePickerState
@@ -97,6 +70,7 @@ class CalendarDatePickerMenuTestCommonImpl() {
     private var fieldValue by mutableStateOf("")
     private var inputState by mutableStateOf(TextInputState.Enabled)
 
+    @BeforeTest
     fun setup() {
         adaptation = Adaptation.None
         today = LocalDate(2025, 1, 1)
@@ -153,6 +127,7 @@ class CalendarDatePickerMenuTestCommonImpl() {
         }
     }
 
+    @Test
     fun calendarDatePickerMenu_whenExpanded_validateCalendarMenuIsDisplayed() = runWithAdaptation {
         setupUi()
 
@@ -206,6 +181,7 @@ class CalendarDatePickerMenuTestCommonImpl() {
             .assertHasClickAction()
     }
 
+    @Test
     fun calendarDatePickerMenu_whenDayClicked_validateDateSelection() = runWithAdaptation {
         setupUi()
 
@@ -227,7 +203,7 @@ class CalendarDatePickerMenuTestCommonImpl() {
         assertEquals(today, datePickerState.selectedDate)
     }
 
-
+    @Test
     fun calendarDatePickerMenu_navigateToPreviousMonth_validateMonthChange() = runWithAdaptation {
         setupUi()
 
@@ -244,7 +220,7 @@ class CalendarDatePickerMenuTestCommonImpl() {
             .assertTextEquals("December")
     }
 
-
+    @Test
     fun calendarDatePickerMenu_navigateToNextMonth_validateMonthChange() = runWithAdaptation {
         setupUi()
 
@@ -260,6 +236,7 @@ class CalendarDatePickerMenuTestCommonImpl() {
             .assertTextEquals("February")
     }
 
+    @Test
     fun calendarDatePickerMenu_navigateToPreviousYear_validateYearChange() = runWithAdaptation {
         setupUi()
 
@@ -276,6 +253,7 @@ class CalendarDatePickerMenuTestCommonImpl() {
             .assertTextEquals("2024")
     }
 
+    @Test
     fun calendarDatePickerMenu_navigateToNextYear_validateYearChange() = runWithAdaptation {
         setupUi()
 
@@ -291,6 +269,7 @@ class CalendarDatePickerMenuTestCommonImpl() {
             .assertTextEquals("2026")
     }
 
+    @Test
     fun calendarDatePickerMenu_whenDateEntered_validateCalendarMonthUpdates() = runWithAdaptation {
         initialSelectedDate = LocalDate(2024, 1, 15)
 
@@ -331,6 +310,7 @@ class CalendarDatePickerMenuTestCommonImpl() {
             .assertDoesNotExist()
     }
 
+    @Test
     fun calendarDatePickerMenu_whenDaySelected_menuCloses() = runWithAdaptation {
         setupUi()
 
@@ -360,6 +340,7 @@ class CalendarDatePickerMenuTestCommonImpl() {
             .assertDoesNotExist()
     }
 
+    @Test
     fun calendarDatePickerMenu_calendarIconClick_expandsMenu() = runWithAdaptation {
         setupUi()
 
@@ -381,8 +362,8 @@ class CalendarDatePickerMenuTestCommonImpl() {
             .assertIsDisplayed()
     }
 
-    fun calendarDatePickerMenu_calendarIconWhenDisabled_isNotClickable() =
-        runWithAdaptation {
+    @Test
+    fun calendarDatePickerMenu_calendarIconWhenDisabled_isNotClickable() = runWithAdaptation {
             inputState = TextInputState.Disabled
 
             setupUi()
@@ -403,6 +384,7 @@ class CalendarDatePickerMenuTestCommonImpl() {
                 .assertDoesNotExist()
         }
 
+    @Test
     fun calendarDatePickerMenu_calendarIconWhenReadOnly_isNotClickable() = runWithAdaptation {
         inputState = TextInputState.ReadOnly
 
@@ -424,6 +406,7 @@ class CalendarDatePickerMenuTestCommonImpl() {
             .assertDoesNotExist()
     }
 
+    @Test
     fun calendarDatePickerMenu_calendarIconWhenEnabled_isClickable() = runWithAdaptation {
         setupUi()
 
@@ -452,6 +435,7 @@ class CalendarDatePickerMenuTestCommonImpl() {
         }
     }
 
+    @Test
     fun calendarDatePickerMenu_selectableDates_disabledDateIsNotClickable() = runWithAdaptation {
         // Define a date that will be disabled
         val disabledDate = today.plus(1, DateTimeUnit.DAY)
@@ -487,6 +471,7 @@ class CalendarDatePickerMenuTestCommonImpl() {
             .assertIsDisplayed()
     }
 
+    @Test
     fun calendarDatePickerMenu_selectableDates_enabledDateIsClickable() = runWithAdaptation {
         // Define a date that will be disabled
         val disabledDate = today.plus(1, DateTimeUnit.DAY)
@@ -518,6 +503,7 @@ class CalendarDatePickerMenuTestCommonImpl() {
             .assertDoesNotExist()
     }
 
+    @Test
     fun calendarDatePickerMenu_selectableDates_multipleDatesDisabled() = runWithAdaptation {
         // Define multiple dates that will be disabled
         val disabledDates = listOf(
@@ -550,6 +536,7 @@ class CalendarDatePickerMenuTestCommonImpl() {
             .assertHasClickAction()
     }
 
+    @Test
     fun calendarDatePickerMenu_selectableDates_onlyPastDatesEnabled() = runWithAdaptation {
         selectableDates = SelectableDates { date -> date <= today }
 
@@ -580,6 +567,7 @@ class CalendarDatePickerMenuTestCommonImpl() {
         assertEquals(today, datePickerState.selectedDate)
     }
 
+    @Test
     fun calendarDatePickerMenu_selectableDates_onlyFutureDatesEnabled() = runWithAdaptation {
         selectableDates = SelectableDates { date -> date > today }
 
@@ -610,6 +598,10 @@ class CalendarDatePickerMenuTestCommonImpl() {
         assertEquals(futureDate, datePickerState.selectedDate)
     }
 
+    // FIXME: The following excluded tests are not passing on the android platform specifically.
+
+    @Test
+    @AndroidExcluded
     fun calendarDatePickerMenu_escapeKey_dismissesCalendarMenu() = runWithAdaptation {
         setupUi()
 
@@ -635,6 +627,8 @@ class CalendarDatePickerMenuTestCommonImpl() {
             .assertDoesNotExist()
     }
 
+    @Test
+    @AndroidExcluded
     fun calendarDatePickerMenu_arrowRightKey_movesFocusToNextDay() = runWithAdaptation {
         val nextDay = today.plus(1, DateTimeUnit.DAY)
 
@@ -660,6 +654,8 @@ class CalendarDatePickerMenuTestCommonImpl() {
             .assertIsFocused()
     }
 
+    @Test
+    @AndroidExcluded
     fun calendarDatePickerMenu_arrowLeftKey_movesFocusToPreviousDay() = runWithAdaptation {
         // Use a future date to ensure there's a previous day
         val futureDate = today.plus(3, DateTimeUnit.DAY)
@@ -687,6 +683,8 @@ class CalendarDatePickerMenuTestCommonImpl() {
             .assertIsFocused()
     }
 
+    @Test
+    @AndroidExcluded
     fun calendarDatePickerMenu_arrowDownKey_movesFocusToSameDayNextWeek() = runWithAdaptation {
         val nextWeekDay = today.plus(7, DateTimeUnit.DAY)
 
@@ -713,6 +711,8 @@ class CalendarDatePickerMenuTestCommonImpl() {
             .assertIsFocused()
     }
 
+    @Test
+    @AndroidExcluded
     fun calendarDatePickerMenu_arrowUpKey_movesFocusToSameDayPreviousWeek() = runWithAdaptation {
         // Use a date in the second week to ensure there's a week above
         val futureDate = today.plus(10, DateTimeUnit.DAY)
@@ -740,6 +740,8 @@ class CalendarDatePickerMenuTestCommonImpl() {
             .assertIsFocused()
     }
 
+    @Test
+    @AndroidExcluded
     fun calendarDatePickerMenu_arrowKeys_navigationOnDisabledDate() = runWithAdaptation {
         // Disable some dates
         val disabledDate = today.plus(1, DateTimeUnit.DAY)
@@ -769,6 +771,8 @@ class CalendarDatePickerMenuTestCommonImpl() {
             .assertIsFocused()
     }
 
+    @Test
+    @AndroidExcluded
     fun calendarDatePickerMenu_multipleArrowKeys_sequentialNavigation() = runWithAdaptation {
         // Calculate the expected final position after:
         // Right x2, Down x1, Left x1

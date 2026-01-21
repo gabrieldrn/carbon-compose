@@ -2,11 +2,19 @@ import com.gabrieldrn.carbon.Configuration
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 
 plugins {
-    id("carbon.android.application")
+    id("carbon.kmp.application")
     id("carbon.detekt")
 }
 
 kotlin {
+    androidLibrary {
+        namespace = "com.gabrieldrn.carbon.catalog"
+
+        compilerOptions {
+            enableCoreLibraryDesugaring = true
+        }
+    }
+
     listOf(
         iosX64(),
         iosArm64(),
@@ -24,12 +32,12 @@ kotlin {
         commonMain.dependencies {
             implementation(project(":carbon"))
 
-            implementation(compose.runtime)
-            implementation(compose.foundation)
-            implementation(compose.ui)
-            implementation(compose.animation)
-            implementation(compose.components.uiToolingPreview)
-            implementation(compose.components.resources)
+            implementation(libs.compose.runtime)
+            implementation(libs.compose.foundation)
+            implementation(libs.compose.ui)
+            implementation(libs.compose.uiToolingPreview)
+            implementation(libs.compose.animation)
+            implementation(libs.compose.components.resources)
 
             implementation(libs.compose.navigation)
 
@@ -56,28 +64,9 @@ kotlin {
     }
 }
 
-android {
-    namespace = "com.gabrieldrn.carbon.catalog"
-
-    defaultConfig {
-        applicationId = "com.gabrieldrn.carbon.catalog"
-        versionCode = Configuration.versionCode
-        versionName = Configuration.versionName
-    }
-
-    compileOptions {
-        isCoreLibraryDesugaringEnabled = true
-    }
-
-    buildTypes {
-        release {
-            signingConfig = signingConfigs.getByName("debug")
-        }
-    }
-
-    dependencies {
-        coreLibraryDesugaring(libs.desugaring.jdkLibs)
-    }
+dependencies {
+    androidRuntimeClasspath(libs.compose.uiTooling)
+    coreLibraryDesugaring(libs.desugaring.jdkLibs)
 }
 
 compose {

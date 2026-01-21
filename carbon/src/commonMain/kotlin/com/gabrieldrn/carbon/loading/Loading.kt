@@ -29,9 +29,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.inset
 import androidx.compose.ui.graphics.drawscope.rotate
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.foundation.color.LocalCarbonTheme
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 private const val SPINNER_FILL = .81f
 private const val SPINNER_SMALL_FILL = .75f

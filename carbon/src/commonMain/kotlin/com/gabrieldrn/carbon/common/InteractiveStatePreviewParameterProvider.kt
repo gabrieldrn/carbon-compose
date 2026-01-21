@@ -16,8 +16,8 @@
 
 package com.gabrieldrn.carbon.common
 
+import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import com.gabrieldrn.carbon.common.selectable.SelectableInteractiveState
-import org.jetbrains.compose.ui.tooling.preview.PreviewParameterProvider
 
 internal class InteractiveStatePreviewParameterProvider :
     PreviewParameterProvider<SelectableInteractiveState> {

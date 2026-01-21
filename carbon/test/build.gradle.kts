@@ -1,5 +1,4 @@
 import com.gabrieldrn.carbon.Configuration
-import org.jetbrains.compose.ExperimentalComposeLibrary
 
 plugins {
     id("carbon.kmp.library")
@@ -13,27 +12,22 @@ carbonLibrary {
 }
 
 kotlin {
-    @OptIn(ExperimentalComposeLibrary::class)
+    androidLibrary {
+        namespace = "com.gabrieldrn.carbon.test"
+    }
+
     sourceSets {
         commonMain.dependencies {
             api(project(":carbon:common"))
-            implementation(compose.foundation)
-            implementation(compose.uiTest)
+            implementation(libs.compose.foundation)
+            implementation(libs.compose.uiTest)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
-            implementation(compose.uiTest)
+            implementation(libs.compose.uiTest)
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
         }
-    }
-}
-
-android {
-    namespace = "com.gabrieldrn.carbon.test"
-
-    dependencies {
-        debugImplementation(libs.androidx.compose.ui.test.manifest)
     }
 }

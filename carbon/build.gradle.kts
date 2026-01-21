@@ -1,5 +1,4 @@
 import com.gabrieldrn.carbon.Configuration
-import org.jetbrains.compose.ExperimentalComposeLibrary
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 
 plugins {
@@ -14,6 +13,25 @@ carbonLibrary {
 }
 
 kotlin {
+    androidLibrary {
+        namespace = "com.gabrieldrn.carbon"
+
+        compilerOptions {
+            enableCoreLibraryDesugaring = true
+        }
+        withHostTest {
+            isIncludeAndroidResources = true
+        }
+        withDeviceTestBuilder {
+            sourceSetTreeName = "test"
+        }.configure {
+            instrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+            instrumentationRunnerArguments["notAnnotation"] =
+                "com.gabrieldrn.carbon.AndroidExcluded"
+            execution = "HOST"
+        }
+    }
+
     listOf(
         iosX64(),
         iosArm64(),
@@ -40,17 +58,16 @@ kotlin {
         binaries.executable()
     }
 
-    @OptIn(ExperimentalComposeLibrary::class)
     sourceSets {
         commonMain.dependencies {
             api(project(":carbon:common"))
 
-            implementation(compose.runtime)
-            implementation(compose.foundation)
-            implementation(compose.ui)
-            implementation(compose.animation)
-            implementation(compose.components.resources)
-            implementation(compose.components.uiToolingPreview)
+            implementation(libs.compose.runtime)
+            implementation(libs.compose.foundation)
+            implementation(libs.compose.ui)
+            implementation(libs.compose.uiToolingPreview)
+            implementation(libs.compose.animation)
+            implementation(libs.compose.components.resources)
 
             api(libs.kotlinx.datetime)
 
@@ -60,8 +77,23 @@ kotlin {
             implementation(project(":carbon:test"))
 
             implementation(libs.kotlin.test)
-            implementation(compose.uiTest)
+            implementation(libs.compose.uiTest)
         }
+
+//        iosMain.get().dependsOn(commonMain.get()) // Change to iosMain
+//        iosTest.get().dependsOn(commonTest.get())
+
+        getByName("androidDeviceTest") {
+//            dependsOn(commonTest.get())
+            dependencies {
+                implementation(libs.kotlin.test)
+                implementation(libs.androidx.test.ext)
+                implementation(libs.androidx.test.espresso)
+                implementation("androidx.test:runner:1.7.0")
+                implementation(libs.androidx.compose.ui.testManifest)
+            }
+        }
+
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
         }
@@ -82,25 +114,7 @@ compose.resources {
     generateResClass = always
 }
 
-android {
-    compileOptions {
-        isCoreLibraryDesugaringEnabled = true
-    }
-
-    namespace = "com.gabrieldrn.carbon"
-
-    dependencies {
-        debugImplementation(compose.uiTooling)
-        debugImplementation(libs.androidx.compose.ui.test.manifest)
-
-        testImplementation(libs.junit)
-        testImplementation(libs.kotlin.test)
-        testImplementation(libs.kotlin.test.junit)
-
-        androidTestImplementation(libs.kotlin.test)
-        androidTestImplementation(libs.androidx.test.ext)
-        androidTestImplementation(libs.androidx.test.espresso)
-
-        coreLibraryDesugaring(libs.desugaring.jdkLibs)
-    }
+dependencies {
+    androidRuntimeClasspath(libs.compose.uiTooling)
+    coreLibraryDesugaring(libs.desugaring.jdkLibs)
 }
