@@ -235,7 +235,7 @@ jobs:
           api-level: ${{ matrix.api-level }}
           profile: Nexus 6
           arch: x86_64
-          script: ./gradlew connectedAndroidTest
+          script: ./gradlew connectedAndroidDeviceTest
 
       - name: Tests reporting
         uses: mikepenz/action-junit-report@v5
