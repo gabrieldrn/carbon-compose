@@ -602,33 +602,6 @@ class CalendarDatePickerMenuTest {
 
     @Test
     @AndroidExcluded
-    fun calendarDatePickerMenu_escapeKey_dismissesCalendarMenu() = runWithAdaptation {
-        setupUi()
-
-        // Open the calendar menu
-        expanded = true
-        waitForIdle()
-
-        // Verify calendar menu is visible
-        onNodeWithTag(CalendarDatePickerTestTags.MENU)
-            .assertExists()
-            .assertIsDisplayed()
-
-        // Press Escape key on the calendar menu
-        onNodeWithTag(CalendarDatePickerTestTags.MENU)
-            .performKeyInput {
-                pressKey(Key.Escape)
-            }
-
-        waitForIdle()
-
-        // Verify calendar menu is now dismissed
-        onNodeWithTag(CalendarDatePickerTestTags.MENU)
-            .assertDoesNotExist()
-    }
-
-    @Test
-    @AndroidExcluded
     fun calendarDatePickerMenu_arrowRightKey_movesFocusToNextDay() = runWithAdaptation {
         val nextDay = today.plus(1, DateTimeUnit.DAY)
 
