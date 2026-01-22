@@ -53,8 +53,6 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
-import androidx.compose.ui.platform.InspectableModifier
-import androidx.compose.ui.platform.debugInspectorInfo
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -167,15 +165,6 @@ internal fun ButtonLayout(
                 role = Role.Button
             )
             .pointerHoverIcon(PointerIcon.Hand)
-            .then(
-                InspectableModifier(
-                    debugInspectorInfo {
-                        properties["buttonType"] = buttonType.name
-                        properties["buttonSize"] = buttonSize::class.simpleName
-                        properties["isIconButton"] = isIconButton.toString()
-                    }
-                )
-            ),
     ) {
         val buttonScope by remember(colors, isEnabled, isPressed, isHovered) {
             mutableStateOf(ButtonScope(colors, isEnabled, isPressed, isHovered))

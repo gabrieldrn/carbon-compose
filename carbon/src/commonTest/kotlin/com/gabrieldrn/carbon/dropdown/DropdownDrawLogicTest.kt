@@ -29,7 +29,7 @@ class DropdownDrawLogicTest {
     @Test
     fun dropdownDrawLogic_getOptionsPopupHeightRatio_returnsCorrectValue() {
         // optionsSize, visibleItemsBeforeScroll, expectedRatio
-        listOf<Triple<Int, Int, Float>>(
+        listOf(
             Triple(0, 0, 0f),
             Triple(1, 0, 1f),
             Triple(1, 1, 1f),

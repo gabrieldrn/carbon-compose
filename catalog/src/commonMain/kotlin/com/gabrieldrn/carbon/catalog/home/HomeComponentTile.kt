@@ -51,7 +51,7 @@ private val itemAppearanceAnimationSpec = tween<Float>(
     durationMillis = Motion.Duration.slow01,
     easing = Motion.Entrance.expressiveEasing
 )
-private val itemInitOffset = -16f
+private const val ITEM_INIT_OFFSET = -16f
 
 @Composable
 fun CarbonComponentGridTile(
@@ -59,12 +59,12 @@ fun CarbonComponentGridTile(
     onTileClicked: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    var yOffsetDp by remember { mutableFloatStateOf(itemInitOffset) }
+    var yOffsetDp by remember { mutableFloatStateOf(ITEM_INIT_OFFSET) }
     var alpha by remember { mutableFloatStateOf(0f) }
     LaunchedEffect(destination) {
         launch {
             animate(
-                initialValue = itemInitOffset,
+                initialValue = ITEM_INIT_OFFSET,
                 targetValue = 0f,
                 animationSpec = itemAppearanceAnimationSpec
             ) { value, _ ->

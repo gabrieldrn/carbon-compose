@@ -87,5 +87,6 @@ public fun Modifier.layerBackground(): Modifier = this.composed {
  */
 @Deprecated("Use alternative using `layer-background` colors.")
 public fun Modifier.containerBackground(): Modifier = this.composed {
+    @Suppress("DEPRECATION")
     background(Carbon.theme.containerColor(Carbon.layer))
 }

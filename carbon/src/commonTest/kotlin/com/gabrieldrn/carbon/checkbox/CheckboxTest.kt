@@ -36,7 +36,7 @@ import kotlin.test.assertNotEquals
 
 class CheckboxTest {
 
-    private var state by mutableStateOf<ToggleableState>(ToggleableState.Off)
+    private var state by mutableStateOf(ToggleableState.Off)
     private var interactiveState by mutableStateOf<SelectableInteractiveState>(
         SelectableInteractiveState.Default
     )

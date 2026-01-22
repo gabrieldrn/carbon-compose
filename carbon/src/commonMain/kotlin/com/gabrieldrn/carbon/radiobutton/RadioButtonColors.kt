@@ -82,7 +82,6 @@ internal class RadioButtonColors private constructor(theme: Theme) : SelectableC
     override fun hashCode(): Int = super.hashCode()
 
     internal companion object {
-
         @Composable
         fun colors(): RadioButtonColors = RadioButtonColors(Carbon.theme)
     }
