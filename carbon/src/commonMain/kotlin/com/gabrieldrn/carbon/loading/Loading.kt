@@ -29,6 +29,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.inset
 import androidx.compose.ui.graphics.drawscope.rotate
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.foundation.color.LocalCarbonTheme
 
@@ -117,3 +118,16 @@ public fun SmallLoading(modifier: Modifier = Modifier) {
         }
     }
 }
+
+@Preview
+@Composable
+private fun LoadingSpinnerPreview() {
+    Loading()
+}
+
+@Preview
+@Composable
+private fun SmallLoadingSpinnerPreview() {
+    SmallLoading()
+}
+

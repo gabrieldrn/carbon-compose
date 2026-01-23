@@ -33,8 +33,12 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
+import com.gabrieldrn.carbon.CarbonDesignSystem
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 import com.gabrieldrn.carbon.foundation.text.Text
 
@@ -156,3 +160,26 @@ private fun TagIcon(
         )
     }
 }
+
+// region Previews
+
+private class TagTypePreviewParameterProvider: PreviewParameterProvider<TagType> {
+    override val values: Sequence<TagType> = TagType.entries.asSequence()
+}
+
+@Preview
+@Composable
+private fun TagPreview(
+    @PreviewParameter(TagTypePreviewParameterProvider::class)
+    tagType: TagType
+) {
+    CarbonDesignSystem {
+        ReadOnlyTag(
+            text = "Tag",
+            type = tagType,
+            modifier = Modifier.padding(SpacingScale.spacing02)
+        )
+    }
+}
+
+// endregion

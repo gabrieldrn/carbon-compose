@@ -16,6 +16,7 @@
 
 package com.gabrieldrn.carbon.dropdown.multiselect
 
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -23,7 +24,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.unit.dp
 import co.touchlab.kermit.Logger
+import com.gabrieldrn.carbon.CarbonDesignSystem
+import com.gabrieldrn.carbon.dropdown.DropdownStateParameterProvider
 import com.gabrieldrn.carbon.dropdown.base.BaseDropdown
 import com.gabrieldrn.carbon.dropdown.base.DropdownColors
 import com.gabrieldrn.carbon.dropdown.base.DropdownInteractiveState
@@ -223,3 +229,58 @@ public fun <K : Any> MultiselectDropdown(
         minVisibleItems = actualMinVisibleItems,
     )
 }
+
+// region Previews
+
+@Preview(showBackground = true, backgroundColor = 0xFFFFFFFF)
+@Composable
+private fun MultiselectDropdownPreview(
+    @PreviewParameter(DropdownStateParameterProvider::class) state: DropdownInteractiveState,
+) {
+    var expanded by remember { mutableStateOf(false) }
+
+    CarbonDesignSystem {
+        MultiselectDropdown(
+            expanded = expanded,
+            placeholder = state::class.simpleName!!,
+            options = mapOf(0 to DropdownOption("Option 0")),
+            selectedOptions = listOf(),
+            onExpandedChange = { expanded = it },
+            onDismissRequest = { expanded = false },
+            onOptionClicked = {},
+            onClearSelection = {},
+            state = state,
+            modifier = Modifier
+                .padding(8.dp)
+                .fillMaxWidth(),
+        )
+    }
+}
+
+@Preview(showBackground = true, backgroundColor = 0xFFFFFFFF)
+@Composable
+private fun MultiselectDropdownWithSelectionPreview(
+    @PreviewParameter(DropdownStateParameterProvider::class) state: DropdownInteractiveState,
+) {
+    var expanded by remember { mutableStateOf(false) }
+
+    CarbonDesignSystem {
+        MultiselectDropdown(
+            expanded = expanded,
+            placeholder = state::class.simpleName!!,
+            options = mapOf(0 to DropdownOption("Option 0")),
+            selectedOptions = listOf(0),
+            onExpandedChange = { expanded = it },
+            onDismissRequest = { expanded = false },
+            onOptionClicked = {},
+            onClearSelection = {},
+            state = state,
+            modifier = Modifier
+                .padding(8.dp)
+                .fillMaxWidth(),
+        )
+    }
+}
+
+// endregion
+

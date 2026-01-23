@@ -1,12 +1,11 @@
-import com.android.build.gradle.LibraryExtension
+import com.android.build.api.dsl.KotlinMultiplatformAndroidLibraryTarget
 import com.gabrieldrn.carbon.buildlogic.Constants
-import com.gabrieldrn.carbon.buildlogic.applyTestOptions
-import com.gabrieldrn.carbon.buildlogic.configureKotlinAndroidCommon
 import com.gabrieldrn.carbon.buildlogic.getPlugin
 import com.gabrieldrn.carbon.buildlogic.libs
 import com.vanniktech.maven.publish.JavadocJar
 import com.vanniktech.maven.publish.KotlinMultiplatform
 import com.vanniktech.maven.publish.MavenPublishBaseExtension
+import com.vanniktech.maven.publish.SourcesJar
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.provider.Property
@@ -19,7 +18,6 @@ import org.jetbrains.kotlin.compose.compiler.gradle.ComposeCompilerGradlePluginE
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
-import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
 
 /**
  * A plugin used by kmp libraries modules from Carbon to configure themselves. It
@@ -45,12 +43,12 @@ class CarbonMultiplatformLibraryConventionPlugin : Plugin<Project> {
         // region KMP config
 
         extensions.configure<KotlinMultiplatformExtension> {
-            androidTarget {
-                @OptIn(ExperimentalKotlinGradlePluginApi::class)
-                instrumentedTestVariant.sourceSetTree.set(KotlinSourceSetTree.test)
+            configure<KotlinMultiplatformAndroidLibraryTarget> {
+                compileSdk = Constants.Versions.COMPILE_SDK
+                minSdk = Constants.Versions.MIN_SDK
 
-                compilerOptions {
-                    jvmTarget.set(Constants.Versions.JVM)
+                androidResources {
+                    enable = true
                 }
             }
 
@@ -62,33 +60,16 @@ class CarbonMultiplatformLibraryConventionPlugin : Plugin<Project> {
 
             wasmJs { browser() }
 
-            listOf(
-                iosX64(),
-                iosArm64(),
-                iosSimulatorArm64()
-            )
+            iosArm64()
+            iosSimulatorArm64()
 
-            sourceSets.apply {
-                all {
+            sourceSets
+                .named { it.contains("test", ignoreCase = true) }
+                .all {
                     languageSettings.optIn("androidx.compose.ui.test.ExperimentalTestApi")
                 }
-            }
 
             explicitApi()
-        }
-
-        // endregion
-
-        // region Android lib config
-
-        extensions.configure<LibraryExtension> {
-            defaultConfig {
-                testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-            }
-
-            configureKotlinAndroidCommon()
-
-            applyTestOptions()
         }
 
         // endregion
@@ -130,8 +111,7 @@ class CarbonMultiplatformLibraryConventionPlugin : Plugin<Project> {
             configure(
                 KotlinMultiplatform(
                     javadocJar = JavadocJar.Dokka("dokkaGenerate"),
-                    sourcesJar = true,
-                    androidVariantsToPublish = listOf("release")
+                    sourcesJar = SourcesJar.Sources(),
                 )
             )
 

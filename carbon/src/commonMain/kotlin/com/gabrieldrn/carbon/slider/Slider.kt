@@ -67,6 +67,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.setProgress
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.semantics.testTag
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import co.touchlab.kermit.Logger
@@ -76,7 +77,6 @@ import com.gabrieldrn.carbon.foundation.color.borderSubtleColor
 import com.gabrieldrn.carbon.foundation.color.color
 import com.gabrieldrn.carbon.foundation.color.layerBackground
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
-import org.jetbrains.compose.ui.tooling.preview.Preview
 import kotlin.math.round
 
 private val handleSize = 14.dp
@@ -368,6 +368,8 @@ private fun Handle(
     )
 }
 
+// region Previews
+
 @Preview
 @Composable
 private fun SliderHandlePreview() {
@@ -460,3 +462,5 @@ private fun SliderCustomRangePreview() {
         )
     }
 }
+
+// endregion

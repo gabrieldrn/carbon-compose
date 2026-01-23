@@ -51,6 +51,7 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.runtime.snapshots.SnapshotStateMap
 import androidx.compose.ui.Alignment
@@ -62,11 +63,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
+import com.gabrieldrn.carbon.CarbonDesignSystem
 import com.gabrieldrn.carbon.button.ButtonFocusIndication
 import com.gabrieldrn.carbon.button.ButtonType
 import com.gabrieldrn.carbon.contentswitcher.domain.rememberDisplayContentSwitcherButtonDividerState
+import com.gabrieldrn.carbon.foundation.color.layerBackground
 import com.gabrieldrn.carbon.foundation.motion.Motion
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 
@@ -429,3 +435,36 @@ private fun Divider(
             .testTag(ContentSwitcherTestTags.BUTTON_DIVIDER)
     )
 }
+
+// region Previews
+
+private class ContentSwitcherPreviewParameterProvider:
+    PreviewParameterProvider<List<String>> {
+    override val values: Sequence<List<String>> = sequenceOf(
+        listOf("Option 1", "Optioooooooooon 2"),
+        listOf("Option 1", "Optioooooooooon 2", "Option 3"),
+        listOf("Option 1", "Optioooooooooon 2", "Option 3", "Option 4"),
+    )
+}
+
+@Preview
+@Composable
+private fun ContentSwitcherPreview(
+    @PreviewParameter(ContentSwitcherPreviewParameterProvider::class)
+    options: List<String>
+) {
+    var selectedOption by remember { mutableStateOf(options.first()) }
+
+    CarbonDesignSystem {
+        ContentSwitcher(
+            options = options,
+            selectedOption = selectedOption,
+            onOptionSelected = { selectedOption = it },
+            modifier = Modifier
+                .layerBackground()
+                .padding(SpacingScale.spacing05)
+        )
+    }
+}
+
+// endregion

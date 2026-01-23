@@ -31,7 +31,9 @@ import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.CornerRadius
@@ -48,8 +50,10 @@ import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.state.ToggleableState
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
+import com.gabrieldrn.carbon.CarbonDesignSystem
 import com.gabrieldrn.carbon.common.semantics.readOnly
 import com.gabrieldrn.carbon.foundation.interaction.ToggleableFocusIndication
 import com.gabrieldrn.carbon.foundation.motion.Motion
@@ -383,3 +387,42 @@ private fun DrawScope.drawToggleHandle(
         }
     }
 }
+
+// region Previews
+
+@Preview(showBackground = true)
+@Composable
+private fun DefaultTogglePreview() {
+    CarbonDesignSystem {
+        var isToggled by remember { mutableStateOf(false) }
+        Toggle(
+            isToggled = isToggled,
+            onToggleChange = { isToggled = it },
+            label = "Label",
+            actionText = if (isToggled) "On" else "Off",
+//            isEnabled = false,
+//            isReadOnly = true,
+            modifier = Modifier
+                .padding(8.dp)
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun SmallTogglePreview() {
+    CarbonDesignSystem {
+        var isToggled by remember { mutableStateOf(false) }
+        SmallToggle(
+            isToggled = isToggled,
+            onToggleChange = { isToggled = it },
+            actionText = if (isToggled) "On" else "Off",
+//            isEnabled = false,
+//            isReadOnly = true,
+            modifier = Modifier
+                .padding(8.dp)
+        )
+    }
+}
+
+// endregion

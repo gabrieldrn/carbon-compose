@@ -247,7 +247,7 @@ private fun CoroutineScope.scrollToTab(
     if (tabXStart < visibleStart) {
         // Then scroll a bit.
         launch {
-            val scrollOffset = (tabXStart - visibleStart).toFloat()
+            val scrollOffset = tabXStart - visibleStart
             scrollState.animateScrollBy(scrollOffset)
         }
     }
@@ -255,7 +255,7 @@ private fun CoroutineScope.scrollToTab(
     else if (tabXEnd > visibleEnd) {
         // Then scroll a bit.
         launch {
-            val scrollOffset = (tabXEnd - visibleEnd).toFloat()
+            val scrollOffset = tabXEnd - visibleEnd
             scrollState.animateScrollBy(scrollOffset)
         }
     }

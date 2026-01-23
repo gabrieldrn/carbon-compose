@@ -18,6 +18,8 @@ package com.gabrieldrn.carbon.dropdown.base
 
 import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.animation.core.Transition
+import androidx.compose.animation.core.rememberTransition
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.gestures.awaitEachGesture
@@ -29,7 +31,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
@@ -46,13 +50,19 @@ import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
+import com.gabrieldrn.carbon.CarbonDesignSystem
+import com.gabrieldrn.carbon.common.LayerPreviewParameterProvider
 import com.gabrieldrn.carbon.common.molecules.AnimatedChevronDownIcon
 import com.gabrieldrn.carbon.common.semantics.readOnly
 import com.gabrieldrn.carbon.dropdown.base.DropdownInteractiveState.Companion.helperText
 import com.gabrieldrn.carbon.dropdown.base.DropdownInteractiveState.Companion.isFocusable
 import com.gabrieldrn.carbon.dropdown.domain.getChevronStartSpacing
+import com.gabrieldrn.carbon.foundation.color.Layer
+import com.gabrieldrn.carbon.foundation.color.layerBackgroundColor
 import com.gabrieldrn.carbon.foundation.input.onEnterKeyEvent
 import com.gabrieldrn.carbon.foundation.interaction.FocusIndication
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
@@ -243,3 +253,45 @@ internal object DropdownFieldContentId {
 
     val ids = setOf(PLACEHOLDER, STATE_ICON, MULTISELECT_TAG, CHEVRON)
 }
+
+// region Preview«
+
+@Preview(showBackground = true)
+@Composable
+private fun DropdownFieldPreview(
+    @PreviewParameter(LayerPreviewParameterProvider::class)
+    layer: Layer
+) {
+    var state by remember {
+        mutableStateOf<DropdownInteractiveState>(DropdownInteractiveState.Enabled)
+    }
+    val expandedStates = remember { MutableTransitionState(false) }
+    val expandTransition = rememberTransition(expandedStates, "Dropdown")
+
+    CarbonDesignSystem(layer = layer) {
+        val colors = DropdownColors.colors()
+        DropdownField(
+            state = state,
+            dropdownSize = DropdownSize.Large,
+            expandTransition = expandTransition,
+            expandedStates = expandedStates,
+            colors = colors,
+            isInlined = false,
+            onExpandedChange = { expandedStates.targetState = it },
+            fieldContent = {
+                DropdownPlaceholderText(
+                    placeholderText = "Placeholder",
+                    state = state,
+                    colors = colors
+                )
+
+                DropdownStateIcon(state = state)
+            },
+            modifier = Modifier
+                .background(color = Carbon.theme.layerBackgroundColor(Carbon.layer))
+                .padding(SpacingScale.spacing03)
+        )
+    }
+}
+
+// endregion

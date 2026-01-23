@@ -63,8 +63,9 @@ internal fun ProgressBarTrack(
 }
 
 private const val IndeterminateDurationAnimation = 1400
-private val IndeterminateTrackDuration = (IndeterminateDurationAnimation * .75f * .25f).toInt()
-private val IndeterminateAnimationDelay = IndeterminateTrackDuration
+private const val IndeterminateTrackDuration =
+    (IndeterminateDurationAnimation * .75f * .25f).toInt()
+private const val IndeterminateAnimationDelay = IndeterminateTrackDuration
 
 @Composable
 internal fun IndeterminateProgressBarTrack(

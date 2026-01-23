@@ -12,7 +12,7 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
     implementation(kotlin("reflect"))
     implementation("org.jetbrains.compose.ui:ui-graphics:${libs.versions.compose.get()}")
-    implementation(compose.runtime)
+    implementation(libs.compose.runtime)
     implementation(libs.kotlinPoet)
 
     testImplementation(kotlin("test"))

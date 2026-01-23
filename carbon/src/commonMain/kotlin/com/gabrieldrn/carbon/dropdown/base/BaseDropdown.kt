@@ -45,9 +45,7 @@ import androidx.compose.ui.input.key.Key
 import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.onPreviewKeyEvent
 import androidx.compose.ui.layout.onSizeChanged
-import androidx.compose.ui.platform.InspectableModifier
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.platform.debugInspectorInfo
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntOffset
@@ -154,18 +152,6 @@ internal fun <K : Any> BaseDropdown(
                     )
                 }
             },
-            modifier = InspectableModifier {
-                debugInspectorInfo {
-                    properties["isExpanded"] = expanded.toString()
-                    properties["interactiveState"] = when (state) {
-                        is DropdownInteractiveState.Disabled -> "Disabled"
-                        is DropdownInteractiveState.Enabled -> "Enabled"
-                        is DropdownInteractiveState.Error -> "Error"
-                        is DropdownInteractiveState.Warning -> "Warning"
-                        is DropdownInteractiveState.ReadOnly -> "Read-only"
-                    }
-                }
-            }
         )
     }
 

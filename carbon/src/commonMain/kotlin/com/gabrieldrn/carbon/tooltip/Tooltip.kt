@@ -23,18 +23,26 @@ import androidx.compose.foundation.MutatePriority
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.FocusInteraction
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberBasicTooltipState
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
+import com.gabrieldrn.carbon.CarbonDesignSystem
+import com.gabrieldrn.carbon.button.Button
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 import com.gabrieldrn.carbon.popover.carettip.PopoverCaretTipAlignment
 import com.gabrieldrn.carbon.popover.carettip.PopoverCaretTipPlacement
@@ -257,3 +265,46 @@ internal fun TooltipBox(
         content = content
     )
 }
+
+// region Previews
+
+private class TooltipPlacementPreviewParameterProvider :
+    PreviewParameterProvider<PopoverCaretTipPlacement> {
+    override val values: Sequence<PopoverCaretTipPlacement>
+        get() = PopoverCaretTipPlacement.entries.asSequence()
+}
+
+@OptIn(ExperimentalFoundationApi::class)
+@Preview
+@Composable
+private fun TooltipPreview(
+    @PreviewParameter(TooltipPlacementPreviewParameterProvider::class)
+    placement: PopoverCaretTipPlacement,
+) {
+    CarbonDesignSystem {
+        Box(
+            modifier = Modifier.size(400.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            val uiTriggerMutableInteractionSource = remember { MutableInteractionSource() }
+
+            TooltipBox(
+                tooltipText = placement.name,
+                uiTriggerMutableInteractionSource = uiTriggerMutableInteractionSource,
+                state = rememberBasicTooltipState(
+                    initialIsVisible = true,
+                    isPersistent = true
+                ),
+                placement = placement
+            ) {
+                Button(
+                    label = "Hover me",
+                    onClick = { /* No-op */ },
+                    interactionSource = uiTriggerMutableInteractionSource
+                )
+            }
+        }
+    }
+}
+
+// endregion

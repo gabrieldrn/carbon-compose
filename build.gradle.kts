@@ -25,10 +25,8 @@ plugins {
 }
 
 apiValidation {
-    /**
-     * Sub-projects that are excluded from API validation
-     */
-    ignoredProjects.addAll(listOf("catalog", "code-gen"))
+    // Sub-projects excluded from API validation
+    ignoredProjects.addAll(listOf("catalog", "catalog-android", "code-gen"))
 }
 
 dokka {

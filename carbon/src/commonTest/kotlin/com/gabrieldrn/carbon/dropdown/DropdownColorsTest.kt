@@ -59,7 +59,7 @@ class DropdownColorsTest : BaseColorsTest() {
         expectedColors: Map<Any, Any>,
         actual: @Composable (state: DropdownInteractiveState) -> Color
     ) {
-        var result by mutableStateOf<Color>(Color.Unspecified)
+        var result by mutableStateOf(Color.Unspecified)
 
         forAllLayersAndStates(
             statesUnderTest = interactiveStates.values
@@ -157,7 +157,7 @@ class DropdownColorsTest : BaseColorsTest() {
 
     @Test
     fun dropdownColors_fieldBorderColor_colorsAreCorrect() = runComposeUiTest {
-        val colorsExpected = mapOf<Any, Any>(
+        val colorsExpected = mapOf(
             interactiveStates["error"]!! to theme.supportError,
             interactiveStates["disabled"]!! to Color.Transparent,
             interactiveStates["readOnly"]!! to mapOf(
@@ -215,7 +215,7 @@ class DropdownColorsTest : BaseColorsTest() {
 
     @Test
     fun dropdownColors_menuOptionBackground_colorsAreCorrect() = runComposeUiTest {
-        var result by mutableStateOf<Color>(Color.Unspecified)
+        var result by mutableStateOf(Color.Unspecified)
 
         val expectedResults = mapOf(
             Triple(false, false, false) to { Color.Transparent },
@@ -252,7 +252,7 @@ class DropdownColorsTest : BaseColorsTest() {
 
     @Test
     fun dropdownColors_menuOptionTextColor_colorsAreCorrect() = runComposeUiTest {
-        var result by mutableStateOf<Color>(Color.Unspecified)
+        var result by mutableStateOf(Color.Unspecified)
 
         forAllLayersAndStates(
             statesUnderTest1 = listOf(true, false),

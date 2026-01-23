@@ -47,8 +47,10 @@ import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.node.DelegatableNode
 import androidx.compose.ui.node.DrawModifierNode
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
+import com.gabrieldrn.carbon.CarbonDesignSystem
 import com.gabrieldrn.carbon.dropdown.base.DropdownFieldContentId
 import com.gabrieldrn.carbon.dropdown.base.DropdownInteractiveState
 import com.gabrieldrn.carbon.dropdown.base.DropdownTestTags
@@ -188,3 +190,28 @@ private class MultiselectTagIndication(
 
     override fun hashCode(): Int = theme.hashCode()
 }
+
+@Preview
+@Composable
+private fun MultiselectTagPreview() {
+    CarbonDesignSystem {
+        DropdownMultiselectTag(
+            state = DropdownInteractiveState.Enabled,
+            count = 42,
+            onCloseTagClick = {}
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun MultiselectTagReadOnlyPreview() {
+    CarbonDesignSystem {
+        DropdownMultiselectTag(
+            state = DropdownInteractiveState.ReadOnly,
+            count = 42,
+            onCloseTagClick = {}
+        )
+    }
+}
+

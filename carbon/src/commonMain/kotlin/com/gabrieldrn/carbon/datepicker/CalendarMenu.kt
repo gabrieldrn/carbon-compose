@@ -67,6 +67,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import com.gabrieldrn.carbon.Carbon
@@ -102,7 +103,6 @@ import kotlinx.datetime.plus
 import kotlinx.datetime.plusMonth
 import kotlinx.datetime.yearMonth
 import org.jetbrains.compose.resources.stringResource
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 internal val calendarMenuWidth = 288.dp
 

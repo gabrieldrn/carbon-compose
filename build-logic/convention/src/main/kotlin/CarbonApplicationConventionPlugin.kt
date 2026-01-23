@@ -1,13 +1,12 @@
-import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
+import com.android.build.api.dsl.ApplicationExtension
 import com.gabrieldrn.carbon.buildlogic.Constants
-import com.gabrieldrn.carbon.buildlogic.configureKotlinAndroidCommon
 import com.gabrieldrn.carbon.buildlogic.getPlugin
 import com.gabrieldrn.carbon.buildlogic.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
-import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
+import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
 
 /**
  * Plugin to configure android application modules from this project.
@@ -20,45 +19,29 @@ class CarbonApplicationConventionPlugin : Plugin<Project> {
 
         with(pluginManager) {
             apply(libs.getPlugin("android-application"))
-            apply(libs.getPlugin("kotlin-multiplatform"))
             apply(libs.getPlugin("jetbrains-compose"))
-            apply(libs.getPlugin("jetbrains-compose-hotReload"))
             apply(libs.getPlugin("compose-compiler"))
         }
 
-        extensions.configure<KotlinMultiplatformExtension> {
-            androidTarget {
-                compilerOptions {
-                    jvmTarget.set(Constants.Versions.JVM)
-                }
-            }
-
-            jvm("desktop") {
-                compilerOptions {
-                    jvmTarget.set(Constants.Versions.JVM)
-                }
-            }
-
-            wasmJs {
-                browser()
-                binaries.executable()
-                compilerOptions {
-                    freeCompilerArgs.add("-Xwasm-debugger-custom-formatters")
-                }
+        extensions.configure<KotlinAndroidProjectExtension> {
+            compilerOptions {
+                jvmTarget.set(Constants.Versions.JVM)
             }
         }
 
-        extensions.configure<BaseAppModuleExtension> {
-            sourceSets.getByName("main").apply {
-                manifest.srcFile("src/androidMain/AndroidManifest.xml")
-                res.srcDirs("src/androidMain/res")
-                resources.srcDirs("src/commonMain/resources")
-            }
-
-            configureKotlinAndroidCommon()
+        extensions.configure<ApplicationExtension> {
+            compileSdk = Constants.Versions.COMPILE_SDK
 
             defaultConfig {
                 targetSdk = Constants.Versions.COMPILE_SDK
+                minSdk = Constants.Versions.MIN_SDK
+                testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+//                consumerProguardFiles("consumer-rules.pro")
+            }
+
+            compileOptions {
+                sourceCompatibility = Constants.Versions.JAVA
+                targetCompatibility = Constants.Versions.JAVA
             }
 
             buildTypes {

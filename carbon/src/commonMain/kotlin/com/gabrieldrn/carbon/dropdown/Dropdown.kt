@@ -16,14 +16,21 @@
 
 package com.gabrieldrn.carbon.dropdown
 
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import co.touchlab.kermit.Logger
+import com.gabrieldrn.carbon.CarbonDesignSystem
 import com.gabrieldrn.carbon.dropdown.base.BaseDropdown
 import com.gabrieldrn.carbon.dropdown.base.DropdownColors
 import com.gabrieldrn.carbon.dropdown.base.DropdownInteractiveState
@@ -232,3 +239,67 @@ public fun <K : Any> Dropdown(
         isInlined = isInlined
     )
 }
+
+// region Previews
+
+internal class DropdownStateParameterProvider : PreviewParameterProvider<DropdownInteractiveState> {
+    override val values: Sequence<DropdownInteractiveState>
+        get() = sequenceOf(
+            DropdownInteractiveState.Enabled,
+            DropdownInteractiveState.Warning("Warning message"),
+            DropdownInteractiveState.Error("Error message"),
+            DropdownInteractiveState.Disabled,
+        )
+}
+
+@Preview(showBackground = true, backgroundColor = 0xFFFFFFFF)
+@Composable
+private fun DropdownPreview(
+    @PreviewParameter(DropdownStateParameterProvider::class)
+    state: DropdownInteractiveState,
+) {
+    var expanded by remember { mutableStateOf(false) }
+
+    CarbonDesignSystem {
+        Dropdown(
+            expanded = expanded,
+            onExpandedChange = { expanded = it },
+            onDismissRequest = { expanded = false },
+            placeholder = state::class.simpleName!!,
+            selectedOption = null,
+            options = mapOf(0 to DropdownOption("Option 0")),
+            onOptionSelected = {},
+            state = state,
+            modifier = Modifier
+                .padding(8.dp)
+                .fillMaxWidth(),
+        )
+    }
+}
+
+@Preview(showBackground = true, backgroundColor = 0xFFFFFFFF)
+@Composable
+private fun DropdownWithSelectionPreview(
+    @PreviewParameter(DropdownStateParameterProvider::class)
+    state: DropdownInteractiveState,
+) {
+    var expanded by remember { mutableStateOf(false) }
+
+    CarbonDesignSystem {
+        Dropdown(
+            expanded = expanded,
+            onExpandedChange = { expanded = it },
+            onDismissRequest = { expanded = false },
+            placeholder = state::class.simpleName!!,
+            selectedOption = 0,
+            options = mapOf(0 to DropdownOption("Option 0")),
+            onOptionSelected = {},
+            state = state,
+            modifier = Modifier
+                .padding(8.dp)
+                .fillMaxWidth(),
+        )
+    }
+}
+
+// endregion

@@ -1,4 +1,3 @@
-@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     `kotlin-dsl`
     `maven-publish`
@@ -6,10 +5,8 @@ plugins {
 
 group = "com.gabrieldrn.carbon.buildlogic"
 
-java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of("17"))
-    }
+kotlin {
+    jvmToolchain(17)
 }
 
 dependencies {
@@ -28,9 +25,14 @@ gradlePlugin {
             implementationClass = "CarbonMultiplatformLibraryConventionPlugin"
         }
 
-        register("application") {
+        register("androidApplication") {
             id = "carbon.android.application"
             implementationClass = "CarbonApplicationConventionPlugin"
+        }
+
+        register("kmpApplication") {
+            id = "carbon.kmp.application"
+            implementationClass = "CarbonKmpApplicationConventionPlugin"
         }
 
         register("detekt") {
