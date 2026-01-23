@@ -63,11 +63,11 @@ class CarbonMultiplatformLibraryConventionPlugin : Plugin<Project> {
             iosArm64()
             iosSimulatorArm64()
 
-            sourceSets.apply {
-                all {
+            sourceSets
+                .named { it.contains("test", ignoreCase = true) }
+                .all {
                     languageSettings.optIn("androidx.compose.ui.test.ExperimentalTestApi")
                 }
-            }
 
             explicitApi()
         }

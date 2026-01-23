@@ -19,9 +19,6 @@ kotlin {
         compilerOptions {
             enableCoreLibraryDesugaring = true
         }
-        withHostTest {
-            isIncludeAndroidResources = true
-        }
         withDeviceTestBuilder {
             sourceSetTreeName = "test"
         }.configure {
@@ -72,6 +69,7 @@ kotlin {
 
             implementation(libs.touchlab.kermit)
         }
+
         commonTest.dependencies {
             implementation(project(":carbon:test"))
 
@@ -79,16 +77,8 @@ kotlin {
             implementation(libs.compose.uiTest)
         }
 
-//        iosMain.get().dependsOn(commonMain.get()) // Change to iosMain
-//        iosTest.get().dependsOn(commonTest.get())
-
         getByName("androidDeviceTest") {
-//            dependsOn(commonTest.get())
             dependencies {
-                implementation(libs.kotlin.test)
-                implementation(libs.androidx.test.ext)
-                implementation(libs.androidx.test.espresso)
-                implementation("androidx.test:runner:1.7.0")
                 implementation(libs.androidx.compose.ui.testManifest)
             }
         }
