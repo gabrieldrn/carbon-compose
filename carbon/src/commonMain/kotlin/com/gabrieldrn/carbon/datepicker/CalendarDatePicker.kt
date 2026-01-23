@@ -211,7 +211,6 @@ public fun CalendarDatePicker(
                     onClick = { onExpandedChange(true) }
                 )
             },
-            stateIcon = {},
             popup = {
                 if (expanded) {
                     Popup(
