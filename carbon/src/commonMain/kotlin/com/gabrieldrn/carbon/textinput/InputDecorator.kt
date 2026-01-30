@@ -135,6 +135,7 @@ internal fun inputDecorator(
             }
         }
 
+
         if (helperText.isNotEmpty()) {
             BasicText(
                 text = helperText,
@@ -156,8 +157,7 @@ internal fun Modifier.fieldBackground(
     val borderColor by colors.fieldBorderColor(state = state)
     drawBehind {
         drawRect(backgroundColor)
-        drawRect(borderColor, topLeft = Offset.Zero.copy(y = size.height - 1.dp.toPx())
-        )
+        drawRect(borderColor, topLeft = Offset.Zero.copy(y = size.height - 1.dp.toPx()))
     }
 }
 
