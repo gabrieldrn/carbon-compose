@@ -13,8 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.gabrieldrn.carbon.datepicker
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.BasicTextField
@@ -27,6 +29,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusEvent
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.Role
@@ -43,6 +46,8 @@ import androidx.compose.ui.window.PopupPositionProvider
 import androidx.compose.ui.window.PopupProperties
 import com.gabrieldrn.carbon.Carbon
 import com.gabrieldrn.carbon.common.semantics.readOnly
+import com.gabrieldrn.carbon.icons.WarningAltFilledIcon
+import com.gabrieldrn.carbon.icons.WarningFilledIcon
 import com.gabrieldrn.carbon.icons.calendarIcon
 import com.gabrieldrn.carbon.textinput.ClickableTrailingIcon
 import com.gabrieldrn.carbon.textinput.TextInputColors
@@ -58,55 +63,6 @@ import kotlinx.datetime.plusMonth
 import kotlinx.datetime.plusYear
 import kotlinx.datetime.yearMonth
 
-/**
- * # Date picker - Calendar - Single date
- *
- * Calendar pickers default to showing today’s date when opened and only one month is shown at a
- * time. Calendar pickers allow users to navigate through months and years, however they work best
- * when used for recent or near future dates. If a user needs to input a far distant or future date
- * consider having the calendar default open to a more convenient day.
- *
- * ## About the variant
- * In a single date picker a user has the option to either manually input a date in the text field
- * or select one specific date from the menu calendar. It requires a day, month, and year to be
- * selected.
- *
- * ## Compose implementation
- * This composable uses [kotlinx.datetime](https://github.com/Kotlin/kotlinx-datetime) for date
- * handling and formatting.
- *
- * (From [Date picker documentation](https://carbondesignsystem.com/components/date-picker/usage/#calendar-pickers))
- *
- * @param datePickerState A [CalendarDatePickerState] that is used to control the state of the
- * date picker.
- * @param label Text that informs the user about the content they need to type in the field.
- * @param value The input [String] text to be shown in the text input.
- * @param expanded Whether the calendar menu is currently expanded.
- * @param onValueChange Callback triggered when the input service updates the text. An updated text
- * comes as a parameter of the callback.
- * @param onExpandedChange Callback triggered when the expanded state of the calendar menu should be
- * changed.
- * @param onDismissRequest Callback triggered when the calendar menu should be dismissed.
- * @param modifier Optional [Modifier] for this text input.
- * @param placeholderText Optional text that provides hints or examples of what to type.
- * @param helperText Optional helper text is pertinent information that assists the user in
- * correctly completing a field. It is often used to explain the correct data format.
- * @param inputState The interactive state of the text input.
- * @param keyboardOptions Software keyboard options that contains configuration such as
- * [androidx.compose.ui.text.input.KeyboardType] and [androidx.compose.ui.text.input.ImeAction].
- * @param keyboardActions when the input service emits an IME action, the corresponding callback
- * is called. Note that this IME action may be different from what you specified in
- * [KeyboardOptions.imeAction].
- * @param dayOfWeekNames Object providing the names of the days of the week to be displayed in the
- * calendar.
- * @param yearFormat The [DateTimeFormat] used to format the displayed year in the calendar.
- * @param monthFormat The [DateTimeFormat] used to format the displayed month in the calendar.
- * @param interactionSource The [MutableInteractionSource] representing the stream of
- * [androidx.compose.foundation.interaction.Interaction]s for this TextField. You can create and
- * pass in your own remembered [MutableInteractionSource] if you want to observe
- * [androidx.compose.foundation.interaction.Interaction]s and customize the appearance / behavior of
- * this TextField in different [androidx.compose.foundation.interaction.Interaction]s.
- */
 @Composable
 public fun CalendarDatePicker(
     datePickerState: CalendarDatePickerState,
@@ -123,9 +79,7 @@ public fun CalendarDatePicker(
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
     dayOfWeekNames: DayOfWeekNames = DayOfWeekNames.ENGLISH_ABBREVIATED,
-    yearFormat: DateTimeFormat<YearMonth> = YearMonth.Format {
-        year()
-    },
+    yearFormat: DateTimeFormat<YearMonth> = YearMonth.Format { year() },
     monthFormat: DateTimeFormat<YearMonth> = YearMonth.Format {
         monthName(MonthNames.ENGLISH_FULL)
     },
@@ -143,7 +97,9 @@ public fun CalendarDatePicker(
     }
 
     var calendarYearMonth by remember(datePickerState.selectedDate) {
-        mutableStateOf((datePickerState.selectedDate ?: datePickerState.today).yearMonth)
+        mutableStateOf(
+            (datePickerState.selectedDate ?: datePickerState.today).yearMonth
+        )
     }
 
     val calendar = remember(calendarYearMonth) {
@@ -161,19 +117,19 @@ public fun CalendarDatePicker(
                     TextInputState.Enabled,
                     TextInputState.Warning,
                     TextInputState.Error -> Modifier
-                        .onFocusEvent {
-                            onExpandedChange(it.isFocused)
-                        }
+                        .onFocusEvent { onExpandedChange(it.isFocused) }
                         .semantics(mergeDescendants = true) {
                             requestFocus {
                                 onExpandedChange(true)
                                 true
                             }
                         }
+
                     TextInputState.Disabled -> Modifier.semantics {
                         role = Role.ValuePicker
                         disabled()
                     }
+
                     TextInputState.ReadOnly -> Modifier.readOnly(
                         role = Role.ValuePicker,
                         interactionSource = interactionSource,
@@ -191,6 +147,7 @@ public fun CalendarDatePicker(
         minLines = 1,
         interactionSource = interactionSource,
         cursorBrush = SolidColor(colors.fieldTextColor(state = inputState).value),
+
         decorationBox = inputDecorator(
             label = label,
             value = value,
@@ -203,15 +160,33 @@ public fun CalendarDatePicker(
             interactionSource = interactionSource,
             counter = null,
 
-            // Calendar icon is shown ONLY in Enabled state.
-            // Warning/Error icons are handled internally by inputDecorator.
-            trailingIcon = {
-                if (inputState == TextInputState.Enabled) {
-                    ClickableTrailingIcon(
+            trailingIcon = null,
+
+            stateIcon = {
+                when (inputState) {
+
+                    TextInputState.Error -> WarningFilledIcon(
+                        modifier = Modifier
+                            .testTag("CalendarDatePickerErrorIcon")
+                            .clickable { onExpandedChange(true) },
+                        tint = Carbon.theme.supportError
+                    )
+
+                    TextInputState.Warning -> WarningAltFilledIcon(
+                        modifier = Modifier
+                            .testTag("CalendarDatePickerWarningIcon")
+                            .clickable { onExpandedChange(true) },
+                        tint = Carbon.theme.supportWarning,
+                        innerTint = Color.Black
+                    )
+
+                    TextInputState.Enabled -> ClickableTrailingIcon(
                         icon = calendarIcon,
                         isEnabled = true,
                         onClick = { onExpandedChange(true) }
                     )
+
+                    else -> {}
                 }
             },
 
