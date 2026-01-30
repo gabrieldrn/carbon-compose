@@ -148,9 +148,7 @@ public fun CalendarDatePicker(
     }
 
     var calendarYearMonth by remember(datePickerState.selectedDate) {
-        mutableStateOf(
-            (datePickerState.selectedDate ?: datePickerState.today).yearMonth
-        )
+        mutableStateOf((datePickerState.selectedDate ?: datePickerState.today).yearMonth)
     }
 
     val calendar = remember(calendarYearMonth) {

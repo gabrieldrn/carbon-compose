@@ -156,9 +156,7 @@ internal fun Modifier.fieldBackground(
     val borderColor by colors.fieldBorderColor(state = state)
     drawBehind {
         drawRect(backgroundColor)
-        drawRect(
-            borderColor,
-            topLeft = Offset.Zero.copy(y = size.height - 1.dp.toPx())
+        drawRect(borderColor, topLeft = Offset.Zero.copy(y = size.height - 1.dp.toPx())
         )
     }
 }
@@ -169,7 +167,7 @@ internal fun Modifier.errorOutline(
 ) = this then drawBehind {
     if (state == TextInputState.Error) {
         val outlineWidth = SpacingScale.spacing01.toPx()
-        val outlineHalfWidth = outlineWidth * 0.5f
+        val outlineHalfWidth = outlineWidth * .5f
         drawRect(
             color = theme.supportError,
             style = Stroke(outlineWidth),
