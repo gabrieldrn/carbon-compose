@@ -24,8 +24,8 @@ include(
     ":catalog",
     ":catalog-android",
     ":carbon",
-    ":carbon:common",
-    ":carbon:test",
+    ":carbon-common",
+    ":carbon-test",
     ":code-gen",
     "doc-parser",
 )

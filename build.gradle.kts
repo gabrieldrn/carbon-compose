@@ -46,6 +46,6 @@ dokka {
 
 dependencies {
     dokka(project(":carbon"))
-    dokka(project(":carbon:common"))
-    dokka(project(":carbon:test"))
+    dokka(project(":carbon-common"))
+    dokka(project(":carbon-test"))
 }
