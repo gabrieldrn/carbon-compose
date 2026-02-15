@@ -5,6 +5,12 @@ Thank you for considering contributing to Carbon Compose! Before you start, plea
 By participating in this project, you agree to abide by the [Code of Conduct](https://github.com/gabrieldrn/carbon-compose/blob/main/CODE_OF_CONDUCT.md). Please be respectful to others and help create a positive environment.
 
 ## How to Contribute
+
+### Requirements
+- All code must be written and/or thoroughly validated by human contributors.
+- Automated/AI-generated/AI-managed PRs without human validation will be closed.
+- Contributors must be able to discuss and iterate on their implementations.
+
 ### Reporting Bugs
 If you find a bug, please report it by opening a new issue. When reporting a bug, please provide as much detail as possible:
 
