@@ -110,7 +110,7 @@ jobs:
         uses: github/codeql-action/upload-sarif@v3
         if: success() || failure()
         with:
-          sarif_file: carbon/common/build/reports/detekt/detekt.sarif
+          sarif_file: carbon-common/build/reports/detekt/detekt.sarif
 
   lib-test-static-analysis:
     name: Static code analysis - :carbon-test
@@ -142,7 +142,7 @@ jobs:
         uses: github/codeql-action/upload-sarif@v3
         if: success() || failure()
         with:
-          sarif_file: carbon/test/build/reports/detekt/detekt.sarif
+          sarif_file: carbon-test/build/reports/detekt/detekt.sarif
 
   catalog-static-analysis:
     name: Static code analysis - :catalog
