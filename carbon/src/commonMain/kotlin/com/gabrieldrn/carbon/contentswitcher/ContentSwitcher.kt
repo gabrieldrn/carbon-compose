@@ -63,6 +63,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
@@ -358,6 +359,7 @@ private fun <T : Any> ContentSwitcherButton(
                             style = Carbon.typography.bodyCompact01,
                             color = { contentColor },
                             maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .align(Alignment.CenterStart)
