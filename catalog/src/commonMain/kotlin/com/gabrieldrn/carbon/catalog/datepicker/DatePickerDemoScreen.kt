@@ -23,6 +23,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -36,12 +37,15 @@ import com.gabrieldrn.carbon.catalog.ic_checkmark_filled
 import com.gabrieldrn.carbon.catalog.ic_unknown_filled
 import com.gabrieldrn.carbon.catalog.ic_warning_filled
 import com.gabrieldrn.carbon.datepicker.CalendarDatePicker
+import com.gabrieldrn.carbon.datepicker.SimpleDateInput
 import com.gabrieldrn.carbon.datepicker.rememberCalendarDatePickerState
+import com.gabrieldrn.carbon.datepicker.rememberSimpleDateInputState
 import com.gabrieldrn.carbon.dropdown.Dropdown
 import com.gabrieldrn.carbon.dropdown.base.toDropdownOptions
 import com.gabrieldrn.carbon.foundation.color.CarbonLayer
 import com.gabrieldrn.carbon.foundation.color.layerBackground
 import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
+import com.gabrieldrn.carbon.tab.TabItem
 import com.gabrieldrn.carbon.tag.ReadOnlyTag
 import com.gabrieldrn.carbon.tag.TagSize
 import com.gabrieldrn.carbon.tag.TagType
@@ -56,7 +60,23 @@ import org.jetbrains.compose.resources.painterResource
 import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
 
+enum class DatePickerVariant(val label: String) {
+    DateInput("Date input"),
+    CalendarDatePicker("Calendar date picker");
+
+    companion object {
+        fun fromLabel(label: String) = DatePickerVariant.entries.first { it.label == label }
+    }
+}
+
+private val variants = DatePickerVariant.entries.map { TabItem(it.label) }
+
 private val textInputStateOptions = TextInputState.entries.toDropdownOptions()
+
+private val today = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date
+
+private val dateFormat =
+    LocalDate.Format { year(); char('/'); monthNumber(); char('/'); day() }
 
 @OptIn(ExperimentalTime::class)
 @Composable
@@ -65,27 +85,6 @@ fun DatePickerDemoScreen(
 ) {
     var isExpanded by remember { mutableStateOf(false) }
     var isFieldValid by remember { mutableStateOf<Boolean?>(null) }
-
-    val dateFormat = remember {
-        LocalDate.Format {
-            year(); char('/'); monthNumber(); char('/'); day()
-        }
-    }
-
-    val today = remember {
-        Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date
-    }
-
-    val pickerState = rememberCalendarDatePickerState(
-        today = today,
-        dateFormat = dateFormat,
-        selectableDates = { it != today.plus(1, DateTimeUnit.DAY) },
-        onFieldValidation = remember { { isFieldValid = it } }
-    )
-
-    var fieldValue by remember {
-        mutableStateOf(pickerState.selectedDate?.let(dateFormat::format) ?: "")
-    }
 
     var inputState by remember { mutableStateOf(TextInputState.Enabled) }
 
@@ -98,21 +97,98 @@ fun DatePickerDemoScreen(
     }
 
     DemoScreen(
-        demoContent = {
-            CalendarDatePicker(
-                datePickerState = pickerState,
-                label = "Label",
-                value = fieldValue,
-                expanded = isExpanded,
-                placeholderText = "yyyy/mm/dd",
-                helperText = "year/month/day",
-                inputState = effectiveInputState,
-                onValueChange = { fieldValue = it },
-                onExpandedChange = { isExpanded = it },
-                onDismissRequest = { isExpanded = false },
-            )
+        variants = variants,
+        demoContent = { tab ->
+            val variant = DatePickerVariant.fromLabel(tab.label)
+
+            LaunchedEffect(variant) {
+                inputState = TextInputState.Enabled
+                isFieldValid = null
+            }
+
+            when (variant) {
+                DatePickerVariant.DateInput -> {
+                    val state = rememberSimpleDateInputState(
+                        dateFormat = dateFormat,
+                        onFieldValidation = remember { { isFieldValid = it } }
+                    )
+
+                    var fieldValue by remember {
+                        mutableStateOf(
+                            state
+                                .selectedDate
+                                ?.let(dateFormat::format)
+                                ?: ""
+                        )
+                    }
+
+                    SimpleDateInput(
+                        state = state,
+                        label = "Label",
+                        placeholderText = "yyyy/mm/dd",
+                        helperText = "year/month/day",
+                        value = fieldValue,
+                        inputState = effectiveInputState,
+                        onValueChange = { fieldValue = it },
+                        modifier = Modifier.padding(vertical = SpacingScale.spacing07)
+                    )
+
+                    CarbonLayer {
+                        FieldDebugSection(
+                            isFieldValid = isFieldValid,
+                            inputValue = state.selectedDate.toString().uppercase(),
+                            modifier = Modifier.padding(top = SpacingScale.spacing05)
+                        )
+                    }
+                }
+                DatePickerVariant.CalendarDatePicker -> {
+                    LaunchedEffect(variant) {
+                        isExpanded = false
+                    }
+
+                    val state = rememberCalendarDatePickerState(
+                        today = today,
+                        dateFormat = dateFormat,
+                        selectableDates = { it != today.plus(1, DateTimeUnit.DAY) },
+                        onFieldValidation = remember { { isFieldValid = it } }
+                    )
+
+                    var fieldValue by remember {
+                        mutableStateOf(
+                            state
+                                .selectedDate
+                                ?.let(dateFormat::format)
+                                ?: ""
+                        )
+                    }
+
+                    CalendarDatePicker(
+                        datePickerState = state,
+                        label = "Label",
+                        value = fieldValue,
+                        expanded = isExpanded,
+                        placeholderText = "yyyy/mm/dd",
+                        helperText = "year/month/day",
+                        inputState = effectiveInputState,
+                        onValueChange = { fieldValue = it },
+                        onExpandedChange = { isExpanded = it },
+                        onDismissRequest = { isExpanded = false },
+                        modifier = Modifier.padding(vertical = SpacingScale.spacing07)
+                    )
+
+                    CarbonLayer {
+                        FieldDebugSection(
+                            isFieldValid = isFieldValid,
+                            inputValue = state.selectedDate.toString().uppercase(),
+                            modifier = Modifier.padding(top = SpacingScale.spacing05)
+                        )
+                    }
+                }
+            }
         },
-        demoParametersContent = {
+        demoParametersContent = { tab ->
+            val variant = DatePickerVariant.fromLabel(tab.label)
+
             Dropdown(
                 label = "Input state",
                 placeholder = "Choose an option",
@@ -125,59 +201,64 @@ fun DatePickerDemoScreen(
                 text = "Picker state data",
                 style = Carbon.typography.heading01.copy(color = Carbon.theme.textPrimary),
             )
-
-            CarbonLayer {
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .layerBackground()
-                        .padding(SpacingScale.spacing05),
-                    verticalArrangement = Arrangement.spacedBy(SpacingScale.spacing03)
-                ) {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        BasicText(
-                            text = "Latest field validation event",
-                            style = Carbon.typography.body01.copy(color = Carbon.theme.textHelper),
-                            modifier = Modifier.padding(end = SpacingScale.spacing03)
-                        )
-
-                        when (isFieldValid) {
-                            true -> ReadOnlyTag(
-                                text = "OK",
-                                type = TagType.Green,
-                                icon = { painterResource(Res.drawable.ic_checkmark_filled) },
-                                size = TagSize.Small
-                            )
-                            false -> ReadOnlyTag(
-                                text = "ERROR",
-                                type = TagType.Red,
-                                icon = { painterResource(Res.drawable.ic_warning_filled) },
-                                size = TagSize.Small
-                            )
-                            null -> ReadOnlyTag(
-                                text = "EMPTY",
-                                type = TagType.Gray,
-                                icon = { painterResource(Res.drawable.ic_unknown_filled) },
-                                size = TagSize.Small
-                            )
-                        }
-                    }
-
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        BasicText(
-                            text = "Selected date",
-                            style = Carbon.typography.body01.copy(color = Carbon.theme.textHelper),
-                            modifier = Modifier.padding(end = SpacingScale.spacing03)
-                        )
-
-                        BasicText(
-                            text = pickerState.selectedDate.toString().uppercase(),
-                            style = Carbon.typography.code02.copy(color = Carbon.theme.textPrimary)
-                        )
-                    }
-                }
-            }
         },
         modifier = modifier
     )
+}
+
+@Composable
+private fun FieldDebugSection(
+    isFieldValid: Boolean?,
+    inputValue: String,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = modifier
+            .fillMaxWidth()
+            .layerBackground()
+            .padding(SpacingScale.spacing05),
+        verticalArrangement = Arrangement.spacedBy(SpacingScale.spacing03)
+    ) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            BasicText(
+                text = "Latest field validation event",
+                style = Carbon.typography.body01.copy(color = Carbon.theme.textHelper),
+                modifier = Modifier.padding(end = SpacingScale.spacing03)
+            )
+
+            when (isFieldValid) {
+                true -> ReadOnlyTag(
+                    text = "OK",
+                    type = TagType.Green,
+                    icon = { painterResource(Res.drawable.ic_checkmark_filled) },
+                    size = TagSize.Small
+                )
+                false -> ReadOnlyTag(
+                    text = "ERROR",
+                    type = TagType.Red,
+                    icon = { painterResource(Res.drawable.ic_warning_filled) },
+                    size = TagSize.Small
+                )
+                null -> ReadOnlyTag(
+                    text = "EMPTY",
+                    type = TagType.Gray,
+                    icon = { painterResource(Res.drawable.ic_unknown_filled) },
+                    size = TagSize.Small
+                )
+            }
+        }
+
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            BasicText(
+                text = "Selected date",
+                style = Carbon.typography.body01.copy(color = Carbon.theme.textHelper),
+                modifier = Modifier.padding(end = SpacingScale.spacing03)
+            )
+
+            BasicText(
+                text = inputValue,
+                style = Carbon.typography.code02.copy(color = Carbon.theme.textPrimary)
+            )
+        }
+    }
 }
