@@ -186,9 +186,7 @@ fun DatePickerDemoScreen(
                 }
             }
         },
-        demoParametersContent = { tab ->
-            val variant = DatePickerVariant.fromLabel(tab.label)
-
+        demoParametersContent = {
             Dropdown(
                 label = "Input state",
                 placeholder = "Choose an option",
