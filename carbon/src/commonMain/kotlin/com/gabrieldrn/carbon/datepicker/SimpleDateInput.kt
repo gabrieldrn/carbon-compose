@@ -39,7 +39,6 @@ import com.gabrieldrn.carbon.textinput.TextInputColors
 import com.gabrieldrn.carbon.textinput.TextInputState
 import com.gabrieldrn.carbon.textinput.inputDecorator
 
-// TODO Tests
 /**
  * # Date picker - Simple
  *
