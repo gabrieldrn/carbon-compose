@@ -18,7 +18,7 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            api(project(":carbon:common"))
+            api(project(":carbon-common"))
             implementation(libs.compose.foundation)
             implementation(libs.compose.uiTest)
         }
