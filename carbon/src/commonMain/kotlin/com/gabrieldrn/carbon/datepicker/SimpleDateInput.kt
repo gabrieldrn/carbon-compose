@@ -39,6 +39,47 @@ import com.gabrieldrn.carbon.textinput.TextInputColors
 import com.gabrieldrn.carbon.textinput.TextInputState
 import com.gabrieldrn.carbon.textinput.inputDecorator
 
+// TODO Tests
+/**
+ * # Date picker - Simple
+ *
+ * Simple date inputs allow users to type a specific date directly into a text field. Unlike the
+ * calendar date picker, this variant has no calendar menu popup. The placeholder text should
+ * indicate the expected date format to guide the user.
+ *
+ * ## Compose implementation
+ * The component delegates date parsing and formatting to [SimpleDateInputState], which can be
+ * created with [rememberSimpleDateInputState]. Use the [inputState] parameter to reflect
+ * validation results (e.g. [com.gabrieldrn.carbon.textinput.TextInputState.Error]) after
+ * checking the validity callback passed to [rememberSimpleDateInputState].
+ *
+ * (From [Date picker documentation](https://carbondesignsystem.com/components/date-picker/usage/#simple-date-input))
+ *
+ * @param state A [SimpleDateInputState] that controls this component, holding the currently
+ * selected date and the logic to parse typed input.
+ * @param label Text that informs the user about the content they need to type in the field.
+ * @param value The input [String] text to be shown in the text field.
+ * @param onValueChange Callback triggered when the input service updates the text. The updated
+ * text is passed as a parameter.
+ * @param modifier Optional [Modifier] for this component.
+ * @param placeholderText Optional hint text displayed when the field is empty, typically used to
+ * convey the expected date format (e.g. `"mm/dd/yyyy"`).
+ * @param helperText Optional helper text displayed below the field to assist the user in entering
+ * the correct date format.
+ * @param inputState The interactive state of the text field, such as
+ * [com.gabrieldrn.carbon.textinput.TextInputState.Enabled],
+ * [com.gabrieldrn.carbon.textinput.TextInputState.Error], or
+ * [com.gabrieldrn.carbon.textinput.TextInputState.Disabled].
+ * @param keyboardOptions Software keyboard options that contain configuration such as
+ * [androidx.compose.ui.text.input.KeyboardType] and [androidx.compose.ui.text.input.ImeAction].
+ * @param keyboardActions When the input service emits an IME action, the corresponding callback
+ * is called. Note that this IME action may be different from what you specified in
+ * [KeyboardOptions.imeAction].
+ * @param interactionSource The [MutableInteractionSource] representing the stream of
+ * [androidx.compose.foundation.interaction.Interaction]s for this text field. You can create and
+ * pass in your own remembered [MutableInteractionSource] if you want to observe interactions and
+ * customize the appearance or behavior of this field in different interaction states.
+ */
 @Composable
 public fun SimpleDateInput(
     state: SimpleDateInputState,

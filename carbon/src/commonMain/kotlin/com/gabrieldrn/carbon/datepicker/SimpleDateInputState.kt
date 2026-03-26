@@ -29,6 +29,13 @@ import kotlinx.datetime.LocalDate
 import kotlinx.datetime.format.DateTimeFormat
 import kotlinx.datetime.format.char
 
+/**
+ * A state holder for [SimpleDateInput] that manages the currently selected date and synchronizes
+ * it with the text field value.
+ *
+ * Use [rememberSimpleDateInputState] to create an instance that survives recompositions and
+ * configuration changes.
+ */
 @Stable
 public interface SimpleDateInputState {
 
@@ -55,6 +62,17 @@ public interface SimpleDateInputState {
     public fun updateFieldValue(newValue: String)
 }
 
+/**
+ * Creates a [SimpleDateInputState] that is remembered across compositions.
+ *
+ * @param initialSelectedDate The initial [LocalDate] to be selected, or `null` if no date is
+ * selected.
+ * @param dateFormat The [DateTimeFormat] used to parse typed input and format the date when
+ * [SimpleDateInputState.selectedDate] is set programmatically. Defaults to `MM/yyyy`.
+ * @param onFieldValidation Callback invoked whenever the state attempts to parse typed input or
+ * to format [SimpleDateInputState.selectedDate]. Receives `true` when parsing or formatting
+ * succeeds, `false` when it fails, or `null` when the field is empty.
+ */
 @Composable
 public fun rememberSimpleDateInputState(
     initialSelectedDate: LocalDate? = null,
