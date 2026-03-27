@@ -224,8 +224,30 @@ public final class com/gabrieldrn/carbon/datepicker/ComposableSingletons$Calenda
 	public final fun getLambda$1047216223$carbon ()Lkotlin/jvm/functions/Function2;
 }
 
+public final class com/gabrieldrn/carbon/datepicker/ComposableSingletons$SimpleDateInputKt {
+	public static final field INSTANCE Lcom/gabrieldrn/carbon/datepicker/ComposableSingletons$SimpleDateInputKt;
+	public fun <init> ()V
+	public final fun getLambda$-1467816081$carbon ()Lkotlin/jvm/functions/Function2;
+}
+
 public abstract interface class com/gabrieldrn/carbon/datepicker/SelectableDates {
 	public abstract fun isSelectable (Lkotlinx/datetime/LocalDate;)Z
+}
+
+public final class com/gabrieldrn/carbon/datepicker/SimpleDateInputKt {
+	public static final fun SimpleDateInput (Lcom/gabrieldrn/carbon/datepicker/SimpleDateInputState;Ljava/lang/String;Ljava/lang/String;Lkotlin/jvm/functions/Function1;Landroidx/compose/ui/Modifier;Ljava/lang/String;Ljava/lang/String;Lcom/gabrieldrn/carbon/textinput/TextInputState;Landroidx/compose/foundation/text/KeyboardOptions;Landroidx/compose/foundation/text/KeyboardActions;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;III)V
+}
+
+public abstract interface class com/gabrieldrn/carbon/datepicker/SimpleDateInputState {
+	public abstract fun getSelectedDate ()Lkotlinx/datetime/LocalDate;
+	public abstract fun getUpdateFieldCallback ()Lkotlin/jvm/functions/Function1;
+	public abstract fun setSelectedDate (Lkotlinx/datetime/LocalDate;)V
+	public abstract fun setUpdateFieldCallback (Lkotlin/jvm/functions/Function1;)V
+	public abstract fun updateFieldValue (Ljava/lang/String;)V
+}
+
+public final class com/gabrieldrn/carbon/datepicker/SimpleDateInputStateKt {
+	public static final fun rememberSimpleDateInputState (Lkotlinx/datetime/LocalDate;Lkotlinx/datetime/format/DateTimeFormat;Lkotlin/jvm/functions/Function1;Landroidx/compose/runtime/Composer;II)Lcom/gabrieldrn/carbon/datepicker/SimpleDateInputState;
 }
 
 public final class com/gabrieldrn/carbon/dropdown/DropdownKt {
