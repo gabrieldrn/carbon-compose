@@ -47,13 +47,19 @@ import com.gabrieldrn.carbon.textinput.inputDecorator
  * indicate the expected date format to guide the user.
  *
  * ## Compose implementation
- * The component delegates date parsing and formatting to [SimpleDateInputState], which can be
- * created with [rememberSimpleDateInputState]. Use the [inputState] parameter to reflect
- * validation results (e.g. [com.gabrieldrn.carbon.textinput.TextInputState.Error]) after
- * checking the validity callback passed to [rememberSimpleDateInputState].
+ * The component delegates date parsing and formatting to a [SimpleDateInputState]. Carbon offers
+ * two implementations of this state:
+ * - [rememberMemorableSimpleDateInputState] for precise dates (day, month and year).
+ * - [rememberApproximateSimpleDateInputState] for approximate dates (month and year only).
+ * Use the [inputState] parameter to reflect validation results
+ * (e.g. [com.gabrieldrn.carbon.textinput.TextInputState.Error]) after checking the validity
+ * callback passed to the remember* function.
  *
  * (From [Date picker documentation](https://carbondesignsystem.com/components/date-picker/usage/#simple-date-input))
  *
+ * @param T Date data type, determined by [SimpleDateInputState]. Most common types usually come
+ * from `kotlinx.datetime`: [kotlinx.datetime.LocalDate] for "memorable" dates, and
+ * [kotlinx.datetime.YearMonth] for approximate ones.
  * @param state A [SimpleDateInputState] that controls this component, holding the currently
  * selected date and the logic to parse typed input.
  * @param label Text that informs the user about the content they need to type in the field.
@@ -80,8 +86,8 @@ import com.gabrieldrn.carbon.textinput.inputDecorator
  * customize the appearance or behavior of this field in different interaction states.
  */
 @Composable
-public fun SimpleDateInput(
-    state: SimpleDateInputState,
+public fun <T> SimpleDateInput(
+    state: SimpleDateInputState<T>,
     label: String,
     value: String,
     onValueChange: (String) -> Unit,
@@ -110,7 +116,7 @@ public fun SimpleDateInput(
         modifier = modifier
             .then(
                 when (inputState) {
-                    TextInputState.Disabled -> Modifier.semantics {
+                    TextInputState.Disabled -> Modifier.semantics(mergeDescendants = true) {
                         role = Role.ValuePicker
                         disabled()
                     }
@@ -157,7 +163,7 @@ private fun SimpleDateInputPreview() {
         var value by remember { mutableStateOf("") }
 
         SimpleDateInput(
-            state = rememberSimpleDateInputState(),
+            state = rememberMemorableSimpleDateInputState(),
             label = "Date input",
             placeholderText = "mm/yyyy",
             value = value,
