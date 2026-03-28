@@ -137,7 +137,7 @@ public fun <T> SimpleDateInput(
         maxLines = 1,
         minLines = 1,
         interactionSource = interactionSource,
-        cursorBrush = SolidColor(colors.fieldTextColor(state = inputState).value),
+        cursorBrush = SolidColor(fieldTextColor),
         decorationBox = inputDecorator(
             label = label,
             value = value,
