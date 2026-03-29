@@ -35,6 +35,7 @@ import androidx.compose.ui.semantics.disabled
 import androidx.compose.ui.semantics.requestFocus
 import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.IntRect
 import androidx.compose.ui.unit.IntSize
@@ -43,21 +44,15 @@ import androidx.compose.ui.window.Popup
 import androidx.compose.ui.window.PopupPositionProvider
 import androidx.compose.ui.window.PopupProperties
 import com.gabrieldrn.carbon.Carbon
+import com.gabrieldrn.carbon.CarbonDesignSystem
 import com.gabrieldrn.carbon.common.semantics.readOnly
 import com.gabrieldrn.carbon.icons.calendarIcon
 import com.gabrieldrn.carbon.textinput.ClickableTrailingIcon
 import com.gabrieldrn.carbon.textinput.TextInputColors
 import com.gabrieldrn.carbon.textinput.TextInputState
 import com.gabrieldrn.carbon.textinput.inputDecorator
-import kotlinx.datetime.YearMonth
-import kotlinx.datetime.format.DateTimeFormat
+import kotlinx.datetime.LocalDate
 import kotlinx.datetime.format.DayOfWeekNames
-import kotlinx.datetime.format.MonthNames
-import kotlinx.datetime.minusMonth
-import kotlinx.datetime.minusYear
-import kotlinx.datetime.plusMonth
-import kotlinx.datetime.plusYear
-import kotlinx.datetime.yearMonth
 
 /**
  * # Date picker - Calendar - Single date
@@ -73,11 +68,14 @@ import kotlinx.datetime.yearMonth
  * selected.
  *
  * ## Compose implementation
- * This composable uses [kotlinx.datetime](https://github.com/Kotlin/kotlinx-datetime) for date
- * handling and formatting.
+ * This composable delegates date parsing and formatting to a [CalendarDatePickerState] that also
+ * manage the displayed month in a popup.
+ * A default implementation of this state object is available with
+ * [rememberCalendarDatePickerState], using date data types from [kotlinx.datetime].
  *
  * (From [Date picker documentation](https://carbondesignsystem.com/components/date-picker/usage/#calendar-pickers))
  *
+ * @param T Date data type, determined by [CalendarDatePickerState].
  * @param datePickerState A [CalendarDatePickerState] that is used to control the state of the
  * date picker.
  * @param label Text that informs the user about the content they need to type in the field.
@@ -100,8 +98,6 @@ import kotlinx.datetime.yearMonth
  * [KeyboardOptions.imeAction].
  * @param dayOfWeekNames Object providing the names of the days of the week to be displayed in the
  * calendar.
- * @param yearFormat The [DateTimeFormat] used to format the displayed year in the calendar.
- * @param monthFormat The [DateTimeFormat] used to format the displayed month in the calendar.
  * @param interactionSource The [MutableInteractionSource] representing the stream of
  * [androidx.compose.foundation.interaction.Interaction]s for this TextField. You can create and
  * pass in your own remembered [MutableInteractionSource] if you want to observe
@@ -109,8 +105,8 @@ import kotlinx.datetime.yearMonth
  * this TextField in different [androidx.compose.foundation.interaction.Interaction]s.
  */
 @Composable
-public fun CalendarDatePicker(
-    datePickerState: CalendarDatePickerState,
+public fun <T> CalendarDatePicker(
+    datePickerState: CalendarDatePickerState<T>,
     label: String,
     value: String,
     expanded: Boolean,
@@ -124,12 +120,6 @@ public fun CalendarDatePicker(
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
     dayOfWeekNames: DayOfWeekNames = DayOfWeekNames.ENGLISH_ABBREVIATED,
-    yearFormat: DateTimeFormat<YearMonth> = YearMonth.Format {
-        year()
-    },
-    monthFormat: DateTimeFormat<YearMonth> = YearMonth.Format {
-        monthName(MonthNames.ENGLISH_FULL)
-    },
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 ) {
     val theme = Carbon.theme
@@ -141,14 +131,6 @@ public fun CalendarDatePicker(
     val fieldTextColor by colors.fieldTextColor(state = inputState)
     val fieldTextStyle by remember(fieldTextColor) {
         mutableStateOf(typography.bodyCompact01.copy(color = fieldTextColor))
-    }
-
-    var calendarYearMonth by remember(datePickerState.selectedDate) {
-        mutableStateOf((datePickerState.selectedDate ?: datePickerState.today).yearMonth)
-    }
-
-    val calendar = remember(calendarYearMonth) {
-        getCalendarMenuData(calendarYearMonth)
     }
 
     BasicTextField(
@@ -191,7 +173,7 @@ public fun CalendarDatePicker(
         maxLines = 1,
         minLines = 1,
         interactionSource = interactionSource,
-        cursorBrush = SolidColor(colors.fieldTextColor(state = inputState).value),
+        cursorBrush = SolidColor(fieldTextColor),
         decorationBox = inputDecorator(
             label = label,
             value = value,
@@ -230,27 +212,12 @@ public fun CalendarDatePicker(
                         properties = PopupProperties(focusable = true),
                     ) {
                         CalendarMenu(
-                            calendar = calendar,
                             datePickerState = datePickerState,
                             onDayClicked = {
                                 datePickerState.selectedDate = it
                                 onExpandedChange(false)
                             },
-                            onLoadPreviousMonth = {
-                                calendarYearMonth = calendarYearMonth.minusMonth()
-                            },
-                            onLoadNextMonth = {
-                                calendarYearMonth = calendarYearMonth.plusMonth()
-                            },
-                            onLoadPreviousYear = {
-                                calendarYearMonth = calendarYearMonth.minusYear()
-                            },
-                            onLoadNextYear = {
-                                calendarYearMonth = calendarYearMonth.plusYear()
-                            },
                             dayOfWeekNames = dayOfWeekNames,
-                            yearFormat = yearFormat,
-                            monthFormat = monthFormat,
                             modifier = Modifier
                                 .testTag(CalendarDatePickerTestTags.MENU)
                         )
@@ -259,4 +226,37 @@ public fun CalendarDatePicker(
             }
         )
     )
+}
+
+// region Previews
+
+@Preview
+@Composable
+private fun CalendarDatePickerPreview() {
+    CarbonDesignSystem {
+        val today = LocalDate(2024, 6, 1)
+
+        val datePickerState = rememberCalendarDatePickerState(
+            today = today,
+            initialSelectedDate = today
+        )
+
+        var fieldValue by remember {
+            mutableStateOf(
+                datePickerState.selectedDate
+                    ?.let(datePickerState.dateFormat::format)
+                    ?: ""
+            )
+        }
+
+        CalendarDatePicker(
+            datePickerState = datePickerState,
+            label = "Select a date",
+            value = fieldValue,
+            expanded = false,
+            onValueChange = { fieldValue = it },
+            onExpandedChange = {},
+            onDismissRequest = {}
+        )
+    }
 }

@@ -38,7 +38,7 @@ class CalendarDatePickerStateImplTest {
     fun givenInitialDate_whenStateIsCreated_thenSelectedDateIsInitialized() = runComposeUiTest {
         // Given
         val initialDate = LocalDate(2024, 1, 1)
-        var state: CalendarDatePickerState? = null
+        var state: CalendarDatePickerState<LocalDate>? = null
 
         // When
         setContent {
@@ -56,7 +56,7 @@ class CalendarDatePickerStateImplTest {
     @Test
     fun givenNewDate_whenSelectedDateIsSetAndConfirmed_thenStateIsUpdated() = runComposeUiTest {
         // Given
-        var state: CalendarDatePickerState? = null
+        var state: CalendarDatePickerState<LocalDate>? = null
         setContent {
             state = rememberCalendarDatePickerState(
                 today = today,
@@ -84,7 +84,7 @@ class CalendarDatePickerStateImplTest {
             // Given
             val initialDate = LocalDate(2024, 1, 1)
             val disabledDate = LocalDate(2024, 2, 2)
-            var state: CalendarDatePickerState? = null
+            var state: CalendarDatePickerState<LocalDate>? = null
             setContent {
                 state = rememberCalendarDatePickerState(
                     today = today,
@@ -109,7 +109,7 @@ class CalendarDatePickerStateImplTest {
     @Test
     fun givenNullDate_whenSelectedDateIsSet_thenFieldIsEmpty() = runComposeUiTest {
         // Given
-        var state: CalendarDatePickerState? = null
+        var state: CalendarDatePickerState<LocalDate>? = null
         setContent {
             state = rememberCalendarDatePickerState(
                 today = today,
@@ -136,7 +136,7 @@ class CalendarDatePickerStateImplTest {
         runComposeUiTest {
             // Given
             var validationResult: Boolean? = null
-            var state: CalendarDatePickerState? = null
+            var state: CalendarDatePickerState<LocalDate>? = null
             setContent {
                 state = rememberCalendarDatePickerState(
                     today = today,
@@ -166,7 +166,7 @@ class CalendarDatePickerStateImplTest {
         runComposeUiTest {
             // Given
             var validationResult: Boolean? = null
-            var state: CalendarDatePickerState? = null
+            var state: CalendarDatePickerState<LocalDate>? = null
             setContent {
                 state = rememberCalendarDatePickerState(
                     today = today,
@@ -195,7 +195,7 @@ class CalendarDatePickerStateImplTest {
         runComposeUiTest {
             // Given
             var validationResult: Boolean? = null
-            var state: CalendarDatePickerState? = null
+            var state: CalendarDatePickerState<LocalDate>? = null
             setContent {
                 state = rememberCalendarDatePickerState(
                     today = today,
@@ -224,7 +224,7 @@ class CalendarDatePickerStateImplTest {
         runComposeUiTest {
             // Given
             var validationResult: Boolean? = true // Initialize with non-null
-            var state: CalendarDatePickerState? = null
+            var state: CalendarDatePickerState<LocalDate>? = null
             setContent {
                 state = rememberCalendarDatePickerState(
                     today = today,
