@@ -55,7 +55,7 @@ import kotlin.time.Duration.Companion.seconds
 class CalendarDatePickerMenuTest {
 
     private var adaptation by mutableStateOf(Adaptation.None)
-    lateinit var datePickerState: CalendarDatePickerState
+    lateinit var datePickerState: CalendarDatePickerState<LocalDate>
     private var today by mutableStateOf(LocalDate(2025, 1, 1))
     private var initialSelectedDate: LocalDate? by mutableStateOf(null)
     private var dateFormat by mutableStateOf(
@@ -63,7 +63,7 @@ class CalendarDatePickerMenuTest {
             year(); char('/'); monthNumber(); char('/'); day()
         }
     )
-    private var selectableDates by mutableStateOf(SelectableDates { true })
+    private var selectableDates by mutableStateOf(SelectableDates<LocalDate> { true })
     private var onFieldValidation by mutableStateOf<(Boolean?) -> Unit>({})
     private var onDismissRequest by mutableStateOf({ expanded = false })
     private var expanded by mutableStateOf(false)

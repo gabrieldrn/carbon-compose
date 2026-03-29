@@ -69,7 +69,7 @@ class CalendarDatePickerTest {
     @Test
     fun calendarDatePicker_whenValidDateEntered_validateParsing() = runComposeUiTest {
         var fieldValidationResult: Boolean? = null
-        var datePickerState: CalendarDatePickerState? = null
+        var datePickerState: CalendarDatePickerState<LocalDate>? = null
         var fieldValue by mutableStateOf("")
 
         setContent {
@@ -110,7 +110,7 @@ class CalendarDatePickerTest {
     @Test
     fun calendarDatePicker_whenInvalidDateEntered_validateError() = runComposeUiTest {
         var fieldValidationResult: Boolean? = null
-        var datePickerState: CalendarDatePickerState? = null
+        var datePickerState: CalendarDatePickerState<LocalDate>? = null
         var fieldValue by mutableStateOf("")
 
         setContent {
@@ -160,7 +160,7 @@ class CalendarDatePickerTest {
     @Test
     fun calendarDatePicker_withInitialDate_validateDisplay() = runComposeUiTest {
         val initialDate = LocalDate(2024, 3, 20)
-        var datePickerState: CalendarDatePickerState? = null
+        var datePickerState: CalendarDatePickerState<LocalDate>? = null
         var fieldValue by mutableStateOf("")
 
         setContent {
@@ -218,7 +218,7 @@ class CalendarDatePickerTest {
     @Test
     fun calendarDatePicker_whenConfirmDateChangeReturnsFalse_validateDateNotChanged() = runComposeUiTest {
         val initialDate = LocalDate(2024, 1, 1)
-        var datePickerState: CalendarDatePickerState? = null
+        var datePickerState: CalendarDatePickerState<LocalDate>? = null
         var fieldValue by mutableStateOf("")
 
         setContent {
@@ -255,7 +255,7 @@ class CalendarDatePickerTest {
     @Test
     fun calendarDatePicker_clearDate_validateEmptyField() = runComposeUiTest {
         val initialDate = LocalDate(2024, 5, 10)
-        var datePickerState: CalendarDatePickerState? = null
+        var datePickerState: CalendarDatePickerState<LocalDate>? = null
         var fieldValue by mutableStateOf("")
 
         setContent {

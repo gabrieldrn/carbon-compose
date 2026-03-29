@@ -194,27 +194,55 @@ public final class com/gabrieldrn/carbon/contentswitcher/ContentSwitcherSize : j
 }
 
 public final class com/gabrieldrn/carbon/datepicker/CalendarDatePickerKt {
-	public static final fun CalendarDatePicker (Lcom/gabrieldrn/carbon/datepicker/CalendarDatePickerState;Ljava/lang/String;Ljava/lang/String;ZLkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Ljava/lang/String;Ljava/lang/String;Lcom/gabrieldrn/carbon/textinput/TextInputState;Landroidx/compose/foundation/text/KeyboardOptions;Landroidx/compose/foundation/text/KeyboardActions;Lkotlinx/datetime/format/DayOfWeekNames;Lkotlinx/datetime/format/DateTimeFormat;Lkotlinx/datetime/format/DateTimeFormat;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;III)V
+	public static final fun CalendarDatePicker (Lcom/gabrieldrn/carbon/datepicker/CalendarDatePickerState;Ljava/lang/String;Ljava/lang/String;ZLkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Ljava/lang/String;Ljava/lang/String;Lcom/gabrieldrn/carbon/textinput/TextInputState;Landroidx/compose/foundation/text/KeyboardOptions;Landroidx/compose/foundation/text/KeyboardActions;Lkotlinx/datetime/format/DayOfWeekNames;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;III)V
 }
 
 public abstract interface class com/gabrieldrn/carbon/datepicker/CalendarDatePickerState {
+	public abstract fun getCalendarMenuData ()Landroidx/compose/runtime/State;
+	public abstract fun getDateFormat ()Lkotlinx/datetime/format/DateTimeFormat;
 	public abstract fun getSelectableDates ()Lcom/gabrieldrn/carbon/datepicker/SelectableDates;
-	public abstract fun getSelectedDate ()Lkotlinx/datetime/LocalDate;
-	public abstract fun getToday ()Lkotlinx/datetime/LocalDate;
+	public abstract fun getSelectedDate ()Ljava/lang/Object;
+	public abstract fun getToday ()Ljava/lang/Object;
 	public abstract fun getUpdateFieldCallback ()Lkotlin/jvm/functions/Function1;
-	public abstract fun setSelectedDate (Lkotlinx/datetime/LocalDate;)V
+	public abstract fun onLoadNextMonth ()V
+	public abstract fun onLoadNextYear ()V
+	public abstract fun onLoadPreviousMonth ()V
+	public abstract fun onLoadPreviousYear ()V
+	public abstract fun setSelectedDate (Ljava/lang/Object;)V
 	public abstract fun setUpdateFieldCallback (Lkotlin/jvm/functions/Function1;)V
 	public abstract fun updateFieldValue (Ljava/lang/String;)V
 }
 
 public final class com/gabrieldrn/carbon/datepicker/CalendarDatePickerStateKt {
-	public static final fun rememberCalendarDatePickerState (Lkotlinx/datetime/LocalDate;Lkotlinx/datetime/LocalDate;Lkotlinx/datetime/format/DateTimeFormat;Lcom/gabrieldrn/carbon/datepicker/SelectableDates;Lkotlin/jvm/functions/Function1;Landroidx/compose/runtime/Composer;II)Lcom/gabrieldrn/carbon/datepicker/CalendarDatePickerState;
+	public static final fun rememberCalendarDatePickerState (Lkotlinx/datetime/LocalDate;Lkotlinx/datetime/LocalDate;Lkotlinx/datetime/format/DateTimeFormat;Lkotlinx/datetime/format/DateTimeFormat;Lkotlinx/datetime/format/DateTimeFormat;Lcom/gabrieldrn/carbon/datepicker/SelectableDates;Lkotlin/jvm/functions/Function1;Landroidx/compose/runtime/Composer;II)Lcom/gabrieldrn/carbon/datepicker/CalendarDatePickerState;
+}
+
+public abstract interface class com/gabrieldrn/carbon/datepicker/CalendarMenuData {
+	public abstract fun getDaysMatrix ()Ljava/util/List;
+	public abstract fun getMonthName ()Ljava/lang/String;
+	public abstract fun getYearName ()Ljava/lang/String;
+}
+
+public final class com/gabrieldrn/carbon/datepicker/CalendarMenuData$MonthDay {
+	public static final field $stable I
+	public fun <init> (Ljava/lang/Object;Ljava/lang/String;Z)V
+	public final fun component1 ()Ljava/lang/Object;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Z
+	public final fun copy (Ljava/lang/Object;Ljava/lang/String;Z)Lcom/gabrieldrn/carbon/datepicker/CalendarMenuData$MonthDay;
+	public static synthetic fun copy$default (Lcom/gabrieldrn/carbon/datepicker/CalendarMenuData$MonthDay;Ljava/lang/Object;Ljava/lang/String;ZILjava/lang/Object;)Lcom/gabrieldrn/carbon/datepicker/CalendarMenuData$MonthDay;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getDate ()Ljava/lang/Object;
+	public final fun getDateString ()Ljava/lang/String;
+	public fun hashCode ()I
+	public final fun isOutOfMonth ()Z
+	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/gabrieldrn/carbon/datepicker/ComposableSingletons$CalendarDatePickerKt {
 	public static final field INSTANCE Lcom/gabrieldrn/carbon/datepicker/ComposableSingletons$CalendarDatePickerKt;
 	public fun <init> ()V
-	public final fun getLambda$-1651809882$carbon ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$-1794907931$carbon ()Lkotlin/jvm/functions/Function2;
 }
 
 public final class com/gabrieldrn/carbon/datepicker/ComposableSingletons$CalendarMenuKt {
@@ -231,7 +259,7 @@ public final class com/gabrieldrn/carbon/datepicker/ComposableSingletons$SimpleD
 }
 
 public abstract interface class com/gabrieldrn/carbon/datepicker/SelectableDates {
-	public abstract fun isSelectable (Lkotlinx/datetime/LocalDate;)Z
+	public abstract fun isSelectable (Ljava/lang/Object;)Z
 }
 
 public final class com/gabrieldrn/carbon/datepicker/SimpleDateInputKt {

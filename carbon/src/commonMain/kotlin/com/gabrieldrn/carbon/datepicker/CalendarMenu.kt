@@ -90,47 +90,59 @@ import com.gabrieldrn.carbon.foundation.spacing.SpacingScale
 import com.gabrieldrn.carbon.icons.chevronLeftIcon
 import com.gabrieldrn.carbon.icons.chevronRightIcon
 import kotlinx.datetime.DateTimeUnit
-import kotlinx.datetime.DayOfWeek
 import kotlinx.datetime.LocalDate
-import kotlinx.datetime.YearMonth
-import kotlinx.datetime.format
-import kotlinx.datetime.format.DateTimeFormat
 import kotlinx.datetime.format.DayOfWeekNames
-import kotlinx.datetime.format.MonthNames
-import kotlinx.datetime.minusMonth
-import kotlinx.datetime.onDay
 import kotlinx.datetime.plus
-import kotlinx.datetime.plusMonth
-import kotlinx.datetime.yearMonth
 import org.jetbrains.compose.resources.stringResource
 
 internal val calendarMenuWidth = 288.dp
 
-private const val CALENDAR_WEEKS = 6
-private val DAYS_IN_WEEK = DayOfWeek.entries.count()
-
-private val DayOfWeek.dayNumber
-    get() = when (this) {
-        DayOfWeek.SUNDAY -> 0
-        DayOfWeek.MONDAY -> 1
-        DayOfWeek.TUESDAY -> 2
-        DayOfWeek.WEDNESDAY -> 3
-        DayOfWeek.THURSDAY -> 4
-        DayOfWeek.FRIDAY -> 5
-        DayOfWeek.SATURDAY -> 6
-    }
-
+/**
+ * Provides the calendar data structure for displaying a month view in a date picker calendar menu.
+ *
+ * This interface encapsulates all the information needed to render a calendar grid for a specific
+ * month, including the dates to display and their formatting.
+ *
+ * @param T The date type (e.g., [kotlinx.datetime.LocalDate]).
+ */
 @Stable
-internal data class CalendarMenuData(
-    val yearMonth: YearMonth,
-    val daysMatrix: List<List<MonthDay>>
-)
+public interface CalendarMenuData<T> {
 
-@Stable
-internal data class MonthDay(
-    val localDate: LocalDate,
-    val isOutOfMonth: Boolean
-)
+    /**
+     * A 6x7 matrix representing the calendar grid for a month.
+     *
+     * Each list represents a week (row), and each [MonthDay] within represents a day (column).
+     * The matrix includes days from the previous and next months to fill out the grid.
+     */
+    public val daysMatrix: List<List<MonthDay<T>>>
+
+    /**
+     * The formatted year name to be displayed in the calendar header (e.g., "2026").
+     */
+    public val yearName: String
+
+    /**
+     * The formatted month name to be displayed in the calendar header (e.g., "March").
+     */
+    public val monthName: String
+
+    /**
+     * Represents a single day in the calendar grid.
+     *
+     * @param T The date type (e.g., [kotlinx.datetime.LocalDate]).
+     * @property date The actual date value.
+     * @property dateString The formatted string representation of the day (typically just the day
+     * number, e.g., "15").
+     * @property isOutOfMonth `true` if this day belongs to the previous or next month (appears
+     * dimmed in the UI), `false` if it belongs to the current displayed month.
+     */
+    @Stable
+    public data class MonthDay<T>(
+        val date: T,
+        val dateString: String,
+        val isOutOfMonth: Boolean
+    )
+}
 
 private fun Modifier.menuKeyboardNavigation(
     focusManager: FocusManager,
@@ -144,76 +156,20 @@ private fun Modifier.menuKeyboardNavigation(
     } else false
 }
 
-internal fun getCalendarMenuData(yearMonth: YearMonth): CalendarMenuData {
-    val firstDayCurrentMonth = yearMonth.firstDay
-    val previousMonth = yearMonth.minusMonth()
-    val nextMonth = yearMonth.plusMonth()
-    val previousMonthLastDay = previousMonth.numberOfDays
-
-    var prevMonthDaysCount = firstDayCurrentMonth.dayOfWeek.dayNumber
-
-    var monthDayCount = 1
-    var nextMonthDayCount = 1
-
-    val matrix = buildList {
-        repeat(CALENDAR_WEEKS) {
-            buildList {
-                repeat(DAYS_IN_WEEK) {
-                    add(
-                        when {
-                            prevMonthDaysCount > 0 -> MonthDay(
-                                localDate = previousMonth
-                                    .onDay(previousMonthLastDay - prevMonthDaysCount-- + 1),
-                                isOutOfMonth = true,
-                            )
-
-                            monthDayCount <= yearMonth.numberOfDays -> MonthDay(
-                                localDate = yearMonth
-                                    .onDay(monthDayCount++),
-                                isOutOfMonth = false,
-                            )
-
-                            else -> MonthDay(
-                                localDate = nextMonth
-                                    .onDay(nextMonthDayCount++),
-                                isOutOfMonth = true,
-                            )
-                        }
-                    )
-                }
-            }.let(::add)
-        }
-    }
-
-    return CalendarMenuData(
-        yearMonth = yearMonth,
-        daysMatrix = matrix
-    )
-}
-
 @Composable
-internal fun CalendarMenu(
-    calendar: CalendarMenuData,
-    datePickerState: CalendarDatePickerState,
-    onDayClicked: (LocalDate) -> Unit,
-    onLoadPreviousMonth: () -> Unit,
-    onLoadNextMonth: () -> Unit,
-    onLoadPreviousYear: () -> Unit,
-    onLoadNextYear: () -> Unit,
+internal fun <T> CalendarMenu(
+    datePickerState: CalendarDatePickerState<T>,
+    onDayClicked: (T) -> Unit,
     modifier: Modifier = Modifier,
     dayOfWeekNames: DayOfWeekNames = DayOfWeekNames.ENGLISH_ABBREVIATED,
-    yearFormat: DateTimeFormat<YearMonth> = YearMonth.Format {
-        year()
-    },
-    monthFormat: DateTimeFormat<YearMonth> = YearMonth.Format {
-        monthName(MonthNames.ENGLISH_FULL)
-    }
 ) {
     val theme = Carbon.theme
     val focusManager = LocalFocusManager.current
     val adaptation = LocalCarbonAdaptation.current
 
     val regularTextStyle = Carbon.typography.bodyCompact01.copy(color = theme.textPrimary)
+
+    val calendar by datePickerState.calendarMenuData
 
     val outOfMonthTextStyle = regularTextStyle.copy(color = theme.textSecondary)
 
@@ -254,12 +210,10 @@ internal fun CalendarMenu(
             if (adaptation == Adaptation.Touchscreens) {
                 TouchscreenYearMonthSelector(
                     calendar = calendar,
-                    yearFormat = yearFormat,
-                    monthFormat = monthFormat,
-                    onLoadPreviousMonth = onLoadPreviousMonth,
-                    onLoadNextMonth = onLoadNextMonth,
-                    onLoadPreviousYear = onLoadPreviousYear,
-                    onLoadNextYear = onLoadNextYear,
+                    onLoadPreviousMonth = datePickerState::onLoadPreviousMonth,
+                    onLoadNextMonth = datePickerState::onLoadNextMonth,
+                    onLoadPreviousYear = datePickerState::onLoadPreviousYear,
+                    onLoadNextYear = datePickerState::onLoadNextYear,
                     modifier = Modifier
                         .fillMaxWidth()
                         .testTag(CalendarDatePickerTestTags.MENU_TOUCHSCREEN_YEARMONTH_SELECTOR)
@@ -267,12 +221,10 @@ internal fun CalendarMenu(
             } else {
                 DefaultYearMonthSelector(
                     calendar = calendar,
-                    yearFormat = yearFormat,
-                    monthFormat = monthFormat,
-                    onLoadPreviousMonth = onLoadPreviousMonth,
-                    onLoadNextMonth = onLoadNextMonth,
-                    onLoadPreviousYear = onLoadPreviousYear,
-                    onLoadNextYear = onLoadNextYear,
+                    onLoadPreviousMonth = datePickerState::onLoadPreviousMonth,
+                    onLoadNextMonth = datePickerState::onLoadNextMonth,
+                    onLoadPreviousYear = datePickerState::onLoadPreviousYear,
+                    onLoadNextYear = datePickerState::onLoadNextYear,
                     modifier = Modifier
                         .fillMaxWidth()
                         .testTag(CalendarDatePickerTestTags.MENU_DEFAULT_YEARMONTH_SELECTOR)
@@ -304,11 +256,11 @@ internal fun CalendarMenu(
                     ) {
                         week.forEach { day ->
                             CalendarDayItem(
-                                day = day.localDate.day.toString(),
+                                day = day.dateString,
                                 isEnabled = datePickerState.selectableDates
-                                    .isSelectable(day.localDate),
-                                isToday = day.localDate == datePickerState.today,
-                                isSelected = day.localDate == datePickerState.selectedDate,
+                                    .isSelectable(day.date),
+                                isToday = day.date == datePickerState.today,
+                                isSelected = day.date == datePickerState.selectedDate,
                                 isOutOfMonth = day.isOutOfMonth,
                                 regularTextStyle = regularTextStyle,
                                 disabledDayTextStyle = disabledDayTextStyle,
@@ -316,14 +268,14 @@ internal fun CalendarMenu(
                                 todayDayTextStyle = todayDayTextStyle,
                                 selectedDayTextStyle = selectedDayTextStyle,
                                 indication = dayItemIndication,
-                                onClick = { onDayClicked(day.localDate) },
+                                onClick = { onDayClicked(day.date) },
                                 modifier = Modifier
                                     .menuKeyboardNavigation(focusManager = focusManager)
                                     .fillMaxHeight()
                                     .weight(1f)
                                     .testTag(
                                         CalendarDatePickerTestTags.MENU_DAY_ITEM +
-                                            "_${day.localDate}"
+                                            "_${day.date}"
                                     )
                             )
                         }
@@ -335,10 +287,8 @@ internal fun CalendarMenu(
 }
 
 @Composable
-private fun DefaultYearMonthSelector(
-    calendar: CalendarMenuData,
-    yearFormat: DateTimeFormat<YearMonth>,
-    monthFormat: DateTimeFormat<YearMonth>,
+private fun <T> DefaultYearMonthSelector(
+    calendar: CalendarMenuData<T>,
     onLoadPreviousMonth: () -> Unit,
     onLoadNextMonth: () -> Unit,
     onLoadPreviousYear: () -> Unit,
@@ -385,7 +335,7 @@ private fun DefaultYearMonthSelector(
             verticalAlignment = Alignment.CenterVertically
         ) {
             BasicText(
-                text = calendar.yearMonth.format(monthFormat),
+                text = calendar.monthName,
                 style = Carbon.typography.headingCompact01.copy(
                     color = Carbon.theme.textPrimary,
                     textAlign = TextAlign.Center
@@ -395,7 +345,6 @@ private fun DefaultYearMonthSelector(
 
             DefaultYearSelector(
                 calendar = calendar,
-                yearFormat = yearFormat,
                 onLoadNextYear = onLoadNextYear,
                 onLoadPreviousYear = onLoadPreviousYear
             )
@@ -404,9 +353,8 @@ private fun DefaultYearMonthSelector(
 }
 
 @Composable
-private fun DefaultYearSelector(
-    calendar: CalendarMenuData,
-    yearFormat: DateTimeFormat<YearMonth>,
+private fun <T> DefaultYearSelector(
+    calendar: CalendarMenuData<T>,
     onLoadNextYear: () -> Unit,
     onLoadPreviousYear: () -> Unit,
     modifier: Modifier = Modifier
@@ -422,7 +370,7 @@ private fun DefaultYearSelector(
         verticalAlignment = Alignment.CenterVertically
     ) {
         BasicText(
-            text = calendar.yearMonth.format(yearFormat),
+            text = calendar.yearName,
             style = Carbon.typography.headingCompact01.copy(
                 color = Carbon.theme.textPrimary,
                 textAlign = TextAlign.Center
@@ -513,10 +461,8 @@ private fun DefaultYearSelector(
 }
 
 @Composable
-private fun TouchscreenYearMonthSelector(
-    calendar: CalendarMenuData,
-    yearFormat: DateTimeFormat<YearMonth>,
-    monthFormat: DateTimeFormat<YearMonth>,
+private fun <T> TouchscreenYearMonthSelector(
+    calendar: CalendarMenuData<T>,
     onLoadPreviousMonth: () -> Unit,
     onLoadNextMonth: () -> Unit,
     onLoadPreviousYear: () -> Unit,
@@ -577,7 +523,7 @@ private fun TouchscreenYearMonthSelector(
 
     Column(modifier = modifier) {
         ValueSelector(
-            value = calendar.yearMonth.format(yearFormat),
+            value = calendar.yearName,
             loadPrevDescription = stringResource(
                 Res.string.carbon_datepicker_calendar_loadPreviousYear_description
             ),
@@ -591,7 +537,7 @@ private fun TouchscreenYearMonthSelector(
             onLoadNext = onLoadNextYear,
         )
         ValueSelector(
-            value = calendar.yearMonth.format(monthFormat),
+            value = calendar.monthName,
             loadPrevDescription = stringResource(
                 Res.string.carbon_datepicker_calendar_loadPreviousMonth_description
             ),
@@ -676,8 +622,6 @@ private fun CalendarMenuPreview() {
             LocalDate(2025, 12, 1)
         }
 
-        val calendar = remember { getCalendarMenuData(today.yearMonth) }
-
         val pickerState = rememberCalendarDatePickerState(
             today = today,
             selectableDates = { it != today.plus(1, DateTimeUnit.DAY) },
@@ -686,13 +630,8 @@ private fun CalendarMenuPreview() {
         pickerState.selectedDate = today.plus(2, DateTimeUnit.DAY)
 
         CalendarMenu(
-            calendar = calendar,
             datePickerState = pickerState,
             onDayClicked = {},
-            onLoadPreviousMonth = {},
-            onLoadNextMonth = {},
-            onLoadPreviousYear = {},
-            onLoadNextYear = {},
             modifier = Modifier.padding(SpacingScale.spacing04)
         )
     }
@@ -706,8 +645,6 @@ private fun TouchscreenCalendarMenuPreview() {
             LocalDate(2025, 12, 1)
         }
 
-        val calendar = remember { getCalendarMenuData(today.yearMonth) }
-
         val pickerState = rememberCalendarDatePickerState(
             today = today,
             selectableDates = { it != today.plus(1, DateTimeUnit.DAY) },
@@ -716,13 +653,8 @@ private fun TouchscreenCalendarMenuPreview() {
         pickerState.selectedDate = today.plus(2, DateTimeUnit.DAY)
 
         CalendarMenu(
-            calendar = calendar,
             datePickerState = pickerState,
             onDayClicked = {},
-            onLoadPreviousMonth = {},
-            onLoadNextMonth = {},
-            onLoadPreviousYear = {},
-            onLoadNextYear = {},
             modifier = Modifier.padding(SpacingScale.spacing04)
         )
     }

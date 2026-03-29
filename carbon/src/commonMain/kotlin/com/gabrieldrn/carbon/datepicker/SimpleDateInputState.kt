@@ -33,6 +33,11 @@ import kotlinx.datetime.format.char
 /**
  * A state holder for [SimpleDateInput] that manages the currently selected date and synchronizes
  * it with the text field value.
+ *
+ * This interface provides the core state management for simple date input fields, handling date
+ * parsing, validation, and formatting without a calendar popup menu.
+ *
+ * @param T The date type (e.g., [kotlinx.datetime.LocalDate] or [kotlinx.datetime.YearMonth]).
  */
 @Stable
 public interface SimpleDateInputState<T> {
