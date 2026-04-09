@@ -111,8 +111,8 @@ class InlineLoadingButtonTest {
                     status = status,
                     inlineLoadingLabel = "Saving...",
                     modifier = Modifier
-                        .testTag("inline-loading-button")
-                        .assertedWidth(),
+                        .width(280.dp)
+                        .testTag("inline-loading-button"),
                     buttonSize = ButtonSize.Medium,
                 )
             }
@@ -134,5 +134,3 @@ class InlineLoadingButtonTest {
             .assertIsDisplayed()
     }
 }
-
-private fun Modifier.assertedWidth(): Modifier = width(280.dp)
