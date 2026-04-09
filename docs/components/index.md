@@ -20,9 +20,11 @@
 ## Components
 
 - [Accordion](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.accordion/-accordion.html)
-- [Button](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.button/-button.html)
+- Button
+  - [Default Button](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.button/-button.html)
+  - [Icon button](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.button/-icon-button.html)
+  - [Inline loading button](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.button/-inline-loading-button.html)]
 - [Breadcrumb](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.breadcrumb/-breadcrumb.html)
-- [Icon button](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.button/-icon-button.html)
 - [Checkbox](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.checkbox/-checkbox.html)
 - ContentSwitcher
   - [Default content switcher](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.contentswitcher/-content-switcher.html)
