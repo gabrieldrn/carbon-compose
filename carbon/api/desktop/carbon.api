@@ -1133,6 +1133,20 @@ public final class com/gabrieldrn/carbon/loading/LoadingKt {
 	public static final fun SmallLoading (Landroidx/compose/ui/Modifier;Landroidx/compose/runtime/Composer;II)V
 }
 
+public final class com/gabrieldrn/carbon/loading/inlineloading/InlineLoadingKt {
+	public static final fun InlineLoading (Landroidx/compose/ui/Modifier;Lcom/gabrieldrn/carbon/loading/inlineloading/InlineLoadingStatus;Ljava/lang/String;Ljava/lang/String;Landroidx/compose/runtime/Composer;II)V
+}
+
+public final class com/gabrieldrn/carbon/loading/inlineloading/InlineLoadingStatus : java/lang/Enum {
+	public static final field Active Lcom/gabrieldrn/carbon/loading/inlineloading/InlineLoadingStatus;
+	public static final field Error Lcom/gabrieldrn/carbon/loading/inlineloading/InlineLoadingStatus;
+	public static final field Finished Lcom/gabrieldrn/carbon/loading/inlineloading/InlineLoadingStatus;
+	public static final field Inactive Lcom/gabrieldrn/carbon/loading/inlineloading/InlineLoadingStatus;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/gabrieldrn/carbon/loading/inlineloading/InlineLoadingStatus;
+	public static fun values ()[Lcom/gabrieldrn/carbon/loading/inlineloading/InlineLoadingStatus;
+}
+
 public final class com/gabrieldrn/carbon/notification/CalloutNotificationKt {
 	public static final fun CalloutNotification (Landroidx/compose/ui/text/AnnotatedString;Lcom/gabrieldrn/carbon/notification/NotificationStatus;Landroidx/compose/ui/Modifier;Ljava/lang/String;ZLandroidx/compose/runtime/Composer;II)V
 	public static final fun CalloutNotification (Ljava/lang/String;Lcom/gabrieldrn/carbon/notification/NotificationStatus;Landroidx/compose/ui/Modifier;Ljava/lang/String;ZLandroidx/compose/runtime/Composer;II)V
