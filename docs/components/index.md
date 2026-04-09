@@ -35,6 +35,7 @@
     - [Multi-select dropdown](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.dropdown.multiselect/-multiselect-dropdown.html)
 - Loading
     - [Default loading](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.loading/-loading.html)
+    - [Inline loading](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.loading.inlineloading/-inline-loading.html)
     - [Small loading](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.loading/-small-loading.html)
 - Notification
     - [Actionable inline notification](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.notification/-actionable-inline-notification.html)

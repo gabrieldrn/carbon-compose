@@ -64,7 +64,7 @@ List of the currently supported components:
 | Dropdown           |     🟡      |   🟡   |      🟡      |    🟡     |
 | File uploader      |             |        |              |           |
 | Form               |             |        |              |           |
-| Inline loading     |             |        |              |           |
+| Inline loading     |      ✅      |   ✅    |      ✅       |     ✅     |
 | Link               |             |        |              |           |
 | List               |             |        |              |           |
 | Loading            |      ✅      |   ✅    |      ✅       |     ✅     |
