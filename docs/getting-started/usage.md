@@ -153,7 +153,7 @@ Components within the composition tree can access the current adaptation mode th
 
 Carbon was designed to work seamlessly with the [IBM Plex](https://www.ibm.com/plex/) font family. Carbon Compose 
 includes and provides access to the `TextStyle`s that map to all the 
-[type sets in Carbon](https://carbondesignsystem.com/guidelines/typography/type-sets).
+[type sets in Carbon](https://carbondesignsystem.com/elements/typography/type-sets/).
 
 You can use the `Carbon.typography` accessor to apply those styles to your texts:
 

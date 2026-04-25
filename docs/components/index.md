@@ -52,8 +52,10 @@
 - [Radio button](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.radiobutton/-radio-button.html)
 - Slider
     - [Default slider](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.slider/-slider.html)
+- TabItem
+    - [TabItem](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.tab/-tab-item/index.html)
 - Tag
-    - [Read-only tag](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.tag/-read-only-tag.html.html)
+    - [Read-only tag](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.tag/-read-only-tag.html)
 - Text input
     - [Default text input](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.textinput/-text-input.html)
     - [Text area](https://gabrieldrn.github.io/carbon-compose/api/carbon/com.gabrieldrn.carbon.textinput/-text-area.html)
