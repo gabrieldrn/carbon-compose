@@ -199,7 +199,6 @@ public final class com/gabrieldrn/carbon/datepicker/CalendarDatePickerKt {
 
 public abstract interface class com/gabrieldrn/carbon/datepicker/CalendarDatePickerState {
 	public abstract fun getCalendarMenuData ()Landroidx/compose/runtime/State;
-	public abstract fun getDateFormat ()Lkotlinx/datetime/format/DateTimeFormat;
 	public abstract fun getSelectableDates ()Lcom/gabrieldrn/carbon/datepicker/SelectableDates;
 	public abstract fun getSelectedDate ()Ljava/lang/Object;
 	public abstract fun getToday ()Ljava/lang/Object;

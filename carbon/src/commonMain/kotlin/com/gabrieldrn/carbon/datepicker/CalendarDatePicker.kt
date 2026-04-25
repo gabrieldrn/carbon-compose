@@ -53,6 +53,7 @@ import com.gabrieldrn.carbon.textinput.TextInputState
 import com.gabrieldrn.carbon.textinput.inputDecorator
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.format.DayOfWeekNames
+import kotlinx.datetime.format.char
 
 /**
  * # Date picker - Calendar - Single date
@@ -234,16 +235,18 @@ public fun <T> CalendarDatePicker(
 private fun CalendarDatePickerPreview() {
     CarbonDesignSystem {
         val today = LocalDate(2024, 6, 1)
+        val dateFormat = LocalDate.Format { year(); char('/'); monthNumber(); char('/'); day() }
 
         val datePickerState = rememberCalendarDatePickerState(
             today = today,
-            initialSelectedDate = today
+            initialSelectedDate = today,
+            dateFormat = dateFormat
         )
 
         var fieldValue by remember {
             mutableStateOf(
                 datePickerState.selectedDate
-                    ?.let(datePickerState.dateFormat::format)
+                    ?.let(dateFormat::format)
                     ?: ""
             )
         }
