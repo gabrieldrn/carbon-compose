@@ -244,7 +244,7 @@ private fun CalendarDatePickerDemo(
         mutableStateOf(
             state
                 .selectedDate
-                ?.let(state.dateFormat::format)
+                ?.let(localDateFormat::format)
                 ?: ""
         )
     }

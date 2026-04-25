@@ -61,7 +61,7 @@ public interface CalendarDatePickerState<T> {
     public val selectableDates: SelectableDates<T>
 
     /**
-     * The current day represented by a [LocalDate].
+     * The current day.
      */
     public val today: T
 
@@ -77,11 +77,6 @@ public interface CalendarDatePickerState<T> {
      * year name, and month name for the currently displayed month in the calendar menu.
      */
     public val calendarMenuData: State<CalendarMenuData<T>>
-
-    /**
-     * The [DateTimeFormat] used to parse and format the date string in the text field.
-     */
-    public val dateFormat: DateTimeFormat<T>
 
     /**
      * A callback invoked by the state to update the text field value, usually when the selected
@@ -216,7 +211,7 @@ public fun rememberCalendarDatePickerState(
 private class CalendarDatePickerStateImpl(
     initialSelectedDate: LocalDate?,
     override val today: LocalDate,
-    override val dateFormat: DateTimeFormat<LocalDate>,
+    val dateFormat: DateTimeFormat<LocalDate>,
     val yearFormat: DateTimeFormat<YearMonth>,
     val monthFormat: DateTimeFormat<YearMonth>,
     override val selectableDates: SelectableDates<LocalDate>,
