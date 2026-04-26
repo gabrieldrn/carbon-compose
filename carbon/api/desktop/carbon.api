@@ -110,10 +110,20 @@ public final class com/gabrieldrn/carbon/button/ComposableSingletons$IconButtonK
 	public final fun getLambda$-886282396$carbon ()Lkotlin/jvm/functions/Function3;
 }
 
+public final class com/gabrieldrn/carbon/button/ComposableSingletons$InlineLoadingButtonKt {
+	public static final field INSTANCE Lcom/gabrieldrn/carbon/button/ComposableSingletons$InlineLoadingButtonKt;
+	public fun <init> ()V
+	public final fun getLambda$205843653$carbon ()Lkotlin/jvm/functions/Function2;
+}
+
 public final class com/gabrieldrn/carbon/button/IconButtonKt {
 	public static final fun IconButton (Landroidx/compose/ui/graphics/painter/Painter;Lcom/gabrieldrn/carbon/tooltip/TooltipParameters;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Landroidx/compose/ui/Modifier;Lcom/gabrieldrn/carbon/button/ButtonType;Lcom/gabrieldrn/carbon/button/ButtonSize;ZLandroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;II)V
 	public static final fun IconButton (Landroidx/compose/ui/graphics/painter/Painter;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Lcom/gabrieldrn/carbon/button/ButtonType;Lcom/gabrieldrn/carbon/button/ButtonSize;ZLandroidx/compose/foundation/interaction/MutableInteractionSource;Ljava/lang/String;Landroidx/compose/runtime/Composer;II)V
 	public static final fun IconButtonWithPopover-rcagYwc (Landroidx/compose/ui/graphics/painter/Painter;ZLcom/gabrieldrn/carbon/popover/PopoverAlignment;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;FFLandroidx/compose/ui/window/PopupProperties;Lcom/gabrieldrn/carbon/button/ButtonType;Lcom/gabrieldrn/carbon/button/ButtonSize;ZLandroidx/compose/foundation/interaction/MutableInteractionSource;Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function3;Landroidx/compose/runtime/Composer;III)V
+}
+
+public final class com/gabrieldrn/carbon/button/InlineLoadingButtonKt {
+	public static final fun InlineLoadingButton (Ljava/lang/String;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Lcom/gabrieldrn/carbon/loading/inlineloading/InlineLoadingStatus;Ljava/lang/String;Ljava/lang/String;Landroidx/compose/ui/graphics/painter/Painter;ZLcom/gabrieldrn/carbon/button/ButtonType;Lcom/gabrieldrn/carbon/button/ButtonSize;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;III)V
 }
 
 public final class com/gabrieldrn/carbon/checkbox/CheckboxKt {
@@ -1130,6 +1140,20 @@ public final class com/gabrieldrn/carbon/foundation/text/CarbonTypographyKt {
 public final class com/gabrieldrn/carbon/loading/LoadingKt {
 	public static final fun Loading (Landroidx/compose/ui/Modifier;Landroidx/compose/runtime/Composer;II)V
 	public static final fun SmallLoading (Landroidx/compose/ui/Modifier;Landroidx/compose/runtime/Composer;II)V
+}
+
+public final class com/gabrieldrn/carbon/loading/inlineloading/InlineLoadingKt {
+	public static final fun InlineLoading (Landroidx/compose/ui/Modifier;Lcom/gabrieldrn/carbon/loading/inlineloading/InlineLoadingStatus;Ljava/lang/String;Ljava/lang/String;Landroidx/compose/runtime/Composer;II)V
+}
+
+public final class com/gabrieldrn/carbon/loading/inlineloading/InlineLoadingStatus : java/lang/Enum {
+	public static final field Active Lcom/gabrieldrn/carbon/loading/inlineloading/InlineLoadingStatus;
+	public static final field Error Lcom/gabrieldrn/carbon/loading/inlineloading/InlineLoadingStatus;
+	public static final field Finished Lcom/gabrieldrn/carbon/loading/inlineloading/InlineLoadingStatus;
+	public static final field Inactive Lcom/gabrieldrn/carbon/loading/inlineloading/InlineLoadingStatus;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/gabrieldrn/carbon/loading/inlineloading/InlineLoadingStatus;
+	public static fun values ()[Lcom/gabrieldrn/carbon/loading/inlineloading/InlineLoadingStatus;
 }
 
 public final class com/gabrieldrn/carbon/notification/CalloutNotificationKt {
