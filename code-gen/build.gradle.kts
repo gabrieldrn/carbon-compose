@@ -21,3 +21,11 @@ dependencies {
 tasks.test {
     useJUnitPlatform()
 }
+
+tasks.register<JavaExec>("execute") {
+    group = "code generation"
+    description = "Generates Carbon's color theme sources into :carbon."
+    mainClass.set("com.gabrieldrn.codegen.MainKt")
+    classpath = sourceSets.main.get().runtimeClasspath
+    workingDir = rootProject.projectDir
+}

@@ -16,24 +16,16 @@
 
 package com.gabrieldrn.codegen.color
 
+import com.gabrieldrn.codegen.CarbonTheme
 import com.gabrieldrn.codegen.color.model.colortokens.Theme
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
 
-const val file_path_format = "/%s.json"
-
-private val themes = listOf(
-    "white",
-    "g10",
-    "g90",
-    "g100",
-)
-
 @OptIn(ExperimentalSerializationApi::class)
-fun deserializeColorTokens(): Map<String, Theme> = themes.associateWith { theme ->
+fun deserializeColorTokens(): Map<CarbonTheme, Theme> = CarbonTheme.entries.associateWith { theme ->
     object {}::class.java
-        .getResourceAsStream(file_path_format.format(theme))
+        .getResourceAsStream(theme.colorTokensFilePath)
         .use { stream ->
             try {
                 Json.decodeFromStream<Theme>(stream)

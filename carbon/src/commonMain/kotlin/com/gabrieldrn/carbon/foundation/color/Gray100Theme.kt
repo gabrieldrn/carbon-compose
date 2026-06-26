@@ -14,11 +14,11 @@ import com.gabrieldrn.carbon.foundation.color.tag.Gray100TagColors
 import kotlin.Suppress
 
 /**
- * One of the default _light_ themes available in Carbon.
+ * One of the default _dark_ themes available in Carbon.
  *
- * This theme uses Gray 10 as the global background color and is layered first with components using White backgrounds.
+ * This theme uses Gray 100 as the global background color and is layered first with components using Gray 90 backgrounds.
  *
- * The second layer uses Gray 10 and the third layer used White.
+ * The second layer uses Gray 80 and the third layer used Gray 70.
  */
 public val Gray100Theme: Theme = 
     Theme(
