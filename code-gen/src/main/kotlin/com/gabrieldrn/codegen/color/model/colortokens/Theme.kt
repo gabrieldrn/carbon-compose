@@ -16,9 +16,14 @@
 
 package com.gabrieldrn.codegen.color.model.colortokens
 
+import com.gabrieldrn.codegen.color.serializers.ThemeSerializer
+import kotlinx.serialization.ExperimentalSerializationApi
+import kotlinx.serialization.KeepGeneratedSerializer
 import kotlinx.serialization.Serializable
 
-@Serializable
+@OptIn(ExperimentalSerializationApi::class)
+@KeepGeneratedSerializer
+@Serializable(with = ThemeSerializer::class)
 data class Theme(
     val aiColors: AiColors,
     val background: String,
@@ -118,6 +123,7 @@ data class Theme(
     val supportSuccessInverse: String,
     val supportWarning: String,
     val supportWarningInverse: String,
+    val syntaxColors: SyntaxColors,
     val tagColors: TagColors,
     val textDisabled: String,
     val textError: String,

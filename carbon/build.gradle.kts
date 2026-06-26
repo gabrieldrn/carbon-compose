@@ -1,5 +1,6 @@
 import com.gabrieldrn.carbon.Configuration
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 
 plugins {
     id("carbon.kmp.library")
@@ -11,6 +12,8 @@ carbonLibrary {
     artifactGroup.set(Configuration.artifactGroup)
     version.set(Configuration.version)
 }
+
+val generatedColorTokensDir = layout.buildDirectory.dir("generated/colorTokens/commonMain")
 
 kotlin {
     androidLibrary {
@@ -55,19 +58,23 @@ kotlin {
     }
 
     sourceSets {
-        commonMain.dependencies {
-            api(project(":carbon-common"))
+        commonMain {
+            kotlin.srcDir(generatedColorTokensDir)
 
-            implementation(libs.compose.runtime)
-            implementation(libs.compose.foundation)
-            implementation(libs.compose.ui)
-            implementation(libs.compose.uiToolingPreview)
-            implementation(libs.compose.animation)
-            implementation(libs.compose.components.resources)
+            dependencies {
+                api(project(":carbon-common"))
 
-            api(libs.kotlinx.datetime)
+                implementation(libs.compose.runtime)
+                implementation(libs.compose.foundation)
+                implementation(libs.compose.ui)
+                implementation(libs.compose.uiToolingPreview)
+                implementation(libs.compose.animation)
+                implementation(libs.compose.components.resources)
 
-            implementation(libs.touchlab.kermit)
+                api(libs.kotlinx.datetime)
+
+                implementation(libs.touchlab.kermit)
+            }
         }
 
         commonTest.dependencies {
@@ -101,6 +108,10 @@ kotlin {
 compose.resources {
     packageOfResClass = "com.gabrieldrn.carbon"
     generateResClass = always
+}
+
+tasks.withType<KotlinCompilationTask<*>>().configureEach {
+    dependsOn(":code-gen:execute")
 }
 
 dependencies {
