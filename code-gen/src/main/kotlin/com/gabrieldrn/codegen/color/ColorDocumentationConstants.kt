@@ -27,6 +27,7 @@ val whiteThemeDoc =
     """.trimIndent()
 
 // From https://carbondesignsystem.com/elements/color/overview/#light-themes
+@Suppress("TopLevelPropertyNaming")
 val g10ThemeDoc =
     """
         One of the default _light_ themes available in Carbon.
@@ -37,6 +38,7 @@ val g10ThemeDoc =
     """.trimIndent()
 
 // From https://carbondesignsystem.com/elements/color/overview/#dark-themes
+@Suppress("TopLevelPropertyNaming")
 val g90ThemeDoc =
     """
         One of the default _dark_ themes available in Carbon.
@@ -47,6 +49,7 @@ val g90ThemeDoc =
     """.trimIndent()
 
 // From https://carbondesignsystem.com/elements/color/overview/#dark-themes
+@Suppress("TopLevelPropertyNaming")
 val g100ThemeDoc =
     """
         One of the default _dark_ themes available in Carbon.

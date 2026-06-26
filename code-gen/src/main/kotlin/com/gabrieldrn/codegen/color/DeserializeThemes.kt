@@ -19,6 +19,7 @@ package com.gabrieldrn.codegen.color
 import com.gabrieldrn.codegen.CarbonTheme
 import com.gabrieldrn.codegen.color.model.colortokens.Theme
 import kotlinx.serialization.ExperimentalSerializationApi
+import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
 
@@ -29,7 +30,7 @@ fun deserializeColorTokens(): Map<CarbonTheme, Theme> = CarbonTheme.entries.asso
         .use { stream ->
             try {
                 Json.decodeFromStream<Theme>(stream)
-            } catch (e: Exception) {
+            } catch (e: SerializationException) {
                 error("Could not load theme $theme." + e.message)
             }
         }

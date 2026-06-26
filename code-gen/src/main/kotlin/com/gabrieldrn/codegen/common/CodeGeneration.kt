@@ -20,7 +20,6 @@ import androidx.compose.runtime.Immutable
 import com.gabrieldrn.codegen.CarbonTheme
 import com.gabrieldrn.codegen.common.model.RemovedToken
 import com.gabrieldrn.codegen.common.model.RenamedToken
-import com.gabrieldrn.codegen.sourcePath
 import com.squareup.kotlinpoet.AnnotationSpec
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.FileSpec
@@ -33,13 +32,14 @@ import com.squareup.kotlinpoet.asTypeName
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
+import java.nio.file.Path
 import kotlin.reflect.KClass
 import kotlin.reflect.KProperty1
 import kotlin.reflect.full.findAnnotation
 import kotlin.reflect.full.memberProperties
 import kotlin.reflect.jvm.jvmErasure
 
-internal const val codeIndent = "    "
+internal const val CODE_INDENT = "    "
 
 internal val generatedCodeMessage =
     """
@@ -96,6 +96,7 @@ data class TokenSetResult(
  *   property type, keyed by the model class of that property.
  * @param removedTokensData Per-theme [JsonElement] providing fallback values for [RemovedToken]
  *   properties. Required when any model property carries `@RemovedToken`; may be `null` otherwise.
+ * @param sourcePath Directory generated source files are written to.
  */
 fun generateTokenSetClass(
     abstractionClassName: ClassName,
@@ -106,6 +107,7 @@ fun generateTokenSetClass(
     visibility: KModifier = KModifier.PUBLIC,
     componentReferences: Map<KClass<*>, TokenSetResult> = emptyMap(),
     removedTokensData: Map<CarbonTheme, JsonElement>? = null,
+    sourcePath: Path,
 ): TokenSetResult {
     check(tokenSetData.isNotEmpty())
 
@@ -127,7 +129,7 @@ fun generateTokenSetClass(
     // Abstraction class, shared across themes (structurally identical).
 
     FileSpec.builder(abstractionClassName)
-        .indent(codeIndent)
+        .indent(CODE_INDENT)
         .addFileComment(generatedCodeMessage)
         .addType(tokenSetTrees.values.first().abstractionTypeSpec)
         .build()

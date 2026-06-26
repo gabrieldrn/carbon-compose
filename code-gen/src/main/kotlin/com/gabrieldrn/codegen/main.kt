@@ -38,8 +38,6 @@ import kotlin.reflect.KClass
 
 private const val PACKAGE_ROOT = "com.gabrieldrn.carbon.foundation.color"
 
-lateinit var sourcePath: Path
-
 private val themeAbstractionName = ClassName(PACKAGE_ROOT, "Theme")
 
 private const val COMPONENT_INTERFACE_KDOC =
@@ -78,7 +76,7 @@ private val components = listOf(
 )
 
 fun main(args: Array<String>) {
-    sourcePath = Paths.get(args[0])
+    val sourcePath: Path = Paths.get(args[0])
 
     val themes: Map<CarbonTheme, Theme> = deserializeColorTokens()
 
@@ -97,6 +95,7 @@ fun main(args: Array<String>) {
                     theme.name
                 )
             },
+            sourcePath = sourcePath,
         )
         spec.kClass to result
     }
@@ -108,5 +107,6 @@ fun main(args: Array<String>) {
         instanceName = { theme -> theme.name + "Theme" },
         instanceKdoc = { theme -> themeDocs[theme] },
         componentReferences = componentReferences,
+        sourcePath = sourcePath,
     )
 }

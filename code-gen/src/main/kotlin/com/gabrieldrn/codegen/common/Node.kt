@@ -53,6 +53,7 @@ sealed class Node {
      * @param abstractionClassName Class representation of this node.
      * @param subNodes Sub-nodes contained in this class/node.
      * @param abstractionTypeSpec Type representation associated to this node.
+     * @param propertySpec Spec representing this node for code generation.
      */
     class ClassNode(
         val abstractionClassName: ClassName,
@@ -90,7 +91,7 @@ sealed class Node {
      * Represents a single color design token.
      *
      * @param property Reflected property used to resolve the token name and annotations.
-     * @param model Class instance containing this token.
+     * @param value Resolved color value, as a hex string (e.g. `"#FFFFFF"`).
      */
     class TokenNode(
         property: KProperty1<out Any, *>,
@@ -165,7 +166,7 @@ sealed class Node {
     sealed class CompatNode : Node() {
 
         /**
-         * Generates a computed deprecated property that delegates to [newName] at runtime:
+         * Generates a computed deprecated property that delegates to [newName] at runtime.
          * ```kotlin
          * @Deprecated("Renamed to 'newName'.", replaceWith = ReplaceWith("newName"))
          * val oldName: T get() = newName
