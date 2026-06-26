@@ -10,6 +10,7 @@ import com.gabrieldrn.carbon.foundation.color.ai.WhiteAiColors
 import com.gabrieldrn.carbon.foundation.color.button.WhiteButtonColors
 import com.gabrieldrn.carbon.foundation.color.chat.WhiteChatColors
 import com.gabrieldrn.carbon.foundation.color.notification.WhiteNotificationColors
+import com.gabrieldrn.carbon.foundation.color.syntax.WhiteSyntaxColors
 import com.gabrieldrn.carbon.foundation.color.tag.WhiteTagColors
 import kotlin.Suppress
 
@@ -101,7 +102,7 @@ public val WhiteTheme: Theme =
         linkPrimaryHover = Color(0xFF0043CE),
         linkSecondary = Color(0xFF0043CE),
         linkVisited = Color(0xFF8A3FFC),
-        overlay = Color(0x7F161616),
+        overlay = Color(0x99000000),
         shadow = Color(0x4C000000),
         skeletonBackground = Color(0xFFE8E8E8),
         skeletonElement = Color(0xFFC6C6C6),
@@ -130,5 +131,6 @@ public val WhiteTheme: Theme =
         buttonColors = WhiteButtonColors,
         chatColors = WhiteChatColors,
         notificationColors = WhiteNotificationColors,
+        syntaxColors = WhiteSyntaxColors,
         tagColors = WhiteTagColors
     )

@@ -9,6 +9,7 @@ import com.gabrieldrn.carbon.foundation.color.ai.AiColors
 import com.gabrieldrn.carbon.foundation.color.button.ButtonColors
 import com.gabrieldrn.carbon.foundation.color.chat.ChatColors
 import com.gabrieldrn.carbon.foundation.color.notification.NotificationColors
+import com.gabrieldrn.carbon.foundation.color.syntax.SyntaxColors
 import com.gabrieldrn.carbon.foundation.color.tag.TagColors
 import kotlin.Suppress
 
@@ -130,5 +131,6 @@ public data class Theme(
     public val buttonColors: ButtonColors,
     public val chatColors: ChatColors,
     public val notificationColors: NotificationColors,
+    public val syntaxColors: SyntaxColors,
     public val tagColors: TagColors,
 )

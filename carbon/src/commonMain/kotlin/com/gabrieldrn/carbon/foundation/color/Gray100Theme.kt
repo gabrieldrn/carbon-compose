@@ -10,6 +10,7 @@ import com.gabrieldrn.carbon.foundation.color.ai.Gray100AiColors
 import com.gabrieldrn.carbon.foundation.color.button.Gray100ButtonColors
 import com.gabrieldrn.carbon.foundation.color.chat.Gray100ChatColors
 import com.gabrieldrn.carbon.foundation.color.notification.Gray100NotificationColors
+import com.gabrieldrn.carbon.foundation.color.syntax.Gray100SyntaxColors
 import com.gabrieldrn.carbon.foundation.color.tag.Gray100TagColors
 import kotlin.Suppress
 
@@ -101,7 +102,7 @@ public val Gray100Theme: Theme =
         linkPrimaryHover = Color(0xFFA6C8FF),
         linkSecondary = Color(0xFFA6C8FF),
         linkVisited = Color(0xFFBE95FF),
-        overlay = Color(0xA5000000),
+        overlay = Color(0x99000000),
         shadow = Color(0xCC000000),
         skeletonBackground = Color(0xFF292929),
         skeletonElement = Color(0xFF393939),
@@ -130,5 +131,6 @@ public val Gray100Theme: Theme =
         buttonColors = Gray100ButtonColors,
         chatColors = Gray100ChatColors,
         notificationColors = Gray100NotificationColors,
+        syntaxColors = Gray100SyntaxColors,
         tagColors = Gray100TagColors
     )

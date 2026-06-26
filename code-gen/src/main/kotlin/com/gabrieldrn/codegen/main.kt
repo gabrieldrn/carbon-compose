@@ -25,6 +25,7 @@ import com.gabrieldrn.codegen.color.model.colortokens.AiColors
 import com.gabrieldrn.codegen.color.model.colortokens.ButtonColors
 import com.gabrieldrn.codegen.color.model.colortokens.ChatColors
 import com.gabrieldrn.codegen.color.model.colortokens.NotificationColors
+import com.gabrieldrn.codegen.color.model.colortokens.SyntaxColors
 import com.gabrieldrn.codegen.color.model.colortokens.TagColors
 import com.gabrieldrn.codegen.color.model.colortokens.Theme
 import com.gabrieldrn.codegen.color.whiteThemeDoc
@@ -73,6 +74,7 @@ private val components = listOf(
         it.notificationColors
     },
     ComponentSpec(TagColors::class, "TagColors", "tag") { it.tagColors },
+    ComponentSpec(SyntaxColors::class, "SyntaxColors", "syntax") { it.syntaxColors },
 )
 
 fun main() {
