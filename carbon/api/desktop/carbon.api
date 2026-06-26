@@ -435,7 +435,7 @@ public final class com/gabrieldrn/carbon/foundation/color/Layer : java/lang/Enum
 
 public final class com/gabrieldrn/carbon/foundation/color/Theme {
 	public static final field $stable I
-	public synthetic fun <init> (JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJLcom/gabrieldrn/carbon/foundation/color/ai/AiColors;Lcom/gabrieldrn/carbon/foundation/color/button/ButtonColors;Lcom/gabrieldrn/carbon/foundation/color/chat/ChatColors;Lcom/gabrieldrn/carbon/foundation/color/notification/NotificationColors;Lcom/gabrieldrn/carbon/foundation/color/tag/TagColors;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJLcom/gabrieldrn/carbon/foundation/color/ai/AiColors;Lcom/gabrieldrn/carbon/foundation/color/button/ButtonColors;Lcom/gabrieldrn/carbon/foundation/color/chat/ChatColors;Lcom/gabrieldrn/carbon/foundation/color/notification/NotificationColors;Lcom/gabrieldrn/carbon/foundation/color/syntax/SyntaxColors;Lcom/gabrieldrn/carbon/foundation/color/tag/TagColors;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1-0d7_KjU ()J
 	public final fun component10-0d7_KjU ()J
 	public final fun component100-0d7_KjU ()J
@@ -447,8 +447,9 @@ public final class com/gabrieldrn/carbon/foundation/color/Theme {
 	public final fun component106 ()Lcom/gabrieldrn/carbon/foundation/color/button/ButtonColors;
 	public final fun component107 ()Lcom/gabrieldrn/carbon/foundation/color/chat/ChatColors;
 	public final fun component108 ()Lcom/gabrieldrn/carbon/foundation/color/notification/NotificationColors;
-	public final fun component109 ()Lcom/gabrieldrn/carbon/foundation/color/tag/TagColors;
+	public final fun component109 ()Lcom/gabrieldrn/carbon/foundation/color/syntax/SyntaxColors;
 	public final fun component11-0d7_KjU ()J
+	public final fun component110 ()Lcom/gabrieldrn/carbon/foundation/color/tag/TagColors;
 	public final fun component12-0d7_KjU ()J
 	public final fun component13-0d7_KjU ()J
 	public final fun component14-0d7_KjU ()J
@@ -545,8 +546,8 @@ public final class com/gabrieldrn/carbon/foundation/color/Theme {
 	public final fun component97-0d7_KjU ()J
 	public final fun component98-0d7_KjU ()J
 	public final fun component99-0d7_KjU ()J
-	public final fun copy-QO2q6N4 (JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJLcom/gabrieldrn/carbon/foundation/color/ai/AiColors;Lcom/gabrieldrn/carbon/foundation/color/button/ButtonColors;Lcom/gabrieldrn/carbon/foundation/color/chat/ChatColors;Lcom/gabrieldrn/carbon/foundation/color/notification/NotificationColors;Lcom/gabrieldrn/carbon/foundation/color/tag/TagColors;)Lcom/gabrieldrn/carbon/foundation/color/Theme;
-	public static synthetic fun copy-QO2q6N4$default (Lcom/gabrieldrn/carbon/foundation/color/Theme;JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJLcom/gabrieldrn/carbon/foundation/color/ai/AiColors;Lcom/gabrieldrn/carbon/foundation/color/button/ButtonColors;Lcom/gabrieldrn/carbon/foundation/color/chat/ChatColors;Lcom/gabrieldrn/carbon/foundation/color/notification/NotificationColors;Lcom/gabrieldrn/carbon/foundation/color/tag/TagColors;IIIILjava/lang/Object;)Lcom/gabrieldrn/carbon/foundation/color/Theme;
+	public final fun copy-N4luhuw (JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJLcom/gabrieldrn/carbon/foundation/color/ai/AiColors;Lcom/gabrieldrn/carbon/foundation/color/button/ButtonColors;Lcom/gabrieldrn/carbon/foundation/color/chat/ChatColors;Lcom/gabrieldrn/carbon/foundation/color/notification/NotificationColors;Lcom/gabrieldrn/carbon/foundation/color/syntax/SyntaxColors;Lcom/gabrieldrn/carbon/foundation/color/tag/TagColors;)Lcom/gabrieldrn/carbon/foundation/color/Theme;
+	public static synthetic fun copy-N4luhuw$default (Lcom/gabrieldrn/carbon/foundation/color/Theme;JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJLcom/gabrieldrn/carbon/foundation/color/ai/AiColors;Lcom/gabrieldrn/carbon/foundation/color/button/ButtonColors;Lcom/gabrieldrn/carbon/foundation/color/chat/ChatColors;Lcom/gabrieldrn/carbon/foundation/color/notification/NotificationColors;Lcom/gabrieldrn/carbon/foundation/color/syntax/SyntaxColors;Lcom/gabrieldrn/carbon/foundation/color/tag/TagColors;IIIILjava/lang/Object;)Lcom/gabrieldrn/carbon/foundation/color/Theme;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getAiColors ()Lcom/gabrieldrn/carbon/foundation/color/ai/AiColors;
 	public final fun getBackground-0d7_KjU ()J
@@ -646,6 +647,7 @@ public final class com/gabrieldrn/carbon/foundation/color/Theme {
 	public final fun getSupportSuccessInverse-0d7_KjU ()J
 	public final fun getSupportWarning-0d7_KjU ()J
 	public final fun getSupportWarningInverse-0d7_KjU ()J
+	public final fun getSyntaxColors ()Lcom/gabrieldrn/carbon/foundation/color/syntax/SyntaxColors;
 	public final fun getTagColors ()Lcom/gabrieldrn/carbon/foundation/color/tag/TagColors;
 	public final fun getTextDisabled-0d7_KjU ()J
 	public final fun getTextError-0d7_KjU ()J
@@ -801,7 +803,7 @@ public final class com/gabrieldrn/carbon/foundation/color/button/WhiteButtonColo
 
 public final class com/gabrieldrn/carbon/foundation/color/chat/ChatColors {
 	public static final field $stable I
-	public synthetic fun <init> (JJJJJJJJJJJJJJJJJLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (JJJJJJJJJJJJJJJJJJJJJLkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1-0d7_KjU ()J
 	public final fun component10-0d7_KjU ()J
 	public final fun component11-0d7_KjU ()J
@@ -811,7 +813,11 @@ public final class com/gabrieldrn/carbon/foundation/color/chat/ChatColors {
 	public final fun component15-0d7_KjU ()J
 	public final fun component16-0d7_KjU ()J
 	public final fun component17-0d7_KjU ()J
+	public final fun component18-0d7_KjU ()J
+	public final fun component19-0d7_KjU ()J
 	public final fun component2-0d7_KjU ()J
+	public final fun component20-0d7_KjU ()J
+	public final fun component21-0d7_KjU ()J
 	public final fun component3-0d7_KjU ()J
 	public final fun component4-0d7_KjU ()J
 	public final fun component5-0d7_KjU ()J
@@ -819,15 +825,17 @@ public final class com/gabrieldrn/carbon/foundation/color/chat/ChatColors {
 	public final fun component7-0d7_KjU ()J
 	public final fun component8-0d7_KjU ()J
 	public final fun component9-0d7_KjU ()J
-	public final fun copy-OG5zQOY (JJJJJJJJJJJJJJJJJ)Lcom/gabrieldrn/carbon/foundation/color/chat/ChatColors;
-	public static synthetic fun copy-OG5zQOY$default (Lcom/gabrieldrn/carbon/foundation/color/chat/ChatColors;JJJJJJJJJJJJJJJJJILjava/lang/Object;)Lcom/gabrieldrn/carbon/foundation/color/chat/ChatColors;
+	public final fun copy-NcbPQeo (JJJJJJJJJJJJJJJJJJJJJ)Lcom/gabrieldrn/carbon/foundation/color/chat/ChatColors;
+	public static synthetic fun copy-NcbPQeo$default (Lcom/gabrieldrn/carbon/foundation/color/chat/ChatColors;JJJJJJJJJJJJJJJJJJJJJILjava/lang/Object;)Lcom/gabrieldrn/carbon/foundation/color/chat/ChatColors;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getChatAvatarAgent-0d7_KjU ()J
 	public final fun getChatAvatarBot-0d7_KjU ()J
 	public final fun getChatAvatarUser-0d7_KjU ()J
 	public final fun getChatBubbleAgent-0d7_KjU ()J
+	public final fun getChatBubbleAgentText-0d7_KjU ()J
 	public final fun getChatBubbleBorder-0d7_KjU ()J
 	public final fun getChatBubbleUser-0d7_KjU ()J
+	public final fun getChatBubbleUserText-0d7_KjU ()J
 	public final fun getChatButton-0d7_KjU ()J
 	public final fun getChatButtonActive-0d7_KjU ()J
 	public final fun getChatButtonHover-0d7_KjU ()J
@@ -835,9 +843,11 @@ public final class com/gabrieldrn/carbon/foundation/color/chat/ChatColors {
 	public final fun getChatButtonTextHover-0d7_KjU ()J
 	public final fun getChatButtonTextSelected-0d7_KjU ()J
 	public final fun getChatHeaderBackground-0d7_KjU ()J
+	public final fun getChatHeaderText-0d7_KjU ()J
 	public final fun getChatPromptBackground-0d7_KjU ()J
 	public final fun getChatPromptBorderEnd-0d7_KjU ()J
 	public final fun getChatPromptBorderStart-0d7_KjU ()J
+	public final fun getChatPromptText-0d7_KjU ()J
 	public final fun getChatShellBackground-0d7_KjU ()J
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
@@ -903,6 +913,208 @@ public final class com/gabrieldrn/carbon/foundation/color/notification/Notificat
 
 public final class com/gabrieldrn/carbon/foundation/color/notification/WhiteNotificationColorsKt {
 	public static final fun getWhiteNotificationColors ()Lcom/gabrieldrn/carbon/foundation/color/notification/NotificationColors;
+}
+
+public final class com/gabrieldrn/carbon/foundation/color/syntax/Gray100SyntaxColorsKt {
+	public static final fun getGray100SyntaxColors ()Lcom/gabrieldrn/carbon/foundation/color/syntax/SyntaxColors;
+}
+
+public final class com/gabrieldrn/carbon/foundation/color/syntax/Gray10SyntaxColorsKt {
+	public static final fun getGray10SyntaxColors ()Lcom/gabrieldrn/carbon/foundation/color/syntax/SyntaxColors;
+}
+
+public final class com/gabrieldrn/carbon/foundation/color/syntax/Gray90SyntaxColorsKt {
+	public static final fun getGray90SyntaxColors ()Lcom/gabrieldrn/carbon/foundation/color/syntax/SyntaxColors;
+}
+
+public final class com/gabrieldrn/carbon/foundation/color/syntax/SyntaxColors {
+	public static final field $stable I
+	public synthetic fun <init> (JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-0d7_KjU ()J
+	public final fun component10-0d7_KjU ()J
+	public final fun component11-0d7_KjU ()J
+	public final fun component12-0d7_KjU ()J
+	public final fun component13-0d7_KjU ()J
+	public final fun component14-0d7_KjU ()J
+	public final fun component15-0d7_KjU ()J
+	public final fun component16-0d7_KjU ()J
+	public final fun component17-0d7_KjU ()J
+	public final fun component18-0d7_KjU ()J
+	public final fun component19-0d7_KjU ()J
+	public final fun component2-0d7_KjU ()J
+	public final fun component20-0d7_KjU ()J
+	public final fun component21-0d7_KjU ()J
+	public final fun component22-0d7_KjU ()J
+	public final fun component23-0d7_KjU ()J
+	public final fun component24-0d7_KjU ()J
+	public final fun component25-0d7_KjU ()J
+	public final fun component26-0d7_KjU ()J
+	public final fun component27-0d7_KjU ()J
+	public final fun component28-0d7_KjU ()J
+	public final fun component29-0d7_KjU ()J
+	public final fun component3-0d7_KjU ()J
+	public final fun component30-0d7_KjU ()J
+	public final fun component31-0d7_KjU ()J
+	public final fun component32-0d7_KjU ()J
+	public final fun component33-0d7_KjU ()J
+	public final fun component34-0d7_KjU ()J
+	public final fun component35-0d7_KjU ()J
+	public final fun component36-0d7_KjU ()J
+	public final fun component37-0d7_KjU ()J
+	public final fun component38-0d7_KjU ()J
+	public final fun component39-0d7_KjU ()J
+	public final fun component4-0d7_KjU ()J
+	public final fun component40-0d7_KjU ()J
+	public final fun component41-0d7_KjU ()J
+	public final fun component42-0d7_KjU ()J
+	public final fun component43-0d7_KjU ()J
+	public final fun component44-0d7_KjU ()J
+	public final fun component45-0d7_KjU ()J
+	public final fun component46-0d7_KjU ()J
+	public final fun component47-0d7_KjU ()J
+	public final fun component48-0d7_KjU ()J
+	public final fun component49-0d7_KjU ()J
+	public final fun component5-0d7_KjU ()J
+	public final fun component50-0d7_KjU ()J
+	public final fun component51-0d7_KjU ()J
+	public final fun component52-0d7_KjU ()J
+	public final fun component53-0d7_KjU ()J
+	public final fun component54-0d7_KjU ()J
+	public final fun component55-0d7_KjU ()J
+	public final fun component56-0d7_KjU ()J
+	public final fun component57-0d7_KjU ()J
+	public final fun component58-0d7_KjU ()J
+	public final fun component59-0d7_KjU ()J
+	public final fun component6-0d7_KjU ()J
+	public final fun component60-0d7_KjU ()J
+	public final fun component61-0d7_KjU ()J
+	public final fun component62-0d7_KjU ()J
+	public final fun component63-0d7_KjU ()J
+	public final fun component64-0d7_KjU ()J
+	public final fun component65-0d7_KjU ()J
+	public final fun component66-0d7_KjU ()J
+	public final fun component67-0d7_KjU ()J
+	public final fun component68-0d7_KjU ()J
+	public final fun component69-0d7_KjU ()J
+	public final fun component7-0d7_KjU ()J
+	public final fun component70-0d7_KjU ()J
+	public final fun component71-0d7_KjU ()J
+	public final fun component72-0d7_KjU ()J
+	public final fun component73-0d7_KjU ()J
+	public final fun component74-0d7_KjU ()J
+	public final fun component75-0d7_KjU ()J
+	public final fun component76-0d7_KjU ()J
+	public final fun component77-0d7_KjU ()J
+	public final fun component78-0d7_KjU ()J
+	public final fun component79-0d7_KjU ()J
+	public final fun component8-0d7_KjU ()J
+	public final fun component80-0d7_KjU ()J
+	public final fun component81-0d7_KjU ()J
+	public final fun component82-0d7_KjU ()J
+	public final fun component83-0d7_KjU ()J
+	public final fun component84-0d7_KjU ()J
+	public final fun component85-0d7_KjU ()J
+	public final fun component86-0d7_KjU ()J
+	public final fun component87-0d7_KjU ()J
+	public final fun component88-0d7_KjU ()J
+	public final fun component9-0d7_KjU ()J
+	public final fun copy-b6m_y3s (JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ)Lcom/gabrieldrn/carbon/foundation/color/syntax/SyntaxColors;
+	public static synthetic fun copy-b6m_y3s$default (Lcom/gabrieldrn/carbon/foundation/color/syntax/SyntaxColors;JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJIIILjava/lang/Object;)Lcom/gabrieldrn/carbon/foundation/color/syntax/SyntaxColors;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getSyntaxAngleBracket-0d7_KjU ()J
+	public final fun getSyntaxAnnotation-0d7_KjU ()J
+	public final fun getSyntaxArithmeticOperator-0d7_KjU ()J
+	public final fun getSyntaxAtom-0d7_KjU ()J
+	public final fun getSyntaxAttribute-0d7_KjU ()J
+	public final fun getSyntaxAttributeName-0d7_KjU ()J
+	public final fun getSyntaxAttributeValue-0d7_KjU ()J
+	public final fun getSyntaxBitwiseOperator-0d7_KjU ()J
+	public final fun getSyntaxBlockComment-0d7_KjU ()J
+	public final fun getSyntaxBool-0d7_KjU ()J
+	public final fun getSyntaxBrace-0d7_KjU ()J
+	public final fun getSyntaxBracket-0d7_KjU ()J
+	public final fun getSyntaxCharacter-0d7_KjU ()J
+	public final fun getSyntaxClassName-0d7_KjU ()J
+	public final fun getSyntaxColor-0d7_KjU ()J
+	public final fun getSyntaxComment-0d7_KjU ()J
+	public final fun getSyntaxCompareOperator-0d7_KjU ()J
+	public final fun getSyntaxConstant-0d7_KjU ()J
+	public final fun getSyntaxContent-0d7_KjU ()J
+	public final fun getSyntaxContentSeparator-0d7_KjU ()J
+	public final fun getSyntaxControlKeyword-0d7_KjU ()J
+	public final fun getSyntaxControlOperator-0d7_KjU ()J
+	public final fun getSyntaxDefinition-0d7_KjU ()J
+	public final fun getSyntaxDefinitionKeyword-0d7_KjU ()J
+	public final fun getSyntaxDefinitionOperator-0d7_KjU ()J
+	public final fun getSyntaxDeleted-0d7_KjU ()J
+	public final fun getSyntaxDerefOperator-0d7_KjU ()J
+	public final fun getSyntaxDocComment-0d7_KjU ()J
+	public final fun getSyntaxDocString-0d7_KjU ()J
+	public final fun getSyntaxDocumentMeta-0d7_KjU ()J
+	public final fun getSyntaxEmphasis-0d7_KjU ()J
+	public final fun getSyntaxEscape-0d7_KjU ()J
+	public final fun getSyntaxFloat-0d7_KjU ()J
+	public final fun getSyntaxFunction-0d7_KjU ()J
+	public final fun getSyntaxHeading-0d7_KjU ()J
+	public final fun getSyntaxHeading1-0d7_KjU ()J
+	public final fun getSyntaxHeading2-0d7_KjU ()J
+	public final fun getSyntaxHeading3-0d7_KjU ()J
+	public final fun getSyntaxHeading4-0d7_KjU ()J
+	public final fun getSyntaxHeading5-0d7_KjU ()J
+	public final fun getSyntaxHeading6-0d7_KjU ()J
+	public final fun getSyntaxInserted-0d7_KjU ()J
+	public final fun getSyntaxInteger-0d7_KjU ()J
+	public final fun getSyntaxInvalid-0d7_KjU ()J
+	public final fun getSyntaxKeyword-0d7_KjU ()J
+	public final fun getSyntaxLabelName-0d7_KjU ()J
+	public final fun getSyntaxLineComment-0d7_KjU ()J
+	public final fun getSyntaxLink-0d7_KjU ()J
+	public final fun getSyntaxList-0d7_KjU ()J
+	public final fun getSyntaxLiteral-0d7_KjU ()J
+	public final fun getSyntaxLocal-0d7_KjU ()J
+	public final fun getSyntaxLogicOperator-0d7_KjU ()J
+	public final fun getSyntaxMacroName-0d7_KjU ()J
+	public final fun getSyntaxMeta-0d7_KjU ()J
+	public final fun getSyntaxModifier-0d7_KjU ()J
+	public final fun getSyntaxModuleKeyword-0d7_KjU ()J
+	public final fun getSyntaxMonospace-0d7_KjU ()J
+	public final fun getSyntaxName-0d7_KjU ()J
+	public final fun getSyntaxNamespace-0d7_KjU ()J
+	public final fun getSyntaxNull-0d7_KjU ()J
+	public final fun getSyntaxNumber-0d7_KjU ()J
+	public final fun getSyntaxOperator-0d7_KjU ()J
+	public final fun getSyntaxOperatorKeyword-0d7_KjU ()J
+	public final fun getSyntaxParen-0d7_KjU ()J
+	public final fun getSyntaxProcessingInstruction-0d7_KjU ()J
+	public final fun getSyntaxPropertyName-0d7_KjU ()J
+	public final fun getSyntaxPunctuation-0d7_KjU ()J
+	public final fun getSyntaxQuote-0d7_KjU ()J
+	public final fun getSyntaxRegexp-0d7_KjU ()J
+	public final fun getSyntaxSelf-0d7_KjU ()J
+	public final fun getSyntaxSeparator-0d7_KjU ()J
+	public final fun getSyntaxSpecial-0d7_KjU ()J
+	public final fun getSyntaxSpecialString-0d7_KjU ()J
+	public final fun getSyntaxSquareBracket-0d7_KjU ()J
+	public final fun getSyntaxStandard-0d7_KjU ()J
+	public final fun getSyntaxStrikethrough-0d7_KjU ()J
+	public final fun getSyntaxString-0d7_KjU ()J
+	public final fun getSyntaxStrong-0d7_KjU ()J
+	public final fun getSyntaxTag-0d7_KjU ()J
+	public final fun getSyntaxTagName-0d7_KjU ()J
+	public final fun getSyntaxType-0d7_KjU ()J
+	public final fun getSyntaxTypeName-0d7_KjU ()J
+	public final fun getSyntaxTypeOperator-0d7_KjU ()J
+	public final fun getSyntaxUnit-0d7_KjU ()J
+	public final fun getSyntaxUpdateOperator-0d7_KjU ()J
+	public final fun getSyntaxUrl-0d7_KjU ()J
+	public final fun getSyntaxVariable-0d7_KjU ()J
+	public final fun getSyntaxVariableName-0d7_KjU ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/gabrieldrn/carbon/foundation/color/syntax/WhiteSyntaxColorsKt {
+	public static final fun getWhiteSyntaxColors ()Lcom/gabrieldrn/carbon/foundation/color/syntax/SyntaxColors;
 }
 
 public final class com/gabrieldrn/carbon/foundation/color/tag/Gray100TagColorsKt {
