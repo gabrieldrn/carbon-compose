@@ -22,10 +22,16 @@ tasks.test {
     useJUnitPlatform()
 }
 
+val generatedColorTokensDir = project(":carbon").layout.buildDirectory.dir("generated/colorTokens/commonMain")
+
 tasks.register<JavaExec>("execute") {
     group = "code generation"
-    description = "Generates Carbon's color theme sources into :carbon."
+    description = "Generates Carbon's color theme sources into :carbon's build dir."
     mainClass.set("com.gabrieldrn.codegen.MainKt")
     classpath = sourceSets.main.get().runtimeClasspath
-    workingDir = rootProject.projectDir
+    args(generatedColorTokensDir.get().asFile.absolutePath)
+
+    inputs.files(sourceSets.main.get().allSource)
+    inputs.files(sourceSets.main.get().resources)
+    outputs.dir(generatedColorTokensDir)
 }

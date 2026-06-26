@@ -38,7 +38,7 @@ import kotlin.reflect.KClass
 
 private const val PACKAGE_ROOT = "com.gabrieldrn.carbon.foundation.color"
 
-val sourcePath: Path = Paths.get("carbon/src/commonMain/kotlin")
+lateinit var sourcePath: Path
 
 private val themeAbstractionName = ClassName(PACKAGE_ROOT, "Theme")
 
@@ -77,7 +77,9 @@ private val components = listOf(
     ComponentSpec(SyntaxColors::class, "SyntaxColors", "syntax") { it.syntaxColors },
 )
 
-fun main() {
+fun main(args: Array<String>) {
+    sourcePath = Paths.get(args[0])
+
     val themes: Map<CarbonTheme, Theme> = deserializeColorTokens()
 
     val componentReferences: Map<KClass<*>, TokenSetResult> = components.associate { spec ->
