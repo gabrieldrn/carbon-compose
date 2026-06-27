@@ -34,7 +34,7 @@ Build convention plugins: `id("carbon.kmp.library")` and `id("carbon.detekt")`.
 
 ## Component implementation workflow
 
-1. **Find reference**: locate the most structurally similar existing component in `carbon/src/commonMain/kotlin/com/gabrieldrn/carbon/<component>/` and read it before writing any code
+1. **Consult the Component Implementation Reference** section below — all patterns are documented. Only read an existing component directly if encountering an edge case not covered there.
 2. **Consult spec**: `https://carbondesignsystem.com/components/<name>/usage/`
 3. **Implement files** per anatomy below
 4. **Always implement the catalog demo screen** in the same task (see Catalog workflow)
@@ -59,6 +59,436 @@ File breakdown is **flexible** — apply Separation of Concerns based on complex
 | `ComponentNameImpl.kt` | `internal` | Layout/drawing implementation, separated from public API |
 
 Simpler components may need fewer files; complex ones may split further (e.g., `domain/`, `base/` subpackages).
+
+---
+
+## Component Implementation Reference
+
+### Composable signature conventions
+
+Parameter order (strict):
+1. Required state/value params (`value`, `checked`, `selected`, `state`)
+2. Required callback params (`onClick`, `onValueChange`, `onToggleChange`)
+3. `modifier: Modifier = Modifier`
+4. Optional content params (label, placeholder, helperText, iconPainter)
+5. Optional type/size/state enums — all with defaults
+6. `interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }` — always last
+
+```kotlin
+@Composable
+public fun Toggle(
+    isToggled: Boolean,                          // 1. required state
+    onToggleChange: (Boolean) -> Unit,           // 2. required callback
+    modifier: Modifier = Modifier,               // 3. modifier
+    label: String = "",                          // 4. optional content
+    actionText: String = "",
+    interactiveState: ToggleInteractiveState = ToggleInteractiveState.Default,  // 5. optional enums
+    toggleType: ToggleType = ToggleType.Default,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }  // 6. always last
+)
+```
+
+---
+
+### Color class pattern
+
+Full canonical template:
+
+```kotlin
+@Immutable
+internal class ComponentColors private constructor(
+    private val theme: Theme,
+    private val variant: ComponentVariant,  // add per-color dependencies as constructor params
+) {
+    // Static colors — computed once from theme tokens
+    val containerColor: Color = when (variant) {
+        ComponentVariant.Primary -> theme.buttonPrimary
+        ComponentVariant.Secondary -> theme.buttonSecondary
+    }
+
+    // Dynamic colors — @Composable returning State<Color> via rememberUpdatedState
+    @Composable
+    fun borderColor(state: ComponentState): State<Color> =
+        rememberUpdatedState(newValue = when (state) {
+            ComponentState.Disabled -> Color.Transparent
+            ComponentState.ReadOnly -> theme.borderSubtleColor(Carbon.layer)
+            else -> theme.borderStrongColor(Carbon.layer)
+        })
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is ComponentColors) return false
+        if (theme != other.theme) return false
+        if (variant != other.variant) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = theme.hashCode()
+        result = 31 * result + variant.hashCode()
+        return result
+    }
+
+    companion object {
+        @Composable
+        fun colors(variant: ComponentVariant): ComponentColors =
+            ComponentColors(Carbon.theme, variant)
+    }
+}
+```
+
+Rules:
+- `private constructor` always
+- `rememberUpdatedState` for state-driven colors — never raw `remember`
+- Extend `SelectableColors(theme)` for checkbox/radio/toggle
+- `equals`/`hashCode` must cover **all** constructor params
+
+---
+
+### Size enum pattern (expect/actual)
+
+```kotlin
+// commonMain — ComponentSize.kt
+public expect enum class ComponentSize {
+    Small,
+    Medium,
+    Large;
+}
+
+// androidMain — ComponentSize.android.kt
+public actual enum class ComponentSize {
+    @Deprecated(
+        message = SMALL_TOUCH_TARGET_SIZE_MESSAGE,
+        replaceWith = ReplaceWith("Large")
+    )
+    Small,
+    @Deprecated(
+        message = SMALL_TOUCH_TARGET_SIZE_MESSAGE,
+        replaceWith = ReplaceWith("Large")
+    )
+    Medium,
+    Large;
+}
+```
+
+- `SMALL_TOUCH_TARGET_SIZE_MESSAGE` is a shared constant — use the same one across all components
+- Size-to-dp/padding extension functions go in the `commonMain` file alongside the `expect` declaration
+- Assess per-platform, per-component which sizes fall below accessibility guidelines
+
+---
+
+### State & interaction management
+
+**Animated colors via `Animatable` + `LaunchedEffect` (for components needing smooth transitions):**
+```kotlin
+val containerColor = remember(colors) { Animatable(colors.containerColor) }
+LaunchedEffect(isEnabled, isPressed, isHovered, colors) {
+    containerColor.animateTo(
+        targetValue = when {
+            !isEnabled -> colors.containerDisabledColor
+            isPressed  -> colors.containerActiveColor
+            isHovered  -> colors.containerHoverColor
+            else       -> colors.containerColor
+        },
+        animationSpec = tween(...)
+    )
+}
+```
+
+**Simpler animation via `animateColorAsState`:**
+```kotlin
+val backgroundColor: Color by animateColorAsState(
+    targetValue = colors.backgroundColor(isEnabled, isToggled).value,
+    animationSpec = animationSpec,
+    label = "Component background color"
+)
+```
+
+**Canvas conditional rendering via `derivedStateOf`:**
+```kotlin
+val drawBorder by remember(borderColor) {
+    derivedStateOf { borderColor != Color.Transparent }
+}
+```
+
+**Platform-specific press state:** When press timing differs between Android and Desktop/WasmJs, extract an `internal expect fun rememberIsXxxPressed(...)` with platform actuals. Desktop/WasmJs: `collectIsPressedAsState()`. Android: `LaunchedEffect` waiting for animation completion to avoid press-state flicker on quick taps.
+
+---
+
+### Modifier chain conventions
+
+Order: **size → draw → border → interaction → pointer affordance**
+
+```kotlin
+modifier
+    .requiredSize(...)                    // 1. size constraints
+    .drawBehind { drawRect(color) }       // 2. background (before border)
+    .border(width, color)                 // 3. border
+    .clickable(                           // 4. interaction
+        interactionSource = interactionSource,
+        indication = indication,
+        onClick = onClick,
+        enabled = isEnabled,
+        role = Role.Button
+    )
+    .pointerHoverIcon(PointerIcon.Hand)   // 5. always last
+```
+
+Selectable semantic modifier variants:
+```kotlin
+// Read-only state:
+Modifier.readOnly(
+    role = Role.Checkbox,
+    interactionSource = interactionSource,
+    state = state,
+    mergeDescendants = true
+)
+
+// Tri-state (checkbox):
+Modifier.triStateToggleable(
+    state = state,
+    interactionSource = interactionSource,
+    enabled = isEnabled,
+    onClick = onClick,
+    indication = null,
+    role = Role.Checkbox
+)
+
+// Two-state (toggle):
+Modifier.toggleable(
+    value = isToggled,
+    interactionSource = interactionSource,
+    enabled = isEnabled,
+    onValueChange = onToggleChange,
+    indication = null,
+    role = Role.Switch
+)
+```
+
+---
+
+### Drawing (Canvas & drawBehind)
+
+`drawBehind` — solid background only:
+```kotlin
+.drawBehind { drawRect(color = backgroundColor) }
+```
+
+`Canvas` with inset pattern for bordered shapes (inset by half border width to prevent clipping):
+```kotlin
+Canvas(modifier = Modifier.requiredSize(16.dp)) {
+    val borderWidth = 2.dp.toPx()
+    inset(borderWidth * .5f) {
+        drawRoundRect(color = backgroundColor, cornerRadius = CornerRadius(2f.dp.toPx()))
+    }
+    if (drawBorder) {
+        inset(borderWidth * .5f) {
+            drawRoundRect(
+                color = borderColor,
+                style = Stroke(borderWidth),
+                cornerRadius = CornerRadius(2f.dp.toPx())
+            )
+        }
+    }
+}
+```
+
+`translate` for positioned sub-elements:
+```kotlin
+translate(left = handleXPos, top = handleYPos) {
+    drawRoundRect(color = handleColor, size = Size(size, size), cornerRadius = CornerRadius(size))
+    translate(left = iconOffset.x, top = iconOffset.y) {
+        icon?.draw(size = intrinsicSize, colorFilter = ColorFilter.tint(iconColor))
+    }
+}
+```
+
+Complex draw logic → extract into `private fun DrawScope.drawXxx()` extension functions.
+
+---
+
+### KDoc conventions
+
+Public composable function — exact structure:
+```kotlin
+/**
+ * # Component Name
+ * One-liner summary of the component's purpose.
+ *
+ * ## Overview
+ * 2-3 sentences on general purpose and behavior.
+ *
+ * ### When to use
+ * Guidance on appropriate use cases.
+ *
+ * ### When not to use
+ * Anti-patterns or when to prefer alternatives.
+ *
+ * (From [Component Name documentation](https://carbondesignsystem.com/components/<name>/usage/))
+ *
+ * @param label Text that informs the user about the content they need to enter.
+ * @param value The input [String] text to be shown.
+ * @param onValueChange The callback triggered when the input service updates the text.
+ * @param modifier The modifier to be applied to the component.
+ * @param state The [ComponentState] of the component.
+ * @param interactionSource The [MutableInteractionSource] representing the stream of interactions.
+ */
+```
+
+Rules:
+- Every `public` param → one `@param` tag, no exceptions
+- No `@return` (composables return `Unit`)
+- `@throws IllegalArgumentException` only when the code actually throws
+- Data class params → `@property` tags (not `@param`)
+- Enum class → class-level doc + per-value `/** Usage: ... */` one-liner
+- `@ExperimentalCarbonApi` → before `@Composable` when API is unstable
+
+---
+
+### Preview conventions
+
+```kotlin
+// region Previews
+
+private class ComponentPreviewParameterProvider :
+    PreviewParameterProvider<ParamType> {
+    override val values: Sequence<ParamType>
+        get() = ParamType.entries.asSequence()
+        // For combinations: ButtonType.entries.flatMap { t -> ButtonSize.entries.map { s -> t to s } }.asSequence()
+}
+
+@Preview(group = "State name")  // group organizes multi-state previews
+@Composable
+private fun ComponentPreview(
+    @PreviewParameter(ComponentPreviewParameterProvider::class)
+    param: ParamType,
+) {
+    CarbonDesignSystem {
+        Box(modifier = Modifier.padding(SpacingScale.spacing05)) {
+            ComponentName(/* param */)
+        }
+    }
+}
+
+// endregion
+```
+
+Rules:
+- Always `private`, always at **end of file**, always `CarbonDesignSystem { }` wrapper
+- `// region Previews ... // endregion` delimiters required
+- For selectable components reuse `InteractiveStatePreviewParameterProvider` from `common.selectable`
+- Provider naming: `ComponentNamePreviewParameterProvider`
+
+---
+
+### Testing conventions
+
+File structure in `commonTest/.../carbon/<component>/`:
+- `ComponentTest.kt` — layout/behavior/interaction tests
+- `ComponentColorsTest.kt` — color token correctness across themes/layers
+
+**Behavioral test template:**
+```kotlin
+class ComponentTest {
+    // Class-level mutable state — set before each assertion, not recreated per test
+    private var interactiveState by mutableStateOf<SelectableInteractiveState>(
+        SelectableInteractiveState.Default
+    )
+
+    private fun ComposeUiTest.setup() {
+        setContent {
+            CarbonDesignSystem {
+                ComponentName(interactiveState = interactiveState, ...)
+            }
+        }
+    }
+
+    @Test
+    fun component_condition_expectedBehavior() = runComposeUiTest {
+        setup()
+        onNodeWithTag(ComponentTestTags.ROOT, useUnmergedTree = true).assertIsDisplayed()
+
+        interactiveState = SelectableInteractiveState.Disabled
+        waitForIdle()
+        onNodeWithTag(ComponentTestTags.ROOT).assertIsNotEnabled()
+    }
+}
+```
+
+**Color test template:**
+```kotlin
+class ComponentColorsTest : BaseColorsTest() {  // or BaseSelectableColorsTest for selectable
+    @Test
+    fun componentColors_someColor_isCorrect() = runComposeUiTest {
+        forAllLayersAndStates(ComponentState.entries) { state, layer ->
+            assertEquals(
+                expected = when (state) { /* expected token */ },
+                actual = ComponentColors.colors(state).someColor,
+                message = "State: $state, Layer: $layer"
+            )
+        }
+    }
+}
+```
+
+- `forEachParameter<A, B, C, ...>()` — use for multi-param combinations to avoid Android activity recreation
+- `@AndroidExcluded` — mark tests that cannot run on Android (filtered via Gradle)
+- Node finding: `onNodeWithTag(tag, useUnmergedTree = true)` for merged semantic trees
+- Semantic assertions from `:carbon-test`: `assertIsReadOnly()`, `assertHasImageVector(name)`
+
+---
+
+### Catalog demo conventions
+
+File: `catalog/src/commonMain/.../catalog/<component>/ComponentDemoScreen.kt`
+
+```kotlin
+// Define variants only if the component has distinct UI variants
+private enum class ComponentVariant { Default, Icon }
+private val componentVariants = ComponentVariant.entries.map { TabItem(it.name) }
+
+@Composable
+fun ComponentDemoScreen(modifier: Modifier = Modifier) {
+    var selectedState by rememberSaveable { mutableStateOf(ComponentState.Default) }
+    var isEnabled by rememberSaveable { mutableStateOf(true) }
+
+    DemoScreen(
+        variants = componentVariants,         // omit → use simple DemoScreen(demoContent) overload
+        modifier = modifier,
+        displayLayerParameter = false,        // true only if layer changes component appearance
+        demoParametersContent = { variant ->
+            // Enums → Dropdown with .toDropdownOptions()
+            Dropdown(
+                label = "State",
+                placeholder = "Choose option",
+                options = ComponentState.entries.toDropdownOptions(),
+                selectedOption = selectedState,
+                onOptionSelected = { selectedState = it },
+            )
+            // Booleans → Toggle
+            Toggle(label = "Enabled", isToggled = isEnabled, onToggleChange = { isEnabled = it })
+        },
+        demoContent = { variant ->
+            // LaunchedEffect(variant) { } to reset state on variant switch if needed
+            ComponentName(
+                interactiveState = selectedState,
+                isEnabled = isEnabled,
+                modifier = Modifier.fillMaxWidth()
+            )
+        }
+    )
+}
+```
+
+Register in `Destination.kt`:
+```kotlin
+ComponentName(
+    title = "Component name",
+    illustration = Res.drawable.tile_component_name,  // null + // TODO if not yet available
+    route = "componentname",
+    content = { modifier -> ComponentDemoScreen(modifier = modifier) }
+),
+```
 
 ---
 
