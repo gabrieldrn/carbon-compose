@@ -107,7 +107,7 @@ public final class com/gabrieldrn/carbon/button/ButtonType : java/lang/Enum {
 public final class com/gabrieldrn/carbon/button/ComposableSingletons$IconButtonKt {
 	public static final field INSTANCE Lcom/gabrieldrn/carbon/button/ComposableSingletons$IconButtonKt;
 	public fun <init> ()V
-	public final fun getLambda$-886282396$carbon ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$-886282396$Carbon_carbon ()Lkotlin/jvm/functions/Function3;
 }
 
 public final class com/gabrieldrn/carbon/button/IconButtonKt {
@@ -124,7 +124,7 @@ public final class com/gabrieldrn/carbon/checkbox/CheckboxKt {
 public final class com/gabrieldrn/carbon/checkbox/ComposableSingletons$CheckboxKt {
 	public static final field INSTANCE Lcom/gabrieldrn/carbon/checkbox/ComposableSingletons$CheckboxKt;
 	public fun <init> ()V
-	public final fun getLambda$-1574124736$carbon ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$-1574124736$Carbon_carbon ()Lkotlin/jvm/functions/Function2;
 }
 
 public abstract class com/gabrieldrn/carbon/common/selectable/SelectableInteractiveState {
@@ -241,20 +241,20 @@ public final class com/gabrieldrn/carbon/datepicker/CalendarMenuData$MonthDay {
 public final class com/gabrieldrn/carbon/datepicker/ComposableSingletons$CalendarDatePickerKt {
 	public static final field INSTANCE Lcom/gabrieldrn/carbon/datepicker/ComposableSingletons$CalendarDatePickerKt;
 	public fun <init> ()V
-	public final fun getLambda$-1794907931$carbon ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$-1794907931$Carbon_carbon ()Lkotlin/jvm/functions/Function2;
 }
 
 public final class com/gabrieldrn/carbon/datepicker/ComposableSingletons$CalendarMenuKt {
 	public static final field INSTANCE Lcom/gabrieldrn/carbon/datepicker/ComposableSingletons$CalendarMenuKt;
 	public fun <init> ()V
-	public final fun getLambda$-95208870$carbon ()Lkotlin/jvm/functions/Function2;
-	public final fun getLambda$1047216223$carbon ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$-95208870$Carbon_carbon ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$1047216223$Carbon_carbon ()Lkotlin/jvm/functions/Function2;
 }
 
 public final class com/gabrieldrn/carbon/datepicker/ComposableSingletons$SimpleDateInputKt {
 	public static final field INSTANCE Lcom/gabrieldrn/carbon/datepicker/ComposableSingletons$SimpleDateInputKt;
 	public fun <init> ()V
-	public final fun getLambda$-1467816081$carbon ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$-1467816081$Carbon_carbon ()Lkotlin/jvm/functions/Function2;
 }
 
 public abstract interface class com/gabrieldrn/carbon/datepicker/SelectableDates {
@@ -370,8 +370,8 @@ public final class com/gabrieldrn/carbon/dropdown/base/DropdownSize : java/lang/
 public final class com/gabrieldrn/carbon/dropdown/multiselect/ComposableSingletons$MultiselectTagKt {
 	public static final field INSTANCE Lcom/gabrieldrn/carbon/dropdown/multiselect/ComposableSingletons$MultiselectTagKt;
 	public fun <init> ()V
-	public final fun getLambda$1036010227$carbon ()Lkotlin/jvm/functions/Function2;
-	public final fun getLambda$1153524017$carbon ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$1036010227$Carbon_carbon ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$1153524017$Carbon_carbon ()Lkotlin/jvm/functions/Function2;
 }
 
 public final class com/gabrieldrn/carbon/dropdown/multiselect/MultiselectDropdownKt {
@@ -1352,8 +1352,8 @@ public final class com/gabrieldrn/carbon/notification/CalloutNotificationKt {
 public final class com/gabrieldrn/carbon/notification/ComposableSingletons$NotificationCommonKt {
 	public static final field INSTANCE Lcom/gabrieldrn/carbon/notification/ComposableSingletons$NotificationCommonKt;
 	public fun <init> ()V
-	public final fun getLambda$-1169366303$carbon ()Lkotlin/jvm/functions/Function4;
-	public final fun getLambda$162559929$carbon ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$-1169366303$Carbon_carbon ()Lkotlin/jvm/functions/Function4;
+	public final fun getLambda$162559929$Carbon_carbon ()Lkotlin/jvm/functions/Function3;
 }
 
 public final class com/gabrieldrn/carbon/notification/InlineNotificationKt {
@@ -1379,8 +1379,8 @@ public final class com/gabrieldrn/carbon/notification/ToastNotificationKt {
 public final class com/gabrieldrn/carbon/popover/ComposableSingletons$PopoverBoxKt {
 	public static final field INSTANCE Lcom/gabrieldrn/carbon/popover/ComposableSingletons$PopoverBoxKt;
 	public fun <init> ()V
-	public final fun getLambda$-1861992051$carbon ()Lkotlin/jvm/functions/Function2;
-	public final fun getLambda$344754423$carbon ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$-1861992051$Carbon_carbon ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$344754423$Carbon_carbon ()Lkotlin/jvm/functions/Function3;
 }
 
 public final class com/gabrieldrn/carbon/popover/PopoverAlignment : java/lang/Enum {
@@ -1408,8 +1408,8 @@ public final class com/gabrieldrn/carbon/popover/PopoverPlacement : java/lang/En
 public final class com/gabrieldrn/carbon/popover/carettip/ComposableSingletons$PopoverCaretTipBoxKt {
 	public static final field INSTANCE Lcom/gabrieldrn/carbon/popover/carettip/ComposableSingletons$PopoverCaretTipBoxKt;
 	public fun <init> ()V
-	public final fun getLambda$-1823725957$carbon ()Lkotlin/jvm/functions/Function2;
-	public final fun getLambda$1044941541$carbon ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$-1823725957$Carbon_carbon ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$1044941541$Carbon_carbon ()Lkotlin/jvm/functions/Function3;
 }
 
 public final class com/gabrieldrn/carbon/popover/carettip/PopoverCaretTipAlignment : java/lang/Enum {
@@ -1438,8 +1438,8 @@ public final class com/gabrieldrn/carbon/popover/carettip/PopoverCaretTipPlaceme
 public final class com/gabrieldrn/carbon/progressbar/ComposableSingletons$ProgressBarKt {
 	public static final field INSTANCE Lcom/gabrieldrn/carbon/progressbar/ComposableSingletons$ProgressBarKt;
 	public fun <init> ()V
-	public final fun getLambda$-757834194$carbon ()Lkotlin/jvm/functions/Function2;
-	public final fun getLambda$1546784457$carbon ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$-757834194$Carbon_carbon ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$1546784457$Carbon_carbon ()Lkotlin/jvm/functions/Function2;
 }
 
 public final class com/gabrieldrn/carbon/progressbar/ProgressBarKt {
@@ -1467,7 +1467,7 @@ public final class com/gabrieldrn/carbon/progressbar/ProgressBarState : java/lan
 public final class com/gabrieldrn/carbon/radiobutton/ComposableSingletons$RadioButtonKt {
 	public static final field INSTANCE Lcom/gabrieldrn/carbon/radiobutton/ComposableSingletons$RadioButtonKt;
 	public fun <init> ()V
-	public final fun getLambda$-2136802002$carbon ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$-2136802002$Carbon_carbon ()Lkotlin/jvm/functions/Function2;
 }
 
 public final class com/gabrieldrn/carbon/radiobutton/RadioButtonKt {
@@ -1477,10 +1477,10 @@ public final class com/gabrieldrn/carbon/radiobutton/RadioButtonKt {
 public final class com/gabrieldrn/carbon/slider/ComposableSingletons$SliderKt {
 	public static final field INSTANCE Lcom/gabrieldrn/carbon/slider/ComposableSingletons$SliderKt;
 	public fun <init> ()V
-	public final fun getLambda$-1665488046$carbon ()Lkotlin/jvm/functions/Function2;
-	public final fun getLambda$-2063128310$carbon ()Lkotlin/jvm/functions/Function2;
-	public final fun getLambda$368170905$carbon ()Lkotlin/jvm/functions/Function2;
-	public final fun getLambda$949752878$carbon ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$-1665488046$Carbon_carbon ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$-2063128310$Carbon_carbon ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$368170905$Carbon_carbon ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$949752878$Carbon_carbon ()Lkotlin/jvm/functions/Function2;
 }
 
 public final class com/gabrieldrn/carbon/slider/SliderKt {
@@ -1585,8 +1585,8 @@ public final class com/gabrieldrn/carbon/textinput/TextInputState$Companion {
 public final class com/gabrieldrn/carbon/toggle/ComposableSingletons$ToggleKt {
 	public static final field INSTANCE Lcom/gabrieldrn/carbon/toggle/ComposableSingletons$ToggleKt;
 	public fun <init> ()V
-	public final fun getLambda$-1319302274$carbon ()Lkotlin/jvm/functions/Function2;
-	public final fun getLambda$581225400$carbon ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$-1319302274$Carbon_carbon ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$581225400$Carbon_carbon ()Lkotlin/jvm/functions/Function2;
 }
 
 public final class com/gabrieldrn/carbon/toggle/ToggleKt {
@@ -1621,8 +1621,8 @@ public final class com/gabrieldrn/carbon/tooltip/TooltipParameters {
 public final class com/gabrieldrn/carbon/uishell/ComposableSingletons$UIShellHeaderKt {
 	public static final field INSTANCE Lcom/gabrieldrn/carbon/uishell/ComposableSingletons$UIShellHeaderKt;
 	public fun <init> ()V
-	public final fun getLambda$-694989463$carbon ()Lkotlin/jvm/functions/Function2;
-	public final fun getLambda$1204618348$carbon ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$-694989463$Carbon_carbon ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$1204618348$Carbon_carbon ()Lkotlin/jvm/functions/Function3;
 }
 
 public final class com/gabrieldrn/carbon/uishell/UIShellHeaderKt {
