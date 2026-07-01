@@ -247,7 +247,9 @@ jobs:
 
   lib-test-ios:
     name: Unit + UI tests - library - iOS
-    runs-on: macos-14
+    # macos-15 ships Xcode 16 (iOS 18 SDK), required by current Skiko/Compose
+    # which references iOS 18 UIKit symbols (e.g. UIViewLayoutRegion).
+    runs-on: macos-15
     needs: lib-build
     steps:
       - uses: actions/checkout@v4
