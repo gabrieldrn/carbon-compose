@@ -26,6 +26,7 @@ import com.gabrieldrn.carbon.catalog.contentswitcher.ContentSwitcherDemoScreen
 import com.gabrieldrn.carbon.catalog.datepicker.DatePickerDemoScreen
 import com.gabrieldrn.carbon.catalog.dropdown.DropdownDemoScreen
 import com.gabrieldrn.carbon.catalog.dropdown.DropdownVariant
+import com.gabrieldrn.carbon.catalog.loading.InlineLoadingDemoScreen
 import com.gabrieldrn.carbon.catalog.loading.LoadingDemoScreen
 import com.gabrieldrn.carbon.catalog.notification.NotificationDemoScreen
 import com.gabrieldrn.carbon.catalog.popover.PopoverDemoScreen
@@ -109,7 +110,12 @@ enum class Destination(
     ),
     FileUploader("File uploader"),
     Form("Form"),
-    InlineLoading("Inline loading"),
+    InlineLoading(
+        title = "Inline loading",
+        illustration = Res.drawable.tile_inlineloading,
+        route = "inlineloading",
+        content = { modifier -> InlineLoadingDemoScreen(modifier = modifier) }
+    ),
     Link("Link"),
     List("List"),
     Loading(
